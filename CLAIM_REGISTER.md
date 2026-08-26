@@ -6,8 +6,8 @@ certificate.
 
 | ID | Statement | Status | Required evidence |
 |---|---|---|---|
-| B1 | For all sufficiently small positive diffusion, the Brusselator stationary spatial system has a symmetric homoclinic orbit continuing the transverse RFSN-II core orbit. | Proposed | Weighted stable/unstable-manifold theorem and reversible implicit-function argument |
-| B2 | The orbit in B1 gives a positive-concentration localized stationary PDE profile with explicit amplitude and width scales. | Proposed | Uniform bounds, inverse scaling, positivity and tail estimates |
+| B1 | For all sufficiently small positive diffusion, the Brusselator stationary spatial system has a symmetric homoclinic orbit continuing the transverse RFSN-II core orbit. | Proved | [Theorem B, items 1--2 and Sections 2--3](brusselator/LOCALIZED_PROFILE_PROOF.md), using the [frozen core import](brusselator/CORE_HOMOCLINIC_IMPORT.md) |
+| B2 | The orbit in B1 gives a positive-concentration localized stationary PDE profile with explicit amplitude and width scales. | Proved | [Theorem B, items 3--5 and Sections 4--5](brusselator/LOCALIZED_PROFILE_PROOF.md), with the [exact inverse scaling](brusselator/MODEL_AND_SCALING.md) |
 | B3 | Fixed finite-winding or multipulse core patterns persist in the positive-parameter Brusselator. | Proposed | Separate finite family of transverse matching arguments; B1 alone does not imply this |
 | V1 | The positive-parameter van der Pol stationary spatial system is reversible exact Hamiltonian with the stated first integral and primitive. | Derived | [Direct calculation](van-der-pol/HAMILTONIAN_CHECK.md) with conventions and primary-source comparison |
 | V2 | The saddle-focus, transverse homoclinic, and compact central first-hit data persist uniformly in a positive parameter wedge. | Proposed | Analytic persistence theorem and, if quantitative bounds are claimed, rigorous validation |

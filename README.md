@@ -14,14 +14,15 @@ proof and a separately audited dependency chain.
 
 ## Present status
 
-No positive-parameter application theorem is claimed as proved at repository
-creation.  The equations and candidate scalings below are research inputs;
-each theorem-sized claim remains **Proposed** in the
-[claim register](CLAIM_REGISTER.md) until its proof obligations are discharged.
+The Brusselator localized-profile theorem is **Proved** in
+[Theorem B](brusselator/LOCALIZED_PROFILE_PROOF.md), using the
+[frozen imported transverse core result](brusselator/CORE_HOMOCLINIC_IMPORT.md).
+All other theorem-sized claims retain the statuses in the
+[claim register](CLAIM_REGISTER.md).
 
 | Workstream | First rigorous target | Structure retained | Main obstruction |
 |---|---|---|---|
-| [Brusselator](brusselator/README.md) | A positive-concentration, symmetric, localized stationary solution for all sufficiently small positive diffusion | Reversibility and the transverse core homoclinic | Uniform weighted-tail continuation and positivity; exact Hamiltonian action is unavailable |
+| [Brusselator](brusselator/README.md) | A positive-concentration, symmetric, localized stationary solution for all sufficiently small positive diffusion | Reversibility and the transverse core homoclinic | Localized-branch tail continuation and positivity are discharged in Theorem B; exact Hamiltonian action is unavailable, and temporal stability and multipulses remain separate questions |
 | [van der Pol](van-der-pol/README.md) | A positive-parameter exhaustive high-winding return/first-exit theorem with two action finite parts | Reversible exact Hamiltonian structure | Matching the central chart through the intermediate chart to the outer algebraic end |
 
 The precise scientific boundary, proof order, fallback results, and stopping

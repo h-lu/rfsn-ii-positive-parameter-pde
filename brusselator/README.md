@@ -1,12 +1,13 @@
 # Brusselator: positive-diffusion localized stationary pattern
 
-## Target theorem
+## Proved theorem
 
-Fix the classical Brusselator at \(A=B=1\).  Prove that for every sufficiently
-small positive diffusion parameter \(d\), its stationary spatial system has a
-symmetric homoclinic orbit that remains in the positive-concentration region.
-In the original PDE variables this orbit must give a localized stationary
-profile converging to the homogeneous state at both spatial infinities.
+At \(A=B=1\), [Theorem B](LOCALIZED_PROFILE_PROOF.md) proves that for every
+sufficiently small positive diffusion parameter \(d\), the stationary spatial
+system has a symmetric homoclinic orbit that remains in the
+positive-concentration region.  In the original PDE variables this orbit
+gives a localized stationary profile converging to the homogeneous state at
+both spatial infinities.
 
 With \(r=d^{1/4}\), the expected leading scales are
 
@@ -16,10 +17,12 @@ v_d(x)=1+r^4V_r(x/r),
 \]
 
 so that the spatial width is of order \(d^{1/4}\), the activator amplitude is
-of order \(d^{1/2}\), and the inhibitor amplitude is of order \(d\).  These are
-targets to be proved uniformly, not presently established claims.
+of order \(d^{1/2}\), and the inhibitor amplitude is of order \(d\).  Theorem
+B proves these powers uniformly, with nonzero limiting amplitude
+coefficients, uniform exponential tails, and half-height widths
+\(\Theta(d^{1/4})\).
 
-## Mathematical route
+## Proof architecture
 
 1. Derive the stationary four-dimensional reversible system from the PDE.
 2. Write the weighted blow-up in which the zero-parameter central system is the
