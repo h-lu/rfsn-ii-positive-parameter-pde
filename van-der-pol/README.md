@@ -35,7 +35,7 @@ All signs and the Hamiltonian convention are checked directly in
 the primitive independent of \(\delta\), provided all clocks and action
 integrals are transformed explicitly.
 
-## Completed central and positive-pole foundations
+## Completed central and two-end local foundations
 
 The precise PDE parameters, all spatial clocks, the published \(K_1,K_2\)
 charts, the equilibrium-energy subtraction, and the exact conjugacy to the
@@ -69,7 +69,16 @@ genuine positive-parameter pole.  It proves:
   distance, including coordinate uniqueness and exact moving-cut additivity.
 
 The algebraic-directed label remains only a finite gate.  Constructing and
-matching its outer positive-parameter end is the next proof obligation.
+matching it to the outer positive-parameter end is the next proof obligation.
+
+[Theorem V4](OUTER_FUTURE_STAYING.md) independently constructs that outer
+end from the full positive-parameter physical system.  In the exact
+compactification \(z=1/u\), its maximal forward-staying set is a unique
+codimension-one graph.  It is normally expanding, third-order bunched in
+intrinsic quotient norms, has mixed-total-three regularity with two external
+parameter derivatives, and reaches \(u=+\infty\) only at infinite physical
+spatial distance.  V4 does not assert that the V2 finite gate lands on this
+graph.
 
 ## Principal theorem target
 
@@ -112,9 +121,10 @@ and proved afresh.
 
 The positive pole calculation and its action renormalization are proved in
 [Theorem V3](POSITIVE_POLE_FINITE_PART.md) on the fixed positive compact box
-that later stages must retain.  The outer compactification, its invariant
-hypersurface, the central--outer matching, and the algebraic finite part
-remain unproved.
+that later stages must retain.  The outer compactification and its invariant
+hypersurface are proved in [Theorem V4](OUTER_FUTURE_STAYING.md) on that same
+box.  The central--outer matching and the algebraic finite part remain
+unproved.
 
 ## Fallback theorem
 

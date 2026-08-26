@@ -432,7 +432,9 @@ This note establishes the complete model bridge required by V1 and the model
 part of V2.  The analytic obligations in the first two bullets below are
 discharged by [CENTRAL_CONTINUATION.md](CENTRAL_CONTINUATION.md), and the
 positive pole entry and finite part are discharged by
-[POSITIVE_POLE_FINITE_PART.md](POSITIVE_POLE_FINITE_PART.md).  This algebraic
+[POSITIVE_POLE_FINITE_PART.md](POSITIVE_POLE_FINITE_PART.md), while the
+positive outer compactification is proved in
+[OUTER_FUTURE_STAYING.md](OUTER_FUTURE_STAYING.md).  This algebraic
 note itself does not establish:
 
 - the selected positive-parameter homoclinic or its weighted tails;
