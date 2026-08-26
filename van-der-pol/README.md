@@ -68,17 +68,19 @@ genuine positive-parameter pole.  It proves:
 - the finite Laurent--log action subtraction in fixed physical remaining
   distance, including coordinate uniqueness and exact moving-cut additivity.
 
-The algebraic-directed label remains only a finite gate.  Constructing and
-matching it to the outer positive-parameter end is the next proof obligation.
-
 [Theorem V4](OUTER_FUTURE_STAYING.md) independently constructs that outer
 end from the full positive-parameter physical system.  In the exact
 compactification \(z=1/u\), its maximal forward-staying set is a unique
 codimension-one graph.  It is normally expanding, third-order bunched in
 intrinsic quotient norms, has mixed-total-three regularity with two external
 parameter derivatives, and reaches \(u=+\infty\) only at infinite physical
-spatial distance.  V4 does not assert that the V2 finite gate lands on this
-graph.
+spatial distance.  [Theorem V5](CENTRAL_OUTER_MATCHING.md) now attaches the
+V2 finite gate through \(K_2\) and \(K_1\) to that same graph.  It proves the
+global future-staying tube, endpoint-anchored adjoint and nonzero exchange
+coefficient, uniformly invertible matching operator, two external parameter
+derivatives, and exact covariance of every finite truncated action under a
+moving matching cut.  Thus the algebraic-directed label is a genuine matched
+outer exit; only its infinite-end action renormalization remains to be built.
 
 ## Principal theorem target
 
@@ -90,7 +92,7 @@ uniform mixed-parameter asymptotics for physical spatial length and action,
 compatible finite parts at both ends, exact branch composition, and the
 stationary PDE patterns produced by bounded codes.
 
-## First decisive theorem: central-to-outer matching
+## Completed decisive theorem: central-to-outer matching
 
 The first issue is not the local saddle passage.  It is the construction and
 matching of the positive-parameter outer future-staying invariant hypersurface
@@ -109,7 +111,9 @@ A successful theorem must supply:
 - two derivatives in the external parameters without hidden trace loss;
 - covariance of truncated Hamiltonian action under moving the matching cut.
 
-This is the go/no-go point for the full two-end application.
+These requirements are discharged by
+[Theorem V5](CENTRAL_OUTER_MATCHING.md).  That theorem deliberately stops
+before choosing counterterms at \(z=0\).
 
 ## Positive-parameter ends
 
@@ -123,8 +127,11 @@ The positive pole calculation and its action renormalization are proved in
 [Theorem V3](POSITIVE_POLE_FINITE_PART.md) on the fixed positive compact box
 that later stages must retain.  The outer compactification and its invariant
 hypersurface are proved in [Theorem V4](OUTER_FUTURE_STAYING.md) on that same
-box.  The central--outer matching and the algebraic finite part remain
-unproved.
+box, and the central--outer matching is proved in
+[Theorem V5](CENTRAL_OUTER_MATCHING.md).  The remaining local end theorem is
+the algebraic action finite part: it must identify the exact outer clock and
+action density, prove the renormalized limit with two parameter derivatives,
+and establish coordinate, cut, and exact-coboundary covariance.
 
 ## Fallback theorem
 
