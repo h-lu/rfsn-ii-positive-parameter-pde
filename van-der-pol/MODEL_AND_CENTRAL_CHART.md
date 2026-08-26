@@ -430,9 +430,10 @@ On every fixed compact state set, (26) converges to (33) in every state
 
 This note establishes the complete model bridge required by V1 and the model
 part of V2.  The analytic obligations in the first two bullets below are
-discharged separately by
-[CENTRAL_CONTINUATION.md](CENTRAL_CONTINUATION.md); this algebraic note itself
-does not establish:
+discharged by [CENTRAL_CONTINUATION.md](CENTRAL_CONTINUATION.md), and the
+positive pole entry and finite part are discharged by
+[POSITIVE_POLE_FINITE_PART.md](POSITIVE_POLE_FINITE_PART.md).  This algebraic
+note itself does not establish:
 
 - the selected positive-parameter homoclinic or its weighted tails;
 - continuation of the source cell or any compact first-event arrangement;
@@ -441,4 +442,5 @@ does not establish:
 - an exhaustive return--first-exit relation or coding; or
 - temporal stability of any stationary PDE pattern.
 
-Those are separate obligations in V2--V7.
+Those are separate obligations discharged, or still to be discharged, in
+V2--V7 as recorded in [CLAIM_REGISTER.md](../CLAIM_REGISTER.md).

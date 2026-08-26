@@ -35,7 +35,7 @@ All signs and the Hamiltonian convention are checked directly in
 the primitive independent of \(\delta\), provided all clocks and action
 integrals are transformed explicitly.
 
-## Completed compact central foundation
+## Completed central and positive-pole foundations
 
 The precise PDE parameters, all spatial clocks, the published \(K_1,K_2\)
 charts, the equilibrium-energy subtraction, and the exact conjugacy to the
@@ -55,9 +55,21 @@ hashes and explicit exclusions, in
 - continuation of the complete compact labelled first-hit arrangement,
   source phases, and strict ordering margins.
 
-The two labels at this stage are finite algebraic-directed and pole-directed
-**gates**.  They are not the noncompact positive-parameter ends.  Establishing
-those ends remains the next proof obligation.
+At the end of V2, the two labels are only finite algebraic-directed and
+pole-directed **gates**.  [Theorem V3](POSITIVE_POLE_FINITE_PART.md) upgrades
+the latter, on a nonempty compact positive subbox of the V2 wedge, to a
+genuine positive-parameter pole.  It proves:
+
+- a uniform first hit from a nonempty transported source phase window into
+  an exact forward-invariant pole cone;
+- finite physical-distance blow-up and entry into the local pole basin;
+- the normally hyperbolic regular-singular boundary, complete indicial and
+  resonant expansion, and mixed two-derivative end coordinates; and
+- the finite Laurent--log action subtraction in fixed physical remaining
+  distance, including coordinate uniqueness and exact moving-cut additivity.
+
+The algebraic-directed label remains only a finite gate.  Constructing and
+matching its outer positive-parameter end is the next proof obligation.
 
 ## Principal theorem target
 
@@ -98,9 +110,11 @@ algebraic channel passes to an outer slow regime.  Candidate compactifications,
 indicial spectra, clock weights, and action orders must therefore be derived
 and proved afresh.
 
-The pole and outer calculations remain outside the claim register until their
-exact compactified equations, entry or matching estimates, and action
-renormalizations are proved.
+The positive pole calculation and its action renormalization are proved in
+[Theorem V3](POSITIVE_POLE_FINITE_PART.md) on the fixed positive compact box
+that later stages must retain.  The outer compactification, its invariant
+hypersurface, the central--outer matching, and the algebraic finite part
+remain unproved.
 
 ## Fallback theorem
 
