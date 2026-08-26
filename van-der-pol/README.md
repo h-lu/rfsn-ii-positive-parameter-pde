@@ -80,7 +80,20 @@ global future-staying tube, endpoint-anchored adjoint and nonzero exchange
 coefficient, uniformly invertible matching operator, two external parameter
 derivatives, and exact covariance of every finite truncated action under a
 moving matching cut.  Thus the algebraic-directed label is a genuine matched
-outer exit; only its infinite-end action renormalization remains to be built.
+outer exit; V5 deliberately leaves its infinite-end action renormalization
+as the next theorem.
+
+[Theorem V5A](OUTER_ALGEBRAIC_FINITE_PART.md) completes that
+renormalization.  In the common physical coordinate
+\(Q=z^{-2}\), it selects a reference orbit at a fixed outer cut, proves
+exponentially flat same-\(Q\) shadowing with two parameter derivatives, and
+subtracts the reference orbit's complete physical length and action tails.
+The resulting finite parts have mixed two-jets, are covariant under
+admissible section, compactification, reference, and exact-gauge changes,
+and compose strictly with every finite V5 branch.  The next obligation is
+therefore global: pull both end targets back to the source and prove that
+the labelled return and exit strata form the required exhaustive first-event
+relation.
 
 ## Principal theorem target
 
@@ -128,10 +141,13 @@ The positive pole calculation and its action renormalization are proved in
 that later stages must retain.  The outer compactification and its invariant
 hypersurface are proved in [Theorem V4](OUTER_FUTURE_STAYING.md) on that same
 box, and the central--outer matching is proved in
-[Theorem V5](CENTRAL_OUTER_MATCHING.md).  The remaining local end theorem is
-the algebraic action finite part: it must identify the exact outer clock and
-action density, prove the renormalized limit with two parameter derivatives,
-and establish coordinate, cut, and exact-coboundary covariance.
+[Theorem V5](CENTRAL_OUTER_MATCHING.md).  The algebraic physical-length and
+action finite parts are proved in
+[Theorem V5A](OUTER_ALGEBRAIC_FINITE_PART.md), including exact outer
+weights, two parameter derivatives, and coordinate, cut, and
+exact-coboundary covariance.  Both positive-parameter local ends and their
+action normalizations are therefore available for the V6 first-event and
+exact-action assembly.
 
 ## Fallback theorem
 

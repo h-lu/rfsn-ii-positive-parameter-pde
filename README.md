@@ -29,14 +29,17 @@ hypersurface, and intrinsic third-order bunching are **Proved** in
 [Theorem V4](van-der-pol/OUTER_FUTURE_STAYING.md).  The attachment of that
 tail through \(K_1\) to the central algebraic-directed sheet, including its
 nonzero exchange coefficient and moving-cut covariance, is **Proved** in
-[Theorem V5](van-der-pol/CENTRAL_OUTER_MATCHING.md).  Every later
+[Theorem V5](van-der-pol/CENTRAL_OUTER_MATCHING.md).  The outer algebraic
+physical-length and action finite parts, with mixed two-jets and exact
+finite-branch composition, are **Proved** in
+[Theorem V5A](van-der-pol/OUTER_ALGEBRAIC_FINITE_PART.md).  Every later
 theorem-sized claim retains the status in the
 [claim register](CLAIM_REGISTER.md).
 
 | Workstream | First rigorous target | Structure retained | Main obstruction |
 |---|---|---|---|
 | [Brusselator](brusselator/README.md) | A positive-concentration, symmetric, localized stationary solution for all sufficiently small positive diffusion | Reversibility and the transverse core homoclinic | Localized-branch tail continuation and positivity are discharged in Theorem B; exact Hamiltonian action is unavailable, and temporal stability and multipulses remain separate questions |
-| [van der Pol](van-der-pol/README.md) | A positive-parameter exhaustive high-winding return/first-exit theorem with two action finite parts | Exact Hamiltonian structure, selected transverse homoclinic, compact central first-hit arrangement, a genuine positive pole with action finite part, and a matched normally expanding positive outer tail | Constructing the outer algebraic action finite part with mixed \(C^2\) control and cut-independent exact composition |
+| [van der Pol](van-der-pol/README.md) | A positive-parameter exhaustive high-winding return/first-exit theorem with two action finite parts | Exact Hamiltonian structure, selected transverse homoclinic, compact central first-hit arrangement, a genuine positive pole with action finite part, and a matched outer algebraic tail with length/action finite parts | Pulling both end targets back to the source and proving a clean exhaustive first-event stratification before exact-action assembly |
 
 The precise scientific boundary, proof order, fallback results, and stopping
 conditions are fixed in [RESEARCH_CONTRACT.md](RESEARCH_CONTRACT.md).
