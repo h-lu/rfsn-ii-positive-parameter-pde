@@ -1,0 +1,95 @@
+# van der Pol: positive-parameter two-end exact-action application
+
+## Stationary spatial Hamiltonian
+
+For
+
+\[
+u_t=v-f(u)+d u_{xx},\qquad
+v_t=\epsilon(a-u)+v_{xx},\qquad
+f(u)=\frac13u^3-u,
+\]
+
+put \(\delta=\sqrt d\), \(y=x/\delta\), and set
+
+\[
+u_y=p,\quad p_y=f(u)-v,\quad
+v_y=\delta q,\quad q_y=\epsilon\delta(u-a).
+\]
+
+Writing \(F'(u)=f(u)\), the candidate first integral and primitive are
+
+\[
+\mathcal G_\delta
+=\frac12(\epsilon p^2-q^2)
+-\epsilon\bigl(F(u)+(a-u)v\bigr),
+\]
+
+\[
+\lambda_\delta=\epsilon p\,du-\delta^{-1}q\,dv.
+\]
+
+The first repository proof must check all signs and the Hamiltonian convention
+directly.  The reverser is \((u,p,v,q)\mapsto(u,-p,v,-q)\).  A rescaled momentum
+choice may be used to make the primitive independent of \(\delta\), provided
+all clocks and action integrals are transformed explicitly.
+
+## Principal theorem target
+
+For a fixed compact range of \(\epsilon>0\) and a nonempty RFSN-II parameter
+wedge with \(0<\delta\leq\delta_0\), prove an exhaustive high-winding
+first-return/first-exit theorem for the stationary spatial Hamiltonian.  The
+theorem must include the outer algebraic exit and finite-time pole exit,
+uniform mixed-parameter asymptotics for physical spatial length and action,
+compatible finite parts at both ends, exact branch composition, and the
+stationary PDE patterns produced by bounded codes.
+
+## First decisive theorem: central-to-outer matching
+
+The first issue is not the local saddle passage.  It is the construction and
+matching of the positive-parameter outer future-staying invariant hypersurface
+through
+
+\[
+K_2\longrightarrow K_1\longrightarrow \text{outer chart}.
+\]
+
+A successful theorem must supply:
+
+- common physical matching sections and unambiguous chart transitions;
+- a normally expanding, third-order-bunched outer invariant hypersurface;
+- an endpoint-anchored adjoint row and nonzero exchange coefficient;
+- a uniformly invertible finite-dimensional matching operator;
+- two derivatives in the external parameters without hidden trace loss;
+- covariance of truncated Hamiltonian action under moving the matching cut.
+
+This is the go/no-go point for the full two-end application.
+
+## Positive-parameter ends
+
+The zero-parameter end models cannot be imported by ordinary persistence.  At
+positive \(\delta\), the pole has a different dominant balance and the
+algebraic channel passes to an outer slow regime.  Candidate compactifications,
+indicial spectra, clock weights, and action orders must therefore be derived
+and proved afresh.
+
+Preliminary calculations suggest that the pole can be regularized by variables
+based on \(\rho=u^{-1}\) and may have a simple positive-integral indicial
+spectrum.  They also suggest that the outer algebraic action has a stronger
+divergence than in the core model.  These observations are research guides,
+not theorem statements; their values remain outside the claim register until
+the exact compactified equations and entry estimates are checked.
+
+## Fallback theorem
+
+If the outer algebraic matching is genuinely obstructed, replace that end by a
+fixed intermediate-chart or canard exit section.  The fallback target is then
+an exhaustive finite-cut return/exit/pole theorem with exact finite-branch
+action and stationary PDE patterns.  It must not be described as a two-end
+finite-part theorem.
+
+## Interpretation boundary
+
+Periodic or localized spatial orbits are stationary solutions of the original
+PDE.  Spatial symbolic dynamics and spatial entropy do not imply temporal
+chaos, and existence does not imply temporal stability.
