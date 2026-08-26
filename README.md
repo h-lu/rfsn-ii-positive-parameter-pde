@@ -36,10 +36,19 @@ finite-branch composition, are **Proved** in
 theorem-sized claim retains the status in the
 [claim register](CLAIM_REGISTER.md).
 
+The analytic van der Pol track is now closed on a nonempty compact positive
+annular parameter box.  [Theorems V6--V7](van-der-pol/TWO_END_RETURN_EXIT_AND_PDE.md)
+prove the exhaustive high-winding return--first-exit relation, both compatible
+finite parts, exact branch composition, and the resulting periodic,
+multipulse, and aperiodic stationary spatial PDE patterns.  Their reusable
+high-winding and coding inputs are isolated in a strictly bounded
+[frozen modular import](van-der-pol/RETURN_EXIT_CODING_IMPORT.md); neither
+positive end is imported from the flagship model.
+
 | Workstream | First rigorous target | Structure retained | Main obstruction |
 |---|---|---|---|
 | [Brusselator](brusselator/README.md) | A positive-concentration, symmetric, localized stationary solution for all sufficiently small positive diffusion | Reversibility and the transverse core homoclinic | Localized-branch tail continuation and positivity are discharged in Theorem B; exact Hamiltonian action is unavailable, and temporal stability and multipulses remain separate questions |
-| [van der Pol](van-der-pol/README.md) | A positive-parameter exhaustive high-winding return/first-exit theorem with two action finite parts | Exact Hamiltonian structure, selected transverse homoclinic, compact central first-hit arrangement, a genuine positive pole with action finite part, and a matched outer algebraic tail with length/action finite parts | Pulling both end targets back to the source and proving a clean exhaustive first-event stratification before exact-action assembly |
+| [van der Pol](van-der-pol/README.md) | A positive-parameter exhaustive high-winding return/first-exit theorem with two action finite parts | Exact Hamiltonian structure, selected transverse homoclinic, clean whole-cell first-event stratification, two genuine positive-parameter end finite parts, and stationary spatial coding | Analytic obligations are discharged in V6--V7; outward-rounded validation of a preselected explicit numerical box remains the separate deferred task #7 |
 
 The precise scientific boundary, proof order, fallback results, and stopping
 conditions are fixed in [RESEARCH_CONTRACT.md](RESEARCH_CONTRACT.md).

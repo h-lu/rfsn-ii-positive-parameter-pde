@@ -90,20 +90,38 @@ exponentially flat same-\(Q\) shadowing with two parameter derivatives, and
 subtracts the reference orbit's complete physical length and action tails.
 The resulting finite parts have mixed two-jets, are covariant under
 admissible section, compactification, reference, and exact-gauge changes,
-and compose strictly with every finite V5 branch.  The next obligation is
-therefore global: pull both end targets back to the source and prove that
-the labelled return and exit strata form the required exhaustive first-event
-relation.
+and compose strictly with every finite V5 branch.
 
-## Principal theorem target
+[Theorems V6--V7](TWO_END_RETURN_EXIT_AND_PDE.md) complete the global
+obligation.  They pull every actual end, return, cut, and lateral face to one
+source rectangle; verify clean/neat incidences, first-hit margins, and a
+component census with no residual cell; attach both finite parts to the exact
+branch cocycle; and translate the resulting recurrent and finite-word codes to
+stationary PDE patterns.  The high-winding, action-gluing, and coding inputs
+used in that proof are frozen, with their model-specific exclusions, in
+[RETURN_EXIT_CODING_IMPORT.md](RETURN_EXIT_CODING_IMPORT.md).
 
-For a fixed compact range of \(\epsilon>0\) and a nonempty RFSN-II parameter
-wedge with \(0<\delta\leq\delta_0\), prove an exhaustive high-winding
-first-return/first-exit theorem for the stationary spatial Hamiltonian.  The
-theorem must include the outer algebraic exit and finite-time pole exit,
-uniform mixed-parameter asymptotics for physical spatial length and action,
-compatible finite parts at both ends, exact branch composition, and the
-stationary PDE patterns produced by bounded codes.
+## Completed principal theorem
+
+For some \(r_{\rm V}>0\), \(A>0\), and
+\(0<\epsilon_-<\epsilon_+\), the completed theorem works on the nonempty
+compact positive annular box
+
+\[
+ r\in[\tfrac12r_{\rm V},r_{\rm V}],\qquad
+ a_2\in[-A,A],\qquad
+ \epsilon\in[\epsilon_-,\epsilon_+],
+\]
+
+with \(d=r^4\), \(\delta=r^2\), and
+\(a=1+\sqrt\epsilon\,r^3a_2\).  Theorem V6 proves the exhaustive
+high-winding first-return/first-exit relation, including the outer algebraic
+exit, finite-distance pole exit, uniform mixed-parameter spatial-length and
+action asymptotics, compatible finite parts, and exact branch composition.
+Theorem V7 proves the periodic, multipulse, and aperiodic stationary spatial
+PDE patterns supported by the graph actually established in V6.  This is an
+existence theorem on a fixed positive subbox; it does not claim one uniform
+two-end arrangement for every \(0<\delta\le\delta_0\).
 
 ## Completed decisive theorem: central-to-outer matching
 
@@ -146,7 +164,7 @@ action finite parts are proved in
 [Theorem V5A](OUTER_ALGEBRAIC_FINITE_PART.md), including exact outer
 weights, two parameter derivatives, and coordinate, cut, and
 exact-coboundary covariance.  Both positive-parameter local ends and their
-action normalizations are therefore available for the V6 first-event and
+action normalizations are used in the completed V6 first-event and
 exact-action assembly.
 
 ## Fallback theorem
@@ -155,7 +173,8 @@ If the outer algebraic matching is genuinely obstructed, replace that end by a
 fixed intermediate-chart or canard exit section.  The fallback target is then
 an exhaustive finite-cut return/exit/pole theorem with exact finite-branch
 action and stationary PDE patterns.  It must not be described as a two-end
-finite-part theorem.
+finite-part theorem.  The fallback was not invoked: V4--V6 establish the
+genuine outer algebraic end and its finite part.
 
 ## Interpretation boundary
 
