@@ -17,13 +17,17 @@ proof and a separately audited dependency chain.
 The Brusselator localized-profile theorem is **Proved** in
 [Theorem B](brusselator/LOCALIZED_PROFILE_PROOF.md), using the
 [frozen imported transverse core result](brusselator/CORE_HOMOCLINIC_IMPORT.md).
-All other theorem-sized claims retain the statuses in the
-[claim register](CLAIM_REGISTER.md).
+For the van der Pol track, the exact model bridge is **Derived** and the
+compact central continuation theorem V2 is **Proved** in
+[CENTRAL_CONTINUATION.md](van-der-pol/CENTRAL_CONTINUATION.md), using the
+strictly bounded [frozen core import](van-der-pol/CENTRAL_CORE_IMPORT.md).
+The noncompact positive-parameter ends and every later theorem-sized claim
+retain the statuses in the [claim register](CLAIM_REGISTER.md).
 
 | Workstream | First rigorous target | Structure retained | Main obstruction |
 |---|---|---|---|
 | [Brusselator](brusselator/README.md) | A positive-concentration, symmetric, localized stationary solution for all sufficiently small positive diffusion | Reversibility and the transverse core homoclinic | Localized-branch tail continuation and positivity are discharged in Theorem B; exact Hamiltonian action is unavailable, and temporal stability and multipulses remain separate questions |
-| [van der Pol](van-der-pol/README.md) | A positive-parameter exhaustive high-winding return/first-exit theorem with two action finite parts | Reversible exact Hamiltonian structure | Matching the central chart through the intermediate chart to the outer algebraic end |
+| [van der Pol](van-der-pol/README.md) | A positive-parameter exhaustive high-winding return/first-exit theorem with two action finite parts | Exact Hamiltonian structure, selected transverse homoclinic, and compact central first-hit arrangement | Constructing the genuine positive-parameter pole and outer algebraic ends, then matching the latter through the intermediate chart |
 
 The precise scientific boundary, proof order, fallback results, and stopping
 conditions are fixed in [RESEARCH_CONTRACT.md](RESEARCH_CONTRACT.md).

@@ -35,6 +35,30 @@ All signs and the Hamiltonian convention are checked directly in
 the primitive independent of \(\delta\), provided all clocks and action
 integrals are transformed explicitly.
 
+## Completed compact central foundation
+
+The precise PDE parameters, all spatial clocks, the published \(K_1,K_2\)
+charts, the equilibrium-energy subtraction, and the exact conjugacy to the
+flagship core are frozen in
+[MODEL_AND_CENTRAL_CHART.md](MODEL_AND_CENTRAL_CHART.md).  The base
+homoclinic and compact source/event package are imported, with immutable
+hashes and explicit exclusions, in
+[CENTRAL_CORE_IMPORT.md](CENTRAL_CORE_IMPORT.md).
+
+[Theorem V2](CENTRAL_CONTINUATION.md) proves on a nonempty cusp wedge:
+
+- a uniform saddle-focus and \(C^2\) local invariant manifolds;
+- a selected symmetric homoclinic with two-derivative weighted tails and
+  transversality inside the regular zero-energy surface;
+- reversible exact local passage with the correct weighted-log parameter
+  estimates; and
+- continuation of the complete compact labelled first-hit arrangement,
+  source phases, and strict ordering margins.
+
+The two labels at this stage are finite algebraic-directed and pole-directed
+**gates**.  They are not the noncompact positive-parameter ends.  Establishing
+those ends remains the next proof obligation.
+
 ## Principal theorem target
 
 For a fixed compact range of \(\epsilon>0\) and a nonempty RFSN-II parameter
@@ -74,12 +98,9 @@ algebraic channel passes to an outer slow regime.  Candidate compactifications,
 indicial spectra, clock weights, and action orders must therefore be derived
 and proved afresh.
 
-Preliminary calculations suggest that the pole can be regularized by variables
-based on \(\rho=u^{-1}\) and may have a simple positive-integral indicial
-spectrum.  They also suggest that the outer algebraic action has a stronger
-divergence than in the core model.  These observations are research guides,
-not theorem statements; their values remain outside the claim register until
-the exact compactified equations and entry estimates are checked.
+The pole and outer calculations remain outside the claim register until their
+exact compactified equations, entry or matching estimates, and action
+renormalizations are proved.
 
 ## Fallback theorem
 

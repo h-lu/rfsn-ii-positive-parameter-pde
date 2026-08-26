@@ -25,14 +25,70 @@ Brusselator track.
 ## van der Pol reaction--diffusion model
 
 - T. Vo, A. Doelman, T. J. Kaper, *Les Canards de Turing*, SIAM Journal on
-  Applied Dynamical Systems (2025), DOI:
+  Applied Dynamical Systems **24**(4) (2025), 2618--2684, DOI:
   <https://doi.org/10.1137/24M1690722>, arXiv:
   <https://arxiv.org/abs/2409.02400>.
 
-Use the published equations for the PDE, the blow-up charts, the Hamiltonian
-central problem, and the established canard/homoclinic results.  Do not infer
-the exhaustive return/exit relation, action finite parts, transverse margins,
-or temporal stability unless the cited result states them.
+The normative source for this track is the 67-page published version
+(published online 8 October 2025), not arXiv v1.  A downloaded published PDF
+used for the equation audit had SHA-256
+62fa70adf923f0c3323e3cc8bbcba4c502dd9afcbf7460af931bcbd17f8ac325;
+the download carried a user-specific watermark, so this is an audit hash, not
+a canonical publisher checksum.  The 66-page arXiv v1 file had SHA-256
+9c36b663312721c3e187f1c1f57efa838dc4db9f74040ab7951fd6229dc4e30e.
+The 10-page published supplement used in the same audit had SHA-256
+df1b04fee7bed2ded2b6d0b1a9ae8b72491fac1b97f6be14400a0e5a63b3ab0f.
+
+The present track uses the following published locations:
+
+- PDE (1.1), p. 2619; physical-\(x\) systems (1.2), p. 2621, and (2.4),
+  p. 2627; fast-\(y\) system, reverser, and first integral (2.6)--(2.8),
+  p. 2628;
+- the RFSN-II translation (6.1), p. 2642; translated field and integral
+  (6.2)--(6.3), p. 2643; and blow-up/charts (6.4)--(6.6), p. 2643;
+- the \(K_2\) field, Hamiltonian, and core (6.7)--(6.9), p. 2644;
+- the \(K_1\) field (6.16), p. 2646;
+- the \(K_1\)--\(K_2\) transitions (6.28)--(6.29), p. 2651; and
+- Appendix C, pp. 2679--2681, as an independent check of the parameter
+  scaling used in Lemma 6.4.
+
+Equation (6.6) and Appendix C agree that
+\[
+ \widetilde a=\sqrt\epsilon\,r_2^3a_2
+ =\sqrt\epsilon\,\delta^{3/2}a_2.
+\]
+The prose immediately after (6.6) instead prints
+\(\epsilon^{3/2}\delta^{3/2}q_2\).  Both the variable and the power of
+\(\epsilon\) are wrong in that sentence; the repository follows the
+displayed equation and Appendix C.
+
+The published primitive is not stated for the full stationary system.  The
+repository therefore derives
+\(\lambda_\delta=\epsilon p\,du-\delta^{-1}q\,dv\), the Hamiltonian sign,
+and every clock factor directly in
+[HAMILTONIAN_CHECK.md](../van-der-pol/HAMILTONIAN_CHECK.md).  The complete
+chart crosswalk and the repository-defined cusp box are in
+[MODEL_AND_CENTRAL_CHART.md](../van-der-pol/MODEL_AND_CENTRAL_CHART.md).
+
+The source does **not** supply V2.  Proposition 2.2 is a local bounded-orbit
+classification without a common \(\epsilon\)-uniform neighborhood.  Remark
+5.1 explicitly places ordinary canard persistence away from the RFSN-II
+degeneracy.  Proposition 6.2 treats the singular \(r_2=0\) reduced
+heteroclinic problem.  Lemma 6.4 gives the maximal-canard coincidence curve
+\[
+ a_c=1-\frac{5\epsilon}{48}\delta^2+O(\delta^3),
+\]
+but the published statement gives neither the transverse homoclinic margin,
+compact first-hit package, two external derivatives, nor the uniform wedge
+required here.  In arXiv v1, “unique up to translations” appeared in prose
+after the lemma, and “transverse intersection” appeared only in the section
+roadmap; neither was a stronger clause of the lemma itself.  Both pieces of
+prose were removed from the published version and are not imported.
+
+Use the published equations for the model and charts, but do not infer a
+positive-parameter end, exhaustive return/exit relation, action finite part,
+transverse margin, or temporal stability unless a separate repository proof
+discharges it.
 
 ## Brusselator model
 

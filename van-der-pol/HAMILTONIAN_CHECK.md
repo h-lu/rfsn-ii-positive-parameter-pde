@@ -1,7 +1,10 @@
 # Direct Hamiltonian check for the stationary van der Pol system
 
-This note records the sign and scaling calculation behind claim V1.  It is an
-algebraic derivation, not the positive-parameter return--first-exit theorem.
+**Evidence status: Derived.**  This note records the sign and scaling
+calculation behind claim V1.  It is an algebraic derivation, not the
+positive-parameter return--first-exit theorem.  Its notation is reconciled
+with every blow-up chart in
+[MODEL_AND_CENTRAL_CHART.md](MODEL_AND_CENTRAL_CHART.md).
 
 ## Spatial system
 
@@ -13,8 +16,9 @@ v_t=\epsilon(a-u)+v_{xx},\qquad
 f(u)=\frac13u^3-u.
 \]
 
-Let \(\delta=\sqrt d\), \(y=x/\delta\), \(p=u_y\), and \(q=v_x\).  A stationary
-solution satisfies
+Assume \(\epsilon>0\) and \(\delta=\sqrt d>0\).  Let
+\(y=x/\delta\), \(p=u_y=\delta u_x\), and \(q=v_x\).  A stationary solution
+satisfies
 
 \[
 u_y=p,\qquad p_y=f(u)-v,\qquad
@@ -74,32 +78,36 @@ For the vector field \(X_\delta\) in (1), direct contraction gives
 \end{aligned}
 \]
 
-Hence (1) is exact Hamiltonian with the convention
-\(\iota_X\omega=dH\).  This fixes the sign of both the Hamiltonian and the
-action primitive used by the project.
+Hence the \(y\)-flow (1) is exact Hamiltonian with the convention
+\(\iota_X\omega=dH\).  For the physical \(x\)-flow,
+\(X_x=\delta^{-1}X_y\), so the same primitive has Hamiltonian
+\(-\mathcal G_\delta/\delta\).  This fixes the sign of both the Hamiltonian
+and the action primitive used by the project.
 
 The momentum variables
 
 \[
-P=\epsilon p,qquad Q=\delta^{-1}q
+\Pi=\epsilon p,\qquad \Theta=\delta^{-1}q
 \]
 
 give the parameter-independent primitive
 
 \[
-\lambda=P\,du-Q\,dv
+\lambda=\Pi\,du-\Theta\,dv
 \]
 
 and
 
 \[
 \mathcal G_\delta
-=\frac{P^2}{2\epsilon}-\frac{\delta^2Q^2}{2}
+=\frac{\Pi^2}{2\epsilon}-\frac{\delta^2\Theta^2}{2}
 -\epsilon\bigl(F(u)+(a-u)v\bigr).
 \]
 
-All later changes of spatial clock must transform the action integral derived
-from this physical primitive explicitly.
+The symbols \(\Pi,\Theta\) are physical canonical momenta and are not the
+central variables \(P,Q\) used after blow-up.  All later changes of spatial
+clock must transform the action integral derived from this primitive
+explicitly.
 
 ## Reversibility
 
@@ -121,9 +129,26 @@ D\mathcal R\,X_\delta=-X_\delta\circ\mathcal R,
 
 Thus the spatial flow is reversible and the reverser is anti-symplectic.
 
+## Primary-source crosswalk
+
+In the published version of Vo--Doelman--Kaper, the PDE is equation (1.1)
+on p. 2619, the introductory and main physical stationary systems are
+equations (1.2) on p. 2621 and (2.4) on p. 2627, and the fast system,
+reverser, and conserved quantity are equations (2.6)--(2.8) on p. 2628.
+The source states \(\mathcal G\), but not the full-system primitive (3).
+Equations (2)--(3) above independently derive that primitive and fix this
+repository's convention \(\iota_X\omega=dH\).
+
+The central weights, clocks, shifted equilibrium energy, and exact conjugacy
+to the flagship core are derived in
+[MODEL_AND_CENTRAL_CHART.md](MODEL_AND_CENTRAL_CHART.md).  In particular, a
+clock change rescales the Hamiltonian but leaves \(\int\lambda\) unchanged.
+
 ## Dependency boundary
 
-This calculation establishes only the exact Hamiltonian structure of the full
-positive-parameter stationary ODE.  It does not establish persistence of the
-homoclinic orbit, either noncompact end, the first-hit arrangement, or any
-action finite part.  Those are claims V2--V7 and remain Proposed.
+This calculation alone establishes only the exact Hamiltonian structure of
+the full positive-parameter stationary ODE.  The selected homoclinic and
+compact central arrangement are proved separately in
+[CENTRAL_CONTINUATION.md](CENTRAL_CONTINUATION.md).  Neither noncompact end,
+either action finite part, nor the final return--exit theorem follows from
+this calculation; those are V3--V7.
