@@ -4,6 +4,11 @@ Construct the positive-parameter outer algebraic action finite part and prove
 that it is compatible with central--outer matching and exact branch
 composition.
 
+## Dependency
+
+This issue begins after [#4](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/4)
+has proved the outer invariant hypersurface and central--outer matching.
+
 ## Proof obligations
 
 - [ ] Determine the exact outer clock and action-density weights.

@@ -22,6 +22,8 @@ exit theorem.
 
 ## Acceptance
 
-Claim V1 becomes **Derived** after the convention audit is committed.  Claim V2
-becomes **Proved** only after the parameter-uniform persistence theorem is
-complete.  Quantitative interval claims require a separate rigorous validation.
+Claim V1 is recorded as **Derived** by the direct calculation in
+`van-der-pol/HAMILTONIAN_CHECK.md`; this issue must still reconcile its notation
+with every blow-up chart.  Claim V2 becomes **Proved** only after the
+parameter-uniform persistence theorem is complete.  Quantitative interval
+claims require a separate rigorous validation.

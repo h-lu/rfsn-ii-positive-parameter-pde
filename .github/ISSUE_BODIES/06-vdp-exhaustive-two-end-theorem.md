@@ -5,11 +5,11 @@ pole, and outer matching theorems are complete.
 
 ## Dependencies
 
-- [ ] Positive-parameter Hamiltonian conventions and compact central
-      persistence
-- [ ] Positive-parameter pole entry and finite part
-- [ ] Central--outer matching theorem
-- [ ] Positive-parameter algebraic finite part
+- [ ] [#2: Positive-parameter Hamiltonian conventions and compact central
+      persistence](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/2)
+- [ ] [#3: Positive-parameter pole entry and finite part](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/3)
+- [ ] [#4: Central--outer matching theorem](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/4)
+- [ ] [#5: Positive-parameter algebraic finite part](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/5)
 
 ## Proof obligations
 

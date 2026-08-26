@@ -29,10 +29,11 @@ Writing \(F'(u)=f(u)\), the candidate first integral and primitive are
 \lambda_\delta=\epsilon p\,du-\delta^{-1}q\,dv.
 \]
 
-The first repository proof must check all signs and the Hamiltonian convention
-directly.  The reverser is \((u,p,v,q)\mapsto(u,-p,v,-q)\).  A rescaled momentum
-choice may be used to make the primitive independent of \(\delta\), provided
-all clocks and action integrals are transformed explicitly.
+All signs and the Hamiltonian convention are checked directly in
+[HAMILTONIAN_CHECK.md](HAMILTONIAN_CHECK.md).  The reverser is
+\((u,p,v,q)\mapsto(u,-p,v,-q)\).  A rescaled momentum choice may be used to make
+the primitive independent of \(\delta\), provided all clocks and action
+integrals are transformed explicitly.
 
 ## Principal theorem target
 
