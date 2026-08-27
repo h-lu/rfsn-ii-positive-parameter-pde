@@ -222,8 +222,10 @@ the analytic constructions.
 - P2a/P2b0/P2b now cover the true local graph, its H10-centered
   \(C^0/C^1\) tubes, state derivatives through order three,
   parameter/mixed derivatives through order two, and weighted half-orbit
-  constants.  The normalized Kato source phase, the remaining V2 objects, and
-  V3--V6 remain `PENDING` in
+  constants, and P2bK covers the normalized Kato source phase.  The P2c
+  design scout covers one selected root branch on the full bridge, but its
+  formal large-box exclusion, first-hit, parameter-jet, and tail obligations,
+  together with the remaining V2 objects and V3--V6, remain `PENDING` in
   [`rigorous/obligations.json`](rigorous/obligations.json).
 - The policy requires an independent replay on a second machine before any
   aggregate certificate can become claim-bearing.  This repository currently
@@ -232,6 +234,8 @@ the analytic constructions.
 These blockers do not make the floating repository a toy.  Its deterministic
 raw outputs and complete B1/A2 return records provide candidate centers,
 scales, event ordering, interfaces, and observable checks for the rigorous
-implementation.  The correct aggregate Issue #7 status is
-`P2B_LOCAL_PASS_AGGREGATE_INCONCLUSIVE`, not a claim-bearing `PASS`; see the
-[`P2b report`](rigorous/P2B_JETS_REPORT.md).
+implementation.  The latest archived formal scope has local mathematical
+`PASS` through P2bK, while its aggregate remains `INCONCLUSIVE` and
+non-claim-bearing because the independent replay is pending; see the
+[`P2bK report`](rigorous/P2B_KATO_REPORT.md).  The later P2c result remains a
+design scout rather than an archived formal scope.

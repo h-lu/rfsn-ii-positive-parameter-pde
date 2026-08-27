@@ -2,10 +2,10 @@
 
 **Evidence status: strict design-scout results plus floating candidate data.**
 This report does not mark `V2.HOM.BRANCH`, `V2.HOM.FIRST_HIT`,
-`V2.HOM.TRANSVERSE`, or `V2.HOM.TAILS` as passed.  It records the
-completed feasibility work, including a selected r-spine joined to the
-frozen core root, and the remaining steps between that spine and the full
-three-parameter P2c claim.
+`V2.HOM.TRANSVERSE`, or `V2.HOM.TAILS` as passed.  It records strict
+design-scout feasibility for one selected root branch on the full
+three-parameter bridge, identifies that branch with the frozen core root,
+and separates this result from the remaining P2c obligations.
 
 ## Correct source and shooting problem
 
@@ -303,22 +303,108 @@ on
 \]
 
 are one common physical branch and that branch is the continuation of the
-frozen selected core homoclinic.  This is stronger than the earlier isolated
-slice result, but it is still only the one-dimensional spine of the full
-comparison bridge.
+frozen selected core homoclinic.  The full parameter-box computation below
+extends this selected branch off the spine.
+
+## Full three-parameter selected-branch cover
+
+The strict design kernel covers
+
+\[
+ B_0=[0,2/25]\times[-1/4,1/4]\times[4/5,6/5]
+\]
+
+by the exact rational cells
+
+\[
+ \begin{aligned}
+ R_i&=[i/400,(i+1)/400],&0\le i<32,\\
+ A_j&=[(j-64)/256,(j-63)/256],&0\le j<128,\\
+ E_k&=[(8+k)/10,(9+k)/10],&0\le k<4.
+ \end{aligned}
+\]
+
+Thus 16,384 closed cells cover \(B_0\) without gaps.  The fitted phase chart
+used at their centers is only a floating preconditioner: the phase correction
+remains one of the interval unknowns in every Krawczyk problem.  With
+shooting-box radius factor \(3\), all 16,384 cells pass.  The worst inclusion ratio is
+0.8116307051006466 and the worst contraction ratio is 0.48505318768286615,
+both in
+
+\[
+ [31/400,2/25]\times[-1/4,-63/256]\times[4/5,9/10].
+\]
+
+The Krawczyk inclusions and contraction bounds give existence and local
+uniqueness in every root box.  The endpoint shooting-determinant intervals
+over all cells have total hull
+
+\[
+ [35.18937930508395,287.4889566796052].
+\]
+
+The strictly positive determinant intervals, together with the checked
+endpoint phase-column and nonzero-endpoint gates, record endpoint
+transversality throughout the design cover.  Every internal common face also
+passes the root-enclosure-to-neighbor-uniqueness-box test:
+
+| face normal | passed / total | worst containment ratio |
+|---|---:|---:|
+| \(a_2\) | 16,256 / 16,256 | 0.8446835766577023 |
+| \(\epsilon\) | 12,288 / 12,288 | 0.8310863705829250 |
+| \(r\) | 15,872 / 15,872 | 0.8357241454291467 |
+
+These 44,416 tests use the same actual P2bK \(C^2\) true-source family
+satisfying the uniform graph budgets, and represent each physical parameter
+on a common face by one shared outward-rounded interval variable, rather than
+evaluating the same parameter twice as independent intervals.  One directed
+inclusion per face is sufficient: for each fixed parameter value on the face,
+the source root lies
+in the source Krawczyk image; the face-coordinate transform of that image
+lies in the neighboring uniqueness box; and the neighboring box has exactly
+one root.  Hence the two local root sections agree pointwise on the shared
+face.  Connectivity of the grid identifies all cellwise roots as one branch.
+This uniqueness is local to the continued root boxes; it does not yet exclude
+another zero elsewhere in the fixed larger shooting sub-box.
+
+The corner \((r,a_2,\epsilon)=(0,0,1)\) is anchored separately.  The frozen
+selected core enclosure maps into a point-core uniqueness box with ratio
+\(7.95637\times10^{-7}\); the point-core Krawczyk test passes with inclusion
+0.726100604 and contraction 0.726100285; and its root enclosure maps into the
+adjacent grid-cell uniqueness box with ratio 0.333117151.  The already
+validated P2bK complete-anchor-face identity and local true-graph uniqueness
+use these same coordinates.  At \(r=0\) the desingularized central shooting
+problem is independent of the dummy \(a_2,\epsilon\) coordinates, so the
+glued root section is exactly the frozen core root on the entire \(r=0\)
+face.  This supplies an anchor for the connected grid; it does not interpret
+\(r=0\) as an additional physical positive-\(d\) PDE parameter.
+
+The strict run is bound to repository source commit
+`2c60e4930bb585a24d7a8945c1b5b3e7469a1cf8`, CAPD commit
+`731079217a9254ea2948d742df2b170895effe7f`, and the frozen H10 table named
+below.  It used the strict flags `-fno-fast-math`, `-frounding-math`,
+`-ffp-contract=off`, `-fno-tree-vectorize`, and `-fno-ipa-pure-const`.
+The executable SHA-256 was
+`46cc65468a7082f5adaa5902d76c962ead8a123653f3bfd39959769650ee63dc`;
+the fixed-order concatenation of the anchor summary followed by slab summaries
+0 through 31 had SHA-256
+`73afc5b9a365ea7ab505095feb7098154a0ab5f83cfe7c6dbd0e8788a275e364`.
+These bindings make the design result locally auditable and reproducibly
+bound, but they are not a frozen machine-readable P2c certificate or an
+independent replay.
 
 ## Proof boundary
 
 The following remain open and are not consequences of the results above:
 
-- a gap-free three-parameter cover of
-  \(B_0=[0,2/25]\times[-1/4,1/4]\times[4/5,6/5]\), with every cell
-  connected by common-face uniqueness to the selected spine above;
 - exclusion of any other zero in the fixed larger shooting sub-box;
 - the no-earlier-symmetry-hit sign tubes and final flow box;
-- explicit first and second parameter bounds for \((\phi_h,T_h)\), needed
-  to compose the already certified P2b weighted half-orbits into the full
-  weight-\(1/5\) homoclinic tail estimate.
+- explicit first and second parameter bounds for \((\phi_h,T_h)\);
+- composition of those root jets with the already certified P2b weighted
+  half-orbits into explicit \(\eta,C,T_*\) and two-parameter-derivative bounds
+  on both infinite tails, including the required weight \(1/5\);
+- a frozen P2c configuration, machine-readable certificate and checker, and
+  the policy-required independent replay.
 
 The H10 table used in the strict rerun was materialized with `git archive`
 from the frozen flagship commit

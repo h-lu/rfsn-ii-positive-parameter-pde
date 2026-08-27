@@ -66,11 +66,13 @@ outward enclosure of the exact rational \(r\), and with local uniqueness and
 endpoint transversality in every cell.  Its common-face mode maps the complete
 Krawczyk root enclosure into the neighboring uniqueness box; all six
 directional checks pass, so the four cells form one common slice branch.  This
-is now supplemented by 16 exact-rational `r`-spine cells from zero to `2/25`:
-all cells and all 30 directional common-face checks pass, and a strict
-38-dimensional import of the frozen flagship root identifies the spine with
-the selected core branch.  This remains a design result: the full
-three-parameter bridge, first-hit, and tail obligations are not discharged.
+is now supplemented by a gap-free exact-rational \(32\times128\times4\)
+cover of the full bridge.  All 16,384 cells, all 44,416 internal common-face
+identifications, and the strict frozen-core anchor pass.  The result therefore
+identifies one locally unique selected root branch over the whole bridge.
+This remains a design result: large-shooting-box exclusion, first hit,
+parameter jets, homoclinic tails, a frozen certificate, and independent
+replay are not discharged.
 Results and the proof boundary are recorded in
 [`../P2C_SCOUT_REPORT.md`](../P2C_SCOUT_REPORT.md).  The H10 header supplied
 at compile time must be extracted from the Git object named by

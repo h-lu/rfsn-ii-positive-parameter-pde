@@ -71,17 +71,17 @@ exact-algebra audit passes all 56 identities; the Riesz/Kato transport,
 physical frame change, complete \(C^2\) parameter lift, radius-`.01` true
 source circle, and nine-jet total-order-three source triangle all pass on the
 complete bridge.  Its aggregate remains `INCONCLUSIVE` and non-claim-bearing
-solely because independent replay remains 1/2.  P2c is the next unimplemented
-scope.
+solely because independent replay remains 1/2.  The formal P2c certificate is
+the next unimplemented scope.
 
 The design-only P2c multiple-shooting scout is documented in
 [`P2C_SCOUT_REPORT.md`](P2C_SCOUT_REPORT.md).  Its three-parameter affine
-engine now gives a strict, common-face-identified 16-cell branch on the
-central `a2=0`, `epsilon=1`, `r in [0,2/25]` spine and imports the frozen
-selected core root into the same 38-dimensional uniqueness chart.  This is
-feasibility evidence for `V2.HOM.BRANCH`; it is not a frozen P2c scope or
-certificate and does not cover the full three-parameter bridge, first-hit,
-or tails.
+engine now validates all 16,384 exact rational cells covering
+`[0,2/25] x [-1/4,1/4] x [4/5,6/5]`, all 44,416 internal common faces, and
+the frozen selected-core anchor through 38-dimensional Krawczyk problems.
+This is strict feasibility evidence for one selected `V2.HOM.BRANCH` over
+the full bridge.  It is not a frozen P2c certificate and does not discharge
+large-shooting-box exclusion, the first-hit tubes, parameter jets, or tails.
 
 ## Frozen phase-1 box
 
