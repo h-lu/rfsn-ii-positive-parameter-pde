@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/h-lu/rfsn-ii-positive-parameter-pde/validation/rigorous/parameter_box.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "box_id",
+    "status",
+    "selected_before_interval_validation",
+    "selection_date",
+    "selection_basis",
+    "variables",
+    "derived_conventions",
+    "phase_1_theorem_scope",
+    "future_target_scope",
+    "mutation_policy",
+    "nonclaims"
+  ],
+  "properties": {
+    "schema_version": {"const": "rfsn-vdp-rigorous-parameter-box/1"},
+    "box_id": {"const": "vdp-positive-box-v1"},
+    "status": {"const": "FROZEN_PREVALIDATION"},
+    "selected_before_interval_validation": {"const": true},
+    "selection_date": {"type": "string", "format": "date"},
+    "selection_basis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repository_commit", "repository_tag", "floating_configuration", "note"],
+      "properties": {
+        "repository_commit": {"$ref": "#/$defs/sha1"},
+        "repository_tag": {"type": "string", "minLength": 1},
+        "floating_configuration": {"$ref": "#/$defs/hashedFile"},
+        "note": {"type": "string", "minLength": 1}
+      }
+    },
+    "variables": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["r", "a2", "epsilon"],
+      "properties": {
+        "r": {"$ref": "#/$defs/exactInterval"},
+        "a2": {"$ref": "#/$defs/exactInterval"},
+        "epsilon": {"$ref": "#/$defs/exactInterval"}
+      }
+    },
+    "derived_conventions": {
+      "type": "object",
+      "minProperties": 6,
+      "additionalProperties": {"type": "string", "minLength": 1}
+    },
+    "phase_1_theorem_scope": {
+      "type": "array",
+      "minItems": 2,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "future_target_scope": {
+      "type": "array",
+      "minItems": 6,
+      "uniqueItems": true,
+      "items": {"type": "string", "enum": ["V2", "V3", "V4", "V5", "V5A", "V6"]}
+    },
+    "mutation_policy": {"type": "string", "minLength": 1},
+    "nonclaims": {
+      "type": "array",
+      "minItems": 3,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    }
+  },
+  "$defs": {
+    "sha1": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "relativePath": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$)).+$"
+    },
+    "hashedFile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"$ref": "#/$defs/relativePath"},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "integerString": {"type": "string", "pattern": "^-?(?:0|[1-9][0-9]*)$"},
+    "positiveIntegerString": {"type": "string", "pattern": "^[1-9][0-9]*$"},
+    "rational": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["numerator", "denominator"],
+      "properties": {
+        "numerator": {"$ref": "#/$defs/integerString"},
+        "denominator": {"$ref": "#/$defs/positiveIntegerString"}
+      }
+    },
+    "exactInterval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["lower", "upper"],
+      "properties": {
+        "lower": {"$ref": "#/$defs/rational"},
+        "upper": {"$ref": "#/$defs/rational"}
+      }
+    }
+  }
+}
+

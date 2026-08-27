@@ -156,7 +156,7 @@ Its proposed Issue #7 box
  [0.04,0.08]\times[-0.25,0.25]\times[0.8,1.2]
 \]
 
-is preselected but not yet frozen or interval validated.  Detailed numerical
+is formally frozen for Issue #7 but not yet interval validated.  Detailed numerical
 values, stopping rules, and figure semantics are in the
 [screening report](VDP_DYNAMICS_SCREENING_REPORT.md) and
 [dynamics figure contracts](VDP_DYNAMICS_FIGURE_CONTRACTS.md).

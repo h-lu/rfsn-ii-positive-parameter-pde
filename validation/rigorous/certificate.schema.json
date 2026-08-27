@@ -1,0 +1,203 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/h-lu/rfsn-ii-positive-parameter-pde/validation/rigorous/certificate.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "certificate_id",
+    "scope",
+    "created_at",
+    "source_revision",
+    "source_bindings",
+    "parameter_box",
+    "toolchain",
+    "rounding_self_test",
+    "obligations",
+    "integrity_status",
+    "mathematical_status",
+    "independent_replay",
+    "final_status",
+    "claim_bearing",
+    "release_eligible",
+    "nonclaims"
+  ],
+  "properties": {
+    "schema_version": {"const": "rfsn-rigorous-run-certificate/1"},
+    "certificate_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._-]{2,127}$"
+    },
+    "scope": {"type": "string", "enum": ["PREFLIGHT", "V1_V2_1_KERNEL"]},
+    "created_at": {"type": "string", "format": "date-time"},
+    "source_revision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repository", "commit", "repository_dirty", "allow_dirty_development", "working_tree_observation", "report_output_excluded_from_observation"],
+      "properties": {
+        "repository": {"const": "h-lu/rfsn-ii-positive-parameter-pde"},
+        "commit": {"$ref": "#/$defs/sha1"},
+        "repository_dirty": {"type": "boolean"},
+        "allow_dirty_development": {"type": "boolean"},
+        "working_tree_observation": {"const": "BEFORE_REPORT_WRITE"},
+        "report_output_excluded_from_observation": {"const": true}
+      }
+    },
+    "source_bindings": {
+      "type": "array",
+      "minItems": 8,
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/hashedFile"}
+    },
+    "parameter_box": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256", "box_id", "variables"],
+      "properties": {
+        "path": {"$ref": "#/$defs/relativePath"},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "box_id": {"const": "vdp-positive-box-v1"},
+        "variables": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["r", "a2", "epsilon"],
+          "properties": {
+            "r": {"$ref": "#/$defs/exactInterval"},
+            "a2": {"$ref": "#/$defs/exactInterval"},
+            "epsilon": {"$ref": "#/$defs/exactInterval"}
+          }
+        }
+      }
+    },
+    "toolchain": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["status", "dependency_lock_sha256", "compiler", "capd"],
+      "properties": {
+        "status": {"$ref": "#/$defs/verdict"},
+        "dependency_lock_sha256": {"$ref": "#/$defs/sha256"},
+        "compiler": {"type": "object"},
+        "capd": {"type": "object"}
+      }
+    },
+    "rounding_self_test": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["status", "tests"],
+      "properties": {
+        "status": {"$ref": "#/$defs/verdict"},
+        "tests": {
+          "type": "array",
+          "minItems": 6,
+          "items": {
+            "type": "object",
+            "required": ["id", "status"],
+            "properties": {
+              "id": {"type": "string", "minLength": 1},
+              "status": {"$ref": "#/$defs/verdict"}
+            }
+          }
+        }
+      }
+    },
+    "obligations": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "required": ["id", "status", "predicate"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^[A-Z0-9_.]+$"},
+          "status": {"$ref": "#/$defs/verdict"},
+          "predicate": {"type": "string", "minLength": 1},
+          "enclosures": {
+            "type": "object",
+            "additionalProperties": {"$ref": "#/$defs/hexInterval"}
+          }
+        }
+      }
+    },
+    "integrity_status": {"$ref": "#/$defs/verdict"},
+    "mathematical_status": {"$ref": "#/$defs/verdict"},
+    "independent_replay": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "required_distinct_machines", "observed_distinct_machines"],
+      "properties": {
+        "status": {"type": "string", "enum": ["PENDING_REQUIRED", "PASS", "FAIL"]},
+        "required_distinct_machines": {"type": "integer", "minimum": 2},
+        "observed_distinct_machines": {"type": "integer", "minimum": 0}
+      }
+    },
+    "final_status": {"$ref": "#/$defs/verdict"},
+    "claim_bearing": {"type": "boolean"},
+    "release_eligible": {"type": "boolean"},
+    "raw_probe": {
+      "type": "object",
+      "additionalProperties": true
+    },
+    "logs": {
+      "type": "object",
+      "additionalProperties": {"$ref": "#/$defs/sha256"}
+    },
+    "nonclaims": {
+      "type": "array",
+      "minItems": 3,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    }
+  },
+  "$defs": {
+    "verdict": {"type": "string", "enum": ["PASS", "FAIL", "INCONCLUSIVE"]},
+    "sha1": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "relativePath": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$)).+$"
+    },
+    "hashedFile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"$ref": "#/$defs/relativePath"},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "role": {"type": "string", "minLength": 1}
+      }
+    },
+    "rational": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["numerator", "denominator"],
+      "properties": {
+        "numerator": {"type": "string", "pattern": "^-?(?:0|[1-9][0-9]*)$"},
+        "denominator": {"type": "string", "pattern": "^[1-9][0-9]*$"}
+      }
+    },
+    "exactInterval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["lower", "upper"],
+      "properties": {
+        "lower": {"$ref": "#/$defs/rational"},
+        "upper": {"$ref": "#/$defs/rational"}
+      }
+    },
+    "hexFloat": {
+      "type": "string",
+      "pattern": "^-?0x[0-9a-f]+(?:\\.[0-9a-f]+)?p[+-][0-9]+$"
+    },
+    "hexInterval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["lower_hex", "upper_hex", "endpoint_format"],
+      "properties": {
+        "lower_hex": {"$ref": "#/$defs/hexFloat"},
+        "upper_hex": {"$ref": "#/$defs/hexFloat"},
+        "endpoint_format": {"const": "IEEE754_BINARY64_HEX"}
+      }
+    }
+  }
+}

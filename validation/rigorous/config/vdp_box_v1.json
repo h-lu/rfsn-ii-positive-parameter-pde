@@ -1,0 +1,49 @@
+{
+  "schema_version": "rfsn-vdp-rigorous-parameter-box/1",
+  "box_id": "vdp-positive-box-v1",
+  "status": "FROZEN_PREVALIDATION",
+  "selected_before_interval_validation": true,
+  "selection_date": "2026-08-27",
+  "selection_basis": {
+    "repository_commit": "f55b19ff4cccbbc3216095850cec75408030dcdb",
+    "repository_tag": "vdp-dynamics-prescreen-source-v1",
+    "floating_configuration": {
+      "path": "numerics/config/vdp_dynamics_screening.json",
+      "sha256": "10ed7b990d699cffdc00433849f20bd0b05fbf81ca14b4e44f8dfbe14d6d9d21"
+    },
+    "note": "The exact endpoints were preregistered in the dynamics-screening configuration and frozen at its immutable source tag before any outward-rounded result was inspected."
+  },
+  "variables": {
+    "r": {
+      "lower": {"numerator": "1", "denominator": "25"},
+      "upper": {"numerator": "2", "denominator": "25"}
+    },
+    "a2": {
+      "lower": {"numerator": "-1", "denominator": "4"},
+      "upper": {"numerator": "1", "denominator": "4"}
+    },
+    "epsilon": {
+      "lower": {"numerator": "4", "denominator": "5"},
+      "upper": {"numerator": "6", "denominator": "5"}
+    }
+  },
+  "derived_conventions": {
+    "d": "r^4",
+    "delta": "r^2",
+    "a": "1+sqrt(epsilon)*r^3*a2",
+    "c": "2*r*a2+sqrt(epsilon)*r^4*a2^2",
+    "alpha": "sqrt(2+c)/2",
+    "beta": "sqrt(2-c)/2"
+  },
+  "phase_1_theorem_scope": [
+    "V1 exact algebraic Hamiltonian and reversible structure",
+    "V2(1) explicit wedge, positivity, and saddle-focus spectral gap"
+  ],
+  "future_target_scope": ["V2", "V3", "V4", "V5", "V5A", "V6"],
+  "mutation_policy": "Never overwrite or shrink this box after inspecting a rigorous result. A replacement requires a new versioned file retaining this record and explaining the changed theorem target.",
+  "nonclaims": [
+    "The floating slices do not prove any uniform theorem on this box.",
+    "Freezing the box does not assert that V2--V6 have been interval validated on it.",
+    "The box was not selected for temporal stability, Turing selection, or canard behavior."
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "schema_version": "rfsn-rigorous-dependency-lock/1",
+  "lock_id": "vdp-capd-filib-phase1-2026-08",
+  "status": "FROZEN_PHASE1_DEVELOPMENT_AND_REBUILD_RECIPE",
+  "platform": {
+    "operating_system": "Linux",
+    "architecture": "x86_64",
+    "interval_replay": "CPU_ONLY",
+    "required_process_policy": {
+      "omp_num_threads": "1",
+      "openblas_num_threads": "1",
+      "locale": "C.UTF-8"
+    }
+  },
+  "compiler": {
+    "executable": "/usr/bin/g++",
+    "version": "15.2.0",
+    "first_line": "g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+    "sha256": "e6718f7e0c7d057c3ff77b550c603da9bc4030e3ede3c053705acce1293dbe4d",
+    "language_standard": "c++17",
+    "required_probe_flags": [
+      "-O2",
+      "-DNDEBUG",
+      "-fno-fast-math",
+      "-frounding-math",
+      "-ffp-contract=off",
+      "-fno-tree-vectorize",
+      "-fno-ipa-pure-const"
+    ],
+    "forbidden_flags": ["-ffast-math", "-Ofast", "-ffinite-math-only"]
+  },
+  "cmake": {
+    "minimum_version": "3.13",
+    "reference_executable": "/tmp/cmake-4.2.3-clean/bin/cmake",
+    "reference_version": "4.2.3",
+    "reference_sha256": "eab793b7f3bf89867ec9127c130f9ab7693edefe6d45ddee6880edce05a3070d"
+  },
+  "build_tool": {
+    "executable": "/usr/bin/make",
+    "version": "4.4.1",
+    "sha256": "27c9f6d806aee15882b01c2c61848f7aa75caa14bc7b6f608ba422f9e46a7d49"
+  },
+  "capd": {
+    "repository": "https://github.com/CAPDGroup/CAPD.git",
+    "source_version": "6.1.0",
+    "source_commit": "731079217a9254ea2948d742df2b170895effe7f",
+        "source_tree": "f83b177786fa322240b24f21173eaf9b32496d48",
+        "capd_config_reported_version": "2.5.1",
+    "archive_url": "https://codeload.github.com/CAPDGroup/CAPD/tar.gz/731079217a9254ea2948d742df2b170895effe7f",
+    "archive_sha256": "3fd952f31658f71c48ba315e60ef59fe8a5f964d4128a2c244aeaaed96cdbd01",
+    "interval_backend": "FILIB",
+    "cmake_configuration": {
+      "CMAKE_BUILD_TYPE": "Release",
+      "CAPD_INTERVAL_TYPE": "FILIB",
+      "CAPD_ENABLE_MULTIPRECISION": "OFF",
+        "CAPD_BUILD_TESTS": "OFF",
+        "CAPD_BUILD_EXAMPLES": "OFF",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+        "CMAKE_CXX_FLAGS_RELEASE": "-O2 -DNDEBUG -fno-fast-math -frounding-math -ffp-contract=off -fno-tree-vectorize -fno-ipa-pure-const"
+    },
+        "reference_source_path": "/tmp/rfsn-vdp-capd-strict-7310792",
+        "reference_capd_config": "/tmp/rfsn-vdp-capd-strict-7310792/build-strict/bin/capd-config",
+        "reference_build_role": "Local strict phase-1 replay build; provenance is rechecked from source, cache, every compile command, and linked archive at runtime.",
+        "reference_libraries": {
+            "libcapd.a": "bf888737d3aab53e66c3bf5ee0199b6eb9f6747b2b567f3c5aa9c7ac0ae1267a",
+            "libfilib.a": "f0105bda942524bc7a1c3c9ad39a0f34e031e26afdc15017704cdd3878fc3d5c"
+    },
+    "capabilities": [
+      "outward-rounded FILIB interval arithmetic",
+      "validated C0-C2 ODE flow enclosures",
+      "rigorous Poincare maps",
+      "interval Newton and Krawczyk operators"
+    ]
+  },
+  "strict_rebuild_policy": {
+    "build_outside_repository": true,
+    "install_not_required": true,
+    "record_complete_argv": true,
+    "record_compile_commands_sha256": true,
+    "record_library_sha256": true,
+    "reject_uncontrolled_fma_contraction": true,
+    "disable_ipa_pure_const_for_rounding_mode_calls": true,
+    "reject_fast_math": true,
+    "run_rounding_self_test_before_every_probe": true
+  },
+  "independent_replay": {
+    "required_for_claim_bearing_pass": true,
+    "minimum_distinct_machines": 2,
+    "phase_1_status": "PENDING_REQUIRED"
+  }
+}

@@ -150,9 +150,10 @@ For Issue #7, the box
  [0.04,0.08]\times[-0.25,0.25]\times[0.8,1.2]
 \]
 
-in \((r,a_2,\epsilon)\) has been **preselected but not yet frozen**.  It is an
-input candidate for the outward-rounded existence/coding validation, not a
-temporal-stability box and not an interval certificate.
+in \((r,a_2,\epsilon)\) is now formally frozen as
+`vdp-positive-box-v1`, before the first outward-rounded run.  It is an input
+to the existence/coding validation, not a temporal-stability box and not yet
+an interval certificate.
 
 ## Repository map
 
@@ -171,6 +172,7 @@ temporal-stability box and not an interval certificate.
 - [Van der Pol dynamics screening report](numerics/VDP_DYNAMICS_SCREENING_REPORT.md)
 - [Van der Pol dynamics figure contracts](numerics/VDP_DYNAMICS_FIGURE_CONTRACTS.md)
 - [Issue #7 candidate-contract workspace](validation/README.md)
+- [Issue #7 rigorous phase-1 lane](validation/rigorous/README.md)
 
 ## Initial work queue
 
@@ -180,7 +182,7 @@ temporal-stability box and not an interval certificate.
 - [#4: central--outer matching theorem](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/4), the decisive mathematical go/no-go task
 - [#5: outer algebraic action finite part](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/5)
 - [#6: exhaustive two-end theorem](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/6)
-- [#7: rigorous validation](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/7), with a parameter box preselected and its final freeze plus outward-rounded run still pending
+- [#7: rigorous validation](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/7), with the parameter box formally frozen and the first clean outward-rounded run next
 
 The source theory remains in
 [`h-lu/reversible-rfsn-ii-waves`](https://github.com/h-lu/reversible-rfsn-ii-waves).

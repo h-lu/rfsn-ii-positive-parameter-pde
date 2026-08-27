@@ -2,9 +2,11 @@
 
 This directory is the local staging area for the deferred outward-rounded
 validation in [Issue #7](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/7).
-Nothing currently stored here is a computer-assisted proof or a validation
-certificate.  The only implemented layer is a deliberately non-claim-bearing
-candidate-contract and replay scaffold.
+Nothing currently stored here is a claim-bearing computer-assisted proof.
+The floating candidate-contract remains deliberately non-claim-bearing, while
+[`rigorous/`](rigorous/README.md) now contains the separate phase-1
+outward-rounded source lane and the formally frozen parameter box.  Its first
+clean archived run is the next step.
 
 ## Two evidence lanes
 
@@ -13,10 +15,11 @@ The lanes must remain separate.
 1. **Floating candidate generation.**  SciPy trajectories locate useful
    branches, sections, cutoffs, coordinate scales, and likely margins.  The
    evidence label is `COMPUTED/E1_NONRIGOROUS_CANDIDATE`.
-2. **Claim-bearing interval validation.**  A future source-only executable must
-   use outward-rounded intervals, enclose truncation and rounding error, bind
-   every result to a clean frozen source revision, and return exactly `PASS`,
-   `FAIL`, or `INCONCLUSIVE`.
+2. **Outward-rounded interval validation.**  The phase-1 source-only executable
+   uses CAPD/FILIB intervals, tests the floating-point environment, binds every
+   result to a clean frozen source revision, and returns exactly `PASS`, `FAIL`,
+   or `INCONCLUSIVE`.  It becomes claim-bearing only after the declared theorem
+   obligations and independent-replay policy are both complete.
 
 A small residual, tolerance refinement, schema success, or matching SHA-256
 does not move an object from lane 1 to lane 2.
@@ -150,28 +153,20 @@ floating inputs are internally bound.
 
 ## Environment lock status
 
-[`environment.lock.json`](environment.lock.json) records the exact exploratory
-Python versions used on this workstation and pins the proposed rigorous source
-backend to CAPD::DynSys `v6.0.0`, commit
-`693998cd6d73a0c4e1b141bfb79fcad1c40c3cbe`.  CAPD supplies validated ODE and
-Poincare-map machinery, including derivative propagation, but it is not yet
-installed or executed here.  The lock therefore carries the literal status
-`INCOMPLETE_SCAFFOLD_NOT_CLAIM_BEARING`.
+[`environment.lock.json`](environment.lock.json) remains the legacy
+exploratory-Python scaffold and is not the phase-1 rigorous lock.  The
+authoritative phase-1 dependency and source locks are
+[`rigorous/dependency.lock.json`](rigorous/dependency.lock.json) and
+[`rigorous/flagship_import.lock.json`](rigorous/flagship_import.lock.json).
+They pin CAPD 6.1.0 commit `7310792`, FILIB, GCC, CMake, make, the required
+rounding flags, source trees, and archive provenance.
 
-Before the first claim-bearing run, this inventory must be replaced or
-extended by all of the following:
-
-- a clean committed source revision and immutable theorem/report hashes;
-- an installable dependency lock with source/archive hashes;
-- a pinned compiler and system environment, preferably a container image by
-  digest as well as a native-build manifest;
-- flags excluding fast-math and uncontrolled contraction;
-- a rounding self-test recording the process and thread floating-point
-  environment;
-- interval endpoints serialized losslessly (binary64 hexadecimal endpoints or
-  exact multiprecision decimal/rational strings);
-- a claim-bearing executable hash, full stdout/stderr log, and independent
-  machine replay.
+The local strict build is outside the repository.  All 90 compile-command
+entries are required to contain the strict floating-point flags, including
+`-fno-ipa-pure-const`; the latter prevents GCC 15 from deleting CAPD rounding
+mode tests under interprocedural optimization.  Every probe runs the CAPD
+legacy helper plus direct mode, rational, square-root, containment, subnormal,
+and hexadecimal replay checks before evaluating a mathematical obligation.
 
 ## Required interval checks for V6
 
@@ -208,12 +203,11 @@ compact finite-flow clauses.  The V3/V5A infinite-end remainders and the
 all-winding reduction still require model-specific interval estimates around
 the analytic constructions.
 
-## Current blockers to a claim-bearing run
+## Current blockers beyond phase 1
 
-- The numerical directory and local theory amendments are not yet bound to a
-  clean immutable repository revision.
-- The exploratory point \((r,a_2,\epsilon)=(0.08,0,1)\) is not an explicitly
-  certified theorem box.
+- The frozen box is now an exact rational prevalidation object, but the first
+  clean archived phase-1 kernel certificate is still pending at this source
+  checkpoint.
 - The existing finite event faces are proxies rather than the complete V6
   physical arrangement and finite marked atlas; B1/A2 do not prove a component
   census, cross form, bounded overlap recoding, or every \(n\ge N\).
@@ -221,11 +215,16 @@ the analytic constructions.
   the certified source window/parameter box, infinite V4 graph, V5 uniform
   tube, endpoint adjoint/exchange, matching uniqueness, parameter jets, and
   infinite finite-part remainders are not interval enclosures.
-- No outward-rounded backend, rounding manifest, interval certificate, or
-  independent replay exists yet.
+- Phase-1 covers only the V1 exact polynomial identities and the explicit
+  V2(1) wedge/positivity/saddle-focus inequalities.  V2 continuation and the
+  V3--V6 obligations remain `PENDING` in
+  [`rigorous/obligations.json`](rigorous/obligations.json).
+- The policy requires an independent replay on a second machine before any
+  aggregate certificate can become claim-bearing.  This repository currently
+  records only the local-machine lane.
 
 These blockers do not make the floating repository a toy.  Its deterministic
 raw outputs and complete B1/A2 return records provide candidate centers,
 scales, event ordering, interfaces, and observable checks for the rigorous
-implementation.  They do mean that the first Issue #7 status is still
-`NOT_RUN`, not `PASS`.
+implementation.  At this source checkpoint the correct Issue #7 status is
+`PHASE1_SOURCE_FROZEN_RUN_PENDING`, not `PASS`.

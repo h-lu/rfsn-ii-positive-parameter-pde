@@ -1,0 +1,81 @@
+{
+  "schema_version": "rfsn-vdp-rigorous-obligations/1",
+  "theorem_target": "V1--V6 staged validation",
+  "verdicts": {
+    "PASS": "The declared predicate is rigorously verified on its entire declared domain.",
+    "FAIL": "A rigorous enclosure or exact calculation disproves the declared predicate on the declared target; this is not used for mere solver failure.",
+    "INCONCLUSIVE": "The enclosure crosses a decision boundary, a cover is incomplete, a resource limit is reached, or a required analytic tail/interface is not yet implemented."
+  },
+  "phases": [
+    {
+      "phase": "P0",
+      "title": "Trust boundary and outward rounding",
+      "status": "IMPLEMENTED_PHASE_1",
+      "obligations": [
+        {"id": "ENV.SOURCE_BINDING", "theorem_clause": "Issue #7 trust boundary", "predicate": "Local and frozen external sources are hash-bound without using dirty flagship files."},
+        {"id": "ENV.CAPD_BINDING", "theorem_clause": "Issue #7 validated backend", "predicate": "The CAPD commit, FILIB backend, compiler, flags, and linked archives match the declared lock."},
+        {"id": "ENV.ROUNDING", "theorem_clause": "Issue #7 outward rounding", "predicate": "Runtime directed rounding, rational division, square root, endpoint serialization, and floating-point environment tests pass."},
+        {"id": "BOX.FROZEN", "theorem_clause": "Research contract V(9)", "predicate": "A positive-width exact rational box was selected and frozen before interval results were inspected."}
+      ]
+    },
+    {
+      "phase": "P1",
+      "title": "V1 and V2(1) interval kernel",
+      "status": "IMPLEMENTED_PHASE_1",
+      "obligations": [
+        {"id": "V1.REVERSIBILITY", "theorem_clause": "V1; HAMILTONIAN_CHECK reversibility", "predicate": "The exact polynomial field satisfies DR X = -X o R and the primitive pulls back to its negative."},
+        {"id": "V1.HAMILTONIAN", "theorem_clause": "V1; HAMILTONIAN_CHECK equations (2)--(3)", "predicate": "Exact Laurent-polynomial arithmetic verifies i_X d lambda = dH and dG/dy=0."},
+        {"id": "V2.1.WEDGE", "theorem_clause": "V2 equations (1)--(4)", "predicate": "Both explicit wedge inequalities hold uniformly on the frozen box."},
+        {"id": "V2.1.POSITIVITY", "theorem_clause": "V2 parameter map", "predicate": "r, d, delta, epsilon, and a are strictly positive uniformly on the frozen box."},
+        {"id": "V2.1.SADDLE_FOCUS", "theorem_clause": "Theorem V2(1)", "predicate": "2 plus or minus c are positive and alpha,beta are at least one half uniformly on the frozen box."}
+      ]
+    },
+    {
+      "phase": "P2",
+      "title": "Central continuation",
+      "status": "PENDING",
+      "obligations": [
+        {"id": "V2.WU_GRAPH", "theorem_clause": "Theorem V2(1)--(2)", "predicate": "Parameter-dependent true local stable/unstable graphs and their required mixed jets are enclosed."},
+        {"id": "V2.HOMOCLINIC", "theorem_clause": "Theorem V2(2)", "predicate": "A parametric interval Newton/Krawczyk proof encloses the selected symmetric homoclinic, first symmetry hit, uniqueness box, and transverse determinant."},
+        {"id": "V2.EXACT_CHART", "theorem_clause": "Theorem V2(3)", "predicate": "The finite exact marked saddle charts, zero-energy fiber solve, transition maps, and weighted passage constants are validated."},
+        {"id": "V2.EVENT_ATLAS", "theorem_clause": "Theorem V2(4)--(5)", "predicate": "The complete compact event arrangement, phase order, every incidence, and every strict margin are covered without gaps."}
+      ]
+    },
+    {
+      "phase": "P3",
+      "title": "Positive pole and outer channel",
+      "status": "PENDING",
+      "obligations": [
+        {"id": "V3.SOURCE_TO_POLE", "theorem_clause": "Theorem V3(1)", "predicate": "The full source window has a unique first gate hit, cone entry, and local pole-section hit with strict margins."},
+        {"id": "V3.POLE_TAIL", "theorem_clause": "Theorem V3(2)--(4)", "predicate": "The regular-singular pole manifold, label uniqueness, and infinite action remainder including mixed two-jets are enclosed."},
+        {"id": "V4.OUTER_GRAPH", "theorem_clause": "Theorem V4(1)--(4)", "predicate": "Energy root, corridor faces, unique future-staying graph, normal expansion, and third-order bunching are validated."},
+        {"id": "V4.OUTER_ASYMPTOTICS", "theorem_clause": "Theorem V4(5)", "predicate": "The positive outer channel and infinite physical-distance asymptotic remainder are bounded uniformly."}
+      ]
+    },
+    {
+      "phase": "P4",
+      "title": "Matching and algebraic finite parts",
+      "status": "PENDING",
+      "obligations": [
+        {"id": "V5.K1_NHIM", "theorem_clause": "T1 and Theorem V5", "predicate": "The doubled-collar relative NHIM hypotheses and the resolved K1 graph are validated with the stated mixed derivatives."},
+        {"id": "V5.MATCHING", "theorem_clause": "Theorem V5", "predicate": "Common sections, exchange coefficient, endpoint adjoint, uniformly invertible matching operator, unique match, and cut covariance are validated."},
+        {"id": "V5A.ARRIVAL", "theorem_clause": "Theorem V5A(5)", "predicate": "The whole V5 arrival image lies strictly inside the frozen beta-label interval."},
+        {"id": "V5A.FINITE_PARTS", "theorem_clause": "Theorem V5A(1)--(7)", "predicate": "Reference-subtracted length/action limits, infinite tail errors, mixed two-jets, spare derivative, and composition/covariance are validated."}
+      ]
+    },
+    {
+      "phase": "P5",
+      "title": "Exhaustive V6 return/first-exit system",
+      "status": "PENDING",
+      "obligations": [
+        {"id": "V6.EVENT_ARRANGEMENT", "theorem_clause": "Theorem V6(1)", "predicate": "Every actual event is pulled back through the same templates and all rank, speed, order, buffer, and boundary margins are positive."},
+        {"id": "V6.COMPONENT_CENSUS", "theorem_clause": "Theorem V6(2)", "predicate": "A machine-checkable box cover proves the disjoint exhaustive connected-component census with no gap, overlap, or unnamed component."},
+        {"id": "V6.CROSS_FORMS", "theorem_clause": "Theorem V6(3)", "predicate": "Return maps and mixed two-jets satisfy the fixed-rectangle cross-form contraction and scaled thin-direction bounds."},
+        {"id": "V6.LENGTH_ACTION", "theorem_clause": "Theorem V6(4)--(5)", "predicate": "Augmented length/action enclosures join the same physical orbit, attach only the proper terminal counterterm, and satisfy exact composition."},
+        {"id": "V6.ALL_WINDINGS", "theorem_clause": "Theorem V6(1)--(5), all n >= N", "predicate": "Finite interval inequalities plus analytic tail bounds imply every winding n at or above one validated threshold; finite sampling is insufficient."},
+        {"id": "V6.ATLAS_DESCENT", "theorem_clause": "T2 and Theorem V6", "predicate": "All marked-chart overlaps admit a finite common refinement with compatible physical events, periods, and closed actions."}
+      ]
+    }
+  ]
+}
+

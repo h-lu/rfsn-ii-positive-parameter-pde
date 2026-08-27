@@ -97,8 +97,8 @@ The same screening configuration records
  [0.04,0.08]\times[-0.25,0.25]\times[0.8,1.2]
 \]
 
-as the **preselected** Issue #7 box.  Its formal freeze and first
-outward-rounded run are still pending.  Preselection is not a proof that the
+as the formally frozen `vdp-positive-box-v1` Issue #7 box.  Its first
+outward-rounded run is still pending.  Freezing is not a proof that the
 box satisfies V2--V7, is not a temporal-stability claim, and is not registered
 here as `Computer-assisted` evidence.
 
