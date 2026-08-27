@@ -1,9 +1,10 @@
 # Issue #7 P2c selected-homoclinic scout report
 
 **Evidence status: strict design-scout results plus floating candidate data.**
-This report does not mark `V2.HOM.BRANCH`, `V2.HOM.FIRST_HIT`, or
-`V2.HOM.TAILS` as passed.  It records the completed feasibility work and the
-single remaining obstruction found when enlarging a parameter cell.
+This report does not mark `V2.HOM.BRANCH`, `V2.HOM.FIRST_HIT`,
+`V2.HOM.TRANSVERSE`, or `V2.HOM.TAILS` as passed.  It records the
+completed feasibility work and the remaining steps between the present
+one-parameter slice and the full P2c claim.
 
 ## Correct source and shooting problem
 
@@ -82,7 +83,7 @@ shooting root for the actual true graph and verifies endpoint
 nondegeneracy.  It does not by itself identify roots at different parameter
 points as one global selected branch.
 
-## Parameter-cell diagnosis
+## Parameter-cell result at the primary slice
 
 In the direct interval-cell mode, the cell
 
@@ -97,33 +98,81 @@ and positive determinant interval
 \([64.5333352524,249.122407663]\).  A normally sized \(a_2\) cell fails if
 the same parameter is repeatedly interval-hulled across the nine segments.
 
-The completed seven-dimensional affine experiment retained a common static
-\(a_2\) coordinate, phase correction, and graph error through every segment
-and through the Poincare map.  The CAPD affine-set construction worked.  For
-the normal test cell
+The seven-dimensional affine experiment retains a common static \(a_2\)
+coordinate, phase correction, and graph error through every segment and
+through the Poincare map.  The source is enclosed by the first-order form
 
 \[
- r=.08,\qquad a_2\in[-.03125,.03125],\qquad\epsilon=1,
+ S(x)\in \bar S+Lx+R,
+ \qquad
+ R=(S(0)-\bar S)+\sum_j(D_jS(X)-L_j)X_j,
 \]
 
-the experiment remained inconclusive because the initial nonlinear source
-was enclosed as `natural interval - affine hull`.  That operation produced
-source remainders of order \(10^{-4}\), a base event residual about
-\([-0.1644,0.1632]\), and a phase-correction box about
-\([-0.1097,0.1097]\).  The final Poincare input then had an `U` enclosure
-containing zero, so CAPD correctly rejected the crossing.  This is a
-wrapping diagnosis, not evidence that the homoclinic branch fails to exist.
+where the interval first jet is evaluated jointly on the complete source
+box.  This is the multivariable mean-value enclosure, not a floating Taylor
+approximation.  It includes the nonlinear zero-energy solve and all
+dependencies of the physical saddle-focus frame.  In particular,
+\(h=\frac12\sqrt{4-c^2}\) is evaluated without first separating its common
+\(c\)-dependence.  At the final section, the equivalent residual
+\(P+\lambda Q=P\) on \(Q=0\) suppresses the dominant return-time wrapping.
 
-The next mathematical step, when work resumes, is a rigorous first-order
-source expansion with a second-order parameter remainder.  Only after that
-should the affine cell be enlarged and a gap-free cover attempted.
+For the unsplit test cell
+
+\[
+ r=2/25,\qquad a_2\in[-.03125,.03125],\qquad\epsilon=1,
+\]
+
+the zero-correction source remainder is reduced to at most
+\(2.2\times10^{-6}\) (and remains below \(3.38\times10^{-6}\) on the full
+shooting box), but the single-cell Krawczyk test is still inconclusive: its
+maximum inclusion and contraction ratios are approximately `2.776` and
+`2.119`.  The remaining loss is whole-cell shooting and phase curvature,
+rather than the former source dependency loss.
+
+Splitting only the \(a_2\) direction into four equal closed cells gives the
+following outward-rounded strict results at
+\((r,\epsilon)=(2/25,1)\).  The source, center orbits, and augmented flow
+derive \(r^2,r^3,r^4,2r\), and \(b=r^2/3\) from the same outward enclosure
+of the exact rational \(r=2/25\); no separately rounded decimal coefficient
+is used.  The radius factor is `1.5` in every row.
+
+| \(a_2\) cell | phase centre | max. inclusion | max. contraction | shooting determinant |
+|---|---:|---:|---:|---:|
+| \([-0.03125,-0.015625]\) | 5.8499630981148290 | 0.880601 | 0.233777 | \([81.861890,225.386008]\) |
+| \([-0.015625,0]\) | 5.8567555213821878 | 0.875084 | 0.227768 | \([82.619181,226.363758]\) |
+| \([0,0.015625]\) | 5.8635419626078198 | 0.872921 | 0.225132 | \([83.183986,227.554336]\) |
+| \([0.015625,0.03125]\) | 5.8703224431258789 | 0.873950 | 0.225704 | \([83.550710,228.964809]\) |
+
+All four Krawczyk images lie strictly in their shooting boxes, all four
+contraction bounds are below one, the endpoint has \(U>1\), and every
+determinant interval is strictly positive.  The zero-correction source
+remainders are between approximately \(6.9\times10^{-8}\) and
+\(1.33\times10^{-7}\); after inserting the full phase-correction and graph
+error boxes, their largest source remainder is below
+\(2.02\times10^{-7}\).  Hence the four parameter cells form a gap-free
+existence, local-uniqueness, and endpoint-transversality cover of
+
+\[
+ r=2/25,\qquad a_2\in[-0.03125,0.03125],\qquad \epsilon=1
+\]
+
+within the declared true-graph \(C^0/C^1\) error budgets.  This resolves the
+earlier affine-source obstruction and shows that the failed unsplit run was
+an interval-curvature effect, not disappearance of the orbit.
+
+This is not yet a proof that the four locally unique zeros are the same
+globally selected branch.  The adjacent cells share parameter faces, but a
+common uniqueness domain or explicit face-containment gate has not yet
+identified their zeros.  Nor does this one-dimensional slice cover the full
+\((r,a_2,\epsilon)\) theorem box.
 
 ## Proof boundary
 
 The following remain open and are not consequences of the results above:
 
-- common-face containment connecting every cell to the complete `r=0`
-  anchor, hence identification of one selected branch;
+- common-face containment identifying the four slice cells with one another,
+  followed by a gap-free three-parameter cover connecting them to the
+  complete `r=0` anchor face, hence identification of one selected branch;
 - exclusion of any other zero in the fixed larger shooting sub-box;
 - the no-earlier-symmetry-hit sign tubes and final flow box;
 - explicit first and second parameter bounds for \((\phi_h,T_h)\), needed

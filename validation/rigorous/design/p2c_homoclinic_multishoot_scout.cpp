@@ -49,7 +49,9 @@ Parameters parameters(const interval&r,const interval&a2,const interval&epsilon)
  const interval c=interval(2.)*r*a2+rootEpsilon*r4*sqr(a2);
  const interval alpha=interval(.5)*sqrt(interval(2.)+c);
  const interval beta=interval(.5)*sqrt(interval(2.)-c);
- const interval h=interval(2.)*alpha*beta;
+ // Keep the common c dependence: 2*alpha*beta evaluated as an interval
+ // product has an artificial O(|c|) width, whereas h varies only as c^2.
+ const interval h=interval(.5)*sqrt(interval(4.)-sqr(c));
  const interval chi=atan((interval(1.)/sqrt(interval(2.))-alpha)/beta);
  return {r,a2,epsilon,a,b,c,alpha,beta,h,chi};
 }
@@ -122,7 +124,9 @@ PointOrbit pointOrbit(const Parameters&p,const interval&phase){
   field.setParameter("c",p.c);
   IOdeSolver solver(field,30);
   solver.setAbsoluteTolerance(1e-14);solver.setRelativeTolerance(1e-14);
-  SourceData source=sourceData(p,phase,interval(0.));
+  const SourceData rawSource=sourceData(p,phase,interval(0.));
+  SourceData source{pointMid(rawSource.state),pointMid(rawSource.phaseDerivative),
+                    pointMid(rawSource.errorDerivative)};
   IVector z=source.state,v=source.phaseDerivative,w=source.errorDerivative;
   PointOrbit result{source,{},{},{}};
   result.nodes.reserve(kSegments);result.phaseTangents.reserve(kSegments);
@@ -171,6 +175,132 @@ struct AffineInitialData{
   IVector remainder;
 };
 
+struct FirstJet{
+  interval value;
+  std::array<interval,3> derivative;
+  explicit FirstJet(const interval&v=interval(0.))
+    :value(v),derivative{interval(0.),interval(0.),interval(0.)}{}
+  static FirstJet variable(const interval&v,int column){
+    FirstJet result(v);result.derivative[column]=interval(1.);return result;
+  }
+};
+
+FirstJet operator+(const FirstJet&x,const FirstJet&y){
+  FirstJet result(x.value+y.value);
+  for(int i=0;i<3;++i)result.derivative[i]=x.derivative[i]+y.derivative[i];
+  return result;
+}
+FirstJet operator-(const FirstJet&x,const FirstJet&y){
+  FirstJet result(x.value-y.value);
+  for(int i=0;i<3;++i)result.derivative[i]=x.derivative[i]-y.derivative[i];
+  return result;
+}
+FirstJet operator-(const FirstJet&x){
+  FirstJet result(-x.value);
+  for(int i=0;i<3;++i)result.derivative[i]=-x.derivative[i];
+  return result;
+}
+FirstJet operator*(const FirstJet&x,const FirstJet&y){
+  FirstJet result(x.value*y.value);
+  for(int i=0;i<3;++i)
+    result.derivative[i]=x.derivative[i]*y.value+x.value*y.derivative[i];
+  return result;
+}
+FirstJet jetReciprocal(const FirstJet&x){
+  FirstJet result(interval(1.)/x.value);
+  for(int i=0;i<3;++i)
+    result.derivative[i]=-x.derivative[i]/sqr(x.value);
+  return result;
+}
+FirstJet operator/(const FirstJet&x,const FirstJet&y){
+  return x*jetReciprocal(y);
+}
+FirstJet jetPower(FirstJet x,int exponent){
+  FirstJet result(interval(1.));
+  for(int i=0;i<exponent;++i)result=result*x;
+  return result;
+}
+FirstJet jetSquare(const FirstJet&x){
+  FirstJet result(sqr(x.value));
+  for(int i=0;i<3;++i)
+    result.derivative[i]=interval(2.)*x.value*x.derivative[i];
+  return result;
+}
+FirstJet jetSqrt(const FirstJet&x){
+  FirstJet result(sqrt(x.value));
+  for(int i=0;i<3;++i)
+    result.derivative[i]=x.derivative[i]/(interval(2.)*result.value);
+  return result;
+}
+FirstJet jetSin(const FirstJet&x){
+  FirstJet result(sin(x.value));
+  for(int i=0;i<3;++i)result.derivative[i]=cos(x.value)*x.derivative[i];
+  return result;
+}
+FirstJet jetCos(const FirstJet&x){
+  FirstJet result(cos(x.value));
+  for(int i=0;i<3;++i)result.derivative[i]=-sin(x.value)*x.derivative[i];
+  return result;
+}
+FirstJet jetAtan(const FirstJet&x){
+  FirstJet result(atan(x.value));
+  for(int i=0;i<3;++i)
+    result.derivative[i]=x.derivative[i]/(interval(1.)+sqr(x.value));
+  return result;
+}
+
+template<std::size_t Size>
+FirstJet jetPolynomial(const PolynomialTerm(&terms)[Size],
+                       const FirstJet&x,const FirstJet&y){
+  FirstJet result(interval(0.));
+  for(const auto&term:terms)
+    result=result+FirstJet(coefficient(term))*jetPower(x,term.px)
+      *jetPower(y,term.py);
+  return result;
+}
+
+std::array<FirstJet,4> sourceFirstJet(
+    const interval&fixedR,const interval&a2Centre,const interval&phi0,
+    const interval&etaBox,const interval&deltaBox,const interval&errorBox){
+  const FirstJet eta=FirstJet::variable(etaBox,0);
+  const FirstJet delta=FirstJet::variable(deltaBox,1);
+  const FirstJet graphError=FirstJet::variable(errorBox,2);
+  const FirstJet one(interval(1.)),two(interval(2.));
+  const FirstJet r(fixedR),r2=jetSquare(r),r3=r2*r,r4=jetSquare(r2);
+  const FirstJet q=FirstJet(a2Centre)+eta;
+  const FirstJet a=one+r3*q;
+  const FirstJet b=r2/FirstJet(interval(3.));
+  const FirstJet c=two*r*q+r4*jetSquare(q);
+  if((two.value+c.value).leftBound()<=0.
+      || (two.value-c.value).leftBound()<=0.)
+    throw std::runtime_error("affine source leaves the real saddle-focus frame");
+  const FirstJet alpha=FirstJet(interval(.5))*jetSqrt(two+c);
+  const FirstJet beta=FirstJet(interval(.5))*jetSqrt(two-c);
+  const FirstJet h=FirstJet(interval(.5))*jetSqrt(
+    FirstJet(interval(4.))-jetSquare(c));
+  if(beta.value.contains(0.) || h.value.contains(0.))
+    throw std::runtime_error("affine source has a singular physical frame");
+  const FirstJet inverseSqrtTwo=one/jetSqrt(two);
+  const FirstJet chi=jetAtan((inverseSqrtTwo-alpha)/beta);
+  const FirstJet angle=FirstJet(phi0)+FirstJet(interval(kPhaseA2Slope))*eta
+    +delta+chi;
+  const FirstJet u1=FirstJet(interval(kRadius))*jetCos(angle);
+  const FirstJet u2=FirstJet(interval(kRadius))*jetSin(angle);
+  if(u1.value.contains(0.))
+    throw std::runtime_error("affine zero-energy source has u1 containing zero");
+  const FirstJet s1=jetPolynomial(kH1Terms,u1,u2)+graphError;
+  const FirstJet U=u1+s1;
+  const FirstJet s2=-s1*u2/u1-a*jetPower(U,3)/(FirstJet(interval(6.))*h*u1)
+    +b*jetPower(U,4)/(FirstJet(interval(8.))*h*u1);
+  std::array<FirstJet,4> state;
+  state[0]=U;
+  state[1]=alpha*u1-beta*u2-alpha*s1+beta*s2;
+  state[2]=c*u1/FirstJet(interval(2.))+h*u2
+    +c*s1/FirstJet(interval(2.))+h*s2;
+  state[3]=alpha*u1+beta*u2-alpha*s1-beta*s2;
+  return state;
+}
+
 AffineInitialData affineNodeData(
     const IVector&centre,const IVector&parameterSlope,
     const IVector&phaseSlope,const IVector&errorSlope,
@@ -193,21 +323,26 @@ AffineInitialData affineNodeData(
 }
 
 AffineInitialData affineSourceData(
-    const interval&phi0,const IVector&sourceCentre,
-    const IVector&parameterSlope,const IVector&phaseSlope,
-    const IVector&errorSlope,const interval&eta,const interval&delta,
-    const interval&graphError){
+    const interval&fixedR,const interval&a2Centre,const interval&phi0,
+    const IVector&sourceCentre,const IVector&parameterSlope,
+    const IVector&phaseSlope,const IVector&errorSlope,const interval&eta,
+    const interval&delta,const interval&graphError){
   const std::array<interval,4> zero={interval(0.),interval(0.),
                                      interval(0.),interval(0.)};
   AffineInitialData result=affineNodeData(
     sourceCentre,parameterSlope,phaseSlope,errorSlope,
     eta,delta,graphError,zero);
-  const Parameters naturalParameters=parameters(interval(.08),eta,interval(1.));
-  const interval naturalPhase=phi0+interval(kPhaseA2Slope)*eta+delta;
-  const SourceData natural=sourceData(naturalParameters,naturalPhase,graphError);
-  const IVector affineHull=result.centre+result.coordinates*result.radii;
+  const std::array<FirstJet,4> jet=sourceFirstJet(
+    fixedR,a2Centre,phi0,eta,delta,graphError);
+  const Parameters centreParameters=parameters(
+    fixedR,a2Centre,interval(1.));
+  const SourceData exactCentre=sourceData(
+    centreParameters,phi0,interval(0.));
   for(int i=0;i<4;++i){
-    const interval raw=natural.state[i]-affineHull[i];
+    interval raw=exactCentre.state[i]-sourceCentre[i];
+    raw+=(jet[i].derivative[0]-parameterSlope[i])*eta;
+    raw+=(jet[i].derivative[1]-phaseSlope[i])*delta;
+    raw+=(jet[i].derivative[2]-errorSlope[i])*graphError;
     const double radius=absUpper(raw);
     result.remainder[i]=interval(-radius,radius);
   }
@@ -230,14 +365,33 @@ struct AffineEvaluation{
   interval returnTime;
 };
 
-int runA2AffineCell(double radiusFactor,const interval&eta,
+int runA2AffineCell(double radiusFactor,const interval&a2Cell,
                     const interval&phi0){
-  if(eta.leftBound()>=0. || eta.rightBound()<=0.)
-    throw std::invalid_argument("a2-affine interval must contain zero");
-  const Parameters centreParameters=parameters(interval(.08),interval(0.),interval(1.));
+  if(a2Cell.leftBound()>=a2Cell.rightBound())
+    throw std::invalid_argument("a2-affine cell must have positive width");
+  const interval certifiedA2Domain("-0.25","0.25");
+  if(a2Cell.leftBound()<certifiedA2Domain.leftBound()
+      || a2Cell.rightBound()>certifiedA2Domain.rightBound())
+    throw std::invalid_argument("a2-affine cell leaves the certified graph domain");
+  // Derive every source and flow coefficient from one outward enclosure of
+  // the exact primary-face rational; independent decimal literals can miss
+  // one another by an ulp and would describe a nearby artificial problem.
+  const interval fixedR=interval(2.)/interval(25.);
+  const double a2CentreValue=midpointValue(a2Cell);
+  const interval a2Centre(a2CentreValue);
+  const interval eta=a2Cell-a2Centre;
+  const interval reconstructedCell=a2Centre+eta;
+  if(!eta.contains(0.)
+      || reconstructedCell.leftBound()>a2Cell.leftBound()
+      || reconstructedCell.rightBound()<a2Cell.rightBound())
+    throw std::runtime_error("outward eta coordinates do not cover the a2 cell");
+  const Parameters centreParameters=parameters(
+    fixedR,a2Centre,interval(1.));
   const interval slopeStep(kA2SlopeStep);
-  const Parameters plusParameters=parameters(interval(.08),slopeStep,interval(1.));
-  const Parameters minusParameters=parameters(interval(.08),-slopeStep,interval(1.));
+  const Parameters plusParameters=parameters(
+    fixedR,a2Centre+slopeStep,interval(1.));
+  const Parameters minusParameters=parameters(
+    fixedR,a2Centre-slopeStep,interval(1.));
   const PointOrbit centre=pointOrbit(centreParameters,phi0);
   const PointOrbit plus=pointOrbit(
     plusParameters,phi0+interval(kPhaseA2Slope*kA2SlopeStep));
@@ -252,17 +406,30 @@ int runA2AffineCell(double radiusFactor,const interval&eta,
       plus.nodes[i],minus.nodes[i],2.*kA2SlopeStep));
 
   IMap augmentedField(
-    "par:r3,r4,twoR,b;var:U,P,V,Q,eta,delta,e;"
-    "fun:P,(twoR*eta+r4*eta*eta)*U-V-(1+r3*eta)*U*U+"
+    "par:r3,r4,ac,cc,ce,b;var:U,P,V,Q,eta,delta,e;"
+    "fun:P,(cc+ce*eta+r4*eta*eta)*U-V-(ac+r3*eta)*U*U+"
     "b*U*U*U,Q,U,0,0,0;");
-  augmentedField.setParameter("r3",interval(.000512));
-  augmentedField.setParameter("r4",interval(.00004096));
-  augmentedField.setParameter("twoR",interval(.16));
-  augmentedField.setParameter("b",interval(.0064)/interval(3.));
+  const interval r2=sqr(fixedR),r3=r2*fixedR,r4=sqr(r2);
+  const interval twoR=interval(2.)*fixedR;
+  augmentedField.setParameter("r3",r3);
+  augmentedField.setParameter("r4",r4);
+  augmentedField.setParameter("ac",interval(1.)+r3*a2Centre);
+  augmentedField.setParameter("cc",twoR*a2Centre+r4*sqr(a2Centre));
+  augmentedField.setParameter("ce",twoR+interval(2.)*r4*a2Centre);
+  augmentedField.setParameter("b",r2/interval(3.));
   IOdeSolver solver(augmentedField,30);
   solver.setAbsoluteTolerance(1e-14);solver.setRelativeTolerance(1e-14);
   ICoordinateSection section(7,3);
   const int dimension=2+4*kSegments;
+  C1HORect2Set referenceSet(augmentedCentre(centre.nodes.back()));
+  IPoincareMap referencePoincare(solver,section,poincare::MinusPlus);
+  interval referenceReturnTime;
+  const IVector referenceEndpoint=referencePoincare(
+    referenceSet,referenceReturnTime);
+  const interval referencePDot=centreParameters.c*referenceEndpoint[0]
+    -referenceEndpoint[2]-centreParameters.a*sqr(referenceEndpoint[0])
+    +centreParameters.b*power(referenceEndpoint[0],3);
+  const interval eventShear(-midpointValue(referencePDot/referenceEndpoint[0]));
 
   auto evaluate=[&](const IVector&X)->AffineEvaluation{
     IVector F(dimension);IMatrix D(dimension,dimension);
@@ -276,7 +443,7 @@ int runA2AffineCell(double radiusFactor,const interval&eta,
     IVector propagatedPhase(7);
 
     AffineInitialData firstData=affineSourceData(
-      phi0,centre.source.state,sourceParameterSlope,
+      fixedR,a2Centre,phi0,centre.source.state,sourceParameterSlope,
       centre.source.phaseDerivative,centre.source.errorDerivative,
       eta,X[0],X[1]);
     C1HORect2Set firstSet(firstData.centre,firstData.coordinates,
@@ -289,7 +456,8 @@ int runA2AffineCell(double radiusFactor,const interval&eta,
       firstFrame,augmentedCentre(centre.nodes[0]));
     const IMatrix firstFlow=(IMatrix)firstSet;
     const IMatrix firstA=firstFrame*firstFlow;
-    const Parameters naturalParameters=parameters(interval(.08),eta,interval(1.));
+    const Parameters naturalParameters=parameters(
+      fixedR,a2Centre+eta,interval(1.));
     const SourceData naturalSource=sourceData(
       naturalParameters,phi0+interval(kPhaseA2Slope)*eta+X[0],X[1]);
     const IVector deltaColumn=initialColumn(naturalSource.phaseDerivative,5);
@@ -339,6 +507,20 @@ int runA2AffineCell(double radiusFactor,const interval&eta,
     const AffineInitialData finalData=affineNodeData(
       centre.nodes.back(),parameterSlopes.back(),centre.phaseTangents.back(),
       centre.errorTangents.back(),eta,X[0],X[1],finalXi);
+    C1HORect2Set residualSet(finalData.centre,finalData.coordinates,
+                            finalData.radii,finalData.remainder);
+    IPoincareMap residualPoincare(solver,section,poincare::MinusPlus);
+    IVector eventCentre(7);
+    for(int i=0;i<7;++i)eventCentre[i]=interval(0.);
+    IMatrix eventCoordinates=IMatrix::Identity(7);
+    // P+lambda*Q equals P on the Q=0 section.  Choosing lambda so that
+    // its Lie derivative vanishes at the core event removes the dominant
+    // first-order return-time wrapping without changing the equation.
+    eventCoordinates[1][3]=eventShear;
+    interval residualReturnTime;
+    const IVector affineEndpoint=residualPoincare(
+      residualSet,eventCentre,eventCoordinates,residualReturnTime);
+
     C1HORect2Set finalSet(finalData.centre,finalData.coordinates,
                           finalData.radii,finalData.remainder);
     IPoincareMap poincare(solver,section,poincare::MinusPlus);
@@ -347,7 +529,11 @@ int runA2AffineCell(double radiusFactor,const interval&eta,
     const IMatrix DP=poincare.computeDP(endpoint,flowDerivative,returnTime);
     const IVector finalDelta=initialColumn(centre.phaseTangents.back(),5);
     const IVector finalError=initialColumn(centre.errorTangents.back(),6);
-    F[dimension-1]=endpoint[1];
+    // This overload evaluates the section residual directly in the
+    // doubleton coordinates.  Taking endpoint[1] from the ordinary vector
+    // hull discards the common eta/delta/e dependence before Krawczyk sees
+    // it and causes severe wrapping at the last event.
+    F[dimension-1]=affineEndpoint[1];
     D[dimension-1][0]=(DP*finalDelta)[1];
     D[dimension-1][1]=(DP*finalError)[1];
     for(int k=0;k<4;++k)D[dimension-1][2+4*(kSegments-1)+k]=DP[1][k];
@@ -371,13 +557,19 @@ int runA2AffineCell(double radiusFactor,const interval&eta,
     X[i]=interval(-radius,radius);
   }
   const AffineInitialData sourceDiagnostic=affineSourceData(
-    phi0,centre.source.state,sourceParameterSlope,
+    fixedR,a2Centre,phi0,centre.source.state,sourceParameterSlope,
     centre.source.phaseDerivative,centre.source.errorDerivative,
     eta,zero[0],zero[1]);
   std::cout<<std::setprecision(17)
     <<"mode a2-affine-cell\n"
-    <<"parameters "<<interval(.08)<<" "<<eta<<" "<<interval(1.)<<"\n"
+    <<"parameters "<<fixedR<<" "<<a2Cell<<" "<<interval(1.)<<"\n"
+    <<"a2_centre "<<a2Centre<<" eta "<<eta<<"\n"
     <<"phase_centre "<<phi0<<" phase_a2_slope "<<kPhaseA2Slope<<"\n"
+    <<"event_shear "<<eventShear<<" reference_return "
+       <<referenceReturnTime<<"\n"
+    <<"source_columns "<<sourceParameterSlope<<" "
+       <<centre.source.phaseDerivative<<" "
+       <<centre.source.errorDerivative<<"\n"
     <<"source_zero_remainder "<<sourceDiagnostic.remainder<<"\n"
     <<"base_event_residual "<<base.residual[dimension-1]<<"\n"
     <<"pre_delta_prediction "<<predicted[0]<<" final_delta_box "<<X[0]<<"\n"
@@ -405,8 +597,8 @@ int runA2AffineCell(double radiusFactor,const interval&eta,
   const bool success=inclusion&&maxContraction<1.&&transverse
     &&data.endpoint[0].leftBound()>1.;
   std::cout<<std::setprecision(17)
-    <<"source_natural_remainder "<<affineSourceData(
-       phi0,centre.source.state,sourceParameterSlope,
+    <<"source_full_box_remainder "<<affineSourceData(
+       fixedR,a2Centre,phi0,centre.source.state,sourceParameterSlope,
        centre.source.phaseDerivative,centre.source.errorDerivative,
        eta,X[0],X[1]).remainder<<"\n"
     <<"base_event_residual "<<base.residual[dimension-1]<<"\n"
