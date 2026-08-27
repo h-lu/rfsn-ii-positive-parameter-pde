@@ -176,7 +176,12 @@ state/parameter jets, and the weight-(1/4) half-orbit bounds in moving and
 physical coordinates.  Consequently its local parent obligations
 `V2.WU.JETS` and `V2.WU_GRAPH` pass.  Its aggregate remains `INCONCLUSIVE` and
 non-claim-bearing solely because independent replay remains 1/2.  The
-normalized Kato source-phase interface is next, followed by P2c--P5.
+subsequent clean P2bK kernel also passes its locked 56-identity exact audit,
+normalized Riesz/Kato transport, physical frame change, complete \(C^2\)
+parameter lift, degree-one radius-`.01` true source circle, and the nine-jet
+total-order-three source triangle.  Its aggregate likewise remains
+`INCONCLUSIVE` and non-claim-bearing solely because independent replay is
+1/2.  P2c--P5 remain unimplemented.
 
 ## Repository map
 
@@ -200,6 +205,7 @@ normalized Kato source-phase interface is next, followed by P2c--P5.
 - [Issue #7 P2a local-graph report](validation/rigorous/P2A_REPORT.md)
 - [Issue #7 P2b0 H10 C0/C1 report](validation/rigorous/P2B0_REPORT.md)
 - [Issue #7 P2b mixed-jet report](validation/rigorous/P2B_JETS_REPORT.md)
+- [Issue #7 P2bK normalized Kato phase report](validation/rigorous/P2B_KATO_REPORT.md)
 
 ## Initial work queue
 
@@ -209,7 +215,7 @@ normalized Kato source-phase interface is next, followed by P2c--P5.
 - [#4: central--outer matching theorem](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/4), the decisive mathematical go/no-go task
 - [#5: outer algebraic action finite part](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/5)
 - [#6: exhaustive two-end theorem](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/6)
-- [#7: rigorous validation](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/7), with phase 1, P2a, P2b0, and the P2b mixed-jet/weighted-half-orbit parent passing locally; Kato phase, P2c--P5, and independent replay remain pending
+- [#7: rigorous validation](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/7), with phase 1, P2a, P2b0, P2b mixed jets, and the P2bK normalized Kato/true-source interface passing locally; P2c--P5 and independent replay remain pending
 
 The source theory remains in
 [`h-lu/reversible-rfsn-ii-waves`](https://github.com/h-lu/reversible-rfsn-ii-waves).

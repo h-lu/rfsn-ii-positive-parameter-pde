@@ -62,11 +62,16 @@ coefficient, higher-state-tensor, complete mixed-jet, and weighted-half-orbit
 obligation passes, so the local parents `V2.WU.JETS` and `V2.WU_GRAPH` pass as
 well.  Its aggregate remains `INCONCLUSIVE` and non-claim-bearing solely
 because the current-computer-only lane supplies one of two required
-independent machines.  The subsequent `p2-kato` scope now implements the
-separate normalized Kato source-phase interface: exact symbolic identities,
-outward-rounded frame and parameter bounds, and the frozen true-source jet
-triangle.  Its clean result is archived separately only after the
-implementation source is committed; P2c remains the next unimplemented
+independent machines.
+
+The first clean P2bK certificate is archived at
+[`results/vdp_bridge_v1_p2b_kato.json`](results/vdp_bridge_v1_p2b_kato.json)
+and explained in [`P2B_KATO_REPORT.md`](P2B_KATO_REPORT.md).  Its locked
+exact-algebra audit passes all 56 identities; the Riesz/Kato transport,
+physical frame change, complete \(C^2\) parameter lift, radius-`.01` true
+source circle, and nine-jet total-order-three source triangle all pass on the
+complete bridge.  Its aggregate remains `INCONCLUSIVE` and non-claim-bearing
+solely because independent replay remains 1/2.  P2c is the next unimplemented
 scope.
 
 ## Frozen phase-1 box

@@ -1,0 +1,2233 @@
+{
+  "certificate_id": "vdp-p2-kato-20260827t122155z-91007a883952",
+  "claim_bearing": false,
+  "continuation_bridge": {
+    "bridge_id": "vdp-core-to-positive-bridge-v1",
+    "path": "validation/rigorous/config/vdp_bridge_v1.json",
+    "sha256": "2b62e6fc5625d3f5634d986f7e9cbe8199abfc45c7b97ca29e5efd464b5b69c7",
+    "variables": {
+      "a2": {
+        "lower": {
+          "denominator": "4",
+          "numerator": "-1"
+        },
+        "upper": {
+          "denominator": "4",
+          "numerator": "1"
+        }
+      },
+      "epsilon": {
+        "lower": {
+          "denominator": "5",
+          "numerator": "4"
+        },
+        "upper": {
+          "denominator": "5",
+          "numerator": "6"
+        }
+      },
+      "r": {
+        "lower": {
+          "denominator": "1",
+          "numerator": "0"
+        },
+        "upper": {
+          "denominator": "25",
+          "numerator": "2"
+        }
+      }
+    }
+  },
+  "created_at": "2026-08-27T12:21:55.134805+00:00",
+  "final_status": "INCONCLUSIVE",
+  "independent_replay": {
+    "observed_distinct_machines": 1,
+    "required_distinct_machines": 2,
+    "status": "PENDING_REQUIRED"
+  },
+  "integrity_status": "PASS",
+  "kato_exact_algebra_audit": {
+    "backend": {
+      "name": "sympy",
+      "version": "1.14.0"
+    },
+    "checks": {
+      "A_inverse_exists_exactly": true,
+      "C_AK_conformal_gram_identity": true,
+      "C_AK_determinant_is_sigma_squared": true,
+      "C_AK_first_column_gives_k1": true,
+      "C_AK_inverse_closed_form": true,
+      "C_AK_orientation_is_positive": true,
+      "C_AK_positive_radial_rotation_factorization": true,
+      "C_AK_second_column_gives_Ju_k1": true,
+      "K_equals_E_times_C_AK": true,
+      "R_chi_is_special_orthogonal": true,
+      "algebraic_frame_expanding_block": true,
+      "algebraic_frame_rank_two_minor": true,
+      "algebraic_frame_spans_projector_range": true,
+      "alpha_beta_spectral_relations": true,
+      "alpha_first_second_derivative_formulas": true,
+      "anchor_face_C_AK_is_I_over_sqrt_two": true,
+      "anchor_face_c_is_zero_and_dummy_independent": true,
+      "anchor_face_chi_zero_on_positive_cosine_branch": true,
+      "anchor_face_normalizer_squared_two": true,
+      "anchor_face_rotation_is_identity": true,
+      "anchor_face_source_is_pointwise_core_circle": true,
+      "anchor_face_transport_identity": true,
+      "anchor_face_y_zero": true,
+      "beta_first_second_derivative_formulas": true,
+      "chi_first_second_derivative_formulas": true,
+      "coordinate_direction_is_phi_plus_chi": true,
+      "expanding_spectral_factor_on_projector_range": true,
+      "kato_commutator_involution": true,
+      "kato_transport_differential_equation": true,
+      "kato_transport_initial_value": true,
+      "kato_transport_projector_intertwining": true,
+      "normalized_first_kato_vector_has_unit_norm": true,
+      "normalized_transport_is_g_over_N": true,
+      "normalizer_is_g_norm_squared": true,
+      "normalizer_is_physical_g_norm_squared": true,
+      "projector_commutator_closed_form": true,
+      "riesz_projector_commutes_with_A": true,
+      "riesz_projector_idempotent": true,
+      "riesz_projector_reverser_exchange": true,
+      "riesz_projector_trace_two": true,
+      "same_graph_boundary_normalized_C_AK_direction": true,
+      "source_coordinate_fixed_radius": true,
+      "source_phase_degree_plus_one": true,
+      "source_phase_derivative_J0_identity": true,
+      "source_phase_speed_fixed_radius": true,
+      "stable_spectral_factor_on_complement": true,
+      "tau_and_hyperbolic_closed_forms": true,
+      "tau_derivative_sign_convention": true,
+      "transported_core_vector_bridge": true,
+      "transported_core_vector_norm_squared_bridge": true,
+      "unstable_complex_structure_fails_on_stable_complement": true,
+      "unstable_complex_structure_intertwines_E_J0": true,
+      "unstable_complex_structure_not_global_identity": true,
+      "unstable_complex_structure_on_projector_range": true,
+      "y_first_second_derivative_formulas": true,
+      "y_two_closed_forms_agree": true
+    },
+    "method": "exact-symbolic-identities-no-sampling",
+    "schema_version": "rfsn-vdp-p2-kato-exact-audit/1",
+    "status": "PASS"
+  },
+  "logs": {
+    "compile_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "compile_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "kato_audit_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "kato_audit_stdout_sha256": "88cbb06a5f68b7306ffd10860e60ff697e411011308306b76a89462a6c229d1e",
+    "probe_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "probe_stdout_sha256": "d14a91f7591938f5b58675a78a5c40bbbb94cd9ebb5a81df2c811fb6e2ecb647"
+  },
+  "mathematical_status": "PASS",
+  "nonclaims": [
+    "A local mathematical PASS is not an aggregate theorem certificate.",
+    "Independent-machine replay is pending and this certificate is not claim-bearing.",
+    "The P2 Kato kernel proves only the normalized expanding-frame and total-order-three true-source phase interface; the selected homoclinic, positive radial symplectic completion, exact charts, event atlas, V3--V6, temporal stability, Turing selection, and canard identification remain outside its scope."
+  ],
+  "obligations": [
+    {
+      "id": "ENV.SOURCE_BINDING",
+      "predicate": "Local and frozen external sources are hash-bound without using dirty flagship files.",
+      "status": "PASS"
+    },
+    {
+      "id": "ENV.CAPD_BINDING",
+      "predicate": "The CAPD commit, FILIB backend, compiler, flags, and linked archives match the declared lock.",
+      "status": "PASS"
+    },
+    {
+      "id": "ENV.ROUNDING",
+      "predicate": "Runtime directed rounding, rational division, square root, endpoint serialization, and floating-point environment tests pass.",
+      "status": "PASS"
+    },
+    {
+      "diagnostics": [],
+      "id": "BOX.FROZEN",
+      "predicate": "A positive-width exact rational box was selected and frozen before interval results were inspected.",
+      "status": "PASS"
+    },
+    {
+      "diagnostics": [],
+      "id": "BRIDGE.FROZEN",
+      "predicate": "The exact rational comparison bridge from the complete r=0 core anchor face through the positive target box was frozen before P2 interval results were inspected.",
+      "status": "PASS"
+    },
+    {
+      "diagnostics": [],
+      "id": "P2.LOCAL_GRAPH_CONFIG_FROZEN",
+      "predicate": "The local graph block, moving frame, proof gates, and claim boundary were frozen before their outward-rounded margins were evaluated.",
+      "status": "PASS"
+    },
+    {
+      "diagnostics": [],
+      "id": "ENV.EXACT_SYMBOLIC_BACKEND",
+      "predicate": "For the P2bK exact audit, the Python executable version and hash and the cache-free SymPy source-tree version, deterministic digest, and file count match the frozen dependency lock.",
+      "status": "PASS"
+    },
+    {
+      "diagnostics": [],
+      "id": "P2.P2B_JETS_PREREQUISITE",
+      "predicate": "The immutable P2b mixed-jet certificate is internally valid and records integrity and mathematical PASS for V2.WU_GRAPH on the same bridge.",
+      "status": "PASS"
+    },
+    {
+      "diagnostics": [],
+      "id": "P2.KATO_CONFIG_FROZEN",
+      "predicate": "The Kato formulas, sign and normalization conventions, parameter grid and norms, direct source circle, total-order-three source-jet triangle, rational gates, prerequisites, and nonclaims were frozen before the outward-rounded P2bK run.",
+      "status": "PASS"
+    },
+    {
+      "diagnostics": [],
+      "id": "P2.KATO.EXACT_ALGEBRA",
+      "predicate": "An independently replayed exact symbolic audit verifies the expanding Riesz projector, Kato transport and normalization bridge, complex structure on the expanding range, frame change, core face, and positive phase orientation identities without numerical sampling or tolerances.",
+      "status": "PASS"
+    },
+    {
+      "enclosures": {
+        "absolute_c_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.0568aaff930ap-10",
+          "upper_hex": "0x1.4fdf3b645a1cdp-5"
+        },
+        "alpha_lower_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.0630c976c4p-10",
+          "upper_hex": "0x1.f0377d85a898p-7"
+        },
+        "beta_lower_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.060341eef84p-10",
+          "upper_hex": "0x1.f031e96f437cp-7"
+        }
+      },
+      "id": "P2.KATO.RIESZ_TRANSPORT",
+      "predicate": "The expanding Riesz projector is spectrally identified and the signed Kato equation has the frozen closed-form transport from the exact core vector, including the exact bridge to its normalized first frame vector.",
+      "status": "PASS"
+    },
+    {
+      "enclosures": {
+        "absolute_y_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.3ee6e594b6928p-9",
+          "upper_hex": "0x1.999999999999dp-7"
+        },
+        "frame_change_determinant_lower_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.86dac074e68p-5",
+          "upper_hex": "0x1.04d3caa308f7cp-4"
+        },
+        "frame_change_inverse_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.31673db01ecbp-4",
+          "upper_hex": "0x1.8dde7362e2ap-4"
+        },
+        "normalizer_squared_lower_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.1771876d1842p-4",
+          "upper_hex": "0x1.0e498e82efb88p-3"
+        },
+        "phase_rotation_cosine_lower_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.f1b92b904a4p-11",
+          "upper_hex": "0x1.0624de209ap-10"
+        },
+        "phase_shift_absolute_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.3ef24ea0fc198p-9",
+          "upper_hex": "0x1.999999999999dp-7"
+        },
+        "physical_frame_operator_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.a9804e59ad04p-6",
+          "upper_hex": "0x1.ec978788d91bp-5"
+        },
+        "physical_frame_smallest_singular_lower_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.a987825e57fap-6",
+          "upper_hex": "0x1.ee9b4ee8b95fp-5"
+        },
+        "radial_scale_lower_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.1dab65e20d59p-5",
+          "upper_hex": "0x1.7a2632fb0a4ap-5"
+        },
+        "radial_scale_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.308477afa06p-5",
+          "upper_hex": "0x1.8cff44c89d51p-5"
+        }
+      },
+      "id": "P2.KATO.FRAME_CHANGE",
+      "predicate": "The normalized Kato expanding frame is oriented and uniformly nondegenerate, and its positive conformal coordinate change to the algebraic graph frame has the frozen direction and phase sign.",
+      "status": "PASS"
+    },
+    {
+      "enclosures": {
+        "normalized_c_first_derivative_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.5972a4e2bfc4p-8",
+          "upper_hex": "0x1.999999999999dp-5"
+        },
+        "normalized_c_second_derivative_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.bd9be33a73a9p-10",
+          "upper_hex": "0x1.eb851eb851ebbp-6"
+        },
+        "normalized_change_first_derivative_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.cfb7acffc06b8p-10",
+          "upper_hex": "0x1.eb851eb851ebbp-7"
+        },
+        "normalized_change_second_derivative_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.f2b0cade074e8p-10",
+          "upper_hex": "0x1.47ae147ae147dp-7"
+        },
+        "normalized_frame_first_derivative_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.acdbc697e3d2p-10",
+          "upper_hex": "0x1.999999999999dp-6"
+        },
+        "normalized_frame_second_derivative_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.9752c5321b4ccp-8",
+          "upper_hex": "0x1.47ae147ae147dp-6"
+        },
+        "normalized_phase_first_derivative_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.e23ce06e6cf58p-9",
+          "upper_hex": "0x1.eb851eb851ebbp-7"
+        },
+        "normalized_phase_second_derivative_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.68b22a1e34a44p-9",
+          "upper_hex": "0x1.47ae147ae147dp-7"
+        },
+        "normalized_projector_first_derivative_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.3523334305eecp-8",
+          "upper_hex": "0x1.999999999999dp-6"
+        },
+        "normalized_projector_second_derivative_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.d6ee486bd4d2ep-8",
+          "upper_hex": "0x1.47ae147ae147dp-6"
+        },
+        "normalized_rotation_first_derivative_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.0573d432f7954p-8",
+          "upper_hex": "0x1.47ae147ae147dp-6"
+        },
+        "normalized_rotation_second_derivative_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.371cfb001d9d6p-8",
+          "upper_hex": "0x1.eb851eb851ebbp-7"
+        }
+      },
+      "id": "P2.KATO.C2_LIFT",
+      "predicate": "Complete first and symmetric second normalized-parameter derivatives of the projector, phase shift, rotation, frame change, and physical Kato frame are outward-rounded on the gap-free bridge grid and converted to original parameters by the frozen 25/625 operator factors.",
+      "status": "PASS"
+    },
+    {
+      "enclosures": {
+        "S_0_0_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.ecddc4e80474p-11",
+          "upper_hex": "0x1.ecddc4e80498p-11"
+        },
+        "S_0_1_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.3344214106c68p-12",
+          "upper_hex": "0x1.982cb74b5b2b4p-11"
+        },
+        "S_0_2_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.5a10cfd270cc8p-12",
+          "upper_hex": "0x1.66339c0b2f0b6p-11"
+        },
+        "S_1_0_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.1524e2a7fd12p-9",
+          "upper_hex": "0x1.1524e2a7fd23p-9"
+        },
+        "S_1_1_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.462fe7664735cp-11",
+          "upper_hex": "0x1.2f26c8f14314ep-10"
+        },
+        "S_1_2_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.4ee150373dcc8p-12",
+          "upper_hex": "0x1.77220db4b8802p-11"
+        },
+        "S_2_0_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.6fbdef75aaf9p-9",
+          "upper_hex": "0x1.6fbdef75ab0ep-9"
+        },
+        "S_2_1_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.1296484859f5cp-11",
+          "upper_hex": "0x1.32c82ab4978fcp-10"
+        },
+        "S_3_0_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.7a9fed4c6827p-9",
+          "upper_hex": "0x1.7a9fed4c684p-9"
+        },
+        "normalized_source_coordinate_first_derivative_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.34a1d750e9926p-15",
+          "upper_hex": "0x1.3a92a30553264p-13"
+        },
+        "normalized_source_coordinate_second_derivative_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.cd80307ec0bfcp-16",
+          "upper_hex": "0x1.a36e2eb1c433p-14"
+        },
+        "source_coordinate_phase_speed_lower_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.a36e2eb1c41p-14",
+          "upper_hex": "0x1.a36e2eb1c458p-14"
+        }
+      },
+      "id": "P2.KATO.SOURCE_PARAMETERIZATION",
+      "predicate": "The positive-orientation Kato phase defines the direct radius-1/100 boundary of the same algebraic true-graph disk, with exact radius, degree one, and pointwise recovery of the imported core source on the complete r=0 dummy face.",
+      "status": "PASS"
+    },
+    {
+      "id": "V2.PHASE.TRUE_SOURCE",
+      "predicate": "The immutable P2b true graph and the Kato source-coordinate bounds combine to enclose exactly the declared total-order-three triangle of physical true-source jets, including exact conversion through parameter order two.",
+      "status": "PASS"
+    },
+    {
+      "id": "V2.PHASE.KATO_INTERFACE",
+      "predicate": "Normalized Kato transport fixes a C2 expanding phase frame, an orientation-preserving uniformly invertible change from the algebraic graph frame, and a degree-one true source circle agreeing with the frozen core phase on the complete anchor face.",
+      "status": "PASS"
+    }
+  ],
+  "p2_kato_configuration": {
+    "configuration_id": "vdp-p2-kato-v1",
+    "path": "validation/rigorous/config/vdp_p2_kato_v1.json",
+    "sha256": "676de23609a66b9a6fa35d2cc476878018bc84b4615460719f9c2f87eb1823e3"
+  },
+  "p2b_jets_prerequisite": {
+    "certificate_path": "validation/rigorous/results/vdp_bridge_v1_p2b_jets.json",
+    "certificate_scope": "V2_P2_JETS_KERNEL",
+    "certificate_sha256": "07b0949a3d403c0c0a85a4a157b86d7b32cce3ff0348aeffa1db474d441fca07",
+    "claim_bearing": false,
+    "configuration_path": "validation/rigorous/config/vdp_p2_jets_v1.json",
+    "configuration_sha256": "b8123dff51f7444277f71b1b8a5b0cdbbc94df46a848af05e8288751bb6681e0",
+    "final_status": "INCONCLUSIVE",
+    "integrity_status": "PASS",
+    "mathematical_status": "PASS",
+    "source_commit": "ae88ae0fb47dc43329ad2b66bd465576994df23c"
+  },
+  "parameter_box": {
+    "box_id": "vdp-positive-box-v1",
+    "path": "validation/rigorous/config/vdp_box_v1.json",
+    "sha256": "ce84e84e4e2e53563125497df4ad2df98a533437b04b35bee042e9b04ea1c735",
+    "variables": {
+      "a2": {
+        "lower": {
+          "denominator": "4",
+          "numerator": "-1"
+        },
+        "upper": {
+          "denominator": "4",
+          "numerator": "1"
+        }
+      },
+      "epsilon": {
+        "lower": {
+          "denominator": "5",
+          "numerator": "4"
+        },
+        "upper": {
+          "denominator": "5",
+          "numerator": "6"
+        }
+      },
+      "r": {
+        "lower": {
+          "denominator": "25",
+          "numerator": "1"
+        },
+        "upper": {
+          "denominator": "25",
+          "numerator": "2"
+        }
+      }
+    }
+  },
+  "raw_probe": {
+    "acceptance_gates": {
+      "absolute_c_upper": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.4fdf3b645a1c9p-5",
+        "upper_hex": "0x1.4fdf3b645a1cdp-5"
+      },
+      "absolute_y_upper": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.9999999999997p-7",
+        "upper_hex": "0x1.999999999999dp-7"
+      },
+      "alpha_lower": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.65e353f7ced8fp-1",
+        "upper_hex": "0x1.65e353f7ced94p-1"
+      },
+      "beta_lower": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.65e353f7ced8fp-1",
+        "upper_hex": "0x1.65e353f7ced94p-1"
+      },
+      "frame_change_determinant_lower": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.c71c71c71c719p-2",
+        "upper_hex": "0x1.c71c71c71c72p-2"
+      },
+      "frame_change_inverse_upper": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.7fffffffffffdp+0",
+        "upper_hex": "0x1.8000000000002p+0"
+      },
+      "normalized_c_first_derivative_upper": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.9999999999997p-5",
+        "upper_hex": "0x1.999999999999dp-5"
+      },
+      "normalized_c_second_derivative_upper": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.eb851eb851eb5p-6",
+        "upper_hex": "0x1.eb851eb851ebbp-6"
+      },
+      "normalized_change_first_derivative_upper": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.eb851eb851eb5p-7",
+        "upper_hex": "0x1.eb851eb851ebbp-7"
+      },
+      "normalized_change_second_derivative_upper": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.47ae147ae1479p-7",
+        "upper_hex": "0x1.47ae147ae147dp-7"
+      },
+      "normalized_frame_first_derivative_upper": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.9999999999997p-6",
+        "upper_hex": "0x1.999999999999dp-6"
+      },
+      "normalized_frame_second_derivative_upper": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.47ae147ae1479p-6",
+        "upper_hex": "0x1.47ae147ae147dp-6"
+      },
+      "normalized_phase_first_derivative_upper": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.eb851eb851eb5p-7",
+        "upper_hex": "0x1.eb851eb851ebbp-7"
+      },
+      "normalized_phase_second_derivative_upper": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.47ae147ae1479p-7",
+        "upper_hex": "0x1.47ae147ae147dp-7"
+      },
+      "normalized_projector_first_derivative_upper": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.9999999999997p-6",
+        "upper_hex": "0x1.999999999999dp-6"
+      },
+      "normalized_projector_second_derivative_upper": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.47ae147ae1479p-6",
+        "upper_hex": "0x1.47ae147ae147dp-6"
+      },
+      "normalized_rotation_first_derivative_upper": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.47ae147ae1479p-6",
+        "upper_hex": "0x1.47ae147ae147dp-6"
+      },
+      "normalized_rotation_second_derivative_upper": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.eb851eb851eb5p-7",
+        "upper_hex": "0x1.eb851eb851ebbp-7"
+      },
+      "normalized_source_coordinate_first_derivative_upper": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.3a92a3055325fp-13",
+        "upper_hex": "0x1.3a92a30553264p-13"
+      },
+      "normalized_source_coordinate_second_derivative_upper": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.a36e2eb1c432ap-14",
+        "upper_hex": "0x1.a36e2eb1c433p-14"
+      },
+      "normalizer_squared_lower": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.e666666666663p+0",
+        "upper_hex": "0x1.e66666666666ap+0"
+      },
+      "phase_rotation_cosine_lower": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.ff7ced9168728p-1",
+        "upper_hex": "0x1.ff7ced916872ep-1"
+      },
+      "phase_shift_absolute_upper": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.9999999999997p-7",
+        "upper_hex": "0x1.999999999999dp-7"
+      },
+      "physical_frame_operator_upper": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.0cccccccccccbp+0",
+        "upper_hex": "0x1.0cccccccccccfp+0"
+      },
+      "physical_frame_smallest_singular_lower": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.e666666666663p-1",
+        "upper_hex": "0x1.e66666666666ap-1"
+      },
+      "radial_scale_lower": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.5555555555553p-1",
+        "upper_hex": "0x1.5555555555558p-1"
+      },
+      "radial_scale_upper": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.7fffffffffffdp-1",
+        "upper_hex": "0x1.8000000000002p-1"
+      },
+      "source_coordinate_phase_speed_lower": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.4467381d7dbf2p-7",
+        "upper_hex": "0x1.4467381d7dbf7p-7"
+      }
+    },
+    "c2_lift_gate_margins": {
+      "normalized_c_first_derivative_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.5972a4e2bfc4p-8",
+        "upper_hex": "0x1.999999999999dp-5"
+      },
+      "normalized_c_second_derivative_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.bd9be33a73a9p-10",
+        "upper_hex": "0x1.eb851eb851ebbp-6"
+      },
+      "normalized_change_first_derivative_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.cfb7acffc06b8p-10",
+        "upper_hex": "0x1.eb851eb851ebbp-7"
+      },
+      "normalized_change_second_derivative_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.f2b0cade074e8p-10",
+        "upper_hex": "0x1.47ae147ae147dp-7"
+      },
+      "normalized_frame_first_derivative_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.acdbc697e3d2p-10",
+        "upper_hex": "0x1.999999999999dp-6"
+      },
+      "normalized_frame_second_derivative_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.9752c5321b4ccp-8",
+        "upper_hex": "0x1.47ae147ae147dp-6"
+      },
+      "normalized_phase_first_derivative_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.e23ce06e6cf58p-9",
+        "upper_hex": "0x1.eb851eb851ebbp-7"
+      },
+      "normalized_phase_second_derivative_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.68b22a1e34a44p-9",
+        "upper_hex": "0x1.47ae147ae147dp-7"
+      },
+      "normalized_projector_first_derivative_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.3523334305eecp-8",
+        "upper_hex": "0x1.999999999999dp-6"
+      },
+      "normalized_projector_second_derivative_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.d6ee486bd4d2ep-8",
+        "upper_hex": "0x1.47ae147ae147dp-6"
+      },
+      "normalized_rotation_first_derivative_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.0573d432f7954p-8",
+        "upper_hex": "0x1.47ae147ae147dp-6"
+      },
+      "normalized_rotation_second_derivative_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.371cfb001d9d6p-8",
+        "upper_hex": "0x1.eb851eb851ebbp-7"
+      }
+    },
+    "external_exact_audit_contract": {
+      "included_in_raw_status": false,
+      "required": true,
+      "schema_version": "rfsn-vdp-p2-kato-exact-audit/1"
+    },
+    "frame_change_gate_margins": {
+      "absolute_y_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.3ee6e594b6928p-9",
+        "upper_hex": "0x1.999999999999dp-7"
+      },
+      "frame_change_determinant_lower_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.86dac074e68p-5",
+        "upper_hex": "0x1.04d3caa308f7cp-4"
+      },
+      "frame_change_inverse_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.31673db01ecbp-4",
+        "upper_hex": "0x1.8dde7362e2ap-4"
+      },
+      "normalizer_squared_lower_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.1771876d1842p-4",
+        "upper_hex": "0x1.0e498e82efb88p-3"
+      },
+      "phase_rotation_cosine_lower_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.f1b92b904a4p-11",
+        "upper_hex": "0x1.0624de209ap-10"
+      },
+      "phase_shift_absolute_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.3ef24ea0fc198p-9",
+        "upper_hex": "0x1.999999999999dp-7"
+      },
+      "physical_frame_operator_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.a9804e59ad04p-6",
+        "upper_hex": "0x1.ec978788d91bp-5"
+      },
+      "physical_frame_smallest_singular_lower_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.a987825e57fap-6",
+        "upper_hex": "0x1.ee9b4ee8b95fp-5"
+      },
+      "radial_scale_lower_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.1dab65e20d59p-5",
+        "upper_hex": "0x1.7a2632fb0a4ap-5"
+      },
+      "radial_scale_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.308477afa06p-5",
+        "upper_hex": "0x1.8cff44c89d51p-5"
+      }
+    },
+    "grid": {
+      "cell_count": 512,
+      "normalized_parameter_dimension": 3,
+      "ordered_axes": [
+        "theta_r",
+        "theta_a",
+        "theta_epsilon"
+      ],
+      "subdivisions": [
+        16,
+        8,
+        4
+      ]
+    },
+    "imported_p2b_physical_jet_enclosures": {
+      "Z_0_0": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.482bc450ba0a7p-5",
+        "upper_hex": "0x1.482bc450ba0acp-5"
+      },
+      "Z_0_1": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.a90eea64f8b6ep-10",
+        "upper_hex": "0x1.a90eea64f8b73p-10"
+      },
+      "Z_0_2": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.24c226826533bp-10",
+        "upper_hex": "0x1.24c226826534p-10"
+      },
+      "Z_1_0": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.1277b2eecc241p+2",
+        "upper_hex": "0x1.1277b2eecc246p+2"
+      },
+      "Z_1_1": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.79901969e9fe7p-3",
+        "upper_hex": "0x1.79901969e9fecp-3"
+      },
+      "Z_1_2": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.07104c3f0187ep-3",
+        "upper_hex": "0x1.07104c3f01883p-3"
+      },
+      "Z_2_0": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.58b415ef769a7p+5",
+        "upper_hex": "0x1.58b415ef769acp+5"
+      },
+      "Z_2_1": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.372300521ec09p+2",
+        "upper_hex": "0x1.372300521ec0ep+2"
+      },
+      "Z_3_0": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.44d89b769daf9p+10",
+        "upper_hex": "0x1.44d89b769dafep+10"
+      }
+    },
+    "mathematical_status": "PASS",
+    "norm_contract": {
+      "matrix_first_parameter_norm": "output-parameter-hilbert-schmidt",
+      "matrix_inverse_norm": "spectral-2-norm",
+      "matrix_second_parameter_norm": "output-full-ordered-parameter-hilbert-schmidt",
+      "matrix_value_norm": "spectral-2-norm",
+      "scalar_first_parameter_norm": "euclidean-on-R3",
+      "scalar_second_parameter_norm": "full-3x3-frobenius",
+      "true_source_jet_norm": "physical-output-labelled-multilinear-hilbert-schmidt"
+    },
+    "normalized_parameter_jet_enclosures": {
+      "C_AK_D1": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.b18e291859ddep-7"
+      },
+      "C_AK_D2": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.0957fb1f205dcp-7"
+      },
+      "K_D1": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.7ecbdd301b5c5p-6"
+      },
+      "K_D2": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.c3b2c65cb4e8cp-7"
+      },
+      "P_u_D1": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.4c50ccc8d81dcp-6"
+      },
+      "P_u_D2": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.a3e504bfd825bp-7"
+      },
+      "R_chi_D1": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.06511f6e23624p-6"
+      },
+      "R_chi_D2": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.4ff6a138431cap-7"
+      },
+      "c_D1": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.6e6b44fd41a0fp-5"
+      },
+      "c_D2": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.cfab6084aab0cp-6"
+      },
+      "chi_D1": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.72f5e69cb6adfp-7"
+      },
+      "chi_D2": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.db0313e6a83dp-8"
+      }
+    },
+    "normalized_true_source_jet_enclosures": {
+      "S_0_0": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.482bc450ba0a7p-5",
+        "upper_hex": "0x1.482bc450ba0acp-5"
+      },
+      "S_0_1": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.a90eea64f8b6ep-10",
+        "upper_hex": "0x1.142a1edd324d2p-9"
+      },
+      "S_0_2": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.24c226826533bp-10",
+        "upper_hex": "0x1.8157c0936085dp-10"
+      },
+      "S_1_0": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.5f5188dfbd9eap-5",
+        "upper_hex": "0x1.5f5188dfbd9f6p-5"
+      },
+      "S_1_1": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.e347ce9c0ccaap-10",
+        "upper_hex": "0x1.37ab51ed16221p-9"
+      },
+      "S_1_2": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.50b8b383d8ffbp-10",
+        "upper_hex": "0x1.b891665065cc2p-10"
+      },
+      "S_2_0": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.829dbaa23ee8fp-5",
+        "upper_hex": "0x1.829dbaa23ee9ep-5"
+      },
+      "S_2_1": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.315c6db822cfdp-9",
+        "upper_hex": "0x1.861af1005819fp-9"
+      },
+      "S_3_0": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.d3db1fe38b67bp-5",
+        "upper_hex": "0x1.d3db1fe38b68ep-5"
+      }
+    },
+    "normalized_true_source_jet_upper_gates": {
+      "S_0_0": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.4fdf3b645a1c9p-5",
+        "upper_hex": "0x1.4fdf3b645a1cdp-5"
+      },
+      "S_0_1": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.3a92a3055325fp-9",
+        "upper_hex": "0x1.3a92a30553264p-9"
+      },
+      "S_0_2": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.d7dbf487fcb8fp-10",
+        "upper_hex": "0x1.d7dbf487fcb96p-10"
+      },
+      "S_1_0": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.70a3d70a3d708p-5",
+        "upper_hex": "0x1.70a3d70a3d70dp-5"
+      },
+      "S_1_1": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.89374bc6a7ef8p-9",
+        "upper_hex": "0x1.89374bc6a7efcp-9"
+      },
+      "S_1_2": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.0624dd2f1a9fap-9",
+        "upper_hex": "0x1.0624dd2f1a9fep-9"
+      },
+      "S_2_0": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.9999999999997p-5",
+        "upper_hex": "0x1.999999999999dp-5"
+      },
+      "S_2_1": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.cac083126e976p-9",
+        "upper_hex": "0x1.cac083126e97bp-9"
+      },
+      "S_3_0": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.eb851eb851eb5p-5",
+        "upper_hex": "0x1.eb851eb851ebbp-5"
+      }
+    },
+    "obligations": [
+      {
+        "enclosures": {
+          "absolute_c_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.0568aaff930ap-10",
+            "upper_hex": "0x1.4fdf3b645a1cdp-5"
+          },
+          "alpha_lower_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.0630c976c4p-10",
+            "upper_hex": "0x1.f0377d85a898p-7"
+          },
+          "beta_lower_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.060341eef84p-10",
+            "upper_hex": "0x1.f031e96f437cp-7"
+          }
+        },
+        "id": "P2.KATO.RIESZ_TRANSPORT",
+        "predicate": "The outward-rounded interval layer bounds the spectral-gap domain and expanding-projector parameter family; the exact Riesz and Kato identities are required from the separately replayed exact audit",
+        "status": "PASS"
+      },
+      {
+        "enclosures": {
+          "absolute_y_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.3ee6e594b6928p-9",
+            "upper_hex": "0x1.999999999999dp-7"
+          },
+          "frame_change_determinant_lower_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.86dac074e68p-5",
+            "upper_hex": "0x1.04d3caa308f7cp-4"
+          },
+          "frame_change_inverse_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.31673db01ecbp-4",
+            "upper_hex": "0x1.8dde7362e2ap-4"
+          },
+          "normalizer_squared_lower_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.1771876d1842p-4",
+            "upper_hex": "0x1.0e498e82efb88p-3"
+          },
+          "phase_rotation_cosine_lower_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.f1b92b904a4p-11",
+            "upper_hex": "0x1.0624de209ap-10"
+          },
+          "phase_shift_absolute_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.3ef24ea0fc198p-9",
+            "upper_hex": "0x1.999999999999dp-7"
+          },
+          "physical_frame_operator_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.a9804e59ad04p-6",
+            "upper_hex": "0x1.ec978788d91bp-5"
+          },
+          "physical_frame_smallest_singular_lower_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.a987825e57fap-6",
+            "upper_hex": "0x1.ee9b4ee8b95fp-5"
+          },
+          "radial_scale_lower_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.1dab65e20d59p-5",
+            "upper_hex": "0x1.7a2632fb0a4ap-5"
+          },
+          "radial_scale_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.308477afa06p-5",
+            "upper_hex": "0x1.8cff44c89d51p-5"
+          }
+        },
+        "id": "P2.KATO.FRAME_CHANGE",
+        "predicate": "Conditional on the exact frame identities, the conformal algebraic-to-Kato change is positive and uniformly invertible and the physical oriented frame has direct singular-value bounds",
+        "status": "PASS"
+      },
+      {
+        "enclosures": {
+          "normalized_c_first_derivative_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.5972a4e2bfc4p-8",
+            "upper_hex": "0x1.999999999999dp-5"
+          },
+          "normalized_c_second_derivative_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.bd9be33a73a9p-10",
+            "upper_hex": "0x1.eb851eb851ebbp-6"
+          },
+          "normalized_change_first_derivative_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.cfb7acffc06b8p-10",
+            "upper_hex": "0x1.eb851eb851ebbp-7"
+          },
+          "normalized_change_second_derivative_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.f2b0cade074e8p-10",
+            "upper_hex": "0x1.47ae147ae147dp-7"
+          },
+          "normalized_frame_first_derivative_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.acdbc697e3d2p-10",
+            "upper_hex": "0x1.999999999999dp-6"
+          },
+          "normalized_frame_second_derivative_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.9752c5321b4ccp-8",
+            "upper_hex": "0x1.47ae147ae147dp-6"
+          },
+          "normalized_phase_first_derivative_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.e23ce06e6cf58p-9",
+            "upper_hex": "0x1.eb851eb851ebbp-7"
+          },
+          "normalized_phase_second_derivative_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.68b22a1e34a44p-9",
+            "upper_hex": "0x1.47ae147ae147dp-7"
+          },
+          "normalized_projector_first_derivative_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.3523334305eecp-8",
+            "upper_hex": "0x1.999999999999dp-6"
+          },
+          "normalized_projector_second_derivative_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.d6ee486bd4d2ep-8",
+            "upper_hex": "0x1.47ae147ae147dp-6"
+          },
+          "normalized_rotation_first_derivative_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.0573d432f7954p-8",
+            "upper_hex": "0x1.47ae147ae147dp-6"
+          },
+          "normalized_rotation_second_derivative_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.371cfb001d9d6p-8",
+            "upper_hex": "0x1.eb851eb851ebbp-7"
+          }
+        },
+        "id": "P2.KATO.C2_LIFT",
+        "predicate": "Complete normalized first and full ordered second parameter automatic derivatives of c, P_u, chi, R_chi, C_AK, and K lie inside every frozen Hilbert--Schmidt gate",
+        "status": "PASS"
+      },
+      {
+        "enclosures": {
+          "S_0_0_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.ecddc4e80474p-11",
+            "upper_hex": "0x1.ecddc4e80498p-11"
+          },
+          "S_0_1_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.3344214106c68p-12",
+            "upper_hex": "0x1.982cb74b5b2b4p-11"
+          },
+          "S_0_2_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.5a10cfd270cc8p-12",
+            "upper_hex": "0x1.66339c0b2f0b6p-11"
+          },
+          "S_1_0_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.1524e2a7fd12p-9",
+            "upper_hex": "0x1.1524e2a7fd23p-9"
+          },
+          "S_1_1_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.462fe7664735cp-11",
+            "upper_hex": "0x1.2f26c8f14314ep-10"
+          },
+          "S_1_2_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.4ee150373dcc8p-12",
+            "upper_hex": "0x1.77220db4b8802p-11"
+          },
+          "S_2_0_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.6fbdef75aaf9p-9",
+            "upper_hex": "0x1.6fbdef75ab0ep-9"
+          },
+          "S_2_1_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.1296484859f5cp-11",
+            "upper_hex": "0x1.32c82ab4978fcp-10"
+          },
+          "S_3_0_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.7a9fed4c6827p-9",
+            "upper_hex": "0x1.7a9fed4c684p-9"
+          },
+          "normalized_source_coordinate_first_derivative_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.34a1d750e9926p-15",
+            "upper_hex": "0x1.3a92a30553264p-13"
+          },
+          "normalized_source_coordinate_second_derivative_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.cd80307ec0bfcp-16",
+            "upper_hex": "0x1.a36e2eb1c433p-14"
+          },
+          "source_coordinate_phase_speed_lower_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.a36e2eb1c41p-14",
+            "upper_hex": "0x1.a36e2eb1c458p-14"
+          }
+        },
+        "id": "P2.KATO.SOURCE_PARAMETERIZATION",
+        "predicate": "The degree-positive radius-R source-coordinate circle has the frozen C2 bounds and its total-order-three true-source triangle, computed from the exact-rational imported P2b upper bounds, lies inside every frozen gate",
+        "status": "PASS"
+      }
+    ],
+    "original_parameter_jet_enclosures": {
+      "C_AK_D1": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.52b7101b06358p-2"
+      },
+      "C_AK_D2": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.43e7e60b7f02ap+2"
+      },
+      "K_D1": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.2b0f44cd95604p-1"
+      },
+      "K_D2": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.13b1dd92156b3p+3"
+      },
+      "P_u_D1": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.039f1ffce8d76p-1"
+      },
+      "P_u_D2": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.0048882617ad2p+3"
+      },
+      "R_chi_D1": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.99dec11c1749bp-2"
+      },
+      "R_chi_D2": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.9a1c8fcd2decap+2"
+      },
+      "c_D1": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.1e43cde5db45ep+0"
+      },
+      "c_D2": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.1b0059a8f92e8p+4"
+      },
+      "chi_D1": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.21d01c2a6eb8p-2"
+      },
+      "chi_D2": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.21eca0e5882f6p+2"
+      }
+    },
+    "original_parameter_source_coordinate_jet_enclosures": {
+      "B_0": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.47ae147ae1479p-7",
+        "upper_hex": "0x1.47ae147ae147dp-7"
+      },
+      "B_1": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.72f5e69cb6ae4p-9"
+      },
+      "B_2": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.73294133516d7p-5"
+      },
+      "phase_speed": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.47ae147ae1479p-7",
+        "upper_hex": "0x1.47ae147ae147dp-7"
+      }
+    },
+    "original_parameter_true_source_jet_enclosures": {
+      "S_0_0": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.482bc450ba0a7p-5",
+        "upper_hex": "0x1.482bc450ba0acp-5"
+      },
+      "S_0_1": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.4c13a71ee24ebp-5",
+        "upper_hex": "0x1.af81d0399e98bp-5"
+      },
+      "S_0_2": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.655f00022c896p-1",
+        "upper_hex": "0x1.d6639e93e7539p-1"
+      },
+      "S_1_0": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.5f5188dfbd9eap-5",
+        "upper_hex": "0x1.5f5188dfbd9f6p-5"
+      },
+      "S_1_1": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.79901969e9fe1p-5",
+        "upper_hex": "0x1.e6fbb00272956p-5"
+      },
+      "S_1_2": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.9b0977227263dp-1",
+        "upper_hex": "0x1.0ce6beb29222p+0"
+      },
+      "S_2_0": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.829dbaa23ee8fp-5",
+        "upper_hex": "0x1.829dbaa23ee9ep-5"
+      },
+      "S_2_1": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.dd206b6fb6647p-5",
+        "upper_hex": "0x1.30c50c4844d46p-4"
+      },
+      "S_3_0": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.d3db1fe38b67bp-5",
+        "upper_hex": "0x1.d3db1fe38b68ep-5"
+      }
+    },
+    "parameter_enclosures": {
+      "R": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.47ae147ae1479p-7",
+        "upper_hex": "0x1.47ae147ae147dp-7"
+      },
+      "a2": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "-0x1.0000000000002p-2",
+        "upper_hex": "0x1.0000000000002p-2"
+      },
+      "epsilon": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.9999999999997p-1",
+        "upper_hex": "0x1.3333333333335p+0"
+      },
+      "original_first_derivative_scale": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.8fffffffffffdp+4",
+        "upper_hex": "0x1.9000000000002p+4"
+      },
+      "original_second_derivative_scale": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.387fffffffffdp+9",
+        "upper_hex": "0x1.3880000000002p+9"
+      },
+      "r": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.47ae147ae147dp-4"
+      }
+    },
+    "riesz_transport_gate_margins": {
+      "absolute_c_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.0568aaff930ap-10",
+        "upper_hex": "0x1.4fdf3b645a1cdp-5"
+      },
+      "alpha_lower_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.0630c976c4p-10",
+        "upper_hex": "0x1.f0377d85a898p-7"
+      },
+      "beta_lower_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.060341eef84p-10",
+        "upper_hex": "0x1.f031e96f437cp-7"
+      }
+    },
+    "rounding_self_test": {
+      "legacy_capd_is_working": true,
+      "mxcsr_available": true,
+      "mxcsr_pre_restore_hex": "0x5fa0",
+      "status": "PASS",
+      "tests": [
+        {
+          "detail": "IEC 60559 binary64, radix 2, 53 significand bits, FLT_EVAL_METHOD=0",
+          "id": "ROUND.IEEE754_BINARY64",
+          "status": "PASS"
+        },
+        {
+          "detail": "__FAST_MATH__ is not defined",
+          "id": "ROUND.NO_FAST_MATH",
+          "status": "PASS"
+        },
+        {
+          "detail": "observed up/down/cut/nearest=2/1/3/0, expected=2/1/3/0; legacy isWorking()=true",
+          "id": "ROUND.CAPD_MODES",
+          "status": "PASS"
+        },
+        {
+          "detail": "CAPD DoubleRounding::isWorking() returned true",
+          "id": "ROUND.CAPD_LEGACY_SELF_TEST",
+          "status": "PASS"
+        },
+        {
+          "detail": "down=0x1p+0, up=0x1.0000000000001p+0",
+          "id": "ROUND.DIRECTED_ADDITION",
+          "status": "PASS"
+        },
+        {
+          "detail": "{\"lower_hex\":\"0x1.9999999999997p-4\",\"upper_hex\":\"0x1.999999999999dp-4\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}",
+          "id": "ROUND.RATIONAL_DIVISION",
+          "status": "PASS"
+        },
+        {
+          "detail": "{\"lower_hex\":\"-0x1.999999999999dp-4\",\"upper_hex\":\"-0x1.9999999999997p-4\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}",
+          "id": "ROUND.NEGATIVE_RATIONAL_DIVISION",
+          "status": "PASS"
+        },
+        {
+          "detail": "{\"lower_hex\":\"0x1.6a09e667f3bccp+0\",\"upper_hex\":\"0x1.6a09e667f3bcep+0\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}",
+          "id": "ROUND.SQRT",
+          "status": "PASS"
+        },
+        {
+          "detail": "{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1p+0\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}",
+          "id": "ROUND.DEPENDENCY_SQUARE",
+          "status": "PASS"
+        },
+        {
+          "detail": "3*(1/3)^2-2*(1/3)+1 contains exact 2/3: {\"lower_hex\":\"0x1.555555555555p-1\",\"upper_hex\":\"0x1.555555555555bp-1\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}",
+          "id": "ROUND.POLYNOMIAL_CONTAINMENT",
+          "status": "PASS"
+        },
+        {
+          "detail": "hexfloat endpoints round-trip bit-for-bit through strtod",
+          "id": "ROUND.HEX_SERIALIZATION",
+          "status": "PASS"
+        },
+        {
+          "detail": "MXCSR=0x5fa0, FTZ=0, DAZ=0 required",
+          "id": "ROUND.SUBNORMAL_MODE",
+          "status": "PASS"
+        },
+        {
+          "detail": "round-to-nearest restored before returning",
+          "id": "ROUND.RESTORE_NEAREST",
+          "status": "PASS"
+        }
+      ]
+    },
+    "scalar_enclosures": {
+      "N_squared": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.f7dd7edd37eacp+0",
+        "upper_hex": "0x1.0417cc1b622eap+1"
+      },
+      "absolute_c": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.47b3f60c5d844p-5"
+      },
+      "alpha": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.66666c5c8a3b4p-1",
+        "upper_hex": "0x1.6da431ede57b5p-1"
+      },
+      "beta": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.66665598c6556p-1",
+        "upper_hex": "0x1.6da41b9d8be6ep-1"
+      },
+      "c": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "-0x1.47abfe54b8ba5p-5",
+        "upper_hex": "0x1.47b3f60c5d844p-5"
+      },
+      "chi": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "-0x1.49dd05f15a931p-7",
+        "upper_hex": "0x1.47064fefd20e4p-7"
+      },
+      "cos_chi": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.fff95bdc4c857p-1",
+        "upper_hex": "0x1.000000003c5fcp+0"
+      },
+      "det_C_AK": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.f7f7c9d5b942p-2",
+        "upper_hex": "0x1.0428b237ef57cp-1"
+      },
+      "inverse_C_AK_operator": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.672218c9d1d62p+0",
+        "upper_hex": "0x1.6ce98c24fe132p+0"
+      },
+      "physical_K_operator": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.fad021210c083p-1",
+        "upper_hex": "0x1.0626cb936618ap+0"
+      },
+      "physical_K_smallest_singular": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.f3b2a27959267p-1",
+        "upper_hex": "0x1.02a80daa78fe1p+0"
+      },
+      "sigma": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.67300bb3762b1p-1",
+        "upper_hex": "0x1.6cf7b88505f9dp-1"
+      },
+      "tau": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "-0x1.4afe2ac14341ep-8",
+        "upper_hex": "0x1.447801330778ap-8"
+      },
+      "y": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "-0x1.49dfe0346bf4dp-7",
+        "upper_hex": "0x1.47091781bb074p-7"
+      }
+    },
+    "schema_version": "rfsn-vdp-p2-kato-probe/1",
+    "source_composition": {
+      "complete_frozen_recurrence": true,
+      "full_rectangular_claimed": false,
+      "maximum_parameter_order": 2,
+      "maximum_phase_order": 3,
+      "maximum_total_order": 3,
+      "targets": [
+        "S_0_0",
+        "S_0_1",
+        "S_0_2",
+        "S_1_0",
+        "S_1_1",
+        "S_1_2",
+        "S_2_0",
+        "S_2_1",
+        "S_3_0"
+      ]
+    },
+    "source_coordinate_jet_enclosures": {
+      "B_0": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.47ae147ae1479p-7",
+        "upper_hex": "0x1.47ae147ae147dp-7"
+      },
+      "B_1": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.dad45a623182bp-14"
+      },
+      "B_2": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.300e22921402bp-14"
+      },
+      "phase_speed": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.47ae147ae1479p-7",
+        "upper_hex": "0x1.47ae147ae147dp-7"
+      }
+    },
+    "source_parameterization_gate_margins": {
+      "S_0_0_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.ecddc4e80474p-11",
+        "upper_hex": "0x1.ecddc4e80498p-11"
+      },
+      "S_0_1_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.3344214106c68p-12",
+        "upper_hex": "0x1.982cb74b5b2b4p-11"
+      },
+      "S_0_2_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.5a10cfd270cc8p-12",
+        "upper_hex": "0x1.66339c0b2f0b6p-11"
+      },
+      "S_1_0_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.1524e2a7fd12p-9",
+        "upper_hex": "0x1.1524e2a7fd23p-9"
+      },
+      "S_1_1_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.462fe7664735cp-11",
+        "upper_hex": "0x1.2f26c8f14314ep-10"
+      },
+      "S_1_2_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.4ee150373dcc8p-12",
+        "upper_hex": "0x1.77220db4b8802p-11"
+      },
+      "S_2_0_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.6fbdef75aaf9p-9",
+        "upper_hex": "0x1.6fbdef75ab0ep-9"
+      },
+      "S_2_1_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.1296484859f5cp-11",
+        "upper_hex": "0x1.32c82ab4978fcp-10"
+      },
+      "S_3_0_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.7a9fed4c6827p-9",
+        "upper_hex": "0x1.7a9fed4c684p-9"
+      },
+      "normalized_source_coordinate_first_derivative_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.34a1d750e9926p-15",
+        "upper_hex": "0x1.3a92a30553264p-13"
+      },
+      "normalized_source_coordinate_second_derivative_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.cd80307ec0bfcp-16",
+        "upper_hex": "0x1.a36e2eb1c433p-14"
+      },
+      "source_coordinate_phase_speed_lower_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.a36e2eb1c41p-14",
+        "upper_hex": "0x1.a36e2eb1c458p-14"
+      }
+    },
+    "status": "PASS",
+    "structure_checks": {
+      "all_rational_inputs_strictly_positive": true,
+      "all_sqrt_domains_uniformly_positive": true,
+      "bridge_matches_parameter_normalization": true,
+      "complete_first_parameter_multiindices": true,
+      "complete_full_ordered_second_parameter_indices": true,
+      "full_rectangular_source_not_claimed": true,
+      "gap_free_exact_rational_grid": true,
+      "imported_p2b_triangle_complete": true,
+      "imported_p2b_upper_rationals_positive": true,
+      "original_parameter_scales_match_frozen_contract": true,
+      "parameter_ad_hessians_bit_symmetric": true,
+      "parameter_grid_nonempty": true,
+      "physical_frame_gram_eigenvalue_enclosures_nonempty": true,
+      "second_parameter_off_diagonals_counted_twice": true,
+      "source_triangle_complete": true,
+      "subdivisions_match_frozen_contract": true
+    },
+    "structure_status": "PASS"
+  },
+  "release_eligible": false,
+  "rounding_self_test": {
+    "legacy_capd_is_working": true,
+    "mxcsr_available": true,
+    "mxcsr_pre_restore_hex": "0x5fa0",
+    "status": "PASS",
+    "tests": [
+      {
+        "detail": "IEC 60559 binary64, radix 2, 53 significand bits, FLT_EVAL_METHOD=0",
+        "id": "ROUND.IEEE754_BINARY64",
+        "status": "PASS"
+      },
+      {
+        "detail": "__FAST_MATH__ is not defined",
+        "id": "ROUND.NO_FAST_MATH",
+        "status": "PASS"
+      },
+      {
+        "detail": "observed up/down/cut/nearest=2/1/3/0, expected=2/1/3/0; legacy isWorking()=true",
+        "id": "ROUND.CAPD_MODES",
+        "status": "PASS"
+      },
+      {
+        "detail": "CAPD DoubleRounding::isWorking() returned true",
+        "id": "ROUND.CAPD_LEGACY_SELF_TEST",
+        "status": "PASS"
+      },
+      {
+        "detail": "down=0x1p+0, up=0x1.0000000000001p+0",
+        "id": "ROUND.DIRECTED_ADDITION",
+        "status": "PASS"
+      },
+      {
+        "detail": "{\"lower_hex\":\"0x1.9999999999997p-4\",\"upper_hex\":\"0x1.999999999999dp-4\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}",
+        "id": "ROUND.RATIONAL_DIVISION",
+        "status": "PASS"
+      },
+      {
+        "detail": "{\"lower_hex\":\"-0x1.999999999999dp-4\",\"upper_hex\":\"-0x1.9999999999997p-4\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}",
+        "id": "ROUND.NEGATIVE_RATIONAL_DIVISION",
+        "status": "PASS"
+      },
+      {
+        "detail": "{\"lower_hex\":\"0x1.6a09e667f3bccp+0\",\"upper_hex\":\"0x1.6a09e667f3bcep+0\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}",
+        "id": "ROUND.SQRT",
+        "status": "PASS"
+      },
+      {
+        "detail": "{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1p+0\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}",
+        "id": "ROUND.DEPENDENCY_SQUARE",
+        "status": "PASS"
+      },
+      {
+        "detail": "3*(1/3)^2-2*(1/3)+1 contains exact 2/3: {\"lower_hex\":\"0x1.555555555555p-1\",\"upper_hex\":\"0x1.555555555555bp-1\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}",
+        "id": "ROUND.POLYNOMIAL_CONTAINMENT",
+        "status": "PASS"
+      },
+      {
+        "detail": "hexfloat endpoints round-trip bit-for-bit through strtod",
+        "id": "ROUND.HEX_SERIALIZATION",
+        "status": "PASS"
+      },
+      {
+        "detail": "MXCSR=0x5fa0, FTZ=0, DAZ=0 required",
+        "id": "ROUND.SUBNORMAL_MODE",
+        "status": "PASS"
+      },
+      {
+        "detail": "round-to-nearest restored before returning",
+        "id": "ROUND.RESTORE_NEAREST",
+        "status": "PASS"
+      }
+    ]
+  },
+  "schema_version": "rfsn-rigorous-run-certificate/1",
+  "scope": "V2_P2_KATO_KERNEL",
+  "source_bindings": [
+    {
+      "path": "RESEARCH_CONTRACT.md",
+      "role": "rigorous-input",
+      "sha256": "2170e0d6095c2f8b2e5b35343f8f491e0831a9ff33b5d966d08dbed1ab098387"
+    },
+    {
+      "path": "theory/BASELINE.md",
+      "role": "rigorous-input",
+      "sha256": "b033f6cb6b52dcfeb09bfe1e983d6a544203db9e3be697cc39ccd84a9748588a"
+    },
+    {
+      "path": "van-der-pol/HAMILTONIAN_CHECK.md",
+      "role": "rigorous-input",
+      "sha256": "4b44187482164dae25a7dcc9061e672c00efcab70e7085d9209d8da24d7e2bc6"
+    },
+    {
+      "path": "van-der-pol/MODEL_AND_CENTRAL_CHART.md",
+      "role": "rigorous-input",
+      "sha256": "be07da0264a8dbfb90ff712e92b6dd8dccb99e1058b4c7d754f39891b68f97e3"
+    },
+    {
+      "path": "van-der-pol/CENTRAL_CORE_IMPORT.md",
+      "role": "rigorous-input",
+      "sha256": "d61a66336f6e4c416b6d1396e09bb9db140ef524bc71dc5b07048778c8dcfc02"
+    },
+    {
+      "path": "van-der-pol/CENTRAL_CONTINUATION.md",
+      "role": "rigorous-input",
+      "sha256": "7fdd8c02ea97e2d4996d84c42cb9d54baf34eec6ec0b36686483ee41f2f261f4"
+    },
+    {
+      "path": "validation/rigorous/README.md",
+      "role": "rigorous-input",
+      "sha256": "d7f490a70c8fa9e104fc8cf646e4d7c291d1b5d904818fe00047e9cb0498de54"
+    },
+    {
+      "path": "validation/rigorous/P2_VALIDATION_CONTRACT.md",
+      "role": "rigorous-input",
+      "sha256": "ff3864340c8ed887dd6764e53237b17273b0e538d8103ab0934e396fb4749dcd"
+    },
+    {
+      "path": "validation/rigorous/certificate.schema.json",
+      "role": "rigorous-input",
+      "sha256": "cadadc2aa98c86fd85299ce9d100a16d14420ee6740417bd8b45649dab929d54"
+    },
+    {
+      "path": "validation/rigorous/continuation_bridge.schema.json",
+      "role": "rigorous-input",
+      "sha256": "9afc68fcf53dd49bafd1082228754b9585278f5f0664a942a0b61247816012e5"
+    },
+    {
+      "path": "validation/rigorous/parameter_box.schema.json",
+      "role": "rigorous-input",
+      "sha256": "26a8b95a8756aed6ccef085bb867b6f372dc922f0471e359a61a1aefec1d2fc6"
+    },
+    {
+      "path": "validation/rigorous/p2_local_graph.schema.json",
+      "role": "rigorous-input",
+      "sha256": "47bd0053e6c1d6fd2effa227f9c19ae31949c5b2f6654946ba8f8f1f33761dd4"
+    },
+    {
+      "path": "validation/rigorous/p2_h10_c01.schema.json",
+      "role": "rigorous-input",
+      "sha256": "b199845ce26091be221f5b213720d7aa05b7260c3cbc043f949dfc9b06525de9"
+    },
+    {
+      "path": "validation/rigorous/p2_jets.schema.json",
+      "role": "rigorous-input",
+      "sha256": "a1ae4ca57c624222e3933572a2404d989981ad5826833b9293bfbdcf7e64198a"
+    },
+    {
+      "path": "validation/rigorous/p2_kato.schema.json",
+      "role": "rigorous-input",
+      "sha256": "1c40e0c5872827126b714f4eb369f562a1ab756ebdbc83d03ece7ae334ea776f"
+    },
+    {
+      "path": "validation/rigorous/config/vdp_bridge_v1.json",
+      "role": "rigorous-input",
+      "sha256": "2b62e6fc5625d3f5634d986f7e9cbe8199abfc45c7b97ca29e5efd464b5b69c7"
+    },
+    {
+      "path": "validation/rigorous/config/vdp_box_v1.json",
+      "role": "rigorous-input",
+      "sha256": "ce84e84e4e2e53563125497df4ad2df98a533437b04b35bee042e9b04ea1c735"
+    },
+    {
+      "path": "validation/rigorous/config/vdp_p2_local_graph_v1.json",
+      "role": "rigorous-input",
+      "sha256": "b11ecadb088e8fbd686ed4834335f96c460bee9a18b0d1edab4222da645e199b"
+    },
+    {
+      "path": "validation/rigorous/config/vdp_p2_h10_c01_v1.json",
+      "role": "rigorous-input",
+      "sha256": "d09cf22c5ce382e31d2388a86b87a49301840cdd8698bf92135b9667d387ca96"
+    },
+    {
+      "path": "validation/rigorous/config/vdp_p2_jets_v1.json",
+      "role": "rigorous-input",
+      "sha256": "b8123dff51f7444277f71b1b8a5b0cdbbc94df46a848af05e8288751bb6681e0"
+    },
+    {
+      "path": "validation/rigorous/config/vdp_p2_kato_v1.json",
+      "role": "rigorous-input",
+      "sha256": "676de23609a66b9a6fa35d2cc476878018bc84b4615460719f9c2f87eb1823e3"
+    },
+    {
+      "path": "validation/rigorous/dependency.lock.json",
+      "role": "rigorous-input",
+      "sha256": "4d486a63cddf0902cc9fc4dedacc5a172527f6e167e2d311afa680c077a45b68"
+    },
+    {
+      "path": "validation/rigorous/flagship_import.lock.json",
+      "role": "rigorous-input",
+      "sha256": "6c1752d6ee78d4b670c74ecb85e776eddcb4459e0b0e7f7ae14cae2325e0476e"
+    },
+    {
+      "path": "validation/rigorous/obligations.json",
+      "role": "rigorous-input",
+      "sha256": "37f80a091c4a70a91f571179b9c2a81b79de6966fcc3a6a328f660c53f451890"
+    },
+    {
+      "path": "validation/rigorous/include/verdict.hpp",
+      "role": "rigorous-input",
+      "sha256": "b9b308155408e0d1a8a6b2127fd0d111ac546a3cf54ee124b4c249af47b974fa"
+    },
+    {
+      "path": "validation/rigorous/include/interval_io.hpp",
+      "role": "rigorous-input",
+      "sha256": "6520e6a88f141fbe93dfdd89ba22ac907bcaa6d05296b6f85bbe6a9e3142b9ca"
+    },
+    {
+      "path": "validation/rigorous/include/rounding_self_test.hpp",
+      "role": "rigorous-input",
+      "sha256": "6f648c417c9458b32332fef8cbb780ce0255c66e7646c6c48a7ca6414cd9ccc4"
+    },
+    {
+      "path": "validation/rigorous/include/exact_polynomial.hpp",
+      "role": "rigorous-input",
+      "sha256": "9ccccf2739d7e550f2c0f63d8e3ead91ac2060e046fd540c38c7b42f4dec0331"
+    },
+    {
+      "path": "validation/rigorous/src/rounding_self_test.cpp",
+      "role": "rigorous-input",
+      "sha256": "7866b17edc3f5ee5f1682e52a442df21cc0336e57d499e4d77a9a0938b0628cd"
+    },
+    {
+      "path": "validation/rigorous/src/vdp_local_graph_probe.cpp",
+      "role": "rigorous-input",
+      "sha256": "b658421731ef7d8f9361d3ee7ad1fdb7a91337fd71c244eb38855307c3dc098a"
+    },
+    {
+      "path": "validation/rigorous/src/vdp_h10_c01_probe.cpp",
+      "role": "rigorous-input",
+      "sha256": "ead1c64da7c7c97c628cfdc2f4d87571a4591890ddba7ddc7f7477157be08bf2"
+    },
+    {
+      "path": "validation/rigorous/src/vdp_p2_jets_probe.cpp",
+      "role": "rigorous-input",
+      "sha256": "dd58c7624aa2497e9f4dda63bbe9c69005e614a7fe53ba140c078a851bda8dfe"
+    },
+    {
+      "path": "validation/rigorous/src/vdp_p2_kato_probe.cpp",
+      "role": "rigorous-input",
+      "sha256": "2e77ffbc12e71c0f087dc00c7220ad24010d8b0a0c56498915a89d45ee619aa3"
+    },
+    {
+      "path": "validation/rigorous/src/vdp_parameter_box_probe.cpp",
+      "role": "rigorous-input",
+      "sha256": "5653cb6ea86de08a78a33fad8e89e3239a32e2c56ea1246359328a0e2c9d1ce5"
+    },
+    {
+      "path": "validation/rigorous/audit_h10_center.py",
+      "role": "rigorous-input",
+      "sha256": "db2868feea333d18514553d702805e447bf9391651e2fe4a418a4a81b501b6e2"
+    },
+    {
+      "path": "validation/rigorous/audit_kato_exact.py",
+      "role": "rigorous-input",
+      "sha256": "e55aefe58051226912a5d804a15748fd61ef81aacbb374fa56831d35f64f363d"
+    },
+    {
+      "path": "validation/rigorous/results/vdp_bridge_v1_p2a_local_graph.json",
+      "role": "rigorous-input",
+      "sha256": "192b351c3f153080d82bc856fa3c667388dc16c7b4cf0cfa8568fa347bcaf6be"
+    },
+    {
+      "path": "validation/rigorous/results/vdp_bridge_v1_p2b_h10_c01.json",
+      "role": "rigorous-input",
+      "sha256": "91c1762329a9e19e8db69052f9397532512d8031f361f0b6eeb43edbeda5d5ac"
+    },
+    {
+      "path": "validation/rigorous/results/vdp_bridge_v1_p2b_jets.json",
+      "role": "rigorous-input",
+      "sha256": "07b0949a3d403c0c0a85a4a157b86d7b32cce3ff0348aeffa1db474d441fca07"
+    },
+    {
+      "path": "validation/rigorous/design/README.md",
+      "role": "rigorous-input",
+      "sha256": "346151106f02d00da7a171776c5ebe6124479e7499da0ac59ae9da8b5ee554d7"
+    },
+    {
+      "path": "validation/rigorous/design/p2b_jets_scout.cpp",
+      "role": "rigorous-input",
+      "sha256": "5cd2e92a370ebd45db37c4a973b7968da8907d695f03d4463119b97d5a7b03b2"
+    },
+    {
+      "path": "validation/rigorous/design/p2b_kato_scout.cpp",
+      "role": "rigorous-input",
+      "sha256": "a96d949d7bdb564a801c0d519b571e48da4447b9fd7017d823bf571e35a5a819"
+    },
+    {
+      "path": "validation/rigorous/rigorous_common.py",
+      "role": "rigorous-input",
+      "sha256": "9f17a21a006133577b705a191aa5a0127a214297ea9a08b9214e36f23d9fb4c0"
+    },
+    {
+      "path": "validation/rigorous/run_validation.py",
+      "role": "rigorous-input",
+      "sha256": "18f45b3ce2fc11e275d48fe086158ccf0d9c2ba475c5563f73d0204e5fea8527"
+    },
+    {
+      "path": "validation/rigorous/check_certificate.py",
+      "role": "rigorous-input",
+      "sha256": "103bd4cf330b5cf31ed85ee3161a6e313613b6d5e7de8904d42ebaa9d8001803"
+    }
+  ],
+  "source_revision": {
+    "allow_dirty_development": false,
+    "commit": "91007a88395290a594ba88047ff6ae45b9cebb80",
+    "report_output_excluded_from_observation": true,
+    "repository": "h-lu/rfsn-ii-positive-parameter-pde",
+    "repository_dirty": false,
+    "working_tree_observation": "BEFORE_REPORT_WRITE"
+  },
+  "toolchain": {
+    "build_programs": {
+      "cmake": {
+        "path": "/tmp/cmake-4.2.3-clean/bin/cmake",
+        "sha256": "eab793b7f3bf89867ec9127c130f9ab7693edefe6d45ddee6880edce05a3070d",
+        "version_first_line": "cmake version 4.2.3"
+      },
+      "make": {
+        "path": "/usr/bin/make",
+        "sha256": "27c9f6d806aee15882b01c2c61848f7aa75caa14bc7b6f608ba422f9e46a7d49"
+      }
+    },
+    "capd": {
+      "cflags": [
+        "-I/tmp/rfsn-vdp-capd-strict-7310792/capdDynSys/include",
+        "-I/tmp/rfsn-vdp-capd-strict-7310792/capdAlg/include",
+        "-I/tmp/rfsn-vdp-capd-strict-7310792/capdAux/include",
+        "-I/tmp/rfsn-vdp-capd-strict-7310792/capdExt/include",
+        "-I/tmp/rfsn-vdp-capd-strict-7310792/capdExt/filibsrc",
+        "-std=c++17",
+        "-O2",
+        "-frounding-math",
+        "-D__USE_FILIB__",
+        "-O2",
+        "-frounding-math",
+        "-DFILIB_EXTENDED",
+        "-DFILIB_HAVE_SSE"
+      ],
+      "cmake_cache_sha256": "f504b9bee1879444e3d9e5cb798a3dfa19fbb1f58dc7079b296cdcb4d8b59e66",
+      "cmake_configuration": {
+        "CAPD_BUILD_EXAMPLES": "OFF",
+        "CAPD_BUILD_TESTS": "OFF",
+        "CAPD_ENABLE_MULTIPRECISION": "OFF",
+        "CAPD_INTERVAL_TYPE": "FILIB",
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_CXX_COMPILER": "/usr/bin/c++",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+      },
+      "cmake_release_flags": [
+        "-O2",
+        "-DNDEBUG",
+        "-fno-fast-math",
+        "-frounding-math",
+        "-ffp-contract=off",
+        "-fno-tree-vectorize",
+        "-fno-ipa-pure-const"
+      ],
+      "compile_commands_scan": {
+        "compiler_paths": [
+          "/usr/bin/x86_64-linux-gnu-g++-15"
+        ],
+        "entries_with_all_strict_flags": 90,
+        "entries_with_filib_selector": 82,
+        "entry_count": 90
+      },
+      "compile_commands_sha256": "2c312a1f6a05f27c7742467e2ae6ea17bd481668ee29156426636b8d833a6d9d",
+      "config_path": "/tmp/rfsn-vdp-capd-strict-7310792/build-strict/bin/capd-config",
+      "config_version": "2.5.1",
+      "libs": [
+        "-L/tmp/rfsn-vdp-capd-strict-7310792/build-strict",
+        "-L/tmp/rfsn-vdp-capd-strict-7310792/build-strict/capdExt/filibsrc",
+        "-lcapd",
+        "-lfilib"
+      ],
+      "linked_archives": {
+        "libcapd.a": {
+          "path": "/tmp/rfsn-vdp-capd-strict-7310792/build-strict/libcapd.a",
+          "sha256": "bf888737d3aab53e66c3bf5ee0199b6eb9f6747b2b567f3c5aa9c7ac0ae1267a"
+        },
+        "libfilib.a": {
+          "path": "/tmp/rfsn-vdp-capd-strict-7310792/build-strict/capdExt/filibsrc/libfilib.a",
+          "sha256": "f0105bda942524bc7a1c3c9ad39a0f34e031e26afdc15017704cdd3878fc3d5c"
+        }
+      },
+      "source_commit": "731079217a9254ea2948d742df2b170895effe7f",
+      "source_dirty": false,
+      "source_path": "/tmp/rfsn-vdp-capd-strict-7310792",
+      "source_tree": "f83b177786fa322240b24f21173eaf9b32496d48"
+    },
+    "compiler": {
+      "path": "/usr/bin/g++",
+      "sha256": "e6718f7e0c7d057c3ff77b550c603da9bc4030e3ede3c053705acce1293dbe4d",
+      "version_first_line": "g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0"
+    },
+    "dependency_lock_sha256": "4d486a63cddf0902cc9fc4dedacc5a172527f6e167e2d311afa680c077a45b68",
+    "exact_symbolic_backend": {
+      "bytecode_policy": {
+        "package_cache_reads": "EMPTY_ALTERNATE_PYTHONPYCACHEPREFIX",
+        "python_flag": "-B"
+      },
+      "errors": [],
+      "lock_scope": "P2_KATO_EXACT_AUDIT_ONLY",
+      "python": {
+        "executable": "/usr/bin/python3",
+        "implementation": "cpython",
+        "resolved_executable": "/usr/bin/python3.14",
+        "sha256": "b8d8288faefdd300201f43fcf00f6f539a27218eeed3a3dff5ab10b9c4c99700",
+        "version_first_line": "Python 3.14.4"
+      },
+      "status": "PASS",
+      "sympy": {
+        "package_root": "/home/hblu/.local/lib/python3.14/site-packages/sympy",
+        "source_tree": {
+          "algorithm": "sha256-lp64be-posix-relative-path-and-content-v1",
+          "excluded": [
+            "any path with a __pycache__ component",
+            "any file whose suffix is .pyc"
+          ],
+          "file_count": 1561,
+          "sha256": "b2c5c7e0d9a169a6b69a3137fb0af363a06a69a2b5d6b2b912a43525560c8b42"
+        },
+        "version": "1.14.0"
+      }
+    },
+    "fatal_errors": [],
+    "flagship_import": {
+      "access": "git-object-read-only",
+      "commit": "d54add098545063d5efe8f1d6f062d4cfc116a0d",
+      "errors": [],
+      "lock_sha256": "6c1752d6ee78d4b670c74ecb85e776eddcb4459e0b0e7f7ae14cae2325e0476e",
+      "repository_path": "/home/hblu/Documents/Codex/2026-08-22/reversible-rfsn-ii-waves",
+      "tree": "b9cd34b1bae1c29bdd722d9ed3c33402c4b3ee89"
+    },
+    "incomplete_checks": [],
+    "kato_exact_algebra_audit_execution": {
+      "audit_argv": [
+        "/usr/bin/python3",
+        "-B",
+        "/home/hblu/Documents/Codex/2026-08-27/rfsn-ii-positive-parameter-pde/validation/rigorous/audit_kato_exact.py"
+      ],
+      "audit_argv_sha256": "3731efad3b821a9c577a1ae6a4ff1dd63fbc7be60e9a2666c19fadd42183808f",
+      "audit_exit_code": 0,
+      "audit_source_sha256": "e55aefe58051226912a5d804a15748fd61ef81aacbb374fa56831d35f64f363d",
+      "audit_stdout": "{\"backend\":{\"name\":\"sympy\",\"version\":\"1.14.0\"},\"checks\":{\"A_inverse_exists_exactly\":true,\"C_AK_conformal_gram_identity\":true,\"C_AK_determinant_is_sigma_squared\":true,\"C_AK_first_column_gives_k1\":true,\"C_AK_inverse_closed_form\":true,\"C_AK_orientation_is_positive\":true,\"C_AK_positive_radial_rotation_factorization\":true,\"C_AK_second_column_gives_Ju_k1\":true,\"K_equals_E_times_C_AK\":true,\"R_chi_is_special_orthogonal\":true,\"algebraic_frame_expanding_block\":true,\"algebraic_frame_rank_two_minor\":true,\"algebraic_frame_spans_projector_range\":true,\"alpha_beta_spectral_relations\":true,\"alpha_first_second_derivative_formulas\":true,\"anchor_face_C_AK_is_I_over_sqrt_two\":true,\"anchor_face_c_is_zero_and_dummy_independent\":true,\"anchor_face_chi_zero_on_positive_cosine_branch\":true,\"anchor_face_normalizer_squared_two\":true,\"anchor_face_rotation_is_identity\":true,\"anchor_face_source_is_pointwise_core_circle\":true,\"anchor_face_transport_identity\":true,\"anchor_face_y_zero\":true,\"beta_first_second_derivative_formulas\":true,\"chi_first_second_derivative_formulas\":true,\"coordinate_direction_is_phi_plus_chi\":true,\"expanding_spectral_factor_on_projector_range\":true,\"kato_commutator_involution\":true,\"kato_transport_differential_equation\":true,\"kato_transport_initial_value\":true,\"kato_transport_projector_intertwining\":true,\"normalized_first_kato_vector_has_unit_norm\":true,\"normalized_transport_is_g_over_N\":true,\"normalizer_is_g_norm_squared\":true,\"normalizer_is_physical_g_norm_squared\":true,\"projector_commutator_closed_form\":true,\"riesz_projector_commutes_with_A\":true,\"riesz_projector_idempotent\":true,\"riesz_projector_reverser_exchange\":true,\"riesz_projector_trace_two\":true,\"same_graph_boundary_normalized_C_AK_direction\":true,\"source_coordinate_fixed_radius\":true,\"source_phase_degree_plus_one\":true,\"source_phase_derivative_J0_identity\":true,\"source_phase_speed_fixed_radius\":true,\"stable_spectral_factor_on_complement\":true,\"tau_and_hyperbolic_closed_forms\":true,\"tau_derivative_sign_convention\":true,\"transported_core_vector_bridge\":true,\"transported_core_vector_norm_squared_bridge\":true,\"unstable_complex_structure_fails_on_stable_complement\":true,\"unstable_complex_structure_intertwines_E_J0\":true,\"unstable_complex_structure_not_global_identity\":true,\"unstable_complex_structure_on_projector_range\":true,\"y_first_second_derivative_formulas\":true,\"y_two_closed_forms_agree\":true},\"method\":\"exact-symbolic-identities-no-sampling\",\"schema_version\":\"rfsn-vdp-p2-kato-exact-audit/1\",\"status\":\"PASS\"}\n"
+    },
+    "probe_build": {
+      "binary_sha256": "dcd321736f1a4687e18094deafddb2a3c392b01a754f3ee4de89ebfda0077bfc",
+      "compile_argv": [
+        "/usr/bin/g++",
+        "-std=c++17",
+        "-I/home/hblu/Documents/Codex/2026-08-27/rfsn-ii-positive-parameter-pde/validation/rigorous/include",
+        "-I/tmp/rfsn-vdp-capd-strict-7310792/capdDynSys/include",
+        "-I/tmp/rfsn-vdp-capd-strict-7310792/capdAlg/include",
+        "-I/tmp/rfsn-vdp-capd-strict-7310792/capdAux/include",
+        "-I/tmp/rfsn-vdp-capd-strict-7310792/capdExt/include",
+        "-I/tmp/rfsn-vdp-capd-strict-7310792/capdExt/filibsrc",
+        "-std=c++17",
+        "-O2",
+        "-frounding-math",
+        "-D__USE_FILIB__",
+        "-O2",
+        "-frounding-math",
+        "-DFILIB_EXTENDED",
+        "-DFILIB_HAVE_SSE",
+        "-O2",
+        "-DNDEBUG",
+        "-fno-fast-math",
+        "-frounding-math",
+        "-ffp-contract=off",
+        "-fno-tree-vectorize",
+        "-fno-ipa-pure-const",
+        "/home/hblu/Documents/Codex/2026-08-27/rfsn-ii-positive-parameter-pde/validation/rigorous/src/vdp_p2_kato_probe.cpp",
+        "-o",
+        "/tmp/rfsn-rigorous-c6cio4m3/probe",
+        "-L/tmp/rfsn-vdp-capd-strict-7310792/build-strict",
+        "-L/tmp/rfsn-vdp-capd-strict-7310792/build-strict/capdExt/filibsrc",
+        "-lcapd",
+        "-lfilib"
+      ],
+      "compile_argv_sha256": "f19f4c1e8ec21479ad110abe2ebe1c7a154acb7c825a9eb9504899023fb3b18b",
+      "probe_argv": [
+        "/tmp/rfsn-rigorous-c6cio4m3/probe",
+        "0",
+        "1",
+        "2",
+        "25",
+        "-1",
+        "4",
+        "1",
+        "4",
+        "4",
+        "5",
+        "6",
+        "5",
+        "1",
+        "100",
+        "25",
+        "1",
+        "625",
+        "1",
+        "16",
+        "8",
+        "4",
+        "2886622329032789",
+        "72057594037927936",
+        "7477704061324145",
+        "4611686018427387904",
+        "2575130120366495",
+        "2305843009213693952",
+        "1207121156452497",
+        "281474976710656",
+        "3321078282670069",
+        "18014398509481984",
+        "4627864908470401",
+        "36028797018963968",
+        "3032043696665813",
+        "70368744177664",
+        "1368393781902083",
+        "281474976710656",
+        "1428688354309823",
+        "1099511627776",
+        "41",
+        "1000",
+        "699",
+        "1000",
+        "699",
+        "1000",
+        "19",
+        "10",
+        "1",
+        "80",
+        "1",
+        "80",
+        "999",
+        "1000",
+        "2",
+        "3",
+        "3",
+        "4",
+        "4",
+        "9",
+        "3",
+        "2",
+        "19",
+        "20",
+        "21",
+        "20",
+        "1",
+        "20",
+        "3",
+        "100",
+        "1",
+        "40",
+        "1",
+        "50",
+        "3",
+        "200",
+        "1",
+        "100",
+        "1",
+        "50",
+        "3",
+        "200",
+        "3",
+        "200",
+        "1",
+        "100",
+        "1",
+        "40",
+        "1",
+        "50",
+        "3",
+        "20000",
+        "1",
+        "10000",
+        "99",
+        "10000",
+        "41",
+        "1000",
+        "3",
+        "1250",
+        "9",
+        "5000",
+        "9",
+        "200",
+        "3",
+        "1000",
+        "1",
+        "500",
+        "1",
+        "20",
+        "7",
+        "2000",
+        "3",
+        "50"
+      ],
+      "probe_exit_code": 0,
+      "probe_stdout": "{\"schema_version\":\"rfsn-vdp-p2-kato-probe/1\",\"status\":\"PASS\",\"mathematical_status\":\"PASS\",\"structure_status\":\"PASS\",\"structure_checks\":{\"gap_free_exact_rational_grid\":true,\"bridge_matches_parameter_normalization\":true,\"subdivisions_match_frozen_contract\":true,\"original_parameter_scales_match_frozen_contract\":true,\"all_rational_inputs_strictly_positive\":true,\"parameter_grid_nonempty\":true,\"parameter_ad_hessians_bit_symmetric\":true,\"complete_first_parameter_multiindices\":true,\"complete_full_ordered_second_parameter_indices\":true,\"second_parameter_off_diagonals_counted_twice\":true,\"imported_p2b_upper_rationals_positive\":true,\"imported_p2b_triangle_complete\":true,\"source_triangle_complete\":true,\"full_rectangular_source_not_claimed\":true,\"all_sqrt_domains_uniformly_positive\":true,\"physical_frame_gram_eigenvalue_enclosures_nonempty\":true},\"rounding_self_test\":{\"status\":\"PASS\",\"tests\":[{\"id\":\"ROUND.IEEE754_BINARY64\",\"status\":\"PASS\",\"detail\":\"IEC 60559 binary64, radix 2, 53 significand bits, FLT_EVAL_METHOD=0\"},{\"id\":\"ROUND.NO_FAST_MATH\",\"status\":\"PASS\",\"detail\":\"__FAST_MATH__ is not defined\"},{\"id\":\"ROUND.CAPD_MODES\",\"status\":\"PASS\",\"detail\":\"observed up/down/cut/nearest=2/1/3/0, expected=2/1/3/0; legacy isWorking()=true\"},{\"id\":\"ROUND.CAPD_LEGACY_SELF_TEST\",\"status\":\"PASS\",\"detail\":\"CAPD DoubleRounding::isWorking() returned true\"},{\"id\":\"ROUND.DIRECTED_ADDITION\",\"status\":\"PASS\",\"detail\":\"down=0x1p+0, up=0x1.0000000000001p+0\"},{\"id\":\"ROUND.RATIONAL_DIVISION\",\"status\":\"PASS\",\"detail\":\"{\\\"lower_hex\\\":\\\"0x1.9999999999997p-4\\\",\\\"upper_hex\\\":\\\"0x1.999999999999dp-4\\\",\\\"endpoint_format\\\":\\\"IEEE754_BINARY64_HEX\\\"}\"},{\"id\":\"ROUND.NEGATIVE_RATIONAL_DIVISION\",\"status\":\"PASS\",\"detail\":\"{\\\"lower_hex\\\":\\\"-0x1.999999999999dp-4\\\",\\\"upper_hex\\\":\\\"-0x1.9999999999997p-4\\\",\\\"endpoint_format\\\":\\\"IEEE754_BINARY64_HEX\\\"}\"},{\"id\":\"ROUND.SQRT\",\"status\":\"PASS\",\"detail\":\"{\\\"lower_hex\\\":\\\"0x1.6a09e667f3bccp+0\\\",\\\"upper_hex\\\":\\\"0x1.6a09e667f3bcep+0\\\",\\\"endpoint_format\\\":\\\"IEEE754_BINARY64_HEX\\\"}\"},{\"id\":\"ROUND.DEPENDENCY_SQUARE\",\"status\":\"PASS\",\"detail\":\"{\\\"lower_hex\\\":\\\"0x0p+0\\\",\\\"upper_hex\\\":\\\"0x1p+0\\\",\\\"endpoint_format\\\":\\\"IEEE754_BINARY64_HEX\\\"}\"},{\"id\":\"ROUND.POLYNOMIAL_CONTAINMENT\",\"status\":\"PASS\",\"detail\":\"3*(1/3)^2-2*(1/3)+1 contains exact 2/3: {\\\"lower_hex\\\":\\\"0x1.555555555555p-1\\\",\\\"upper_hex\\\":\\\"0x1.555555555555bp-1\\\",\\\"endpoint_format\\\":\\\"IEEE754_BINARY64_HEX\\\"}\"},{\"id\":\"ROUND.HEX_SERIALIZATION\",\"status\":\"PASS\",\"detail\":\"hexfloat endpoints round-trip bit-for-bit through strtod\"},{\"id\":\"ROUND.SUBNORMAL_MODE\",\"status\":\"PASS\",\"detail\":\"MXCSR=0x5fa0, FTZ=0, DAZ=0 required\"},{\"id\":\"ROUND.RESTORE_NEAREST\",\"status\":\"PASS\",\"detail\":\"round-to-nearest restored before returning\"}],\"mxcsr_available\":true,\"legacy_capd_is_working\":true,\"mxcsr_pre_restore_hex\":\"0x5fa0\"},\"grid\":{\"ordered_axes\":[\"theta_r\",\"theta_a\",\"theta_epsilon\"],\"subdivisions\":[16,8,4],\"cell_count\":512,\"normalized_parameter_dimension\":3},\"parameter_enclosures\":{\"r\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.47ae147ae147dp-4\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"a2\":{\"lower_hex\":\"-0x1.0000000000002p-2\",\"upper_hex\":\"0x1.0000000000002p-2\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"epsilon\":{\"lower_hex\":\"0x1.9999999999997p-1\",\"upper_hex\":\"0x1.3333333333335p+0\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"R\":{\"lower_hex\":\"0x1.47ae147ae1479p-7\",\"upper_hex\":\"0x1.47ae147ae147dp-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"original_first_derivative_scale\":{\"lower_hex\":\"0x1.8fffffffffffdp+4\",\"upper_hex\":\"0x1.9000000000002p+4\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"original_second_derivative_scale\":{\"lower_hex\":\"0x1.387fffffffffdp+9\",\"upper_hex\":\"0x1.3880000000002p+9\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}},\"acceptance_gates\":{\"absolute_c_upper\":{\"lower_hex\":\"0x1.4fdf3b645a1c9p-5\",\"upper_hex\":\"0x1.4fdf3b645a1cdp-5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"alpha_lower\":{\"lower_hex\":\"0x1.65e353f7ced8fp-1\",\"upper_hex\":\"0x1.65e353f7ced94p-1\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"beta_lower\":{\"lower_hex\":\"0x1.65e353f7ced8fp-1\",\"upper_hex\":\"0x1.65e353f7ced94p-1\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"normalizer_squared_lower\":{\"lower_hex\":\"0x1.e666666666663p+0\",\"upper_hex\":\"0x1.e66666666666ap+0\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"absolute_y_upper\":{\"lower_hex\":\"0x1.9999999999997p-7\",\"upper_hex\":\"0x1.999999999999dp-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"phase_shift_absolute_upper\":{\"lower_hex\":\"0x1.9999999999997p-7\",\"upper_hex\":\"0x1.999999999999dp-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"phase_rotation_cosine_lower\":{\"lower_hex\":\"0x1.ff7ced9168728p-1\",\"upper_hex\":\"0x1.ff7ced916872ep-1\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"radial_scale_lower\":{\"lower_hex\":\"0x1.5555555555553p-1\",\"upper_hex\":\"0x1.5555555555558p-1\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"radial_scale_upper\":{\"lower_hex\":\"0x1.7fffffffffffdp-1\",\"upper_hex\":\"0x1.8000000000002p-1\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"frame_change_determinant_lower\":{\"lower_hex\":\"0x1.c71c71c71c719p-2\",\"upper_hex\":\"0x1.c71c71c71c72p-2\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"frame_change_inverse_upper\":{\"lower_hex\":\"0x1.7fffffffffffdp+0\",\"upper_hex\":\"0x1.8000000000002p+0\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"physical_frame_smallest_singular_lower\":{\"lower_hex\":\"0x1.e666666666663p-1\",\"upper_hex\":\"0x1.e66666666666ap-1\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"physical_frame_operator_upper\":{\"lower_hex\":\"0x1.0cccccccccccbp+0\",\"upper_hex\":\"0x1.0cccccccccccfp+0\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"normalized_c_first_derivative_upper\":{\"lower_hex\":\"0x1.9999999999997p-5\",\"upper_hex\":\"0x1.999999999999dp-5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"normalized_c_second_derivative_upper\":{\"lower_hex\":\"0x1.eb851eb851eb5p-6\",\"upper_hex\":\"0x1.eb851eb851ebbp-6\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"normalized_projector_first_derivative_upper\":{\"lower_hex\":\"0x1.9999999999997p-6\",\"upper_hex\":\"0x1.999999999999dp-6\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"normalized_projector_second_derivative_upper\":{\"lower_hex\":\"0x1.47ae147ae1479p-6\",\"upper_hex\":\"0x1.47ae147ae147dp-6\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"normalized_phase_first_derivative_upper\":{\"lower_hex\":\"0x1.eb851eb851eb5p-7\",\"upper_hex\":\"0x1.eb851eb851ebbp-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"normalized_phase_second_derivative_upper\":{\"lower_hex\":\"0x1.47ae147ae1479p-7\",\"upper_hex\":\"0x1.47ae147ae147dp-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"normalized_rotation_first_derivative_upper\":{\"lower_hex\":\"0x1.47ae147ae1479p-6\",\"upper_hex\":\"0x1.47ae147ae147dp-6\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"normalized_rotation_second_derivative_upper\":{\"lower_hex\":\"0x1.eb851eb851eb5p-7\",\"upper_hex\":\"0x1.eb851eb851ebbp-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"normalized_change_first_derivative_upper\":{\"lower_hex\":\"0x1.eb851eb851eb5p-7\",\"upper_hex\":\"0x1.eb851eb851ebbp-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"normalized_change_second_derivative_upper\":{\"lower_hex\":\"0x1.47ae147ae1479p-7\",\"upper_hex\":\"0x1.47ae147ae147dp-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"normalized_frame_first_derivative_upper\":{\"lower_hex\":\"0x1.9999999999997p-6\",\"upper_hex\":\"0x1.999999999999dp-6\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"normalized_frame_second_derivative_upper\":{\"lower_hex\":\"0x1.47ae147ae1479p-6\",\"upper_hex\":\"0x1.47ae147ae147dp-6\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"normalized_source_coordinate_first_derivative_upper\":{\"lower_hex\":\"0x1.3a92a3055325fp-13\",\"upper_hex\":\"0x1.3a92a30553264p-13\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"normalized_source_coordinate_second_derivative_upper\":{\"lower_hex\":\"0x1.a36e2eb1c432ap-14\",\"upper_hex\":\"0x1.a36e2eb1c433p-14\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"source_coordinate_phase_speed_lower\":{\"lower_hex\":\"0x1.4467381d7dbf2p-7\",\"upper_hex\":\"0x1.4467381d7dbf7p-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}},\"normalized_true_source_jet_upper_gates\":{\"S_0_0\":{\"lower_hex\":\"0x1.4fdf3b645a1c9p-5\",\"upper_hex\":\"0x1.4fdf3b645a1cdp-5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"S_0_1\":{\"lower_hex\":\"0x1.3a92a3055325fp-9\",\"upper_hex\":\"0x1.3a92a30553264p-9\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"S_0_2\":{\"lower_hex\":\"0x1.d7dbf487fcb8fp-10\",\"upper_hex\":\"0x1.d7dbf487fcb96p-10\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"S_1_0\":{\"lower_hex\":\"0x1.70a3d70a3d708p-5\",\"upper_hex\":\"0x1.70a3d70a3d70dp-5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"S_1_1\":{\"lower_hex\":\"0x1.89374bc6a7ef8p-9\",\"upper_hex\":\"0x1.89374bc6a7efcp-9\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"S_1_2\":{\"lower_hex\":\"0x1.0624dd2f1a9fap-9\",\"upper_hex\":\"0x1.0624dd2f1a9fep-9\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"S_2_0\":{\"lower_hex\":\"0x1.9999999999997p-5\",\"upper_hex\":\"0x1.999999999999dp-5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"S_2_1\":{\"lower_hex\":\"0x1.cac083126e976p-9\",\"upper_hex\":\"0x1.cac083126e97bp-9\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"S_3_0\":{\"lower_hex\":\"0x1.eb851eb851eb5p-5\",\"upper_hex\":\"0x1.eb851eb851ebbp-5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}},\"imported_p2b_physical_jet_enclosures\":{\"Z_0_0\":{\"lower_hex\":\"0x1.482bc450ba0a7p-5\",\"upper_hex\":\"0x1.482bc450ba0acp-5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_0_1\":{\"lower_hex\":\"0x1.a90eea64f8b6ep-10\",\"upper_hex\":\"0x1.a90eea64f8b73p-10\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_0_2\":{\"lower_hex\":\"0x1.24c226826533bp-10\",\"upper_hex\":\"0x1.24c226826534p-10\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_1_0\":{\"lower_hex\":\"0x1.1277b2eecc241p+2\",\"upper_hex\":\"0x1.1277b2eecc246p+2\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_1_1\":{\"lower_hex\":\"0x1.79901969e9fe7p-3\",\"upper_hex\":\"0x1.79901969e9fecp-3\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_1_2\":{\"lower_hex\":\"0x1.07104c3f0187ep-3\",\"upper_hex\":\"0x1.07104c3f01883p-3\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_2_0\":{\"lower_hex\":\"0x1.58b415ef769a7p+5\",\"upper_hex\":\"0x1.58b415ef769acp+5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_2_1\":{\"lower_hex\":\"0x1.372300521ec09p+2\",\"upper_hex\":\"0x1.372300521ec0ep+2\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_3_0\":{\"lower_hex\":\"0x1.44d89b769daf9p+10\",\"upper_hex\":\"0x1.44d89b769dafep+10\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}},\"scalar_enclosures\":{\"c\":{\"lower_hex\":\"-0x1.47abfe54b8ba5p-5\",\"upper_hex\":\"0x1.47b3f60c5d844p-5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"absolute_c\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.47b3f60c5d844p-5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"alpha\":{\"lower_hex\":\"0x1.66666c5c8a3b4p-1\",\"upper_hex\":\"0x1.6da431ede57b5p-1\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"beta\":{\"lower_hex\":\"0x1.66665598c6556p-1\",\"upper_hex\":\"0x1.6da41b9d8be6ep-1\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"N_squared\":{\"lower_hex\":\"0x1.f7dd7edd37eacp+0\",\"upper_hex\":\"0x1.0417cc1b622eap+1\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"y\":{\"lower_hex\":\"-0x1.49dfe0346bf4dp-7\",\"upper_hex\":\"0x1.47091781bb074p-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"chi\":{\"lower_hex\":\"-0x1.49dd05f15a931p-7\",\"upper_hex\":\"0x1.47064fefd20e4p-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"cos_chi\":{\"lower_hex\":\"0x1.fff95bdc4c857p-1\",\"upper_hex\":\"0x1.000000003c5fcp+0\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"sigma\":{\"lower_hex\":\"0x1.67300bb3762b1p-1\",\"upper_hex\":\"0x1.6cf7b88505f9dp-1\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"det_C_AK\":{\"lower_hex\":\"0x1.f7f7c9d5b942p-2\",\"upper_hex\":\"0x1.0428b237ef57cp-1\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"inverse_C_AK_operator\":{\"lower_hex\":\"0x1.672218c9d1d62p+0\",\"upper_hex\":\"0x1.6ce98c24fe132p+0\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"tau\":{\"lower_hex\":\"-0x1.4afe2ac14341ep-8\",\"upper_hex\":\"0x1.447801330778ap-8\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"physical_K_operator\":{\"lower_hex\":\"0x1.fad021210c083p-1\",\"upper_hex\":\"0x1.0626cb936618ap+0\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"physical_K_smallest_singular\":{\"lower_hex\":\"0x1.f3b2a27959267p-1\",\"upper_hex\":\"0x1.02a80daa78fe1p+0\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}},\"normalized_parameter_jet_enclosures\":{\"c_D1\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.6e6b44fd41a0fp-5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"c_D2\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.cfab6084aab0cp-6\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"P_u_D1\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.4c50ccc8d81dcp-6\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"P_u_D2\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.a3e504bfd825bp-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"chi_D1\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.72f5e69cb6adfp-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"chi_D2\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.db0313e6a83dp-8\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"R_chi_D1\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.06511f6e23624p-6\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"R_chi_D2\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.4ff6a138431cap-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"C_AK_D1\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.b18e291859ddep-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"C_AK_D2\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.0957fb1f205dcp-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"K_D1\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.7ecbdd301b5c5p-6\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"K_D2\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.c3b2c65cb4e8cp-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}},\"original_parameter_jet_enclosures\":{\"c_D1\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.1e43cde5db45ep+0\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"c_D2\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.1b0059a8f92e8p+4\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"P_u_D1\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.039f1ffce8d76p-1\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"P_u_D2\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.0048882617ad2p+3\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"chi_D1\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.21d01c2a6eb8p-2\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"chi_D2\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.21eca0e5882f6p+2\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"R_chi_D1\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.99dec11c1749bp-2\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"R_chi_D2\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.9a1c8fcd2decap+2\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"C_AK_D1\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.52b7101b06358p-2\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"C_AK_D2\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.43e7e60b7f02ap+2\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"K_D1\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.2b0f44cd95604p-1\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"K_D2\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.13b1dd92156b3p+3\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}},\"source_coordinate_jet_enclosures\":{\"B_0\":{\"lower_hex\":\"0x1.47ae147ae1479p-7\",\"upper_hex\":\"0x1.47ae147ae147dp-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"B_1\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.dad45a623182bp-14\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"B_2\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.300e22921402bp-14\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"phase_speed\":{\"lower_hex\":\"0x1.47ae147ae1479p-7\",\"upper_hex\":\"0x1.47ae147ae147dp-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}},\"original_parameter_source_coordinate_jet_enclosures\":{\"B_0\":{\"lower_hex\":\"0x1.47ae147ae1479p-7\",\"upper_hex\":\"0x1.47ae147ae147dp-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"B_1\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.72f5e69cb6ae4p-9\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"B_2\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.73294133516d7p-5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"phase_speed\":{\"lower_hex\":\"0x1.47ae147ae1479p-7\",\"upper_hex\":\"0x1.47ae147ae147dp-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}},\"normalized_true_source_jet_enclosures\":{\"S_0_0\":{\"lower_hex\":\"0x1.482bc450ba0a7p-5\",\"upper_hex\":\"0x1.482bc450ba0acp-5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"S_0_1\":{\"lower_hex\":\"0x1.a90eea64f8b6ep-10\",\"upper_hex\":\"0x1.142a1edd324d2p-9\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"S_0_2\":{\"lower_hex\":\"0x1.24c226826533bp-10\",\"upper_hex\":\"0x1.8157c0936085dp-10\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"S_1_0\":{\"lower_hex\":\"0x1.5f5188dfbd9eap-5\",\"upper_hex\":\"0x1.5f5188dfbd9f6p-5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"S_1_1\":{\"lower_hex\":\"0x1.e347ce9c0ccaap-10\",\"upper_hex\":\"0x1.37ab51ed16221p-9\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"S_1_2\":{\"lower_hex\":\"0x1.50b8b383d8ffbp-10\",\"upper_hex\":\"0x1.b891665065cc2p-10\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"S_2_0\":{\"lower_hex\":\"0x1.829dbaa23ee8fp-5\",\"upper_hex\":\"0x1.829dbaa23ee9ep-5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"S_2_1\":{\"lower_hex\":\"0x1.315c6db822cfdp-9\",\"upper_hex\":\"0x1.861af1005819fp-9\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"S_3_0\":{\"lower_hex\":\"0x1.d3db1fe38b67bp-5\",\"upper_hex\":\"0x1.d3db1fe38b68ep-5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}},\"original_parameter_true_source_jet_enclosures\":{\"S_0_0\":{\"lower_hex\":\"0x1.482bc450ba0a7p-5\",\"upper_hex\":\"0x1.482bc450ba0acp-5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"S_0_1\":{\"lower_hex\":\"0x1.4c13a71ee24ebp-5\",\"upper_hex\":\"0x1.af81d0399e98bp-5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"S_0_2\":{\"lower_hex\":\"0x1.655f00022c896p-1\",\"upper_hex\":\"0x1.d6639e93e7539p-1\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"S_1_0\":{\"lower_hex\":\"0x1.5f5188dfbd9eap-5\",\"upper_hex\":\"0x1.5f5188dfbd9f6p-5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"S_1_1\":{\"lower_hex\":\"0x1.79901969e9fe1p-5\",\"upper_hex\":\"0x1.e6fbb00272956p-5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"S_1_2\":{\"lower_hex\":\"0x1.9b0977227263dp-1\",\"upper_hex\":\"0x1.0ce6beb29222p+0\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"S_2_0\":{\"lower_hex\":\"0x1.829dbaa23ee8fp-5\",\"upper_hex\":\"0x1.829dbaa23ee9ep-5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"S_2_1\":{\"lower_hex\":\"0x1.dd206b6fb6647p-5\",\"upper_hex\":\"0x1.30c50c4844d46p-4\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"S_3_0\":{\"lower_hex\":\"0x1.d3db1fe38b67bp-5\",\"upper_hex\":\"0x1.d3db1fe38b68ep-5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}},\"riesz_transport_gate_margins\":{\"absolute_c_upper_margin\":{\"lower_hex\":\"0x1.0568aaff930ap-10\",\"upper_hex\":\"0x1.4fdf3b645a1cdp-5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"alpha_lower_margin\":{\"lower_hex\":\"0x1.0630c976c4p-10\",\"upper_hex\":\"0x1.f0377d85a898p-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"beta_lower_margin\":{\"lower_hex\":\"0x1.060341eef84p-10\",\"upper_hex\":\"0x1.f031e96f437cp-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}},\"frame_change_gate_margins\":{\"normalizer_squared_lower_margin\":{\"lower_hex\":\"0x1.1771876d1842p-4\",\"upper_hex\":\"0x1.0e498e82efb88p-3\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"absolute_y_upper_margin\":{\"lower_hex\":\"0x1.3ee6e594b6928p-9\",\"upper_hex\":\"0x1.999999999999dp-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"phase_shift_absolute_upper_margin\":{\"lower_hex\":\"0x1.3ef24ea0fc198p-9\",\"upper_hex\":\"0x1.999999999999dp-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"phase_rotation_cosine_lower_margin\":{\"lower_hex\":\"0x1.f1b92b904a4p-11\",\"upper_hex\":\"0x1.0624de209ap-10\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"radial_scale_lower_margin\":{\"lower_hex\":\"0x1.1dab65e20d59p-5\",\"upper_hex\":\"0x1.7a2632fb0a4ap-5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"radial_scale_upper_margin\":{\"lower_hex\":\"0x1.308477afa06p-5\",\"upper_hex\":\"0x1.8cff44c89d51p-5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"frame_change_determinant_lower_margin\":{\"lower_hex\":\"0x1.86dac074e68p-5\",\"upper_hex\":\"0x1.04d3caa308f7cp-4\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"frame_change_inverse_upper_margin\":{\"lower_hex\":\"0x1.31673db01ecbp-4\",\"upper_hex\":\"0x1.8dde7362e2ap-4\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"physical_frame_smallest_singular_lower_margin\":{\"lower_hex\":\"0x1.a987825e57fap-6\",\"upper_hex\":\"0x1.ee9b4ee8b95fp-5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"physical_frame_operator_upper_margin\":{\"lower_hex\":\"0x1.a9804e59ad04p-6\",\"upper_hex\":\"0x1.ec978788d91bp-5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}},\"c2_lift_gate_margins\":{\"normalized_c_first_derivative_upper_margin\":{\"lower_hex\":\"0x1.5972a4e2bfc4p-8\",\"upper_hex\":\"0x1.999999999999dp-5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"normalized_c_second_derivative_upper_margin\":{\"lower_hex\":\"0x1.bd9be33a73a9p-10\",\"upper_hex\":\"0x1.eb851eb851ebbp-6\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"normalized_projector_first_derivative_upper_margin\":{\"lower_hex\":\"0x1.3523334305eecp-8\",\"upper_hex\":\"0x1.999999999999dp-6\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"normalized_projector_second_derivative_upper_margin\":{\"lower_hex\":\"0x1.d6ee486bd4d2ep-8\",\"upper_hex\":\"0x1.47ae147ae147dp-6\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"normalized_phase_first_derivative_upper_margin\":{\"lower_hex\":\"0x1.e23ce06e6cf58p-9\",\"upper_hex\":\"0x1.eb851eb851ebbp-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"normalized_phase_second_derivative_upper_margin\":{\"lower_hex\":\"0x1.68b22a1e34a44p-9\",\"upper_hex\":\"0x1.47ae147ae147dp-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"normalized_rotation_first_derivative_upper_margin\":{\"lower_hex\":\"0x1.0573d432f7954p-8\",\"upper_hex\":\"0x1.47ae147ae147dp-6\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"normalized_rotation_second_derivative_upper_margin\":{\"lower_hex\":\"0x1.371cfb001d9d6p-8\",\"upper_hex\":\"0x1.eb851eb851ebbp-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"normalized_change_first_derivative_upper_margin\":{\"lower_hex\":\"0x1.cfb7acffc06b8p-10\",\"upper_hex\":\"0x1.eb851eb851ebbp-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"normalized_change_second_derivative_upper_margin\":{\"lower_hex\":\"0x1.f2b0cade074e8p-10\",\"upper_hex\":\"0x1.47ae147ae147dp-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"normalized_frame_first_derivative_upper_margin\":{\"lower_hex\":\"0x1.acdbc697e3d2p-10\",\"upper_hex\":\"0x1.999999999999dp-6\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"normalized_frame_second_derivative_upper_margin\":{\"lower_hex\":\"0x1.9752c5321b4ccp-8\",\"upper_hex\":\"0x1.47ae147ae147dp-6\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}},\"source_parameterization_gate_margins\":{\"normalized_source_coordinate_first_derivative_upper_margin\":{\"lower_hex\":\"0x1.34a1d750e9926p-15\",\"upper_hex\":\"0x1.3a92a30553264p-13\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"normalized_source_coordinate_second_derivative_upper_margin\":{\"lower_hex\":\"0x1.cd80307ec0bfcp-16\",\"upper_hex\":\"0x1.a36e2eb1c433p-14\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"source_coordinate_phase_speed_lower_margin\":{\"lower_hex\":\"0x1.a36e2eb1c41p-14\",\"upper_hex\":\"0x1.a36e2eb1c458p-14\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"S_0_0_upper_margin\":{\"lower_hex\":\"0x1.ecddc4e80474p-11\",\"upper_hex\":\"0x1.ecddc4e80498p-11\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"S_0_1_upper_margin\":{\"lower_hex\":\"0x1.3344214106c68p-12\",\"upper_hex\":\"0x1.982cb74b5b2b4p-11\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"S_0_2_upper_margin\":{\"lower_hex\":\"0x1.5a10cfd270cc8p-12\",\"upper_hex\":\"0x1.66339c0b2f0b6p-11\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"S_1_0_upper_margin\":{\"lower_hex\":\"0x1.1524e2a7fd12p-9\",\"upper_hex\":\"0x1.1524e2a7fd23p-9\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"S_1_1_upper_margin\":{\"lower_hex\":\"0x1.462fe7664735cp-11\",\"upper_hex\":\"0x1.2f26c8f14314ep-10\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"S_1_2_upper_margin\":{\"lower_hex\":\"0x1.4ee150373dcc8p-12\",\"upper_hex\":\"0x1.77220db4b8802p-11\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"S_2_0_upper_margin\":{\"lower_hex\":\"0x1.6fbdef75aaf9p-9\",\"upper_hex\":\"0x1.6fbdef75ab0ep-9\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"S_2_1_upper_margin\":{\"lower_hex\":\"0x1.1296484859f5cp-11\",\"upper_hex\":\"0x1.32c82ab4978fcp-10\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"S_3_0_upper_margin\":{\"lower_hex\":\"0x1.7a9fed4c6827p-9\",\"upper_hex\":\"0x1.7a9fed4c684p-9\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}},\"norm_contract\":{\"matrix_value_norm\":\"spectral-2-norm\",\"matrix_inverse_norm\":\"spectral-2-norm\",\"scalar_first_parameter_norm\":\"euclidean-on-R3\",\"scalar_second_parameter_norm\":\"full-3x3-frobenius\",\"matrix_first_parameter_norm\":\"output-parameter-hilbert-schmidt\",\"matrix_second_parameter_norm\":\"output-full-ordered-parameter-hilbert-schmidt\",\"true_source_jet_norm\":\"physical-output-labelled-multilinear-hilbert-schmidt\"},\"source_composition\":{\"maximum_total_order\":3,\"maximum_phase_order\":3,\"maximum_parameter_order\":2,\"targets\":[\"S_0_0\",\"S_0_1\",\"S_0_2\",\"S_1_0\",\"S_1_1\",\"S_1_2\",\"S_2_0\",\"S_2_1\",\"S_3_0\"],\"full_rectangular_claimed\":false,\"complete_frozen_recurrence\":true},\"external_exact_audit_contract\":{\"required\":true,\"included_in_raw_status\":false,\"schema_version\":\"rfsn-vdp-p2-kato-exact-audit/1\"},\"obligations\":[{\"id\":\"P2.KATO.RIESZ_TRANSPORT\",\"status\":\"PASS\",\"predicate\":\"The outward-rounded interval layer bounds the spectral-gap domain and expanding-projector parameter family; the exact Riesz and Kato identities are required from the separately replayed exact audit\",\"enclosures\":{\"absolute_c_upper_margin\":{\"lower_hex\":\"0x1.0568aaff930ap-10\",\"upper_hex\":\"0x1.4fdf3b645a1cdp-5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"alpha_lower_margin\":{\"lower_hex\":\"0x1.0630c976c4p-10\",\"upper_hex\":\"0x1.f0377d85a898p-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"beta_lower_margin\":{\"lower_hex\":\"0x1.060341eef84p-10\",\"upper_hex\":\"0x1.f031e96f437cp-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}}},{\"id\":\"P2.KATO.FRAME_CHANGE\",\"status\":\"PASS\",\"predicate\":\"Conditional on the exact frame identities, the conformal algebraic-to-Kato change is positive and uniformly invertible and the physical oriented frame has direct singular-value bounds\",\"enclosures\":{\"normalizer_squared_lower_margin\":{\"lower_hex\":\"0x1.1771876d1842p-4\",\"upper_hex\":\"0x1.0e498e82efb88p-3\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"absolute_y_upper_margin\":{\"lower_hex\":\"0x1.3ee6e594b6928p-9\",\"upper_hex\":\"0x1.999999999999dp-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"phase_shift_absolute_upper_margin\":{\"lower_hex\":\"0x1.3ef24ea0fc198p-9\",\"upper_hex\":\"0x1.999999999999dp-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"phase_rotation_cosine_lower_margin\":{\"lower_hex\":\"0x1.f1b92b904a4p-11\",\"upper_hex\":\"0x1.0624de209ap-10\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"radial_scale_lower_margin\":{\"lower_hex\":\"0x1.1dab65e20d59p-5\",\"upper_hex\":\"0x1.7a2632fb0a4ap-5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"radial_scale_upper_margin\":{\"lower_hex\":\"0x1.308477afa06p-5\",\"upper_hex\":\"0x1.8cff44c89d51p-5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"frame_change_determinant_lower_margin\":{\"lower_hex\":\"0x1.86dac074e68p-5\",\"upper_hex\":\"0x1.04d3caa308f7cp-4\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"frame_change_inverse_upper_margin\":{\"lower_hex\":\"0x1.31673db01ecbp-4\",\"upper_hex\":\"0x1.8dde7362e2ap-4\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"physical_frame_smallest_singular_lower_margin\":{\"lower_hex\":\"0x1.a987825e57fap-6\",\"upper_hex\":\"0x1.ee9b4ee8b95fp-5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"physical_frame_operator_upper_margin\":{\"lower_hex\":\"0x1.a9804e59ad04p-6\",\"upper_hex\":\"0x1.ec978788d91bp-5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}}},{\"id\":\"P2.KATO.C2_LIFT\",\"status\":\"PASS\",\"predicate\":\"Complete normalized first and full ordered second parameter automatic derivatives of c, P_u, chi, R_chi, C_AK, and K lie inside every frozen Hilbert--Schmidt gate\",\"enclosures\":{\"normalized_c_first_derivative_upper_margin\":{\"lower_hex\":\"0x1.5972a4e2bfc4p-8\",\"upper_hex\":\"0x1.999999999999dp-5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"normalized_c_second_derivative_upper_margin\":{\"lower_hex\":\"0x1.bd9be33a73a9p-10\",\"upper_hex\":\"0x1.eb851eb851ebbp-6\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"normalized_projector_first_derivative_upper_margin\":{\"lower_hex\":\"0x1.3523334305eecp-8\",\"upper_hex\":\"0x1.999999999999dp-6\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"normalized_projector_second_derivative_upper_margin\":{\"lower_hex\":\"0x1.d6ee486bd4d2ep-8\",\"upper_hex\":\"0x1.47ae147ae147dp-6\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"normalized_phase_first_derivative_upper_margin\":{\"lower_hex\":\"0x1.e23ce06e6cf58p-9\",\"upper_hex\":\"0x1.eb851eb851ebbp-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"normalized_phase_second_derivative_upper_margin\":{\"lower_hex\":\"0x1.68b22a1e34a44p-9\",\"upper_hex\":\"0x1.47ae147ae147dp-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"normalized_rotation_first_derivative_upper_margin\":{\"lower_hex\":\"0x1.0573d432f7954p-8\",\"upper_hex\":\"0x1.47ae147ae147dp-6\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"normalized_rotation_second_derivative_upper_margin\":{\"lower_hex\":\"0x1.371cfb001d9d6p-8\",\"upper_hex\":\"0x1.eb851eb851ebbp-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"normalized_change_first_derivative_upper_margin\":{\"lower_hex\":\"0x1.cfb7acffc06b8p-10\",\"upper_hex\":\"0x1.eb851eb851ebbp-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"normalized_change_second_derivative_upper_margin\":{\"lower_hex\":\"0x1.f2b0cade074e8p-10\",\"upper_hex\":\"0x1.47ae147ae147dp-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"normalized_frame_first_derivative_upper_margin\":{\"lower_hex\":\"0x1.acdbc697e3d2p-10\",\"upper_hex\":\"0x1.999999999999dp-6\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"normalized_frame_second_derivative_upper_margin\":{\"lower_hex\":\"0x1.9752c5321b4ccp-8\",\"upper_hex\":\"0x1.47ae147ae147dp-6\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}}},{\"id\":\"P2.KATO.SOURCE_PARAMETERIZATION\",\"status\":\"PASS\",\"predicate\":\"The degree-positive radius-R source-coordinate circle has the frozen C2 bounds and its total-order-three true-source triangle, computed from the exact-rational imported P2b upper bounds, lies inside every frozen gate\",\"enclosures\":{\"normalized_source_coordinate_first_derivative_upper_margin\":{\"lower_hex\":\"0x1.34a1d750e9926p-15\",\"upper_hex\":\"0x1.3a92a30553264p-13\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"normalized_source_coordinate_second_derivative_upper_margin\":{\"lower_hex\":\"0x1.cd80307ec0bfcp-16\",\"upper_hex\":\"0x1.a36e2eb1c433p-14\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"source_coordinate_phase_speed_lower_margin\":{\"lower_hex\":\"0x1.a36e2eb1c41p-14\",\"upper_hex\":\"0x1.a36e2eb1c458p-14\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"S_0_0_upper_margin\":{\"lower_hex\":\"0x1.ecddc4e80474p-11\",\"upper_hex\":\"0x1.ecddc4e80498p-11\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"S_0_1_upper_margin\":{\"lower_hex\":\"0x1.3344214106c68p-12\",\"upper_hex\":\"0x1.982cb74b5b2b4p-11\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"S_0_2_upper_margin\":{\"lower_hex\":\"0x1.5a10cfd270cc8p-12\",\"upper_hex\":\"0x1.66339c0b2f0b6p-11\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"S_1_0_upper_margin\":{\"lower_hex\":\"0x1.1524e2a7fd12p-9\",\"upper_hex\":\"0x1.1524e2a7fd23p-9\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"S_1_1_upper_margin\":{\"lower_hex\":\"0x1.462fe7664735cp-11\",\"upper_hex\":\"0x1.2f26c8f14314ep-10\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"S_1_2_upper_margin\":{\"lower_hex\":\"0x1.4ee150373dcc8p-12\",\"upper_hex\":\"0x1.77220db4b8802p-11\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"S_2_0_upper_margin\":{\"lower_hex\":\"0x1.6fbdef75aaf9p-9\",\"upper_hex\":\"0x1.6fbdef75ab0ep-9\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"S_2_1_upper_margin\":{\"lower_hex\":\"0x1.1296484859f5cp-11\",\"upper_hex\":\"0x1.32c82ab4978fcp-10\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"S_3_0_upper_margin\":{\"lower_hex\":\"0x1.7a9fed4c6827p-9\",\"upper_hex\":\"0x1.7a9fed4c684p-9\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}}}]}\n",
+      "source_sha256": "2e77ffbc12e71c0f087dc00c7220ad24010d8b0a0c56498915a89d45ee619aa3"
+    },
+    "report_output": {
+      "excluded_from_prewrite_source_observation": true,
+      "inside_repository": true,
+      "path": "validation/rigorous/results/vdp_bridge_v1_p2b_kato.json"
+    },
+    "status": "PASS",
+    "strict_library_build_status": "PASS"
+  },
+  "validation_configuration": {
+    "configuration_id": "vdp-p2-local-graph-v1",
+    "path": "validation/rigorous/config/vdp_p2_local_graph_v1.json",
+    "sha256": "b11ecadb088e8fbd686ed4834335f96c460bee9a18b0d1edab4222da645e199b"
+  }
+}

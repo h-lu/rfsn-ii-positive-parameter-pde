@@ -525,6 +525,97 @@ class ArchivedP2JetsCertificateTests(unittest.TestCase):
             "07b0949a3d403c0c0a85a4a157b86d7b32cce3ff0348aeffa1db474d441fca07")
 
 
+class ArchivedP2KatoCertificateTests(unittest.TestCase):
+    def setUp(self) -> None:
+        self.path = (
+            RIGOROUS / "results" / "vdp_bridge_v1_p2b_kato.json")
+        self.certificate = load_json(self.path)
+
+    def test_clean_certificate_closes_the_kato_source_interface(self) -> None:
+        self.assertEqual(schema_errors(self.certificate), [])
+        self.assertEqual(semantic_errors(self.certificate, REPOSITORY), [])
+        self.assertEqual(self.certificate["scope"], "V2_P2_KATO_KERNEL")
+        self.assertEqual(
+            self.certificate["source_revision"]["commit"],
+            "91007a88395290a594ba88047ff6ae45b9cebb80")
+        self.assertFalse(
+            self.certificate["source_revision"]["repository_dirty"])
+        self.assertEqual(self.certificate["integrity_status"], "PASS")
+        self.assertEqual(self.certificate["mathematical_status"], "PASS")
+        self.assertEqual(self.certificate["final_status"], "INCONCLUSIVE")
+        self.assertFalse(self.certificate["claim_bearing"])
+        self.assertFalse(self.certificate["release_eligible"])
+        self.assertEqual(
+            self.certificate["independent_replay"]
+            ["observed_distinct_machines"], 1)
+        self.assertEqual(
+            self.certificate["toolchain"]["exact_symbolic_backend"]
+            ["status"], "PASS")
+        self.assertEqual(
+            len(self.certificate["kato_exact_algebra_audit"]["checks"]),
+            56)
+        self.assertTrue(all(
+            self.certificate["kato_exact_algebra_audit"]["checks"].values()))
+        by_id = {
+            item["id"]: item["status"]
+            for item in self.certificate["obligations"]
+        }
+        for identifier in (
+                "ENV.EXACT_SYMBOLIC_BACKEND",
+                "P2.P2B_JETS_PREREQUISITE",
+                "P2.KATO.EXACT_ALGEBRA",
+                "P2.KATO.RIESZ_TRANSPORT",
+                "P2.KATO.FRAME_CHANGE",
+                "P2.KATO.C2_LIFT",
+                "P2.KATO.SOURCE_PARAMETERIZATION",
+                "V2.PHASE.TRUE_SOURCE",
+                "V2.PHASE.KATO_INTERFACE"):
+            self.assertEqual(by_id[identifier], "PASS")
+        self.assertEqual(
+            hashlib.sha256(self.path.read_bytes()).hexdigest(),
+            "c67cce575caa396eba5b4388e8ba9a0c9d73fd702f69911d64c878f57f27bff3")
+
+    def test_kato_prerequisite_audit_backend_and_raw_tampering_is_rejected(
+            self) -> None:
+        invalid = copy.deepcopy(self.certificate)
+        invalid["raw_probe"].pop("source_composition")
+        self.assertTrue(schema_errors(invalid))
+
+        invalid = copy.deepcopy(self.certificate)
+        invalid["kato_exact_algebra_audit"]["checks"] \
+            ["riesz_projector_idempotent"] = False
+        self.assertTrue(schema_errors(invalid))
+
+        invalid = copy.deepcopy(self.certificate)
+        invalid["p2b_jets_prerequisite"]["certificate_sha256"] = "0" * 64
+        self.assertTrue(semantic_errors(invalid, REPOSITORY))
+
+        invalid = copy.deepcopy(self.certificate)
+        invalid["toolchain"]["exact_symbolic_backend"]["python"] \
+            ["sha256"] = "0" * 64
+        self.assertTrue(semantic_errors(invalid, REPOSITORY))
+
+        invalid = copy.deepcopy(self.certificate)
+        invalid["toolchain"]["kato_exact_algebra_audit_execution"] \
+            ["audit_stdout"] = "{}\n"
+        self.assertTrue(semantic_errors(invalid, REPOSITORY))
+
+        # Even a coordinated certificate-local rewrite of raw JSON, stored
+        # stdout, and its hash cannot impersonate the frozen probe output.
+        invalid = copy.deepcopy(self.certificate)
+        invalid["raw_probe"]["obligations"][0]["predicate"] = \
+            "coordinated certificate-local rewrite"
+        stdout = json.dumps(
+            invalid["raw_probe"], separators=(",", ":"),
+            ensure_ascii=False) + "\n"
+        invalid["toolchain"]["probe_build"]["probe_stdout"] = stdout
+        invalid["logs"]["probe_stdout_sha256"] = hashlib.sha256(
+            stdout.encode()).hexdigest()
+        self.assertIn(
+            "P2 replay stdout differs from the formal run",
+            semantic_errors(invalid, REPOSITORY))
+
+
 class DevelopmentReplayTests(unittest.TestCase):
     @staticmethod
     def sync_p2_probe_stdout(certificate: dict) -> None:
