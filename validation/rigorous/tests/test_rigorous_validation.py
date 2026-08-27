@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import copy
+import hashlib
 import json
 import subprocess
 import sys
@@ -19,10 +20,13 @@ from rigorous_common import (  # noqa: E402
     box_arguments,
     combine_verdicts,
     load_json,
+    p2_jets_arguments,
     validate_exact_bridge,
     validate_exact_box,
     validate_h10_c01_configuration,
     validate_local_graph_configuration,
+    validate_p2_jets_configuration,
+    validate_p2b0_true_tube_implication,
 )
 
 
@@ -137,6 +141,72 @@ class FrozenP2H10C01Tests(unittest.TestCase):
         self.assertTrue(validate_h10_c01_configuration(invalid))
 
 
+class FrozenP2JetsTests(unittest.TestCase):
+    def setUp(self) -> None:
+        self.bridge = load_json(
+            RIGOROUS / "config" / "vdp_bridge_v1.json")
+        self.configuration = load_json(
+            RIGOROUS / "config" / "vdp_p2_jets_v1.json")
+        self.p2b0_certificate = load_json(
+            RIGOROUS / "results" / "vdp_bridge_v1_p2b_h10_c01.json")
+
+    def test_schema_contract_and_canonical_arguments(self) -> None:
+        jsonschema.validate(
+            self.configuration,
+            load_json(RIGOROUS / "p2_jets.schema.json"),
+            format_checker=jsonschema.FormatChecker(),
+        )
+        self.assertEqual(validate_p2_jets_configuration(self.configuration), [])
+        arguments = p2_jets_arguments(self.bridge, self.configuration)
+        self.assertEqual(len(arguments), 106)
+        self.assertEqual(arguments[:12], box_arguments(self.bridge))
+        self.assertEqual(arguments[12:18], [
+            "1", "100", "251", "25000", "111", "20000"])
+        self.assertEqual(arguments[26:30], ["25", "1", "625", "1"])
+        self.assertEqual(arguments[30:34], ["16", "8", "4", "2"])
+        self.assertEqual(validate_p2b0_true_tube_implication(
+            self.configuration, self.p2b0_certificate), [])
+
+    def test_post_freeze_norm_grid_recurrence_and_gate_mutations_are_detected(
+            self) -> None:
+        mutations = []
+        invalid = copy.deepcopy(self.configuration)
+        invalid["coordinate_domain"]["state_block_norm"] = "euclidean"
+        mutations.append(invalid)
+        invalid = copy.deepcopy(self.configuration)
+        invalid["coefficient_grid"]["subdivisions"][0] = 8
+        mutations.append(invalid)
+        invalid = copy.deepcopy(self.configuration)
+        invalid["lyapunov_perron_contract"] \
+            ["explicit_parameter_forcing_formula"] = "unweighted h_j"
+        mutations.append(invalid)
+        invalid = copy.deepcopy(self.configuration)
+        invalid["coefficient_upper_gates"]["ell_2"] = {
+            "numerator": "1", "denominator": "10000"}
+        mutations.append(invalid)
+        invalid = copy.deepcopy(self.configuration)
+        invalid["normalized_weighted_jet_upper_gates"]["Z_3_2"] = {
+            "numerator": "100", "denominator": "1"}
+        mutations.append(invalid)
+        invalid = copy.deepcopy(self.configuration)
+        invalid["selection_basis"]["design_scout"]["sha256"] = "0" * 64
+        mutations.append(invalid)
+        for value in mutations:
+            self.assertTrue(validate_p2_jets_configuration(value))
+
+    def test_true_tube_must_imply_the_frozen_coefficient_domain(self) -> None:
+        invalid = copy.deepcopy(self.configuration)
+        invalid["coordinate_domain"]["true_graph_x_absolute_upper"] = {
+            "numerator": "1", "denominator": "100"}
+        self.assertTrue(validate_p2b0_true_tube_implication(
+            invalid, self.p2b0_certificate))
+        invalid = copy.deepcopy(self.configuration)
+        invalid["coordinate_domain"]["true_graph_first_derivative_upper"] = {
+            "numerator": "21", "denominator": "4000"}
+        self.assertTrue(validate_p2b0_true_tube_implication(
+            invalid, self.p2b0_certificate))
+
+
 class ArchivedP2B0CertificateTests(unittest.TestCase):
     def setUp(self) -> None:
         self.certificate = load_json(
@@ -205,6 +275,15 @@ class ArchivedP2B0CertificateTests(unittest.TestCase):
 
 
 class DevelopmentReplayTests(unittest.TestCase):
+    @staticmethod
+    def sync_p2_probe_stdout(certificate: dict) -> None:
+        stdout = json.dumps(
+            certificate["raw_probe"], separators=(",", ":"),
+            ensure_ascii=False) + "\n"
+        certificate["toolchain"]["probe_build"]["probe_stdout"] = stdout
+        certificate["logs"]["probe_stdout_sha256"] = hashlib.sha256(
+            stdout.encode()).hexdigest()
+
     def test_reference_backend_generates_checkable_nonclaim_certificate(self) -> None:
         lock = load_json(RIGOROUS / "dependency.lock.json")
         capd_source = Path(lock["capd"]["reference_source_path"])
@@ -372,6 +451,99 @@ class DevelopmentReplayTests(unittest.TestCase):
             failed["toolchain"]["probe_build"]["probe_exit_code"] = 1
             failed["final_status"] = "FAIL"
             self.assertEqual(semantic_errors(failed, REPOSITORY), [])
+
+    def test_p2_jets_kernel_replays_and_rejects_derived_field_tampering(
+            self) -> None:
+        lock = load_json(RIGOROUS / "dependency.lock.json")
+        capd_source = Path(lock["capd"]["reference_source_path"])
+        capd_config = Path(lock["capd"]["reference_capd_config"])
+        if not (capd_source.is_dir() and capd_config.is_file()):
+            self.skipTest("reference CAPD development build is not present")
+        with tempfile.TemporaryDirectory(prefix="rfsn-p2-jets-test-") as temporary:
+            report = Path(temporary) / "certificate.json"
+            command = [
+                sys.executable,
+                "-B",
+                str(RIGOROUS / "run_validation.py"),
+                "p2-jets",
+                "--allow-dirty",
+                "--capd-source", str(capd_source),
+                "--capd-config", str(capd_config),
+                "--report", str(report),
+            ]
+            completed = subprocess.run(
+                command, cwd=REPOSITORY, text=True,
+                stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=180)
+            self.assertEqual(completed.returncode, 0, completed.stderr)
+            certificate = json.loads(report.read_text(encoding="utf-8"))
+            self.assertEqual(certificate["scope"], "V2_P2_JETS_KERNEL")
+            self.assertEqual(certificate["mathematical_status"], "PASS")
+            self.assertEqual(certificate["final_status"], "INCONCLUSIVE")
+            self.assertFalse(certificate["claim_bearing"])
+            self.assertEqual(semantic_errors(certificate, REPOSITORY), [])
+            self.assertEqual(
+                {item["id"] for item in certificate["raw_probe"]["obligations"]},
+                {"P2.JETS.COEFFICIENTS", "V2.WU.STATE_C23",
+                 "V2.WU.MIXED_JETS", "V2.WU.WEIGHTED_HALF_ORBITS"})
+
+            invalid = copy.deepcopy(certificate)
+            invalid["raw_probe"]["recurrence"]["complete"] = False
+            self.sync_p2_probe_stdout(invalid)
+            self.assertTrue(semantic_errors(invalid, REPOSITORY))
+
+            invalid = copy.deepcopy(certificate)
+            invalid["raw_probe"]["physical_weighted_jet_enclosures"] \
+                ["Z_1_0"] = {
+                    "lower_hex": "0x0p+0", "upper_hex": "0x0p+0",
+                    "endpoint_format": "IEEE754_BINARY64_HEX"}
+            self.sync_p2_probe_stdout(invalid)
+            self.assertTrue(semantic_errors(invalid, REPOSITORY))
+
+            invalid = copy.deepcopy(certificate)
+            invalid["raw_probe"]["schema_version"] = "junk"
+            self.sync_p2_probe_stdout(invalid)
+            self.assertTrue(semantic_errors(invalid, REPOSITORY))
+
+            invalid = copy.deepcopy(certificate)
+            invalid["raw_probe"]["unexpected"] = True
+            self.sync_p2_probe_stdout(invalid)
+            self.assertTrue(semantic_errors(invalid, REPOSITORY))
+
+            # Coordinating a raw-field edit with a rewritten exact stdout and
+            # hash must still fail: the checker recompiles and replays the
+            # frozen probe instead of trusting certificate-local atomics.
+            zero = {
+                "lower_hex": "0x0p+0", "upper_hex": "0x0p+0",
+                "endpoint_format": "IEEE754_BINARY64_HEX"}
+            invalid = copy.deepcopy(certificate)
+            invalid["raw_probe"]["coefficient_enclosures"]["B_0"] = zero
+            self.sync_p2_probe_stdout(invalid)
+            errors = semantic_errors(invalid, REPOSITORY)
+            self.assertIn(
+                "P2 replay stdout differs from the formal run", errors)
+
+            invalid = copy.deepcopy(certificate)
+            compile_argv = invalid["toolchain"]["probe_build"]["compile_argv"]
+            compile_argv.append("-DUNRECORDED_SEMANTICS=1")
+            invalid["toolchain"]["probe_build"]["compile_argv_sha256"] = \
+                hashlib.sha256(json.dumps(
+                    compile_argv, separators=(",", ":")).encode()).hexdigest()
+            errors = semantic_errors(invalid, REPOSITORY)
+            self.assertIn(
+                "P2 replay compile argv differs from the frozen command",
+                errors)
+
+            invalid = copy.deepcopy(certificate)
+            for field in (
+                    "frame_derivative_enclosures",
+                    "physical_weighted_jet_enclosures",
+                    "original_parameter_physical_weighted_jet_enclosures"):
+                for name in invalid["raw_probe"][field]:
+                    invalid["raw_probe"][field][name] = zero
+            self.sync_p2_probe_stdout(invalid)
+            errors = semantic_errors(invalid, REPOSITORY)
+            self.assertIn(
+                "P2 replay stdout differs from the formal run", errors)
 
 
 if __name__ == "__main__":

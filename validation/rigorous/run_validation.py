@@ -23,6 +23,7 @@ from rigorous_common import (
     combine_verdicts,
     git_output,
     load_json,
+    p2_jets_arguments,
     run_checked,
     safe_repository_path,
     sha256_bytes,
@@ -31,6 +32,8 @@ from rigorous_common import (
     validate_exact_box,
     validate_h10_c01_configuration,
     validate_local_graph_configuration,
+    validate_p2_jets_configuration,
+    validate_p2b0_true_tube_implication,
 )
 
 HERE = Path(__file__).resolve().parent
@@ -39,9 +42,19 @@ BOX_PATH = HERE / "config" / "vdp_box_v1.json"
 BRIDGE_PATH = HERE / "config" / "vdp_bridge_v1.json"
 LOCAL_GRAPH_CONFIG_PATH = HERE / "config" / "vdp_p2_local_graph_v1.json"
 H10_C01_CONFIG_PATH = HERE / "config" / "vdp_p2_h10_c01_v1.json"
+P2_JETS_CONFIG_PATH = HERE / "config" / "vdp_p2_jets_v1.json"
 P2A_CERTIFICATE_PATH = HERE / "results" / "vdp_bridge_v1_p2a_local_graph.json"
+P2B0_CERTIFICATE_PATH = HERE / "results" / "vdp_bridge_v1_p2b_h10_c01.json"
 DEPENDENCY_LOCK_PATH = HERE / "dependency.lock.json"
 FLAGSHIP_LOCK_PATH = HERE / "flagship_import.lock.json"
+
+P2_JETS_SCOPE_NONCLAIM = (
+    "The P2 mixed-jet kernel proves the local graph and weighted half-orbit "
+    "obligations in the P2a algebraic frame; normalized Kato source phase, "
+    "the selected homoclinic, exact charts, event atlas, V3--V6, temporal "
+    "stability, Turing selection, and canard identification remain outside "
+    "its scope."
+)
 
 BOUND_SOURCES = (
     "RESEARCH_CONTRACT.md",
@@ -56,10 +69,12 @@ BOUND_SOURCES = (
     "validation/rigorous/parameter_box.schema.json",
     "validation/rigorous/p2_local_graph.schema.json",
     "validation/rigorous/p2_h10_c01.schema.json",
+    "validation/rigorous/p2_jets.schema.json",
     "validation/rigorous/config/vdp_bridge_v1.json",
     "validation/rigorous/config/vdp_box_v1.json",
     "validation/rigorous/config/vdp_p2_local_graph_v1.json",
     "validation/rigorous/config/vdp_p2_h10_c01_v1.json",
+    "validation/rigorous/config/vdp_p2_jets_v1.json",
     "validation/rigorous/dependency.lock.json",
     "validation/rigorous/flagship_import.lock.json",
     "validation/rigorous/obligations.json",
@@ -70,9 +85,13 @@ BOUND_SOURCES = (
     "validation/rigorous/src/rounding_self_test.cpp",
     "validation/rigorous/src/vdp_local_graph_probe.cpp",
     "validation/rigorous/src/vdp_h10_c01_probe.cpp",
+    "validation/rigorous/src/vdp_p2_jets_probe.cpp",
     "validation/rigorous/src/vdp_parameter_box_probe.cpp",
     "validation/rigorous/audit_h10_center.py",
     "validation/rigorous/results/vdp_bridge_v1_p2a_local_graph.json",
+    "validation/rigorous/results/vdp_bridge_v1_p2b_h10_c01.json",
+    "validation/rigorous/design/README.md",
+    "validation/rigorous/design/p2b_jets_scout.cpp",
     "validation/rigorous/rigorous_common.py",
     "validation/rigorous/run_validation.py",
     "validation/rigorous/check_certificate.py",
@@ -222,6 +241,108 @@ def verify_p2a_prerequisite(
         "claim_bearing": certificate.get("claim_bearing"),
     }
     return ("PASS" if not errors else "FAIL", errors, detail)
+
+
+def verify_p2b0_prerequisite(
+        certificate: dict[str, Any],
+        p2_jets_configuration: dict[str, Any]) -> \
+        tuple[str, list[str], dict[str, Any]]:
+    errors = schema_errors(certificate) + semantic_errors(certificate, REPOSITORY)
+    by_id = {
+        item.get("id"): item.get("status")
+        for item in certificate.get("obligations", [])
+        if isinstance(item, dict)
+    }
+    expected = {
+        "scope": "V2_H10_C01_KERNEL",
+        "integrity_status": "PASS",
+        "mathematical_status": "PASS",
+        "final_status": "INCONCLUSIVE",
+        "claim_bearing": False,
+    }
+    for key, value in expected.items():
+        if certificate.get(key) != value:
+            errors.append(
+                f"P2b0 prerequisite {key}={certificate.get(key)!r}, "
+                f"expected {value!r}")
+    for identifier in ("V2.WU.H10_C0_TUBE", "V2.WU.H10_C1_TUBE"):
+        if by_id.get(identifier) != "PASS":
+            errors.append(f"P2b0 prerequisite {identifier} is not PASS")
+    errors.extend(validate_p2b0_true_tube_implication(
+        p2_jets_configuration, certificate))
+    detail = {
+        "configuration_path":
+            "validation/rigorous/config/vdp_p2_h10_c01_v1.json",
+        "configuration_sha256": sha256_file(H10_C01_CONFIG_PATH),
+        "certificate_path":
+            "validation/rigorous/results/vdp_bridge_v1_p2b_h10_c01.json",
+        "certificate_sha256": sha256_file(P2B0_CERTIFICATE_PATH),
+        "certificate_scope": certificate.get("scope"),
+        "source_commit": certificate.get("source_revision", {}).get("commit"),
+        "integrity_status": certificate.get("integrity_status"),
+        "mathematical_status": certificate.get("mathematical_status"),
+        "final_status": certificate.get("final_status"),
+        "claim_bearing": certificate.get("claim_bearing"),
+    }
+    return ("PASS" if not errors else "FAIL", errors, detail)
+
+
+def verify_p2_jets_configuration(
+        configuration: dict[str, Any], bridge: dict[str, Any],
+        p2a_configuration: dict[str, Any], p2a_certificate: dict[str, Any],
+        p2b0_configuration: dict[str, Any],
+        p2b0_certificate: dict[str, Any]) -> tuple[str, list[str]]:
+    errors = validate_p2_jets_configuration(configuration)
+    try:
+        jsonschema.validate(
+            configuration,
+            load_json(HERE / "p2_jets.schema.json"),
+            format_checker=jsonschema.FormatChecker(),
+        )
+    except jsonschema.ValidationError as error:
+        errors.append(f"schema: {error.message}")
+    try:
+        basis = configuration["selection_basis"]
+        tag_commit = git_output(
+            REPOSITORY, "rev-parse", f"{basis['repository_tag']}^{{commit}}")
+        if tag_commit != basis["repository_commit"]:
+            errors.append("P2 jets selection tag does not resolve to its commit")
+        canonical = {
+            "continuation_bridge": BRIDGE_PATH,
+            "p2a_configuration": LOCAL_GRAPH_CONFIG_PATH,
+            "p2a_certificate": P2A_CERTIFICATE_PATH,
+            "p2b0_configuration": H10_C01_CONFIG_PATH,
+            "p2b0_certificate": P2B0_CERTIFICATE_PATH,
+            "design_scout": HERE / "design" / "p2b_jets_scout.cpp",
+        }
+        for name, path in canonical.items():
+            selected = basis[name]
+            if safe_repository_path(REPOSITORY, selected["path"]) != path.resolve():
+                errors.append(f"P2 jets {name} is not canonical")
+            if selected["sha256"] != sha256_file(path):
+                errors.append(f"P2 jets current {name} hash mismatch")
+            frozen_blob = subprocess.run(
+                ["git", "-C", str(REPOSITORY), "show",
+                 f"{basis['repository_commit']}:{selected['path']}"],
+                check=True, stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE).stdout
+            if selected["sha256"] != sha256_bytes(frozen_blob):
+                errors.append(f"P2 jets frozen {name} blob hash mismatch")
+        if bridge.get("bridge_id") != "vdp-core-to-positive-bridge-v1":
+            errors.append("P2 jets bridge identifier changed")
+        if p2a_configuration.get("configuration_id") != \
+                "vdp-p2-local-graph-v1":
+            errors.append("P2 jets P2a configuration identifier changed")
+        if p2a_certificate.get("scope") != "V2_LOCAL_GRAPH_KERNEL":
+            errors.append("P2 jets P2a prerequisite certificate scope changed")
+        if p2b0_configuration.get("configuration_id") != \
+                "vdp-p2-h10-c01-v1":
+            errors.append("P2 jets P2b0 configuration identifier changed")
+        if p2b0_certificate.get("scope") != "V2_H10_C01_KERNEL":
+            errors.append("P2 jets P2b0 prerequisite certificate scope changed")
+    except (KeyError, OSError, subprocess.SubprocessError) as error:
+        errors.append(f"P2 jets configuration verification failed: {error}")
+    return ("PASS" if not errors else "FAIL", errors)
 
 
 def verify_h10_c01_configuration(
@@ -622,6 +743,7 @@ def compile_and_run(
         bridge: dict[str, Any] | None = None,
         local_graph_configuration: dict[str, Any] | None = None,
         h10_c01_configuration: dict[str, Any] | None = None,
+        p2_jets_configuration: dict[str, Any] | None = None,
         flagship_repository: Path | None = None,
         ) -> tuple[dict[str, Any], dict[str, str], dict[str, Any]]:
     source_names = {
@@ -629,6 +751,7 @@ def compile_and_run(
         "kernel": "vdp_parameter_box_probe.cpp",
         "local-graph": "vdp_local_graph_probe.cpp",
         "h10-c01": "vdp_h10_c01_probe.cpp",
+        "p2-jets": "vdp_p2_jets_probe.cpp",
     }
     source = HERE / "src" / source_names[scope]
     compiler = dependency["compiler"]["executable"]
@@ -703,6 +826,11 @@ def compile_and_run(
                 "first_derivative_frobenius"]
             for value in (radius, rho, eta):
                 run_command.extend([value["numerator"], value["denominator"]])
+        elif scope == "p2-jets":
+            if bridge is None or p2_jets_configuration is None:
+                raise RuntimeError("P2 jets scope lacks its frozen inputs")
+            run_command.extend(p2_jets_arguments(
+                bridge, p2_jets_configuration))
         executed = subprocess.run(
             run_command, text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
             env=environment, timeout=120)
@@ -729,6 +857,10 @@ def compile_and_run(
             "probe_argv": run_command,
             "probe_exit_code": executed.returncode,
         }
+        if scope == "p2-jets":
+            # Preserve the exact machine output for a byte-level hash check.
+            # The parsed raw_probe remains the semantic representation.
+            build["probe_stdout"] = executed.stdout
         if imported_header is not None:
             build["imported_header"] = imported_header
         return raw, logs, build
@@ -758,7 +890,8 @@ def make_obligation(identifier: str, status: str,
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
-        "scope", choices=("preflight", "kernel", "local-graph", "h10-c01"))
+        "scope", choices=(
+            "preflight", "kernel", "local-graph", "h10-c01", "p2-jets"))
     parser.add_argument("--capd-source", type=Path, required=True)
     parser.add_argument("--capd-config", type=Path, required=True)
     parser.add_argument("--flagship-repository", type=Path)
@@ -774,17 +907,24 @@ def main() -> int:
         bridge: dict[str, Any] | None = None
         local_graph_configuration: dict[str, Any] | None = None
         h10_c01_configuration: dict[str, Any] | None = None
+        p2_jets_configuration: dict[str, Any] | None = None
         p2a_certificate: dict[str, Any] | None = None
+        p2b0_certificate: dict[str, Any] | None = None
         bridge_status = "PASS"
         bridge_errors: list[str] = []
         local_graph_configuration_status = "PASS"
         local_graph_configuration_errors: list[str] = []
         h10_c01_configuration_status = "PASS"
         h10_c01_configuration_errors: list[str] = []
+        p2_jets_configuration_status = "PASS"
+        p2_jets_configuration_errors: list[str] = []
         p2a_prerequisite_status = "PASS"
         p2a_prerequisite_errors: list[str] = []
         p2a_prerequisite: dict[str, Any] | None = None
-        if arguments.scope in ("local-graph", "h10-c01"):
+        p2b0_prerequisite_status = "PASS"
+        p2b0_prerequisite_errors: list[str] = []
+        p2b0_prerequisite: dict[str, Any] | None = None
+        if arguments.scope in ("local-graph", "h10-c01", "p2-jets"):
             bridge = load_json(BRIDGE_PATH)
             local_graph_configuration = load_json(LOCAL_GRAPH_CONFIG_PATH)
             bridge_status, bridge_errors = verify_bridge(bridge, box)
@@ -792,16 +932,32 @@ def main() -> int:
                 local_graph_configuration_errors = \
                 verify_local_graph_configuration(
                     local_graph_configuration, bridge)
-        if arguments.scope == "h10-c01":
+        if arguments.scope in ("h10-c01", "p2-jets"):
             h10_c01_configuration = load_json(H10_C01_CONFIG_PATH)
             p2a_certificate = load_json(P2A_CERTIFICATE_PATH)
             p2a_prerequisite_status, p2a_prerequisite_errors, \
                 p2a_prerequisite = verify_p2a_prerequisite(p2a_certificate)
-            h10_c01_configuration_status, h10_c01_configuration_errors = \
-                verify_h10_c01_configuration(
-                    h10_c01_configuration, bridge,
+            if arguments.scope == "h10-c01":
+                h10_c01_configuration_status, h10_c01_configuration_errors = \
+                    verify_h10_c01_configuration(
+                        h10_c01_configuration, bridge,
+                        local_graph_configuration, p2a_certificate,
+                        load_json(FLAGSHIP_LOCK_PATH))
+        if arguments.scope == "p2-jets":
+            assert bridge is not None
+            assert local_graph_configuration is not None
+            assert h10_c01_configuration is not None
+            assert p2a_certificate is not None
+            p2_jets_configuration = load_json(P2_JETS_CONFIG_PATH)
+            p2b0_certificate = load_json(P2B0_CERTIFICATE_PATH)
+            p2b0_prerequisite_status, p2b0_prerequisite_errors, \
+                p2b0_prerequisite = verify_p2b0_prerequisite(
+                    p2b0_certificate, p2_jets_configuration)
+            p2_jets_configuration_status, p2_jets_configuration_errors = \
+                verify_p2_jets_configuration(
+                    p2_jets_configuration, bridge,
                     local_graph_configuration, p2a_certificate,
-                    load_json(FLAGSHIP_LOCK_PATH))
+                    h10_c01_configuration, p2b0_certificate)
         head = git_output(REPOSITORY, "rev-parse", "HEAD")
         dirty = bool(git_output(REPOSITORY, "status", "--porcelain"))
         if dirty and not arguments.allow_dirty:
@@ -828,7 +984,28 @@ def main() -> int:
         raw, logs, build = compile_and_run(
             arguments.scope, cflags, libs, dependency, box,
             bridge, local_graph_configuration, h10_c01_configuration,
+            p2_jets_configuration,
             arguments.flagship_repository)
+        p2_parent_status: str | None = None
+        if arguments.scope == "p2-jets":
+            raw_items = raw.get("obligations", [])
+            if not isinstance(raw_items, list):
+                raise RuntimeError("P2 jets probe obligations are not a list")
+            raw_statuses = {
+                item.get("id"): item.get("status")
+                for item in raw_items if isinstance(item, dict)
+            }
+            atomic_ids = (
+                "P2.JETS.COEFFICIENTS", "V2.WU.STATE_C23",
+                "V2.WU.MIXED_JETS", "V2.WU.WEIGHTED_HALF_ORBITS")
+            if set(raw_statuses) != set(atomic_ids):
+                raise RuntimeError(
+                    "P2 jets probe emitted an unexpected atomic obligation set")
+            p2_parent_status = combine_verdicts(
+                raw_statuses[identifier] for identifier in atomic_ids)
+            if raw.get("mathematical_status") != p2_parent_status:
+                raise RuntimeError(
+                    "P2 jets probe mathematical status is not its atomic aggregate")
         logs.update(exact_center_audit_logs)
         toolchain["probe_build"] = build
         report_resolved = arguments.report.resolve()
@@ -854,7 +1031,7 @@ def main() -> int:
             make_obligation("BOX.FROZEN", box_status, predicates,
                             diagnostics=box_errors),
         ]
-        if arguments.scope in ("local-graph", "h10-c01"):
+        if arguments.scope in ("local-graph", "h10-c01", "p2-jets"):
             p0.extend([
                 make_obligation(
                     "BRIDGE.FROZEN", bridge_status, predicates,
@@ -881,6 +1058,18 @@ def main() -> int:
                                  exact_center_audit.get(
                                      "inconclusive_reasons", []))),
             ])
+        if arguments.scope == "p2-jets":
+            p0.extend([
+                make_obligation(
+                    "P2.P2A_PREREQUISITE", p2a_prerequisite_status,
+                    predicates, diagnostics=p2a_prerequisite_errors),
+                make_obligation(
+                    "P2.P2B0_PREREQUISITE", p2b0_prerequisite_status,
+                    predicates, diagnostics=p2b0_prerequisite_errors),
+                make_obligation(
+                    "P2.JETS_CONFIG_FROZEN", p2_jets_configuration_status,
+                    predicates, diagnostics=p2_jets_configuration_errors),
+            ])
         mathematical: list[dict[str, Any]] = []
         if arguments.scope != "preflight":
             for item in raw["obligations"]:
@@ -889,6 +1078,11 @@ def main() -> int:
                     identifier, item["status"], predicates,
                     **({"enclosures": item["enclosures"]}
                        if "enclosures" in item else {})))
+        if arguments.scope == "p2-jets":
+            assert p2_parent_status is not None
+            for identifier in ("V2.WU.JETS", "V2.WU_GRAPH"):
+                mathematical.append(make_obligation(
+                    identifier, p2_parent_status, predicates))
         integrity_status = combine_verdicts(item["status"] for item in p0)
         mathematical_status = combine_verdicts(
             item["status"] for item in mathematical) if mathematical else "PASS"
@@ -900,6 +1094,7 @@ def main() -> int:
             "kernel": "V1_V2_1_KERNEL",
             "local-graph": "V2_LOCAL_GRAPH_KERNEL",
             "h10-c01": "V2_H10_C01_KERNEL",
+            "p2-jets": "V2_P2_JETS_KERNEL",
         }[arguments.scope]
         certificate = {
             "schema_version": "rfsn-rigorous-run-certificate/1",
@@ -953,12 +1148,14 @@ def main() -> int:
                     "atlas, V3--V6, temporal stability, Turing selection, "
                     "and canard identification remain outside its scope."
                     if arguments.scope == "h10-c01" else
+                    P2_JETS_SCOPE_NONCLAIM
+                    if arguments.scope == "p2-jets" else
                     "Phase 1 does not validate V2 continuation beyond item (1), "
                     "V3--V6, temporal stability, Turing selection, or canard identification."
                 ),
             ],
         }
-        if arguments.scope in ("local-graph", "h10-c01"):
+        if arguments.scope in ("local-graph", "h10-c01", "p2-jets"):
             assert bridge is not None
             assert local_graph_configuration is not None
             certificate["continuation_bridge"] = {
@@ -985,6 +1182,18 @@ def main() -> int:
             }
             certificate["p2a_prerequisite"] = p2a_prerequisite
             certificate["h10_exact_center_audit"] = exact_center_audit
+        if arguments.scope == "p2-jets":
+            assert p2_jets_configuration is not None
+            assert p2a_prerequisite is not None
+            assert p2b0_prerequisite is not None
+            certificate["p2_jets_configuration"] = {
+                "path": "validation/rigorous/config/vdp_p2_jets_v1.json",
+                "sha256": sha256_file(P2_JETS_CONFIG_PATH),
+                "configuration_id": p2_jets_configuration[
+                    "configuration_id"],
+            }
+            certificate["p2a_prerequisite"] = p2a_prerequisite
+            certificate["p2b0_prerequisite"] = p2b0_prerequisite
         errors = schema_errors(certificate) + semantic_errors(certificate, REPOSITORY)
         if errors:
             raise RuntimeError("generated certificate failed self-check:\n" + "\n".join(errors))

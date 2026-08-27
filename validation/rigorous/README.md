@@ -5,7 +5,7 @@ van der Pol application.  It does not upgrade the floating candidate contract
 in `validation/`, and it does not modify or silently import the read-only
 flagship repository.
 
-The runner has four executable scopes:
+The runner has five executable scopes:
 
 1. `preflight` verifies the pinned source/toolchain bindings and executes a
    CAPD/FILIB rounding self-test;
@@ -18,7 +18,10 @@ The runner has four executable scopes:
    `r=0` through the target box;
 4. `h10-c01` reruns the frozen exact H10 homological recursion and verifies
    the P2b0 Euclidean \(C^0\) and Frobenius \(C^1\) tubes for those true graphs
-   on the same bridge.
+   on the same bridge;
+5. `p2-jets` verifies the P2b pure state \(C^2/C^3\) tensor bounds, the full
+   rectangular \(D_b^{\le3}D_\theta^{\le2}\) weighted half-orbit recurrence,
+   the induced mixed graph jets, and their physical-coordinate composition.
 
 The mathematical result of a local kernel run can be `PASS`, `FAIL`, or
 `INCONCLUSIVE`.  The aggregate `final_status` remains `INCONCLUSIVE` while the
@@ -82,6 +85,12 @@ and acceptance margins were preregistered independently in
 [`config/vdp_p2_h10_c01_v1.json`](config/vdp_p2_h10_c01_v1.json).  Freezing
 that file was not itself a validation result; the later clean result is the
 separately archived certificate cited above.
+The P2b coefficient grid, norms, complete jet rectangle, state-tensor radii,
+parameter normalization, and all acceptance gates are separately frozen in
+[`config/vdp_p2_jets_v1.json`](config/vdp_p2_jets_v1.json).  The P2b kernel
+uses the already archived P2a and P2b0 certificates as immutable
+prerequisites; it does not reinterpret the H10 second or third derivatives as
+true-graph bounds.
 
 ## Strict replay
 
@@ -122,6 +131,13 @@ python3 validation/rigorous/run_validation.py h10-c01 \
   --flagship-repository FLAGSHIP_REPOSITORY \
   --report /tmp/rfsn-vdp-rigorous-p2b-h10-c01.json
 
+python3 validation/rigorous/run_validation.py p2-jets \
+  --allow-dirty \
+  --capd-source CAPD_SOURCE \
+  --capd-config CAPD_BUILD/bin/capd-config \
+  --flagship-repository FLAGSHIP_REPOSITORY \
+  --report /tmp/rfsn-vdp-rigorous-p2b-jets.json
+
 python3 validation/rigorous/check_certificate.py \
   /tmp/rfsn-vdp-rigorous-kernel.json
 
@@ -130,12 +146,24 @@ python3 validation/rigorous/check_certificate.py \
 
 python3 validation/rigorous/check_certificate.py \
   /tmp/rfsn-vdp-rigorous-p2b-h10-c01.json
+
+python3 validation/rigorous/check_certificate.py \
+  /tmp/rfsn-vdp-rigorous-p2b-jets.json
 ```
 
 Omit `--allow-dirty` for a clean replay.  A report path is observed only after
 the source-dirty check and is explicitly excluded from that pre-write
 observation in the certificate; the report is never a source input.  A dirty
 development run cannot be release-eligible.
+
+For a P2b jets certificate, the checker also materializes the probe and its
+three local support headers from the certificate's frozen source commit,
+reconstructs the recorded strict compile command, reruns the exact frozen
+argument vector, and compares stdout byte-for-byte.  This same-machine replay
+prevents coordinated edits of a certificate's raw atomics, stored stdout, and
+stored stdout hash.  It is an integrity check of one run, not the policy's
+second independent-machine replay: a current-computer-only result still
+records one of two required machines and remains non-claim-bearing.
 
 The pinned GCC toolchain must compile both CAPD/FILIB and the probes with
 `-fno-ipa-pure-const`.  Without it, GCC 15 interprocedural analysis can treat
@@ -171,13 +199,21 @@ A P2b0 H10-centered `mathematical_status: PASS` additionally supports only:
   \(\lVert DH_\mu-DH_{10}\rVert_F\le3\times10^{-4}\) on the complete
   comparison bridge, plus the reversible stable analogue.
 
-Neither P2a nor P2b0 encloses the true-graph state derivatives through order
-three, parameter derivatives through order two, their required mixed jets,
-or the weighted half-orbit constants.  The parent `V2.WU.GRAPH` obligation
-therefore remains pending.  In particular, a bound on \(D^2H_{10}\) is a
-bound on the polynomial center, not on \(D^2H_\mu\).
+A P2b jets `mathematical_status: PASS` additionally supports only:
 
-These local scopes do not validate the positive-parameter homoclinic, exact
-saddle chart, event atlas, either noncompact end, V5 matching, V6 component census, all
-winding numbers, temporal stability, Turing selection, or canard
-identification.  Those obligations are enumerated in `obligations.json`.
+- true-graph state derivative bounds through order three and the full
+  rectangular parameter/mixed bounds through order two in the frozen norm;
+- weighted unstable and reversible stable half-orbit jet bounds at weight
+  `1/4`, in moving and physical coordinates; and
+- the local parent `V2.WU_GRAPH`, conditional on the immutable P2a and P2b0
+  prerequisite certificates.
+
+Before a P2b jets pass, neither P2a nor P2b0 alone supplies those bounds.  In
+particular, a bound on \(D^2H_{10}\) is a bound on the polynomial center, not
+on \(D^2H_\mu\).
+
+These local scopes do not fix the normalized Kato absolute source phase and
+do not validate the positive-parameter homoclinic, exact saddle chart, event
+atlas, either noncompact end, V5 matching, V6 component census, all winding
+numbers, temporal stability, Turing selection, or canard identification.
+Those obligations are enumerated in `obligations.json`.

@@ -33,6 +33,7 @@ interface.  Their executable refinements are:
 | P2b0 | `V2.WU.H10_C0_TUBE` | A uniform \(C^0\) tube around the frozen degree-ten core graph, with a symbolically differenced parameter residual. |
 | P2b0 | `V2.WU.H10_C1_TUBE` | A uniform state-\(C^1\) tube around the same graph, using a transformed tangent Riccati cone. |
 | P2b | `V2.WU.JETS` | Validated \(D_b^{\le3}D_\mu^{\le2}\) graph bounds and the weighted half-orbit/tail constants actually consumed downstream. |
+| P2bK | `V2.PHASE.KATO_INTERFACE` | A normalized Kato expanding phase, an orientation-preserving change from the algebraic graph frame, and a degree-one true source circle on the same graph disk. |
 | P2c | `V2.HOM.BRANCH` | A gap-free parameter cover from the complete \(r=0\) anchor face through \(B_+\), with interval Newton/Krawczyk inclusion for the same selected \((\phi,T)\) branch. |
 | P2c | `V2.HOM.FIRST_HIT` | No earlier nonzero hit of \(\operatorname{Fix}\mathcal R=\{P=Q=0\}\), proved by sign tubes and a final flow-box argument. |
 | P2c | `V2.HOM.TRANSVERSE` | Nonzero endpoint, regular zero-energy level, sign/rank control of the phase column, and \(0\notin\det D_{(\phi,T)}M\). |
@@ -383,7 +384,281 @@ The radii, rational budgets, imported term-table hashes, and exact formula
 strings are preregistered in
 [`config/vdp_p2_h10_c01_v1.json`](config/vdp_p2_h10_c01_v1.json).
 
-## 5. What P2a and P2b0 do and do not settle
+## 5. Higher graph jets and weighted half-orbits for P2b
+
+P2b retains the literal rectangular regularity in the proof of V2,
+
+\[
+ H_\mu\in C^2_\mu(C^3_b),\qquad
+ D_b^iD_\mu^jH_\mu,\quad 0\le i\le3,\quad |j|\le2.
+\]
+
+Thus the largest mixed derivative has total order five.  Replacing this by
+the smaller mixed-total-three triangle would be enough for several later
+consumers, but would not validate the theorem as written.
+
+### 5.1 Pure state tensors
+
+On the already-existing true graph write
+
+\[
+ f=B_uu+q_\mu n_\mu(x),\qquad
+ g=B_sH-q_\mu n_\mu(x),\qquad
+ x=e_1^T(u+H(u)),
+\]
+
+and put \(A=DH\), \(J_2=D^2H\), \(J_3=D^3H\),
+\(X_1=e_1^T(I+A)\), and
+\(C=q_\mu n_\mu'(x)e_1^T\).  The top-order linear operator is
+
+\[
+ \mathcal L_kT=
+ [B_s-(I+A)C]T-
+ \sum_{a=1}^kT(\ldots,[B_u+C(I+A)]\,\cdot,\ldots).
+\]
+
+Direct differentiation along the true reduced flow gives the closed
+triangular equations
+
+\[
+ \dot J_2=\mathcal L_2J_2
+ -(I+A)q_\mu n_\mu''(x)X_1^{\otimes2},
+\]
+
+and
+
+\[
+\begin{aligned}
+ \dot J_3={}&\mathcal L_3J_3
+ -(I+A)q_\mu\left[n_\mu'''X_1^{\otimes3}
+ +n_\mu''\sum_{\rm cyc}(e_1^TJ_2)X_1\right]\\
+ &-\sum_{\rm cyc}J_2(F_2,\cdot),\qquad
+ F_2=q_\mu\left[n_\mu''X_1^{\otimes2}
+ +n_\mu'e_1^TJ_2\right].
+\end{aligned}
+\]
+
+No fourth or fifth state derivative occurs.  With
+
+\[
+ D_*=\frac{111}{20000},\qquad
+ \bar\kappa=\alpha-(1+D_*)\ell,qquad
+ t=\|q_\mu\|\sup|n_\mu'''|,
+\]
+
+the Hilbert--Schmidt tensor inequalities are
+
+\[
+ \frac12D\|J_k\|_{HS}^2
+ \le-(k+1)\bar\kappa\|J_k\|_{HS}^2
+ +M_k\|J_k\|_{HS},
+\]
+
+where
+
+\[
+ M_2=m(1+D_*)^3
+\]
+
+and, on \(\|J_2\|_{HS}\le\sigma_2\),
+
+\[
+\begin{aligned}
+ M_3={}&(1+D_*)
+ \left[t(1+D_*)^3+3m\sigma_2(1+D_*)\right]\\
+ &+3\sigma_2\left[m(1+D_*)^2+\ell\sigma_2\right].
+\end{aligned}
+\]
+
+The frozen radii are \(\sigma_2=1/2\) and \(\sigma_3=9/8\).  The probe must
+check both origin homological margins
+
+\[
+ 3\alpha\sigma_2-m>0,\qquad
+ 4\alpha\sigma_3-(t+6m\sigma_2)>0,
+\]
+
+and both full-disk no-first-exit margins
+
+\[
+ 3\bar\kappa\sigma_2-M_2>0,\qquad
+ 4\bar\kappa\sigma_3-M_3>0.
+\]
+
+The origin equations put the analytic germ strictly inside the tensor
+balls.  The forward no-first-exit argument then follows the same true graph
+already supplied by P2a; it does not use \(D^2H_{10}\) as a true-graph
+bound.  A pass proves \(\|D^2H_\mu\|_{HS}\le1/2\) and
+\(\|D^3H_\mu\|_{HS}\le9/8\), not \(C^2/C^3\) closeness to \(H_{10}\).
+
+### 5.2 Fixed-core Lyapunov--Perron recurrence
+
+Normalize the bridge exactly by
+
+\[
+ \theta_r=25r-1,\qquad \theta_a=4a_2,\qquad
+ \theta_\epsilon=5(\epsilon-1),
+\]
+
+so \(\theta\in[-1,1]^3\).  In the moving graph coordinates use the fixed
+core blocks \(B_{u,0},B_{s,0}\), let
+
+\[
+ \mathcal R_\theta(u,s)=
+ \binom{\Delta B_\theta u+q_\theta n_\theta(u_1+s_1)}
+       {-\Delta B_\theta s-q_\theta n_\theta(u_1+s_1)},
+\]
+
+and write the true unstable half-orbit as
+
+\[
+ Z_{\theta,b}=Eb+\mathcal K\mathcal R_\theta(Z_{\theta,b}).
+\]
+
+The fixed weight for this certificate is
+
+\[
+ \omega=\frac14,\qquad
+ \|Z\|_\omega=\sup_{t\le0}e^{-\omega t}
+ \max\{\|u(t)\|_2,\|s(t)\|_2\}.
+\]
+
+P2a's \(\gamma_1>2/3\), its quadratic graph estimate, and P2b0 imply
+
+\[
+ \|Z_{\theta,b}\|_\omega\le R=\frac1{100},\qquad
+ |u_1+H_{\theta,1}(u)|\le\frac{251}{25000}.
+\]
+
+This is a bound along the true graph; it is not a claim that a full
+four-dimensional product ball has the sharpened \(x\)-bound.
+
+At fixed \(x\), outward interval automatic differentiation on the frozen
+\(16\times8\times4\times2\) exact-rational grid bounds
+
+\[
+ B_j,\quad h_j=\|D_\theta^j(qn)\|,
+ \quad\ell_j=\|D_\theta^j(qn')\|,
+ \quad m_j=\|D_\theta^j(qn'')\|,
+ \quad t_j=\|D_\theta^j(qn''')\|,
+ \qquad 0\le j\le2.
+\]
+
+In the max-of-two-Euclidean-blocks norm set
+
+\[
+ L_{1j}=B_j+2\ell_j,\qquad
+ L_{2j}=4m_j,\qquad L_{3j}=8t_j.
+\]
+
+Every explicit parameter derivative of \(\mathcal R_\theta\) vanishes at
+\(Z=0\).  Therefore the required weighted zero-slot estimate is the
+fixed-\(Z\) mean-value bound
+
+\[
+ \|D_\theta^j\mathcal R_\theta(Z)\|_\omega
+ \le L_{1j}\|Z\|_\omega,
+\]
+
+not an unweighted constant \(h_j\).  Since the state polynomial is cubic,
+\(D_Z^p\mathcal R_\theta=0\) for \(p\ge4\).
+
+The fixed Green operator obeys
+
+\[
+ K_\omega=(1/\sqrt2-\omega)^{-1},\qquad
+ q_{\rm LP}=K_\omega L_{10}<1,\qquad
+ \|(I-\mathcal KD_Z\mathcal R)^{-1}\|
+ \le(1-q_{\rm LP})^{-1}.
+\]
+
+For \(Z_{ij}=\|D_b^iD_\theta^jZ\|_\omega\), use the multilinear operator
+norm on labelled Euclidean state and parameter directions, together with the
+max-of-two-Euclidean-blocks state norm.  In particular, the derivative of
+the injection \(b\mapsto Eb\) has norm one, which explains the direct term
+below.  This is distinct from the Hilbert--Schmidt norm used for the separate
+pure graph tensors \(D_b^2H,D_b^3H\); the finite-dimensional coefficient
+Hilbert--Schmidt bounds dominate every labelled operator norm used here.
+
+Use labelled derivative sets.  Choose the labels acting explicitly on
+\(\mathcal R\), partition all
+remaining labels into one, two, or three nonempty \(Z\)-blocks, and remove
+exactly the single unpartitioned target term
+\(D_Z\mathcal R\,Z_{ij}\).  Calling the resulting lower-order sum
+\(\mathfrak B_{ij}\), the machine-generated recurrence is
+
+\[
+ Z_{ij}\le
+ \frac{\mathbf1_{(i,j)=(1,0)}
+ +K_\omega\mathfrak B_{ij}}{1-q_{\rm LP}}.
+\]
+
+The analytic parameter-dependent unstable-manifold theorem, followed by the
+P2a cone continuation, first supplies the actual
+\(C^2_\theta(C^3_b)\) true half-orbit family.  P2a's (2/3) backward decay
+and the strict gap to the weight (1/4) place its derivatives in the fixed
+weighted space (equivalently one may take finite backward truncations and
+pass to the uniform limit).  Along that true family, and only there, P2b0
+gives the sharpened (x)-tube used by the coefficient grid.  Thus
+(q_{\rm LP}<1) bounds the linearization
+(\mathcal K D_Z\mathcal R_\theta(Z_{\theta,b})) and its Neumann inverse.
+Differentiating the true fixed-point identity then bounds the actual
+derivatives; the recurrence is not a formal jet calculation.  No contraction
+claim is made on the entire radius-(R) four-dimensional product ball, where
+the sharpened (x)-bound need not hold.  Set partitions of labelled directions generate every Faà di Bruno
+multiplicity and make the recurrence triangular through the complete
+rectangle \(0\le i\le3, 0\le j\le2\).  Taking the stable component at
+\(t=0\) gives the mixed graph jets.  The original blown-up parameter bounds
+follow from the exact diagonal change; the coarse operator factors are
+\(25\) and \(625\) for first and second parameter order.
+
+The moving-coordinate bounds are then composed with the exact frame from
+Section 2.  If \(T_k\) bounds the \(k\)-th normalized-parameter derivative of
+\(T_\theta\), measured from the max-block norm to physical Euclidean norm,
+the physical half-orbit satisfies the complete Leibniz bound
+
+\[
+ \|D_b^iD_\theta^j(T_\theta Z_{\theta,b})\|_\omega
+ \le \sum_{k=0}^j {j\choose k}T_k Z_{i,j-k},
+ \qquad 0\le i\le3,\quad 0\le j\le2.
+\]
+
+The executable kernel uses a conservative
+\(\sqrt2\)-times-Frobenius/Hilbert--Schmidt enclosure for \(T_k\), records
+both moving and physical bounds, and applies the same exact \(25/625\)
+operator factors to obtain original blown-up-parameter bounds.  The fixed
+isometric reverser supplies the stable graph and half-orbit bounds.
+
+The certificate checker does not trust the C++ atomics merely because the
+certificate also stores a matching stdout string and hash.  For this scope it
+materializes the probe and local support headers from the recorded source
+revision, reconstructs the strict compile command, and reruns the exact
+argument vector on the checking machine.  Exact stdout, stderr hashes, and
+exit status must agree.  This closes certificate-local coordinated-tampering
+attacks; it is deliberately described as same-machine deterministic replay,
+not as the second independent-machine execution required for a claim-bearing
+release.
+
+The smaller weight \(1/5\) is reserved for the selected full homoclinic in
+P2c.  The number \(1/4\) is a deliberate quantitative choice satisfying
+Theorem V2's existential \(0<\eta<1/\sqrt2\); it is unrelated to the P2b0
+first-derivative tube radius \(3/10000\).
+
+### 5.3 Aggregation and phase boundary
+
+`V2.WU.JETS` passes only if `P2.JETS.COEFFICIENTS`,
+`V2.WU.STATE_C23`, `V2.WU.MIXED_JETS`, and
+`V2.WU.WEIGHTED_HALF_ORBITS` all pass.  `V2.WU_GRAPH` additionally binds
+the immutable P2a and P2b0 passes.
+
+These graph coordinates still do not fix the absolute source phase.  Before
+P2c, a separate `V2.PHASE.KATO_INTERFACE` certificate must validate
+normalized Kato transport, its \(C^2\) parameter jets, a positive and
+uniformly invertible change from the algebraic frame, and the degree-one
+true source circle.  It must agree exactly with the frozen core phase on the
+complete \(r=0\) dummy face.
+
+## 6. What P2a and P2b0 do and do not settle
 
 A P2a `PASS` is a genuine uniform positive-parameter result: it supplies a
 true local source disk and a rigorous value enclosure on all of \(B_0\), not
@@ -397,7 +672,7 @@ weighted half-orbits.  The frozen core \(H_{10}\) table may be used as a
 center for a positive-parameter residual tube, but its zero-parameter
 \(10^{-20}\)/\(10^{-18}\) error bounds cannot be copied to \(B_0\).
 
-## 6. Homoclinic, chart, and atlas boundaries
+## 7. Homoclinic, chart, and atlas boundaries
 
 The selected homoclinic stage must use a validated true-graph source and a
 gap-free interval parameter cover.  The symmetry section is codimension two,
