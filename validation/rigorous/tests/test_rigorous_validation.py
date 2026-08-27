@@ -19,15 +19,20 @@ from check_certificate import schema_errors, semantic_errors  # noqa: E402
 from rigorous_common import (  # noqa: E402
     box_arguments,
     combine_verdicts,
+    deterministic_source_tree,
     load_json,
+    observe_exact_symbolic_backend,
+    p2_kato_arguments,
     p2_jets_arguments,
     validate_exact_bridge,
     validate_exact_box,
     validate_h10_c01_configuration,
     validate_local_graph_configuration,
+    validate_p2_kato_configuration,
     validate_p2_jets_configuration,
     validate_p2b0_true_tube_implication,
 )
+from run_validation import verify_exact_symbolic_backend  # noqa: E402
 
 
 class FrozenBoxTests(unittest.TestCase):
@@ -205,6 +210,215 @@ class FrozenP2JetsTests(unittest.TestCase):
             "numerator": "21", "denominator": "4000"}
         self.assertTrue(validate_p2b0_true_tube_implication(
             invalid, self.p2b0_certificate))
+
+
+class FrozenP2KatoTests(unittest.TestCase):
+    def setUp(self) -> None:
+        self.bridge = load_json(
+            RIGOROUS / "config" / "vdp_bridge_v1.json")
+        self.configuration = load_json(
+            RIGOROUS / "config" / "vdp_p2_kato_v1.json")
+        self.p2b_certificate = load_json(
+            RIGOROUS / "results" / "vdp_bridge_v1_p2b_jets.json")
+
+    def test_schema_contract_bindings_and_canonical_arguments(self) -> None:
+        jsonschema.validate(
+            self.configuration,
+            load_json(RIGOROUS / "p2_kato.schema.json"),
+            format_checker=jsonschema.FormatChecker(),
+        )
+        self.assertEqual(validate_p2_kato_configuration(self.configuration), [])
+        arguments = p2_kato_arguments(
+            self.bridge, self.configuration, self.p2b_certificate)
+        self.assertEqual(len(arguments), 113)
+        self.assertEqual(arguments[:12], box_arguments(self.bridge))
+        self.assertEqual(
+            arguments[12:21],
+            ["1", "100", "25", "1", "625", "1", "16", "8", "4"],
+        )
+        self.assertEqual(
+            arguments[21:23],
+            ["2886622329032789", "72057594037927936"],
+        )
+        basis = self.configuration["selection_basis"]
+        for name in (
+                "continuation_bridge", "p2a_configuration",
+                "p2a_certificate", "p2b_configuration", "p2b_certificate",
+                "core_source_import", "v2_source_definition",
+                "design_scout"):
+            item = basis[name]
+            observed = hashlib.sha256(
+                (REPOSITORY / item["path"]).read_bytes()).hexdigest()
+            self.assertEqual(item["sha256"], observed)
+        resolved = subprocess.run(
+            ["git", "-C", str(REPOSITORY), "rev-parse",
+             f"{basis['repository_tag']}^{{commit}}"],
+            check=True, text=True, stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+        ).stdout.strip()
+        self.assertEqual(resolved, basis["repository_commit"])
+
+    def test_post_freeze_semantic_mutations_are_detected(self) -> None:
+        mutations: list[dict] = []
+        paths_and_values = [
+            (("kato_exact_contract", "kato_sign_convention"),
+             "D_s(W)=-[D_s(P_u),P_u]*W"),
+            (("kato_exact_contract", "normalization_statement"),
+             "k1 solves the unnormalized Kato equation"),
+            (("kato_exact_contract", "physical_frame_statement"),
+             "K is orthonormal"),
+            (("source_circle_contract", "phase_lift_formula"),
+             "phi_algebraic=phi-chi(c(theta))"),
+            (("true_source_composition",
+              "full_rectangular_phase3_parameter2_claimed"), True),
+            (("coordinate_domain",
+              "second_parameter_off_diagonals_counted_twice"), False),
+        ]
+        for path, value in paths_and_values:
+            invalid = copy.deepcopy(self.configuration)
+            target = invalid
+            for key in path[:-1]:
+                target = target[key]
+            target[path[-1]] = value
+            mutations.append(invalid)
+        invalid = copy.deepcopy(self.configuration)
+        invalid["true_source_composition"]["targets"].remove("S_1_2")
+        mutations.append(invalid)
+        invalid = copy.deepcopy(self.configuration)
+        invalid["parameter_grid"]["subdivisions"][0] = 8
+        mutations.append(invalid)
+        invalid = copy.deepcopy(self.configuration)
+        invalid["acceptance_gates"]["absolute_c_upper"]["numerator"] = "42"
+        mutations.append(invalid)
+        invalid = copy.deepcopy(self.configuration)
+        invalid["normalized_true_source_jet_upper_gates"]["S_3_0"] = {
+            "numerator": "1", "denominator": "10"}
+        mutations.append(invalid)
+        invalid = copy.deepcopy(self.configuration)
+        invalid["selection_basis"]["p2b_certificate"]["sha256"] = "0" * 64
+        mutations.append(invalid)
+        invalid = copy.deepcopy(self.configuration)
+        invalid["proved_subobligations"].remove("P2.KATO.C2_LIFT")
+        mutations.append(invalid)
+        invalid = copy.deepcopy(self.configuration)
+        invalid["nonclaims"].pop()
+        mutations.append(invalid)
+        for value in mutations:
+            self.assertTrue(validate_p2_kato_configuration(value))
+
+    def test_p2b_endpoint_contract_is_closed_and_nonnegative(self) -> None:
+        for mutation in ("missing", "format", "lower", "upper"):
+            invalid = copy.deepcopy(self.p2b_certificate)
+            enclosure = invalid["raw_probe"] \
+                ["physical_weighted_jet_enclosures"]["Z_0_0"]
+            if mutation == "missing":
+                enclosure.pop("upper_hex")
+            elif mutation == "format":
+                enclosure["endpoint_format"] = "DECIMAL"
+            elif mutation == "lower":
+                enclosure["lower_hex"] = "0x1p-100"
+            else:
+                enclosure["upper_hex"] = "0x0p+0"
+            with self.assertRaises(ValueError):
+                p2_kato_arguments(
+                    self.bridge, self.configuration, invalid)
+
+
+class KatoExactAlgebraAuditTests(unittest.TestCase):
+    def test_exact_audit_is_complete_and_byte_deterministic(self) -> None:
+        command = [
+            sys.executable, "-B", str(RIGOROUS / "audit_kato_exact.py")]
+        first = subprocess.run(
+            command, cwd=REPOSITORY, stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE, timeout=30)
+        second = subprocess.run(
+            command, cwd=REPOSITORY, stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE, timeout=30)
+        self.assertEqual(first.returncode, 0, first.stderr.decode())
+        self.assertEqual(second.returncode, 0, second.stderr.decode())
+        self.assertEqual(first.stdout, second.stdout)
+        self.assertEqual(first.stderr, b"")
+        self.assertEqual(first.stdout.count(b"\n"), 1)
+        audit = json.loads(first.stdout)
+        self.assertEqual(
+            audit["schema_version"],
+            "rfsn-vdp-p2-kato-exact-audit/1")
+        self.assertEqual(audit["status"], "PASS")
+        self.assertEqual(audit["method"],
+                         "exact-symbolic-identities-no-sampling")
+        self.assertEqual(audit["backend"]["name"], "sympy")
+        self.assertEqual(len(audit["checks"]), 56)
+        self.assertTrue(all(audit["checks"].values()))
+
+    def test_missing_exact_backend_is_a_machine_readable_fail(self) -> None:
+        completed = subprocess.run(
+            [sys.executable, "-S", "-B",
+             str(RIGOROUS / "audit_kato_exact.py")],
+            cwd=REPOSITORY, stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE, timeout=30)
+        self.assertEqual(completed.returncode, 1)
+        self.assertEqual(completed.stdout.count(b"\n"), 1)
+        audit = json.loads(completed.stdout)
+        self.assertEqual(audit["status"], "FAIL")
+        self.assertEqual(audit["backend"], {
+            "name": "sympy", "version": None})
+
+
+class ExactSymbolicBackendTrustTests(unittest.TestCase):
+    def setUp(self) -> None:
+        self.dependency = load_json(RIGOROUS / "dependency.lock.json")
+
+    def test_frozen_python_and_sympy_tree_match_runtime(self) -> None:
+        observed = observe_exact_symbolic_backend()
+        frozen = self.dependency["exact_symbolic_backend"]
+        self.assertEqual(observed["python"], frozen["python"])
+        self.assertEqual(observed["sympy"]["version"],
+                         frozen["sympy"]["version"])
+        self.assertEqual(observed["sympy"]["source_tree"],
+                         frozen["sympy"]["source_tree"])
+        self.assertEqual(observed["bytecode_policy"],
+                         frozen["bytecode_policy"])
+        status, detail, errors = verify_exact_symbolic_backend(self.dependency)
+        self.assertEqual(status, "PASS")
+        self.assertEqual(errors, [])
+        self.assertEqual(detail["status"], "PASS")
+
+    def test_backend_lock_tampering_is_rejected(self) -> None:
+        mutations = []
+        for path, value in (
+                (("python", "sha256"), "0" * 64),
+                (("sympy", "version"), "1.14.0-forged"),
+                (("sympy", "source_tree", "sha256"), "f" * 64),
+                (("sympy", "source_tree", "file_count"), 1560)):
+            mutated = copy.deepcopy(self.dependency)
+            target = mutated["exact_symbolic_backend"]
+            for key in path[:-1]:
+                target = target[key]
+            target[path[-1]] = value
+            mutations.append(mutated)
+        for mutated in mutations:
+            status, detail, errors = verify_exact_symbolic_backend(mutated)
+            self.assertEqual(status, "FAIL")
+            self.assertEqual(detail["status"], "FAIL")
+            self.assertTrue(errors)
+
+    def test_tree_digest_is_deterministic_and_excludes_bytecode(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root / "module.py").write_text("VALUE = 1\n", encoding="utf-8")
+            cache = root / "__pycache__"
+            cache.mkdir()
+            bytecode = cache / "module.cpython-314.pyc"
+            bytecode.write_bytes(b"first cache")
+            first = deterministic_source_tree(root)
+            second = deterministic_source_tree(root)
+            self.assertEqual(first, second)
+            self.assertEqual(first["file_count"], 1)
+            bytecode.write_bytes(b"different ignored cache")
+            self.assertEqual(deterministic_source_tree(root), first)
+            (root / "module.py").write_text("VALUE = 2\n", encoding="utf-8")
+            self.assertNotEqual(
+                deterministic_source_tree(root)["sha256"], first["sha256"])
 
 
 class ArchivedP2B0CertificateTests(unittest.TestCase):

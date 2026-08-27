@@ -23,7 +23,9 @@ from rigorous_common import (
     combine_verdicts,
     git_output,
     load_json,
+    observe_exact_symbolic_backend,
     p2_jets_arguments,
+    p2_kato_arguments,
     run_checked,
     safe_repository_path,
     sha256_bytes,
@@ -33,6 +35,7 @@ from rigorous_common import (
     validate_h10_c01_configuration,
     validate_local_graph_configuration,
     validate_p2_jets_configuration,
+    validate_p2_kato_configuration,
     validate_p2b0_true_tube_implication,
 )
 
@@ -43,8 +46,10 @@ BRIDGE_PATH = HERE / "config" / "vdp_bridge_v1.json"
 LOCAL_GRAPH_CONFIG_PATH = HERE / "config" / "vdp_p2_local_graph_v1.json"
 H10_C01_CONFIG_PATH = HERE / "config" / "vdp_p2_h10_c01_v1.json"
 P2_JETS_CONFIG_PATH = HERE / "config" / "vdp_p2_jets_v1.json"
+P2_KATO_CONFIG_PATH = HERE / "config" / "vdp_p2_kato_v1.json"
 P2A_CERTIFICATE_PATH = HERE / "results" / "vdp_bridge_v1_p2a_local_graph.json"
 P2B0_CERTIFICATE_PATH = HERE / "results" / "vdp_bridge_v1_p2b_h10_c01.json"
+P2B_JETS_CERTIFICATE_PATH = HERE / "results" / "vdp_bridge_v1_p2b_jets.json"
 DEPENDENCY_LOCK_PATH = HERE / "dependency.lock.json"
 FLAGSHIP_LOCK_PATH = HERE / "flagship_import.lock.json"
 
@@ -56,11 +61,20 @@ P2_JETS_SCOPE_NONCLAIM = (
     "its scope."
 )
 
+P2_KATO_SCOPE_NONCLAIM = (
+    "The P2 Kato kernel proves only the normalized expanding-frame and "
+    "total-order-three true-source phase interface; the selected homoclinic, "
+    "positive radial symplectic completion, exact charts, event atlas, "
+    "V3--V6, temporal stability, Turing selection, and canard identification "
+    "remain outside its scope."
+)
+
 BOUND_SOURCES = (
     "RESEARCH_CONTRACT.md",
     "theory/BASELINE.md",
     "van-der-pol/HAMILTONIAN_CHECK.md",
     "van-der-pol/MODEL_AND_CENTRAL_CHART.md",
+    "van-der-pol/CENTRAL_CORE_IMPORT.md",
     "van-der-pol/CENTRAL_CONTINUATION.md",
     "validation/rigorous/README.md",
     "validation/rigorous/P2_VALIDATION_CONTRACT.md",
@@ -70,11 +84,13 @@ BOUND_SOURCES = (
     "validation/rigorous/p2_local_graph.schema.json",
     "validation/rigorous/p2_h10_c01.schema.json",
     "validation/rigorous/p2_jets.schema.json",
+    "validation/rigorous/p2_kato.schema.json",
     "validation/rigorous/config/vdp_bridge_v1.json",
     "validation/rigorous/config/vdp_box_v1.json",
     "validation/rigorous/config/vdp_p2_local_graph_v1.json",
     "validation/rigorous/config/vdp_p2_h10_c01_v1.json",
     "validation/rigorous/config/vdp_p2_jets_v1.json",
+    "validation/rigorous/config/vdp_p2_kato_v1.json",
     "validation/rigorous/dependency.lock.json",
     "validation/rigorous/flagship_import.lock.json",
     "validation/rigorous/obligations.json",
@@ -86,12 +102,16 @@ BOUND_SOURCES = (
     "validation/rigorous/src/vdp_local_graph_probe.cpp",
     "validation/rigorous/src/vdp_h10_c01_probe.cpp",
     "validation/rigorous/src/vdp_p2_jets_probe.cpp",
+    "validation/rigorous/src/vdp_p2_kato_probe.cpp",
     "validation/rigorous/src/vdp_parameter_box_probe.cpp",
     "validation/rigorous/audit_h10_center.py",
+    "validation/rigorous/audit_kato_exact.py",
     "validation/rigorous/results/vdp_bridge_v1_p2a_local_graph.json",
     "validation/rigorous/results/vdp_bridge_v1_p2b_h10_c01.json",
+    "validation/rigorous/results/vdp_bridge_v1_p2b_jets.json",
     "validation/rigorous/design/README.md",
     "validation/rigorous/design/p2b_jets_scout.cpp",
+    "validation/rigorous/design/p2b_kato_scout.cpp",
     "validation/rigorous/rigorous_common.py",
     "validation/rigorous/run_validation.py",
     "validation/rigorous/check_certificate.py",
@@ -345,6 +365,162 @@ def verify_p2_jets_configuration(
     return ("PASS" if not errors else "FAIL", errors)
 
 
+def verify_p2_kato_configuration(
+        configuration: dict[str, Any], bridge: dict[str, Any],
+        p2b_certificate: dict[str, Any],
+        flagship_repository: Path | None) -> tuple[str, list[str]]:
+    """Verify the frozen local and read-only flagship inputs for P2bK."""
+
+    errors = validate_p2_kato_configuration(configuration)
+    try:
+        jsonschema.validate(
+            configuration,
+            load_json(HERE / "p2_kato.schema.json"),
+            format_checker=jsonschema.FormatChecker(),
+        )
+    except jsonschema.ValidationError as error:
+        errors.append(f"schema: {error.message}")
+
+    try:
+        basis = configuration["selection_basis"]
+        tag_commit = git_output(
+            REPOSITORY, "rev-parse", f"{basis['repository_tag']}^{{commit}}")
+        if tag_commit != basis["repository_commit"]:
+            errors.append("P2 Kato selection tag does not resolve to its commit")
+
+        local_inputs = {
+            "continuation_bridge": BRIDGE_PATH,
+            "p2a_configuration": LOCAL_GRAPH_CONFIG_PATH,
+            "p2a_certificate": P2A_CERTIFICATE_PATH,
+            "p2b_configuration": P2_JETS_CONFIG_PATH,
+            "p2b_certificate": P2B_JETS_CERTIFICATE_PATH,
+            "core_source_import": REPOSITORY / "van-der-pol" /
+                "CENTRAL_CORE_IMPORT.md",
+            "v2_source_definition": REPOSITORY / "van-der-pol" /
+                "CENTRAL_CONTINUATION.md",
+            "design_scout": HERE / "design" / "p2b_kato_scout.cpp",
+        }
+        for name, path in local_inputs.items():
+            selected = basis[name]
+            expected_path = path.resolve()
+            expected_relative = str(expected_path.relative_to(REPOSITORY.resolve()))
+            if safe_repository_path(REPOSITORY, selected["path"]) != expected_path:
+                errors.append(f"P2 Kato {name} is not canonical")
+            if selected["path"] != expected_relative:
+                errors.append(f"P2 Kato {name} path spelling changed")
+            if selected["sha256"] != sha256_file(expected_path):
+                errors.append(f"P2 Kato current {name} hash mismatch")
+            frozen_blob = subprocess.run(
+                ["git", "-C", str(REPOSITORY), "show",
+                 f"{basis['repository_commit']}:{selected['path']}"],
+                check=True, stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE).stdout
+            if selected["sha256"] != sha256_bytes(frozen_blob):
+                errors.append(f"P2 Kato frozen {name} blob hash mismatch")
+
+        if bridge.get("bridge_id") != "vdp-core-to-positive-bridge-v1":
+            errors.append("P2 Kato bridge identifier changed")
+        if p2b_certificate.get("scope") != "V2_P2_JETS_KERNEL":
+            errors.append("P2 Kato P2b prerequisite certificate scope changed")
+
+        flagship_lock = load_json(FLAGSHIP_LOCK_PATH)
+        if flagship_repository is None:
+            errors.append(
+                "P2 Kato validation requires the frozen flagship repository")
+        else:
+            flagship_repository = flagship_repository.resolve()
+            for name in ("flagship_core_manuscript",
+                         "flagship_core_certificate"):
+                selected = basis[name]
+                if selected["commit"] != flagship_lock["commit"]:
+                    errors.append(f"P2 Kato {name} commit differs from flagship lock")
+                if flagship_lock["files"].get(selected["path"]) != \
+                        selected["sha256"]:
+                    errors.append(f"P2 Kato {name} differs from flagship lock")
+                frozen_blob = subprocess.run(
+                    ["git", "-C", str(flagship_repository), "show",
+                     f"{selected['commit']}:{selected['path']}"],
+                    check=True, stdout=subprocess.PIPE,
+                    stderr=subprocess.PIPE).stdout
+                if selected["sha256"] != sha256_bytes(frozen_blob):
+                    errors.append(
+                        f"P2 Kato read-only flagship {name} hash mismatch")
+    except (KeyError, OSError, ValueError,
+            subprocess.SubprocessError) as error:
+        errors.append(f"P2 Kato configuration verification failed: {error}")
+    return ("PASS" if not errors else "FAIL", errors)
+
+
+def verify_p2b_jets_prerequisite(
+        certificate: dict[str, Any]) -> tuple[
+            str, list[str], dict[str, Any]]:
+    """Recursively verify the immutable P2b mixed-jet certificate."""
+
+    errors = schema_errors(certificate) + semantic_errors(certificate, REPOSITORY)
+    by_id = {
+        item.get("id"): item.get("status")
+        for item in certificate.get("obligations", [])
+        if isinstance(item, dict)
+    }
+    expected = {
+        "scope": "V2_P2_JETS_KERNEL",
+        "integrity_status": "PASS",
+        "mathematical_status": "PASS",
+        "final_status": "INCONCLUSIVE",
+        "claim_bearing": False,
+    }
+    for key, value in expected.items():
+        if certificate.get(key) != value:
+            errors.append(
+                f"P2b jets prerequisite {key}={certificate.get(key)!r}, "
+                f"expected {value!r}")
+    required_obligations = (
+        "P2.JETS.COEFFICIENTS",
+        "V2.WU.STATE_C23",
+        "V2.WU.MIXED_JETS",
+        "V2.WU.WEIGHTED_HALF_ORBITS",
+        "V2.WU.JETS",
+        "V2.WU_GRAPH",
+    )
+    for identifier in required_obligations:
+        if by_id.get(identifier) != "PASS":
+            errors.append(
+                f"P2b jets prerequisite {identifier} is not PASS")
+    expected_replay = {
+        "status": "PENDING_REQUIRED",
+        "required_distinct_machines": 2,
+        "observed_distinct_machines": 1,
+    }
+    if certificate.get("independent_replay") != expected_replay:
+        errors.append(
+            "P2b jets prerequisite independent-replay record changed")
+    if certificate.get("continuation_bridge", {}).get("variables") != \
+            load_json(BRIDGE_PATH).get("variables"):
+        errors.append("P2b jets prerequisite uses a different bridge")
+    expected_configuration = {
+        "path": "validation/rigorous/config/vdp_p2_jets_v1.json",
+        "sha256": sha256_file(P2_JETS_CONFIG_PATH),
+        "configuration_id": "vdp-p2-jets-v1",
+    }
+    if certificate.get("p2_jets_configuration") != expected_configuration:
+        errors.append("P2b jets prerequisite configuration record changed")
+    detail = {
+        "configuration_path":
+            "validation/rigorous/config/vdp_p2_jets_v1.json",
+        "configuration_sha256": sha256_file(P2_JETS_CONFIG_PATH),
+        "certificate_path":
+            "validation/rigorous/results/vdp_bridge_v1_p2b_jets.json",
+        "certificate_sha256": sha256_file(P2B_JETS_CERTIFICATE_PATH),
+        "certificate_scope": certificate.get("scope"),
+        "source_commit": certificate.get("source_revision", {}).get("commit"),
+        "integrity_status": certificate.get("integrity_status"),
+        "mathematical_status": certificate.get("mathematical_status"),
+        "final_status": certificate.get("final_status"),
+        "claim_bearing": certificate.get("claim_bearing"),
+    }
+    return ("PASS" if not errors else "FAIL", errors, detail)
+
+
 def verify_h10_c01_configuration(
         configuration: dict[str, Any], bridge: dict[str, Any],
         p2a_configuration: dict[str, Any], p2a_certificate: dict[str, Any],
@@ -497,6 +673,112 @@ def run_h10_center_audit(
         "audit_source_sha256": sha256_file(HERE / "audit_h10_center.py"),
     }
     return audit, logs, execution
+
+
+def run_kato_exact_audit() -> tuple[
+        dict[str, Any], dict[str, str], dict[str, Any]]:
+    """Run and preserve the deterministic exact-symbolic P2bK audit."""
+
+    command = [sys.executable, "-B", str(HERE / "audit_kato_exact.py")]
+    environment = os.environ.copy()
+    environment.update({
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1",
+        "LC_ALL": "C.UTF-8",
+        "PYTHONHASHSEED": "0",
+    })
+    with tempfile.TemporaryDirectory(
+            prefix="rfsn-kato-empty-pycache-") as pycache:
+        # The SymPy tree hash intentionally excludes bytecode.  Redirecting
+        # cache lookup to a fresh empty tree makes the audit consume the
+        # hash-bound sources instead of a pre-existing package __pycache__.
+        environment["PYTHONPYCACHEPREFIX"] = pycache
+        executed = subprocess.run(
+            command, text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+            env=environment, timeout=960)
+    if executed.returncode not in (0, 1):
+        raise RuntimeError(
+            "P2 Kato exact audit terminated with unexpected code "
+            f"{executed.returncode}:\n{executed.stderr}")
+    try:
+        audit = json.loads(executed.stdout)
+    except json.JSONDecodeError as error:
+        raise RuntimeError(
+            f"P2 Kato exact audit emitted invalid JSON: {error}") from error
+    if not isinstance(audit, dict):
+        raise RuntimeError("P2 Kato exact audit did not emit a JSON object")
+    expected_exit = {"PASS": 0, "FAIL": 1}.get(audit.get("status"))
+    if expected_exit != executed.returncode:
+        raise RuntimeError("P2 Kato exact audit status/exit mismatch")
+    if audit.get("schema_version") != \
+            "rfsn-vdp-p2-kato-exact-audit/1":
+        raise RuntimeError("P2 Kato exact audit schema version mismatch")
+    backend = audit.get("backend")
+    if not isinstance(backend, dict) or backend.get("name") != "sympy":
+        raise RuntimeError("P2 Kato exact audit backend record changed")
+    checks = audit.get("checks")
+    if not isinstance(checks, dict) or not checks or not all(
+            isinstance(name, str) and isinstance(value, bool)
+            for name, value in checks.items()):
+        raise RuntimeError("P2 Kato exact audit check map is invalid")
+    if audit.get("status") == "PASS":
+        if audit.get("method") != "exact-symbolic-identities-no-sampling":
+            raise RuntimeError("P2 Kato exact audit method changed")
+        if not all(checks.values()):
+            raise RuntimeError("P2 Kato exact audit PASS contains a false check")
+    logs = {
+        "kato_audit_stdout_sha256": sha256_bytes(executed.stdout.encode()),
+        "kato_audit_stderr_sha256": sha256_bytes(executed.stderr.encode()),
+    }
+    execution = {
+        "audit_source_sha256": sha256_file(HERE / "audit_kato_exact.py"),
+        "audit_argv": command,
+        "audit_argv_sha256": sha256_bytes(
+            json.dumps(command, separators=(",", ":")).encode()),
+        "audit_exit_code": executed.returncode,
+        "audit_stdout": executed.stdout,
+    }
+    return audit, logs, execution
+
+
+def verify_exact_symbolic_backend(
+        dependency: dict[str, Any]) -> tuple[str, dict[str, Any], list[str]]:
+    """Verify the Python executable and cache-free SymPy source tree."""
+
+    errors: list[str] = []
+    try:
+        frozen = dependency["exact_symbolic_backend"]
+        observed = observe_exact_symbolic_backend()
+        expected_observation = {
+            "python": frozen["python"],
+            "sympy": {
+                "version": frozen["sympy"]["version"],
+                "source_tree": frozen["sympy"]["source_tree"],
+            },
+            "bytecode_policy": frozen["bytecode_policy"],
+        }
+        comparable_observation = {
+            "python": observed["python"],
+            "sympy": {
+                "version": observed["sympy"]["version"],
+                "source_tree": observed["sympy"]["source_tree"],
+            },
+            "bytecode_policy": observed["bytecode_policy"],
+        }
+        if comparable_observation != expected_observation:
+            errors.append(
+                "exact symbolic Python/SymPy backend differs from the frozen lock")
+        detail = {
+            **observed,
+            "lock_scope": frozen.get("scope"),
+            "status": "PASS" if not errors else "FAIL",
+            "errors": errors,
+        }
+    except (ImportError, KeyError, OSError, ValueError,
+            subprocess.SubprocessError) as error:
+        errors.append(f"exact symbolic backend query failed: {error}")
+        detail = {"status": "FAIL", "errors": errors}
+    return detail["status"], detail, errors
 
 
 def parse_cache(path: Path) -> dict[str, str]:
@@ -744,6 +1026,8 @@ def compile_and_run(
         local_graph_configuration: dict[str, Any] | None = None,
         h10_c01_configuration: dict[str, Any] | None = None,
         p2_jets_configuration: dict[str, Any] | None = None,
+        p2_kato_configuration: dict[str, Any] | None = None,
+        p2b_jets_certificate: dict[str, Any] | None = None,
         flagship_repository: Path | None = None,
         ) -> tuple[dict[str, Any], dict[str, str], dict[str, Any]]:
     source_names = {
@@ -752,6 +1036,7 @@ def compile_and_run(
         "local-graph": "vdp_local_graph_probe.cpp",
         "h10-c01": "vdp_h10_c01_probe.cpp",
         "p2-jets": "vdp_p2_jets_probe.cpp",
+        "p2-kato": "vdp_p2_kato_probe.cpp",
     }
     source = HERE / "src" / source_names[scope]
     compiler = dependency["compiler"]["executable"]
@@ -831,6 +1116,12 @@ def compile_and_run(
                 raise RuntimeError("P2 jets scope lacks its frozen inputs")
             run_command.extend(p2_jets_arguments(
                 bridge, p2_jets_configuration))
+        elif scope == "p2-kato":
+            if bridge is None or p2_kato_configuration is None or \
+                    p2b_jets_certificate is None:
+                raise RuntimeError("P2 Kato scope lacks its frozen inputs")
+            run_command.extend(p2_kato_arguments(
+                bridge, p2_kato_configuration, p2b_jets_certificate))
         executed = subprocess.run(
             run_command, text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
             env=environment, timeout=120)
@@ -857,7 +1148,7 @@ def compile_and_run(
             "probe_argv": run_command,
             "probe_exit_code": executed.returncode,
         }
-        if scope == "p2-jets":
+        if scope in ("p2-jets", "p2-kato"):
             # Preserve the exact machine output for a byte-level hash check.
             # The parsed raw_probe remains the semantic representation.
             build["probe_stdout"] = executed.stdout
@@ -891,7 +1182,8 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "scope", choices=(
-            "preflight", "kernel", "local-graph", "h10-c01", "p2-jets"))
+            "preflight", "kernel", "local-graph", "h10-c01", "p2-jets",
+            "p2-kato"))
     parser.add_argument("--capd-source", type=Path, required=True)
     parser.add_argument("--capd-config", type=Path, required=True)
     parser.add_argument("--flagship-repository", type=Path)
@@ -908,8 +1200,10 @@ def main() -> int:
         local_graph_configuration: dict[str, Any] | None = None
         h10_c01_configuration: dict[str, Any] | None = None
         p2_jets_configuration: dict[str, Any] | None = None
+        p2_kato_configuration: dict[str, Any] | None = None
         p2a_certificate: dict[str, Any] | None = None
         p2b0_certificate: dict[str, Any] | None = None
+        p2b_jets_certificate: dict[str, Any] | None = None
         bridge_status = "PASS"
         bridge_errors: list[str] = []
         local_graph_configuration_status = "PASS"
@@ -918,13 +1212,19 @@ def main() -> int:
         h10_c01_configuration_errors: list[str] = []
         p2_jets_configuration_status = "PASS"
         p2_jets_configuration_errors: list[str] = []
+        p2_kato_configuration_status = "PASS"
+        p2_kato_configuration_errors: list[str] = []
         p2a_prerequisite_status = "PASS"
         p2a_prerequisite_errors: list[str] = []
         p2a_prerequisite: dict[str, Any] | None = None
         p2b0_prerequisite_status = "PASS"
         p2b0_prerequisite_errors: list[str] = []
         p2b0_prerequisite: dict[str, Any] | None = None
-        if arguments.scope in ("local-graph", "h10-c01", "p2-jets"):
+        p2b_jets_prerequisite_status = "PASS"
+        p2b_jets_prerequisite_errors: list[str] = []
+        p2b_jets_prerequisite: dict[str, Any] | None = None
+        if arguments.scope in (
+                "local-graph", "h10-c01", "p2-jets", "p2-kato"):
             bridge = load_json(BRIDGE_PATH)
             local_graph_configuration = load_json(LOCAL_GRAPH_CONFIG_PATH)
             bridge_status, bridge_errors = verify_bridge(bridge, box)
@@ -958,22 +1258,42 @@ def main() -> int:
                     p2_jets_configuration, bridge,
                     local_graph_configuration, p2a_certificate,
                     h10_c01_configuration, p2b0_certificate)
+        if arguments.scope == "p2-kato":
+            assert bridge is not None
+            p2_kato_configuration = load_json(P2_KATO_CONFIG_PATH)
+            p2b_jets_certificate = load_json(P2B_JETS_CERTIFICATE_PATH)
+            p2b_jets_prerequisite_status, \
+                p2b_jets_prerequisite_errors, p2b_jets_prerequisite = \
+                verify_p2b_jets_prerequisite(p2b_jets_certificate)
+            p2_kato_configuration_status, p2_kato_configuration_errors = \
+                verify_p2_kato_configuration(
+                    p2_kato_configuration, bridge, p2b_jets_certificate,
+                    arguments.flagship_repository)
         head = git_output(REPOSITORY, "rev-parse", "HEAD")
         dirty = bool(git_output(REPOSITORY, "status", "--porcelain"))
         if dirty and not arguments.allow_dirty:
             raise RuntimeError(
                 "repository is dirty; use --allow-dirty only for a non-release development run")
-        if arguments.scope == "h10-c01" and \
+        if arguments.scope in ("h10-c01", "p2-kato") and \
                 arguments.flagship_repository is None:
             raise RuntimeError(
-                "H10 C0/C1 validation requires --flagship-repository for "
+                f"{arguments.scope} validation requires --flagship-repository for "
                 "frozen-object regeneration")
         flagship_status, flagship = verify_flagship(arguments.flagship_repository)
         capd_status, toolchain, cflags, libs = verify_toolchain(
             arguments.capd_source.resolve(), arguments.capd_config.resolve(), dependency)
         toolchain["flagship_import"] = flagship
+        exact_symbolic_backend_status = "PASS"
+        exact_symbolic_backend_errors: list[str] = []
+        if arguments.scope == "p2-kato":
+            exact_symbolic_backend_status, exact_symbolic_backend, \
+                exact_symbolic_backend_errors = \
+                verify_exact_symbolic_backend(dependency)
+            toolchain["exact_symbolic_backend"] = exact_symbolic_backend
         exact_center_audit: dict[str, Any] | None = None
         exact_center_audit_logs: dict[str, str] = {}
+        kato_exact_algebra_audit: dict[str, Any] | None = None
+        kato_exact_audit_logs: dict[str, str] = {}
         if arguments.scope == "h10-c01":
             assert arguments.flagship_repository is not None
             assert h10_c01_configuration is not None
@@ -981,12 +1301,21 @@ def main() -> int:
                 run_h10_center_audit(
                     arguments.flagship_repository, h10_c01_configuration)
             toolchain["h10_exact_center_audit_execution"] = audit_execution
+        if arguments.scope == "p2-kato":
+            kato_exact_algebra_audit, kato_exact_audit_logs, \
+                kato_audit_execution = run_kato_exact_audit()
+            toolchain["kato_exact_algebra_audit_execution"] = \
+                kato_audit_execution
         raw, logs, build = compile_and_run(
             arguments.scope, cflags, libs, dependency, box,
             bridge, local_graph_configuration, h10_c01_configuration,
             p2_jets_configuration,
+            p2_kato_configuration, p2b_jets_certificate,
             arguments.flagship_repository)
         p2_parent_status: str | None = None
+        p2_kato_atomic_statuses: dict[str, str] | None = None
+        p2_kato_true_source_status: str | None = None
+        p2_kato_parent_status: str | None = None
         if arguments.scope == "p2-jets":
             raw_items = raw.get("obligations", [])
             if not isinstance(raw_items, list):
@@ -1006,7 +1335,55 @@ def main() -> int:
             if raw.get("mathematical_status") != p2_parent_status:
                 raise RuntimeError(
                     "P2 jets probe mathematical status is not its atomic aggregate")
+        if arguments.scope == "p2-kato":
+            assert kato_exact_algebra_audit is not None
+            raw_items = raw.get("obligations", [])
+            if not isinstance(raw_items, list):
+                raise RuntimeError("P2 Kato probe obligations are not a list")
+            raw_statuses = {
+                item.get("id"): item.get("status")
+                for item in raw_items if isinstance(item, dict)
+            }
+            atomic_ids = (
+                "P2.KATO.RIESZ_TRANSPORT",
+                "P2.KATO.FRAME_CHANGE",
+                "P2.KATO.C2_LIFT",
+                "P2.KATO.SOURCE_PARAMETERIZATION",
+            )
+            if set(raw_statuses) != set(atomic_ids):
+                raise RuntimeError(
+                    "P2 Kato probe emitted an unexpected atomic obligation set")
+            raw_parent_status = combine_verdicts(
+                raw_statuses[identifier] for identifier in atomic_ids)
+            if raw.get("mathematical_status") != raw_parent_status:
+                raise RuntimeError(
+                    "P2 Kato probe mathematical status is not its raw "
+                    "atomic aggregate")
+            exact_status = kato_exact_algebra_audit["status"]
+            p2_kato_atomic_statuses = {
+                identifier: combine_verdicts(
+                    (raw_statuses[identifier], exact_status))
+                for identifier in atomic_ids
+            }
+            p2_kato_atomic_statuses[
+                "P2.KATO.SOURCE_PARAMETERIZATION"] = combine_verdicts((
+                    p2_kato_atomic_statuses[
+                        "P2.KATO.SOURCE_PARAMETERIZATION"],
+                    p2b_jets_prerequisite_status,
+                ))
+            p2_kato_true_source_status = combine_verdicts((
+                p2b_jets_prerequisite_status,
+                p2_kato_atomic_statuses["P2.KATO.C2_LIFT"],
+                p2_kato_atomic_statuses[
+                    "P2.KATO.SOURCE_PARAMETERIZATION"],
+            ))
+            p2_kato_parent_status = combine_verdicts((
+                *(p2_kato_atomic_statuses[identifier]
+                  for identifier in atomic_ids),
+                p2_kato_true_source_status,
+            ))
         logs.update(exact_center_audit_logs)
+        logs.update(kato_exact_audit_logs)
         toolchain["probe_build"] = build
         report_resolved = arguments.report.resolve()
         try:
@@ -1031,7 +1408,8 @@ def main() -> int:
             make_obligation("BOX.FROZEN", box_status, predicates,
                             diagnostics=box_errors),
         ]
-        if arguments.scope in ("local-graph", "h10-c01", "p2-jets"):
+        if arguments.scope in (
+                "local-graph", "h10-c01", "p2-jets", "p2-kato"):
             p0.extend([
                 make_obligation(
                     "BRIDGE.FROZEN", bridge_status, predicates,
@@ -1070,12 +1448,40 @@ def main() -> int:
                     "P2.JETS_CONFIG_FROZEN", p2_jets_configuration_status,
                     predicates, diagnostics=p2_jets_configuration_errors),
             ])
+        if arguments.scope == "p2-kato":
+            assert kato_exact_algebra_audit is not None
+            audit_diagnostics = list(
+                kato_exact_algebra_audit.get("failed_checks", []))
+            if "error" in kato_exact_algebra_audit:
+                audit_diagnostics.append(
+                    str(kato_exact_algebra_audit["error"]))
+            p0.extend([
+                make_obligation(
+                    "ENV.EXACT_SYMBOLIC_BACKEND",
+                    exact_symbolic_backend_status, predicates,
+                    diagnostics=exact_symbolic_backend_errors),
+                make_obligation(
+                    "P2.P2B_JETS_PREREQUISITE",
+                    p2b_jets_prerequisite_status, predicates,
+                    diagnostics=p2b_jets_prerequisite_errors),
+                make_obligation(
+                    "P2.KATO_CONFIG_FROZEN", p2_kato_configuration_status,
+                    predicates, diagnostics=p2_kato_configuration_errors),
+                make_obligation(
+                    "P2.KATO.EXACT_ALGEBRA",
+                    kato_exact_algebra_audit["status"], predicates,
+                    diagnostics=audit_diagnostics),
+            ])
         mathematical: list[dict[str, Any]] = []
         if arguments.scope != "preflight":
             for item in raw["obligations"]:
                 identifier = item["id"]
+                item_status = item["status"]
+                if arguments.scope == "p2-kato":
+                    assert p2_kato_atomic_statuses is not None
+                    item_status = p2_kato_atomic_statuses[identifier]
                 mathematical.append(make_obligation(
-                    identifier, item["status"], predicates,
+                    identifier, item_status, predicates,
                     **({"enclosures": item["enclosures"]}
                        if "enclosures" in item else {})))
         if arguments.scope == "p2-jets":
@@ -1083,6 +1489,17 @@ def main() -> int:
             for identifier in ("V2.WU.JETS", "V2.WU_GRAPH"):
                 mathematical.append(make_obligation(
                     identifier, p2_parent_status, predicates))
+        if arguments.scope == "p2-kato":
+            assert p2_kato_true_source_status is not None
+            assert p2_kato_parent_status is not None
+            mathematical.extend([
+                make_obligation(
+                    "V2.PHASE.TRUE_SOURCE", p2_kato_true_source_status,
+                    predicates),
+                make_obligation(
+                    "V2.PHASE.KATO_INTERFACE", p2_kato_parent_status,
+                    predicates),
+            ])
         integrity_status = combine_verdicts(item["status"] for item in p0)
         mathematical_status = combine_verdicts(
             item["status"] for item in mathematical) if mathematical else "PASS"
@@ -1095,6 +1512,7 @@ def main() -> int:
             "local-graph": "V2_LOCAL_GRAPH_KERNEL",
             "h10-c01": "V2_H10_C01_KERNEL",
             "p2-jets": "V2_P2_JETS_KERNEL",
+            "p2-kato": "V2_P2_KATO_KERNEL",
         }[arguments.scope]
         certificate = {
             "schema_version": "rfsn-rigorous-run-certificate/1",
@@ -1150,12 +1568,15 @@ def main() -> int:
                     if arguments.scope == "h10-c01" else
                     P2_JETS_SCOPE_NONCLAIM
                     if arguments.scope == "p2-jets" else
+                    P2_KATO_SCOPE_NONCLAIM
+                    if arguments.scope == "p2-kato" else
                     "Phase 1 does not validate V2 continuation beyond item (1), "
                     "V3--V6, temporal stability, Turing selection, or canard identification."
                 ),
             ],
         }
-        if arguments.scope in ("local-graph", "h10-c01", "p2-jets"):
+        if arguments.scope in (
+                "local-graph", "h10-c01", "p2-jets", "p2-kato"):
             assert bridge is not None
             assert local_graph_configuration is not None
             certificate["continuation_bridge"] = {
@@ -1194,6 +1615,19 @@ def main() -> int:
             }
             certificate["p2a_prerequisite"] = p2a_prerequisite
             certificate["p2b0_prerequisite"] = p2b0_prerequisite
+        if arguments.scope == "p2-kato":
+            assert p2_kato_configuration is not None
+            assert p2b_jets_prerequisite is not None
+            assert kato_exact_algebra_audit is not None
+            certificate["p2_kato_configuration"] = {
+                "path": "validation/rigorous/config/vdp_p2_kato_v1.json",
+                "sha256": sha256_file(P2_KATO_CONFIG_PATH),
+                "configuration_id": p2_kato_configuration[
+                    "configuration_id"],
+            }
+            certificate["p2b_jets_prerequisite"] = p2b_jets_prerequisite
+            certificate["kato_exact_algebra_audit"] = \
+                kato_exact_algebra_audit
         errors = schema_errors(certificate) + semantic_errors(certificate, REPOSITORY)
         if errors:
             raise RuntimeError("generated certificate failed self-check:\n" + "\n".join(errors))

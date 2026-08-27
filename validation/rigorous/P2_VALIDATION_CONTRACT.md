@@ -651,12 +651,281 @@ first-derivative tube radius \(3/10000\).
 `V2.WU.WEIGHTED_HALF_ORBITS` all pass.  `V2.WU_GRAPH` additionally binds
 the immutable P2a and P2b0 passes.
 
-These graph coordinates still do not fix the absolute source phase.  Before
-P2c, a separate `V2.PHASE.KATO_INTERFACE` certificate must validate
-normalized Kato transport, its \(C^2\) parameter jets, a positive and
-uniformly invertible change from the algebraic frame, and the degree-one
-true source circle.  It must agree exactly with the frozen core phase on the
-complete \(r=0\) dummy face.
+These graph coordinates still do not fix the absolute source phase.  The
+following separate P2bK contract must be discharged before P2c.
+
+### 5.4 P2bK normalized Kato interface
+
+All formulas, norms, rational gates, parameter cells, prerequisite hashes,
+and source-jet targets for this stage are frozen in
+[`config/vdp_p2_kato_v1.json`](config/vdp_p2_kato_v1.json) before the formal
+outward-rounded run.  The design scout named there selected gates only and is
+not certificate evidence.
+
+Let \(A=A(c)\) be the physical linearization
+
+\[
+ A(c)=
+ \begin{pmatrix}
+ 0&1&0&0\\ c&0&-1&0\\0&0&0&1\\1&0&0&0
+ \end{pmatrix},
+ \qquad
+ \alpha=\frac{\sqrt{2+c}}2,
+ \qquad
+ \beta=\frac{\sqrt{2-c}}2.
+\]
+
+The expanding Riesz projector is required to satisfy the closed formula
+
+\[
+ P^u(c)=\frac12I+\frac{A(c)+A(c)^{-1}}{4\alpha}.
+\tag{K1}
+\]
+
+Merely evaluating (K1) is not enough to identify the selected bundle.  The
+exact-algebra part of the probe must also prove
+
+\[
+ (P^u)^2=P^u,\qquad AP^u=P^uA,\qquad \operatorname{tr}P^u=2,
+\]
+
+\[
+ (A^2-2\alpha A+I)P^u=0,qquad
+ (A^2+2\alpha A+I)(I-P^u)=0,
+\tag{K2}
+\]
+
+together with \(\alpha,\beta>0\) on every parameter cell.  Thus the range of
+\(P^u\), rather than an unlabelled rank-two invariant plane, is the expanding
+\(\alpha\pm i\beta\) plane; the complementary factor in (K2) identifies the
+stable plane.  The reverser identity
+\(\mathcal RP^u\mathcal R=I-P^u\) is checked separately.
+
+Put
+
+\[
+ M=\begin{pmatrix}
+ -1&0&0&0\\0&1&0&2\\2&0&1&0\\0&0&0&-1
+ \end{pmatrix}.
+\]
+
+Exact differentiation gives
+
+\[
+ [\partial_cP^u,P^u]=\frac{M}{4(2+c)},
+ \qquad M^2=I.
+\tag{K3}
+\]
+
+Along \(\gamma_\mu(s)=(sr,a_2,\epsilon)\), the sign convention is
+
+\[
+ \partial_sW=[\partial_sP^u,P^u]W,qquad W(0)=I.
+\tag{K4}
+\]
+
+The transport therefore has the closed form
+
+\[
+ \tau(c)=\frac14\log\frac{2+c}{2},
+ \qquad
+ W(c)=\cosh\tau\,I+\sinh\tau\,M,
+ \qquad P^u(c)W(c)=W(c)P^u(0).
+\tag{K5}
+\]
+
+This identity, including its sign and initial value, is replayed by exact
+algebra.  Since (2+c) stays strictly positive, (K5) itself gives the
+(C^2) regularity of (W) without a separate numerical (W)-jet budget.
+Interval arithmetic supplies the frozen first- and second-parameter bounds
+for (c), (P^u), and the normalized frame and phase objects actually used
+downstream.
+
+The normalization after Kato transport is an explicit, separate operation.
+With
+
+\[
+ \alpha_0=\frac1{\sqrt2},\qquad
+ k_*=\left(\frac1{\sqrt2},\frac12,0,\frac12\right)^T,
+ \qquad q=\left(\frac{2+c}{2}\right)^{1/4}>0,
+\]
+
+define
+
+\[
+ g=(1,2\alpha-\alpha_0,\sqrt2\alpha-1,\alpha_0)^T,
+ \qquad N^2=6\alpha^2-4\sqrt2\alpha+3=\lVert g\rVert_2^2.
+\]
+
+The bridge from (K5) to the unit vector used by the phase convention is
+
+\[
+ Wk_*=\frac{q^{-1}}{\sqrt2}g,qquad
+ \lVert Wk_*\rVert_2=\frac{q^{-1}}{\sqrt2}N,qquad
+ k_1=\frac gN=\frac{Wk_*}{\lVert Wk_*\rVert_2}.
+\tag{K6}
+\]
+
+In particular, \(W\) solves the unnormalized Kato equation (K4); the
+normalized vector \(k_1\) is not asserted to solve that same equation.
+
+On \(\operatorname{ran}P^u\), and only there, put
+
+\[
+ \mathfrak J_u=\frac{A-\alpha I}{\beta},
+ \qquad \mathfrak J_u^2=-I,
+ \qquad k_2=\mathfrak J_uk_1.
+\]
+
+Let \(E\) denote the algebraic expanding frame from Section 2.  Then
+
+\[
+ K=(k_1,k_2)=E C_{\rm AK},
+ \qquad
+ C_{\rm AK}=\frac1N
+ \begin{pmatrix}1&-y\\y&1\end{pmatrix},
+ \qquad
+ y=\frac{\alpha_0-\alpha}{\beta},
+\tag{K7}
+\]
+
+and
+
+\[
+ C_{\rm AK}=\sigma R_\chi,qquad
+ \sigma=\frac{\sqrt{1+y^2}}N>0,qquad
+ R_\chi=\frac1{\sqrt{1+y^2}}
+ \begin{pmatrix}1&-y\\y&1\end{pmatrix},
+ \qquad \tan\chi=y,\quad\cos\chi>0,\quad\chi(0)=0.
+\tag{K8}
+\]
+
+The direction in (K7) is part of the contract: \(C_{\rm AK}\) sends Kato
+coordinates to algebraic unstable coordinates, and
+\(C_{\rm AK}^{-1}\) sends algebraic coordinates back.  Hence the algebraic
+angle is \(\phi+\chi\), not \(\phi-\chi\).  The probe must bound the values
+of \(\sigma\), \(\sigma^{-1}\), and
+\(\det C_{\rm AK}=\sigma^2\) away from degeneracy.  The complete first and
+second parameter-jet bounds for the matrix \(C_{\rm AK}\) provide the
+declared derivative control; no separate scalar derivative gates for these
+three derived quantities are claimed.  Although \(C_{\rm AK}\) is a positive
+conformal change in the two coordinate planes, the physical matrix
+\(K=(k_1,\mathfrak J_uk_1)\) is only an oriented rank-two frame with unit
+first column.  It is **not** declared Euclidean-orthonormal; its operator norm
+and smallest singular value are enclosed directly.
+
+For \(R=1/100\), \(e_\phi=(\cos\phi,\sin\phi)^T\), define the source in the
+algebraic graph disk by
+
+\[
+ b(\phi,\theta)=R R_{\chi(c(\theta))}e_\phi
+ =R\frac{C_{\rm AK}e_\phi}{\lVert C_{\rm AK}e_\phi\rVert_2},
+ \qquad
+ S(\phi,\theta)=T_\theta
+       \bigl(b(\phi,\theta),H_\theta(b(\phi,\theta))\bigr).
+\tag{K9}
+\]
+
+Thus \(\lVert b\rVert_2=R\),
+\(\partial_\phi^ib=\mathfrak J_0^ib\),
+\(\lVert\partial_\phi b\rVert_2=R\), and the phase map has degree \(+1\).
+Equation (K9) is the direct boundary of the same radius-(.01\) true graph
+certified by P2a--P2b; it does not introduce an unchecked backward flow time
+or a surrogate orbit.  On the complete \(r=0\) dummy face,
+\(c=y=\chi=0\), \(W=I\), \(R_\chi=I\), and
+\(C_{\rm AK}=I/\sqrt2\), so \(b=Re_\phi\) pointwise.  The vector field is
+dummy-parameter independent there, and uniqueness of the true local graph in
+the same coordinates identifies \(H_\theta\) with the imported core graph.
+Consequently (K9), not just its degree, is exactly the frozen core source
+circle on that entire face.
+
+The true-source jet aggregation consumes the immutable P2b certificate; it
+does not recalculate or assume graph derivatives.  Write
+
+\[
+ F_\theta(b)=T_\theta(b,H_\theta(b)),
+\]
+
+let \(F_{ij}\) be its certified nonnegative
+\(D_b^iD_\theta^j\) norm bound from P2b, and let \(\chi_j\) bound the
+normalised-parameter derivatives of \(\chi\).  Define
+
+\[
+ B_1=R\chi_1,qquad
+ B_2=R\sqrt{\chi_2^2+\chi_1^4},
+\]
+
+\[
+ G_1=F_{11}+F_{20}B_1,qquad
+ G_2=F_{12}+2F_{21}B_1+F_{30}B_1^2+F_{20}B_2.
+\]
+
+The frozen chain-rule upper bounds are
+
+\[
+\begin{aligned}
+ S_{00}&=F_{00},\\
+ S_{01}&=F_{01}+F_{10}B_1,\\
+ S_{02}&=F_{02}+2F_{11}B_1+F_{20}B_1^2+F_{10}B_2,\\
+ S_{10}&=F_{10}R,\\
+ S_{11}&=G_1R+F_{10}B_1,\\
+ S_{12}&=G_2R+2G_1B_1+F_{10}B_2,\\
+ S_{20}&=F_{20}R^2+F_{10}R,\\
+ S_{21}&=(F_{21}+F_{30}B_1)R^2
+          +2F_{20}B_1R+G_1R+F_{10}B_1,\\
+ S_{30}&=F_{30}R^3+3F_{20}R^2+F_{10}R.
+\end{aligned}
+\tag{K10}
+\]
+
+Here \(S_{ij}\) bounds \(D_\phi^iD_\theta^jS\) in the declared labelled
+multilinear Hilbert--Schmidt norm.  The certified target is exactly the
+total-order-three triangle
+
+\[
+ (i,j)\in\{(0,0),(0,1),(0,2),(1,0),(1,1),(1,2),
+             (2,0),(2,1),(3,0)\}.
+\tag{K11}
+\]
+
+It is not the full \(0\le i\le3\), \(0\le j\le2\) rectangle: for example,
+the omitted corner jets would require fourth and fifth state derivatives of
+the graph, while P2b certifies only \(D_b^{\le3}D_\theta^{\le2}\).  The
+triangle includes \(S_{12}\), the highest mixed source jet reserved for the
+P2c matching stage.  Original blown-up-parameter bounds are obtained only
+through the frozen exact operator factors \(25\) and \(625\).
+
+The certificate dependency graph is also frozen.  The prerequisite atoms
+`ENV.EXACT_SYMBOLIC_BACKEND` must bind the frozen Python executable and the
+cache-free SymPy source-tree digest before the exact-algebra audit can enter
+the P2bK aggregate.  The atoms
+`P2.P2B_JETS_PREREQUISITE` and `P2.KATO_CONFIG_FROZEN` must bind the exact
+P2a/P2b configurations and certificates, the local core/source definitions,
+and the read-only flagship import at the recorded revisions and hashes.  The
+formal kernel may then prove only the raw atoms
+`P2.KATO.RIESZ_TRANSPORT`, `P2.KATO.FRAME_CHANGE`, and
+`P2.KATO.SOURCE_PARAMETERIZATION`, together with `P2.KATO.C2_LIFT` for the
+complete normalized-parameter first and second jets, symmetric interval-AD
+Hessians, and exact \(25/625\) conversion to the original blown-up
+parameters.  The raw probe's source-parameterization verdict covers the
+coordinate calculation, while the certificate-level
+`P2.KATO.SOURCE_PARAMETERIZATION` verdict additionally requires the immutable
+P2b true-graph prerequisite and the exact audit.  The runner may derive
+`V2.PHASE.TRUE_SOURCE` only from the
+source-parameterization and \(C^2\)-lift atoms, the immutable P2b
+`V2.WU_GRAPH` pass, and every gate in (K10)--(K11).  Finally,
+`V2.PHASE.KATO_INTERFACE` requires the Riesz-transport, frame-change,
+\(C^2\)-lift, and true-source atoms together.  In particular, a
+source-coordinate calculation alone cannot certify that (K9) lies on a true
+invariant graph.
+
+P2bK ends at this source interface.  It does not prove the selected
+positive-parameter homoclinic, first-hit or endpoint transversality in P2c;
+the positive radial reversible symplectic completion or exact saddle charts
+in P2d; the event atlas in P2e; V3--V6 or either noncompact end.  It also makes
+no claim of temporal stability, dynamical Turing-pattern selection, or a
+finite-parameter canard.  Every claim-bearing status remains false until the
+repository's independent-machine replay policy is met.
 
 ## 6. What P2a and P2b0 do and do not settle
 

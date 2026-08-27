@@ -29,7 +29,7 @@
       "if": {
         "properties": {
           "scope": {
-            "enum": ["V2_LOCAL_GRAPH_KERNEL", "V2_H10_C01_KERNEL", "V2_P2_JETS_KERNEL"]
+            "enum": ["V2_LOCAL_GRAPH_KERNEL", "V2_H10_C01_KERNEL", "V2_P2_JETS_KERNEL", "V2_P2_KATO_KERNEL"]
           }
         },
         "required": ["scope"]
@@ -90,6 +90,39 @@
     },
     {
       "if": {
+        "properties": {"scope": {"const": "V2_P2_KATO_KERNEL"}},
+        "required": ["scope"]
+      },
+      "then": {
+        "required": [
+          "p2_kato_configuration",
+          "p2b_jets_prerequisite",
+          "kato_exact_algebra_audit"
+        ],
+        "properties": {
+          "raw_probe": {"$ref": "#/$defs/katoRawProbe"},
+          "toolchain": {
+            "required": ["exact_symbolic_backend"],
+            "properties": {
+              "exact_symbolic_backend": {
+                "$ref": "#/$defs/exactSymbolicBackend"
+              }
+            }
+          }
+        }
+      },
+      "else": {
+        "not": {
+          "anyOf": [
+            {"required": ["p2_kato_configuration"]},
+            {"required": ["p2b_jets_prerequisite"]},
+            {"required": ["kato_exact_algebra_audit"]}
+          ]
+        }
+      }
+    },
+    {
+      "if": {
         "properties": {
           "scope": {
             "enum": ["V2_H10_C01_KERNEL", "V2_P2_JETS_KERNEL"]
@@ -109,7 +142,7 @@
     },
     "scope": {
       "type": "string",
-      "enum": ["PREFLIGHT", "V1_V2_1_KERNEL", "V2_LOCAL_GRAPH_KERNEL", "V2_H10_C01_KERNEL", "V2_P2_JETS_KERNEL"]
+      "enum": ["PREFLIGHT", "V1_V2_1_KERNEL", "V2_LOCAL_GRAPH_KERNEL", "V2_H10_C01_KERNEL", "V2_P2_JETS_KERNEL", "V2_P2_KATO_KERNEL"]
     },
     "created_at": {"type": "string", "format": "date-time"},
     "source_revision": {
@@ -201,6 +234,16 @@
         "configuration_id": {"const": "vdp-p2-jets-v1"}
       }
     },
+    "p2_kato_configuration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256", "configuration_id"],
+      "properties": {
+        "path": {"const": "validation/rigorous/config/vdp_p2_kato_v1.json"},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "configuration_id": {"const": "vdp-p2-kato-v1"}
+      }
+    },
     "p2a_prerequisite": {
       "type": "object",
       "additionalProperties": false,
@@ -234,6 +277,26 @@
         "final_status": {"$ref": "#/$defs/verdict"},
         "claim_bearing": {"type": "boolean"}
       }
+    },
+    "p2b_jets_prerequisite": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["configuration_path", "configuration_sha256", "certificate_path", "certificate_sha256", "certificate_scope", "source_commit", "integrity_status", "mathematical_status", "final_status", "claim_bearing"],
+      "properties": {
+        "configuration_path": {"const": "validation/rigorous/config/vdp_p2_jets_v1.json"},
+        "configuration_sha256": {"$ref": "#/$defs/sha256"},
+        "certificate_path": {"const": "validation/rigorous/results/vdp_bridge_v1_p2b_jets.json"},
+        "certificate_sha256": {"$ref": "#/$defs/sha256"},
+        "certificate_scope": {"const": "V2_P2_JETS_KERNEL"},
+        "source_commit": {"$ref": "#/$defs/sha1"},
+        "integrity_status": {"$ref": "#/$defs/verdict"},
+        "mathematical_status": {"$ref": "#/$defs/verdict"},
+        "final_status": {"$ref": "#/$defs/verdict"},
+        "claim_bearing": {"type": "boolean"}
+      }
+    },
+    "kato_exact_algebra_audit": {
+      "$ref": "#/$defs/katoExactAlgebraAudit"
     },
     "h10_exact_center_audit": {
       "type": "object",
@@ -331,6 +394,202 @@
   },
   "$defs": {
     "verdict": {"type": "string", "enum": ["PASS", "FAIL", "INCONCLUSIVE"]},
+    "exactSymbolicBackend": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["python", "sympy", "bytecode_policy", "lock_scope", "status", "errors"],
+      "properties": {
+        "python": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["implementation", "executable", "resolved_executable", "version_first_line", "sha256"],
+          "properties": {
+            "implementation": {"const": "cpython"},
+            "executable": {"type": "string", "pattern": "^/"},
+            "resolved_executable": {"type": "string", "pattern": "^/"},
+            "version_first_line": {"type": "string", "pattern": "^Python [0-9]+\\.[0-9]+\\.[0-9]+"},
+            "sha256": {"$ref": "#/$defs/sha256"}
+          }
+        },
+        "sympy": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["version", "package_root", "source_tree"],
+          "properties": {
+            "version": {"type": "string", "minLength": 1},
+            "package_root": {"type": "string", "pattern": "^/"},
+            "source_tree": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["algorithm", "excluded", "sha256", "file_count"],
+              "properties": {
+                "algorithm": {"const": "sha256-lp64be-posix-relative-path-and-content-v1"},
+                "excluded": {
+                  "const": [
+                    "any path with a __pycache__ component",
+                    "any file whose suffix is .pyc"
+                  ]
+                },
+                "sha256": {"$ref": "#/$defs/sha256"},
+                "file_count": {"type": "integer", "minimum": 1}
+              }
+            }
+          }
+        },
+        "bytecode_policy": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["python_flag", "package_cache_reads"],
+          "properties": {
+            "python_flag": {"const": "-B"},
+            "package_cache_reads": {"const": "EMPTY_ALTERNATE_PYTHONPYCACHEPREFIX"}
+          }
+        },
+        "lock_scope": {"const": "P2_KATO_EXACT_AUDIT_ONLY"},
+        "status": {"$ref": "#/$defs/verdict"},
+        "errors": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "katoRawProbe": {"type":"object","additionalProperties":false,"required":["schema_version","status","mathematical_status","structure_status","structure_checks","rounding_self_test","grid","parameter_enclosures","acceptance_gates","normalized_true_source_jet_upper_gates","imported_p2b_physical_jet_enclosures","scalar_enclosures","normalized_parameter_jet_enclosures","original_parameter_jet_enclosures","source_coordinate_jet_enclosures","original_parameter_source_coordinate_jet_enclosures","normalized_true_source_jet_enclosures","original_parameter_true_source_jet_enclosures","riesz_transport_gate_margins","frame_change_gate_margins","c2_lift_gate_margins","source_parameterization_gate_margins","norm_contract","source_composition","external_exact_audit_contract","obligations"],"properties":{"schema_version":{"const":"rfsn-vdp-p2-kato-probe/1"},"status":{"$ref":"#/$defs/verdict"},"mathematical_status":{"$ref":"#/$defs/verdict"},"structure_status":{"$ref":"#/$defs/verdict"},"structure_checks":{"type":"object","additionalProperties":false,"required":["gap_free_exact_rational_grid","bridge_matches_parameter_normalization","subdivisions_match_frozen_contract","original_parameter_scales_match_frozen_contract","all_rational_inputs_strictly_positive","parameter_grid_nonempty","parameter_ad_hessians_bit_symmetric","complete_first_parameter_multiindices","complete_full_ordered_second_parameter_indices","second_parameter_off_diagonals_counted_twice","imported_p2b_upper_rationals_positive","imported_p2b_triangle_complete","source_triangle_complete","full_rectangular_source_not_claimed","all_sqrt_domains_uniformly_positive","physical_frame_gram_eigenvalue_enclosures_nonempty"],"properties":{"gap_free_exact_rational_grid":{"type":"boolean"},"bridge_matches_parameter_normalization":{"type":"boolean"},"subdivisions_match_frozen_contract":{"type":"boolean"},"original_parameter_scales_match_frozen_contract":{"type":"boolean"},"all_rational_inputs_strictly_positive":{"type":"boolean"},"parameter_grid_nonempty":{"type":"boolean"},"parameter_ad_hessians_bit_symmetric":{"type":"boolean"},"complete_first_parameter_multiindices":{"type":"boolean"},"complete_full_ordered_second_parameter_indices":{"type":"boolean"},"second_parameter_off_diagonals_counted_twice":{"type":"boolean"},"imported_p2b_upper_rationals_positive":{"type":"boolean"},"imported_p2b_triangle_complete":{"type":"boolean"},"source_triangle_complete":{"type":"boolean"},"full_rectangular_source_not_claimed":{"type":"boolean"},"all_sqrt_domains_uniformly_positive":{"type":"boolean"},"physical_frame_gram_eigenvalue_enclosures_nonempty":{"type":"boolean"}}},"rounding_self_test":{"type":"object","additionalProperties":false,"required":["legacy_capd_is_working","mxcsr_available","mxcsr_pre_restore_hex","status","tests"],"properties":{"legacy_capd_is_working":{"type":"boolean"},"mxcsr_available":{"type":"boolean"},"mxcsr_pre_restore_hex":{"type":"string","pattern":"^0x[0-9a-f]+$"},"status":{"$ref":"#/$defs/verdict"},"tests":{"type":"array","minItems":13,"maxItems":13,"items":{"type":"object","additionalProperties":false,"required":["detail","id","status"],"properties":{"detail":{"type":"string","minLength":1},"id":{"type":"string","pattern":"^ROUND\\.[A-Z0-9_]+$"},"status":{"$ref":"#/$defs/verdict"}}}}}},"grid":{"type":"object","additionalProperties":false,"required":["ordered_axes","subdivisions","cell_count","normalized_parameter_dimension"],"properties":{"ordered_axes":{"const":["theta_r","theta_a","theta_epsilon"]},"subdivisions":{"const":[16,8,4]},"cell_count":{"const":512},"normalized_parameter_dimension":{"const":3}}},"parameter_enclosures":{"type":"object","additionalProperties":false,"required":["r","a2","epsilon","R","original_first_derivative_scale","original_second_derivative_scale"],"properties":{"r":{"$ref":"#/$defs/hexInterval"},"a2":{"$ref":"#/$defs/hexInterval"},"epsilon":{"$ref":"#/$defs/hexInterval"},"R":{"$ref":"#/$defs/hexInterval"},"original_first_derivative_scale":{"$ref":"#/$defs/hexInterval"},"original_second_derivative_scale":{"$ref":"#/$defs/hexInterval"}}},"acceptance_gates":{"type":"object","additionalProperties":false,"required":["absolute_c_upper","alpha_lower","beta_lower","normalizer_squared_lower","absolute_y_upper","phase_shift_absolute_upper","phase_rotation_cosine_lower","radial_scale_lower","radial_scale_upper","frame_change_determinant_lower","frame_change_inverse_upper","physical_frame_smallest_singular_lower","physical_frame_operator_upper","normalized_c_first_derivative_upper","normalized_c_second_derivative_upper","normalized_projector_first_derivative_upper","normalized_projector_second_derivative_upper","normalized_phase_first_derivative_upper","normalized_phase_second_derivative_upper","normalized_rotation_first_derivative_upper","normalized_rotation_second_derivative_upper","normalized_change_first_derivative_upper","normalized_change_second_derivative_upper","normalized_frame_first_derivative_upper","normalized_frame_second_derivative_upper","normalized_source_coordinate_first_derivative_upper","normalized_source_coordinate_second_derivative_upper","source_coordinate_phase_speed_lower"],"properties":{"absolute_c_upper":{"$ref":"#/$defs/hexInterval"},"alpha_lower":{"$ref":"#/$defs/hexInterval"},"beta_lower":{"$ref":"#/$defs/hexInterval"},"normalizer_squared_lower":{"$ref":"#/$defs/hexInterval"},"absolute_y_upper":{"$ref":"#/$defs/hexInterval"},"phase_shift_absolute_upper":{"$ref":"#/$defs/hexInterval"},"phase_rotation_cosine_lower":{"$ref":"#/$defs/hexInterval"},"radial_scale_lower":{"$ref":"#/$defs/hexInterval"},"radial_scale_upper":{"$ref":"#/$defs/hexInterval"},"frame_change_determinant_lower":{"$ref":"#/$defs/hexInterval"},"frame_change_inverse_upper":{"$ref":"#/$defs/hexInterval"},"physical_frame_smallest_singular_lower":{"$ref":"#/$defs/hexInterval"},"physical_frame_operator_upper":{"$ref":"#/$defs/hexInterval"},"normalized_c_first_derivative_upper":{"$ref":"#/$defs/hexInterval"},"normalized_c_second_derivative_upper":{"$ref":"#/$defs/hexInterval"},"normalized_projector_first_derivative_upper":{"$ref":"#/$defs/hexInterval"},"normalized_projector_second_derivative_upper":{"$ref":"#/$defs/hexInterval"},"normalized_phase_first_derivative_upper":{"$ref":"#/$defs/hexInterval"},"normalized_phase_second_derivative_upper":{"$ref":"#/$defs/hexInterval"},"normalized_rotation_first_derivative_upper":{"$ref":"#/$defs/hexInterval"},"normalized_rotation_second_derivative_upper":{"$ref":"#/$defs/hexInterval"},"normalized_change_first_derivative_upper":{"$ref":"#/$defs/hexInterval"},"normalized_change_second_derivative_upper":{"$ref":"#/$defs/hexInterval"},"normalized_frame_first_derivative_upper":{"$ref":"#/$defs/hexInterval"},"normalized_frame_second_derivative_upper":{"$ref":"#/$defs/hexInterval"},"normalized_source_coordinate_first_derivative_upper":{"$ref":"#/$defs/hexInterval"},"normalized_source_coordinate_second_derivative_upper":{"$ref":"#/$defs/hexInterval"},"source_coordinate_phase_speed_lower":{"$ref":"#/$defs/hexInterval"}}},"normalized_true_source_jet_upper_gates":{"type":"object","additionalProperties":false,"required":["S_0_0","S_0_1","S_0_2","S_1_0","S_1_1","S_1_2","S_2_0","S_2_1","S_3_0"],"properties":{"S_0_0":{"$ref":"#/$defs/hexInterval"},"S_0_1":{"$ref":"#/$defs/hexInterval"},"S_0_2":{"$ref":"#/$defs/hexInterval"},"S_1_0":{"$ref":"#/$defs/hexInterval"},"S_1_1":{"$ref":"#/$defs/hexInterval"},"S_1_2":{"$ref":"#/$defs/hexInterval"},"S_2_0":{"$ref":"#/$defs/hexInterval"},"S_2_1":{"$ref":"#/$defs/hexInterval"},"S_3_0":{"$ref":"#/$defs/hexInterval"}}},"imported_p2b_physical_jet_enclosures":{"type":"object","additionalProperties":false,"required":["Z_0_0","Z_0_1","Z_0_2","Z_1_0","Z_1_1","Z_1_2","Z_2_0","Z_2_1","Z_3_0"],"properties":{"Z_0_0":{"$ref":"#/$defs/hexInterval"},"Z_0_1":{"$ref":"#/$defs/hexInterval"},"Z_0_2":{"$ref":"#/$defs/hexInterval"},"Z_1_0":{"$ref":"#/$defs/hexInterval"},"Z_1_1":{"$ref":"#/$defs/hexInterval"},"Z_1_2":{"$ref":"#/$defs/hexInterval"},"Z_2_0":{"$ref":"#/$defs/hexInterval"},"Z_2_1":{"$ref":"#/$defs/hexInterval"},"Z_3_0":{"$ref":"#/$defs/hexInterval"}}},"scalar_enclosures":{"type":"object","additionalProperties":false,"required":["c","absolute_c","alpha","beta","N_squared","y","chi","cos_chi","sigma","det_C_AK","inverse_C_AK_operator","tau","physical_K_operator","physical_K_smallest_singular"],"properties":{"c":{"$ref":"#/$defs/hexInterval"},"absolute_c":{"$ref":"#/$defs/hexInterval"},"alpha":{"$ref":"#/$defs/hexInterval"},"beta":{"$ref":"#/$defs/hexInterval"},"N_squared":{"$ref":"#/$defs/hexInterval"},"y":{"$ref":"#/$defs/hexInterval"},"chi":{"$ref":"#/$defs/hexInterval"},"cos_chi":{"$ref":"#/$defs/hexInterval"},"sigma":{"$ref":"#/$defs/hexInterval"},"det_C_AK":{"$ref":"#/$defs/hexInterval"},"inverse_C_AK_operator":{"$ref":"#/$defs/hexInterval"},"tau":{"$ref":"#/$defs/hexInterval"},"physical_K_operator":{"$ref":"#/$defs/hexInterval"},"physical_K_smallest_singular":{"$ref":"#/$defs/hexInterval"}}},"normalized_parameter_jet_enclosures":{"type":"object","additionalProperties":false,"required":["c_D1","c_D2","P_u_D1","P_u_D2","chi_D1","chi_D2","R_chi_D1","R_chi_D2","C_AK_D1","C_AK_D2","K_D1","K_D2"],"properties":{"c_D1":{"$ref":"#/$defs/hexInterval"},"c_D2":{"$ref":"#/$defs/hexInterval"},"P_u_D1":{"$ref":"#/$defs/hexInterval"},"P_u_D2":{"$ref":"#/$defs/hexInterval"},"chi_D1":{"$ref":"#/$defs/hexInterval"},"chi_D2":{"$ref":"#/$defs/hexInterval"},"R_chi_D1":{"$ref":"#/$defs/hexInterval"},"R_chi_D2":{"$ref":"#/$defs/hexInterval"},"C_AK_D1":{"$ref":"#/$defs/hexInterval"},"C_AK_D2":{"$ref":"#/$defs/hexInterval"},"K_D1":{"$ref":"#/$defs/hexInterval"},"K_D2":{"$ref":"#/$defs/hexInterval"}}},"original_parameter_jet_enclosures":{"type":"object","additionalProperties":false,"required":["c_D1","c_D2","P_u_D1","P_u_D2","chi_D1","chi_D2","R_chi_D1","R_chi_D2","C_AK_D1","C_AK_D2","K_D1","K_D2"],"properties":{"c_D1":{"$ref":"#/$defs/hexInterval"},"c_D2":{"$ref":"#/$defs/hexInterval"},"P_u_D1":{"$ref":"#/$defs/hexInterval"},"P_u_D2":{"$ref":"#/$defs/hexInterval"},"chi_D1":{"$ref":"#/$defs/hexInterval"},"chi_D2":{"$ref":"#/$defs/hexInterval"},"R_chi_D1":{"$ref":"#/$defs/hexInterval"},"R_chi_D2":{"$ref":"#/$defs/hexInterval"},"C_AK_D1":{"$ref":"#/$defs/hexInterval"},"C_AK_D2":{"$ref":"#/$defs/hexInterval"},"K_D1":{"$ref":"#/$defs/hexInterval"},"K_D2":{"$ref":"#/$defs/hexInterval"}}},"source_coordinate_jet_enclosures":{"type":"object","additionalProperties":false,"required":["B_0","B_1","B_2","phase_speed"],"properties":{"B_0":{"$ref":"#/$defs/hexInterval"},"B_1":{"$ref":"#/$defs/hexInterval"},"B_2":{"$ref":"#/$defs/hexInterval"},"phase_speed":{"$ref":"#/$defs/hexInterval"}}},"original_parameter_source_coordinate_jet_enclosures":{"type":"object","additionalProperties":false,"required":["B_0","B_1","B_2","phase_speed"],"properties":{"B_0":{"$ref":"#/$defs/hexInterval"},"B_1":{"$ref":"#/$defs/hexInterval"},"B_2":{"$ref":"#/$defs/hexInterval"},"phase_speed":{"$ref":"#/$defs/hexInterval"}}},"normalized_true_source_jet_enclosures":{"type":"object","additionalProperties":false,"required":["S_0_0","S_0_1","S_0_2","S_1_0","S_1_1","S_1_2","S_2_0","S_2_1","S_3_0"],"properties":{"S_0_0":{"$ref":"#/$defs/hexInterval"},"S_0_1":{"$ref":"#/$defs/hexInterval"},"S_0_2":{"$ref":"#/$defs/hexInterval"},"S_1_0":{"$ref":"#/$defs/hexInterval"},"S_1_1":{"$ref":"#/$defs/hexInterval"},"S_1_2":{"$ref":"#/$defs/hexInterval"},"S_2_0":{"$ref":"#/$defs/hexInterval"},"S_2_1":{"$ref":"#/$defs/hexInterval"},"S_3_0":{"$ref":"#/$defs/hexInterval"}}},"original_parameter_true_source_jet_enclosures":{"type":"object","additionalProperties":false,"required":["S_0_0","S_0_1","S_0_2","S_1_0","S_1_1","S_1_2","S_2_0","S_2_1","S_3_0"],"properties":{"S_0_0":{"$ref":"#/$defs/hexInterval"},"S_0_1":{"$ref":"#/$defs/hexInterval"},"S_0_2":{"$ref":"#/$defs/hexInterval"},"S_1_0":{"$ref":"#/$defs/hexInterval"},"S_1_1":{"$ref":"#/$defs/hexInterval"},"S_1_2":{"$ref":"#/$defs/hexInterval"},"S_2_0":{"$ref":"#/$defs/hexInterval"},"S_2_1":{"$ref":"#/$defs/hexInterval"},"S_3_0":{"$ref":"#/$defs/hexInterval"}}},"riesz_transport_gate_margins":{"type":"object","additionalProperties":false,"required":["absolute_c_upper_margin","alpha_lower_margin","beta_lower_margin"],"properties":{"absolute_c_upper_margin":{"$ref":"#/$defs/hexInterval"},"alpha_lower_margin":{"$ref":"#/$defs/hexInterval"},"beta_lower_margin":{"$ref":"#/$defs/hexInterval"}}},"frame_change_gate_margins":{"type":"object","additionalProperties":false,"required":["normalizer_squared_lower_margin","absolute_y_upper_margin","phase_shift_absolute_upper_margin","phase_rotation_cosine_lower_margin","radial_scale_lower_margin","radial_scale_upper_margin","frame_change_determinant_lower_margin","frame_change_inverse_upper_margin","physical_frame_smallest_singular_lower_margin","physical_frame_operator_upper_margin"],"properties":{"normalizer_squared_lower_margin":{"$ref":"#/$defs/hexInterval"},"absolute_y_upper_margin":{"$ref":"#/$defs/hexInterval"},"phase_shift_absolute_upper_margin":{"$ref":"#/$defs/hexInterval"},"phase_rotation_cosine_lower_margin":{"$ref":"#/$defs/hexInterval"},"radial_scale_lower_margin":{"$ref":"#/$defs/hexInterval"},"radial_scale_upper_margin":{"$ref":"#/$defs/hexInterval"},"frame_change_determinant_lower_margin":{"$ref":"#/$defs/hexInterval"},"frame_change_inverse_upper_margin":{"$ref":"#/$defs/hexInterval"},"physical_frame_smallest_singular_lower_margin":{"$ref":"#/$defs/hexInterval"},"physical_frame_operator_upper_margin":{"$ref":"#/$defs/hexInterval"}}},"c2_lift_gate_margins":{"type":"object","additionalProperties":false,"required":["normalized_c_first_derivative_upper_margin","normalized_c_second_derivative_upper_margin","normalized_projector_first_derivative_upper_margin","normalized_projector_second_derivative_upper_margin","normalized_phase_first_derivative_upper_margin","normalized_phase_second_derivative_upper_margin","normalized_rotation_first_derivative_upper_margin","normalized_rotation_second_derivative_upper_margin","normalized_change_first_derivative_upper_margin","normalized_change_second_derivative_upper_margin","normalized_frame_first_derivative_upper_margin","normalized_frame_second_derivative_upper_margin"],"properties":{"normalized_c_first_derivative_upper_margin":{"$ref":"#/$defs/hexInterval"},"normalized_c_second_derivative_upper_margin":{"$ref":"#/$defs/hexInterval"},"normalized_projector_first_derivative_upper_margin":{"$ref":"#/$defs/hexInterval"},"normalized_projector_second_derivative_upper_margin":{"$ref":"#/$defs/hexInterval"},"normalized_phase_first_derivative_upper_margin":{"$ref":"#/$defs/hexInterval"},"normalized_phase_second_derivative_upper_margin":{"$ref":"#/$defs/hexInterval"},"normalized_rotation_first_derivative_upper_margin":{"$ref":"#/$defs/hexInterval"},"normalized_rotation_second_derivative_upper_margin":{"$ref":"#/$defs/hexInterval"},"normalized_change_first_derivative_upper_margin":{"$ref":"#/$defs/hexInterval"},"normalized_change_second_derivative_upper_margin":{"$ref":"#/$defs/hexInterval"},"normalized_frame_first_derivative_upper_margin":{"$ref":"#/$defs/hexInterval"},"normalized_frame_second_derivative_upper_margin":{"$ref":"#/$defs/hexInterval"}}},"source_parameterization_gate_margins":{"type":"object","additionalProperties":false,"required":["normalized_source_coordinate_first_derivative_upper_margin","normalized_source_coordinate_second_derivative_upper_margin","source_coordinate_phase_speed_lower_margin","S_0_0_upper_margin","S_0_1_upper_margin","S_0_2_upper_margin","S_1_0_upper_margin","S_1_1_upper_margin","S_1_2_upper_margin","S_2_0_upper_margin","S_2_1_upper_margin","S_3_0_upper_margin"],"properties":{"normalized_source_coordinate_first_derivative_upper_margin":{"$ref":"#/$defs/hexInterval"},"normalized_source_coordinate_second_derivative_upper_margin":{"$ref":"#/$defs/hexInterval"},"source_coordinate_phase_speed_lower_margin":{"$ref":"#/$defs/hexInterval"},"S_0_0_upper_margin":{"$ref":"#/$defs/hexInterval"},"S_0_1_upper_margin":{"$ref":"#/$defs/hexInterval"},"S_0_2_upper_margin":{"$ref":"#/$defs/hexInterval"},"S_1_0_upper_margin":{"$ref":"#/$defs/hexInterval"},"S_1_1_upper_margin":{"$ref":"#/$defs/hexInterval"},"S_1_2_upper_margin":{"$ref":"#/$defs/hexInterval"},"S_2_0_upper_margin":{"$ref":"#/$defs/hexInterval"},"S_2_1_upper_margin":{"$ref":"#/$defs/hexInterval"},"S_3_0_upper_margin":{"$ref":"#/$defs/hexInterval"}}},"norm_contract":{"type":"object","additionalProperties":false,"required":["matrix_value_norm","matrix_inverse_norm","scalar_first_parameter_norm","scalar_second_parameter_norm","matrix_first_parameter_norm","matrix_second_parameter_norm","true_source_jet_norm"],"properties":{"matrix_value_norm":{"const":"spectral-2-norm"},"matrix_inverse_norm":{"const":"spectral-2-norm"},"scalar_first_parameter_norm":{"const":"euclidean-on-R3"},"scalar_second_parameter_norm":{"const":"full-3x3-frobenius"},"matrix_first_parameter_norm":{"const":"output-parameter-hilbert-schmidt"},"matrix_second_parameter_norm":{"const":"output-full-ordered-parameter-hilbert-schmidt"},"true_source_jet_norm":{"const":"physical-output-labelled-multilinear-hilbert-schmidt"}}},"source_composition":{"type":"object","additionalProperties":false,"required":["maximum_total_order","maximum_phase_order","maximum_parameter_order","targets","full_rectangular_claimed","complete_frozen_recurrence"],"properties":{"maximum_total_order":{"const":3},"maximum_phase_order":{"const":3},"maximum_parameter_order":{"const":2},"targets":{"const":["S_0_0","S_0_1","S_0_2","S_1_0","S_1_1","S_1_2","S_2_0","S_2_1","S_3_0"]},"full_rectangular_claimed":{"const":false},"complete_frozen_recurrence":{"const":true}}},"external_exact_audit_contract":{"type":"object","additionalProperties":false,"required":["required","included_in_raw_status","schema_version"],"properties":{"required":{"const":true},"included_in_raw_status":{"const":false},"schema_version":{"const":"rfsn-vdp-p2-kato-exact-audit/1"}}},"obligations":{"type":"array","minItems":4,"maxItems":4,"items":{"type":"object","additionalProperties":false,"required":["id","status","predicate","enclosures"],"properties":{"id":{"enum":["P2.KATO.RIESZ_TRANSPORT","P2.KATO.FRAME_CHANGE","P2.KATO.C2_LIFT","P2.KATO.SOURCE_PARAMETERIZATION"]},"status":{"$ref":"#/$defs/verdict"},"predicate":{"type":"string","minLength":1},"enclosures":{"type":"object","additionalProperties":{"$ref":"#/$defs/hexInterval"}}}}}}},
+    "katoExactAlgebraAudit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_version", "backend", "checks", "method", "status"],
+      "properties": {
+        "schema_version": {"const": "rfsn-vdp-p2-kato-exact-audit/1"},
+        "backend": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["name", "version"],
+          "properties": {
+            "name": {"const": "sympy"},
+            "version": {"type": "string", "minLength": 1}
+          }
+        },
+        "checks": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "A_inverse_exists_exactly",
+            "C_AK_conformal_gram_identity",
+            "C_AK_determinant_is_sigma_squared",
+            "C_AK_first_column_gives_k1",
+            "C_AK_inverse_closed_form",
+            "C_AK_orientation_is_positive",
+            "C_AK_positive_radial_rotation_factorization",
+            "C_AK_second_column_gives_Ju_k1",
+            "K_equals_E_times_C_AK",
+            "R_chi_is_special_orthogonal",
+            "algebraic_frame_expanding_block",
+            "algebraic_frame_rank_two_minor",
+            "algebraic_frame_spans_projector_range",
+            "alpha_beta_spectral_relations",
+            "alpha_first_second_derivative_formulas",
+            "anchor_face_C_AK_is_I_over_sqrt_two",
+            "anchor_face_c_is_zero_and_dummy_independent",
+            "anchor_face_chi_zero_on_positive_cosine_branch",
+            "anchor_face_normalizer_squared_two",
+            "anchor_face_rotation_is_identity",
+            "anchor_face_source_is_pointwise_core_circle",
+            "anchor_face_transport_identity",
+            "anchor_face_y_zero",
+            "beta_first_second_derivative_formulas",
+            "chi_first_second_derivative_formulas",
+            "coordinate_direction_is_phi_plus_chi",
+            "expanding_spectral_factor_on_projector_range",
+            "kato_commutator_involution",
+            "kato_transport_differential_equation",
+            "kato_transport_initial_value",
+            "kato_transport_projector_intertwining",
+            "normalized_first_kato_vector_has_unit_norm",
+            "normalized_transport_is_g_over_N",
+            "normalizer_is_g_norm_squared",
+            "normalizer_is_physical_g_norm_squared",
+            "projector_commutator_closed_form",
+            "riesz_projector_commutes_with_A",
+            "riesz_projector_idempotent",
+            "riesz_projector_reverser_exchange",
+            "riesz_projector_trace_two",
+            "same_graph_boundary_normalized_C_AK_direction",
+            "source_coordinate_fixed_radius",
+            "source_phase_degree_plus_one",
+            "source_phase_derivative_J0_identity",
+            "source_phase_speed_fixed_radius",
+            "stable_spectral_factor_on_complement",
+            "tau_and_hyperbolic_closed_forms",
+            "tau_derivative_sign_convention",
+            "transported_core_vector_bridge",
+            "transported_core_vector_norm_squared_bridge",
+            "unstable_complex_structure_fails_on_stable_complement",
+            "unstable_complex_structure_intertwines_E_J0",
+            "unstable_complex_structure_not_global_identity",
+            "unstable_complex_structure_on_projector_range",
+            "y_first_second_derivative_formulas",
+            "y_two_closed_forms_agree"
+          ],
+          "properties": {
+            "A_inverse_exists_exactly": {"const": true},
+            "C_AK_conformal_gram_identity": {"const": true},
+            "C_AK_determinant_is_sigma_squared": {"const": true},
+            "C_AK_first_column_gives_k1": {"const": true},
+            "C_AK_inverse_closed_form": {"const": true},
+            "C_AK_orientation_is_positive": {"const": true},
+            "C_AK_positive_radial_rotation_factorization": {"const": true},
+            "C_AK_second_column_gives_Ju_k1": {"const": true},
+            "K_equals_E_times_C_AK": {"const": true},
+            "R_chi_is_special_orthogonal": {"const": true},
+            "algebraic_frame_expanding_block": {"const": true},
+            "algebraic_frame_rank_two_minor": {"const": true},
+            "algebraic_frame_spans_projector_range": {"const": true},
+            "alpha_beta_spectral_relations": {"const": true},
+            "alpha_first_second_derivative_formulas": {"const": true},
+            "anchor_face_C_AK_is_I_over_sqrt_two": {"const": true},
+            "anchor_face_c_is_zero_and_dummy_independent": {"const": true},
+            "anchor_face_chi_zero_on_positive_cosine_branch": {"const": true},
+            "anchor_face_normalizer_squared_two": {"const": true},
+            "anchor_face_rotation_is_identity": {"const": true},
+            "anchor_face_source_is_pointwise_core_circle": {"const": true},
+            "anchor_face_transport_identity": {"const": true},
+            "anchor_face_y_zero": {"const": true},
+            "beta_first_second_derivative_formulas": {"const": true},
+            "chi_first_second_derivative_formulas": {"const": true},
+            "coordinate_direction_is_phi_plus_chi": {"const": true},
+            "expanding_spectral_factor_on_projector_range": {"const": true},
+            "kato_commutator_involution": {"const": true},
+            "kato_transport_differential_equation": {"const": true},
+            "kato_transport_initial_value": {"const": true},
+            "kato_transport_projector_intertwining": {"const": true},
+            "normalized_first_kato_vector_has_unit_norm": {"const": true},
+            "normalized_transport_is_g_over_N": {"const": true},
+            "normalizer_is_g_norm_squared": {"const": true},
+            "normalizer_is_physical_g_norm_squared": {"const": true},
+            "projector_commutator_closed_form": {"const": true},
+            "riesz_projector_commutes_with_A": {"const": true},
+            "riesz_projector_idempotent": {"const": true},
+            "riesz_projector_reverser_exchange": {"const": true},
+            "riesz_projector_trace_two": {"const": true},
+            "same_graph_boundary_normalized_C_AK_direction": {"const": true},
+            "source_coordinate_fixed_radius": {"const": true},
+            "source_phase_degree_plus_one": {"const": true},
+            "source_phase_derivative_J0_identity": {"const": true},
+            "source_phase_speed_fixed_radius": {"const": true},
+            "stable_spectral_factor_on_complement": {"const": true},
+            "tau_and_hyperbolic_closed_forms": {"const": true},
+            "tau_derivative_sign_convention": {"const": true},
+            "transported_core_vector_bridge": {"const": true},
+            "transported_core_vector_norm_squared_bridge": {"const": true},
+            "unstable_complex_structure_fails_on_stable_complement": {"const": true},
+            "unstable_complex_structure_intertwines_E_J0": {"const": true},
+            "unstable_complex_structure_not_global_identity": {"const": true},
+            "unstable_complex_structure_on_projector_range": {"const": true},
+            "y_first_second_derivative_formulas": {"const": true},
+            "y_two_closed_forms_agree": {"const": true}
+          }
+        },
+        "method": {"const": "exact-symbolic-identities-no-sampling"},
+        "status": {"const": "PASS"}
+      }
+    },
     "sha1": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
     "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
     "relativePath": {

@@ -18,11 +18,18 @@ from typing import Any
 import jsonschema
 
 from rigorous_common import (
+    P2_KATO_ACCEPTANCE_GATES,
+    P2_KATO_ACCEPTANCE_KEYS,
+    P2_KATO_PHYSICAL_JET_KEYS,
+    P2_KATO_TRUE_SOURCE_GATES,
+    P2_KATO_TRUE_SOURCE_KEYS,
     box_arguments,
     combine_verdicts,
     fraction,
     git_output,
     load_json,
+    observe_exact_symbolic_backend,
+    p2_kato_arguments,
     p2_jets_arguments,
     safe_repository_path,
     sha256_bytes,
@@ -31,6 +38,7 @@ from rigorous_common import (
     validate_exact_box,
     validate_h10_c01_configuration,
     validate_local_graph_configuration,
+    validate_p2_kato_configuration,
     validate_p2_jets_configuration,
     validate_p2b0_true_tube_implication,
 )
@@ -80,6 +88,22 @@ P2_JETS_IDS = P2_JETS_P0_IDS | {
     "V2.WU.JETS",
     "V2.WU_GRAPH",
 }
+P2_KATO_P0_IDS = LOCAL_GRAPH_P0_IDS | {
+    "ENV.EXACT_SYMBOLIC_BACKEND",
+    "P2.P2B_JETS_PREREQUISITE",
+    "P2.KATO_CONFIG_FROZEN",
+    "P2.KATO.EXACT_ALGEBRA",
+}
+P2_KATO_RAW_IDS = {
+    "P2.KATO.RIESZ_TRANSPORT",
+    "P2.KATO.FRAME_CHANGE",
+    "P2.KATO.C2_LIFT",
+    "P2.KATO.SOURCE_PARAMETERIZATION",
+}
+P2_KATO_IDS = P2_KATO_P0_IDS | P2_KATO_RAW_IDS | {
+    "V2.PHASE.TRUE_SOURCE",
+    "V2.PHASE.KATO_INTERFACE",
+}
 BASE_REQUIRED_BINDINGS = {
     "RESEARCH_CONTRACT.md",
     "theory/BASELINE.md",
@@ -125,6 +149,15 @@ P2_JETS_REQUIRED_BINDINGS = H10_C01_REQUIRED_BINDINGS | {
     "validation/rigorous/results/vdp_bridge_v1_p2b_h10_c01.json",
     "validation/rigorous/design/README.md",
     "validation/rigorous/design/p2b_jets_scout.cpp",
+}
+P2_KATO_REQUIRED_BINDINGS = P2_JETS_REQUIRED_BINDINGS | {
+    "van-der-pol/CENTRAL_CORE_IMPORT.md",
+    "validation/rigorous/p2_kato.schema.json",
+    "validation/rigorous/config/vdp_p2_kato_v1.json",
+    "validation/rigorous/audit_kato_exact.py",
+    "validation/rigorous/src/vdp_p2_kato_probe.cpp",
+    "validation/rigorous/results/vdp_bridge_v1_p2b_jets.json",
+    "validation/rigorous/design/p2b_kato_scout.cpp",
 }
 LOCAL_FRAME_ENCLOSURES = {
     "four_minus_c_squared",
@@ -324,12 +357,147 @@ P2_JETS_RAW_FIELDS = {
     "coordinate_composition", "linearization_contract",
     "weighted_jet_gate_margins", "recurrence", "obligations",
 }
+P2_KATO_AUDIT_CHECKS = {
+    "A_inverse_exists_exactly",
+    "C_AK_conformal_gram_identity",
+    "C_AK_determinant_is_sigma_squared",
+    "C_AK_first_column_gives_k1",
+    "C_AK_inverse_closed_form",
+    "C_AK_orientation_is_positive",
+    "C_AK_positive_radial_rotation_factorization",
+    "C_AK_second_column_gives_Ju_k1",
+    "K_equals_E_times_C_AK",
+    "R_chi_is_special_orthogonal",
+    "algebraic_frame_expanding_block",
+    "algebraic_frame_rank_two_minor",
+    "algebraic_frame_spans_projector_range",
+    "alpha_beta_spectral_relations",
+    "alpha_first_second_derivative_formulas",
+    "anchor_face_C_AK_is_I_over_sqrt_two",
+    "anchor_face_c_is_zero_and_dummy_independent",
+    "anchor_face_chi_zero_on_positive_cosine_branch",
+    "anchor_face_normalizer_squared_two",
+    "anchor_face_rotation_is_identity",
+    "anchor_face_source_is_pointwise_core_circle",
+    "anchor_face_transport_identity",
+    "anchor_face_y_zero",
+    "beta_first_second_derivative_formulas",
+    "chi_first_second_derivative_formulas",
+    "coordinate_direction_is_phi_plus_chi",
+    "expanding_spectral_factor_on_projector_range",
+    "kato_commutator_involution",
+    "kato_transport_differential_equation",
+    "kato_transport_initial_value",
+    "kato_transport_projector_intertwining",
+    "normalized_first_kato_vector_has_unit_norm",
+    "normalized_transport_is_g_over_N",
+    "normalizer_is_g_norm_squared",
+    "normalizer_is_physical_g_norm_squared",
+    "projector_commutator_closed_form",
+    "riesz_projector_commutes_with_A",
+    "riesz_projector_idempotent",
+    "riesz_projector_reverser_exchange",
+    "riesz_projector_trace_two",
+    "same_graph_boundary_normalized_C_AK_direction",
+    "source_coordinate_fixed_radius",
+    "source_phase_degree_plus_one",
+    "source_phase_derivative_J0_identity",
+    "source_phase_speed_fixed_radius",
+    "stable_spectral_factor_on_complement",
+    "tau_and_hyperbolic_closed_forms",
+    "tau_derivative_sign_convention",
+    "transported_core_vector_bridge",
+    "transported_core_vector_norm_squared_bridge",
+    "unstable_complex_structure_fails_on_stable_complement",
+    "unstable_complex_structure_intertwines_E_J0",
+    "unstable_complex_structure_not_global_identity",
+    "unstable_complex_structure_on_projector_range",
+    "y_first_second_derivative_formulas",
+    "y_two_closed_forms_agree",
+}
+P2_KATO_RAW_FIELDS = {
+    "schema_version", "status", "mathematical_status", "structure_status",
+    "structure_checks", "rounding_self_test", "grid",
+    "parameter_enclosures", "acceptance_gates",
+    "normalized_true_source_jet_upper_gates",
+    "imported_p2b_physical_jet_enclosures", "scalar_enclosures",
+    "normalized_parameter_jet_enclosures",
+    "original_parameter_jet_enclosures",
+    "source_coordinate_jet_enclosures",
+    "original_parameter_source_coordinate_jet_enclosures",
+    "normalized_true_source_jet_enclosures",
+    "original_parameter_true_source_jet_enclosures",
+    "riesz_transport_gate_margins", "frame_change_gate_margins",
+    "c2_lift_gate_margins", "source_parameterization_gate_margins",
+    "norm_contract", "source_composition", "external_exact_audit_contract",
+    "obligations",
+}
+P2_KATO_STRUCTURE_CHECKS = {
+    "gap_free_exact_rational_grid",
+    "bridge_matches_parameter_normalization",
+    "subdivisions_match_frozen_contract",
+    "original_parameter_scales_match_frozen_contract",
+    "all_rational_inputs_strictly_positive",
+    "parameter_grid_nonempty",
+    "parameter_ad_hessians_bit_symmetric",
+    "complete_first_parameter_multiindices",
+    "complete_full_ordered_second_parameter_indices",
+    "second_parameter_off_diagonals_counted_twice",
+    "imported_p2b_upper_rationals_positive",
+    "imported_p2b_triangle_complete",
+    "source_triangle_complete",
+    "full_rectangular_source_not_claimed",
+    "all_sqrt_domains_uniformly_positive",
+    "physical_frame_gram_eigenvalue_enclosures_nonempty",
+}
+P2_KATO_PARAMETER_ENCLOSURES = {
+    "r", "a2", "epsilon", "R", "original_first_derivative_scale",
+    "original_second_derivative_scale",
+}
+P2_KATO_SCALAR_ENCLOSURES = {
+    "c", "absolute_c", "alpha", "beta", "N_squared", "y", "chi",
+    "cos_chi", "sigma", "det_C_AK", "inverse_C_AK_operator", "tau",
+    "physical_K_operator", "physical_K_smallest_singular",
+}
+P2_KATO_PARAMETER_JET_ENCLOSURES = {
+    "c_D1", "c_D2", "P_u_D1", "P_u_D2", "chi_D1", "chi_D2",
+    "R_chi_D1", "R_chi_D2", "C_AK_D1", "C_AK_D2", "K_D1", "K_D2",
+}
+P2_KATO_SOURCE_COORDINATE_ENCLOSURES = {"B_0", "B_1", "B_2", "phase_speed"}
+P2_KATO_RIESZ_MARGINS = {
+    "absolute_c_upper_margin", "alpha_lower_margin", "beta_lower_margin"}
+P2_KATO_FRAME_MARGINS = {
+    "normalizer_squared_lower_margin", "absolute_y_upper_margin",
+    "phase_shift_absolute_upper_margin",
+    "phase_rotation_cosine_lower_margin", "radial_scale_lower_margin",
+    "radial_scale_upper_margin", "frame_change_determinant_lower_margin",
+    "frame_change_inverse_upper_margin",
+    "physical_frame_smallest_singular_lower_margin",
+    "physical_frame_operator_upper_margin",
+}
+P2_KATO_C2_MARGINS = {
+    f"normalized_{name}_{order}_derivative_upper_margin"
+    for name in ("c", "projector", "phase", "rotation", "change", "frame")
+    for order in ("first", "second")
+}
+P2_KATO_SOURCE_MARGINS = {
+    "normalized_source_coordinate_first_derivative_upper_margin",
+    "normalized_source_coordinate_second_derivative_upper_margin",
+    "source_coordinate_phase_speed_lower_margin",
+} | {f"{name}_upper_margin" for name in P2_KATO_TRUE_SOURCE_KEYS}
 P2_JETS_SCOPE_NONCLAIM = (
     "The P2 mixed-jet kernel proves the local graph and weighted half-orbit "
     "obligations in the P2a algebraic frame; normalized Kato source phase, "
     "the selected homoclinic, exact charts, event atlas, V3--V6, temporal "
     "stability, Turing selection, and canard identification remain outside "
     "its scope."
+)
+P2_KATO_SCOPE_NONCLAIM = (
+    "The P2 Kato kernel proves only the normalized expanding-frame and "
+    "total-order-three true-source phase interface; the selected homoclinic, "
+    "positive radial symplectic completion, exact charts, event atlas, "
+    "V3--V6, temporal stability, Turing selection, and canard identification "
+    "remain outside its scope."
 )
 COMMON_NONCLAIMS = [
     "A local mathematical PASS is not an aggregate theorem certificate.",
@@ -866,12 +1034,66 @@ def _recorded_blob(repository: Path, commit: str, relative: str) -> bytes:
     ).stdout
 
 
+def _kato_audit_status(audit: Any, errors: list[str]) -> str:
+    """Reduce the frozen 56-identity exact audit without trusting its status."""
+
+    expected_fields = {
+        "schema_version", "backend", "checks", "method", "status"}
+    if not isinstance(audit, dict):
+        errors.append("P2 Kato exact-algebra audit is not an object")
+        return "FAIL"
+    if set(audit) != expected_fields:
+        errors.append(
+            "P2 Kato exact-algebra audit field set changed: "
+            f"{sorted(audit)} != {sorted(expected_fields)}")
+    if audit.get("schema_version") != \
+            "rfsn-vdp-p2-kato-exact-audit/1":
+        errors.append("P2 Kato exact-algebra audit schema version changed")
+    backend = audit.get("backend")
+    if not isinstance(backend, dict) or set(backend) != {"name", "version"}:
+        errors.append("P2 Kato exact-algebra audit backend record changed")
+    elif backend.get("name") != "sympy" or not isinstance(
+            backend.get("version"), str) or not backend.get("version"):
+        errors.append("P2 Kato exact-algebra audit backend is malformed")
+    if audit.get("method") != "exact-symbolic-identities-no-sampling":
+        errors.append("P2 Kato exact-algebra audit method changed")
+    checks = audit.get("checks")
+    if not isinstance(checks, dict):
+        errors.append("P2 Kato exact-algebra checks are not an object")
+        checks = {}
+    if set(checks) != P2_KATO_AUDIT_CHECKS:
+        errors.append(
+            "P2 Kato exact-algebra check set changed: "
+            f"observed={sorted(checks)}, "
+            f"expected={sorted(P2_KATO_AUDIT_CHECKS)}")
+    if not all(type(value) is bool for value in checks.values()):
+        errors.append("P2 Kato exact-algebra checks are not all booleans")
+    expected = "PASS" if (
+        set(checks) == P2_KATO_AUDIT_CHECKS and
+        all(value is True for value in checks.values())
+    ) else "FAIL"
+    if audit.get("status") != expected:
+        errors.append(
+            "P2 Kato exact-algebra audit status is not its 56-check aggregate")
+    return expected
+
+
 def _replay_p2_probe(
         certificate: dict[str, Any], repository: Path,
         recorded_commit: str, recorded_dirty: bool) -> list[str]:
-    """Recompile and replay the bound P2 probe on this same machine."""
+    """Recompile and byte-replay a bound strict P2 probe on this machine."""
 
     errors: list[str] = []
+    source_by_scope = {
+        "V2_P2_JETS_KERNEL":
+            "validation/rigorous/src/vdp_p2_jets_probe.cpp",
+        "V2_P2_KATO_KERNEL":
+            "validation/rigorous/src/vdp_p2_kato_probe.cpp",
+    }
+    source_relative = source_by_scope.get(certificate.get("scope"))
+    if source_relative is None:
+        return ["strict P2 replay was requested for an unsupported scope"]
+    source_name = Path(source_relative).name
     toolchain = certificate.get("toolchain", {})
     build = toolchain.get("probe_build", {})
     logs = certificate.get("logs", {})
@@ -1047,9 +1269,7 @@ def _replay_p2_probe(
                 ("validation", "rigorous", "include"):
             normalized_compile.append("<LOCAL_INCLUDE>")
             include_count += 1
-        elif Path(item).parts[-4:] == (
-                "validation", "rigorous", "src",
-                "vdp_p2_jets_probe.cpp"):
+        elif Path(item).parts[-4:] == Path(source_relative).parts[-4:]:
             normalized_compile.append("<SOURCE>")
             source_count += 1
         else:
@@ -1067,7 +1287,7 @@ def _replay_p2_probe(
         return errors
 
     replay_files = [
-        "validation/rigorous/src/vdp_p2_jets_probe.cpp",
+        source_relative,
         "validation/rigorous/include/interval_io.hpp",
         "validation/rigorous/include/rounding_self_test.hpp",
         "validation/rigorous/include/verdict.hpp",
@@ -1090,7 +1310,7 @@ def _replay_p2_probe(
             root = Path(temporary)
             include_dir = root / "include"
             include_dir.mkdir()
-            source = root / "vdp_p2_jets_probe.cpp"
+            source = root / source_name
             source.write_bytes(contents[replay_files[0]])
             for relative in replay_files[1:]:
                 (include_dir / Path(relative).name).write_bytes(contents[relative])
@@ -1112,7 +1332,7 @@ def _replay_p2_probe(
                         and Path(item[2:]).parent.name == "rigorous":
                     replay_compile.append(f"-I{include_dir}")
                     include_replaced = True
-                elif Path(item).name == "vdp_p2_jets_probe.cpp":
+                elif Path(item).name == source_name:
                     replay_compile.append(str(source))
                     source_replaced = True
                 else:
@@ -1159,6 +1379,84 @@ def _replay_p2_probe(
     return errors
 
 
+def _replay_kato_exact_audit(
+        certificate: dict[str, Any], repository: Path,
+        recorded_commit: str, recorded_dirty: bool) -> list[str]:
+    """Replay the hash-bound exact audit and compare every output byte."""
+
+    errors: list[str] = []
+    relative = "validation/rigorous/audit_kato_exact.py"
+    execution = certificate.get("toolchain", {}).get(
+        "kato_exact_algebra_audit_execution", {})
+    logs = certificate.get("logs", {})
+    audit = certificate.get("kato_exact_algebra_audit", {})
+    argv = execution.get("audit_argv")
+    if not isinstance(execution, dict) or set(execution) != {
+            "audit_source_sha256", "audit_argv", "audit_argv_sha256",
+            "audit_exit_code", "audit_stdout"}:
+        return ["P2 Kato exact-audit execution field set changed"]
+    if not isinstance(argv, list) or len(argv) != 3 or not all(
+            isinstance(item, str) for item in argv):
+        return ["P2 Kato exact-audit argv is malformed"]
+    if Path(argv[0]).resolve() != Path(sys.executable).resolve() or \
+            argv[1] != "-B" or Path(argv[2]).parts[-2:] != \
+            ("rigorous", "audit_kato_exact.py"):
+        errors.append("P2 Kato exact-audit argv changed")
+    expected_argv_hash = sha256_bytes(json.dumps(
+        argv, separators=(",", ":")).encode())
+    if execution.get("audit_argv_sha256") != expected_argv_hash:
+        errors.append("P2 Kato exact-audit argv hash is inconsistent")
+    try:
+        source = (
+            safe_repository_path(repository, relative).read_bytes()
+            if recorded_dirty else
+            _recorded_blob(repository, recorded_commit, relative))
+    except (OSError, ValueError, subprocess.SubprocessError) as error:
+        return [f"P2 Kato exact-audit source is unavailable: {error}"]
+    source_hash = sha256_bytes(source)
+    if execution.get("audit_source_sha256") != source_hash:
+        errors.append("P2 Kato exact-audit source hash mismatch")
+    expected_stdout = (
+        json.dumps(audit, sort_keys=True, separators=(",", ":")) + "\n")
+    if execution.get("audit_stdout") != expected_stdout:
+        errors.append("P2 Kato exact-audit stdout is not canonical audit JSON")
+    if logs.get("kato_audit_stdout_sha256") != sha256_bytes(
+            expected_stdout.encode()):
+        errors.append("P2 Kato exact-audit stdout hash mismatch")
+    if logs.get("kato_audit_stderr_sha256") != sha256_bytes(b""):
+        errors.append("P2 Kato exact-audit stderr hash is not empty")
+    expected_exit = 0 if audit.get("status") == "PASS" else 1
+    if execution.get("audit_exit_code") != expected_exit:
+        errors.append("P2 Kato exact-audit exit code differs from its status")
+    if errors:
+        return errors
+    try:
+        with tempfile.TemporaryDirectory(
+                prefix="rfsn-kato-audit-checker-replay-") as temporary:
+            audit_path = Path(temporary) / "audit_kato_exact.py"
+            audit_path.write_bytes(source)
+            environment = os.environ.copy()
+            environment.update({
+                "OMP_NUM_THREADS": "1", "OPENBLAS_NUM_THREADS": "1",
+                "LC_ALL": "C.UTF-8", "PYTHONHASHSEED": "0",
+                "PYTHONPYCACHEPREFIX": str(Path(temporary) / "pycache"),
+            })
+            replayed = subprocess.run(
+                [argv[0], "-B", str(audit_path)], text=True,
+                stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                env=environment, timeout=960)
+            if replayed.returncode != execution.get("audit_exit_code"):
+                errors.append("P2 Kato exact-audit replay exit code changed")
+            if replayed.stdout != execution.get("audit_stdout"):
+                errors.append("P2 Kato exact-audit replay stdout changed bytewise")
+            if sha256_bytes(replayed.stderr.encode()) != logs.get(
+                    "kato_audit_stderr_sha256"):
+                errors.append("P2 Kato exact-audit replay stderr changed bytewise")
+    except (OSError, subprocess.SubprocessError) as error:
+        errors.append(f"P2 Kato exact-audit replay could not execute: {error}")
+    return errors
+
+
 def semantic_errors(certificate: dict[str, Any],
                     repository: Path = REPOSITORY) -> list[str]:
     errors: list[str] = []
@@ -1185,10 +1483,13 @@ def semantic_errors(certificate: dict[str, Any],
     configuration: dict[str, Any] = {}
     h10_configuration: dict[str, Any] = {}
     p2_jets_configuration: dict[str, Any] = {}
+    p2_kato_configuration: dict[str, Any] = {}
+    p2b_jets_certificate: dict[str, Any] = {}
     expected_h10_audit_status: str | None = None
+    expected_kato_audit_status: str | None = None
     bridge_scopes = {
         "V2_LOCAL_GRAPH_KERNEL", "V2_H10_C01_KERNEL",
-        "V2_P2_JETS_KERNEL"}
+        "V2_P2_JETS_KERNEL", "V2_P2_KATO_KERNEL"}
     if scope in bridge_scopes:
         bridge_path = HERE / "config" / "vdp_bridge_v1.json"
         bridge = load_json(bridge_path)
@@ -1489,6 +1790,139 @@ def semantic_errors(certificate: dict[str, Any],
                 errors.append("bound P2b0 prerequisite does not establish P2b0 PASS")
             errors.extend(validate_p2b0_true_tube_implication(
                 p2_jets_configuration, p2b0_certificate))
+        if scope == "V2_P2_KATO_KERNEL":
+            p2_kato_path = HERE / "config" / "vdp_p2_kato_v1.json"
+            p2_kato_configuration = load_json(p2_kato_path)
+            try:
+                jsonschema.validate(
+                    p2_kato_configuration,
+                    load_json(HERE / "p2_kato.schema.json"),
+                    format_checker=jsonschema.FormatChecker(),
+                )
+            except jsonschema.ValidationError as error:
+                errors.append(f"P2 Kato configuration schema: {error.message}")
+            errors.extend(validate_p2_kato_configuration(
+                p2_kato_configuration))
+            recorded_kato = certificate.get("p2_kato_configuration", {})
+            expected_recorded_kato = {
+                "path": "validation/rigorous/config/vdp_p2_kato_v1.json",
+                "sha256": sha256_file(p2_kato_path),
+                "configuration_id": p2_kato_configuration.get(
+                    "configuration_id"),
+            }
+            if recorded_kato != expected_recorded_kato:
+                errors.append(
+                    "P2 Kato certificate configuration binding changed")
+
+            basis = p2_kato_configuration.get("selection_basis", {})
+            selected_files = {
+                "continuation_bridge": HERE / "config" / "vdp_bridge_v1.json",
+                "p2a_configuration":
+                    HERE / "config" / "vdp_p2_local_graph_v1.json",
+                "p2a_certificate":
+                    HERE / "results" / "vdp_bridge_v1_p2a_local_graph.json",
+                "p2b_configuration":
+                    HERE / "config" / "vdp_p2_jets_v1.json",
+                "p2b_certificate":
+                    HERE / "results" / "vdp_bridge_v1_p2b_jets.json",
+                "core_source_import": REPOSITORY /
+                    "van-der-pol" / "CENTRAL_CORE_IMPORT.md",
+                "v2_source_definition": REPOSITORY /
+                    "van-der-pol" / "CENTRAL_CONTINUATION.md",
+                "design_scout": HERE / "design" / "p2b_kato_scout.cpp",
+            }
+            for name, path in selected_files.items():
+                selected = basis.get(name, {})
+                expected_relative = str(path.relative_to(repository))
+                if selected.get("path") != expected_relative or \
+                        selected.get("sha256") != sha256_file(path):
+                    errors.append(f"P2 Kato selection {name} binding mismatch")
+                try:
+                    frozen_blob = _recorded_blob(
+                        repository, str(basis.get("repository_commit", "")),
+                        expected_relative)
+                except (OSError, ValueError,
+                        subprocess.SubprocessError) as error:
+                    errors.append(
+                        f"P2 Kato frozen selection {name} is unavailable: "
+                        f"{error}")
+                else:
+                    if selected.get("sha256") != sha256_bytes(frozen_blob):
+                        errors.append(
+                            f"P2 Kato frozen selection {name} hash mismatch")
+            try:
+                selected_commit = git_output(
+                    repository, "rev-parse",
+                    f"{basis.get('repository_tag', '')}^{{commit}}")
+                if selected_commit != basis.get("repository_commit"):
+                    errors.append(
+                        "P2 Kato selection tag does not resolve to its commit")
+            except (OSError, subprocess.SubprocessError) as error:
+                errors.append(f"cannot resolve P2 Kato selection tag: {error}")
+
+            flagship_lock = load_json(HERE / "flagship_import.lock.json")
+            for name in (
+                    "flagship_core_manuscript",
+                    "flagship_core_certificate"):
+                selected = basis.get(name, {})
+                if selected.get("commit") != flagship_lock.get("commit") or \
+                        flagship_lock.get("files", {}).get(
+                            selected.get("path")) != selected.get("sha256"):
+                    errors.append(
+                        f"P2 Kato {name} differs from the flagship lock")
+
+            p2b_jets_path = (
+                HERE / "results" / "vdp_bridge_v1_p2b_jets.json")
+            p2b_jets_certificate = load_json(p2b_jets_path)
+            nested_p2b_errors = schema_errors(p2b_jets_certificate) + \
+                semantic_errors(p2b_jets_certificate, repository)
+            if nested_p2b_errors:
+                errors.append(
+                    "bound P2b-jets prerequisite certificate is invalid: " +
+                    "; ".join(nested_p2b_errors))
+            expected_p2b_jets = {
+                "configuration_path":
+                    "validation/rigorous/config/vdp_p2_jets_v1.json",
+                "configuration_sha256": sha256_file(
+                    HERE / "config" / "vdp_p2_jets_v1.json"),
+                "certificate_path":
+                    "validation/rigorous/results/vdp_bridge_v1_p2b_jets.json",
+                "certificate_sha256": sha256_file(p2b_jets_path),
+                "certificate_scope": p2b_jets_certificate.get("scope"),
+                "source_commit": p2b_jets_certificate.get(
+                    "source_revision", {}).get("commit"),
+                "integrity_status": p2b_jets_certificate.get(
+                    "integrity_status"),
+                "mathematical_status": p2b_jets_certificate.get(
+                    "mathematical_status"),
+                "final_status": p2b_jets_certificate.get("final_status"),
+                "claim_bearing": p2b_jets_certificate.get("claim_bearing"),
+            }
+            if certificate.get("p2b_jets_prerequisite") != \
+                    expected_p2b_jets:
+                errors.append(
+                    "certificate P2b-jets prerequisite record changed")
+            p2b_by_id = {
+                item.get("id"): item.get("status")
+                for item in p2b_jets_certificate.get("obligations", [])
+                if isinstance(item, dict)
+            }
+            p2b_bridge = p2b_jets_certificate.get(
+                "continuation_bridge", {}).get("variables")
+            if not (
+                p2b_jets_certificate.get("scope") == "V2_P2_JETS_KERNEL" and
+                p2b_jets_certificate.get("integrity_status") == "PASS" and
+                p2b_jets_certificate.get("mathematical_status") == "PASS" and
+                p2b_jets_certificate.get("final_status") == "INCONCLUSIVE" and
+                p2b_jets_certificate.get("claim_bearing") is False and
+                p2b_by_id.get("V2.WU_GRAPH") == "PASS" and
+                p2b_bridge == bridge.get("variables")
+            ):
+                errors.append(
+                    "bound P2b-jets prerequisite does not establish the same-"
+                    "bridge V2.WU_GRAPH PASS")
+            expected_kato_audit_status = _kato_audit_status(
+                certificate.get("kato_exact_algebra_audit"), errors)
     elif "continuation_bridge" in certificate or \
             "validation_configuration" in certificate:
         errors.append("non-P2 certificate unexpectedly records P2 configuration data")
@@ -1503,6 +1937,11 @@ def semantic_errors(certificate: dict[str, Any],
             name in certificate for name in (
                 "p2_jets_configuration", "p2b0_prerequisite")):
         errors.append("non-P2-jets certificate records P2-jets data")
+    if scope != "V2_P2_KATO_KERNEL" and any(
+            name in certificate for name in (
+                "p2_kato_configuration", "p2b_jets_prerequisite",
+                "kato_exact_algebra_audit")):
+        errors.append("non-P2-Kato certificate records P2-Kato data")
 
     source_revision = certificate.get("source_revision", {})
     try:
@@ -1556,6 +1995,7 @@ def semantic_errors(certificate: dict[str, Any],
         "V2_LOCAL_GRAPH_KERNEL": LOCAL_GRAPH_REQUIRED_BINDINGS,
         "V2_H10_C01_KERNEL": H10_C01_REQUIRED_BINDINGS,
         "V2_P2_JETS_KERNEL": P2_JETS_REQUIRED_BINDINGS,
+        "V2_P2_KATO_KERNEL": P2_KATO_REQUIRED_BINDINGS,
     }
     required_bindings = required_bindings_by_scope.get(
         scope, BASE_REQUIRED_BINDINGS)
@@ -1601,6 +2041,7 @@ def semantic_errors(certificate: dict[str, Any],
         "V2_LOCAL_GRAPH_KERNEL": LOCAL_GRAPH_IDS,
         "V2_H10_C01_KERNEL": H10_C01_IDS,
         "V2_P2_JETS_KERNEL": P2_JETS_IDS,
+        "V2_P2_KATO_KERNEL": P2_KATO_IDS,
     }
     required = required_by_scope.get(scope, set())
     missing = required - set(by_id)
@@ -1614,6 +2055,7 @@ def semantic_errors(certificate: dict[str, Any],
         "V2_LOCAL_GRAPH_KERNEL": LOCAL_GRAPH_SCOPE_NONCLAIM,
         "V2_H10_C01_KERNEL": H10_C01_SCOPE_NONCLAIM,
         "V2_P2_JETS_KERNEL": P2_JETS_SCOPE_NONCLAIM,
+        "V2_P2_KATO_KERNEL": P2_KATO_SCOPE_NONCLAIM,
     }
     expected_nonclaims = COMMON_NONCLAIMS + [
         scope_nonclaims.get(scope, PHASE1_SCOPE_NONCLAIM)]
@@ -1646,11 +2088,23 @@ def semantic_errors(certificate: dict[str, Any],
                 if by_id.get(identifier, {}).get("status") != expected_parent:
                     errors.append(
                         f"{identifier} is not the P2 jets atomic aggregate")
+    if scope == "V2_P2_KATO_KERNEL":
+        for identifier in (
+                "P2.P2B_JETS_PREREQUISITE", "P2.KATO_CONFIG_FROZEN"):
+            if by_id.get(identifier, {}).get("status") != "PASS":
+                errors.append(f"{identifier} must bind its verified PASS input")
+        if expected_kato_audit_status is not None and \
+                by_id.get("P2.KATO.EXACT_ALGEBRA", {}).get("status") != \
+                expected_kato_audit_status:
+            errors.append(
+                "P2.KATO.EXACT_ALGEBRA differs from the recomputed audit "
+                "verdict")
 
     integrity_ids = {
         "V2_LOCAL_GRAPH_KERNEL": LOCAL_GRAPH_P0_IDS,
         "V2_H10_C01_KERNEL": H10_C01_P0_IDS,
         "V2_P2_JETS_KERNEL": P2_JETS_P0_IDS,
+        "V2_P2_KATO_KERNEL": P2_KATO_P0_IDS,
     }.get(scope, P0_IDS)
     p0_status = combine_verdicts(
         by_id[item]["status"] for item in integrity_ids if item in by_id)
@@ -1682,10 +2136,14 @@ def semantic_errors(certificate: dict[str, Any],
             if identifier in raw_by_id:
                 errors.append(f"duplicate raw-probe obligation id: {identifier}")
             raw_by_id[identifier] = item
-        expected_raw_ids = (
-            {"P2.JETS.COEFFICIENTS", "V2.WU.STATE_C23",
-             "V2.WU.MIXED_JETS", "V2.WU.WEIGHTED_HALF_ORBITS"}
-            if scope == "V2_P2_JETS_KERNEL" else required - integrity_ids)
+        if scope == "V2_P2_JETS_KERNEL":
+            expected_raw_ids = {
+                "P2.JETS.COEFFICIENTS", "V2.WU.STATE_C23",
+                "V2.WU.MIXED_JETS", "V2.WU.WEIGHTED_HALF_ORBITS"}
+        elif scope == "V2_P2_KATO_KERNEL":
+            expected_raw_ids = P2_KATO_RAW_IDS
+        else:
+            expected_raw_ids = required - integrity_ids
         if set(raw_by_id) != expected_raw_ids:
             errors.append(
                 "raw-probe mathematical obligations differ from the scoped set: "
@@ -2523,6 +2981,484 @@ def semantic_errors(certificate: dict[str, Any],
                         f"{identifier} status is not its independently "
                         "reduced P2 aggregate")
 
+    if scope == "V2_P2_KATO_KERNEL":
+        if raw_probe.get("schema_version") != "rfsn-vdp-p2-kato-probe/1":
+            errors.append("raw P2 Kato probe schema version changed")
+        if set(raw_probe) != P2_KATO_RAW_FIELDS:
+            errors.append(
+                "raw P2 Kato top-level field set changed: "
+                f"observed={sorted(raw_probe)}, "
+                f"expected={sorted(P2_KATO_RAW_FIELDS)}")
+        structure_checks = raw_probe.get("structure_checks")
+        if not isinstance(structure_checks, dict):
+            errors.append("raw P2 Kato structure_checks is not an object")
+            structure_checks = {}
+        if set(structure_checks) != P2_KATO_STRUCTURE_CHECKS:
+            errors.append("raw P2 Kato structure-check set changed")
+        if not all(type(value) is bool for value in structure_checks.values()):
+            errors.append("raw P2 Kato structure checks are not all boolean")
+        expected_grid = {
+            "ordered_axes": ["theta_r", "theta_a", "theta_epsilon"],
+            "subdivisions": [16, 8, 4],
+            "cell_count": 512,
+            "normalized_parameter_dimension": 3,
+        }
+        if raw_probe.get("grid") != expected_grid:
+            errors.append("raw P2 Kato grid differs from the frozen exact cover")
+        expected_norm_contract = {
+            "matrix_value_norm": "spectral-2-norm",
+            "matrix_inverse_norm": "spectral-2-norm",
+            "scalar_first_parameter_norm": "euclidean-on-R3",
+            "scalar_second_parameter_norm": "full-3x3-frobenius",
+            "matrix_first_parameter_norm":
+                "output-parameter-hilbert-schmidt",
+            "matrix_second_parameter_norm":
+                "output-full-ordered-parameter-hilbert-schmidt",
+            "true_source_jet_norm":
+                "physical-output-labelled-multilinear-hilbert-schmidt",
+        }
+        if raw_probe.get("norm_contract") != expected_norm_contract:
+            errors.append("raw P2 Kato norm contract changed")
+        expected_source_composition = {
+            "maximum_total_order": 3,
+            "maximum_phase_order": 3,
+            "maximum_parameter_order": 2,
+            "targets": list(P2_KATO_TRUE_SOURCE_KEYS),
+            "full_rectangular_claimed": False,
+            "complete_frozen_recurrence": True,
+        }
+        if raw_probe.get("source_composition") != expected_source_composition:
+            errors.append("raw P2 Kato source-composition triangle changed")
+        if raw_probe.get("external_exact_audit_contract") != {
+                "required": True, "included_in_raw_status": False,
+                "schema_version": "rfsn-vdp-p2-kato-exact-audit/1"}:
+            errors.append("raw P2 Kato external exact-audit contract changed")
+
+        parameter_enclosures = _check_interval_mapping(
+            "raw_probe.parameter_enclosures",
+            raw_probe.get("parameter_enclosures"),
+            P2_KATO_PARAMETER_ENCLOSURES, errors)
+        acceptance_gates = _check_interval_mapping(
+            "raw_probe.acceptance_gates", raw_probe.get("acceptance_gates"),
+            set(P2_KATO_ACCEPTANCE_KEYS), errors)
+        true_source_gates = _check_interval_mapping(
+            "raw_probe.normalized_true_source_jet_upper_gates",
+            raw_probe.get("normalized_true_source_jet_upper_gates"),
+            set(P2_KATO_TRUE_SOURCE_KEYS), errors)
+        imported_jets = _check_interval_mapping(
+            "raw_probe.imported_p2b_physical_jet_enclosures",
+            raw_probe.get("imported_p2b_physical_jet_enclosures"),
+            set(P2_KATO_PHYSICAL_JET_KEYS), errors)
+        scalar_enclosures = _check_interval_mapping(
+            "raw_probe.scalar_enclosures", raw_probe.get("scalar_enclosures"),
+            P2_KATO_SCALAR_ENCLOSURES, errors)
+        normalized_parameter_jets = _check_interval_mapping(
+            "raw_probe.normalized_parameter_jet_enclosures",
+            raw_probe.get("normalized_parameter_jet_enclosures"),
+            P2_KATO_PARAMETER_JET_ENCLOSURES, errors)
+        original_parameter_jets = _check_interval_mapping(
+            "raw_probe.original_parameter_jet_enclosures",
+            raw_probe.get("original_parameter_jet_enclosures"),
+            P2_KATO_PARAMETER_JET_ENCLOSURES, errors)
+        source_coordinate_jets = _check_interval_mapping(
+            "raw_probe.source_coordinate_jet_enclosures",
+            raw_probe.get("source_coordinate_jet_enclosures"),
+            P2_KATO_SOURCE_COORDINATE_ENCLOSURES, errors)
+        original_source_coordinate_jets = _check_interval_mapping(
+            "raw_probe.original_parameter_source_coordinate_jet_enclosures",
+            raw_probe.get(
+                "original_parameter_source_coordinate_jet_enclosures"),
+            P2_KATO_SOURCE_COORDINATE_ENCLOSURES, errors)
+        normalized_source_jets = _check_interval_mapping(
+            "raw_probe.normalized_true_source_jet_enclosures",
+            raw_probe.get("normalized_true_source_jet_enclosures"),
+            set(P2_KATO_TRUE_SOURCE_KEYS), errors)
+        original_source_jets = _check_interval_mapping(
+            "raw_probe.original_parameter_true_source_jet_enclosures",
+            raw_probe.get("original_parameter_true_source_jet_enclosures"),
+            set(P2_KATO_TRUE_SOURCE_KEYS), errors)
+        riesz_margins = _check_interval_mapping(
+            "raw_probe.riesz_transport_gate_margins",
+            raw_probe.get("riesz_transport_gate_margins"),
+            P2_KATO_RIESZ_MARGINS, errors)
+        frame_margins = _check_interval_mapping(
+            "raw_probe.frame_change_gate_margins",
+            raw_probe.get("frame_change_gate_margins"),
+            P2_KATO_FRAME_MARGINS, errors)
+        c2_margins = _check_interval_mapping(
+            "raw_probe.c2_lift_gate_margins",
+            raw_probe.get("c2_lift_gate_margins"),
+            P2_KATO_C2_MARGINS, errors)
+        source_margins = _check_interval_mapping(
+            "raw_probe.source_parameterization_gate_margins",
+            raw_probe.get("source_parameterization_gate_margins"),
+            P2_KATO_SOURCE_MARGINS, errors)
+
+        bridge_variables = bridge.get("variables", {})
+        for name in ("r", "a2", "epsilon"):
+            try:
+                lower = fraction(bridge_variables[name]["lower"])
+                upper = fraction(bridge_variables[name]["upper"])
+            except (KeyError, TypeError, ValueError, ZeroDivisionError):
+                continue
+            if not _contains_exact_interval(
+                    parameter_enclosures.get(name), lower, upper):
+                errors.append(
+                    f"raw P2 Kato {name} does not contain the bridge interval")
+        frozen_parameter_points = {
+            "R": Fraction(1, 100),
+            "original_first_derivative_scale": Fraction(25),
+            "original_second_derivative_scale": Fraction(625),
+        }
+        for name, exact in frozen_parameter_points.items():
+            if not _contains_exact_interval(
+                    parameter_enclosures.get(name), exact, exact):
+                errors.append(f"raw P2 Kato frozen parameter changed: {name}")
+
+        frozen_gates = p2_kato_configuration.get("acceptance_gates", {})
+        for name, frozen in P2_KATO_ACCEPTANCE_GATES.items():
+            try:
+                exact = fraction(frozen_gates[name])
+            except (KeyError, TypeError, ValueError, ZeroDivisionError):
+                exact = frozen
+            if exact != frozen or not _contains_exact_interval(
+                    acceptance_gates.get(name), frozen, frozen):
+                errors.append(f"raw P2 Kato acceptance gate changed: {name}")
+        frozen_source_gates = p2_kato_configuration.get(
+            "normalized_true_source_jet_upper_gates", {})
+        for name, frozen in P2_KATO_TRUE_SOURCE_GATES.items():
+            try:
+                exact = fraction(frozen_source_gates[name])
+            except (KeyError, TypeError, ValueError, ZeroDivisionError):
+                exact = frozen
+            if exact != frozen or not _contains_exact_interval(
+                    true_source_gates.get(name), frozen, frozen):
+                errors.append(f"raw P2 Kato true-source gate changed: {name}")
+
+        archived_physical = p2b_jets_certificate.get("raw_probe", {}).get(
+            "physical_weighted_jet_enclosures", {})
+        for name in P2_KATO_PHYSICAL_JET_KEYS:
+            archived = _fraction_interval(archived_physical.get(name))
+            if archived is None or archived[0] != 0 or archived[1] <= 0:
+                errors.append(f"bound P2b physical jet is invalid: {name}")
+                continue
+            if not _contains_exact_interval(
+                    imported_jets.get(name), archived[1], archived[1]):
+                errors.append(
+                    f"raw P2 Kato imported jet differs from P2b upper: {name}")
+
+        first_scale = parameter_enclosures.get(
+            "original_first_derivative_scale")
+        second_scale = parameter_enclosures.get(
+            "original_second_derivative_scale")
+        one_interval = {
+            "lower_hex": "0x1p+0", "upper_hex": "0x1p+0",
+            "endpoint_format": "IEEE754_BINARY64_HEX"}
+        for name in P2_KATO_PARAMETER_JET_ENCLOSURES:
+            scale = second_scale if name.endswith("_D2") else first_scale
+            _check_product_enclosure(
+                f"raw P2 Kato original parameter jet {name}",
+                original_parameter_jets.get(name), scale,
+                normalized_parameter_jets.get(name), errors)
+        for name in P2_KATO_SOURCE_COORDINATE_ENCLOSURES:
+            scale = second_scale if name == "B_2" else \
+                (first_scale if name == "B_1" else one_interval)
+            _check_product_enclosure(
+                f"raw P2 Kato original source coordinate {name}",
+                original_source_coordinate_jets.get(name), scale,
+                source_coordinate_jets.get(name), errors)
+        source_parameter_orders = {
+            "S_0_0": 0, "S_0_1": 1, "S_0_2": 2,
+            "S_1_0": 0, "S_1_1": 1, "S_1_2": 2,
+            "S_2_0": 0, "S_2_1": 1, "S_3_0": 0,
+        }
+        for name, order in source_parameter_orders.items():
+            scale = {0: one_interval, 1: first_scale, 2: second_scale}[order]
+            _check_product_enclosure(
+                f"raw P2 Kato original true-source jet {name}",
+                original_source_jets.get(name), scale,
+                normalized_source_jets.get(name), errors)
+
+        radius_interval = _fraction_interval(parameter_enclosures.get("R"))
+        b0_interval = _fraction_interval(source_coordinate_jets.get("B_0"))
+        b1_interval = _fraction_interval(source_coordinate_jets.get("B_1"))
+        b2_interval = _fraction_interval(source_coordinate_jets.get("B_2"))
+        phase_speed_interval = _fraction_interval(
+            source_coordinate_jets.get("phase_speed"))
+        chi1_interval = _fraction_interval(
+            normalized_parameter_jets.get("chi_D1"))
+        chi2_interval = _fraction_interval(
+            normalized_parameter_jets.get("chi_D2"))
+        if radius_interval is not None:
+            _check_contains_fraction_interval(
+                "raw P2 Kato B_0=R", source_coordinate_jets.get("B_0"),
+                radius_interval, errors)
+            _check_contains_fraction_interval(
+                "raw P2 Kato phase_speed=R",
+                source_coordinate_jets.get("phase_speed"),
+                radius_interval, errors)
+        if radius_interval is not None and chi1_interval is not None:
+            _check_contains_fraction_interval(
+                "raw P2 Kato B_1=R*chi_1",
+                source_coordinate_jets.get("B_1"),
+                _fi_mul(radius_interval, chi1_interval), errors)
+        if None not in (radius_interval, b2_interval,
+                        chi1_interval, chi2_interval):
+            assert radius_interval is not None and b2_interval is not None
+            assert chi1_interval is not None and chi2_interval is not None
+            if b2_interval[0] < 0:
+                errors.append("raw P2 Kato B_2 norm has a negative lower bound")
+            expected_b2_square = _fi_mul(
+                _fi_power(radius_interval, 2),
+                _fi_add(_fi_power(chi2_interval, 2),
+                        _fi_power(chi1_interval, 4)))
+            observed_b2_square = _fi_mul(b2_interval, b2_interval)
+            if not (observed_b2_square[0] <= expected_b2_square[0] and
+                    observed_b2_square[1] >= expected_b2_square[1]):
+                errors.append(
+                    "raw P2 Kato B_2 does not enclose the frozen norm formula")
+        if b0_interval is None or phase_speed_interval is None or \
+                b1_interval is None or b2_interval is None:
+            errors.append("raw P2 Kato source-coordinate formulas are unavailable")
+
+        imported_fraction_jets = {
+            name.replace("Z", "F", 1): _fraction_interval(value)
+            for name, value in imported_jets.items()}
+        if radius_interval is not None and b1_interval is not None and \
+                b2_interval is not None and all(
+                    value is not None
+                    for value in imported_fraction_jets.values()):
+            f = imported_fraction_jets
+            assert all(value is not None for value in f.values())
+            f00, f01, f02 = f["F_0_0"], f["F_0_1"], f["F_0_2"]
+            f10, f11, f12 = f["F_1_0"], f["F_1_1"], f["F_1_2"]
+            f20, f21, f30 = f["F_2_0"], f["F_2_1"], f["F_3_0"]
+            assert None not in (
+                f00, f01, f02, f10, f11, f12, f20, f21, f30)
+            b1_squared = _fi_power(b1_interval, 2)
+            g1 = _fi_add(f11, _fi_mul(f20, b1_interval))
+            g2 = _fi_sum([
+                f12,
+                _fi_mul(_fi_integer(2), _fi_mul(f21, b1_interval)),
+                _fi_mul(f30, b1_squared),
+                _fi_mul(f20, b2_interval),
+            ])
+            radius_squared = _fi_power(radius_interval, 2)
+            radius_cubed = _fi_power(radius_interval, 3)
+            expected_source = {
+                "S_0_0": f00,
+                "S_0_1": _fi_add(f01, _fi_mul(f10, b1_interval)),
+                "S_0_2": _fi_sum([
+                    f02,
+                    _fi_mul(_fi_integer(2), _fi_mul(f11, b1_interval)),
+                    _fi_mul(f20, b1_squared),
+                    _fi_mul(f10, b2_interval),
+                ]),
+                "S_1_0": _fi_mul(f10, radius_interval),
+                "S_1_1": _fi_add(
+                    _fi_mul(g1, radius_interval),
+                    _fi_mul(f10, b1_interval)),
+                "S_1_2": _fi_sum([
+                    _fi_mul(g2, radius_interval),
+                    _fi_mul(_fi_integer(2), _fi_mul(g1, b1_interval)),
+                    _fi_mul(f10, b2_interval),
+                ]),
+                "S_2_0": _fi_add(
+                    _fi_mul(f20, radius_squared),
+                    _fi_mul(f10, radius_interval)),
+                "S_2_1": _fi_sum([
+                    _fi_mul(_fi_add(
+                        f21, _fi_mul(f30, b1_interval)), radius_squared),
+                    _fi_mul(_fi_integer(2), _fi_mul(
+                        f20, _fi_mul(b1_interval, radius_interval))),
+                    _fi_mul(g1, radius_interval),
+                    _fi_mul(f10, b1_interval),
+                ]),
+                "S_3_0": _fi_sum([
+                    _fi_mul(f30, radius_cubed),
+                    _fi_mul(_fi_integer(3), _fi_mul(f20, radius_squared)),
+                    _fi_mul(f10, radius_interval),
+                ]),
+            }
+            for name, expected in expected_source.items():
+                _check_contains_fraction_interval(
+                    f"raw P2 Kato true-source recurrence {name}",
+                    normalized_source_jets.get(name), expected, errors)
+        else:
+            errors.append(
+                "raw P2 Kato true-source recurrence cannot be reconstructed")
+
+        gate_margin_relations = {
+            "absolute_c_upper_margin": (
+                acceptance_gates.get("absolute_c_upper"),
+                scalar_enclosures.get("absolute_c")),
+            "alpha_lower_margin": (
+                scalar_enclosures.get("alpha"),
+                acceptance_gates.get("alpha_lower")),
+            "beta_lower_margin": (
+                scalar_enclosures.get("beta"),
+                acceptance_gates.get("beta_lower")),
+            "normalizer_squared_lower_margin": (
+                scalar_enclosures.get("N_squared"),
+                acceptance_gates.get("normalizer_squared_lower")),
+            "phase_rotation_cosine_lower_margin": (
+                scalar_enclosures.get("cos_chi"),
+                acceptance_gates.get("phase_rotation_cosine_lower")),
+            "radial_scale_lower_margin": (
+                scalar_enclosures.get("sigma"),
+                acceptance_gates.get("radial_scale_lower")),
+            "radial_scale_upper_margin": (
+                acceptance_gates.get("radial_scale_upper"),
+                scalar_enclosures.get("sigma")),
+            "frame_change_determinant_lower_margin": (
+                scalar_enclosures.get("det_C_AK"),
+                acceptance_gates.get("frame_change_determinant_lower")),
+            "frame_change_inverse_upper_margin": (
+                acceptance_gates.get("frame_change_inverse_upper"),
+                scalar_enclosures.get("inverse_C_AK_operator")),
+            "physical_frame_smallest_singular_lower_margin": (
+                scalar_enclosures.get("physical_K_smallest_singular"),
+                acceptance_gates.get(
+                    "physical_frame_smallest_singular_lower")),
+            "physical_frame_operator_upper_margin": (
+                acceptance_gates.get("physical_frame_operator_upper"),
+                scalar_enclosures.get("physical_K_operator")),
+        }
+        for name, (left, right) in gate_margin_relations.items():
+            target = riesz_margins if name in P2_KATO_RIESZ_MARGINS \
+                else frame_margins
+            _check_difference_enclosure(
+                f"raw P2 Kato margin {name}", target.get(name),
+                left, right, errors)
+        for margin_name, gate_name, scalar_name in (
+                ("absolute_y_upper_margin", "absolute_y_upper", "y"),
+                ("phase_shift_absolute_upper_margin",
+                 "phase_shift_absolute_upper", "chi")):
+            gate_interval = _fraction_interval(acceptance_gates.get(gate_name))
+            scalar_interval = _fraction_interval(
+                scalar_enclosures.get(scalar_name))
+            expected_absolute_margin = None
+            if gate_interval is not None and scalar_interval is not None:
+                absolute_interval = (
+                    Fraction(0), max(abs(scalar_interval[0]),
+                                     abs(scalar_interval[1])))
+                expected_absolute_margin = _fi_sub(
+                    gate_interval, absolute_interval)
+            _check_contains_fraction_interval(
+                f"raw P2 Kato margin {margin_name}",
+                frame_margins.get(margin_name), expected_absolute_margin,
+                errors)
+        c2_gate_map = {
+            "c": "c", "projector": "P_u", "phase": "chi",
+            "rotation": "R_chi", "change": "C_AK", "frame": "K"}
+        for config_stem, raw_stem in c2_gate_map.items():
+            for order_word, order_number in (("first", 1), ("second", 2)):
+                gate = f"normalized_{config_stem}_{order_word}_derivative_upper"
+                margin = f"{gate}_margin"
+                _check_difference_enclosure(
+                    f"raw P2 Kato C2 margin {margin}",
+                    c2_margins.get(margin), acceptance_gates.get(gate),
+                    normalized_parameter_jets.get(
+                        f"{raw_stem}_D{order_number}"), errors)
+        source_margin_relations = {
+            "normalized_source_coordinate_first_derivative_upper_margin": (
+                acceptance_gates.get(
+                    "normalized_source_coordinate_first_derivative_upper"),
+                source_coordinate_jets.get("B_1")),
+            "normalized_source_coordinate_second_derivative_upper_margin": (
+                acceptance_gates.get(
+                    "normalized_source_coordinate_second_derivative_upper"),
+                source_coordinate_jets.get("B_2")),
+            "source_coordinate_phase_speed_lower_margin": (
+                source_coordinate_jets.get("phase_speed"),
+                acceptance_gates.get("source_coordinate_phase_speed_lower")),
+        }
+        for name in P2_KATO_TRUE_SOURCE_KEYS:
+            source_margin_relations[f"{name}_upper_margin"] = (
+                true_source_gates.get(name), normalized_source_jets.get(name))
+        for name, (left, right) in source_margin_relations.items():
+            _check_difference_enclosure(
+                f"raw P2 Kato source margin {name}",
+                source_margins.get(name), left, right, errors)
+
+        def margin_aggregate(values: dict[str, Any], names: set[str]) -> str:
+            verdicts = [
+                _sufficient_positive_interval_verdict(values.get(name))
+                for name in names]
+            return combine_verdicts(
+                value if value is not None else "INCONCLUSIVE"
+                for value in verdicts)
+
+        structure_status = "PASS" if (
+            set(structure_checks) == P2_KATO_STRUCTURE_CHECKS and
+            all(value is True for value in structure_checks.values()) and
+            raw_probe.get("grid") == expected_grid and
+            raw_probe.get("norm_contract") == expected_norm_contract and
+            raw_probe.get("source_composition") == expected_source_composition
+        ) else "FAIL"
+        if raw_probe.get("structure_status") != structure_status:
+            errors.append("raw P2 Kato structure_status is not its aggregate")
+        expected_atomic = {
+            "P2.KATO.RIESZ_TRANSPORT": combine_verdicts((
+                structure_status,
+                margin_aggregate(riesz_margins, P2_KATO_RIESZ_MARGINS))),
+        }
+        expected_atomic["P2.KATO.FRAME_CHANGE"] = combine_verdicts((
+            structure_status, expected_atomic["P2.KATO.RIESZ_TRANSPORT"],
+            margin_aggregate(frame_margins, P2_KATO_FRAME_MARGINS)))
+        expected_atomic["P2.KATO.C2_LIFT"] = combine_verdicts((
+            structure_status, expected_atomic["P2.KATO.RIESZ_TRANSPORT"],
+            expected_atomic["P2.KATO.FRAME_CHANGE"],
+            margin_aggregate(c2_margins, P2_KATO_C2_MARGINS)))
+        expected_atomic["P2.KATO.SOURCE_PARAMETERIZATION"] = combine_verdicts((
+            structure_status, expected_atomic["P2.KATO.FRAME_CHANGE"],
+            expected_atomic["P2.KATO.C2_LIFT"],
+            margin_aggregate(source_margins, P2_KATO_SOURCE_MARGINS)))
+        for identifier, expected in expected_atomic.items():
+            if raw_by_id.get(identifier, {}).get("status") != expected:
+                errors.append(
+                    f"raw {identifier} is not its independently reduced status")
+        expected_raw_math = combine_verdicts(expected_atomic.values())
+        if raw_probe.get("mathematical_status") != expected_raw_math:
+            errors.append("raw P2 Kato mathematical status changed")
+        audit_status = expected_kato_audit_status or "INCONCLUSIVE"
+        effective = {
+            identifier: combine_verdicts((status, audit_status))
+            for identifier, status in expected_atomic.items()}
+        effective["P2.KATO.SOURCE_PARAMETERIZATION"] = combine_verdicts((
+            effective["P2.KATO.SOURCE_PARAMETERIZATION"],
+            by_id.get("P2.P2B_JETS_PREREQUISITE", {}).get(
+                "status", "INCONCLUSIVE"),
+        ))
+        for identifier, expected in effective.items():
+            if by_id.get(identifier, {}).get("status") != expected:
+                errors.append(
+                    f"{identifier} is not its audit/raw/prerequisite "
+                    "aggregate")
+        true_source_status = combine_verdicts((
+            by_id.get("P2.P2B_JETS_PREREQUISITE", {}).get(
+                "status", "INCONCLUSIVE"),
+            effective["P2.KATO.C2_LIFT"],
+            effective["P2.KATO.SOURCE_PARAMETERIZATION"],
+        ))
+        if by_id.get("V2.PHASE.TRUE_SOURCE", {}).get("status") != \
+                true_source_status:
+            errors.append("V2.PHASE.TRUE_SOURCE is not its prerequisite aggregate")
+        parent_status = combine_verdicts((
+            *effective.values(), true_source_status))
+        if by_id.get("V2.PHASE.KATO_INTERFACE", {}).get("status") != \
+                parent_status:
+            errors.append("V2.PHASE.KATO_INTERFACE is not its child aggregate")
+        expected_obligation_enclosures = {
+            "P2.KATO.RIESZ_TRANSPORT": riesz_margins,
+            "P2.KATO.FRAME_CHANGE": frame_margins,
+            "P2.KATO.C2_LIFT": c2_margins,
+            "P2.KATO.SOURCE_PARAMETERIZATION": source_margins,
+        }
+        for identifier, expected in expected_obligation_enclosures.items():
+            if by_id.get(identifier, {}).get("enclosures", {}) != expected:
+                errors.append(f"{identifier} enclosure map differs from raw margins")
+
     rounding = certificate.get("rounding_self_test", {})
     rounding_tests = {item.get("id"): item for item in rounding.get("tests", [])}
     if not ROUNDING_IDS <= set(rounding_tests):
@@ -2549,6 +3485,65 @@ def semantic_errors(certificate: dict[str, Any],
         for item in certificate.get("source_bindings", [])
         if isinstance(item, dict)
     }
+    if scope == "V2_P2_KATO_KERNEL":
+        expected_exact_backend_status = "FAIL"
+        try:
+            dependency_bytes = (
+                safe_repository_path(
+                    repository,
+                    "validation/rigorous/dependency.lock.json").read_bytes()
+                if recorded_dirty else
+                _recorded_blob(
+                    repository, recorded_commit,
+                    "validation/rigorous/dependency.lock.json"))
+            frozen_dependency = json.loads(dependency_bytes)
+            frozen_backend = frozen_dependency["exact_symbolic_backend"]
+            observed_backend = observe_exact_symbolic_backend()
+            expected_observation = {
+                "python": frozen_backend["python"],
+                "sympy": {
+                    "version": frozen_backend["sympy"]["version"],
+                    "source_tree": frozen_backend["sympy"]["source_tree"],
+                },
+                "bytecode_policy": frozen_backend["bytecode_policy"],
+            }
+            comparable_observation = {
+                "python": observed_backend["python"],
+                "sympy": {
+                    "version": observed_backend["sympy"]["version"],
+                    "source_tree": observed_backend["sympy"]["source_tree"],
+                },
+                "bytecode_policy": observed_backend["bytecode_policy"],
+            }
+            backend_diagnostics: list[str] = []
+            if comparable_observation != expected_observation:
+                backend_diagnostics.append(
+                    "exact symbolic Python/SymPy backend differs from the "
+                    "frozen lock")
+            expected_exact_backend_status = (
+                "PASS" if not backend_diagnostics else "FAIL")
+            expected_backend_record = {
+                **observed_backend,
+                "lock_scope": frozen_backend.get("scope"),
+                "status": expected_exact_backend_status,
+                "errors": backend_diagnostics,
+            }
+            if toolchain.get("exact_symbolic_backend") != \
+                    expected_backend_record:
+                errors.append(
+                    "toolchain exact-symbolic-backend record differs from the "
+                    "independently recomputed frozen backend")
+        except (ImportError, KeyError, OSError, TypeError, ValueError,
+                json.JSONDecodeError, subprocess.SubprocessError) as error:
+            errors.append(f"cannot verify exact symbolic backend: {error}")
+        if by_id.get("ENV.EXACT_SYMBOLIC_BACKEND", {}).get("status") != \
+                expected_exact_backend_status:
+            errors.append(
+                "ENV.EXACT_SYMBOLIC_BACKEND differs from the independently "
+                "recomputed backend verdict")
+    elif "exact_symbolic_backend" in toolchain:
+        errors.append(
+            "non-P2-Kato certificate records an exact symbolic backend")
     flagship_import = toolchain.get("flagship_import", {})
     flagship_lock = load_json(HERE / "flagship_import.lock.json")
     expected_flagship_fields = {
@@ -2586,32 +3581,37 @@ def semantic_errors(certificate: dict[str, Any],
         "V2_LOCAL_GRAPH_KERNEL": "validation/rigorous/src/vdp_local_graph_probe.cpp",
         "V2_H10_C01_KERNEL": "validation/rigorous/src/vdp_h10_c01_probe.cpp",
         "V2_P2_JETS_KERNEL": "validation/rigorous/src/vdp_p2_jets_probe.cpp",
+        "V2_P2_KATO_KERNEL": "validation/rigorous/src/vdp_p2_kato_probe.cpp",
     }
     probe_source = probe_source_by_scope.get(scope)
     probe_build = toolchain.get("probe_build", {})
     if probe_source is not None and probe_build.get("source_sha256") != \
             bound_hashes.get(probe_source):
         errors.append("compiled probe source hash differs from its source binding")
-    if scope == "V2_P2_JETS_KERNEL":
+    if scope in {"V2_P2_JETS_KERNEL", "V2_P2_KATO_KERNEL"}:
         probe_stdout = probe_build.get("probe_stdout")
         if not isinstance(probe_stdout, str):
-            errors.append("P2 probe exact stdout evidence is missing")
+                errors.append("strict P2 probe exact stdout evidence is missing")
         else:
             if sha256_bytes(probe_stdout.encode()) != logs.get(
                     "probe_stdout_sha256"):
-                errors.append("P2 probe stdout hash differs from its exact evidence")
+                errors.append(
+                    "strict P2 probe stdout hash differs from its exact evidence")
             try:
                 parsed_stdout = json.loads(probe_stdout)
             except json.JSONDecodeError as error:
-                errors.append(f"P2 probe stdout evidence is invalid JSON: {error}")
+                errors.append(
+                    f"strict P2 probe stdout evidence is invalid JSON: {error}")
             else:
                 if parsed_stdout != raw_probe:
                     errors.append(
-                        "P2 parsed raw_probe differs from its exact stdout evidence")
+                        "strict P2 parsed raw_probe differs from its exact "
+                        "stdout evidence")
         for name in ("compile_stdout_sha256", "compile_stderr_sha256",
                      "probe_stderr_sha256"):
             if logs.get(name) != sha256_bytes(b""):
-                errors.append(f"P2 strict execution emitted unexpected {name}")
+                errors.append(
+                    f"strict P2 execution emitted unexpected {name}")
     expected_probe_arguments: list[str] = []
     if scope == "V1_V2_1_KERNEL":
         expected_probe_arguments = box_arguments(box)
@@ -2646,13 +3646,22 @@ def semantic_errors(certificate: dict[str, Any],
                 bridge, p2_jets_configuration)
         except (KeyError, TypeError, ValueError) as error:
             errors.append(f"cannot reconstruct P2 jets probe arguments: {error}")
+    elif scope == "V2_P2_KATO_KERNEL":
+        try:
+            expected_probe_arguments = p2_kato_arguments(
+                bridge, p2_kato_configuration, p2b_jets_certificate)
+        except (KeyError, TypeError, ValueError) as error:
+            errors.append(f"cannot reconstruct P2 Kato probe arguments: {error}")
     recorded_probe_argv = probe_build.get("probe_argv")
     if not isinstance(recorded_probe_argv, list) or not recorded_probe_argv:
         errors.append("probe argv is missing")
     elif recorded_probe_argv[1:] != expected_probe_arguments:
         errors.append("probe argv does not match the frozen scope inputs")
-    if scope == "V2_P2_JETS_KERNEL" and not errors:
+    if scope in {"V2_P2_JETS_KERNEL", "V2_P2_KATO_KERNEL"} and not errors:
         errors.extend(_replay_p2_probe(
+            certificate, repository, recorded_commit, recorded_dirty))
+    if scope == "V2_P2_KATO_KERNEL" and not errors:
+        errors.extend(_replay_kato_exact_audit(
             certificate, repository, recorded_commit, recorded_dirty))
     raw_status_for_exit = rounding.get("status") if scope == "PREFLIGHT" \
         else raw_probe.get("status")

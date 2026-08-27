@@ -5,7 +5,7 @@ van der Pol application.  It does not upgrade the floating candidate contract
 in `validation/`, and it does not modify or silently import the read-only
 flagship repository.
 
-The runner has five executable scopes:
+The runner has six executable scopes:
 
 1. `preflight` verifies the pinned source/toolchain bindings and executes a
    CAPD/FILIB rounding self-test;
@@ -22,6 +22,11 @@ The runner has five executable scopes:
 5. `p2-jets` verifies the P2b pure state \(C^2/C^3\) tensor bounds, the full
    rectangular \(D_b^{\le3}D_\theta^{\le2}\) weighted half-orbit recurrence,
    the induced mixed graph jets, and their physical-coordinate composition.
+6. `p2-kato` fixes the absolute normalized source phase by exact Kato
+   transport, verifies the physical (non-orthonormal) frame change and its
+   \(C^2\) parameter bounds, and composes the already certified P2b graph jets
+   with the radius-`.01` true source circle on the triangular source-jet set
+   frozen for P2c.
 
 The mathematical result of a local kernel run can be `PASS`, `FAIL`, or
 `INCONCLUSIVE`.  The aggregate `final_status` remains `INCONCLUSIVE` while the
@@ -57,8 +62,12 @@ coefficient, higher-state-tensor, complete mixed-jet, and weighted-half-orbit
 obligation passes, so the local parents `V2.WU.JETS` and `V2.WU_GRAPH` pass as
 well.  Its aggregate remains `INCONCLUSIVE` and non-claim-bearing solely
 because the current-computer-only lane supplies one of two required
-independent machines.  The normalized Kato source phase remains the next
-separate interface before P2c.
+independent machines.  The subsequent `p2-kato` scope now implements the
+separate normalized Kato source-phase interface: exact symbolic identities,
+outward-rounded frame and parameter bounds, and the frozen true-source jet
+triangle.  Its clean result is archived separately only after the
+implementation source is committed; P2c remains the next unimplemented
+scope.
 
 ## Frozen phase-1 box
 
@@ -101,6 +110,22 @@ parameter normalization, and all acceptance gates are separately frozen in
 uses the already archived P2a and P2b0 certificates as immutable
 prerequisites; it does not reinterpret the H10 second or third derivatives as
 true-graph bounds.
+The P2bK Kato normalization, parameter grid, 28 interval gates, nine
+true-source gates, source radius and admissible source multiindices are
+independently frozen in
+[`config/vdp_p2_kato_v1.json`](config/vdp_p2_kato_v1.json).  Its exact audit
+proves the symbolic projector, Kato transport, frame-change, reverser and
+source-circle identities before any interval outcome is known.  Its Python
+executable and cache-free SymPy source tree form a separate P0 trust boundary:
+their versions, executable hash, deterministic length-prefixed source-tree
+digest, and file count are frozen in `dependency.lock.json`; `__pycache__`
+and `.pyc` are excluded from the digest and bypassed at execution through a
+fresh empty `PYTHONPYCACHEPREFIX`.  The interval probe then imports only the
+immutable physical P2b jet upper endpoints from
+the archived P2b certificate, and the checker independently recomputes the
+declared composition recurrences.  This scope deliberately does not claim a
+full rectangular fourth-order source jet, an orthonormal physical frame, or
+the later full symplectic completion.
 
 ## Strict replay
 
@@ -148,6 +173,13 @@ python3 validation/rigorous/run_validation.py p2-jets \
   --flagship-repository FLAGSHIP_REPOSITORY \
   --report /tmp/rfsn-vdp-rigorous-p2b-jets.json
 
+python3 validation/rigorous/run_validation.py p2-kato \
+  --allow-dirty \
+  --capd-source CAPD_SOURCE \
+  --capd-config CAPD_BUILD/bin/capd-config \
+  --flagship-repository FLAGSHIP_REPOSITORY \
+  --report /tmp/rfsn-vdp-rigorous-p2b-kato.json
+
 python3 validation/rigorous/check_certificate.py \
   /tmp/rfsn-vdp-rigorous-kernel.json
 
@@ -159,6 +191,9 @@ python3 validation/rigorous/check_certificate.py \
 
 python3 validation/rigorous/check_certificate.py \
   /tmp/rfsn-vdp-rigorous-p2b-jets.json
+
+python3 validation/rigorous/check_certificate.py \
+  /tmp/rfsn-vdp-rigorous-p2b-kato.json
 ```
 
 Omit `--allow-dirty` for a clean replay.  A report path is observed only after
@@ -166,14 +201,16 @@ the source-dirty check and is explicitly excluded from that pre-write
 observation in the certificate; the report is never a source input.  A dirty
 development run cannot be release-eligible.
 
-For a P2b jets certificate, the checker also materializes the probe and its
-three local support headers from the certificate's frozen source commit,
+For a P2b jets or P2bK certificate, the checker also materializes the probe and
+its local support files from the certificate's frozen source commit,
 reconstructs the recorded strict compile command, reruns the exact frozen
-argument vector, and compares stdout byte-for-byte.  This same-machine replay
-prevents coordinated edits of a certificate's raw atomics, stored stdout, and
-stored stdout hash.  It is an integrity check of one run, not the policy's
-second independent-machine replay: a current-computer-only result still
-records one of two required machines and remains non-claim-bearing.
+argument vector, and compares stdout byte-for-byte.  For P2bK it additionally
+replays the 56 exact symbolic checks and recursively validates the archived
+P2b prerequisite.  This same-machine replay prevents coordinated edits of a
+certificate's raw atomics, stored stdout, and stored stdout hash.  It is an
+integrity check of one run, not the policy's second independent-machine
+replay: a current-computer-only result still records one of two required
+machines and remains non-claim-bearing.
 
 The pinned GCC toolchain must compile both CAPD/FILIB and the probes with
 `-fno-ipa-pure-const`.  Without it, GCC 15 interprocedural analysis can treat
@@ -218,12 +255,23 @@ A P2b jets `mathematical_status: PASS` additionally supports only:
 - the local parent `V2.WU_GRAPH`, conditional on the immutable P2a and P2b0
   prerequisite certificates.
 
+A P2bK `mathematical_status: PASS` additionally supports only:
+
+- exact normalized Riesz-projector and Kato-transport identities tied to the
+  frozen flagship definitions, with the transported direction anchored at the
+  selected core face;
+- uniform value and first/second parameter bounds for the physical Kato frame
+  and its change from the algebraic P2b frame; and
+- the radius-`.01` true graph-boundary source and the nine frozen
+  parameter/source derivatives obtained from the certified P2b graph jets.
+
 Before a P2b jets pass, neither P2a nor P2b0 alone supplies those bounds.  In
 particular, a bound on \(D^2H_{10}\) is a bound on the polynomial center, not
 on \(D^2H_\mu\).
 
-These local scopes do not fix the normalized Kato absolute source phase and
-do not validate the positive-parameter homoclinic, exact saddle chart, event
-atlas, either noncompact end, V5 matching, V6 component census, all winding
-numbers, temporal stability, Turing selection, or canard identification.
-Those obligations are enumerated in `obligations.json`.
+Even a P2bK pass does not assert that its physical frame is orthonormal, does
+not supply the later symplectic completion, and does not validate the
+positive-parameter homoclinic, exact saddle chart, event atlas, either
+noncompact end, V5 matching, V6 component census, all winding numbers,
+temporal stability, Turing selection, or canard identification.  Those
+obligations are enumerated in `obligations.json`.
