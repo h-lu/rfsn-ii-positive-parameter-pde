@@ -207,7 +207,7 @@ compact finite-flow clauses.  The V3/V5A infinite-end remainders and the
 all-winding reduction still require model-specific interval estimates around
 the analytic constructions.
 
-## Current blockers after P2b
+## Current blockers after the full P2c design run
 
 - The frozen box is an exact rational prevalidation object.  The archived
   clean certificates through P2b pass their implemented obligations, but the
@@ -223,13 +223,16 @@ the analytic constructions.
   \(C^0/C^1\) tubes, state derivatives through order three,
   parameter/mixed derivatives through order two, and weighted half-orbit
   constants, and P2bK covers the normalized Kato source phase.  The P2c
-  design scout covers one selected lifted root branch on the full bridge and
-  its strict source-to-symmetry-event first-hit tubes.  The actual-root
-  parameter two-jet now also passes on all 16,384 cells, and exact rational
-  composition gives explicit weight-(1/5) constants on both infinite tails.
-  What remains for P2c is a continuous-time C2 enclosure on the compact
-  middle, followed by a frozen formal certificate/checker; the remaining V2
-  objects and V3--V6 remain `PENDING` in
+  strict design run covers one selected lifted root branch on the full bridge,
+  its source-to-symmetry-event first-hit tubes, endpoint transversality, and
+  the actual-root parameter two-jets on all 16,384 cells.  Its
+  `V2.HOM.MIDDLE_C2` atom supplies the fixed-\(\xi\), continuous-time \(C^2\)
+  enclosure on the compact middle and composes it with the local pre-source
+  pieces and both infinite tails.  Thus the full P2c design result has
+  \(T_*=11\), \(\eta=1/5\), and \(C_{\rm hom}=71496600\) for all
+  original-parameter derivatives through order two.  What remains for P2c is
+  the frozen formal certificate/checker; the formal P2c obligation, the
+  remaining V2 objects, and V3--V6 remain `PENDING` in
   [`rigorous/obligations.json`](rigorous/obligations.json).
 - The policy requires an independent replay on a second machine before any
   aggregate certificate can become claim-bearing.  This repository currently
@@ -241,5 +244,6 @@ scales, event ordering, interfaces, and observable checks for the rigorous
 implementation.  The latest archived formal scope has local mathematical
 `PASS` through P2bK, while its aggregate remains `INCONCLUSIVE` and
 non-claim-bearing because the independent replay is pending; see the
-[`P2bK report`](rigorous/P2B_KATO_REPORT.md).  The later P2c result remains a
-design scout rather than an archived formal scope.
+[`P2bK report`](rigorous/P2B_KATO_REPORT.md).  The full strict P2c result
+remains a design-level pass rather than an archived formal scope.  It makes no
+claim of temporal stability, Turing selection, or canard identification.

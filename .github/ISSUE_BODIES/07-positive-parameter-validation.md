@@ -33,17 +33,26 @@ quantitative margins.
 - [x] P2b2 parameter derivatives through order two and required mixed jets
 - [x] P2b3 weighted half-orbit constants
 - [x] P2bK normalized Riesz/Kato source phase and source-jet triangle
-- [ ] P2c--P2e homoclinic, exact charts, and complete central event atlas
+- [x] Full strict P2c design run, including `V2.HOM.MIDDLE_C2` and global
+      composition with \(T_*=11\), \(\eta=1/5\), and
+      \(C_{\rm hom}=71496600\)
+- [ ] Formal P2c certificate/checker and P2d--P2e exact charts/event atlas
 - [ ] P3--P5 positive pole, outer channel, matching/finite parts, and V6 census
 - [ ] Independent replay on a genuinely distinct machine (currently 1/2)
 
 The clean certificates through P2bK have local integrity and mathematical
 `PASS`, but their aggregate status is `INCONCLUSIVE` and
 `claim_bearing=false` while independent replay and the later scoped
-obligations remain open.  The P2c design scout already passes a full
-16,384-cell selected-branch cover and all 44,416 internal common faces, but
-the P2c checkbox remains open until large-box exclusion, first hit, parameter
-jets, tails, and a formal archived certificate are complete.
+obligations remain open.  The full strict P2c design run passes the
+16,384-cell selected-branch cover, all 44,416 internal common faces, first
+hit, transversality, actual-root parameter two-jets, both infinite tails, and
+the fixed-\(\xi\) continuous \(C^2\) compact middle.  Their global composition
+has \(T_*=11\), \(\eta=1/5\), and \(C_{\rm hom}=71496600\).  No large-box
+exclusion outside the validated parameter-following lifted tube is required.
+The formal P2c certificate/checker remains open, so `obligations.json` is not
+marked `PASS`; P2d--P5 and independent replay also remain pending.  This work
+makes no claim of temporal stability, Turing selection, or canard
+identification.
 
 ## Outcome
 

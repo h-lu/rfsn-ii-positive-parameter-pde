@@ -3,14 +3,16 @@
 **Evidence status: strict design-scout results plus floating candidate data.**
 The strict computations below complete, at design level, the selected root
 branch, endpoint transversality, selected-source-to-symmetry-event first-hit
-gates, actual-root parameter two-jets, and both infinite weighted tails on the
-full three-parameter bridge.  This report nevertheless does not mark
-`V2.HOM.BRANCH`, `V2.HOM.FIRST_HIT`, `V2.HOM.TRANSVERSE`, or `V2.HOM.TAILS`
-as claim-bearing passes: the P2c configuration, certificate, checker, and
-policy replay have not yet been frozen.  In addition, one explicit
-continuous-time (C^2) bound on the compact middle segment is still needed
-to turn the tail constants into a single numerical constant for the global
-(X_\eta) estimate in Theorem V2(9)--(11).  The remaining obligations are
+gates, actual-root parameter two-jets, both infinite weighted tails, the local
+pre-source pieces, and the continuous compact-middle parameter two-jets on the
+full three-parameter bridge.  Their three-segment composition gives one
+explicit weighted \(C^2\) constant on the entire real line.  This report
+nevertheless does not mark
+`V2.HOM.BRANCH`, `V2.HOM.FIRST_HIT`, `V2.HOM.TRANSVERSE`, `V2.HOM.TAILS`,
+or `V2.HOM.MIDDLE_C2` as claim-bearing passes: the P2c configuration,
+certificate, and checker have not yet been frozen, and the policy replay has
+not been performed.  The remaining formalization
+obligations and the claims that are outside the scope of this computation are
 separated explicitly at the end.
 
 ## Correct source and shooting problem
@@ -580,7 +582,7 @@ listed below.  The fixed numeric-order concatenation of slab logs 0 through
 The exact binary endpoint summary consumed downstream is
 [`design/p2c_root_jet_summary_v1.json`](design/p2c_root_jet_summary_v1.json).
 
-## Explicit weight-one-fifth infinite tails
+## Explicit weight-one-fifth tails and local pre-source pieces
 
 Write (p=\phi_h), (T=T_h),
 
@@ -692,36 +694,193 @@ Thus the single integer (C_{\rm tail}=95434) is valid for all derivatives
 through order two on both infinite tails.  The positive tail has the same
 constants because the reverser is a fixed Euclidean isometry.  This closes
 the design-level `V2.HOM.TAILS` atom as it is scoped in
-[`P2_VALIDATION_CONTRACT.md`](P2_VALIDATION_CONTRACT.md); it is not yet the
-single global constant in Theorem V2(11).
+[`P2_VALIDATION_CONTRACT.md`](P2_VALIDATION_CONTRACT.md).
+
+The same exact-fraction composition also covers the finite negative
+pre-source piece \([-11,-T_h]\), and hence its positive reflection.  On the
+archived physical source ball it obtains the field bounds
+
+\[
+ \lVert F\rVert\le0.16344741373306815,\qquad
+ \lVert D_zF\rVert\le1.120145258983211,
+\]
+
+\[
+ \lVert D_\theta F\rVert\le0.002404818556045224,
+ \qquad
+ \lVert D_\theta D_zF\rVert\le0.06005364972768566.
+\]
+
+After composing the P2bK source two-jets with the selected phase two-jets,
+the unweighted fixed-\(\xi\), normalized-parameter bounds on this piece are
+
+\[
+ (C_0,C_1,C_2)
+ \le(0.04005993216361621,0.3247321696019782,
+       20.30725008906678).
+\]
+
+Multiplication by the strict compact-weight factor \(e^{11/5}<27\) and the
+coarse conversion from \(\theta\) to the original parameters gives a common
+integer bound of 342685 for the union of the local pre-source pieces and the
+two infinite tails.
 
 The algebraic computation is
 [`design/p2c_tail_composition_scout.py`](design/p2c_tail_composition_scout.py)
-at commit `53292dd93a26b901d3395400389cd37faa6b7826`.  It uses exact nonnegative
-`Fraction` arithmetic and no additional ODE integration.  The script,
-root-summary input, and canonical JSON output have SHA-256 values
-`e6a9a7ea6373939d010dcd67466587268f3410571534829f976d342fbb2d040c`,
+at commit `da4f1af41b8160a23bea42b4eef502af88a19673`; the infinite-tail part was
+introduced at commit `53292dd93a26b901d3395400389cd37faa6b7826`.  It uses
+exact nonnegative `Fraction` arithmetic and no additional ODE integration.
+The script, root-summary input, and canonical JSON output have SHA-256 values
+`f52c42792347f4428cca7667bf09b62bc2a3b81e11f45872e8bd82f298a0ba68`,
 `13e5c345a8c762c707ae19455ca67510e587a97c526f718f175e59da2657d2fd`,
-and `f14cae57be56a668a87097c59fd2ced85347720fb28d6e840b3d75d8786f6af1`,
+and `0999f97a65fd5c58258a7aeec0ec820e272306a5e89acacafe09ea0183350eef`,
 respectively.
+
+## Continuous compact-middle two-jets and the global bound
+
+The compact-middle mode imports the actual selected-root two-jets on every
+cell and composes them with the actual P2bK source-family two-jets.  From each
+root-bearing source set it advances a CAPD \(C^2\) rectangular set through
+the selected symmetry event.  It records an outward continuous-time
+enclosure on every internal CAPD step, with explicit initial sections at the
+segment seams.  Thus the result covers intervals of time and does not infer a
+continuous bound from a finite list of sampled states.
+
+For the profile coordinate \(\xi=t-T_h(\theta)\), the relevant parameter
+jets include all moving-time terms.  In particular, the first derivative is
+formed from
+
+\[
+ D_\theta\Gamma=D_\theta Y+F\,D_\theta T_h,
+\]
+
+and the second derivative includes the corresponding
+\(D_\theta F\), \(D_zF\), \(D_\theta T_h\), and
+\(D_\theta^2T_h\) chain-rule terms.  The fixed-time jet bounds reported below
+are useful diagnostics, but only these centered-\(\xi\) jets enter the global
+weighted profile estimate.
+
+All 32 out of 32 fixed-\(r\) slabs and all 16,384 out of 16,384 parameter
+cells pass.  The computation contains 262,144 dense continuous-time steps
+and 163,840 explicit initial-section enclosures.  Its global time hulls are
+
+\[
+ T_h\in[9.6050962330163951,9.7024614326336689],\qquad
+ T_{\rm return}\in[0.055096233016395574,0.15246143263366643],
+\]
+
+and the accumulated centered tube is
+
+\[
+ \xi\in[-9.7024614326336689,0.017036600914542177].
+\]
+
+The small positive endpoint is the outward enclosure of the final step past
+the event; in particular, the tube contains every required point from the
+source at \(-T_h\) through the symmetry point at \(0\).  The complete
+physical-state hull on these continuous tubes is
+
+\[
+\begin{aligned}
+ U&\in[-1.2754209644411874,5.0555221504031378],\\
+ P&\in[-0.45162005597156318,6.3575562290451844],\\
+ V&\in[-8.2026248332266718,0.15319307702947269],\\
+ Q&\in[-3.356072534474043,0.084760500832987931].
+\end{aligned}
+\]
+
+The full-grid normalized-parameter maxima are:
+
+| quantity | strict upper bound | worst cell \((i,j,k)\) |
+|---|---:|---:|
+| state \(C^0\) Euclidean norm | 11.302546274485511 | \((31,127,3)\) |
+| fixed-\(t\) first-jet Hilbert--Schmidt norm | 33.463536750434073 | \((31,0,2)\) |
+| fixed-\(t\) second-jet Hilbert--Schmidt norm | 2028.4375325609799 | \((31,0,0)\) |
+| centered-\(\xi\) first-jet Hilbert--Schmidt norm | 58.518982724817405 | \((31,0,2)\) |
+| centered-\(\xi\) second-jet Hilbert--Schmidt norm | 4236.8355132009829 | \((31,0,0)\) |
+
+On \(|\xi|\le11\), the strict bound \(e^{|\xi|/5}<27\) therefore gives
+the normalized-parameter weighted constants
+
+\[
+ (C_0^{(\theta)},C_1^{(\theta)},C_2^{(\theta)})
+ \le(305.168749411108802,1580.01253357006995,
+       114394.558856426537).
+\]
+
+Using the coarse factors 25 and 625 for first and second derivatives in the
+original parameters gives
+
+\[
+ (C_0^{(\mu)},C_1^{(\mu)},C_2^{(\mu)})
+ \le(305.168749411108802,39500.3133392517487,
+       71496599.2852665858).
+\]
+
+These compact-middle bounds dominate the local-and-infinite value 342685.
+The three pieces
+
+\[
+ \xi\le-11,\qquad -11\le\xi\le-T_h,\qquad
+ -T_h\le\xi\le0
+\]
+
+cover the negative half-line, and the fixed parameter-independent
+Euclidean-isometric reverser supplies the positive half-line.  Consequently,
+at strict design level, the single integers
+
+\[
+ C^{(\theta)}=114395,
+ \qquad C^{(\mu)}=71496600
+\]
+
+bound the profile and all parameter derivatives through order two on the
+entire real line with weight \(\eta=1/5\).  This removes the former compact
+middle obstruction to an explicit numerical constant in Theorem
+V2(9)--(11); it does not by itself promote the result to certificate status.
+
+The full-grid compact-middle run is bound to source commit
+`c1b8c815a1ffd0b690c46d1631b383f16b11fce4`, source SHA-256
+`7f1947f4d8ca7eaa74194a5060911a167982e6e5038c585be7609e5e36a98493`,
+strict executable SHA-256
+`1d5b8092148d2a9cf1892e0880c01bd122edf03421f168142585818a5f3e9c7e`,
+CAPD commit `731079217a9254ea2948d742df2b170895effe7f`, and frozen H10 SHA-256
+`d617587ea1b9037c1c7575ccdde5029529ec5b736dee259baff9a2a162001e96`.
+The fixed numeric-order concatenation of slab logs 0 through 31 has SHA-256
+`9027b0d8e5247bc81df05ef680346133a0ffc0bb63354d5ae8e35c19255a4300`;
+the versioned aggregate
+[`design/p2c_middle_jet_summary_v1.json`](design/p2c_middle_jet_summary_v1.json)
+has SHA-256
+`2bd9a929603c2fa9a3a2e666bec05466dbba6cc0571a041d365eda7d27d45725`.
+These hashes bind the completed strict design run, but not a frozen
+claim-bearing certificate or an independent replay.
 
 ## Proof boundary
 
 The following remain open and are not consequences of the results above:
 
-- a continuous-time parameter-(C^2) enclosure on the finite middle
-  \([-11,11]\).  The true-root calculation encloses the phase, time, and
-  shooting-node jets, while the tail calculation encloses both infinite
-  tails.  It does not yet provide one numerical bound for every intermediate
-  time in the compact middle, so Theorem V2(9)--(11) must not yet be reported
-  as a fully explicit global weighted bound;
 - a frozen P2c configuration, machine-readable certificate and checker, and
   eventually the policy-required independent replay.  The latter is a
-  release gate, not the current computational priority.
+  release gate, not the current computational priority;
+- exclusion of any additional shooting zero whose lifted intermediate-node
+  record leaves the declared finite parameter-following tube.  The proved
+  uniqueness statement is uniqueness inside that lifted 38-dimensional
+  tube, not exterior or global direct-shooting uniqueness;
+- temporal stability of the resulting stationary PDE profile, a nonlinear
+  Turing bifurcation or modal-selection theorem, and dynamical selection of a
+  visible spatial pattern by time evolution.  The present result validates
+  the selected spatial homoclinic family and its parameter regularity; it
+  does not determine which pattern a time-dependent PDE selects;
+- a canard identification.  The verified saddle-focus winding and the
+  homoclinic first-hit geometry do not alone establish a canard segment or
+  its fast--slow entry/exit mechanism; that requires a separate geometric
+  analysis.
 
-In particular, the selected-source first-hit design is no longer an open
-item, and exclusion of zeros outside the declared lifted multiple-shooting
-tube is not part of the proved uniqueness statement.
+In particular, the selected-source first-hit design and the continuous
+compact-middle weighted estimate are no longer open design items.  They make
+Theorem V2(9)--(11) numerically explicit at design level, while the formal
+certificate boundary and the later Turing, stability, and canard questions
+remain unchanged.
 
 The H10 table used in the strict rerun was materialized with `git archive`
 from the frozen flagship commit

@@ -112,13 +112,18 @@ The subsequent clean P2b run, documented in
 [`P2B_JETS_REPORT.md`](../validation/rigorous/P2B_JETS_REPORT.md), supplies
 true-graph \(C^2/C^3\), the complete parameter/mixed jets, and weighted
 half-orbit constants, so the local parent `V2.WU_GRAPH` now passes.  The Kato
-source certificate now also passes.  The strict P2c design lane covers the
-selected lifted branch, all common faces, the first symmetry hit, the actual
-root parameter two-jets, and explicit weight-\(1/5\) constants on both
-infinite tails.  The compact-middle continuous C2 bound and formal P2c
-certificate remain pending.  None of these local certificates proves V3--V7,
-makes a temporal-stability claim, or qualifies here as `Computer-assisted`
-evidence before independent replay.
+source certificate now also passes.  The full strict P2c design lane covers
+the selected lifted branch, all common faces, the first symmetry hit,
+endpoint transversality, and the actual-root parameter two-jets.  Its new
+`V2.HOM.MIDDLE_C2` design atom encloses the fixed-\(\xi\), continuous-time
+\(C^2\) compact middle and composes it with the local pre-source pieces and
+both infinite tails.  This gives the global design constants
+\(T_*=11\), \(\eta=1/5\), and \(C_{\rm hom}=71496600\) through original-
+parameter derivative order two.  The formal P2c certificate/checker, P2d--P5,
+and independent replay remain pending, and `obligations.json` is unchanged.
+None of these local results proves V3--V7, makes a temporal-stability or
+Turing-selection claim, identifies a canard, or qualifies here as
+`Computer-assisted` evidence before independent replay.
 
 Numerical work can later become `Computer-assisted` only if every
 claim-bearing bound is interval rigorous, tied to immutable source and

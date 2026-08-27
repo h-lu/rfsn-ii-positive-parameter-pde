@@ -71,8 +71,8 @@ exact-algebra audit passes all 56 identities; the Riesz/Kato transport,
 physical frame change, complete \(C^2\) parameter lift, radius-`.01` true
 source circle, and nine-jet total-order-three source triangle all pass on the
 complete bridge.  Its aggregate remains `INCONCLUSIVE` and non-claim-bearing
-solely because independent replay remains 1/2.  The formal P2c certificate is
-the next unimplemented scope.
+solely because independent replay remains 1/2.  The formal P2c
+certificate/checker is the next unimplemented scope.
 
 The design-only P2c multiple-shooting scout is documented in
 [`P2C_SCOUT_REPORT.md`](P2C_SCOUT_REPORT.md).  Its three-parameter affine
@@ -85,14 +85,24 @@ true source face to the selected symmetry event on all 16,384 cells; combined
 with the already certified P2a local-graph exclusion, this closes the P2c
 first-hit design argument.  The uniqueness statement is deliberately limited
 to the finite parameter-following lifted multiple-shooting tube: no direct
-shooting zero outside that tube is excluded.  The actual-root C2 mode now also
+shooting zero outside that tube is excluded.  The actual-root C2 mode also
 passes on all 16,384 cells and validates the phase/half-time parameter
-two-jets.  Exact rational composition with the archived P2b/P2bK half-orbits
-gives (T_*=11), (eta=1/5), and the common original-parameter constant
-(C_{\rm tail}=95434) on both infinite tails.  This is not yet a frozen P2c
-certificate.  A continuous-time C2 enclosure on the compact middle
-\([-11,11]\) remains before the tail constant can be promoted to one explicit
-global Theorem V2(11) bound.
+two-jets.  The fixed-\(\xi\) continuous-time C2 middle mode then passes on the
+same full grid.  It supplies the `V2.HOM.MIDDLE_C2` design atom by enclosing
+the compact middle \([-11,11]\) and composing it with the local pre-source
+pieces and the already enclosed infinite tails.  The full strict design run
+therefore gives
+
+\[
+ T_*=11,\qquad \eta=1/5,\qquad C_{\rm hom}=71496600
+\]
+
+as one global original-parameter bound through derivative order two.  This is
+a full P2c design-level `PASS`, not a frozen formal P2c certificate: the
+certificate/checker, the corresponding `obligations.json` transition, and
+independent replay remain pending.
+The full-grid binary endpoints and exact rational composition are archived in
+[`design/p2c_middle_jet_summary_v1.json`](design/p2c_middle_jet_summary_v1.json).
 
 ## Frozen phase-1 box
 

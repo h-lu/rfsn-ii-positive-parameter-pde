@@ -38,11 +38,27 @@ interface.  Their executable refinements are:
 | P2c | `V2.HOM.FIRST_HIT` | No earlier nonzero hit of \(\operatorname{Fix}\mathcal R=\{P=Q=0\}\): P2a excludes such a hit before the true source face, and dense outward-rounded sign tubes plus a final flow-box argument exclude one from that face to the selected event. |
 | P2c | `V2.HOM.TRANSVERSE` | Nonzero endpoint, regular zero-energy level, sign/rank control of the phase column, and \(0\notin\det D_{(\phi,T)}M\). |
 | P2c | `V2.HOM.TAILS` | Explicit \(\eta,C,T_*\) and all external derivatives through order two on both infinite tails. |
+| P2c | `V2.HOM.MIDDLE_C2` | A fixed-\(\xi\), continuous-time \(C^2\) enclosure on the compact middle \([-T_*,T_*]\), including the event-time centering terms, composed with the local pre-source pieces and both infinite tails to give one explicit global weighted bound for all external derivatives through order two. |
 | P2d | `V2.CHART.*` | A finite exact marked saddle-chart cover, zero-energy fiber solve, exact action, overlap compatibility, and weighted-log passage bounds at a declared log-derivative order \(m\). |
 | P2e | `V2.ATLAS.*` | Machine-readable physical event faces, incidences, priority, margins, connected box complex, complete first-event census, transported traces, and the three phase gaps. |
 
 The parent `V2.WU_GRAPH` may pass only after both P2a and P2b pass.  Likewise,
 partial success in P2c, P2d, or P2e does not pass its parent obligation.
+
+The current strict design implementation passes every scoped P2c atom,
+including `V2.HOM.MIDDLE_C2`, on the full bridge and obtains
+
+\[
+ T_*=11,\qquad \eta=1/5,\qquad C_{\rm hom}=71496600.
+\]
+
+The `V2.HOM.MIDDLE_C2` row is a retrospective proof-interface amendment: it
+was added after the proof audit identified that infinite-tail constants alone
+do not close Theorem V2(9)--(11).  It records the target and its design-level
+disposition, not a preregistered claim-bearing gate.  A formal P2c
+configuration must freeze this atom before its certificate run.  That
+certificate/checker has not yet been implemented, and neither this contract
+nor the design output changes `obligations.json`.
 
 ## 2. Exact moving eigenframe for P2a
 
@@ -948,6 +964,11 @@ gap-free interval parameter cover.  The symmetry section is codimension two,
 so a simultaneous zero of \((P,Q)\), a no-earlier-hit proof, and endpoint
 transversality are separate checks.  The core determinant interval is an
 anchor, not a positive-parameter conclusion.
+
+Branch uniqueness is required only in the finite parameter-following lifted
+multiple-shooting tube specified by `V2.HOM.BRANCH`.  No additional
+large-box exclusion or exclusion of direct-shooting roots outside that lifted
+tube is a P2c obligation.
 
 The exact-chart stage cannot infer exact symplecticity from a nearly
 symplectic floating map.  It must validate the hypotheses of the frozen exact

@@ -181,14 +181,22 @@ normalized Riesz/Kato transport, physical frame change, complete \(C^2\)
 parameter lift, degree-one radius-`.01` true source circle, and the nine-jet
 total-order-three source triangle.  Its aggregate likewise remains
 `INCONCLUSIVE` and non-claim-bearing solely because independent replay is
-1/2.  The P2c design kernel now covers one selected lifted root branch on the
-full three-parameter bridge, including every common-face identification and
-the frozen core anchor, and proves the selected source-to-symmetry-event
-first-hit sign tubes on every cell.  Its actual-root parameter two-jets also
-pass on every cell, and exact composition with P2b/P2bK gives explicit
-weight-(1/5) constants on both infinite tails.  A continuous-time C2 bound
-on the compact middle, formal P2c certification, and P2d--P5 remain
-unimplemented.
+1/2.  The full strict P2c design run now passes on the complete
+three-parameter bridge: it covers one selected lifted root branch, every
+common-face identification, the frozen core anchor, the first-hit sign tubes,
+the endpoint transversality checks, and the actual-root parameter two-jets.
+The new `V2.HOM.MIDDLE_C2` design atom encloses the fixed-\(\xi\),
+continuous-time \(C^2\) compact middle and composes it with the local
+pre-source pieces and both infinite tails.  The resulting global Theorem V2
+design constants are
+
+\[
+ T_*=11,\qquad \eta=1/5,\qquad C_{\rm hom}=71496600
+\]
+
+for all original-parameter derivatives through order two.  The formal P2c
+certificate/checker, P2d--P5, and independent replay remain pending; no
+`obligations.json` entry is promoted by this design result.
 
 ## Repository map
 
@@ -223,7 +231,7 @@ unimplemented.
 - [#4: central--outer matching theorem](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/4), the decisive mathematical go/no-go task
 - [#5: outer algebraic action finite part](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/5)
 - [#6: exhaustive two-end theorem](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/6)
-- [#7: rigorous validation](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/7), with phase 1, P2a, P2b0, P2b mixed jets, and the P2bK normalized Kato/true-source interface passing locally; the P2c design scout now validates one selected lifted branch on all 16,384 cells and 44,416 internal faces, strict first-hit tubes, actual-root parameter two-jets, and explicit weight-(1/5) constants on both infinite tails, while the compact-middle C2 bound, formal P2c certificate, P2d--P5, and independent replay remain pending
+- [#7: rigorous validation](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/7), with phase 1, P2a, P2b0, P2b mixed jets, and the P2bK normalized Kato/true-source interface passing locally; the full strict P2c design run now validates the selected branch on all 16,384 cells and 44,416 internal faces, first-hit and transversality, actual-root parameter two-jets, the fixed-\(\xi\) continuous \(C^2\) middle, and the global composition with \(T_*=11\), \(\eta=1/5\), and \(C_{\rm hom}=71496600\), while the formal P2c certificate/checker, P2d--P5, and independent replay remain pending
 
 The source theory remains in
 [`h-lu/reversible-rfsn-ii-waves`](https://github.com/h-lu/reversible-rfsn-ii-waves).

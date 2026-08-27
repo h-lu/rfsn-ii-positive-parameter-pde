@@ -98,8 +98,26 @@ the exact exponential comparison gates, and supplies
 for all original-parameter derivatives through order two on both infinite
 tails.  It uses exact rational arithmetic and performs no further ODE
 integration.  These results close the infinite-tail atom at design level.
-They do not yet give a continuous-time C2 bound on the compact middle
-\([-11,11]\), a frozen P2c certificate, or independent replay.
+
+The `mu-grid-middle-jets` and `mu-grid-middle-jets-slab` modes use continuous
+CAPD C2 flow enclosures, the actual selected-root jets, and the event-time
+centering terms to bound derivatives at fixed spatial coordinate \(\xi\).
+They pass on the full 16,384-cell bridge and close the design atom
+`V2.HOM.MIDDLE_C2`: the compact middle \([-11,11]\), the local pre-source
+pieces, and both infinite tails compose to
+
+\[
+ T_*=11,\qquad \eta=1/5,\qquad C_{\rm hom}=71496600
+\]
+
+for all original-parameter derivatives through order two on the full real
+line.  This completes the strict P2c design run.  It does not produce the
+frozen formal P2c certificate/checker, change `obligations.json`, provide
+independent replay, or address temporal stability, Turing selection, or
+canard identification.
+The exact binary endpoints, worst-cell indices, run bindings, and rational
+global composition are recorded in
+[`p2c_middle_jet_summary_v1.json`](p2c_middle_jet_summary_v1.json).
 Results and the proof boundary are recorded in
 [`../P2C_SCOUT_REPORT.md`](../P2C_SCOUT_REPORT.md).  The H10 header supplied
 at compile time must be extracted from the Git object named by
