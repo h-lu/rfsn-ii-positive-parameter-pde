@@ -3,8 +3,9 @@
 **Evidence status: strict design-scout results plus floating candidate data.**
 This report does not mark `V2.HOM.BRANCH`, `V2.HOM.FIRST_HIT`,
 `V2.HOM.TRANSVERSE`, or `V2.HOM.TAILS` as passed.  It records the
-completed feasibility work and the remaining steps between the present
-one-parameter slice and the full P2c claim.
+completed feasibility work, including a selected r-spine joined to the
+frozen core root, and the remaining steps between that spine and the full
+three-parameter P2c claim.
 
 ## Correct source and shooting problem
 
@@ -215,13 +216,104 @@ branch.  This still does not identify that branch as the continuation of the
 selected \(r=0\) core branch, because the one-dimensional slice does not
 cover the full \((r,a_2,\epsilon)\) comparison bridge.
 
+## Three-parameter affine engine
+
+The mu-affine mode carries the three common static parameters together with
+the phase correction and graph error in the nine-dimensional augmented flow
+
+\[
+ (U,P,V,Q,\delta r,\delta a_2,\delta\epsilon,\delta,e).
+\]
+
+Its source enclosure uses one joint five-column interval first jet in
+\((\delta r,\delta a_2,\delta\epsilon,\delta,e)\).  All appearances of
+\(\sqrt\epsilon\) and all derived coefficients \(a,b,c\) therefore retain a
+single common parameter dependency.  The three parameter columns are chart
+coordinates, not Newton unknowns, so the Krawczyk system remains
+38-dimensional.
+
+The following three axial cells pass with radius factor 1.5:
+
+| parameter cell | max. inclusion | max. contraction | shooting determinant |
+|---|---:|---:|---:|
+| \(r\in[3/40,2/25],\ a_2=0,\ \epsilon=1\) | 0.746713 | 0.157917 | \([134.472485,173.988270]\) |
+| \(r=2/25,\ a_2\in[-1/128,1/128],\ \epsilon=1\) | 0.873494 | 0.225937 | \([82.945245,226.910024]\) |
+| \(r=2/25,\ a_2=0,\ \epsilon\in[19/20,21/20]\) | 0.709555 | 0.115552 | \([139.998125,169.008198]\) |
+
+The unsplit product of these three widths is inconclusive: its inclusion and
+contraction ratios are approximately 1.77803 and 1.11964, and its determinant
+enclosure crosses zero.  The worst coordinate is the phase correction.  This
+is a whole-cell dependency obstruction, not evidence that the orbit
+disappears; all eight floating corner roots converge, and smaller
+three-parameter cells pass.
+
+## Selected core-to-primary \(r\)-spine
+
+At \(a_2=0,\epsilon=1\), the exact rational cells
+
+\[
+ I_i=[i/200,(i+1)/200],\qquad i=0,\ldots,15,
+\]
+
+form a gap-free cover of \(r\in[0,2/25]\).  A fixed quadratic phase predictor
+is used only to precondition the shooting charts.  With radius factor 1.5,
+all 16 Krawczyk tests pass.  Their maximum inclusion ratios range from
+0.689963 to 0.760747, their maximum contraction ratios are at most 0.172188,
+and their determinant intervals have a total hull contained in
+
+\[
+ [134.15885866230818,174.27948575755255].
+\]
+
+On each of the 15 exact common faces \(r=i/200\), both directional maps of
+the complete root-bearing Krawczyk enclosure into the neighboring uniqueness
+box pass.  Thus all 30 full 38-dimensional face checks pass; the worst ratio
+is 0.823315541.  These checks retain the same physical phase, the same graph
+error value, and all nine four-dimensional shooting nodes.
+
+The \(r=0\) point chart also passes robustly for the positive-bridge graph
+budgets, with inclusion 0.665794924, contraction 0.053093769, and determinant
+
+\[
+ [140.2609204687493,158.88026879006134].
+\]
+
+The first \(r\)-cell maps into this core uniqueness box with ratio
+0.952380951.  This alone would identify only an unspecified local core root,
+so the scout also imports the frozen selected-root data.  Starting from the
+frozen phase box
+
+\[
+ [5.8615055856447817,5.8615055856450482]
+\]
+
+and the frozen core true-graph value error \(10^{-20}\), it rigorously
+propagates the source to all nine shooting times and expresses the result in
+the present 38-dimensional core chart.  The imported enclosure lies in the
+interior of the core uniqueness box with maximum coordinate ratio
+\(4.23052\times10^{-8}\).  The phase convention agrees pointwise by the
+already validated P2bK core-face identity, and the H10 table is the same
+frozen object.
+
+Consequently, at design-scout status, the 16 locally unique transverse roots
+on
+
+\[
+ a_2=0,\qquad\epsilon=1,\qquad r\in[0,2/25]
+\]
+
+are one common physical branch and that branch is the continuation of the
+frozen selected core homoclinic.  This is stronger than the earlier isolated
+slice result, but it is still only the one-dimensional spine of the full
+comparison bridge.
+
 ## Proof boundary
 
 The following remain open and are not consequences of the results above:
 
-- a gap-free three-parameter cover connecting the slice branch to the
-  complete `r=0` anchor face, hence identification of the selected branch on
-  the full comparison bridge;
+- a gap-free three-parameter cover of
+  \(B_0=[0,2/25]\times[-1/4,1/4]\times[4/5,6/5]\), with every cell
+  connected by common-face uniqueness to the selected spine above;
 - exclusion of any other zero in the fixed larger shooting sub-box;
 - the no-earlier-symmetry-hit sign tubes and final flow box;
 - explicit first and second parameter bounds for \((\phi_h,T_h)\), needed
@@ -232,4 +324,6 @@ The H10 table used in the strict rerun was materialized with `git archive`
 from the frozen flagship commit
 `d54add098545063d5efe8f1d6f062d4cfc116a0d`; its SHA-256 is
 `d617587ea1b9037c1c7575ccdde5029529ec5b736dee259baff9a2a162001e96`.
+The imported symmetric-core certificate at the same commit has SHA-256
+`ed0f9f58f8ba5f1d5c36dc7c3a72bb725599c4172a3cd610d890b88699fecfbd`.
 The flagship working tree was not an input and was not modified.

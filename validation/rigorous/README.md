@@ -74,6 +74,15 @@ complete bridge.  Its aggregate remains `INCONCLUSIVE` and non-claim-bearing
 solely because independent replay remains 1/2.  P2c is the next unimplemented
 scope.
 
+The design-only P2c multiple-shooting scout is documented in
+[`P2C_SCOUT_REPORT.md`](P2C_SCOUT_REPORT.md).  Its three-parameter affine
+engine now gives a strict, common-face-identified 16-cell branch on the
+central `a2=0`, `epsilon=1`, `r in [0,2/25]` spine and imports the frozen
+selected core root into the same 38-dimensional uniqueness chart.  This is
+feasibility evidence for `V2.HOM.BRANCH`; it is not a frozen P2c scope or
+certificate and does not cover the full three-parameter bridge, first-hit,
+or tails.
+
 ## Frozen phase-1 box
 
 [`config/vdp_box_v1.json`](config/vdp_box_v1.json) freezes

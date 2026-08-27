@@ -93,6 +93,24 @@ SourceData sourceData(const Parameters&p,const interval& phase,const interval& g
 }
 double midpointValue(const interval&x){return x.mid().leftBound();}
 interval pointAtMidpoint(const interval&x){return interval(midpointValue(x));}
+interval cliPoint(const char*text){
+  const std::string token(text);
+  const std::size_t exponent=token.find_first_of("eE");
+  const std::size_t mantissaEnd=exponent==std::string::npos?token.size():exponent;
+  bool hasDigit=false,hasNonzeroDigit=false;
+  for(std::size_t i=0;i<mantissaEnd;++i){
+    if(token[i]>='0'&&token[i]<='9'){
+      hasDigit=true;
+      hasNonzeroDigit=hasNonzeroDigit||token[i]!='0';
+    }
+  }
+  if(hasDigit&&!hasNonzeroDigit)return interval(0.);
+  return interval(text,text);
+}
+interval cliCell(const char*left,const char*right){
+  const interval lower=cliPoint(left),upper=cliPoint(right);
+  return interval(lower.leftBound(),upper.rightBound());
+}
 double absUpper(const interval&x){return std::max(std::abs(x.leftBound()),std::abs(x.rightBound()));}
 bool interior(const interval&x,const interval&y){return y.leftBound()<x.leftBound()&&x.rightBound()<y.rightBound();}
 IVector pointMid(const IVector&x){IVector y(x.dimension());for(int i=0;i<x.dimension();++i)y[i]=interval(midpointValue(x[i]));return y;}
@@ -176,10 +194,12 @@ struct AffineInitialData{
 };
 
 struct FirstJet{
+  static constexpr int derivativeDimension=5;
   interval value;
-  std::array<interval,3> derivative;
+  std::array<interval,derivativeDimension> derivative;
   explicit FirstJet(const interval&v=interval(0.))
-    :value(v),derivative{interval(0.),interval(0.),interval(0.)}{}
+    :value(v),derivative{interval(0.),interval(0.),interval(0.),
+                         interval(0.),interval(0.)}{}
   static FirstJet variable(const interval&v,int column){
     FirstJet result(v);result.derivative[column]=interval(1.);return result;
   }
@@ -187,28 +207,31 @@ struct FirstJet{
 
 FirstJet operator+(const FirstJet&x,const FirstJet&y){
   FirstJet result(x.value+y.value);
-  for(int i=0;i<3;++i)result.derivative[i]=x.derivative[i]+y.derivative[i];
+  for(int i=0;i<FirstJet::derivativeDimension;++i)
+    result.derivative[i]=x.derivative[i]+y.derivative[i];
   return result;
 }
 FirstJet operator-(const FirstJet&x,const FirstJet&y){
   FirstJet result(x.value-y.value);
-  for(int i=0;i<3;++i)result.derivative[i]=x.derivative[i]-y.derivative[i];
+  for(int i=0;i<FirstJet::derivativeDimension;++i)
+    result.derivative[i]=x.derivative[i]-y.derivative[i];
   return result;
 }
 FirstJet operator-(const FirstJet&x){
   FirstJet result(-x.value);
-  for(int i=0;i<3;++i)result.derivative[i]=-x.derivative[i];
+  for(int i=0;i<FirstJet::derivativeDimension;++i)
+    result.derivative[i]=-x.derivative[i];
   return result;
 }
 FirstJet operator*(const FirstJet&x,const FirstJet&y){
   FirstJet result(x.value*y.value);
-  for(int i=0;i<3;++i)
+  for(int i=0;i<FirstJet::derivativeDimension;++i)
     result.derivative[i]=x.derivative[i]*y.value+x.value*y.derivative[i];
   return result;
 }
 FirstJet jetReciprocal(const FirstJet&x){
   FirstJet result(interval(1.)/x.value);
-  for(int i=0;i<3;++i)
+  for(int i=0;i<FirstJet::derivativeDimension;++i)
     result.derivative[i]=-x.derivative[i]/sqr(x.value);
   return result;
 }
@@ -222,29 +245,31 @@ FirstJet jetPower(FirstJet x,int exponent){
 }
 FirstJet jetSquare(const FirstJet&x){
   FirstJet result(sqr(x.value));
-  for(int i=0;i<3;++i)
+  for(int i=0;i<FirstJet::derivativeDimension;++i)
     result.derivative[i]=interval(2.)*x.value*x.derivative[i];
   return result;
 }
 FirstJet jetSqrt(const FirstJet&x){
   FirstJet result(sqrt(x.value));
-  for(int i=0;i<3;++i)
+  for(int i=0;i<FirstJet::derivativeDimension;++i)
     result.derivative[i]=x.derivative[i]/(interval(2.)*result.value);
   return result;
 }
 FirstJet jetSin(const FirstJet&x){
   FirstJet result(sin(x.value));
-  for(int i=0;i<3;++i)result.derivative[i]=cos(x.value)*x.derivative[i];
+  for(int i=0;i<FirstJet::derivativeDimension;++i)
+    result.derivative[i]=cos(x.value)*x.derivative[i];
   return result;
 }
 FirstJet jetCos(const FirstJet&x){
   FirstJet result(cos(x.value));
-  for(int i=0;i<3;++i)result.derivative[i]=-sin(x.value)*x.derivative[i];
+  for(int i=0;i<FirstJet::derivativeDimension;++i)
+    result.derivative[i]=-sin(x.value)*x.derivative[i];
   return result;
 }
 FirstJet jetAtan(const FirstJet&x){
   FirstJet result(atan(x.value));
-  for(int i=0;i<3;++i)
+  for(int i=0;i<FirstJet::derivativeDimension;++i)
     result.derivative[i]=x.derivative[i]/(interval(1.)+sqr(x.value));
   return result;
 }
@@ -346,6 +371,145 @@ AffineInitialData affineSourceData(
     const double radius=absUpper(raw);
     result.remainder[i]=interval(-radius,radius);
   }
+  return result;
+}
+
+using MuBox=std::array<interval,3>;
+using MuSlopes=std::array<IVector,3>;
+
+std::array<FirstJet,4> muSourceFirstJet(
+    const MuBox&centre,const MuBox&eta,const interval&phi0,
+    const MuBox&phaseSlopes,const interval&deltaBox,
+    const interval&errorBox){
+  const FirstJet dr=FirstJet::variable(eta[0],0);
+  const FirstJet da=FirstJet::variable(eta[1],1);
+  const FirstJet deps=FirstJet::variable(eta[2],2);
+  const FirstJet delta=FirstJet::variable(deltaBox,3);
+  const FirstJet graphError=FirstJet::variable(errorBox,4);
+  const FirstJet one(interval(1.)),two(interval(2.));
+  const FirstJet r=FirstJet(centre[0])+dr;
+  const FirstJet a2=FirstJet(centre[1])+da;
+  const FirstJet epsilon=FirstJet(centre[2])+deps;
+  if(epsilon.value.leftBound()<=0.)
+    throw std::runtime_error("mu-affine source has nonpositive epsilon");
+  const FirstJet rootEpsilon=jetSqrt(epsilon);
+  const FirstJet r2=jetSquare(r),r3=r2*r,r4=jetSquare(r2);
+  const FirstJet a=one+rootEpsilon*r3*a2;
+  const FirstJet b=rootEpsilon*r2/FirstJet(interval(3.));
+  const FirstJet c=two*r*a2+rootEpsilon*r4*jetSquare(a2);
+  if((two.value+c.value).leftBound()<=0.
+      || (two.value-c.value).leftBound()<=0.)
+    throw std::runtime_error("mu-affine source leaves the real saddle-focus frame");
+  const FirstJet alpha=FirstJet(interval(.5))*jetSqrt(two+c);
+  const FirstJet beta=FirstJet(interval(.5))*jetSqrt(two-c);
+  const FirstJet h=FirstJet(interval(.5))*jetSqrt(
+    FirstJet(interval(4.))-jetSquare(c));
+  if(beta.value.contains(0.) || h.value.contains(0.))
+    throw std::runtime_error("mu-affine source has a singular physical frame");
+  const FirstJet inverseSqrtTwo=one/jetSqrt(two);
+  const FirstJet chi=jetAtan((inverseSqrtTwo-alpha)/beta);
+  FirstJet angle=FirstJet(phi0)+delta+chi;
+  angle=angle+FirstJet(phaseSlopes[0])*dr
+    +FirstJet(phaseSlopes[1])*da+FirstJet(phaseSlopes[2])*deps;
+  const FirstJet u1=FirstJet(interval(kRadius))*jetCos(angle);
+  const FirstJet u2=FirstJet(interval(kRadius))*jetSin(angle);
+  if(u1.value.contains(0.))
+    throw std::runtime_error("mu-affine zero-energy source has u1 containing zero");
+  const FirstJet s1=jetPolynomial(kH1Terms,u1,u2)+graphError;
+  const FirstJet U=u1+s1;
+  const FirstJet s2=-s1*u2/u1-a*jetPower(U,3)/(FirstJet(interval(6.))*h*u1)
+    +b*jetPower(U,4)/(FirstJet(interval(8.))*h*u1);
+  std::array<FirstJet,4> state;
+  state[0]=U;
+  state[1]=alpha*u1-beta*u2-alpha*s1+beta*s2;
+  state[2]=c*u1/FirstJet(interval(2.))+h*u2
+    +c*s1/FirstJet(interval(2.))+h*s2;
+  state[3]=alpha*u1+beta*u2-alpha*s1-beta*s2;
+  return state;
+}
+
+IVector muAugmentedCentre(const IVector&physical){
+  IVector result(9);
+  for(int i=0;i<4;++i)result[i]=physical[i];
+  for(int i=4;i<9;++i)result[i]=interval(0.);
+  return result;
+}
+
+IMatrix muResidualFrame(const MuSlopes&parameterSlopes,
+                        const IVector&phaseSlope,
+                        const IVector&errorSlope){
+  IMatrix result(4,9);
+  for(int i=0;i<4;++i){
+    for(int j=0;j<9;++j)result[i][j]=interval(0.);
+    result[i][i]=interval(1.);
+    for(int parameter=0;parameter<3;++parameter)
+      result[i][4+parameter]=-parameterSlopes[parameter][i];
+    result[i][7]=-phaseSlope[i];
+    result[i][8]=-errorSlope[i];
+  }
+  return result;
+}
+
+AffineInitialData muAffineNodeData(
+    const IVector&centre,const MuSlopes&parameterSlopes,
+    const IVector&phaseSlope,const IVector&errorSlope,
+    const MuBox&eta,const interval&delta,const interval&graphError,
+    const std::array<interval,4>&nodeRemainder){
+  IVector x=muAugmentedCentre(centre),r0(9),remainder(9);
+  IMatrix C(9,9);
+  for(int i=0;i<9;++i){
+    r0[i]=interval(0.);remainder[i]=interval(0.);
+    for(int j=0;j<9;++j)C[i][j]=interval(0.);
+  }
+  for(int parameter=0;parameter<3;++parameter)r0[parameter]=eta[parameter];
+  r0[3]=delta;r0[4]=graphError;
+  for(int j=0;j<4;++j)r0[5+j]=nodeRemainder[j];
+  for(int i=0;i<4;++i){
+    for(int parameter=0;parameter<3;++parameter)
+      C[i][parameter]=parameterSlopes[parameter][i];
+    C[i][3]=phaseSlope[i];C[i][4]=errorSlope[i];
+    C[i][5+i]=interval(1.);
+  }
+  for(int parameter=0;parameter<3;++parameter)C[4+parameter][parameter]=interval(1.);
+  C[7][3]=interval(1.);C[8][4]=interval(1.);
+  return {x,C,r0,remainder};
+}
+
+AffineInitialData muAffineSourceData(
+    const MuBox&parameterCentre,const MuBox&eta,const interval&phi0,
+    const MuBox&phaseSlopes,const IVector&sourceCentre,
+    const MuSlopes&parameterSlopes,const IVector&phaseSlope,
+    const IVector&errorSlope,const interval&delta,
+    const interval&graphError){
+  const std::array<interval,4> zero={interval(0.),interval(0.),
+                                     interval(0.),interval(0.)};
+  AffineInitialData result=muAffineNodeData(
+    sourceCentre,parameterSlopes,phaseSlope,errorSlope,
+    eta,delta,graphError,zero);
+  const std::array<FirstJet,4> jet=muSourceFirstJet(
+    parameterCentre,eta,phi0,phaseSlopes,delta,graphError);
+  const Parameters centreParameters=parameters(
+    parameterCentre[0],parameterCentre[1],parameterCentre[2]);
+  const SourceData exactCentre=sourceData(
+    centreParameters,phi0,interval(0.));
+  for(int i=0;i<4;++i){
+    interval raw=exactCentre.state[i]-sourceCentre[i];
+    for(int parameter=0;parameter<3;++parameter)
+      raw+=(jet[i].derivative[parameter]-parameterSlopes[parameter][i])
+        *eta[parameter];
+    raw+=(jet[i].derivative[3]-phaseSlope[i])*delta;
+    raw+=(jet[i].derivative[4]-errorSlope[i])*graphError;
+    const double radius=absUpper(raw);
+    result.remainder[i]=interval(-radius,radius);
+  }
+  return result;
+}
+
+IVector muInitialColumn(const IVector&physical,int staticIndex){
+  IVector result(9);
+  for(int i=0;i<9;++i)result[i]=interval(0.);
+  for(int i=0;i<4;++i)result[i]=physical[i];
+  result[staticIndex]=interval(1.);
   return result;
 }
 
@@ -756,11 +920,558 @@ int runA2CommonFaces(double radiusFactor,
     <<" common-face root identification\n";
   return success?0:20;
 }
+
+struct MuAffineCellResult{
+  bool success;
+  MuBox parameterCell,parameterCentre,phaseSlopes;
+  interval phi0;
+  PointOrbit chart;
+  std::vector<MuSlopes> parameterSlopes;
+  IVector X,K;
+  double maxInclusion,maxContraction;
+  interval determinant;
+};
+
+MuAffineCellResult buildMuAffineCell(
+    double radiusFactor,const MuBox&parameterCell,const interval&phi0,
+    const MuBox&phaseSlopes,bool report,bool allowPointCell=false,
+    const IVector*minimumX=nullptr){
+  // Decimal CLI endpoints are parsed outward.  Use the same outward decimal
+  // enclosure for the frozen rational bridge so boundary cells are accepted
+  // and prove a harmless ulp-sized superset rather than being rejected.
+  const MuBox certifiedDomain={interval(0.),
+    interval("-0.25","-0.25"),interval("0.8","0.8")};
+  const MuBox certifiedUpper={interval("0.08","0.08"),
+    interval("0.25","0.25"),interval("1.2","1.2")};
+  MuBox centre,eta;
+  bool positiveWidth=false;
+  for(int parameter=0;parameter<3;++parameter){
+    if(parameterCell[parameter].leftBound()<certifiedDomain[parameter].leftBound()
+        || parameterCell[parameter].rightBound()>certifiedUpper[parameter].rightBound())
+      throw std::invalid_argument("mu-affine cell leaves the certified bridge");
+    if(parameterCell[parameter].leftBound()>parameterCell[parameter].rightBound())
+      throw std::invalid_argument("mu-affine cell has reversed endpoints");
+    positiveWidth=positiveWidth
+      ||parameterCell[parameter].leftBound()<parameterCell[parameter].rightBound();
+    centre[parameter]=pointAtMidpoint(parameterCell[parameter]);
+    eta[parameter]=parameterCell[parameter]-centre[parameter];
+    const interval reconstructed=centre[parameter]+eta[parameter];
+    if(!eta[parameter].contains(0.)
+        ||reconstructed.leftBound()>parameterCell[parameter].leftBound()
+        ||reconstructed.rightBound()<parameterCell[parameter].rightBound())
+      throw std::runtime_error("outward mu coordinates do not cover the cell");
+  }
+  if(!positiveWidth&&!allowPointCell)
+    throw std::invalid_argument("mu-affine mode requires a positive-width cell");
+  if(parameterCell[2].leftBound()<=0.)
+    throw std::invalid_argument("mu-affine epsilon must be positive");
+  const Parameters cellParameters=parameters(
+    parameterCell[0],parameterCell[1],parameterCell[2]);
+  if(cellParameters.c.leftBound()<=-2. || cellParameters.c.rightBound()>=2.)
+    throw std::invalid_argument("mu-affine cell leaves the real saddle-focus frame");
+  const Parameters centreParameters=parameters(centre[0],centre[1],centre[2]);
+  const PointOrbit chart=pointOrbit(centreParameters,phi0);
+
+  const std::array<double,3> slopeSteps={1.e-4,1.e-3,1.e-3};
+  std::vector<PointOrbit> plusOrbits,minusOrbits;
+  plusOrbits.reserve(3);minusOrbits.reserve(3);
+  for(int parameter=0;parameter<3;++parameter){
+    MuBox plusCentre=centre,minusCentre=centre;
+    plusCentre[parameter]+=interval(slopeSteps[parameter]);
+    minusCentre[parameter]-=interval(slopeSteps[parameter]);
+    plusOrbits.push_back(pointOrbit(
+      parameters(plusCentre[0],plusCentre[1],plusCentre[2]),
+      phi0+phaseSlopes[parameter]*interval(slopeSteps[parameter])));
+    minusOrbits.push_back(pointOrbit(
+      parameters(minusCentre[0],minusCentre[1],minusCentre[2]),
+      phi0-phaseSlopes[parameter]*interval(slopeSteps[parameter])));
+  }
+  const MuSlopes sourceParameterSlopes={
+    pointDifference(plusOrbits[0].source.state,minusOrbits[0].source.state,
+                    interval(2.*slopeSteps[0]).mid().leftBound()),
+    pointDifference(plusOrbits[1].source.state,minusOrbits[1].source.state,
+                    interval(2.*slopeSteps[1]).mid().leftBound()),
+    pointDifference(plusOrbits[2].source.state,minusOrbits[2].source.state,
+                    interval(2.*slopeSteps[2]).mid().leftBound())};
+  std::vector<MuSlopes> parameterSlopes;
+  parameterSlopes.reserve(kSegments);
+  for(int node=0;node<kSegments;++node){
+    parameterSlopes.push_back(MuSlopes{
+      pointDifference(plusOrbits[0].nodes[node],minusOrbits[0].nodes[node],
+                      2.*slopeSteps[0]),
+      pointDifference(plusOrbits[1].nodes[node],minusOrbits[1].nodes[node],
+                      2.*slopeSteps[1]),
+      pointDifference(plusOrbits[2].nodes[node],minusOrbits[2].nodes[node],
+                      2.*slopeSteps[2])});
+  }
+
+  IMap augmentedField(
+    "par:rc,a2c,epsc;var:U,P,V,Q,er,ea,ee,delta,ge;"
+    "fun:P,(2*(rc+er)*(a2c+ea)+sqrt(epsc+ee)*(rc+er)^4*(a2c+ea)^2)*U-V-"
+    "(1+sqrt(epsc+ee)*(rc+er)^3*(a2c+ea))*U*U+"
+    "sqrt(epsc+ee)*(rc+er)^2/3*U*U*U,Q,U,0,0,0,0,0;");
+  augmentedField.setParameter("rc",centre[0]);
+  augmentedField.setParameter("a2c",centre[1]);
+  augmentedField.setParameter("epsc",centre[2]);
+  IOdeSolver solver(augmentedField,30);
+  solver.setAbsoluteTolerance(1e-14);solver.setRelativeTolerance(1e-14);
+  ICoordinateSection section(9,3);
+  const int dimension=2+4*kSegments;
+
+  C1HORect2Set referenceSet(muAugmentedCentre(chart.nodes.back()));
+  IPoincareMap referencePoincare(solver,section,poincare::MinusPlus);
+  interval referenceReturnTime;
+  const IVector referenceEndpoint=referencePoincare(
+    referenceSet,referenceReturnTime);
+  const interval referencePDot=centreParameters.c*referenceEndpoint[0]
+    -referenceEndpoint[2]-centreParameters.a*sqr(referenceEndpoint[0])
+    +centreParameters.b*power(referenceEndpoint[0],3);
+  const interval eventShear(-midpointValue(referencePDot/referenceEndpoint[0]));
+
+  auto evaluate=[&](const IVector&X)->AffineEvaluation{
+    IVector F(dimension);IMatrix D(dimension,dimension);
+    for(int i=0;i<dimension;++i){
+      F[i]=interval(0.);
+      for(int j=0;j<dimension;++j)D[i][j]=interval(0.);
+    }
+    F[0]=interval(-kGraphC0,kGraphC0);
+    D[0][0]=interval(-kGraphC1*kRadius,kGraphC1*kRadius);
+    D[0][1]=interval(1.);
+    IVector propagatedPhase(9);
+
+    const AffineInitialData firstData=muAffineSourceData(
+      centre,eta,phi0,phaseSlopes,chart.source.state,
+      sourceParameterSlopes,chart.source.phaseDerivative,
+      chart.source.errorDerivative,X[0],X[1]);
+    C1HORect2Set firstSet(firstData.centre,firstData.coordinates,
+                          firstData.radii,firstData.remainder);
+    ITimeMap firstMap(solver);
+    firstMap(interval(kNodeTimes[0]),firstSet);
+    const IMatrix firstFrame=muResidualFrame(
+      parameterSlopes[0],chart.phaseTangents[0],chart.errorTangents[0]);
+    const IVector firstResidual=firstSet.affineTransformation(
+      firstFrame,muAugmentedCentre(chart.nodes[0]));
+    const IMatrix firstFlow=(IMatrix)firstSet;
+    const IMatrix firstA=firstFrame*firstFlow;
+    MuBox naturalBox;
+    for(int parameter=0;parameter<3;++parameter)
+      naturalBox[parameter]=centre[parameter]+eta[parameter];
+    interval naturalPhase=phi0+X[0];
+    for(int parameter=0;parameter<3;++parameter)
+      naturalPhase+=phaseSlopes[parameter]*eta[parameter];
+    const SourceData naturalSource=sourceData(
+      parameters(naturalBox[0],naturalBox[1],naturalBox[2]),
+      naturalPhase,X[1]);
+    const IVector deltaColumn=muInitialColumn(naturalSource.phaseDerivative,7);
+    const IVector errorColumn=muInitialColumn(naturalSource.errorDerivative,8);
+    for(int coordinate=0;coordinate<4;++coordinate){
+      const int row=1+coordinate;
+      F[row]=-firstResidual[coordinate];
+      D[row][0]=-(firstA*deltaColumn)[coordinate];
+      D[row][1]=-(firstA*errorColumn)[coordinate];
+      D[row][2+coordinate]=interval(1.);
+    }
+    const interval graphPrime(-kGraphC1*kRadius,kGraphC1*kRadius);
+    propagatedPhase=firstFlow*(deltaColumn+errorColumn*graphPrime);
+
+    for(int node=1;node<kSegments;++node){
+      std::array<interval,4> xi;
+      for(int coordinate=0;coordinate<4;++coordinate)
+        xi[coordinate]=X[2+4*(node-1)+coordinate];
+      const AffineInitialData data=muAffineNodeData(
+        chart.nodes[node-1],parameterSlopes[node-1],
+        chart.phaseTangents[node-1],chart.errorTangents[node-1],
+        eta,X[0],X[1],xi);
+      C1HORect2Set set(data.centre,data.coordinates,data.radii,data.remainder);
+      ITimeMap map(solver);
+      map(interval(kNodeTimes[node]-kNodeTimes[node-1]),set);
+      const IMatrix frame=muResidualFrame(
+        parameterSlopes[node],chart.phaseTangents[node],chart.errorTangents[node]);
+      const IVector flowResidual=set.affineTransformation(
+        frame,muAugmentedCentre(chart.nodes[node]));
+      const IMatrix flow=(IMatrix)set;
+      const IMatrix A=frame*flow;
+      const IVector nodeDelta=muInitialColumn(chart.phaseTangents[node-1],7);
+      const IVector nodeError=muInitialColumn(chart.errorTangents[node-1],8);
+      for(int coordinate=0;coordinate<4;++coordinate){
+        const int row=1+4*node+coordinate;
+        F[row]=-flowResidual[coordinate];
+        D[row][0]=-(A*nodeDelta)[coordinate];
+        D[row][1]=-(A*nodeError)[coordinate];
+        D[row][2+4*node+coordinate]=interval(1.);
+        for(int k=0;k<4;++k)
+          D[row][2+4*(node-1)+k]=-A[coordinate][k];
+      }
+      propagatedPhase=flow*propagatedPhase;
+    }
+
+    std::array<interval,4> finalXi;
+    for(int coordinate=0;coordinate<4;++coordinate)
+      finalXi[coordinate]=X[2+4*(kSegments-1)+coordinate];
+    const AffineInitialData finalData=muAffineNodeData(
+      chart.nodes.back(),parameterSlopes.back(),chart.phaseTangents.back(),
+      chart.errorTangents.back(),eta,X[0],X[1],finalXi);
+    C1HORect2Set residualSet(finalData.centre,finalData.coordinates,
+                            finalData.radii,finalData.remainder);
+    IPoincareMap residualPoincare(solver,section,poincare::MinusPlus);
+    IVector eventCentre(9);
+    for(int i=0;i<9;++i)eventCentre[i]=interval(0.);
+    IMatrix eventCoordinates=IMatrix::Identity(9);
+    eventCoordinates[1][3]=eventShear;
+    interval residualReturnTime;
+    const IVector affineEndpoint=residualPoincare(
+      residualSet,eventCentre,eventCoordinates,residualReturnTime);
+
+    C1HORect2Set finalSet(finalData.centre,finalData.coordinates,
+                          finalData.radii,finalData.remainder);
+    IPoincareMap poincareMap(solver,section,poincare::MinusPlus);
+    interval returnTime;IMatrix flowDerivative(9,9);
+    const IVector endpoint=poincareMap(finalSet,flowDerivative,returnTime);
+    const IMatrix DP=poincareMap.computeDP(endpoint,flowDerivative,returnTime);
+    const IVector finalDelta=muInitialColumn(chart.phaseTangents.back(),7);
+    const IVector finalError=muInitialColumn(chart.errorTangents.back(),8);
+    F[dimension-1]=affineEndpoint[1];
+    D[dimension-1][0]=(DP*finalDelta)[1];
+    D[dimension-1][1]=(DP*finalError)[1];
+    for(int k=0;k<4;++k)
+      D[dimension-1][2+4*(kSegments-1)+k]=DP[1][k];
+    const IVector endpointPhase=DP*propagatedPhase;
+    return {F,D,endpoint,endpointPhase,returnTime};
+  };
+
+  IVector zero(dimension),preliminary(dimension);
+  for(int i=0;i<dimension;++i){zero[i]=interval(0.);preliminary[i]=interval(0.);}
+  preliminary[0]=interval(-.002,.002);
+  preliminary[1]=interval(-kGraphC0,kGraphC0);
+  for(int i=2;i<dimension;++i)preliminary[i]=interval(-1e-8,1e-8);
+  const AffineEvaluation base=evaluate(zero);
+  const AffineEvaluation pre=evaluate(preliminary);
+  const IMatrix Cpre=midpointInverse(pre.derivative);
+  const IVector predicted=-(Cpre*base.residual);
+  IVector X(dimension);
+  if(minimumX&&minimumX->dimension()!=dimension)
+    throw std::invalid_argument("mu-affine prescribed box has wrong dimension");
+  for(int i=0;i<dimension;++i){
+    const double floor=i==0?2e-5:(i==1?1e-8:3e-5);
+    double radius=radiusFactor*absUpper(predicted[i])+floor;
+    if(minimumX)radius=std::max(radius,absUpper((*minimumX)[i]));
+    X[i]=interval(-radius,radius);
+  }
+  const AffineInitialData sourceDiagnostic=muAffineSourceData(
+    centre,eta,phi0,phaseSlopes,chart.source.state,sourceParameterSlopes,
+    chart.source.phaseDerivative,chart.source.errorDerivative,zero[0],zero[1]);
+  if(report)
+    std::cout<<std::setprecision(17)
+      <<"mode mu-affine-cell\n"
+      <<"parameter_cell "<<parameterCell[0]<<" "<<parameterCell[1]<<" "
+         <<parameterCell[2]<<"\n"
+      <<"parameter_centre "<<centre[0]<<" "<<centre[1]<<" "<<centre[2]<<"\n"
+      <<"parameter_eta "<<eta[0]<<" "<<eta[1]<<" "<<eta[2]<<"\n"
+      <<"phase_centre "<<phi0<<" phase_slopes "<<phaseSlopes[0]<<" "
+         <<phaseSlopes[1]<<" "<<phaseSlopes[2]<<"\n"
+      <<"event_shear "<<eventShear<<" reference_return "<<referenceReturnTime<<"\n"
+      <<"source_zero_remainder "<<sourceDiagnostic.remainder<<"\n"
+      <<"base_event_residual "<<base.residual[dimension-1]<<"\n"
+      <<"pre_delta_prediction "<<predicted[0]<<" final_delta_box "<<X[0]<<"\n"
+      <<"pre_last_node_boxes "<<X[dimension-4]<<" "<<X[dimension-3]
+         <<" "<<X[dimension-2]<<" "<<X[dimension-1]<<"\n"<<std::flush;
+
+  const AffineEvaluation data=evaluate(X);
+  const IMatrix C=midpointInverse(data.derivative);
+  const IMatrix R=IMatrix::Identity(dimension)-C*data.derivative;
+  const IVector correction=-(C*base.residual),contraction=R*X;
+  const IVector K=correction+contraction;
+  double maxInclusion=0.,maxContraction=0.;
+  int worstInclusion=-1,worstContraction=-1;
+  bool inclusion=true;
+  for(int i=0;i<dimension;++i){
+    const double radius=absUpper(X[i]);
+    const double inclusionRatio=absUpper(K[i])/radius;
+    const double contractionRatio=absUpper(contraction[i])/radius;
+    if(inclusionRatio>maxInclusion){maxInclusion=inclusionRatio;worstInclusion=i;}
+    if(contractionRatio>maxContraction){maxContraction=contractionRatio;worstContraction=i;}
+    inclusion=inclusion&&interior(K[i],X[i]);
+  }
+  const interval determinant=data.endpointPhaseColumn[1]*data.endpoint[0];
+  const bool transverse=!determinant.contains(0.)
+    &&!data.endpointPhaseColumn[0].contains(0.)
+    &&!data.endpointPhaseColumn[2].contains(0.);
+  const bool success=inclusion&&maxContraction<1.&&transverse
+    &&data.endpoint[0].leftBound()>1.;
+  if(report)
+    std::cout<<std::setprecision(17)
+      <<"source_full_box_remainder "<<muAffineSourceData(
+         centre,eta,phi0,phaseSlopes,chart.source.state,sourceParameterSlopes,
+         chart.source.phaseDerivative,chart.source.errorDerivative,X[0],X[1]).remainder
+         <<"\n"
+      <<"delta_predicted "<<predicted[0]<<" box "<<X[0]<<" K "<<K[0]<<"\n"
+      <<"endpoint_box "<<data.endpoint<<" return_box "<<data.returnTime<<"\n"
+      <<"event_delta_column "<<data.endpointPhaseColumn[1]<<"\n"
+      <<"event_L_phase_column "<<data.endpointPhaseColumn[0]<<" "
+         <<data.endpointPhaseColumn[2]<<"\n"
+      <<"shooting_determinant "<<determinant<<"\n"
+      <<"max_inclusion_ratio "<<maxInclusion<<" index "<<worstInclusion<<"\n"
+      <<"max_contraction_ratio "<<maxContraction<<" index "<<worstContraction<<"\n"
+      <<(success?"PASS":"INCONCLUSIVE")<<" mu-affine multiple shooting\n";
+  return {success,parameterCell,centre,phaseSlopes,phi0,chart,
+          parameterSlopes,X,K,maxInclusion,maxContraction,determinant};
+}
+
+int runMuAffineCell(double radiusFactor,const MuBox&parameterCell,
+                    const interval&phi0,const MuBox&phaseSlopes){
+  return buildMuAffineCell(
+    radiusFactor,parameterCell,phi0,phaseSlopes,true).success?0:20;
+}
+
+FaceContainmentResult mapMuFaceEnclosure(
+    const MuAffineCellResult&source,const MuAffineCellResult&target,
+    const MuBox&face){
+  for(int parameter=0;parameter<3;++parameter){
+    if(face[parameter].leftBound()<source.parameterCell[parameter].leftBound()
+        ||face[parameter].rightBound()>source.parameterCell[parameter].rightBound()
+        ||face[parameter].leftBound()<target.parameterCell[parameter].leftBound()
+        ||face[parameter].rightBound()>target.parameterCell[parameter].rightBound())
+      throw std::invalid_argument("common mu face does not belong to both cells");
+  }
+  if(source.K.dimension()!=target.X.dimension()
+      ||source.K.dimension()!=2+4*kSegments
+      ||source.parameterSlopes.size()!=kSegments
+      ||target.parameterSlopes.size()!=kSegments)
+    throw std::runtime_error("incompatible mu-affine shooting charts");
+  MuBox sourceEta,targetEta;
+  interval deltaShift=source.phi0-target.phi0;
+  for(int parameter=0;parameter<3;++parameter){
+    sourceEta[parameter]=face[parameter]-source.parameterCentre[parameter];
+    targetEta[parameter]=face[parameter]-target.parameterCentre[parameter];
+    deltaShift+=source.phaseSlopes[parameter]*sourceEta[parameter]
+      -target.phaseSlopes[parameter]*targetEta[parameter];
+  }
+  IVector mapped(source.K.dimension());
+  mapped[0]=source.K[0]+deltaShift;
+  mapped[1]=source.K[1];
+  for(int node=0;node<kSegments;++node){
+    for(int coordinate=0;coordinate<4;++coordinate){
+      const int index=2+4*node+coordinate;
+      interval physical=source.chart.nodes[node][coordinate]
+        -target.chart.nodes[node][coordinate]
+        -target.chart.phaseTangents[node][coordinate]*deltaShift
+        +(source.chart.phaseTangents[node][coordinate]
+          -target.chart.phaseTangents[node][coordinate])*source.K[0]
+        +(source.chart.errorTangents[node][coordinate]
+          -target.chart.errorTangents[node][coordinate])*source.K[1]
+        +source.K[index];
+      for(int parameter=0;parameter<3;++parameter)
+        physical+=source.parameterSlopes[node][parameter][coordinate]
+          *sourceEta[parameter]
+          -target.parameterSlopes[node][parameter][coordinate]
+          *targetEta[parameter];
+      mapped[index]=physical;
+    }
+  }
+  bool success=source.success&&target.success;
+  double maxRatio=0.;
+  int worstIndex=-1;
+  for(int i=0;i<mapped.dimension();++i){
+    const double ratio=absUpper(mapped[i])/absUpper(target.X[i]);
+    if(ratio>maxRatio){maxRatio=ratio;worstIndex=i;}
+    success=success&&interior(mapped[i],target.X[i]);
+  }
+  return {success,mapped,maxRatio,worstIndex};
+}
+
+std::pair<interval,MuBox> rFacePredictor(const interval&rCentre){
+  const interval predictorBase("5.861505585644824","5.861505585644824");
+  const interval predictorQuadratic("0.211","0.211");
+  const interval phi0=pointAtMidpoint(
+    predictorBase-predictorQuadratic*sqr(rCentre));
+  const MuBox slopes={pointAtMidpoint(
+    -interval(2.)*predictorQuadratic*rCentre),interval(0.),interval(0.)};
+  return {phi0,slopes};
+}
+
+FaceContainmentResult importFrozenCoreRoot(
+    const MuAffineCellResult&core){
+  const interval zero(0.);
+  const MuBox zeroBox={zero,zero,zero};
+  IVector zeroPhysical(4);
+  for(int coordinate=0;coordinate<4;++coordinate)
+    zeroPhysical[coordinate]=interval(0.);
+  const MuSlopes zeroParameterSlopes={
+    zeroPhysical,zeroPhysical,zeroPhysical};
+  const interval certifiedPhase(
+    "5.8615055856447817","5.8615055856450482");
+  const interval delta=certifiedPhase-core.phi0;
+  const interval graphError("-1e-20","1e-20");
+  const AffineInitialData source=muAffineSourceData(
+    core.parameterCentre,zeroBox,core.phi0,core.phaseSlopes,
+    core.chart.source.state,zeroParameterSlopes,
+    core.chart.source.phaseDerivative,core.chart.source.errorDerivative,
+    delta,graphError);
+
+  IMap augmentedField(
+    "par:rc,a2c,epsc;var:U,P,V,Q,er,ea,ee,delta,ge;"
+    "fun:P,(2*(rc+er)*(a2c+ea)+sqrt(epsc+ee)*(rc+er)^4*(a2c+ea)^2)*U-V-"
+    "(1+sqrt(epsc+ee)*(rc+er)^3*(a2c+ea))*U*U+"
+    "sqrt(epsc+ee)*(rc+er)^2/3*U*U*U,Q,U,0,0,0,0,0;");
+  augmentedField.setParameter("rc",core.parameterCentre[0]);
+  augmentedField.setParameter("a2c",core.parameterCentre[1]);
+  augmentedField.setParameter("epsc",core.parameterCentre[2]);
+  IOdeSolver solver(augmentedField,30);
+  solver.setAbsoluteTolerance(1e-14);solver.setRelativeTolerance(1e-14);
+  IVector frozen(2+4*kSegments);
+  frozen[0]=delta;frozen[1]=graphError;
+  C1HORect2Set set(source.centre,source.coordinates,
+                   source.radii,source.remainder);
+  for(int node=0;node<kSegments;++node){
+    // TimeMap reads set.getCurrentTime() and takes an absolute target time.
+    // A segment length here would make every call after the first a no-op.
+    ITimeMap map(solver);
+    map(interval(kNodeTimes[node]),set);
+    const IMatrix frame=muResidualFrame(
+      core.parameterSlopes[node],core.chart.phaseTangents[node],
+      core.chart.errorTangents[node]);
+    const IVector xi=set.affineTransformation(
+      frame,muAugmentedCentre(core.chart.nodes[node]));
+    for(int coordinate=0;coordinate<4;++coordinate)
+      frozen[2+4*node+coordinate]=xi[coordinate];
+  }
+  bool success=core.success;
+  double maxRatio=0.;
+  int worstIndex=-1;
+  for(int i=0;i<frozen.dimension();++i){
+    const double ratio=absUpper(frozen[i])/absUpper(core.X[i]);
+    if(ratio>maxRatio){maxRatio=ratio;worstIndex=i;}
+    success=success&&interior(frozen[i],core.X[i]);
+  }
+  return {success,frozen,maxRatio,worstIndex};
+}
+
+int runMuRFaces(double radiusFactor){
+  const interval zero(0.),one(1.);
+  std::array<interval,17> faces;
+  faces[0]=zero;
+  for(int i=1;i<=16;++i)faces[i]=interval(i)/interval(200.);
+  std::vector<MuAffineCellResult> cells;
+  cells.reserve(16);
+  bool success=true;
+  std::cout<<std::setprecision(17)<<"mode mu-r-common-faces\n";
+  for(int i=0;i<16;++i){
+    const MuBox cell={
+      interval(faces[i].leftBound(),faces[i+1].rightBound()),zero,one};
+    const interval rCentre=pointAtMidpoint(cell[0]);
+    const auto predictor=rFacePredictor(rCentre);
+    cells.push_back(buildMuAffineCell(
+      radiusFactor,cell,predictor.first,predictor.second,false));
+    const MuAffineCellResult&result=cells.back();
+    success=success&&result.success;
+    std::cout<<"cell "<<i<<" r "<<result.parameterCell[0]
+      <<" centre "<<result.parameterCentre[0]
+      <<" phase "<<result.phi0
+      <<" phase_r "<<result.phaseSlopes[0]
+      <<" max_inclusion "<<result.maxInclusion
+      <<" max_contraction "<<result.maxContraction
+      <<" determinant "<<result.determinant<<" "
+      <<(result.success?"PASS":"INCONCLUSIVE")<<"\n";
+  }
+  for(int faceIndex=1;faceIndex<16;++faceIndex){
+    const MuBox face={faces[faceIndex],zero,one};
+    for(int direction=0;direction<2;++direction){
+      const int sourceIndex=direction?faceIndex:faceIndex-1;
+      const int targetIndex=direction?faceIndex-1:faceIndex;
+      const FaceContainmentResult result=mapMuFaceEnclosure(
+        cells[sourceIndex],cells[targetIndex],face);
+      success=success&&result.success;
+      std::cout<<"face "<<faces[faceIndex]<<" direction "
+        <<sourceIndex<<"->"<<targetIndex
+        <<" delta "<<result.mapped[0]
+        <<" graph_e "<<result.mapped[1]
+        <<" max_ratio "<<result.maxRatio
+        <<" worst "<<result.worstIndex<<" "
+        <<shootingCoordinateName(result.worstIndex)<<" "
+        <<(result.success?"PASS":"INCONCLUSIVE")<<"\n";
+    }
+  }
+
+  const MuBox coreCell={zero,zero,one};
+  const MuBox zeroSlopes={zero,zero,zero};
+  const interval corePhase=rFacePredictor(zero).first;
+  const MuAffineCellResult seedCore=buildMuAffineCell(
+    radiusFactor,coreCell,corePhase,zeroSlopes,false,true);
+  const MuBox anchorFace={faces[0],zero,one};
+  const FaceContainmentResult seedIntoCore=mapMuFaceEnclosure(
+    cells.front(),seedCore,anchorFace);
+  IVector coreMinimum(seedCore.X.dimension());
+  for(int i=0;i<coreMinimum.dimension();++i){
+    const double radius=1.05*absUpper(seedIntoCore.mapped[i])+1.e-12;
+    coreMinimum[i]=interval(-radius,radius);
+  }
+  const MuAffineCellResult core=buildMuAffineCell(
+    radiusFactor,coreCell,corePhase,zeroSlopes,false,true,&coreMinimum);
+  double coreParameterSlopeMax=0.;
+  for(const MuSlopes&nodeSlopes:core.parameterSlopes)
+    for(int parameter=0;parameter<3;++parameter)
+      for(int coordinate=0;coordinate<4;++coordinate)
+        coreParameterSlopeMax=std::max(coreParameterSlopeMax,
+          absUpper(nodeSlopes[parameter][coordinate]));
+  success=success&&core.success&&coreParameterSlopeMax==0.;
+  std::cout<<"core r "<<core.parameterCell[0]
+    <<" phase "<<core.phi0
+    <<" node_parameter_slope_max "<<coreParameterSlopeMax
+    <<" max_inclusion "<<core.maxInclusion
+    <<" max_contraction "<<core.maxContraction
+    <<" determinant "<<core.determinant<<" "
+    <<(core.success&&coreParameterSlopeMax==0.?"PASS":"INCONCLUSIVE")<<"\n";
+  const FaceContainmentResult intoCore=mapMuFaceEnclosure(
+    cells.front(),core,anchorFace);
+  const FaceContainmentResult intoFirst=mapMuFaceEnclosure(
+    core,cells.front(),anchorFace);
+  const FaceContainmentResult anchorImport=importFrozenCoreRoot(core);
+  success=success&&intoCore.success&&anchorImport.success;
+  std::cout<<"anchor_face "<<faces[0]<<" direction cell-0->core"
+    <<" max_ratio "<<intoCore.maxRatio
+    <<" worst "<<intoCore.worstIndex<<" "
+    <<shootingCoordinateName(intoCore.worstIndex)<<" "
+    <<(intoCore.success?"PASS":"INCONCLUSIVE")<<"\n"
+    <<"anchor_face "<<faces[0]<<" direction core->cell-0"
+    <<" max_ratio "<<intoFirst.maxRatio
+    <<" worst "<<intoFirst.worstIndex<<" "
+    <<shootingCoordinateName(intoFirst.worstIndex)<<" "
+    <<(intoFirst.success?"PASS":"INCONCLUSIVE")<<"\n"
+    <<"anchor_import phase "
+    <<interval("5.8615055856447817","5.8615055856450482")
+    <<" graph_c0 "<<interval("-1e-20","1e-20")
+    <<" max_ratio "<<anchorImport.maxRatio
+    <<" worst "<<anchorImport.worstIndex<<" "
+    <<shootingCoordinateName(anchorImport.worstIndex)<<" "
+    <<(anchorImport.success?"PASS":"INCONCLUSIVE")<<"\n";
+  std::cout<<(success?"PASS":"INCONCLUSIVE")
+    <<" mu-r common-face root identification\n";
+  return success?0:20;
+}
 }
 
 int main(int argc,char**argv){
  std::string stage="argument parsing";
  try{
+ if(argc==3 && std::string(argv[1])=="mu-r-faces"){
+   const double factor=std::stod(argv[2]);
+   if(!std::isfinite(factor)||factor<=1.)
+     throw std::invalid_argument("radius_factor must be finite and greater than one");
+   stage="mu-r common-face experiment";
+   return runMuRFaces(factor);
+ }
+ if(argc==13 && std::string(argv[1])=="mu-affine"){
+   const double factor=std::stod(argv[2]);
+   if(!std::isfinite(factor)||factor<=1.)
+     throw std::invalid_argument("radius_factor must be finite and greater than one");
+   const MuBox parameterCell={cliCell(argv[3],argv[4]),
+     cliCell(argv[5],argv[6]),cliCell(argv[7],argv[8])};
+   const MuBox phaseSlopes={cliPoint(argv[10]),
+     cliPoint(argv[11]),cliPoint(argv[12])};
+   stage="mu-affine cell experiment";
+   return runMuAffineCell(
+     factor,parameterCell,cliPoint(argv[9]),phaseSlopes);
+ }
  if(argc==6 && std::string(argv[1])=="a2-affine"){
    const double factor=std::stod(argv[2]);
    if(!std::isfinite(factor)||factor<=1.)
@@ -783,7 +1494,10 @@ int main(int argc,char**argv){
      "usage: [radius_factor r a2 epsilon phi0] or "
      "[radius_factor r_lo r_hi a2_lo a2_hi eps_lo eps_hi phi0] or "
      "[a2-affine radius_factor a2_lo a2_hi phi0] or "
-     "[a2-faces radius_factor phi0_0 phi0_1 phi0_2 phi0_3]");
+     "[a2-faces radius_factor phi0_0 phi0_1 phi0_2 phi0_3] or "
+     "[mu-r-faces radius_factor] or "
+     "[mu-affine radius_factor r_lo r_hi a2_lo a2_hi eps_lo eps_hi "
+     "phi0 phi_r phi_a2 phi_epsilon]");
  const bool cellMode=argc==9;
  const double radiusFactor=argc==1?1.5:std::stod(argv[1]);
  if(!std::isfinite(radiusFactor) || radiusFactor<=1.)

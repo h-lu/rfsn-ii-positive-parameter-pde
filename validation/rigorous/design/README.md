@@ -56,16 +56,22 @@ Krawczyk map.  It preserves the zero-energy correlation between the two
 stable graph coordinates instead of treating their errors independently.
 Fixed-parameter strict tests pass at the core, the primary positive point,
 and a 27-point target grid.  Its parameter-affine mode uses a joint interval
-first jet and mean-value remainder for the nonlinear source.  Four closed
+first jet and mean-value remainder for the nonlinear source.  Its
+three-parameter mode retains common `r`, `a2`, and `epsilon` coordinates
+throughout all nine segments while leaving the Newton system 38-dimensional.
+Four closed
 cells strictly cover \(a_2\in[-0.03125,0.03125]\) at
 \((r,\epsilon)=(2/25,1)\), with all flow coefficients derived from the same
 outward enclosure of the exact rational \(r\), and with local uniqueness and
 endpoint transversality in every cell.  Its common-face mode maps the complete
 Krawczyk root enclosure into the neighboring uniqueness box; all six
 directional checks pass, so the four cells form one common slice branch.  This
-remains a design result: the full three-parameter bridge and core anchor,
-first-hit, and tail obligations are not discharged.  Results and the proof
-boundary are recorded in
+is now supplemented by 16 exact-rational `r`-spine cells from zero to `2/25`:
+all cells and all 30 directional common-face checks pass, and a strict
+38-dimensional import of the frozen flagship root identifies the spine with
+the selected core branch.  This remains a design result: the full
+three-parameter bridge, first-hit, and tail obligations are not discharged.
+Results and the proof boundary are recorded in
 [`../P2C_SCOUT_REPORT.md`](../P2C_SCOUT_REPORT.md).  The H10 header supplied
 at compile time must be extracted from the Git object named by
 `flagship_import.lock.json`, never from the flagship working tree.

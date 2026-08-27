@@ -206,6 +206,7 @@ total-order-three source triangle.  Its aggregate likewise remains
 - [Issue #7 P2b0 H10 C0/C1 report](validation/rigorous/P2B0_REPORT.md)
 - [Issue #7 P2b mixed-jet report](validation/rigorous/P2B_JETS_REPORT.md)
 - [Issue #7 P2bK normalized Kato phase report](validation/rigorous/P2B_KATO_REPORT.md)
+- [Issue #7 P2c selected-homoclinic scout report](validation/rigorous/P2C_SCOUT_REPORT.md)
 
 ## Initial work queue
 
@@ -215,7 +216,7 @@ total-order-three source triangle.  Its aggregate likewise remains
 - [#4: central--outer matching theorem](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/4), the decisive mathematical go/no-go task
 - [#5: outer algebraic action finite part](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/5)
 - [#6: exhaustive two-end theorem](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/6)
-- [#7: rigorous validation](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/7), with phase 1, P2a, P2b0, P2b mixed jets, and the P2bK normalized Kato/true-source interface passing locally; P2c--P5 and independent replay remain pending
+- [#7: rigorous validation](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/7), with phase 1, P2a, P2b0, P2b mixed jets, and the P2bK normalized Kato/true-source interface passing locally; the P2c design scout now identifies a selected 16-cell core-to-primary `r`-spine, while the full three-parameter P2c--P5 scopes and independent replay remain pending
 
 The source theory remains in
 [`h-lu/reversible-rfsn-ii-waves`](https://github.com/h-lu/reversible-rfsn-ii-waves).
