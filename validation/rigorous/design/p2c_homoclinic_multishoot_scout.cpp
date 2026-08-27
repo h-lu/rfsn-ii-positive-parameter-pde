@@ -357,8 +357,13 @@ AffineInitialData affineSourceData(
   AffineInitialData result=affineNodeData(
     sourceCentre,parameterSlope,phaseSlope,errorSlope,
     eta,delta,graphError,zero);
+  const interval origin(0.);
+  const interval derivativeEta=intervalHull(eta,origin);
+  const interval derivativeDelta=intervalHull(delta,origin);
+  const interval derivativeGraphError=intervalHull(graphError,origin);
   const std::array<FirstJet,4> jet=sourceFirstJet(
-    fixedR,a2Centre,phi0,eta,delta,graphError);
+    fixedR,a2Centre,phi0,derivativeEta,derivativeDelta,
+    derivativeGraphError);
   const Parameters centreParameters=parameters(
     fixedR,a2Centre,interval(1.));
   const SourceData exactCentre=sourceData(
@@ -486,8 +491,15 @@ AffineInitialData muAffineSourceData(
   AffineInitialData result=muAffineNodeData(
     sourceCentre,parameterSlopes,phaseSlope,errorSlope,
     eta,delta,graphError,zero);
+  const interval origin(0.);
+  MuBox derivativeEta;
+  for(int parameter=0;parameter<3;++parameter)
+    derivativeEta[parameter]=intervalHull(eta[parameter],origin);
+  const interval derivativeDelta=intervalHull(delta,origin);
+  const interval derivativeGraphError=intervalHull(graphError,origin);
   const std::array<FirstJet,4> jet=muSourceFirstJet(
-    parameterCentre,eta,phi0,phaseSlopes,delta,graphError);
+    parameterCentre,derivativeEta,phi0,phaseSlopes,derivativeDelta,
+    derivativeGraphError);
   const Parameters centreParameters=parameters(
     parameterCentre[0],parameterCentre[1],parameterCentre[2]);
   const SourceData exactCentre=sourceData(
@@ -926,6 +938,7 @@ struct MuAffineCellResult{
   MuBox parameterCell,parameterCentre,phaseSlopes;
   interval phi0;
   PointOrbit chart;
+  MuSlopes sourceParameterSlopes;
   std::vector<MuSlopes> parameterSlopes;
   IVector X,K;
   double maxInclusion,maxContraction;
@@ -1214,7 +1227,8 @@ MuAffineCellResult buildMuAffineCell(
       <<"max_contraction_ratio "<<maxContraction<<" index "<<worstContraction<<"\n"
       <<(success?"PASS":"INCONCLUSIVE")<<" mu-affine multiple shooting\n";
   return {success,parameterCell,centre,phaseSlopes,phi0,chart,
-          parameterSlopes,X,K,maxInclusion,maxContraction,determinant};
+          sourceParameterSlopes,parameterSlopes,X,K,
+          maxInclusion,maxContraction,determinant};
 }
 
 int runMuAffineCell(double radiusFactor,const MuBox&parameterCell,
@@ -1393,6 +1407,324 @@ MuAffineCellResult buildMuGridCell(
     double radiusFactor,int rIndex,int a2Index,int epsilonIndex){
   return buildMuGridBox(
     radiusFactor,muGridCellBox(rIndex,a2Index,epsilonIndex));
+}
+
+MuBox muRootEta(const MuAffineCellResult&cell){
+  MuBox eta;
+  for(int parameter=0;parameter<3;++parameter)
+    eta[parameter]=cell.parameterCell[parameter]-cell.parameterCentre[parameter];
+  return eta;
+}
+
+AffineInitialData muRootSourceData(const MuAffineCellResult&cell){
+  // The actual root for the fixed true graph lies in K.  This source set
+  // encloses that root; it does not assert that every point of K is a root.
+  return muAffineSourceData(
+    cell.parameterCentre,muRootEta(cell),cell.phi0,cell.phaseSlopes,
+    cell.chart.source.state,cell.sourceParameterSlopes,
+    cell.chart.source.phaseDerivative,cell.chart.source.errorDerivative,
+    cell.K[0],cell.K[1]);
+}
+
+AffineInitialData muRootNodeData(
+    const MuAffineCellResult&cell,int node){
+  if(node<0||node>=kSegments)
+    throw std::out_of_range("mu root node index");
+  std::array<interval,4> correction;
+  for(int coordinate=0;coordinate<4;++coordinate)
+    correction[coordinate]=cell.K[2+4*node+coordinate];
+  return muAffineNodeData(
+    cell.chart.nodes[node],cell.parameterSlopes[node],
+    cell.chart.phaseTangents[node],cell.chart.errorTangents[node],
+    muRootEta(cell),cell.K[0],cell.K[1],correction);
+}
+
+C0HOTripletonSet muRootSet(const AffineInitialData&data){
+  return C0HOTripletonSet(
+    data.centre,data.coordinates,data.radii,data.remainder);
+}
+
+struct DenseSignResult{
+  bool success;
+  interval hull;
+  int steps;
+  std::array<interval,4> physicalHull;
+};
+
+bool hasRequiredSign(const interval&value,int sign){
+  return sign>0?value.leftBound()>0.:value.rightBound()<0.;
+}
+
+DenseSignResult advanceAndRequireSign(
+    IOdeSolver&solver,C0HOTripletonSet&set,const interval&targetTime,
+    int component,int sign){
+  const IVector initial=set;
+  interval hull=initial[component];
+  std::array<interval,4> physicalHull;
+  for(int coordinate=0;coordinate<4;++coordinate)
+    physicalHull[coordinate]=initial[coordinate];
+  bool success=hasRequiredSign(hull,sign);
+  int steps=0;
+  ITimeMap timeMap(solver);
+  timeMap.stopAfterStep(true);
+  do{
+    timeMap(targetTime,set);
+    const IVector enclosure=set.getLastEnclosure();
+    const interval signedComponent=enclosure[component];
+    hull=intervalHull(hull,signedComponent);
+    for(int coordinate=0;coordinate<4;++coordinate)
+      physicalHull[coordinate]=intervalHull(
+        physicalHull[coordinate],enclosure[coordinate]);
+    success=success&&hasRequiredSign(signedComponent,sign);
+    ++steps;
+  }while(!timeMap.completed());
+  return {success,hull,steps,physicalHull};
+}
+
+void mergeSignResult(
+    DenseSignResult&aggregate,const DenseSignResult&piece,bool initialized){
+  if(!initialized){aggregate=piece;return;}
+  aggregate.success=aggregate.success&&piece.success;
+  aggregate.hull=intervalHull(aggregate.hull,piece.hull);
+  aggregate.steps+=piece.steps;
+  for(int coordinate=0;coordinate<4;++coordinate)
+    aggregate.physicalHull[coordinate]=intervalHull(
+      aggregate.physicalHull[coordinate],piece.physicalHull[coordinate]);
+}
+
+struct MuFirstHitResult{
+  bool success;
+  DenseSignResult pPositive,qPositive,pNegative,qNegative,uPositive;
+  interval returnTime;
+  IVector endpoint;
+};
+
+MuFirstHitResult validateMuFirstHit(const MuAffineCellResult&cell){
+  // This is the compact source-to-symmetry-event part of the first-hit
+  // proof.  The origin-to-source exclusion is the separate P2a/P2bK local
+  // graph argument recorded as an imported prerequisite in the report.
+  IMap field(
+    "par:rc,a2c,epsc;var:U,P,V,Q,er,ea,ee,delta,ge;"
+    "fun:P,(2*(rc+er)*(a2c+ea)+sqrt(epsc+ee)*(rc+er)^4*(a2c+ea)^2)*U-V-"
+    "(1+sqrt(epsc+ee)*(rc+er)^3*(a2c+ea))*U*U+"
+    "sqrt(epsc+ee)*(rc+er)^2/3*U*U*U,Q,U,0,0,0,0,0;");
+  field.setParameter("rc",cell.parameterCentre[0]);
+  field.setParameter("a2c",cell.parameterCentre[1]);
+  field.setParameter("epsc",cell.parameterCentre[2]);
+  IOdeSolver solver(field,30);
+  solver.setAbsoluteTolerance(1e-14);solver.setRelativeTolerance(1e-14);
+
+  C0HOTripletonSet source=muRootSet(muRootSourceData(cell));
+  DenseSignResult pPositive=advanceAndRequireSign(
+    solver,source,interval(kNodeTimes[0]),1,+1);
+
+  C0HOTripletonSet node0=muRootSet(muRootNodeData(cell,0));
+  DenseSignResult qPositive=advanceAndRequireSign(
+    solver,node0,interval(kNodeTimes[1]-kNodeTimes[0]),3,+1);
+
+  C0HOTripletonSet node1=muRootSet(muRootNodeData(cell,1));
+  const DenseSignResult qPositiveTail=advanceAndRequireSign(
+    solver,node1,interval(1.90-kNodeTimes[1]),3,+1);
+  mergeSignResult(qPositive,qPositiveTail,true);
+  DenseSignResult pNegative=advanceAndRequireSign(
+    solver,node1,interval(kNodeTimes[2]-kNodeTimes[1]),1,-1);
+
+  for(int node=2;node<=3;++node){
+    C0HOTripletonSet rootNode=muRootSet(muRootNodeData(cell,node));
+    const DenseSignResult piece=advanceAndRequireSign(
+      solver,rootNode,interval(kNodeTimes[node+1]-kNodeTimes[node]),1,-1);
+    mergeSignResult(pNegative,piece,true);
+  }
+  C0HOTripletonSet node4=muRootSet(muRootNodeData(cell,4));
+  const DenseSignResult pNegativeTail=advanceAndRequireSign(
+    solver,node4,interval(7.35-kNodeTimes[4]),1,-1);
+  mergeSignResult(pNegative,pNegativeTail,true);
+  DenseSignResult qNegative=advanceAndRequireSign(
+    solver,node4,interval(kNodeTimes[5]-kNodeTimes[4]),3,-1);
+
+  for(int node=5;node<=7;++node){
+    C0HOTripletonSet rootNode=muRootSet(muRootNodeData(cell,node));
+    const DenseSignResult piece=advanceAndRequireSign(
+      solver,rootNode,interval(kNodeTimes[node+1]-kNodeTimes[node]),3,-1);
+    mergeSignResult(qNegative,piece,true);
+  }
+
+  const interval finalDuration=interval(1.)/interval(5.);
+  const AffineInitialData finalData=muRootNodeData(cell,kSegments-1);
+  C0HOTripletonSet finalTube=muRootSet(finalData);
+  DenseSignResult uPositive=advanceAndRequireSign(
+    solver,finalTube,finalDuration,0,+1);
+
+  C0HOTripletonSet eventSet=muRootSet(finalData);
+  ICoordinateSection section(9,3);
+  IPoincareMap poincareMap(solver,section,poincare::MinusPlus);
+  interval returnTime;
+  const IVector endpoint=poincareMap(eventSet,returnTime);
+  const bool eventSuccess=returnTime.leftBound()>0.
+    &&returnTime.rightBound()<finalDuration.leftBound()
+    &&endpoint[0].leftBound()>1.;
+  const bool success=cell.success&&pPositive.success&&qPositive.success
+    &&pNegative.success&&qNegative.success&&uPositive.success&&eventSuccess;
+  return {success,pPositive,qPositive,pNegative,qNegative,uPositive,
+          returnTime,endpoint};
+}
+
+void reportMuFirstHit(
+    int rIndex,int a2Index,int epsilonIndex,
+    const MuAffineCellResult&cell,const MuFirstHitResult&result){
+  std::cout<<std::setprecision(17)
+    <<"scope selected_source_to_symmetry_event\n"
+    <<"indices "<<rIndex<<" "<<a2Index<<" "<<epsilonIndex<<"\n"
+    <<"parameter_cell "<<cell.parameterCell[0]<<" "
+       <<cell.parameterCell[1]<<" "<<cell.parameterCell[2]<<"\n"
+    <<"P_positive_hull "<<result.pPositive.hull
+       <<" steps "<<result.pPositive.steps<<" "
+       <<(result.pPositive.success?"PASS":"INCONCLUSIVE")<<"\n"
+    <<"Q_positive_hull "<<result.qPositive.hull
+       <<" steps "<<result.qPositive.steps<<" "
+       <<(result.qPositive.success?"PASS":"INCONCLUSIVE")<<"\n"
+    <<"P_negative_hull "<<result.pNegative.hull
+       <<" steps "<<result.pNegative.steps<<" "
+       <<(result.pNegative.success?"PASS":"INCONCLUSIVE")<<"\n"
+    <<"Q_negative_hull "<<result.qNegative.hull
+       <<" steps "<<result.qNegative.steps<<" "
+       <<(result.qNegative.success?"PASS":"INCONCLUSIVE")<<"\n"
+    <<"U_final_hull "<<result.uPositive.hull
+       <<" steps "<<result.uPositive.steps<<" "
+       <<(result.uPositive.success?"PASS":"INCONCLUSIVE")<<"\n"
+    <<"endpoint "<<result.endpoint<<" return_time "<<result.returnTime<<"\n"
+    <<(result.success?"PASS":"INCONCLUSIVE")
+       <<" mu-grid selected-source first symmetry hit\n";
+}
+
+int runMuGridFirstHitCell(
+    double radiusFactor,int rIndex,int a2Index,int epsilonIndex){
+  const MuAffineCellResult cell=buildMuGridCell(
+    radiusFactor,rIndex,a2Index,epsilonIndex);
+  const MuFirstHitResult result=validateMuFirstHit(cell);
+  std::cout<<"mode mu-grid-first-hit\n";
+  reportMuFirstHit(rIndex,a2Index,epsilonIndex,cell,result);
+  return result.success?0:20;
+}
+
+struct MuFirstHitSlabStats{
+  bool success=true,initialized=false;
+  int count=0,passCount=0,denseSteps=0;
+  interval pPositive,qPositive,pNegative,qNegative,uPositive,returnTime;
+  std::array<interval,4> physicalHull;
+  std::array<double,5> minimumSignedMargins;
+  std::array<int,5> worstA2,worstEpsilon;
+};
+
+void updateMuFirstHitSlabStats(
+    MuFirstHitSlabStats&stats,const MuFirstHitResult&result,
+    int a2Index,int epsilonIndex){
+  const std::array<double,5> margins={
+    result.pPositive.hull.leftBound(),
+    result.qPositive.hull.leftBound(),
+    -result.pNegative.hull.rightBound(),
+    -result.qNegative.hull.rightBound(),
+    result.uPositive.hull.leftBound()};
+  std::array<interval,4> cellPhysical=result.pPositive.physicalHull;
+  const std::array<const DenseSignResult*,4> otherTubes={
+    &result.qPositive,&result.pNegative,&result.qNegative,&result.uPositive};
+  for(const DenseSignResult*tube:otherTubes)
+    for(int coordinate=0;coordinate<4;++coordinate)
+      cellPhysical[coordinate]=intervalHull(
+        cellPhysical[coordinate],tube->physicalHull[coordinate]);
+  if(!stats.initialized){
+    stats.pPositive=result.pPositive.hull;
+    stats.qPositive=result.qPositive.hull;
+    stats.pNegative=result.pNegative.hull;
+    stats.qNegative=result.qNegative.hull;
+    stats.uPositive=result.uPositive.hull;
+    stats.returnTime=result.returnTime;
+    stats.physicalHull=cellPhysical;
+    stats.minimumSignedMargins=margins;
+    for(int gate=0;gate<5;++gate){
+      stats.worstA2[gate]=a2Index;
+      stats.worstEpsilon[gate]=epsilonIndex;
+    }
+    stats.initialized=true;
+  }else{
+    stats.pPositive=intervalHull(stats.pPositive,result.pPositive.hull);
+    stats.qPositive=intervalHull(stats.qPositive,result.qPositive.hull);
+    stats.pNegative=intervalHull(stats.pNegative,result.pNegative.hull);
+    stats.qNegative=intervalHull(stats.qNegative,result.qNegative.hull);
+    stats.uPositive=intervalHull(stats.uPositive,result.uPositive.hull);
+    stats.returnTime=intervalHull(stats.returnTime,result.returnTime);
+    for(int coordinate=0;coordinate<4;++coordinate)
+      stats.physicalHull[coordinate]=intervalHull(
+        stats.physicalHull[coordinate],cellPhysical[coordinate]);
+    for(int gate=0;gate<5;++gate)
+      if(margins[gate]<stats.minimumSignedMargins[gate]){
+        stats.minimumSignedMargins[gate]=margins[gate];
+        stats.worstA2[gate]=a2Index;
+        stats.worstEpsilon[gate]=epsilonIndex;
+      }
+  }
+  ++stats.count;
+  if(result.success)++stats.passCount;
+  stats.success=stats.success&&result.success;
+  stats.denseSteps+=result.pPositive.steps+result.qPositive.steps
+    +result.pNegative.steps+result.qNegative.steps+result.uPositive.steps;
+}
+
+int runMuGridFirstHitSlab(double radiusFactor,int rIndex){
+  if(rIndex<0||rIndex>=kMuGridRCells)
+    throw std::invalid_argument("mu-grid first-hit r_index must lie in [0,31]");
+  MuFirstHitSlabStats stats;
+  for(int a2Index=0;a2Index<kMuGridA2Cells;++a2Index)
+    for(int epsilonIndex=0;epsilonIndex<kMuGridEpsilonCells;++epsilonIndex){
+      const MuAffineCellResult cell=buildMuGridCell(
+        radiusFactor,rIndex,a2Index,epsilonIndex);
+      const MuFirstHitResult result=validateMuFirstHit(cell);
+      updateMuFirstHitSlabStats(stats,result,a2Index,epsilonIndex);
+      if(!result.success)
+        reportMuFirstHit(rIndex,a2Index,epsilonIndex,cell,result);
+    }
+  std::cout<<std::setprecision(17)
+    <<"mode mu-grid-first-hit-slab\n"
+    <<"scope selected_source_to_symmetry_event\n"
+    <<"time_partition P_positive 0 1.55 Q_positive 1.55 1.90 "
+       <<"P_negative 1.90 7.35 Q_negative 7.35 9.55\n"
+    <<"final_flow_box U_positive relative_duration "
+       <<interval(1.)/interval(5.)<<"\n"
+    <<"pre_source_local_graph_exclusion imported_prerequisite_not_evaluated\n"
+    <<"grid "<<kMuGridRCells<<" "<<kMuGridA2Cells<<" "
+       <<kMuGridEpsilonCells<<" radius_factor "<<radiusFactor<<"\n"
+    <<"r_index "<<rIndex<<" r_cell "
+       <<muGridCellBox(rIndex,0,0)[0]<<"\n"
+    <<"cells "<<stats.count<<" pass "<<stats.passCount
+       <<" dense_steps "<<stats.denseSteps<<"\n"
+    <<"P_positive_hull "<<stats.pPositive<<"\n"
+    <<"Q_positive_hull "<<stats.qPositive<<"\n"
+    <<"P_negative_hull "<<stats.pNegative<<"\n"
+    <<"Q_negative_hull "<<stats.qNegative<<"\n"
+    <<"U_final_hull "<<stats.uPositive<<"\n"
+    <<"return_time_hull "<<stats.returnTime<<"\n"
+    <<"half_time_hull "<<interval(kNodeTimes.back())+stats.returnTime<<"\n"
+    <<"physical_state_hull "<<stats.physicalHull[0]<<" "
+       <<stats.physicalHull[1]<<" "<<stats.physicalHull[2]<<" "
+       <<stats.physicalHull[3]<<"\n"
+    <<"signed_margin P_positive "<<stats.minimumSignedMargins[0]
+       <<" worst_a2_index "<<stats.worstA2[0]
+       <<" worst_epsilon_index "<<stats.worstEpsilon[0]<<"\n"
+    <<"signed_margin Q_positive "<<stats.minimumSignedMargins[1]
+       <<" worst_a2_index "<<stats.worstA2[1]
+       <<" worst_epsilon_index "<<stats.worstEpsilon[1]<<"\n"
+    <<"signed_margin P_negative "<<stats.minimumSignedMargins[2]
+       <<" worst_a2_index "<<stats.worstA2[2]
+       <<" worst_epsilon_index "<<stats.worstEpsilon[2]<<"\n"
+    <<"signed_margin Q_negative "<<stats.minimumSignedMargins[3]
+       <<" worst_a2_index "<<stats.worstA2[3]
+       <<" worst_epsilon_index "<<stats.worstEpsilon[3]<<"\n"
+    <<"signed_margin U_final "<<stats.minimumSignedMargins[4]
+       <<" worst_a2_index "<<stats.worstA2[4]
+       <<" worst_epsilon_index "<<stats.worstEpsilon[4]<<"\n"
+    <<(stats.success?"PASS":"INCONCLUSIVE")
+       <<" mu-grid selected-source first symmetry-hit slab\n";
+  return stats.success?0:20;
 }
 
 struct MuGridCellStats{
@@ -1840,6 +2172,21 @@ int runMuRFaces(double radiusFactor){
 int main(int argc,char**argv){
  std::string stage="argument parsing";
  try{
+ if(argc==6 && std::string(argv[1])=="mu-grid-first-hit"){
+   const double factor=std::stod(argv[2]);
+   if(!std::isfinite(factor)||factor<=1.)
+     throw std::invalid_argument("radius_factor must be finite and greater than one");
+   stage="mu-grid first-hit experiment";
+   return runMuGridFirstHitCell(
+     factor,std::stoi(argv[3]),std::stoi(argv[4]),std::stoi(argv[5]));
+ }
+ if(argc==4 && std::string(argv[1])=="mu-grid-first-hit-slab"){
+   const double factor=std::stod(argv[2]);
+   if(!std::isfinite(factor)||factor<=1.)
+     throw std::invalid_argument("radius_factor must be finite and greater than one");
+   stage="mu-grid first-hit slab experiment";
+   return runMuGridFirstHitSlab(factor,std::stoi(argv[3]));
+ }
  if(argc==7 && std::string(argv[1])=="mu-grid-face"){
    const double factor=std::stod(argv[2]);
    if(!std::isfinite(factor)||factor<=1.)
@@ -1906,6 +2253,8 @@ int main(int argc,char**argv){
      "[a2-faces radius_factor phi0_0 phi0_1 phi0_2 phi0_3] or "
      "[mu-r-faces radius_factor] or "
      "[mu-grid-anchor radius_factor] or "
+     "[mu-grid-first-hit radius_factor r_index a2_index epsilon_index] or "
+     "[mu-grid-first-hit-slab radius_factor r_index] or "
      "[mu-grid-face radius_factor axis r_index a2_index epsilon_index] or "
      "[mu-grid-slab radius_factor r_index] or "
      "[mu-affine radius_factor r_lo r_hi a2_lo a2_hi eps_lo eps_hi "
