@@ -155,8 +155,13 @@ in \((r,a_2,\epsilon)\) is now formally frozen as
 to the existence/coding validation, not a temporal-stability box.  The first
 local phase-1 kernel now passes every implemented integrity and mathematical
 obligation on this box; its aggregate status remains `INCONCLUSIVE` and
-non-claim-bearing because the required independent replay and V2--V6 stages
-are still pending.
+non-claim-bearing because the required independent replay and later stages
+are still pending.  The subsequent P2a kernel also passes its exact moving
+frame, isolating-block/difference-cone, and true coarse local-graph
+subobligations on the full connected bridge
+\([0,0.08]\times[-0.25,0.25]\times[0.8,1.2]\).  It certifies the complete
+radius-`.01` local source disk, but not yet the mixed jets required by the
+parent `V2.WU_GRAPH`; P2b--P5 therefore remain pending.
 
 ## Repository map
 
@@ -175,8 +180,9 @@ are still pending.
 - [Van der Pol dynamics screening report](numerics/VDP_DYNAMICS_SCREENING_REPORT.md)
 - [Van der Pol dynamics figure contracts](numerics/VDP_DYNAMICS_FIGURE_CONTRACTS.md)
 - [Issue #7 candidate-contract workspace](validation/README.md)
-- [Issue #7 rigorous phase-1 lane](validation/rigorous/README.md)
+- [Issue #7 staged rigorous-validation lane](validation/rigorous/README.md)
 - [Issue #7 phase-1 local report](validation/rigorous/PHASE1_REPORT.md)
+- [Issue #7 P2a local-graph report](validation/rigorous/P2A_REPORT.md)
 
 ## Initial work queue
 
@@ -186,7 +192,7 @@ are still pending.
 - [#4: central--outer matching theorem](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/4), the decisive mathematical go/no-go task
 - [#5: outer algebraic action finite part](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/5)
 - [#6: exhaustive two-end theorem](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/6)
-- [#7: rigorous validation](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/7), with the frozen-box phase-1 local kernel passing and P2--P5 plus independent replay still pending
+- [#7: rigorous validation](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/7), with phase 1 and the two P2a local-graph subobligations passing locally, while the P2 parent, P3--P5, and independent replay remain pending
 
 The source theory remains in
 [`h-lu/reversible-rfsn-ii-waves`](https://github.com/h-lu/reversible-rfsn-ii-waves).

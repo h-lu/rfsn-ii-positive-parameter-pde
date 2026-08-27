@@ -99,10 +99,16 @@ The same screening configuration records
 
 as the formally frozen `vdp-positive-box-v1` Issue #7 box.  The first local
 phase-1 outward-rounded kernel passes its implemented V1 and V2(1)
-obligations.  The aggregate certificate remains `INCONCLUSIVE` and
-non-claim-bearing because independent replay and V2 continuation through V6
-are pending.  Neither freezing nor the phase-1 result proves V2--V7, makes a
-temporal-stability claim, or qualifies here as `Computer-assisted` evidence.
+obligations.  The subsequent P2a kernel also passes the exact moving-frame,
+local block/difference-cone, and true coarse stable/unstable graph
+subobligations on the connected bridge from the complete `r=0` anchor face
+through that box.  The archived P2a evidence is documented in
+[`P2A_REPORT.md`](../validation/rigorous/P2A_REPORT.md).  Both aggregate
+certificates remain `INCONCLUSIVE` and non-claim-bearing because independent
+replay is pending; moreover the parent `V2.WU_GRAPH` still requires the P2b
+mixed jets and weighted tails.  Neither result proves the remaining V2
+validation objects or V3--V7, makes a temporal-stability claim, or qualifies
+here as `Computer-assisted` evidence.
 
 Numerical work can later become `Computer-assisted` only if every
 claim-bearing bound is interval rigorous, tied to immutable source and

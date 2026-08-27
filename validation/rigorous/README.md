@@ -31,6 +31,11 @@ mathematical `PASS`, aggregate `INCONCLUSIVE`, and `claim_bearing: false`.
 The P2 obligation map, exact moving frame, non-circular graph bootstrap, and
 the boundary between P2a and the still-pending mixed-jet parent obligation are
 frozen in [`P2_VALIDATION_CONTRACT.md`](P2_VALIDATION_CONTRACT.md).
+The first clean P2a certificate is archived at
+[`results/vdp_bridge_v1_p2a_local_graph.json`](results/vdp_bridge_v1_p2a_local_graph.json)
+and explained in [`P2A_REPORT.md`](P2A_REPORT.md).  Its two P2a mathematical
+subobligations and all integrity checks pass; its aggregate status remains
+`INCONCLUSIVE` and non-claim-bearing for the reasons above.
 
 ## Frozen phase-1 box
 
@@ -97,6 +102,9 @@ python3 validation/rigorous/run_validation.py local-graph \
 
 python3 validation/rigorous/check_certificate.py \
   /tmp/rfsn-vdp-rigorous-kernel.json
+
+python3 validation/rigorous/check_certificate.py \
+  /tmp/rfsn-vdp-rigorous-p2a-local-graph.json
 ```
 
 Omit `--allow-dirty` for a clean replay.  A report path is observed only after
