@@ -1,0 +1,584 @@
+{
+  "certificate_id": "vdp-p2c-homoclinic-15664b600316",
+  "claim_bearing": false,
+  "configuration": {
+    "configuration_id": "vdp-p2-homoclinic-v1",
+    "path": "validation/rigorous/config/vdp_p2_homoclinic_v1.json",
+    "sha256": "a1aca97d2fcf76f336dc06734c1ced25aeb9bd6b1bfa69b9dc8a6545846ce9ac",
+    "status": "FROZEN_POST_STRICT_DESIGN_PRE_CERTIFICATE"
+  },
+  "continuation_bridge": {
+    "bridge_id": "vdp-core-to-positive-bridge-v1",
+    "path": "validation/rigorous/config/vdp_bridge_v1.json",
+    "sha256": "2b62e6fc5625d3f5634d986f7e9cbe8199abfc45c7b97ca29e5efd464b5b69c7",
+    "variables": {
+      "a2": {
+        "lower": {
+          "denominator": "4",
+          "numerator": "-1"
+        },
+        "upper": {
+          "denominator": "4",
+          "numerator": "1"
+        }
+      },
+      "epsilon": {
+        "lower": {
+          "denominator": "5",
+          "numerator": "4"
+        },
+        "upper": {
+          "denominator": "5",
+          "numerator": "6"
+        }
+      },
+      "r": {
+        "lower": {
+          "denominator": "1",
+          "numerator": "0"
+        },
+        "upper": {
+          "denominator": "25",
+          "numerator": "2"
+        }
+      }
+    }
+  },
+  "created_at": "2026-08-27T23:21:25.315398+00:00",
+  "final_status": "INCONCLUSIVE",
+  "independent_replay": {
+    "observed_distinct_machines": 1,
+    "required_distinct_machines": 2,
+    "status": "PENDING_REQUIRED"
+  },
+  "integrity_status": "PASS",
+  "mathematical_status": "PASS",
+  "nonclaims": [
+    "A local mathematical PASS is not an aggregate theorem certificate.",
+    "Independent-machine replay is pending and this certificate is not claim-bearing.",
+    "The certificate does not assert uniqueness outside the finite parameter-following lifted multiple-shooting tube.",
+    "It does not validate the P2d exact saddle charts, the P2e event atlas, or P3--P5.",
+    "It does not prove temporal stability or dynamic Turing-pattern selection.",
+    "It does not identify a finite-parameter canard.",
+    "The strict executable bytes are not archived; their SHA-256 values are provenance records, while this certificate parses archived logs and does not rebuild or rerun the full grid.",
+    "The evidence freeze is retrospective and the independent-machine replay remains pending; therefore this local certificate is not claim-bearing."
+  ],
+  "obligations": [
+    {
+      "id": "ENV.SOURCE_BINDING",
+      "predicate": "Every local source, evidence artifact, and historical run source is hash-bound at an explicit Git commit.",
+      "status": "PASS"
+    },
+    {
+      "id": "ENV.P2C_HISTORICAL_RUN_RECORDS",
+      "predicate": "All four archived P2c logs are bound to historical source commits, source hashes, the recorded CAPD commit, and recorded strict-binary hashes; executable bytes and build-environment replay are not asserted.",
+      "status": "PASS"
+    },
+    {
+      "id": "BRIDGE.FROZEN",
+      "predicate": "The exact rational comparison bridge is the common gap-free domain of every P2c grid run.",
+      "status": "PASS"
+    },
+    {
+      "id": "P2.P2A_PREREQUISITE",
+      "predicate": "The historical P2a certificate is schema-valid at its source commit and supplies the pre-source true-graph exclusion.",
+      "status": "PASS"
+    },
+    {
+      "id": "P2.P2B_JETS_PREREQUISITE",
+      "predicate": "The historical P2b certificate is schema-valid at its source commit and supplies the weighted graph and half-orbit jets.",
+      "status": "PASS"
+    },
+    {
+      "id": "P2.P2BK_PREREQUISITE",
+      "predicate": "The historical P2bK certificate is schema-valid at its source commit, its true-source atoms pass, and its source interface is byte-compatible with the current P2c theorem snapshot.",
+      "status": "PASS"
+    },
+    {
+      "id": "P2.HOMOCLINIC_CONFIG_FROZEN",
+      "predicate": "The post-design retrospective P2c evidence contract was frozen before this local certificate was assembled.",
+      "status": "PASS"
+    },
+    {
+      "id": "V2.HOM.BRANCH",
+      "predicate": "A gap-free 32x128x4 cover, all 44,416 internal faces, and the frozen core anchor identify one selected branch unique in the finite lifted multiple-shooting tube.",
+      "status": "PASS"
+    },
+    {
+      "id": "V2.HOM.FIRST_HIT",
+      "predicate": "The P2a pre-source exclusion, continuous strict sign tubes, and final U-positive flow box prove the selected event is the first nonzero symmetry hit.",
+      "status": "PASS"
+    },
+    {
+      "id": "V2.HOM.TRANSVERSE",
+      "predicate": "Every selected endpoint is nonzero and has strictly positive shooting determinant and event transversality margins.",
+      "status": "PASS"
+    },
+    {
+      "id": "V2.HOM.TAILS",
+      "predicate": "Exact composition of certified source/root jets with P2b half-orbits gives explicit weight-one-fifth C2 bounds on both infinite tails.",
+      "status": "PASS"
+    },
+    {
+      "id": "V2.HOM.MIDDLE_C2",
+      "predicate": "Continuous CAPD C2 enclosures, event-time centering, local pre-source composition, and reversibility give the full-real-line global weighted bound.",
+      "status": "PASS"
+    },
+    {
+      "id": "V2.HOMOCLINIC",
+      "predicate": "All five P2c mathematical atoms pass, yielding the selected C2 homoclinic branch, first hit, transversality, and explicit global weighted parameter-two-jet bound.",
+      "status": "PASS"
+    }
+  ],
+  "parameter_box": {
+    "box_id": "vdp-positive-box-v1",
+    "path": "validation/rigorous/config/vdp_box_v1.json",
+    "sha256": "ce84e84e4e2e53563125497df4ad2df98a533437b04b35bee042e9b04ea1c735",
+    "variables": {
+      "a2": {
+        "lower": {
+          "denominator": "4",
+          "numerator": "-1"
+        },
+        "upper": {
+          "denominator": "4",
+          "numerator": "1"
+        }
+      },
+      "epsilon": {
+        "lower": {
+          "denominator": "5",
+          "numerator": "4"
+        },
+        "upper": {
+          "denominator": "5",
+          "numerator": "6"
+        }
+      },
+      "r": {
+        "lower": {
+          "denominator": "25",
+          "numerator": "1"
+        },
+        "upper": {
+          "denominator": "25",
+          "numerator": "2"
+        }
+      }
+    }
+  },
+  "prerequisites": {
+    "p2a": {
+      "claim_bearing": false,
+      "final_status": "INCONCLUSIVE",
+      "integrity_status": "PASS",
+      "mathematical_status": "PASS",
+      "path": "validation/rigorous/results/vdp_bridge_v1_p2a_local_graph.json",
+      "required_atoms": {
+        "V2.WU.COARSE_GRAPH": "PASS",
+        "V2.WU.FRAME_BLOCK": "PASS"
+      },
+      "scope": "V2_LOCAL_GRAPH_KERNEL",
+      "sha256": "192b351c3f153080d82bc856fa3c667388dc16c7b4cf0cfa8568fa347bcaf6be",
+      "source_bindings_verified_at_recorded_commit": 27,
+      "source_commit": "83bd821847e733ee6f2caf3bbb3fb2cee153daea"
+    },
+    "p2b": {
+      "claim_bearing": false,
+      "final_status": "INCONCLUSIVE",
+      "integrity_status": "PASS",
+      "mathematical_status": "PASS",
+      "path": "validation/rigorous/results/vdp_bridge_v1_p2b_jets.json",
+      "required_atoms": {
+        "V2.WU.JETS": "PASS",
+        "V2.WU_GRAPH": "PASS"
+      },
+      "scope": "V2_P2_JETS_KERNEL",
+      "sha256": "07b0949a3d403c0c0a85a4a157b86d7b32cce3ff0348aeffa1db474d441fca07",
+      "source_bindings_verified_at_recorded_commit": 38,
+      "source_commit": "ae88ae0fb47dc43329ad2b66bd465576994df23c"
+    },
+    "p2bk": {
+      "claim_bearing": false,
+      "final_status": "INCONCLUSIVE",
+      "integrity_status": "PASS",
+      "mathematical_status": "PASS",
+      "path": "validation/rigorous/results/vdp_bridge_v1_p2b_kato.json",
+      "required_atoms": {
+        "V2.PHASE.KATO_INTERFACE": "PASS",
+        "V2.PHASE.TRUE_SOURCE": "PASS"
+      },
+      "scope": "V2_P2_KATO_KERNEL",
+      "sha256": "c67cce575caa396eba5b4388e8ba9a0c9d73fd702f69911d64c878f57f27bff3",
+      "source_bindings_verified_at_recorded_commit": 45,
+      "source_commit": "91007a88395290a594ba88047ff6ae45b9cebb80"
+    },
+    "p2bk_source_compatibility": {
+      "common_extract_sha256": "490bc36b38d3bb65a937e0b2a363c38c5ef687d7316e7019fbc3928266717682",
+      "current_commit": "33a830298df9c58f4dee5530e30d3bdf6b9874f4",
+      "historical_commit": "91007a88395290a594ba88047ff6ae45b9cebb80",
+      "status": "PASS"
+    }
+  },
+  "raw_evidence": {
+    "branch_cover": {
+      "cells_passed": 16384,
+      "cells_total": 16384,
+      "common_faces_passed": {
+        "a2": 16256,
+        "epsilon": 12288,
+        "r": 15872,
+        "total": 44416
+      },
+      "determinant_hull": [
+        "35.189379305083953",
+        "287.48895667960522"
+      ],
+      "frozen_core_anchor": "PASS",
+      "grid_geometry": {
+        "a2_cells": "A_j=[(j-64)/256,(j-63)/256], 0<=j<128",
+        "epsilon_cells": "E_k=[(8+k)/10,(9+k)/10], 0<=k<4",
+        "gap_free_box_complex": "PASS",
+        "r_cells": "R_i=[i/400,(i+1)/400], 0<=i<32"
+      },
+      "maximum_contraction": "0.48505318768286615",
+      "maximum_face_ratio": {
+        "a2": "0.84468357665770233",
+        "epsilon": "0.831086370582925",
+        "r": "0.83572414542914675"
+      },
+      "maximum_inclusion": "0.81163070510064661",
+      "status": "PASS",
+      "uniqueness_scope": "finite parameter-following lifted 38-dimensional multiple-shooting tube"
+    },
+    "compact_middle": {
+      "cells_passed": 16384,
+      "cells_total": 16384,
+      "continuous_hulls": {
+        "centered_tube_xi": [
+          "-9.7024614326336689",
+          "0.017036600914542177"
+        ],
+        "half_time": [
+          "9.6050962330163951",
+          "9.7024614326336689"
+        ],
+        "physical_state_P": [
+          "-0.45162005597156318",
+          "6.3575562290451844"
+        ],
+        "physical_state_Q": [
+          "-3.356072534474043",
+          "0.084760500832987931"
+        ],
+        "physical_state_U": [
+          "-1.2754209644411874",
+          "5.0555221504031378"
+        ],
+        "physical_state_V": [
+          "-8.2026248332266718",
+          "0.15319307702947269"
+        ],
+        "return_time": [
+          "0.055096233016395574",
+          "0.15246143263366643"
+        ]
+      },
+      "coverage_seams": {
+        "every_slab_reaches_source": true,
+        "every_slab_reaches_symmetry": true,
+        "every_slab_strictly_inside_abs_xi_11": true
+      },
+      "dense_continuous_steps": 262144,
+      "explicit_initial_sections": 163840,
+      "global_maxima": {
+        "normalized_centered_xi_L1_hilbert_schmidt": "58.518982724817405",
+        "normalized_centered_xi_L2_hilbert_schmidt": "4236.8355132009829",
+        "normalized_fixed_t_L1_hilbert_schmidt": "33.463536750434073",
+        "normalized_fixed_t_L2_hilbert_schmidt": "2028.4375325609799",
+        "normalized_state_C0_euclidean": "11.302546274485511"
+      },
+      "slabs_passed": 32,
+      "slabs_total": 32,
+      "status": "PASS"
+    },
+    "evidence_class": "archived local strict logs plus exact algebraic replay",
+    "first_hit_cover": {
+      "cells_passed": 16384,
+      "cells_total": 16384,
+      "dense_continuous_steps": 306287,
+      "final_flow_box": "Q strictly increasing because U>0",
+      "half_time_hull": [
+        "9.6050962348763385",
+        "9.7024618615219786"
+      ],
+      "minimum_signed_margins": {
+        "P_negative": "0.0028529044239452655",
+        "P_positive": "0.0003775768276043477",
+        "Q_negative": "0.26930389071300026",
+        "Q_positive": "0.028827241320954836",
+        "U_final": "4.6910804196918061"
+      },
+      "pre_source_gate": "imported P2a true-graph exclusion",
+      "return_time_hull": [
+        "0.05509623487633783",
+        "0.15246186152197719"
+      ],
+      "status": "PASS"
+    },
+    "full_grid_replayed_during_certificate_build": false,
+    "global_weighted_bound": {
+      "T_star": 11,
+      "coverage": {
+        "compact_middle": "-T_h<=xi<=0",
+        "local_pre_source": "-11<=xi<=-T_h",
+        "middle_centered_hull_binary64_hex": [
+          "-0x1.367a9065fb9d0p+3",
+          "0x1.1720aef0d4600p-6"
+        ],
+        "negative_tail": "xi<=-11",
+        "positive_half": "fixed parameter-independent Euclidean-isometric reverser",
+        "status": "PASS",
+        "tail_source_margin": {
+          "denominator": "35184372088832",
+          "numerator": "10468707664995"
+        }
+      },
+      "eta": {
+        "denominator": "5",
+        "numerator": "1"
+      },
+      "global_common_integer_normalized_theta": 114395,
+      "global_common_integer_original_mu": 71496600,
+      "global_original_mu_C2": {
+        "denominator": "1099511627776",
+        "numerator": "78611342260591861875"
+      },
+      "local_pre_source_and_tail_common_integer_original_mu": 342685,
+      "status": "PASS",
+      "strict_exponential_upper": 27,
+      "tail_common_integer_original_mu": 95434
+    },
+    "historical_execution_bindings": {
+      "branch": {
+        "log_path": "validation/rigorous/design/logs/p2c_branch_v1.log",
+        "log_sha256": "73afc5b9a365ea7ab505095feb7098154a0ab5f83cfe7c6dbd0e8788a275e364",
+        "source_commit": "2c60e4930bb585a24d7a8945c1b5b3e7469a1cf8",
+        "source_path": "validation/rigorous/design/p2c_homoclinic_multishoot_scout.cpp",
+        "source_sha256": "76d4ca6e953c0446c981b89b51b1f569cb1626a15f9fc2898aae2d106acf60ec",
+        "strict_binary_sha256": "46cc65468a7082f5adaa5902d76c962ead8a123653f3bfd39959769650ee63dc"
+      },
+      "compact_middle": {
+        "log_path": "validation/rigorous/design/logs/p2c_middle_c2_v1.log",
+        "log_sha256": "9027b0d8e5247bc81df05ef680346133a0ffc0bb63354d5ae8e35c19255a4300",
+        "source_commit": "c1b8c815a1ffd0b690c46d1631b383f16b11fce4",
+        "source_path": "validation/rigorous/design/p2c_homoclinic_multishoot_scout.cpp",
+        "source_sha256": "7f1947f4d8ca7eaa74194a5060911a167982e6e5038c585be7609e5e36a98493",
+        "strict_binary_sha256": "1d5b8092148d2a9cf1892e0880c01bd122edf03421f168142585818a5f3e9c7e"
+      },
+      "first_hit": {
+        "log_path": "validation/rigorous/design/logs/p2c_first_hit_v1.log",
+        "log_sha256": "09f3e809b4651a3ed8dfc5482b9900aadf35367b08202dbc17a3a79af5f6b5f3",
+        "source_commit": "25ff53a7f4fa2457a09767d2cad992aff245bcea",
+        "source_path": "validation/rigorous/design/p2c_homoclinic_multishoot_scout.cpp",
+        "source_sha256": "3aa6368471ced8afc37e73128149548e7756caa04505ebcb615a3451bf6beabd",
+        "strict_binary_sha256": "b6d27a618146ea90db1310c1f0b510190a573b35bd8d5d669f5e354d6f6f0fd0"
+      },
+      "root_jets": {
+        "log_path": "validation/rigorous/design/logs/p2c_root_jets_v1.log",
+        "log_sha256": "b503e777183e6a5f759978b081828b70119bbfb95f48e643649857a89cace969",
+        "source_commit": "0f35363264d29a8b4b3b39ab10317273aff35fab",
+        "source_path": "validation/rigorous/design/p2c_homoclinic_multishoot_scout.cpp",
+        "source_sha256": "d3fe590fd64da02e18941d32e8d43a3b50e018f37d59513e37a41d1d32cf7a2f",
+        "strict_binary_sha256": "b7235063abff295b0d0e51a0587e5c8dd871af35a1c5d4af7a060e3e6cde0f04"
+      }
+    },
+    "root_jets": {
+      "cells_passed": 16384,
+      "cells_total": 16384,
+      "complete_parameter_derivative_order": 2,
+      "half_time_hull": [
+        "9.6050962330163951",
+        "9.7024614326336689"
+      ],
+      "maximum_componentwise_solve_inclusion": "0.99868362757418572",
+      "maximum_weighted_inverse_contraction": "0.23585865367990907",
+      "minimum_event_U": "4.8357887375448962",
+      "phase_hull": [
+        "5.7499112495191298",
+        "5.9687447739269208"
+      ],
+      "return_time_hull": [
+        "0.055096233016395574",
+        "0.15246143263366643"
+      ],
+      "status": "PASS"
+    },
+    "schema_version": "rfsn-vdp-p2c-local-strict-evidence/1",
+    "status": "PASS",
+    "tail_exact_audit": {
+      "exit_code": 0,
+      "method": "exact Fraction replay; no ODE integration",
+      "status": "PASS",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "0999f97a65fd5c58258a7aeec0ec820e272306a5e89acacafe09ea0183350eef"
+    }
+  },
+  "release_eligible": false,
+  "schema_version": "rfsn-vdp-p2-homoclinic-certificate/1",
+  "scope": "V2_P2C_HOMOCLINIC_KERNEL",
+  "source_bindings": [
+    {
+      "path": "RESEARCH_CONTRACT.md",
+      "sha256": "2170e0d6095c2f8b2e5b35343f8f491e0831a9ff33b5d966d08dbed1ab098387"
+    },
+    {
+      "path": "theory/BASELINE.md",
+      "sha256": "b033f6cb6b52dcfeb09bfe1e983d6a544203db9e3be697cc39ccd84a9748588a"
+    },
+    {
+      "path": "validation/rigorous/P2C_SCOUT_REPORT.md",
+      "sha256": "98b9e0cccf0eda334b01643d5292ff6afeef3472decdd6b487ecf4e1d60e4caa"
+    },
+    {
+      "path": "validation/rigorous/P2_VALIDATION_CONTRACT.md",
+      "sha256": "72e3cd95393569720d309ec1c26ef381c49f260dc8a747cd39ad973741157b64"
+    },
+    {
+      "path": "validation/rigorous/README.md",
+      "sha256": "4c18b91e5a8645a61bcd96b6405f89409a31813c4556a4106915202f05aacd78"
+    },
+    {
+      "path": "validation/rigorous/certificate.schema.json",
+      "sha256": "cadadc2aa98c86fd85299ce9d100a16d14420ee6740417bd8b45649dab929d54"
+    },
+    {
+      "path": "validation/rigorous/check_certificate.py",
+      "sha256": "a5ce2a344db719b3d2563b43b33128a57c397f5a5291fdb60f74db89ab96fb62"
+    },
+    {
+      "path": "validation/rigorous/config/vdp_box_v1.json",
+      "sha256": "ce84e84e4e2e53563125497df4ad2df98a533437b04b35bee042e9b04ea1c735"
+    },
+    {
+      "path": "validation/rigorous/config/vdp_bridge_v1.json",
+      "sha256": "2b62e6fc5625d3f5634d986f7e9cbe8199abfc45c7b97ca29e5efd464b5b69c7"
+    },
+    {
+      "path": "validation/rigorous/config/vdp_p2_homoclinic_v1.json",
+      "sha256": "a1aca97d2fcf76f336dc06734c1ced25aeb9bd6b1bfa69b9dc8a6545846ce9ac"
+    },
+    {
+      "path": "validation/rigorous/dependency.lock.json",
+      "sha256": "4d486a63cddf0902cc9fc4dedacc5a172527f6e167e2d311afa680c077a45b68"
+    },
+    {
+      "path": "validation/rigorous/design/logs/README.md",
+      "sha256": "bc581038ec868a617e5fd32ee5729d8178169cecb1f948884304e38d39d2a1c6"
+    },
+    {
+      "path": "validation/rigorous/design/logs/p2c_branch_v1.log",
+      "sha256": "73afc5b9a365ea7ab505095feb7098154a0ab5f83cfe7c6dbd0e8788a275e364"
+    },
+    {
+      "path": "validation/rigorous/design/logs/p2c_first_hit_v1.log",
+      "sha256": "09f3e809b4651a3ed8dfc5482b9900aadf35367b08202dbc17a3a79af5f6b5f3"
+    },
+    {
+      "path": "validation/rigorous/design/logs/p2c_middle_c2_v1.log",
+      "sha256": "9027b0d8e5247bc81df05ef680346133a0ffc0bb63354d5ae8e35c19255a4300"
+    },
+    {
+      "path": "validation/rigorous/design/logs/p2c_root_jets_v1.log",
+      "sha256": "b503e777183e6a5f759978b081828b70119bbfb95f48e643649857a89cace969"
+    },
+    {
+      "path": "validation/rigorous/design/p2c_homoclinic_multishoot_scout.cpp",
+      "sha256": "7f1947f4d8ca7eaa74194a5060911a167982e6e5038c585be7609e5e36a98493"
+    },
+    {
+      "path": "validation/rigorous/design/p2c_middle_jet_summary_v1.json",
+      "sha256": "2bd9a929603c2fa9a3a2e666bec05466dbba6cc0571a041d365eda7d27d45725"
+    },
+    {
+      "path": "validation/rigorous/design/p2c_root_jet_summary_v1.json",
+      "sha256": "13e5c345a8c762c707ae19455ca67510e587a97c526f718f175e59da2657d2fd"
+    },
+    {
+      "path": "validation/rigorous/design/p2c_tail_composition_scout.py",
+      "sha256": "f52c42792347f4428cca7667bf09b62bc2a3b81e11f45872e8bd82f298a0ba68"
+    },
+    {
+      "path": "validation/rigorous/design/p2c_tail_composition_v1.json",
+      "sha256": "0999f97a65fd5c58258a7aeec0ec820e272306a5e89acacafe09ea0183350eef"
+    },
+    {
+      "path": "validation/rigorous/flagship_import.lock.json",
+      "sha256": "6c1752d6ee78d4b670c74ecb85e776eddcb4459e0b0e7f7ae14cae2325e0476e"
+    },
+    {
+      "path": "validation/rigorous/obligations.json",
+      "sha256": "558e0d10c55b292d6b64ff5468f2bd1d7fe0d389d83674653d7efbafe269a940"
+    },
+    {
+      "path": "validation/rigorous/p2_homoclinic.schema.json",
+      "sha256": "f01df8c78435785c9290499df77b09889351961dc3f8e46c652a499bb0d66e21"
+    },
+    {
+      "path": "validation/rigorous/p2_homoclinic_certificate.py",
+      "sha256": "6551174d22bbde80e7779105654ba672519c65d01d1a4779c241f15f08bf6f87"
+    },
+    {
+      "path": "validation/rigorous/p2_homoclinic_certificate.schema.json",
+      "sha256": "efa2af9e2b25854c3c89e2dbf5ca33b7d5e7ae1f7f5c2fa69dddb6b172aec535"
+    },
+    {
+      "path": "validation/rigorous/p2_kato.schema.json",
+      "sha256": "1c40e0c5872827126b714f4eb369f562a1ab756ebdbc83d03ece7ae334ea776f"
+    },
+    {
+      "path": "validation/rigorous/results/vdp_bridge_v1_p2a_local_graph.json",
+      "sha256": "192b351c3f153080d82bc856fa3c667388dc16c7b4cf0cfa8568fa347bcaf6be"
+    },
+    {
+      "path": "validation/rigorous/results/vdp_bridge_v1_p2b_jets.json",
+      "sha256": "07b0949a3d403c0c0a85a4a157b86d7b32cce3ff0348aeffa1db474d441fca07"
+    },
+    {
+      "path": "validation/rigorous/results/vdp_bridge_v1_p2b_kato.json",
+      "sha256": "c67cce575caa396eba5b4388e8ba9a0c9d73fd702f69911d64c878f57f27bff3"
+    },
+    {
+      "path": "validation/rigorous/rigorous_common.py",
+      "sha256": "9f17a21a006133577b705a191aa5a0127a214297ea9a08b9214e36f23d9fb4c0"
+    },
+    {
+      "path": "validation/rigorous/tests/test_p2_homoclinic_certificate.py",
+      "sha256": "0393b57103b7181e27999b7e70ecb32ad11bb37a9fed2e89286efe0fd6649e43"
+    },
+    {
+      "path": "van-der-pol/CENTRAL_CONTINUATION.md",
+      "sha256": "51dbc0dbeb9ac232fc41f21af83930b3b3c9e98385f0b7ed9963ca6dc10f0aa3"
+    }
+  ],
+  "source_revision": {
+    "commit": "15664b600316d97ddef8487a279367495f4f1ed9",
+    "report_output_excluded_from_observation": true,
+    "repository": "h-lu/rfsn-ii-positive-parameter-pde",
+    "repository_dirty": false,
+    "working_tree_observation": "BEFORE_REPORT_WRITE"
+  },
+  "toolchain": {
+    "capd_commit": "731079217a9254ea2948d742df2b170895effe7f",
+    "certificate_mode": "archived-strict-summary-no-full-grid-replay",
+    "full_grid_rebuilt_during_certificate_build": false,
+    "historical_strict_execution_record_binding_status": "PASS",
+    "tail_exact_replay": {
+      "exit_code": 0,
+      "method": "exact Fraction replay; no ODE integration",
+      "status": "PASS",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "0999f97a65fd5c58258a7aeec0ec820e272306a5e89acacafe09ea0183350eef"
+    }
+  }
+}

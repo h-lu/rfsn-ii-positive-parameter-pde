@@ -127,8 +127,8 @@ class P2HomoclinicCertificateTests(unittest.TestCase):
         self.assertEqual(self.middle["coverage"], p2c.MIDDLE_COVERAGE)
 
     def test_archived_certificate_and_tamper_rejection(self) -> None:
-        if not self.certificate_path.exists():
-            self.skipTest("P2c result certificate has not yet been archived")
+        self.assertTrue(
+            self.certificate_path.exists(), "P2c result certificate is missing")
         certificate = load(self.certificate_path)
         self.assertEqual(generic_checker.schema_errors(certificate), [])
         self.assertEqual(
@@ -142,8 +142,8 @@ class P2HomoclinicCertificateTests(unittest.TestCase):
         self.assertTrue(generic_checker.semantic_errors(invalid, REPOSITORY))
 
     def test_claim_boundary(self) -> None:
-        if not self.certificate_path.exists():
-            self.skipTest("P2c result certificate has not yet been archived")
+        self.assertTrue(
+            self.certificate_path.exists(), "P2c result certificate is missing")
         certificate = load(self.certificate_path)
         self.assertEqual(certificate["mathematical_status"], "PASS")
         self.assertEqual(certificate["final_status"], "INCONCLUSIVE")

@@ -109,6 +109,10 @@ P2c mathematical certificate without compiling or rerunning the full grid.
 Its aggregate remains `INCONCLUSIVE` and non-claim-bearing because independent
 replay is still 1/2.  The freeze is explicitly post-design and therefore is
 not represented as preregistration.
+The archived verdict and exact claim boundary are summarized in
+[`P2C_CERTIFICATE_REPORT.md`](P2C_CERTIFICATE_REPORT.md), with the
+machine-readable certificate in
+[`results/vdp_bridge_v1_p2c_homoclinic.json`](results/vdp_bridge_v1_p2c_homoclinic.json).
 
 The full-grid binary endpoints and exact rational composition are archived in
 [`design/p2c_middle_jet_summary_v1.json`](design/p2c_middle_jet_summary_v1.json).

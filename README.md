@@ -199,6 +199,8 @@ retrospective local P2c certificate now parses the archived strict logs and
 replays the exact tail algebra without rerunning the full grid.  Its five P2c
 atoms and local `V2.HOMOCLINIC` parent pass, but the aggregate remains
 `INCONCLUSIVE` and non-claim-bearing while independent replay is 1/2.
+The exact verdict is recorded in
+[`validation/rigorous/P2C_CERTIFICATE_REPORT.md`](validation/rigorous/P2C_CERTIFICATE_REPORT.md).
 P2d--P5 remain pending.
 
 ## Repository map
