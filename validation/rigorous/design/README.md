@@ -22,6 +22,17 @@ four-dimensional product ball.  The Neumann gate concerns only the
 linearized Green operator along the true graph already supplied by P2a and
 P2b0.
 
+For an explicit parameter derivative with no (Z)-derivative slot, the
+weighted bound uses (D_\theta^jR_\theta(0)=0) and the mean-value estimate
+
+\[
+ \|D_\theta^jR_\theta(Z)\|_\omega
+ \le L_{1j}\|Z\|_\omega.
+\]
+
+An unweighted supremum of (D_\theta^jR_\theta(Z)) is reported only as a
+diagnostic and is not inserted into the weighted recurrence.
+
 Any formal use requires a separately committed frozen configuration, a clean
 strict-source run, schema and semantic checking, and the repository's
 independent-replay policy.

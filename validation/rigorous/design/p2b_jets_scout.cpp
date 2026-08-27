@@ -190,10 +190,11 @@ void partitionsRecursive(const std::vector<int>& labels, int position,
       output.push_back(blocks);
     return;
   }
-  for (auto& block : blocks) {
-    block.push_back(labels[position]);
+  const std::size_t existingBlocks = blocks.size();
+  for (std::size_t blockIndex = 0; blockIndex < existingBlocks; ++blockIndex) {
+    blocks[blockIndex].push_back(labels[position]);
     partitionsRecursive(labels, position + 1, blocks, output, maximumBlocks);
-    block.pop_back();
+    blocks[blockIndex].pop_back();
   }
   if (static_cast<int>(blocks.size()) < maximumBlocks) {
     blocks.push_back({labels[position]});
@@ -345,13 +346,15 @@ int main(int argc, char** argv) {
   const double radius = 1.0 / 100.0;
   std::array<std::array<double, 3>, 4> coefficient{};
   const std::array<double, 3> B{block.order0, block.order1, block.order2};
-  const std::array<double, 3> h{value.order0, value.order1, value.order2};
   const std::array<double, 3> ell{first.order0, first.order1, first.order2};
   const std::array<double, 3> m{second.order0, second.order1, second.order2};
   const std::array<double, 3> t{third.order0, third.order1, third.order2};
   for (int order = 0; order <= 2; ++order) {
-    coefficient[0][order] = B[order] * radius + h[order];
     coefficient[1][order] = B[order] + 2.0 * ell[order];
+    // Every explicit theta derivative of R_theta vanishes at Z=0.  The
+    // weighted forcing is therefore controlled by the fixed-Z derivative
+    // coefficient times ||Z||_omega, rather than by an unweighted value sup.
+    coefficient[0][order] = coefficient[1][order] * radius;
     coefficient[2][order] = 4.0 * m[order];
     coefficient[3][order] = 8.0 * t[order];
   }
