@@ -3,8 +3,10 @@
 #include <cmath>
 #include <iomanip>
 #include <iostream>
+#include <limits>
 #include <stdexcept>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "capd/capdlib.h"
@@ -1727,6 +1729,762 @@ int runMuGridFirstHitSlab(double radiusFactor,int rIndex){
   return stats.success?0:20;
 }
 
+// The C2 root-jet scout uses the actual P2bK true source rather than the
+// fitted phase predictor or an invented C2 graph-error function.  The
+// existing 38-dimensional Krawczyk enclosure supplies a position tube for
+// that actual root.  We then differentiate the exact 37-dimensional
+// residual whose unknowns are the absolute Kato phase and nine physical
+// nodes.  External parameters are the normalized coordinates
+//   theta=(25*r-1,4*a2,5*(epsilon-1)).
+constexpr int kTrueRootDimension=1+4*kSegments;
+constexpr int kThetaDimension=3;
+constexpr int kRootJetDomainDimension=kTrueRootDimension+kThetaDimension;
+constexpr std::array<double,kThetaDimension> kThetaScales={25.,4.,5.};
+
+interval symmetricInterval(const interval&upper){
+  const double radius=absUpper(upper);
+  return interval(-radius,radius);
+}
+
+interval actualSecondDerivative(
+    const IHessian&coefficients,int output,int first,int second){
+  return coefficients(output,first,second)
+    *interval(first==second?2.:1.);
+}
+
+interval actualSecondDerivative(
+    const IMatrix&coefficients,int first,int second){
+  return coefficients[first][second]*interval(first==second?2.:1.);
+}
+
+AffineInitialData normalizedThetaData(const AffineInitialData&physicalData){
+  if(physicalData.centre.dimension()!=9
+      ||physicalData.coordinates.numberOfRows()!=9
+      ||physicalData.coordinates.numberOfColumns()!=9
+      ||physicalData.radii.dimension()!=9
+      ||physicalData.remainder.dimension()!=9)
+    throw std::invalid_argument("normalized theta data requires dimension nine");
+  AffineInitialData result=physicalData;
+  for(int parameter=0;parameter<kThetaDimension;++parameter){
+    const interval scale(kThetaScales[parameter]);
+    result.radii[parameter]*=scale;
+    for(int physical=0;physical<4;++physical)
+      result.coordinates[physical][parameter]/=scale;
+    // Rows 4--6 now carry normalized parameter offsets.  Their unit
+    // coordinate columns stay unchanged while the field divides by scale.
+  }
+  return result;
+}
+
+IMap normalizedThetaAugmentedField(const MuAffineCellResult&cell){
+  IMap field(
+    "par:rc,a2c,epsc;var:U,P,V,Q,tr,ta,te,delta,ge;"
+    "fun:P,(2*(rc+tr/25)*(a2c+ta/4)+sqrt(epsc+te/5)*(rc+tr/25)^4*"
+    "(a2c+ta/4)^2)*U-V-(1+sqrt(epsc+te/5)*(rc+tr/25)^3*"
+    "(a2c+ta/4))*U*U+sqrt(epsc+te/5)*(rc+tr/25)^2/3*U*U*U,"
+    "Q,U,0,0,0,0,0;",2);
+  field.setParameter("rc",cell.parameterCentre[0]);
+  field.setParameter("a2c",cell.parameterCentre[1]);
+  field.setParameter("epsc",cell.parameterCentre[2]);
+  return field;
+}
+
+struct C2FlowMapData{
+  IVector endpoint;
+  IMatrix first;
+  IHessian second;
+};
+
+C2FlowMapData advanceC2(
+    IC2OdeSolver&solver,const AffineInitialData&data,const interval&duration){
+  C2Rect2Set set(data.centre,data.coordinates,data.radii,data.remainder);
+  IC2TimeMap timeMap(solver);
+  const IVector endpoint=timeMap(duration,set);
+  return {endpoint,(IMatrix)set,(IHessian)set};
+}
+
+struct C2EventMapData{
+  IVector endpoint;
+  IMatrix first;
+  IHessian second;
+  interval returnTime;
+  IVector timeFirst;
+  IMatrix timeSecond;
+};
+
+C2EventMapData advanceC2ToQSection(
+    IC2OdeSolver&solver,const AffineInitialData&data){
+  C2Rect2Set set(data.centre,data.coordinates,data.radii,data.remainder);
+  ICoordinateSection section(9,3);
+  IC2PoincareMap poincareMap(solver,section,poincare::MinusPlus);
+  IMatrix flowFirst(9,9);IHessian flowSecond(9,9);
+  interval returnTime;
+  const IVector endpoint=poincareMap(
+    set,flowFirst,flowSecond,returnTime);
+  IMatrix eventFirst(9,9);IHessian eventSecond(9,9);
+  IVector timeFirst(9);IMatrix timeSecond(9,9);
+  poincareMap.computeDP(
+    endpoint,flowFirst,flowSecond,eventFirst,eventSecond,
+    timeFirst,timeSecond,returnTime);
+  return {endpoint,eventFirst,eventSecond,returnTime,timeFirst,timeSecond};
+}
+
+IMatrix zeroMatrix(int rows,int columns){
+  IMatrix result(rows,columns);
+  for(int row=0;row<rows;++row)
+    for(int column=0;column<columns;++column)
+      result[row][column]=interval(0.);
+  return result;
+}
+
+IHessian zeroHessian(int image,int domain){
+  IHessian result(image,domain);
+  result.clear();
+  return result;
+}
+
+void addComposedC2Component(
+    int targetRow,int mapOutput,const interval&multiplier,
+    const IMatrix&mapFirst,const IHessian&mapSecond,
+    const IMatrix&inputFirst,const IHessian&inputSecond,
+    IMatrix&resultFirst,IHessian&resultSecond){
+  const int ambient=mapFirst.numberOfColumns();
+  const int domain=inputFirst.numberOfColumns();
+  if(mapOutput<0||mapOutput>=mapFirst.numberOfRows()
+      ||inputFirst.numberOfRows()!=ambient
+      ||inputSecond.imageDimension()!=ambient
+      ||inputSecond.dimension()!=domain)
+    throw std::invalid_argument("incompatible C2 composition dimensions");
+  for(int first=0;first<domain;++first){
+    interval value(0.);
+    for(int ambientFirst=0;ambientFirst<ambient;++ambientFirst)
+      value+=mapFirst[mapOutput][ambientFirst]
+        *inputFirst[ambientFirst][first];
+    resultFirst[targetRow][first]+=multiplier*value;
+    for(int second=first;second<domain;++second){
+      interval secondValue(0.);
+      for(int ambientFirst=0;ambientFirst<ambient;++ambientFirst){
+        secondValue+=mapFirst[mapOutput][ambientFirst]
+          *inputSecond(ambientFirst,first,second);
+        for(int ambientSecond=0;ambientSecond<ambient;++ambientSecond)
+          secondValue+=actualSecondDerivative(
+            mapSecond,mapOutput,ambientFirst,ambientSecond)
+            *inputFirst[ambientFirst][first]
+            *inputFirst[ambientSecond][second];
+      }
+      resultSecond(targetRow,first,second)+=multiplier*secondValue;
+    }
+  }
+}
+
+void composeC2Time(
+    const IVector&mapFirst,const IMatrix&mapSecond,
+    const IMatrix&inputFirst,const IHessian&inputSecond,
+    IVector&resultFirst,IHessian&resultSecond){
+  const int ambient=mapFirst.dimension();
+  const int domain=inputFirst.numberOfColumns();
+  if(inputFirst.numberOfRows()!=ambient
+      ||inputSecond.imageDimension()!=ambient
+      ||inputSecond.dimension()!=domain
+      ||mapSecond.numberOfRows()!=ambient
+      ||mapSecond.numberOfColumns()!=ambient)
+    throw std::invalid_argument("incompatible return-time C2 dimensions");
+  for(int first=0;first<domain;++first){
+    interval value(0.);
+    for(int ambientFirst=0;ambientFirst<ambient;++ambientFirst)
+      value+=mapFirst[ambientFirst]*inputFirst[ambientFirst][first];
+    resultFirst[first]=value;
+    for(int second=first;second<domain;++second){
+      interval secondValue(0.);
+      for(int ambientFirst=0;ambientFirst<ambient;++ambientFirst){
+        secondValue+=mapFirst[ambientFirst]
+          *inputSecond(ambientFirst,first,second);
+        for(int ambientSecond=0;ambientSecond<ambient;++ambientSecond)
+          secondValue+=actualSecondDerivative(
+            mapSecond,ambientFirst,ambientSecond)
+            *inputFirst[ambientFirst][first]
+            *inputFirst[ambientSecond][second];
+      }
+      resultSecond(0,first,second)=secondValue;
+    }
+  }
+}
+
+struct MuTrueRootResidualJets{
+  bool eventTransverse;
+  IMatrix first;
+  IHessian second;
+  interval phase,halfTime,returnTime;
+  IVector timeFirst;
+  IHessian timeSecond;
+  IVector eventEndpoint;
+};
+
+interval physicalRootPhase(const MuAffineCellResult&cell){
+  interval phase=cell.phi0+cell.K[0];
+  for(int parameter=0;parameter<kThetaDimension;++parameter)
+    phase+=cell.phaseSlopes[parameter]
+      *(cell.parameterCell[parameter]-cell.parameterCentre[parameter]);
+  return phase;
+}
+
+MuTrueRootResidualJets buildMuTrueRootResidualJets(
+    const MuAffineCellResult&cell){
+  IMap field=normalizedThetaAugmentedField(cell);
+  IC2OdeSolver solver(field,30);
+  solver.setAbsoluteTolerance(1e-14);solver.setRelativeTolerance(1e-14);
+
+  IMatrix residualFirst=zeroMatrix(
+    kTrueRootDimension,kRootJetDomainDimension);
+  IHessian residualSecond=zeroHessian(
+    kTrueRootDimension,kRootJetDomainDimension);
+
+  // The frozen rational P2bK gates are conservative upper bounds for the
+  // physical-output labelled Hilbert--Schmidt source derivatives.  Hence
+  // they bound every component and every labelled parameter entry.
+  const interval sourceThetaBound=interval(3.)/interval(1250.); // S_01
+  const interval sourcePhiPhiBound=interval(1.)/interval(20.);  // S_20
+  const interval sourcePhiThetaBound=interval(3.)/interval(1000.); // S_11
+  const interval sourceThetaThetaBound=interval(9.)/interval(5000.); // S_02
+  const interval sourceTheta=symmetricInterval(sourceThetaBound);
+  const interval sourcePhiPhi=symmetricInterval(sourcePhiPhiBound);
+  const interval sourcePhiTheta=symmetricInterval(sourcePhiThetaBound);
+  const interval sourceThetaTheta=symmetricInterval(sourceThetaThetaBound);
+
+  IMatrix inputFirst=zeroMatrix(9,kRootJetDomainDimension);
+  IHessian inputSecond=zeroHessian(9,kRootJetDomainDimension);
+  const interval phase=physicalRootPhase(cell);
+  const SourceData sourceDerivative=sourceData(
+    parameters(cell.parameterCell[0],cell.parameterCell[1],
+               cell.parameterCell[2]),phase,cell.K[1]);
+  const interval graphPrime(-kGraphC1*kRadius,kGraphC1*kRadius);
+  const IVector tightPhaseDerivative=
+    sourceDerivative.phaseDerivative+sourceDerivative.errorDerivative*graphPrime;
+  for(int physical=0;physical<4;++physical){
+    inputFirst[physical][0]=tightPhaseDerivative[physical];
+    inputSecond(physical,0,0)=sourcePhiPhi;
+    for(int parameter=0;parameter<kThetaDimension;++parameter){
+      const int thetaColumn=kTrueRootDimension+parameter;
+      inputFirst[physical][thetaColumn]=sourceTheta;
+      inputSecond(physical,0,thetaColumn)=sourcePhiTheta;
+      for(int secondParameter=parameter;
+          secondParameter<kThetaDimension;++secondParameter)
+        inputSecond(physical,thetaColumn,
+          kTrueRootDimension+secondParameter)=sourceThetaTheta;
+    }
+  }
+  for(int parameter=0;parameter<kThetaDimension;++parameter)
+    inputFirst[4+parameter][kTrueRootDimension+parameter]=interval(1.);
+
+  const C2FlowMapData firstSegment=advanceC2(
+    solver,normalizedThetaData(muRootSourceData(cell)),
+    interval(kNodeTimes[0]));
+  for(int physical=0;physical<4;++physical){
+    addComposedC2Component(
+      physical,physical,interval(-1.),firstSegment.first,
+      firstSegment.second,inputFirst,inputSecond,
+      residualFirst,residualSecond);
+    residualFirst[physical][1+physical]+=interval(1.);
+  }
+
+  for(int node=1;node<kSegments;++node){
+    inputFirst=zeroMatrix(9,kRootJetDomainDimension);
+    inputSecond=zeroHessian(9,kRootJetDomainDimension);
+    const int previousNodeColumn=1+4*(node-1);
+    for(int physical=0;physical<4;++physical)
+      inputFirst[physical][previousNodeColumn+physical]=interval(1.);
+    for(int parameter=0;parameter<kThetaDimension;++parameter)
+      inputFirst[4+parameter][kTrueRootDimension+parameter]=interval(1.);
+    const C2FlowMapData segment=advanceC2(
+      solver,normalizedThetaData(muRootNodeData(cell,node-1)),
+      interval(kNodeTimes[node]-kNodeTimes[node-1]));
+    const int row=4*node;
+    const int nodeColumn=1+4*node;
+    for(int physical=0;physical<4;++physical){
+      addComposedC2Component(
+        row+physical,physical,interval(-1.),segment.first,segment.second,
+        inputFirst,inputSecond,residualFirst,residualSecond);
+      residualFirst[row+physical][nodeColumn+physical]+=interval(1.);
+    }
+  }
+
+  inputFirst=zeroMatrix(9,kRootJetDomainDimension);
+  inputSecond=zeroHessian(9,kRootJetDomainDimension);
+  const int finalNodeColumn=1+4*(kSegments-1);
+  for(int physical=0;physical<4;++physical)
+    inputFirst[physical][finalNodeColumn+physical]=interval(1.);
+  for(int parameter=0;parameter<kThetaDimension;++parameter)
+    inputFirst[4+parameter][kTrueRootDimension+parameter]=interval(1.);
+  const C2EventMapData event=advanceC2ToQSection(
+    solver,normalizedThetaData(muRootNodeData(cell,kSegments-1)));
+  addComposedC2Component(
+    kTrueRootDimension-1,1,interval(1.),event.first,event.second,
+    inputFirst,inputSecond,residualFirst,residualSecond);
+  IVector timeFirst(kRootJetDomainDimension);
+  for(int column=0;column<kRootJetDomainDimension;++column)
+    timeFirst[column]=interval(0.);
+  IHessian timeSecond=zeroHessian(1,kRootJetDomainDimension);
+  composeC2Time(
+    event.timeFirst,event.timeSecond,inputFirst,inputSecond,
+    timeFirst,timeSecond);
+  // On Q=0 the event denominator is Q'=U.  Positivity of the endpoint U,
+  // together with this short return-time window, binds the same transverse
+  // local event used by the first-hit proof.
+  const bool eventTransverse=event.endpoint[0].leftBound()>1.
+    &&event.returnTime.leftBound()>0.
+    &&event.returnTime.rightBound()<.2;
+  return {eventTransverse,residualFirst,residualSecond,phase,
+          interval(kNodeTimes.back())+event.returnTime,event.returnTime,
+          timeFirst,timeSecond,event.endpoint};
+}
+
+double matrixInfinityNormUpper(const IMatrix&matrix){
+  double maximum=0.;
+  for(int row=0;row<matrix.numberOfRows();++row){
+    interval sum(0.);
+    for(int column=0;column<matrix.numberOfColumns();++column)
+      sum+=interval(0.,absUpper(matrix[row][column]));
+    maximum=std::max(maximum,sum.rightBound());
+  }
+  return maximum;
+}
+
+struct WeightedRemainderGate{
+  double contraction,unweightedContraction;
+  std::vector<double> weights;
+};
+
+double weightedMatrixInfinityNormUpper(
+    const IMatrix&matrix,const std::vector<double>&weights){
+  if(static_cast<int>(weights.size())!=matrix.numberOfRows()
+      ||matrix.numberOfRows()!=matrix.numberOfColumns())
+    throw std::invalid_argument("weighted matrix norm dimension mismatch");
+  double maximum=0.;
+  for(int row=0;row<matrix.numberOfRows();++row){
+    if(!(weights[row]>0.)||!std::isfinite(weights[row]))
+      throw std::invalid_argument("weighted matrix norm needs positive weights");
+    interval sum(0.);
+    for(int column=0;column<matrix.numberOfColumns();++column)
+      sum+=interval(0.,absUpper(matrix[row][column]))
+        *interval(weights[column]);
+    maximum=std::max(maximum,
+      (sum/interval(weights[row])).rightBound());
+  }
+  return maximum;
+}
+
+WeightedRemainderGate buildWeightedRemainderGate(
+    const IMatrix&remainder){
+  const int dimension=remainder.numberOfRows();
+  if(dimension!=remainder.numberOfColumns())
+    throw std::invalid_argument("remainder matrix must be square");
+  std::vector<double> weights(dimension,1.),bestWeights=weights;
+  double best=weightedMatrixInfinityNormUpper(remainder,weights);
+  // A positive power iterate is only a numerical choice of diagonal scale.
+  // The returned Collatz row bound is recomputed with interval arithmetic,
+  // so no spectral information from this iteration is trusted as proof.
+  for(int iteration=0;iteration<512;++iteration){
+    std::vector<double> next(dimension,0.);
+    double maximum=0.;
+    for(int row=0;row<dimension;++row){
+      long double sum=0.;
+      for(int column=0;column<dimension;++column)
+        sum+=static_cast<long double>(absUpper(remainder[row][column]))
+          *static_cast<long double>(weights[column]);
+      next[row]=static_cast<double>(sum);
+      maximum=std::max(maximum,next[row]);
+    }
+    if(!(maximum>0.)||!std::isfinite(maximum))break;
+    for(double&value:next)
+      value=std::max(1e-12,value/maximum);
+    const double candidate=weightedMatrixInfinityNormUpper(remainder,next);
+    if(candidate<best){best=candidate;bestWeights=next;}
+    weights=std::move(next);
+  }
+  return {best,matrixInfinityNormUpper(remainder),bestWeights};
+}
+
+struct NeumannSolveResult{
+  bool success;
+  IVector enclosure;
+  double maxInclusionRatio;
+};
+
+NeumannSolveResult solveWithNeumannGate(
+    const IMatrix&preconditioner,const IMatrix&remainder,
+    const WeightedRemainderGate&gate,const IVector&rightHandSide){
+  const int dimension=rightHandSide.dimension();
+  if(static_cast<int>(gate.weights.size())!=dimension)
+    throw std::invalid_argument("Neumann weights have wrong dimension");
+  const IVector affine=preconditioner*rightHandSide;
+  const IVector centre=pointMid(affine);
+  const IVector defect=affine-centre+remainder*centre;
+  if(!(gate.contraction<1.))
+    return {false,affine,std::numeric_limits<double>::infinity()};
+  // The proof of uniqueness uses the weighted contraction above.  For a
+  // useful enclosure, solve the associated nonnegative radius inequality
+  // componentwise instead of imposing one Perron-scaled radius on variables
+  // with very different physical units.  This iteration is only a box
+  // predictor; the interval inclusion below is the acceptance test.
+  std::vector<double> defectRadius(dimension),radius(dimension);
+  for(int row=0;row<dimension;++row)
+    radius[row]=defectRadius[row]=absUpper(defect[row]);
+  for(int iteration=0;iteration<1024;++iteration){
+    std::vector<double> next(dimension);
+    double relativeChange=0.;
+    for(int row=0;row<dimension;++row){
+      long double sum=defectRadius[row];
+      for(int column=0;column<dimension;++column)
+        sum+=static_cast<long double>(absUpper(remainder[row][column]))
+          *static_cast<long double>(radius[column]);
+      next[row]=static_cast<double>(sum);
+      relativeChange=std::max(relativeChange,
+        std::abs(next[row]-radius[row])/(1e-300+std::abs(next[row])));
+    }
+    radius=std::move(next);
+    if(relativeChange<1e-13)break;
+  }
+  for(double&value:radius)
+    value=std::nextafter(std::max(1e-15,1.01*value),
+      std::numeric_limits<double>::infinity());
+  IVector enclosure(dimension),image(dimension);
+  double maxRatio=std::numeric_limits<double>::infinity();
+  bool success=false;
+  for(int attempt=0;attempt<64&&!success;++attempt){
+    for(int i=0;i<dimension;++i){
+      enclosure[i]=centre[i]+interval(-radius[i],radius[i]);
+    }
+    image=affine+remainder*enclosure;
+    success=true;maxRatio=0.;
+    for(int i=0;i<dimension;++i){
+      const bool componentSuccess=interior(image[i],enclosure[i]);
+      success=success&&componentSuccess;
+      const double componentRadius=absUpper(enclosure[i]-centre[i]);
+      maxRatio=std::max(maxRatio,
+        absUpper(image[i]-centre[i])/componentRadius);
+      if(!componentSuccess)
+        radius[i]=std::nextafter(std::max(
+          1.01*radius[i],1.01*absUpper(image[i]-centre[i])),
+          std::numeric_limits<double>::infinity());
+    }
+  }
+  return {success,enclosure,maxRatio};
+}
+
+IVector hessianBilinear(
+    const IHessian&hessian,const IVector&first,const IVector&second){
+  const int image=hessian.imageDimension();
+  const int domain=hessian.dimension();
+  if(first.dimension()!=domain||second.dimension()!=domain)
+    throw std::invalid_argument("Hessian bilinear direction mismatch");
+  IVector result(image);
+  for(int output=0;output<image;++output){
+    result[output]=interval(0.);
+    for(int i=0;i<domain;++i)
+      for(int j=0;j<domain;++j)
+        result[output]+=hessian(output,i,j)*first[i]*second[j];
+  }
+  return result;
+}
+
+interval dotProduct(const IVector&left,const IVector&right){
+  if(left.dimension()!=right.dimension())
+    throw std::invalid_argument("dot-product dimension mismatch");
+  interval result(0.);
+  for(int i=0;i<left.dimension();++i)result+=left[i]*right[i];
+  return result;
+}
+
+struct MuTrueRootJetResult{
+  bool success;
+  double inverseContraction,unweightedInverseContraction,maxSolveInclusion;
+  interval phase,halfTime,returnTime;
+  std::array<IVector,kThetaDimension> first;
+  std::array<IVector,6> second;
+  std::array<interval,kThetaDimension> phaseFirst,timeFirst;
+  std::array<interval,6> phaseSecond,timeSecond;
+  IVector eventEndpoint;
+};
+
+int symmetricPairIndex(int first,int second){
+  if(first>second)std::swap(first,second);
+  int index=0;
+  for(int i=0;i<kThetaDimension;++i)
+    for(int j=i;j<kThetaDimension;++j,++index)
+      if(i==first&&j==second)return index;
+  throw std::out_of_range("symmetric pair index");
+}
+
+MuTrueRootJetResult validateMuTrueRootJets(const MuAffineCellResult&cell){
+  const MuTrueRootResidualJets residual=buildMuTrueRootResidualJets(cell);
+  IMatrix A(kTrueRootDimension,kTrueRootDimension);
+  for(int row=0;row<kTrueRootDimension;++row)
+    for(int column=0;column<kTrueRootDimension;++column)
+      A[row][column]=residual.first[row][column];
+  const IMatrix preconditioner=midpointInverse(A);
+  const IMatrix remainder=IMatrix::Identity(kTrueRootDimension)
+    -preconditioner*A;
+  const WeightedRemainderGate gate=buildWeightedRemainderGate(remainder);
+  bool success=cell.success&&residual.eventTransverse&&gate.contraction<1.;
+  double maxSolveInclusion=0.;
+  std::array<IVector,kThetaDimension> first={
+    IVector(kTrueRootDimension),IVector(kTrueRootDimension),
+    IVector(kTrueRootDimension)};
+  for(int parameter=0;parameter<kThetaDimension;++parameter){
+    IVector rightHandSide(kTrueRootDimension);
+    for(int row=0;row<kTrueRootDimension;++row)
+      rightHandSide[row]=-residual.first[row][kTrueRootDimension+parameter];
+    const NeumannSolveResult solve=solveWithNeumannGate(
+      preconditioner,remainder,gate,rightHandSide);
+    first[parameter]=solve.enclosure;
+    success=success&&solve.success;
+    maxSolveInclusion=std::max(maxSolveInclusion,solve.maxInclusionRatio);
+  }
+
+  std::array<IVector,kThetaDimension> totalFirst={
+    IVector(kRootJetDomainDimension),IVector(kRootJetDomainDimension),
+    IVector(kRootJetDomainDimension)};
+  for(int parameter=0;parameter<kThetaDimension;++parameter){
+    for(int i=0;i<kTrueRootDimension;++i)
+      totalFirst[parameter][i]=first[parameter][i];
+    for(int external=0;external<kThetaDimension;++external)
+      totalFirst[parameter][kTrueRootDimension+external]
+        =interval(parameter==external?1.:0.);
+  }
+
+  std::array<IVector,6> second={
+    IVector(kTrueRootDimension),IVector(kTrueRootDimension),
+    IVector(kTrueRootDimension),IVector(kTrueRootDimension),
+    IVector(kTrueRootDimension),IVector(kTrueRootDimension)};
+  std::array<interval,6> phaseSecond,timeSecond;
+  std::array<interval,kThetaDimension> phaseFirst,timeFirst;
+  for(int parameter=0;parameter<kThetaDimension;++parameter){
+    phaseFirst[parameter]=first[parameter][0];
+    timeFirst[parameter]=dotProduct(
+      residual.timeFirst,totalFirst[parameter]);
+  }
+  for(int firstParameter=0;firstParameter<kThetaDimension;++firstParameter)
+    for(int secondParameter=firstParameter;
+        secondParameter<kThetaDimension;++secondParameter){
+      const int pair=symmetricPairIndex(firstParameter,secondParameter);
+      const IVector curvature=hessianBilinear(
+        residual.second,totalFirst[firstParameter],totalFirst[secondParameter]);
+      const NeumannSolveResult solve=solveWithNeumannGate(
+        preconditioner,remainder,gate,-curvature);
+      second[pair]=solve.enclosure;
+      success=success&&solve.success;
+      maxSolveInclusion=std::max(maxSolveInclusion,solve.maxInclusionRatio);
+      phaseSecond[pair]=second[pair][0];
+      IVector totalSecond(kRootJetDomainDimension);
+      for(int i=0;i<kTrueRootDimension;++i)
+        totalSecond[i]=second[pair][i];
+      for(int parameter=0;parameter<kThetaDimension;++parameter)
+        totalSecond[kTrueRootDimension+parameter]=interval(0.);
+      timeSecond[pair]=hessianBilinear(
+        residual.timeSecond,totalFirst[firstParameter],
+        totalFirst[secondParameter])[0]
+        +dotProduct(residual.timeFirst,totalSecond);
+    }
+  return {success,gate.contraction,gate.unweightedContraction,
+          maxSolveInclusion,residual.phase,
+          residual.halfTime,residual.returnTime,first,second,
+          phaseFirst,timeFirst,phaseSecond,timeSecond,residual.eventEndpoint};
+}
+
+void reportMuTrueRootJets(
+    int rIndex,int a2Index,int epsilonIndex,
+    const MuAffineCellResult&cell,const MuTrueRootJetResult&result){
+  static const std::array<const char*,kThetaDimension> thetaNames={
+    "theta_r","theta_a","theta_epsilon"};
+  std::cout<<std::setprecision(17)
+    <<"mode mu-grid-root-jets\n"
+    <<"scope selected_true_source_root_C2\n"
+    <<"indices "<<rIndex<<" "<<a2Index<<" "<<epsilonIndex<<"\n"
+    <<"parameter_cell "<<cell.parameterCell[0]<<" "
+       <<cell.parameterCell[1]<<" "<<cell.parameterCell[2]<<"\n"
+    <<"root_dimension "<<kTrueRootDimension
+       <<" combined_dimension "<<kRootJetDomainDimension<<"\n"
+    <<"phase_hull "<<result.phase<<" half_time_hull "<<result.halfTime
+       <<" return_time_hull "<<result.returnTime<<"\n"
+    <<"event_endpoint "<<result.eventEndpoint<<"\n"
+    <<"weighted_inverse_contraction "<<result.inverseContraction
+       <<" unweighted_inverse_contraction "
+       <<result.unweightedInverseContraction
+       <<" max_solve_inclusion "<<result.maxSolveInclusion<<"\n";
+  for(int parameter=0;parameter<kThetaDimension;++parameter)
+    std::cout<<"normalized_first "<<thetaNames[parameter]
+      <<" phase "<<result.phaseFirst[parameter]
+      <<" half_time "<<result.timeFirst[parameter]
+      <<" original_phase "
+      <<result.phaseFirst[parameter]*interval(kThetaScales[parameter])
+      <<" original_half_time "
+      <<result.timeFirst[parameter]*interval(kThetaScales[parameter])<<"\n";
+  int pair=0;
+  for(int first=0;first<kThetaDimension;++first)
+    for(int second=first;second<kThetaDimension;++second,++pair)
+      std::cout<<"normalized_second "<<thetaNames[first]<<" "
+        <<thetaNames[second]<<" phase "<<result.phaseSecond[pair]
+        <<" half_time "<<result.timeSecond[pair]
+        <<" original_phase "<<result.phaseSecond[pair]
+          *interval(kThetaScales[first]*kThetaScales[second])
+        <<" original_half_time "<<result.timeSecond[pair]
+          *interval(kThetaScales[first]*kThetaScales[second])<<"\n";
+  std::cout<<(result.success?"PASS":"INCONCLUSIVE")
+    <<" mu-grid true-source root C2 jets\n";
+}
+
+int runMuGridRootJets(
+    double radiusFactor,int rIndex,int a2Index,int epsilonIndex){
+  const MuAffineCellResult cell=buildMuGridCell(
+    radiusFactor,rIndex,a2Index,epsilonIndex);
+  const MuTrueRootJetResult result=validateMuTrueRootJets(cell);
+  reportMuTrueRootJets(rIndex,a2Index,epsilonIndex,cell,result);
+  return result.success?0:20;
+}
+
+struct MuRootJetSlabStats{
+  bool success=true,initialized=false;
+  int count=0,passCount=0;
+  double maxWeightedContraction=0.,maxUnweightedContraction=0.;
+  double maxSolveInclusion=0.;
+  int worstWeightedA2=-1,worstWeightedEpsilon=-1;
+  int worstSolveA2=-1,worstSolveEpsilon=-1;
+  interval phaseHull,halfTimeHull,returnTimeHull;
+  double minimumEventU=std::numeric_limits<double>::infinity();
+  double maximumEventQ=0.;
+  std::array<double,kThetaDimension> rootFirstAbs={0.,0.,0.};
+  std::array<double,6> rootSecondAbs={0.,0.,0.,0.,0.,0.};
+  std::array<double,kThetaDimension> phaseFirstAbs={0.,0.,0.};
+  std::array<double,kThetaDimension> timeFirstAbs={0.,0.,0.};
+  std::array<double,6> phaseSecondAbs={0.,0.,0.,0.,0.,0.};
+  std::array<double,6> timeSecondAbs={0.,0.,0.,0.,0.,0.};
+};
+
+void updateMuRootJetSlabStats(
+    MuRootJetSlabStats&stats,const MuTrueRootJetResult&result,
+    int a2Index,int epsilonIndex){
+  ++stats.count;
+  if(result.success)++stats.passCount;
+  stats.success=stats.success&&result.success;
+  if(result.inverseContraction>stats.maxWeightedContraction){
+    stats.maxWeightedContraction=result.inverseContraction;
+    stats.worstWeightedA2=a2Index;
+    stats.worstWeightedEpsilon=epsilonIndex;
+  }
+  stats.maxUnweightedContraction=std::max(
+    stats.maxUnweightedContraction,result.unweightedInverseContraction);
+  if(result.maxSolveInclusion>stats.maxSolveInclusion){
+    stats.maxSolveInclusion=result.maxSolveInclusion;
+    stats.worstSolveA2=a2Index;
+    stats.worstSolveEpsilon=epsilonIndex;
+  }
+  if(!stats.initialized){
+    stats.phaseHull=result.phase;
+    stats.halfTimeHull=result.halfTime;
+    stats.returnTimeHull=result.returnTime;
+    stats.initialized=true;
+  }else{
+    stats.phaseHull=intervalHull(stats.phaseHull,result.phase);
+    stats.halfTimeHull=intervalHull(stats.halfTimeHull,result.halfTime);
+    stats.returnTimeHull=intervalHull(stats.returnTimeHull,result.returnTime);
+  }
+  stats.minimumEventU=std::min(
+    stats.minimumEventU,result.eventEndpoint[0].leftBound());
+  stats.maximumEventQ=std::max(
+    stats.maximumEventQ,absUpper(result.eventEndpoint[3]));
+  for(int parameter=0;parameter<kThetaDimension;++parameter){
+    for(int coordinate=0;coordinate<kTrueRootDimension;++coordinate)
+      stats.rootFirstAbs[parameter]=std::max(
+        stats.rootFirstAbs[parameter],absUpper(result.first[parameter][coordinate]));
+    stats.phaseFirstAbs[parameter]=std::max(
+      stats.phaseFirstAbs[parameter],absUpper(result.phaseFirst[parameter]));
+    stats.timeFirstAbs[parameter]=std::max(
+      stats.timeFirstAbs[parameter],absUpper(result.timeFirst[parameter]));
+  }
+  for(int pair=0;pair<6;++pair){
+    for(int coordinate=0;coordinate<kTrueRootDimension;++coordinate)
+      stats.rootSecondAbs[pair]=std::max(
+        stats.rootSecondAbs[pair],absUpper(result.second[pair][coordinate]));
+    stats.phaseSecondAbs[pair]=std::max(
+      stats.phaseSecondAbs[pair],absUpper(result.phaseSecond[pair]));
+    stats.timeSecondAbs[pair]=std::max(
+      stats.timeSecondAbs[pair],absUpper(result.timeSecond[pair]));
+  }
+}
+
+double outwardScaledUpper(double bound,double scale){
+  return (interval(bound)*interval(scale)).rightBound();
+}
+
+int runMuGridRootJetSlab(double radiusFactor,int rIndex){
+  if(rIndex<0||rIndex>=kMuGridRCells)
+    throw std::out_of_range("mu-grid root-jet r index");
+  MuRootJetSlabStats stats;
+  for(int a2Index=0;a2Index<kMuGridA2Cells;++a2Index)
+    for(int epsilonIndex=0;epsilonIndex<kMuGridEpsilonCells;
+        ++epsilonIndex){
+      const MuAffineCellResult cell=buildMuGridCell(
+        radiusFactor,rIndex,a2Index,epsilonIndex);
+      updateMuRootJetSlabStats(
+        stats,validateMuTrueRootJets(cell),a2Index,epsilonIndex);
+    }
+  static const std::array<const char*,kThetaDimension> thetaNames={
+    "theta_r","theta_a","theta_epsilon"};
+  std::cout<<std::setprecision(17)
+    <<"mode mu-grid-root-jets-slab\n"
+    <<"scope selected_true_source_root_C2\n"
+    <<"grid "<<kMuGridRCells<<" "<<kMuGridA2Cells<<" "
+       <<kMuGridEpsilonCells<<" radius_factor "<<radiusFactor<<"\n"
+    <<"r_index "<<rIndex<<" r_cell "<<muGridCellBox(rIndex,0,0)[0]<<"\n"
+    <<"cells "<<stats.passCount<<"/"<<stats.count<<"\n"
+    <<"phase_hull "<<stats.phaseHull
+       <<" half_time_hull "<<stats.halfTimeHull
+       <<" return_time_hull "<<stats.returnTimeHull<<"\n"
+    <<"event_minimum_U "<<stats.minimumEventU
+       <<" event_maximum_abs_Q "<<stats.maximumEventQ<<"\n"
+    <<"maximum_weighted_inverse_contraction "
+       <<stats.maxWeightedContraction
+       <<" worst_a2_index "<<stats.worstWeightedA2
+       <<" worst_epsilon_index "<<stats.worstWeightedEpsilon<<"\n"
+    <<"maximum_unweighted_inverse_contraction "
+       <<stats.maxUnweightedContraction<<"\n"
+    <<"maximum_solve_inclusion "<<stats.maxSolveInclusion
+       <<" worst_a2_index "<<stats.worstSolveA2
+       <<" worst_epsilon_index "<<stats.worstSolveEpsilon<<"\n";
+  for(int parameter=0;parameter<kThetaDimension;++parameter)
+    std::cout<<"normalized_first_abs "<<thetaNames[parameter]
+      <<" root "<<stats.rootFirstAbs[parameter]
+      <<" phase "<<stats.phaseFirstAbs[parameter]
+      <<" half_time "<<stats.timeFirstAbs[parameter]
+      <<" original_root "
+      <<outwardScaledUpper(
+        stats.rootFirstAbs[parameter],kThetaScales[parameter])
+      <<" original_phase "
+      <<outwardScaledUpper(
+        stats.phaseFirstAbs[parameter],kThetaScales[parameter])
+      <<" original_half_time "
+      <<outwardScaledUpper(
+        stats.timeFirstAbs[parameter],kThetaScales[parameter])<<"\n";
+  int pair=0;
+  for(int first=0;first<kThetaDimension;++first)
+    for(int second=first;second<kThetaDimension;++second,++pair){
+      const double scale=kThetaScales[first]*kThetaScales[second];
+      std::cout<<"normalized_second_abs "<<thetaNames[first]<<" "
+        <<thetaNames[second]<<" root "<<stats.rootSecondAbs[pair]
+        <<" phase "<<stats.phaseSecondAbs[pair]
+        <<" half_time "<<stats.timeSecondAbs[pair]
+        <<" original_root "
+        <<outwardScaledUpper(stats.rootSecondAbs[pair],scale)
+        <<" original_phase "
+        <<outwardScaledUpper(stats.phaseSecondAbs[pair],scale)
+        <<" original_half_time "
+        <<outwardScaledUpper(stats.timeSecondAbs[pair],scale)<<"\n";
+    }
+  std::cout<<(stats.success?"PASS":"INCONCLUSIVE")
+    <<" mu-grid true-source root C2 jet slab\n";
+  return stats.success?0:20;
+}
+
 struct MuGridCellStats{
   bool success=true;
   int count=0,passCount=0;
@@ -2172,6 +2930,21 @@ int runMuRFaces(double radiusFactor){
 int main(int argc,char**argv){
  std::string stage="argument parsing";
  try{
+ if(argc==4 && std::string(argv[1])=="mu-grid-root-jets-slab"){
+   const double factor=std::stod(argv[2]);
+   if(!std::isfinite(factor)||factor<=1.)
+     throw std::invalid_argument("radius_factor must be finite and greater than one");
+   stage="mu-grid true-source root C2 slab experiment";
+   return runMuGridRootJetSlab(factor,std::stoi(argv[3]));
+ }
+ if(argc==6 && std::string(argv[1])=="mu-grid-root-jets"){
+   const double factor=std::stod(argv[2]);
+   if(!std::isfinite(factor)||factor<=1.)
+     throw std::invalid_argument("radius_factor must be finite and greater than one");
+   stage="mu-grid true-source root C2 experiment";
+   return runMuGridRootJets(
+     factor,std::stoi(argv[3]),std::stoi(argv[4]),std::stoi(argv[5]));
+ }
  if(argc==6 && std::string(argv[1])=="mu-grid-first-hit"){
    const double factor=std::stod(argv[2]);
    if(!std::isfinite(factor)||factor<=1.)
@@ -2253,6 +3026,8 @@ int main(int argc,char**argv){
      "[a2-faces radius_factor phi0_0 phi0_1 phi0_2 phi0_3] or "
      "[mu-r-faces radius_factor] or "
      "[mu-grid-anchor radius_factor] or "
+     "[mu-grid-root-jets radius_factor r_index a2_index epsilon_index] or "
+     "[mu-grid-root-jets-slab radius_factor r_index] or "
      "[mu-grid-first-hit radius_factor r_index a2_index epsilon_index] or "
      "[mu-grid-first-hit-slab radius_factor r_index] or "
      "[mu-grid-face radius_factor axis r_index a2_index epsilon_index] or "
