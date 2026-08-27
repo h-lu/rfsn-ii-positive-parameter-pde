@@ -36,6 +36,7 @@ constexpr double kGraphC0=5e-6;
 constexpr double kGraphC1=3e-4;
 constexpr int kSegments=9;
 constexpr std::array<double,kSegments> kNodeTimes={1.55,1.82,3.2,4.8,6.2,7.38,8.3,9.0,9.55};
+constexpr int kPreSourceOriginalCommonBound=342685;
 
 interval integerPower(interval x,int n){interval r(1.);for(int i=0;i<n;++i)r*=x;return r;}
 int fallingFactorial(int n,int k){int r=1;for(int i=0;i<k;++i)r*=n-i;return r;}
@@ -2291,6 +2292,579 @@ MuTrueRootJetResult validateMuTrueRootJets(const MuAffineCellResult&cell){
           phaseFirst,timeFirst,phaseSecond,timeSecond,residual.eventEndpoint};
 }
 
+// The compact-middle scout restarts a C2 Lohner set at every validated
+// shooting node.  Its first three formal derivative columns are the actual
+// normalized-parameter jets of the selected root; the other columns vanish.
+// CAPD stores the diagonal entries of IHessian as Taylor coefficients, so an
+// injected actual diagonal second derivative is divided by two.  This is the
+// same convention used by actualSecondDerivative above.
+struct MuThetaInitialJets{
+  IMatrix first;
+  IHessian second;
+};
+
+void setActualSecondDerivative(
+    IHessian&coefficients,int output,int first,int second,
+    const interval&value){
+  if(first>second)std::swap(first,second);
+  coefficients(output,first,second)=
+    value/interval(first==second?2.:1.);
+}
+
+MuThetaInitialJets emptyMuThetaInitialJets(){
+  return {zeroMatrix(9,9),zeroHessian(9,9)};
+}
+
+void addFrozenNormalizedParameters(MuThetaInitialJets&jets){
+  for(int parameter=0;parameter<kThetaDimension;++parameter)
+    jets.first[4+parameter][parameter]=interval(1.);
+}
+
+MuThetaInitialJets muSourceThetaInitialJets(
+    const MuAffineCellResult&cell,const MuTrueRootJetResult&root){
+  MuThetaInitialJets jets=emptyMuThetaInitialJets();
+  addFrozenNormalizedParameters(jets);
+
+  // These are the physical-output Hilbert--Schmidt P2bK gates, hence each
+  // labelled component below lies in the corresponding symmetric interval.
+  const interval sourceTheta=symmetricInterval(
+    interval(3.)/interval(1250.));       // S_01
+  const interval sourcePhiPhi=symmetricInterval(
+    interval(1.)/interval(20.));         // S_20
+  const interval sourcePhiTheta=symmetricInterval(
+    interval(3.)/interval(1000.));       // S_11
+  const interval sourceThetaTheta=symmetricInterval(
+    interval(9.)/interval(5000.));       // S_02
+  const SourceData sourceDerivative=sourceData(
+    parameters(cell.parameterCell[0],cell.parameterCell[1],
+               cell.parameterCell[2]),
+    root.phase,cell.K[1]);
+  const interval graphPrime(-kGraphC1*kRadius,kGraphC1*kRadius);
+  const IVector sourcePhi=
+    sourceDerivative.phaseDerivative+sourceDerivative.errorDerivative*graphPrime;
+
+  for(int physical=0;physical<4;++physical){
+    for(int parameter=0;parameter<kThetaDimension;++parameter)
+      jets.first[physical][parameter]=sourcePhi[physical]
+        *root.phaseFirst[parameter]+sourceTheta;
+    for(int first=0;first<kThetaDimension;++first)
+      for(int second=first;second<kThetaDimension;++second){
+        const int pair=symmetricPairIndex(first,second);
+        const interval actual=sourcePhiPhi
+            *root.phaseFirst[first]*root.phaseFirst[second]
+          +sourcePhiTheta*root.phaseFirst[first]
+          +sourcePhiTheta*root.phaseFirst[second]
+          +sourcePhi[physical]*root.phaseSecond[pair]
+          +sourceThetaTheta;
+        setActualSecondDerivative(
+          jets.second,physical,first,second,actual);
+      }
+  }
+  return jets;
+}
+
+MuThetaInitialJets muNodeThetaInitialJets(
+    const MuTrueRootJetResult&root,int node){
+  if(node<0||node>=kSegments)
+    throw std::out_of_range("mu middle node index");
+  MuThetaInitialJets jets=emptyMuThetaInitialJets();
+  addFrozenNormalizedParameters(jets);
+  for(int physical=0;physical<4;++physical){
+    const int rootCoordinate=1+4*node+physical;
+    for(int parameter=0;parameter<kThetaDimension;++parameter)
+      jets.first[physical][parameter]=
+        root.first[parameter][rootCoordinate];
+    for(int first=0;first<kThetaDimension;++first)
+      for(int second=first;second<kThetaDimension;++second){
+        const int pair=symmetricPairIndex(first,second);
+        setActualSecondDerivative(
+          jets.second,physical,first,second,
+          root.second[pair][rootCoordinate]);
+      }
+  }
+  return jets;
+}
+
+bool capdInjectedHessianConventionSelfCheck(){
+  IVector point(2);point[0]=interval(0.);point[1]=interval(0.);
+  C2Rect2Set::C0BaseSet c0(point);
+  IMatrix first=IMatrix::Identity(2);
+  C2Rect2Set::C1BaseSet c1(first);
+  IHessian second=zeroHessian(2,2);
+  setActualSecondDerivative(second,0,0,0,interval(2.));
+  setActualSecondDerivative(second,0,0,1,interval(3.));
+  C2Rect2Set set(c0,c1,second);
+  const IHessian stored=set;
+  return actualSecondDerivative(stored,0,0,0)==interval(2.)
+    &&actualSecondDerivative(stored,0,0,1)==interval(3.);
+}
+
+struct PhysicalFieldJetData{
+  IVector value;
+  IMatrix stateDerivative;
+  std::array<IVector,kThetaDimension> parameterDerivative;
+  IVector timeDerivative;
+};
+
+PhysicalFieldJetData physicalFieldJetData(
+    const MuAffineCellResult&cell,const IVector&augmentedState){
+  if(augmentedState.dimension()!=9)
+    throw std::invalid_argument("middle field state must have dimension nine");
+  FirstJet r(cell.parameterCell[0]),a2(cell.parameterCell[1]);
+  FirstJet epsilon(cell.parameterCell[2]);
+  r.derivative[0]=interval(1.)/interval(25.);
+  a2.derivative[1]=interval(1.)/interval(4.);
+  epsilon.derivative[2]=interval(1.)/interval(5.);
+  const FirstJet rootEpsilon=jetSqrt(epsilon);
+  const FirstJet r2=jetSquare(r),r3=r2*r,r4=jetSquare(r2);
+  const FirstJet a=FirstJet(interval(1.))+rootEpsilon*r3*a2;
+  const FirstJet b=rootEpsilon*r2/FirstJet(interval(3.));
+  const FirstJet c=FirstJet(interval(2.))*r*a2
+    +rootEpsilon*r4*jetSquare(a2);
+
+  const interval U=augmentedState[0],P=augmentedState[1];
+  const interval V=augmentedState[2],Q=augmentedState[3];
+  IVector value(4),timeDerivative(4);
+  value[0]=P;
+  value[1]=c.value*U-V-a.value*sqr(U)+b.value*power(U,3);
+  value[2]=Q;
+  value[3]=U;
+  IMatrix stateDerivative=zeroMatrix(4,4);
+  stateDerivative[0][1]=interval(1.);
+  stateDerivative[1][0]=c.value-interval(2.)*a.value*U
+    +interval(3.)*b.value*sqr(U);
+  stateDerivative[1][2]=interval(-1.);
+  stateDerivative[2][3]=interval(1.);
+  stateDerivative[3][0]=interval(1.);
+  std::array<IVector,kThetaDimension> parameterDerivative={
+    IVector(4),IVector(4),IVector(4)};
+  for(int parameter=0;parameter<kThetaDimension;++parameter){
+    for(int physical=0;physical<4;++physical)
+      parameterDerivative[parameter][physical]=interval(0.);
+    parameterDerivative[parameter][1]=
+      c.derivative[parameter]*U-a.derivative[parameter]*sqr(U)
+      +b.derivative[parameter]*power(U,3);
+  }
+  timeDerivative=stateDerivative*value;
+  return {value,stateDerivative,parameterDerivative,timeDerivative};
+}
+
+struct MuMiddleJetAccumulator{
+  bool initialized=false;
+  int denseSteps=0,initialSections=0;
+  double stateC0=0.,fixedL1=0.,fixedL2=0.,centeredL1=0.,centeredL2=0.;
+  std::array<interval,4> stateHull;
+  std::array<std::array<interval,kThetaDimension>,4> fixedFirstHull;
+  std::array<std::array<interval,6>,4> fixedSecondHull;
+  std::array<std::array<interval,kThetaDimension>,4> centeredFirstHull;
+  std::array<std::array<interval,6>,4> centeredSecondHull;
+};
+
+double physicalStateNormUpper(const IVector&state){
+  interval sum(0.);
+  for(int physical=0;physical<4;++physical)sum+=sqr(state[physical]);
+  return sqrt(sum).rightBound();
+}
+
+double physicalFirstHilbertSchmidtUpper(const IMatrix&first){
+  interval sum(0.);
+  for(int physical=0;physical<4;++physical)
+    for(int parameter=0;parameter<kThetaDimension;++parameter)
+      sum+=sqr(first[physical][parameter]);
+  return sqrt(sum).rightBound();
+}
+
+double physicalSecondHilbertSchmidtUpper(const IHessian&second){
+  interval sum(0.);
+  for(int physical=0;physical<4;++physical)
+    for(int first=0;first<kThetaDimension;++first)
+      for(int other=0;other<kThetaDimension;++other)
+        sum+=sqr(actualSecondDerivative(second,physical,first,other));
+  return sqrt(sum).rightBound();
+}
+
+void updateMuMiddleJetAccumulator(
+    MuMiddleJetAccumulator&stats,const IVector&state,
+    const IMatrix&fixedFirst,const IHessian&fixedSecond,
+    const IMatrix&centeredFirst,const IHessian&centeredSecond,
+    bool countDenseStep=true){
+  stats.stateC0=std::max(stats.stateC0,physicalStateNormUpper(state));
+  stats.fixedL1=std::max(
+    stats.fixedL1,physicalFirstHilbertSchmidtUpper(fixedFirst));
+  stats.fixedL2=std::max(
+    stats.fixedL2,physicalSecondHilbertSchmidtUpper(fixedSecond));
+  stats.centeredL1=std::max(
+    stats.centeredL1,physicalFirstHilbertSchmidtUpper(centeredFirst));
+  stats.centeredL2=std::max(
+    stats.centeredL2,physicalSecondHilbertSchmidtUpper(centeredSecond));
+  int pair=0;
+  for(int physical=0;physical<4;++physical){
+    if(!stats.initialized)stats.stateHull[physical]=state[physical];
+    else stats.stateHull[physical]=intervalHull(
+      stats.stateHull[physical],state[physical]);
+    for(int parameter=0;parameter<kThetaDimension;++parameter){
+      if(!stats.initialized){
+        stats.fixedFirstHull[physical][parameter]=
+          fixedFirst[physical][parameter];
+        stats.centeredFirstHull[physical][parameter]=
+          centeredFirst[physical][parameter];
+      }else{
+        stats.fixedFirstHull[physical][parameter]=intervalHull(
+          stats.fixedFirstHull[physical][parameter],
+          fixedFirst[physical][parameter]);
+        stats.centeredFirstHull[physical][parameter]=intervalHull(
+          stats.centeredFirstHull[physical][parameter],
+          centeredFirst[physical][parameter]);
+      }
+    }
+    pair=0;
+    for(int first=0;first<kThetaDimension;++first)
+      for(int second=first;second<kThetaDimension;++second,++pair){
+        const interval fixed=actualSecondDerivative(
+          fixedSecond,physical,first,second);
+        const interval centered=actualSecondDerivative(
+          centeredSecond,physical,first,second);
+        if(!stats.initialized){
+          stats.fixedSecondHull[physical][pair]=fixed;
+          stats.centeredSecondHull[physical][pair]=centered;
+        }else{
+          stats.fixedSecondHull[physical][pair]=intervalHull(
+            stats.fixedSecondHull[physical][pair],fixed);
+          stats.centeredSecondHull[physical][pair]=intervalHull(
+            stats.centeredSecondHull[physical][pair],centered);
+        }
+      }
+  }
+  stats.initialized=true;
+  if(countDenseStep)++stats.denseSteps;
+}
+
+void centeredOrbitThetaJets(
+    const MuAffineCellResult&cell,const MuTrueRootJetResult&root,
+    const IVector&state,const IMatrix&fixedFirst,
+    const IHessian&fixedSecond,IMatrix&centeredFirst,
+    IHessian&centeredSecond){
+  const PhysicalFieldJetData field=physicalFieldJetData(cell,state);
+  std::array<IVector,kThetaDimension> totalFieldDerivative={
+    IVector(4),IVector(4),IVector(4)};
+  for(int parameter=0;parameter<kThetaDimension;++parameter){
+    totalFieldDerivative[parameter]=field.parameterDerivative[parameter];
+    for(int physical=0;physical<4;++physical)
+      for(int stateCoordinate=0;stateCoordinate<4;++stateCoordinate)
+        totalFieldDerivative[parameter][physical]+=
+          field.stateDerivative[physical][stateCoordinate]
+          *fixedFirst[stateCoordinate][parameter];
+  }
+  centeredFirst=zeroMatrix(4,kThetaDimension);
+  centeredSecond=zeroHessian(4,kThetaDimension);
+  for(int physical=0;physical<4;++physical){
+    for(int parameter=0;parameter<kThetaDimension;++parameter)
+      centeredFirst[physical][parameter]=fixedFirst[physical][parameter]
+        +field.value[physical]*root.timeFirst[parameter];
+    for(int first=0;first<kThetaDimension;++first)
+      for(int second=first;second<kThetaDimension;++second){
+        const int pair=symmetricPairIndex(first,second);
+        const interval actual=actualSecondDerivative(
+            fixedSecond,physical,first,second)
+          +totalFieldDerivative[first][physical]*root.timeFirst[second]
+          +totalFieldDerivative[second][physical]*root.timeFirst[first]
+          +field.timeDerivative[physical]
+            *root.timeFirst[first]*root.timeFirst[second]
+          +field.value[physical]*root.timeSecond[pair];
+        setActualSecondDerivative(
+          centeredSecond,physical,first,second,actual);
+      }
+  }
+}
+
+void advanceMuMiddleSegment(
+    IC2OdeSolver&solver,const MuAffineCellResult&cell,
+    const MuTrueRootJetResult&root,const AffineInitialData&data,
+    const MuThetaInitialJets&initialJets,const interval&duration,
+    MuMiddleJetAccumulator&stats){
+  if(duration.leftBound()<=0.)
+    throw std::invalid_argument("middle C2 segment duration must be positive");
+  C2Rect2Set::C0BaseSet c0(
+    data.centre,data.coordinates,data.radii,data.remainder);
+  C2Rect2Set::C1BaseSet c1(initialJets.first);
+  C2Rect2Set set(c0,c1,initialJets.second);
+  // Include each segment's initial section explicitly.  This avoids relying
+  // on an undocumented assumption that getLastEnclosure contains the left
+  // endpoint of the accepted step.
+  {
+    const IVector state=set;
+    const IMatrix fixedFirst=set;
+    const IHessian fixedSecond=set;
+    IMatrix centeredFirst(4,kThetaDimension);
+    IHessian centeredSecond(4,kThetaDimension);
+    centeredOrbitThetaJets(
+      cell,root,state,fixedFirst,fixedSecond,
+      centeredFirst,centeredSecond);
+    updateMuMiddleJetAccumulator(
+      stats,state,fixedFirst,fixedSecond,centeredFirst,centeredSecond,false);
+    ++stats.initialSections;
+  }
+  IC2TimeMap timeMap(solver);
+  timeMap.stopAfterStep(true);
+  do{
+    const IMatrix previousFirst=set;
+    const IHessian previousSecond=set;
+    timeMap(duration,set);
+    const IVector state=set.getLastEnclosure();
+    // getLast*Enclosure is a one-step ambient enclosure.  Compose it with
+    // the cumulative incoming jets exactly as CAPD's
+    // SectionDerivativesEnclosure does: M_step*M_prev and
+    // M_step*H_prev + H_step*M_prev.
+    const IMatrix fixedFirst=
+      set.getLastMatrixEnclosure()*previousFirst;
+    const IHessian fixedSecond=
+      set.getLastMatrixEnclosure()*previousSecond
+      +set.getLastHessianEnclosure()*previousFirst;
+    IMatrix centeredFirst(4,kThetaDimension);
+    IHessian centeredSecond(4,kThetaDimension);
+    centeredOrbitThetaJets(
+      cell,root,state,fixedFirst,fixedSecond,
+      centeredFirst,centeredSecond);
+    updateMuMiddleJetAccumulator(
+      stats,state,fixedFirst,fixedSecond,centeredFirst,centeredSecond);
+  }while(!timeMap.completed());
+}
+
+struct MuMiddleJetResult{
+  bool success;
+  interval sourceRelativeTime,centeredTubeTime,requiredNegativeHalfTime;
+  MuMiddleJetAccumulator bounds;
+};
+
+MuMiddleJetResult validateMuMiddleJets(
+    const MuAffineCellResult&cell,const MuTrueRootJetResult&root){
+  IMap field=normalizedThetaAugmentedField(cell);
+  IC2OdeSolver solver(field,30);
+  solver.setAbsoluteTolerance(1e-14);solver.setRelativeTolerance(1e-14);
+  MuMiddleJetAccumulator bounds;
+  advanceMuMiddleSegment(
+    solver,cell,root,normalizedThetaData(muRootSourceData(cell)),
+    muSourceThetaInitialJets(cell,root),interval(kNodeTimes[0]),bounds);
+  for(int node=0;node<kSegments-1;++node)
+    advanceMuMiddleSegment(
+      solver,cell,root,normalizedThetaData(muRootNodeData(cell,node)),
+      muNodeThetaInitialJets(root,node),
+      interval(kNodeTimes[node+1]-kNodeTimes[node]),bounds);
+  // The upper endpoint is already outward-rounded by the event calculation.
+  // Flowing the last node to that common upper time covers every cell member
+  // through its own symmetry event and may include a short post-event tube.
+  const interval finalDuration(root.returnTime.rightBound());
+  advanceMuMiddleSegment(
+    solver,cell,root,
+    normalizedThetaData(muRootNodeData(cell,kSegments-1)),
+    muNodeThetaInitialJets(root,kSegments-1),finalDuration,bounds);
+  const interval sourceRelativeTime(
+    0.,kNodeTimes.back()+finalDuration.rightBound());
+  const interval centeredTubeTime=
+    sourceRelativeTime-root.halfTime;
+  const interval requiredNegativeHalfTime(
+    -root.halfTime.rightBound(),0.);
+  const bool finiteBounds=std::isfinite(bounds.stateC0)
+    &&std::isfinite(bounds.fixedL1)&&std::isfinite(bounds.fixedL2)
+    &&std::isfinite(bounds.centeredL1)&&std::isfinite(bounds.centeredL2);
+  const bool success=root.success&&root.returnTime.leftBound()>0.
+    &&root.returnTime.rightBound()<.2&&bounds.initialized&&finiteBounds;
+  return {success,sourceRelativeTime,centeredTubeTime,
+          requiredNegativeHalfTime,bounds};
+}
+
+void reportMuMiddleJets(
+    int rIndex,int a2Index,int epsilonIndex,
+    const MuAffineCellResult&cell,const MuTrueRootJetResult&root,
+    const MuMiddleJetResult&middle){
+  static const std::array<const char*,4> stateNames={"U","P","V","Q"};
+  static const std::array<const char*,kThetaDimension> thetaNames={
+    "theta_r","theta_a","theta_epsilon"};
+  std::cout<<std::setprecision(17)
+    <<"mode mu-grid-middle-jets\n"
+    <<"scope selected_true_source_to_symmetry_event_continuous_C2\n"
+    <<"indices "<<rIndex<<" "<<a2Index<<" "<<epsilonIndex<<"\n"
+    <<"parameter_cell "<<cell.parameterCell[0]<<" "
+       <<cell.parameterCell[1]<<" "<<cell.parameterCell[2]<<"\n"
+    <<"capd_hessian_convention_self_check PASS\n"
+    <<"source_relative_time_hull "<<middle.sourceRelativeTime<<"\n"
+    <<"centered_tube_xi_hull "<<middle.centeredTubeTime<<"\n"
+    <<"required_source_to_event_xi_hull "
+       <<middle.requiredNegativeHalfTime<<"\n"
+    <<"half_time_hull "<<root.halfTime
+       <<" return_time_hull "<<root.returnTime<<"\n"
+    <<"dense_steps "<<middle.bounds.denseSteps
+       <<" explicit_initial_sections "<<middle.bounds.initialSections<<"\n"
+    <<"normalized_state_C0_euclidean "<<middle.bounds.stateC0<<"\n"
+    <<"normalized_fixed_t_L1_hilbert_schmidt "
+       <<middle.bounds.fixedL1<<"\n"
+    <<"normalized_fixed_t_L2_hilbert_schmidt "
+       <<middle.bounds.fixedL2<<"\n"
+    <<"normalized_centered_xi_L1_hilbert_schmidt "
+       <<middle.bounds.centeredL1<<"\n"
+    <<"normalized_centered_xi_L2_hilbert_schmidt "
+       <<middle.bounds.centeredL2<<"\n"
+    <<"minus_11_to_source_seam imported_exact_algebra_local_pre_source_bound "
+       <<"original_parameter_common_upper "
+       <<kPreSourceOriginalCommonBound<<"\n";
+  for(int physical=0;physical<4;++physical){
+    std::cout<<"state_hull "<<stateNames[physical]<<" "
+      <<middle.bounds.stateHull[physical]<<"\n";
+    for(int parameter=0;parameter<kThetaDimension;++parameter)
+      std::cout<<"first_hull "<<stateNames[physical]<<" "
+        <<thetaNames[parameter]<<" fixed_t "
+        <<middle.bounds.fixedFirstHull[physical][parameter]
+        <<" centered_xi "
+        <<middle.bounds.centeredFirstHull[physical][parameter]<<"\n";
+    int pair=0;
+    for(int first=0;first<kThetaDimension;++first)
+      for(int second=first;second<kThetaDimension;++second,++pair)
+        std::cout<<"second_hull "<<stateNames[physical]<<" "
+          <<thetaNames[first]<<" "<<thetaNames[second]<<" fixed_t "
+          <<middle.bounds.fixedSecondHull[physical][pair]
+          <<" centered_xi "
+          <<middle.bounds.centeredSecondHull[physical][pair]<<"\n";
+  }
+  std::cout<<(middle.success?"PASS":"INCONCLUSIVE")
+    <<" mu-grid continuous compact-middle C2 jets\n";
+}
+
+int runMuGridMiddleJets(
+    double radiusFactor,int rIndex,int a2Index,int epsilonIndex){
+  if(!capdInjectedHessianConventionSelfCheck())
+    throw std::runtime_error("CAPD injected Hessian convention self-check failed");
+  const MuAffineCellResult cell=buildMuGridCell(
+    radiusFactor,rIndex,a2Index,epsilonIndex);
+  const MuTrueRootJetResult root=validateMuTrueRootJets(cell);
+  const MuMiddleJetResult middle=validateMuMiddleJets(cell,root);
+  reportMuMiddleJets(
+    rIndex,a2Index,epsilonIndex,cell,root,middle);
+  return middle.success?0:20;
+}
+
+struct MuMiddleJetSlabStats{
+  bool success=true,initialized=false;
+  int count=0,passCount=0,denseSteps=0,initialSections=0;
+  double stateC0=0.,fixedL1=0.,fixedL2=0.,centeredL1=0.,centeredL2=0.;
+  int worstStateA2=-1,worstStateEpsilon=-1;
+  int worstFixedL1A2=-1,worstFixedL1Epsilon=-1;
+  int worstFixedL2A2=-1,worstFixedL2Epsilon=-1;
+  int worstCenteredL1A2=-1,worstCenteredL1Epsilon=-1;
+  int worstCenteredL2A2=-1,worstCenteredL2Epsilon=-1;
+  interval halfTimeHull,returnTimeHull,centeredTubeTimeHull;
+  std::array<interval,4> stateHull;
+};
+
+void updateMuMiddleJetSlabStats(
+    MuMiddleJetSlabStats&stats,const MuTrueRootJetResult&root,
+    const MuMiddleJetResult&middle,int a2Index,int epsilonIndex){
+  ++stats.count;
+  if(middle.success)++stats.passCount;
+  stats.success=stats.success&&middle.success;
+  stats.denseSteps+=middle.bounds.denseSteps;
+  stats.initialSections+=middle.bounds.initialSections;
+  if(middle.bounds.stateC0>stats.stateC0){
+    stats.stateC0=middle.bounds.stateC0;
+    stats.worstStateA2=a2Index;stats.worstStateEpsilon=epsilonIndex;
+  }
+  if(middle.bounds.fixedL1>stats.fixedL1){
+    stats.fixedL1=middle.bounds.fixedL1;
+    stats.worstFixedL1A2=a2Index;
+    stats.worstFixedL1Epsilon=epsilonIndex;
+  }
+  if(middle.bounds.fixedL2>stats.fixedL2){
+    stats.fixedL2=middle.bounds.fixedL2;
+    stats.worstFixedL2A2=a2Index;
+    stats.worstFixedL2Epsilon=epsilonIndex;
+  }
+  if(middle.bounds.centeredL1>stats.centeredL1){
+    stats.centeredL1=middle.bounds.centeredL1;
+    stats.worstCenteredL1A2=a2Index;
+    stats.worstCenteredL1Epsilon=epsilonIndex;
+  }
+  if(middle.bounds.centeredL2>stats.centeredL2){
+    stats.centeredL2=middle.bounds.centeredL2;
+    stats.worstCenteredL2A2=a2Index;
+    stats.worstCenteredL2Epsilon=epsilonIndex;
+  }
+  if(!stats.initialized){
+    stats.halfTimeHull=root.halfTime;
+    stats.returnTimeHull=root.returnTime;
+    stats.centeredTubeTimeHull=middle.centeredTubeTime;
+    stats.stateHull=middle.bounds.stateHull;
+    stats.initialized=true;
+  }else{
+    stats.halfTimeHull=intervalHull(stats.halfTimeHull,root.halfTime);
+    stats.returnTimeHull=intervalHull(stats.returnTimeHull,root.returnTime);
+    stats.centeredTubeTimeHull=intervalHull(
+      stats.centeredTubeTimeHull,middle.centeredTubeTime);
+    for(int physical=0;physical<4;++physical)
+      stats.stateHull[physical]=intervalHull(
+        stats.stateHull[physical],middle.bounds.stateHull[physical]);
+  }
+}
+
+int runMuGridMiddleJetSlab(double radiusFactor,int rIndex){
+  if(rIndex<0||rIndex>=kMuGridRCells)
+    throw std::out_of_range("mu-grid middle-jet r index");
+  if(!capdInjectedHessianConventionSelfCheck())
+    throw std::runtime_error("CAPD injected Hessian convention self-check failed");
+  MuMiddleJetSlabStats stats;
+  for(int a2Index=0;a2Index<kMuGridA2Cells;++a2Index)
+    for(int epsilonIndex=0;epsilonIndex<kMuGridEpsilonCells;
+        ++epsilonIndex){
+      const MuAffineCellResult cell=buildMuGridCell(
+        radiusFactor,rIndex,a2Index,epsilonIndex);
+      const MuTrueRootJetResult root=validateMuTrueRootJets(cell);
+      const MuMiddleJetResult middle=validateMuMiddleJets(cell,root);
+      updateMuMiddleJetSlabStats(
+        stats,root,middle,a2Index,epsilonIndex);
+      if(!middle.success)
+        reportMuMiddleJets(
+          rIndex,a2Index,epsilonIndex,cell,root,middle);
+    }
+  std::cout<<std::setprecision(17)
+    <<"mode mu-grid-middle-jets-slab\n"
+    <<"scope selected_true_source_to_symmetry_event_continuous_C2\n"
+    <<"grid "<<kMuGridRCells<<" "<<kMuGridA2Cells<<" "
+       <<kMuGridEpsilonCells<<" radius_factor "<<radiusFactor<<"\n"
+    <<"r_index "<<rIndex<<" r_cell "
+       <<muGridCellBox(rIndex,0,0)[0]<<"\n"
+    <<"capd_hessian_convention_self_check PASS\n"
+    <<"cells "<<stats.passCount<<"/"<<stats.count
+       <<" dense_steps "<<stats.denseSteps
+       <<" explicit_initial_sections "<<stats.initialSections<<"\n"
+    <<"half_time_hull "<<stats.halfTimeHull
+       <<" return_time_hull "<<stats.returnTimeHull<<"\n"
+    <<"centered_tube_xi_hull "<<stats.centeredTubeTimeHull<<"\n"
+    <<"normalized_state_C0_euclidean "<<stats.stateC0
+       <<" worst_a2_index "<<stats.worstStateA2
+       <<" worst_epsilon_index "<<stats.worstStateEpsilon<<"\n"
+    <<"normalized_fixed_t_L1_hilbert_schmidt "<<stats.fixedL1
+       <<" worst_a2_index "<<stats.worstFixedL1A2
+       <<" worst_epsilon_index "<<stats.worstFixedL1Epsilon<<"\n"
+    <<"normalized_fixed_t_L2_hilbert_schmidt "<<stats.fixedL2
+       <<" worst_a2_index "<<stats.worstFixedL2A2
+       <<" worst_epsilon_index "<<stats.worstFixedL2Epsilon<<"\n"
+    <<"normalized_centered_xi_L1_hilbert_schmidt "
+       <<stats.centeredL1
+       <<" worst_a2_index "<<stats.worstCenteredL1A2
+       <<" worst_epsilon_index "<<stats.worstCenteredL1Epsilon<<"\n"
+    <<"normalized_centered_xi_L2_hilbert_schmidt "
+       <<stats.centeredL2
+       <<" worst_a2_index "<<stats.worstCenteredL2A2
+       <<" worst_epsilon_index "<<stats.worstCenteredL2Epsilon<<"\n"
+    <<"physical_state_hull "<<stats.stateHull[0]<<" "
+       <<stats.stateHull[1]<<" "<<stats.stateHull[2]<<" "
+       <<stats.stateHull[3]<<"\n"
+    <<"minus_11_to_source_seam imported_exact_algebra_local_pre_source_bound "
+       <<"original_parameter_common_upper "
+       <<kPreSourceOriginalCommonBound<<"\n"
+    <<(stats.success?"PASS":"INCONCLUSIVE")
+       <<" mu-grid continuous compact-middle C2 jet slab\n";
+  return stats.success?0:20;
+}
+
 void reportMuTrueRootJets(
     int rIndex,int a2Index,int epsilonIndex,
     const MuAffineCellResult&cell,const MuTrueRootJetResult&result){
@@ -2930,6 +3504,21 @@ int runMuRFaces(double radiusFactor){
 int main(int argc,char**argv){
  std::string stage="argument parsing";
  try{
+ if(argc==4 && std::string(argv[1])=="mu-grid-middle-jets-slab"){
+   const double factor=std::stod(argv[2]);
+   if(!std::isfinite(factor)||factor<=1.)
+     throw std::invalid_argument("radius_factor must be finite and greater than one");
+   stage="mu-grid continuous compact-middle C2 slab experiment";
+   return runMuGridMiddleJetSlab(factor,std::stoi(argv[3]));
+ }
+ if(argc==6 && std::string(argv[1])=="mu-grid-middle-jets"){
+   const double factor=std::stod(argv[2]);
+   if(!std::isfinite(factor)||factor<=1.)
+     throw std::invalid_argument("radius_factor must be finite and greater than one");
+   stage="mu-grid continuous compact-middle C2 experiment";
+   return runMuGridMiddleJets(
+     factor,std::stoi(argv[3]),std::stoi(argv[4]),std::stoi(argv[5]));
+ }
  if(argc==4 && std::string(argv[1])=="mu-grid-root-jets-slab"){
    const double factor=std::stod(argv[2]);
    if(!std::isfinite(factor)||factor<=1.)
@@ -3026,6 +3615,8 @@ int main(int argc,char**argv){
      "[a2-faces radius_factor phi0_0 phi0_1 phi0_2 phi0_3] or "
      "[mu-r-faces radius_factor] or "
      "[mu-grid-anchor radius_factor] or "
+     "[mu-grid-middle-jets radius_factor r_index a2_index epsilon_index] or "
+     "[mu-grid-middle-jets-slab radius_factor r_index] or "
      "[mu-grid-root-jets radius_factor r_index a2_index epsilon_index] or "
      "[mu-grid-root-jets-slab radius_factor r_index] or "
      "[mu-grid-first-hit radius_factor r_index a2_index epsilon_index] or "
