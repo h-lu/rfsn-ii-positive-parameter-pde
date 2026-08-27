@@ -14,7 +14,7 @@ RIGOROUS = Path(__file__).resolve().parents[1]
 REPOSITORY = RIGOROUS.parents[1]
 sys.path.insert(0, str(RIGOROUS))
 
-from check_certificate import semantic_errors  # noqa: E402
+from check_certificate import schema_errors, semantic_errors  # noqa: E402
 from rigorous_common import (  # noqa: E402
     box_arguments,
     combine_verdicts,
@@ -135,6 +135,73 @@ class FrozenP2H10C01Tests(unittest.TestCase):
         invalid = copy.deepcopy(self.configuration)
         invalid["proof_formulas"].remove("X0=R+H")
         self.assertTrue(validate_h10_c01_configuration(invalid))
+
+
+class ArchivedP2B0CertificateTests(unittest.TestCase):
+    def setUp(self) -> None:
+        self.certificate = load_json(
+            RIGOROUS / "results" / "vdp_bridge_v1_p2b_h10_c01.json")
+
+    @staticmethod
+    def obligation(collection: list[dict], identifier: str) -> dict:
+        return next(item for item in collection if item["id"] == identifier)
+
+    def test_clean_certificate_is_scoped_and_internally_valid(self) -> None:
+        self.assertEqual(schema_errors(self.certificate), [])
+        self.assertEqual(semantic_errors(self.certificate, REPOSITORY), [])
+        self.assertEqual(self.certificate["scope"], "V2_H10_C01_KERNEL")
+        self.assertEqual(self.certificate["integrity_status"], "PASS")
+        self.assertEqual(self.certificate["mathematical_status"], "PASS")
+        self.assertEqual(self.certificate["final_status"], "INCONCLUSIVE")
+        self.assertFalse(self.certificate["claim_bearing"])
+        self.assertTrue(
+            self.certificate["h10_exact_center_audit"]["regeneration"]
+            ["byte_identical"])
+        by_id = {
+            item["id"]: item["status"]
+            for item in self.certificate["obligations"]
+        }
+        self.assertEqual(by_id["P2.H10_CENTER_EXACT"], "PASS")
+        self.assertEqual(by_id["V2.WU.H10_C0_TUBE"], "PASS")
+        self.assertEqual(by_id["V2.WU.H10_C1_TUBE"], "PASS")
+
+    def test_h10_scope_and_import_tampering_is_rejected(self) -> None:
+        missing = copy.deepcopy(self.certificate)
+        missing.pop("h10_exact_center_audit")
+        self.assertTrue(schema_errors(missing))
+
+        invalid = copy.deepcopy(self.certificate)
+        invalid["toolchain"]["probe_build"]["imported_header"] \
+            ["materialized_sha256"] = "0" * 64
+        self.assertTrue(semantic_errors(invalid, REPOSITORY))
+
+        invalid = copy.deepcopy(self.certificate)
+        invalid["h10_exact_center_audit"]["regeneration"] \
+            ["byte_identical"] = False
+        self.assertTrue(semantic_errors(invalid, REPOSITORY))
+
+    def test_insufficient_h10_margin_is_valid_inconclusive_not_fail(self) -> None:
+        inconclusive = copy.deepcopy(self.certificate)
+        crossing = {
+            "lower_hex": "-0x1p-30",
+            "upper_hex": "0x1p-30",
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+        }
+        inconclusive["raw_probe"]["acceptance_gate_margins"] \
+            ["c0_inward_margin_margin"] = crossing
+        for collection in (
+                inconclusive["obligations"],
+                inconclusive["raw_probe"]["obligations"]):
+            c0 = self.obligation(collection, "V2.WU.H10_C0_TUBE")
+            c1 = self.obligation(collection, "V2.WU.H10_C1_TUBE")
+            c0["enclosures"]["c0_inward_margin_margin"] = crossing
+            c0["status"] = "INCONCLUSIVE"
+            c1["status"] = "INCONCLUSIVE"
+        inconclusive["mathematical_status"] = "INCONCLUSIVE"
+        inconclusive["raw_probe"]["mathematical_status"] = "INCONCLUSIVE"
+        inconclusive["raw_probe"]["status"] = "INCONCLUSIVE"
+        inconclusive["toolchain"]["probe_build"]["probe_exit_code"] = 2
+        self.assertEqual(semantic_errors(inconclusive, REPOSITORY), [])
 
 
 class DevelopmentReplayTests(unittest.TestCase):

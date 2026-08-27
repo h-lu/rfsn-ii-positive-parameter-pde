@@ -160,8 +160,19 @@ are still pending.  The subsequent P2a kernel also passes its exact moving
 frame, isolating-block/difference-cone, and true coarse local-graph
 subobligations on the full connected bridge
 \([0,0.08]\times[-0.25,0.25]\times[0.8,1.2]\).  It certifies the complete
-radius-`.01` local source disk, but not yet the mixed jets required by the
-parent `V2.WU_GRAPH`; P2b--P5 therefore remain pending.
+radius-`.01` local source disk.  The clean P2b0 kernel now also regenerates
+the frozen exact H10 center byte-for-byte and proves uniform true-graph tubes
+
+\[
+ \lVert H_\mu-H_{10}\rVert_2\le5\times10^{-6},\qquad
+ \lVert DH_\mu-DH_{10}\rVert_F\le3\times10^{-4}
+\]
+
+on that bridge.  Its integrity and mathematical statuses pass locally, while
+the aggregate remains `INCONCLUSIVE` and non-claim-bearing because independent
+replay is still 1/2.  Higher state jets, parameter/mixed jets, and weighted
+half-orbit constants remain necessary for the parent `V2.WU_GRAPH`;
+P2b1--P5 therefore remain pending.
 
 ## Repository map
 
@@ -183,6 +194,7 @@ parent `V2.WU_GRAPH`; P2b--P5 therefore remain pending.
 - [Issue #7 staged rigorous-validation lane](validation/rigorous/README.md)
 - [Issue #7 phase-1 local report](validation/rigorous/PHASE1_REPORT.md)
 - [Issue #7 P2a local-graph report](validation/rigorous/P2A_REPORT.md)
+- [Issue #7 P2b0 H10 C0/C1 report](validation/rigorous/P2B0_REPORT.md)
 
 ## Initial work queue
 
@@ -192,7 +204,7 @@ parent `V2.WU_GRAPH`; P2b--P5 therefore remain pending.
 - [#4: central--outer matching theorem](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/4), the decisive mathematical go/no-go task
 - [#5: outer algebraic action finite part](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/5)
 - [#6: exhaustive two-end theorem](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/6)
-- [#7: rigorous validation](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/7), with phase 1 and the two P2a local-graph subobligations passing locally, while the P2 parent, P3--P5, and independent replay remain pending
+- [#7: rigorous validation](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/7), with phase 1, P2a, and the two P2b0 H10-centered tube subobligations passing locally, while the P2 mixed-jet parent, P3--P5, and independent replay remain pending
 
 The source theory remains in
 [`h-lu/reversible-rfsn-ii-waves`](https://github.com/h-lu/reversible-rfsn-ii-waves).

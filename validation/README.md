@@ -4,10 +4,12 @@ This directory is the local staging area for the deferred outward-rounded
 validation in [Issue #7](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/7).
 Nothing currently stored here is a claim-bearing computer-assisted proof.
 The floating candidate-contract remains deliberately non-claim-bearing, while
-[`rigorous/`](rigorous/README.md) now contains the separate phase-1
-outward-rounded source lane and the formally frozen parameter box.  The first
-clean local phase-1 kernel is now archived with mathematical and integrity
-status `PASS`, but aggregate status `INCONCLUSIVE` and `claim_bearing: false`.
+[`rigorous/`](rigorous/README.md) contains the separate outward-rounded source
+lane and the formally frozen parameter box.  Clean local certificates are now
+archived through P2b0: phase 1, P2a, exact H10 regeneration, and the true-graph
+\(C^0/C^1\) tubes have mathematical and integrity status `PASS`.  Their
+aggregate status remains `INCONCLUSIVE` and `claim_bearing: false` while the
+required independent replay is 1/2.
 
 ## Two evidence lanes
 
@@ -16,7 +18,7 @@ The lanes must remain separate.
 1. **Floating candidate generation.**  SciPy trajectories locate useful
    branches, sections, cutoffs, coordinate scales, and likely margins.  The
    evidence label is `COMPUTED/E1_NONRIGOROUS_CANDIDATE`.
-2. **Outward-rounded interval validation.**  The phase-1 source-only executable
+2. **Outward-rounded interval validation.**  The staged source-only executables
    uses CAPD/FILIB intervals, tests the floating-point environment, binds every
    result to a clean frozen source revision, and returns exactly `PASS`, `FAIL`,
    or `INCONCLUSIVE`.  It becomes claim-bearing only after the declared theorem
@@ -204,10 +206,10 @@ compact finite-flow clauses.  The V3/V5A infinite-end remainders and the
 all-winding reduction still require model-specific interval estimates around
 the analytic constructions.
 
-## Current blockers beyond phase 1
+## Current blockers after P2b0
 
 - The frozen box is an exact rational prevalidation object.  The archived
-  local phase-1 certificate passes the implemented obligations, but the
+  clean certificates through P2b0 pass their implemented obligations, but the
   independent second-machine replay required by policy is pending.
 - The existing finite event faces are proxies rather than the complete V6
   physical arrangement and finite marked atlas; B1/A2 do not prove a component
@@ -216,9 +218,10 @@ the analytic constructions.
   the certified source window/parameter box, infinite V4 graph, V5 uniform
   tube, endpoint adjoint/exchange, matching uniqueness, parameter jets, and
   infinite finite-part remainders are not interval enclosures.
-- Phase-1 covers only the V1 exact polynomial identities and the explicit
-  V2(1) wedge/positivity/saddle-focus inequalities.  V2 continuation and the
-  V3--V6 obligations remain `PENDING` in
+- P2a/P2b0 now cover the true coarse local graph and its H10-centered
+  \(C^0/C^1\) tubes.  True-graph state derivatives through order three,
+  parameter/mixed derivatives through order two, weighted half-orbit
+  constants, the remaining V2 objects, and V3--V6 remain `PENDING` in
   [`rigorous/obligations.json`](rigorous/obligations.json).
 - The policy requires an independent replay on a second machine before any
   aggregate certificate can become claim-bearing.  This repository currently
@@ -228,5 +231,5 @@ These blockers do not make the floating repository a toy.  Its deterministic
 raw outputs and complete B1/A2 return records provide candidate centers,
 scales, event ordering, interfaces, and observable checks for the rigorous
 implementation.  The correct aggregate Issue #7 status is
-`PHASE1_LOCAL_PASS_AGGREGATE_INCONCLUSIVE`, not a claim-bearing `PASS`; see the
-[`phase-1 report`](rigorous/PHASE1_REPORT.md).
+`P2B0_LOCAL_PASS_AGGREGATE_INCONCLUSIVE`, not a claim-bearing `PASS`; see the
+[`P2b0 report`](rigorous/P2B0_REPORT.md).

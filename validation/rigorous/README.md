@@ -5,7 +5,7 @@ van der Pol application.  It does not upgrade the floating candidate contract
 in `validation/`, and it does not modify or silently import the read-only
 flagship repository.
 
-The runner has three executable scopes:
+The runner has four executable scopes:
 
 1. `preflight` verifies the pinned source/toolchain bindings and executes a
    CAPD/FILIB rounding self-test;
@@ -15,7 +15,10 @@ The runner has three executable scopes:
 3. `local-graph` verifies the P2a moving eigenframe, isolating block,
    difference cone, true coarse local stable/unstable graphs, quadratic value
    bound, and backward decay rate on the frozen comparison bridge from
-   `r=0` through the target box.
+   `r=0` through the target box;
+4. `h10-c01` reruns the frozen exact H10 homological recursion and verifies
+   the P2b0 Euclidean \(C^0\) and Frobenius \(C^1\) tubes for those true graphs
+   on the same bridge.
 
 The mathematical result of a local kernel run can be `PASS`, `FAIL`, or
 `INCONCLUSIVE`.  The aggregate `final_status` remains `INCONCLUSIVE` while the
@@ -36,6 +39,13 @@ The first clean P2a certificate is archived at
 and explained in [`P2A_REPORT.md`](P2A_REPORT.md).  Its two P2a mathematical
 subobligations and all integrity checks pass; its aggregate status remains
 `INCONCLUSIVE` and non-claim-bearing for the reasons above.
+
+The first clean P2b0 certificate is archived at
+[`results/vdp_bridge_v1_p2b_h10_c01.json`](results/vdp_bridge_v1_p2b_h10_c01.json)
+and explained in [`P2B0_REPORT.md`](P2B0_REPORT.md).  Exact H10 regeneration,
+the \(C^0\) tube, the \(C^1\) tube, and all integrity checks pass.  The parent
+mixed-jet and weighted-half-orbit obligations remain pending, and the local
+certificate remains non-claim-bearing while independent replay is 1/2.
 
 ## Frozen phase-1 box
 
@@ -67,10 +77,11 @@ positive-parameter root is the continuation of the selected core branch,
 rather than an unrelated root found only inside the target box.  The P2a
 block and its acceptance gates are independently frozen in
 [`config/vdp_p2_local_graph_v1.json`](config/vdp_p2_local_graph_v1.json).
-The next P2b0 center, \(C^0/C^1\) radii, symbolically differenced residual,
-and acceptance margins are preregistered independently in
+The P2b0 center, \(C^0/C^1\) radii, symbolically differenced residual,
+and acceptance margins were preregistered independently in
 [`config/vdp_p2_h10_c01_v1.json`](config/vdp_p2_h10_c01_v1.json).  Freezing
-that file is not a validation result.
+that file was not itself a validation result; the later clean result is the
+separately archived certificate cited above.
 
 ## Strict replay
 
@@ -104,11 +115,21 @@ python3 validation/rigorous/run_validation.py local-graph \
   --flagship-repository FLAGSHIP_REPOSITORY \
   --report /tmp/rfsn-vdp-rigorous-p2a-local-graph.json
 
+python3 validation/rigorous/run_validation.py h10-c01 \
+  --allow-dirty \
+  --capd-source CAPD_SOURCE \
+  --capd-config CAPD_BUILD/bin/capd-config \
+  --flagship-repository FLAGSHIP_REPOSITORY \
+  --report /tmp/rfsn-vdp-rigorous-p2b-h10-c01.json
+
 python3 validation/rigorous/check_certificate.py \
   /tmp/rfsn-vdp-rigorous-kernel.json
 
 python3 validation/rigorous/check_certificate.py \
   /tmp/rfsn-vdp-rigorous-p2a-local-graph.json
+
+python3 validation/rigorous/check_certificate.py \
+  /tmp/rfsn-vdp-rigorous-p2b-h10-c01.json
 ```
 
 Omit `--allow-dirty` for a clean replay.  A report path is observed only after
@@ -141,10 +162,22 @@ A P2a local-graph `mathematical_status: PASS` additionally supports only:
   Lipschitz constant at most one, a quadratic value coefficient below `1/4`,
   and backward coordinate decay rate above `2/3`.
 
-It does not enclose the `C^2` parameter/`C^3` state mixed jets required by
-the parent `V2.WU_GRAPH` obligation.  That parent therefore remains pending.
+A P2b0 H10-centered `mathematical_status: PASS` additionally supports only:
 
-It does not validate the positive-parameter homoclinic, exact saddle chart,
-event atlas, either noncompact end, V5 matching, V6 component census, all
+- byte-identical regeneration and structural audit of the frozen degree-ten
+  exact center and its exact invariance-defect term table; and
+- the uniform bounds
+  \(\lVert H_\mu-H_{10}\rVert_2\le5\times10^{-6}\) and
+  \(\lVert DH_\mu-DH_{10}\rVert_F\le3\times10^{-4}\) on the complete
+  comparison bridge, plus the reversible stable analogue.
+
+Neither P2a nor P2b0 encloses the true-graph state derivatives through order
+three, parameter derivatives through order two, their required mixed jets,
+or the weighted half-orbit constants.  The parent `V2.WU.GRAPH` obligation
+therefore remains pending.  In particular, a bound on \(D^2H_{10}\) is a
+bound on the polynomial center, not on \(D^2H_\mu\).
+
+These local scopes do not validate the positive-parameter homoclinic, exact
+saddle chart, event atlas, either noncompact end, V5 matching, V6 component census, all
 winding numbers, temporal stability, Turing selection, or canard
 identification.  Those obligations are enumerated in `obligations.json`.

@@ -42,8 +42,9 @@ B1、A2 两条完整返回与增广长度/作用量。它们有真实研究价�
 Turing 机制；同时在五条周期剖面和一至四脉冲剖面的离散谱中都发现了
 `COMPUTED/E1` 正增长候选。后者不是完整谱定理或非线性不稳定性证明。折点
 passage 与奇异 FSN-II 退化已被诊断，但 canard 尚未识别。Issue #7 参数盒
-已经预选并正式冻结；本地 phase-1 outward-rounded kernel 已通过
-V1 和 V2(1) 的已实现义务，V2 延拓至 V6 及独立 replay 仍待完成。
+已经预选并正式冻结；本地 clean outward-rounded kernels 已通过
+V1/V2(1)、P2a 真粗图与 P2b0 H10-centered \(C^0/C^1\) 的已实现义务，
+高阶/参数 jets、其余 V2--V6 及独立 replay 仍待完成。
 
 | 阶段 | 论文状态 | 本次真正算到的对象 | 尚未数值解析的对象 | 主图 |
 |---|---|---|---|---|
@@ -316,8 +317,8 @@ Issue #7 仍验证空间存在、两端、首事件、作用量与编码，而�
  [0.04,0.08]\times[-0.25,0.25]\times[0.8,1.2].
 \]
 
-它已正式冻结，且本地 phase-1 outward-rounded 检查已通过 V1 和
-V2(1)；但完整 V2--V6 与独立 replay 未完成，仍不能称为显式认证的论文
+它已正式冻结，且本地 clean outward-rounded 检查已通过 V1/V2(1)、
+P2a 与 P2b0；但高阶 jets、完整 V2--V6 与独立 replay 未完成，仍不能称为显式认证的论文
 参数盒或全盒时间稳定区。筛查的完整数据、停止规则和四幅 D 系列图见
 [动力学预筛报告](VDP_DYNAMICS_SCREENING_REPORT.md)及其
 [图合同](VDP_DYNAMICS_FIGURE_CONTRACTS.md)。

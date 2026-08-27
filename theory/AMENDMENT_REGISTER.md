@@ -105,10 +105,14 @@ subobligations on the connected bridge from the complete `r=0` anchor face
 through that box.  The archived P2a evidence is documented in
 [`P2A_REPORT.md`](../validation/rigorous/P2A_REPORT.md).  Both aggregate
 certificates remain `INCONCLUSIVE` and non-claim-bearing because independent
-replay is pending; moreover the parent `V2.WU_GRAPH` still requires the P2b
-mixed jets and weighted tails.  Neither result proves the remaining V2
-validation objects or V3--V7, makes a temporal-stability claim, or qualifies
-here as `Computer-assisted` evidence.
+replay is pending.  The subsequent clean P2b0 run, documented in
+[`P2B0_REPORT.md`](../validation/rigorous/P2B0_REPORT.md), also passes exact
+H10 regeneration and uniform true-graph \(C^0/C^1\) tubes on the same bridge.
+It does not supply true-graph \(C^2/C^3\), parameter/mixed jets, or weighted
+half-orbit constants, so the parent `V2.WU_GRAPH` remains pending.  None of
+these local certificates proves the remaining V2 validation objects or
+V3--V7, makes a temporal-stability claim, or qualifies here as
+`Computer-assisted` evidence before independent replay.
 
 Numerical work can later become `Computer-assisted` only if every
 claim-bearing bound is interval rigorous, tied to immutable source and

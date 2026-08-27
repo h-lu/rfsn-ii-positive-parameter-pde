@@ -156,9 +156,10 @@ Its proposed Issue #7 box
  [0.04,0.08]\times[-0.25,0.25]\times[0.8,1.2]
 \]
 
-is formally frozen for Issue #7.  The local phase-1 interval kernel passes the
-implemented V1 and V2(1) obligations on the box, while V2 continuation through
-V6 and independent replay remain pending.  Detailed numerical
+is formally frozen for Issue #7.  Clean interval kernels now pass the
+implemented V1/V2(1), P2a true coarse-graph, and P2b0 H10-centered
+\(C^0/C^1\) obligations locally.  The higher graph jets, remaining V2--V6
+objects, and independent replay remain pending.  Detailed numerical
 values, stopping rules, and figure semantics are in the
 [screening report](VDP_DYNAMICS_SCREENING_REPORT.md) and
 [dynamics figure contracts](VDP_DYNAMICS_FIGURE_CONTRACTS.md).
