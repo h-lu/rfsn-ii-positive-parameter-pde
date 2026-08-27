@@ -36,3 +36,11 @@ diagnostic and is not inserted into the weighted recurrence.
 Any formal use requires a separately committed frozen configuration, a clean
 strict-source run, schema and semantic checking, and the repository's
 independent-replay policy.
+
+`p2b_kato_scout.cpp` evaluates the closed-form normalized-Kato phase on the
+same normalized (16\times8\times4) bridge grid.  It reports design bounds
+for the algebraic-to-Kato conformal change, physical orthonormal frame, phase
+shift, and parameter derivatives of the fixed-radius source circle.  Its
+output selects rational gates only; the later formal kernel must separately
+verify the exact Kato identities, the complete gap-free bridge, the frozen
+P2b prerequisite, and the anchor-face phase convention.
