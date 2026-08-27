@@ -282,7 +282,80 @@ class CandidateContractTests(unittest.TestCase):
         contract["source_revision"]["commit"] = "0" * 40
         contract_path.write_text(json.dumps(contract) + "\n", encoding="utf-8")
         failures = validate_contract(contract_path, repository_root=root)
-        self.assertTrue(any("recorded base commit differs" in item for item in failures))
+        self.assertTrue(
+            any("recorded source commit does not exist" in item for item in failures)
+        )
+
+    def test_descendant_head_is_a_warning_not_a_failure(self) -> None:
+        temporary, root, contract_path = self._fixture()
+        self.addCleanup(temporary.cleanup)
+        (root / "later.txt").write_text("later committed artifact\n", encoding="utf-8")
+        subprocess.run(["git", "-C", root, "add", "later.txt"], check=True)
+        subprocess.run(
+            [
+                "git",
+                "-C",
+                root,
+                "-c",
+                "user.name=Candidate Checker Test",
+                "-c",
+                "user.email=candidate-checker@example.invalid",
+                "commit",
+                "-qm",
+                "commit generated artifact",
+            ],
+            check=True,
+        )
+
+        warnings: list[str] = []
+        failures = validate_contract(
+            contract_path,
+            repository_root=root,
+            warnings=warnings,
+        )
+        self.assertEqual(failures, [])
+        self.assertTrue(any("[ADVANCED_HEAD]" in item for item in warnings))
+
+        contract = json.loads(contract_path.read_text(encoding="utf-8"))
+        bound_path = root / contract["theory_bindings"][0]["path"]
+        bound_path.write_text("changed after advancing HEAD\n", encoding="utf-8")
+        failures = validate_contract(contract_path, repository_root=root)
+        self.assertTrue(any("SHA-256 mismatch" in item for item in failures))
+
+    def test_current_dirty_state_is_a_warning_not_historical_mismatch(self) -> None:
+        temporary, root, contract_path = self._fixture()
+        self.addCleanup(temporary.cleanup)
+        (root / "unbound-scratch.txt").write_text("scratch\n", encoding="utf-8")
+
+        warnings: list[str] = []
+        failures = validate_contract(
+            contract_path,
+            repository_root=root,
+            warnings=warnings,
+        )
+        self.assertEqual(failures, [])
+        self.assertTrue(
+            any("[CURRENT_DIRTY_WORKTREE]" in item for item in warnings)
+        )
+
+    def test_recorded_dirty_source_remains_an_explicit_warning(self) -> None:
+        temporary, root, contract_path = self._fixture()
+        self.addCleanup(temporary.cleanup)
+        contract = json.loads(contract_path.read_text(encoding="utf-8"))
+        contract["source_revision"]["repository_dirty"] = True
+        contract["source_revision"]["reproducibility_status"] = (
+            "DIRTY_BASE_COMMIT_WITH_HASH_BOUND_REPLAY_INPUTS_ONLY"
+        )
+        contract_path.write_text(json.dumps(contract) + "\n", encoding="utf-8")
+
+        warnings: list[str] = []
+        failures = validate_contract(
+            contract_path,
+            repository_root=root,
+            warnings=warnings,
+        )
+        self.assertEqual(failures, [])
+        self.assertTrue(any("[RECORDED_DIRTY_SOURCE]" in item for item in warnings))
 
 
 if __name__ == "__main__":

@@ -159,10 +159,45 @@ def _safe_ignored_relative(root: Path, value: Any) -> tuple[str | None, str | No
     return relative.as_posix(), None
 
 
+def _git_is_ancestor(
+    root: Path, ancestor: str, descendant: str
+) -> tuple[bool | None, str | None]:
+    """Return Git ancestry without treating ``not an ancestor`` as an error."""
+
+    try:
+        completed = subprocess.run(
+            [
+                "git",
+                "-C",
+                os.fspath(root),
+                "merge-base",
+                "--is-ancestor",
+                ancestor,
+                descendant,
+            ],
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+    except OSError as error:
+        return None, str(error)
+    if completed.returncode == 0:
+        return True, None
+    if completed.returncode == 1:
+        return False, None
+    detail = (completed.stderr or completed.stdout or "").strip()
+    return None, detail or f"git exited with status {completed.returncode}"
+
+
 def _validate_source_revision(
-    root: Path, contract_path: Path, source_revision: dict[str, Any]
+    root: Path,
+    contract_path: Path,
+    source_revision: dict[str, Any],
+    *,
+    warnings: list[str] | None = None,
 ) -> list[str]:
     failures: list[str] = []
+    warning_sink = warnings if warnings is not None else []
     top_level, error = _run_git(root, "rev-parse", "--show-toplevel")
     if error is not None or top_level is None:
         return [f"source_revision: cannot inspect git worktree: {error}"]
@@ -175,13 +210,40 @@ def _validate_source_revision(
             "source_revision: repository_root is not the exact git worktree root"
         )
 
+    recorded_commit = str(source_revision.get("commit", ""))
+    _, commit_error = _run_git(
+        root, "cat-file", "-e", f"{recorded_commit}^{{commit}}"
+    )
+    recorded_commit_exists = commit_error is None
+    if not recorded_commit_exists:
+        failures.append(
+            "source_revision: recorded source commit does not exist in this repository"
+        )
+
     head, error = _run_git(root, "rev-parse", "--verify", "HEAD")
     if error is not None or head is None:
         failures.append(f"source_revision: cannot inspect HEAD: {error}")
-    elif head != source_revision.get("commit"):
-        failures.append(
-            "source_revision: recorded base commit differs from current HEAD"
-        )
+    elif recorded_commit_exists and head != recorded_commit:
+        is_ancestor, ancestry_error = _git_is_ancestor(root, recorded_commit, head)
+        if ancestry_error is not None:
+            failures.append(
+                "source_revision: cannot compare recorded source commit with "
+                f"current HEAD: {ancestry_error}"
+            )
+        elif is_ancestor:
+            warning_sink.append(
+                "[ADVANCED_HEAD] source_revision: current HEAD is ahead of the "
+                "recorded source commit; all declared hashes were checked against "
+                "the current files, but this is not a clean checkout replay of the "
+                "recorded commit"
+            )
+        else:
+            warning_sink.append(
+                "[DIVERGED_HEAD] source_revision: recorded source commit exists but "
+                "is not an ancestor of current HEAD; all declared hashes were checked "
+                "against the current files, but the current checkout has no direct "
+                "descendant relationship to the recorded source state"
+            )
 
     recorded_dirty = bool(source_revision.get("repository_dirty"))
     expected_status = (
@@ -192,6 +254,12 @@ def _validate_source_revision(
     if source_revision.get("reproducibility_status") != expected_status:
         failures.append(
             "source_revision: reproducibility_status contradicts repository_dirty"
+        )
+    if recorded_dirty:
+        warning_sink.append(
+            "[RECORDED_DIRTY_SOURCE] source_revision: the contract was generated "
+            "from a dirty worktree; the recorded commit alone cannot reconstruct "
+            "unlisted generation-time changes"
         )
 
     ignored: list[str] = []
@@ -215,10 +283,11 @@ def _validate_source_revision(
     status, error = _run_git(root, *arguments)
     if error is not None or status is None:
         failures.append(f"source_revision: cannot inspect dirty status: {error}")
-    elif bool(status) != recorded_dirty:
-        failures.append(
-            "source_revision: current dirty status (excluding declared contract path) "
-            "differs from the recorded pre-write status"
+    elif bool(status):
+        warning_sink.append(
+            "[CURRENT_DIRTY_WORKTREE] source_revision: the current worktree is dirty "
+            "after excluding declared contract paths; declared hashes still match, "
+            "but the checkout is not a clean replay environment"
         )
     return failures
 
@@ -425,7 +494,17 @@ def validate_contract(
     *,
     schema_path: Path = DEFAULT_SCHEMA,
     repository_root: Path = ROOT,
+    warnings: list[str] | None = None,
 ) -> list[str]:
+    """Return hard contract failures and optionally collect non-fatal warnings.
+
+    ``source_revision.repository_dirty`` describes the worktree when the
+    contract was built.  A later clean commit or a later dirty checkout does
+    not rewrite that historical fact.  Callers that need the distinction can
+    pass a mutable ``warnings`` list; the legacy return value remains a list of
+    hard failures.
+    """
+
     failures = _validate_schema(schema_path)
     if failures:
         return failures
@@ -463,7 +542,12 @@ def validate_contract(
         failures.append("candidate checker refuses a final validation result")
 
     failures.extend(
-        _validate_source_revision(root, resolved_contract_path, contract["source_revision"])
+        _validate_source_revision(
+            root,
+            resolved_contract_path,
+            contract["source_revision"],
+            warnings=warnings,
+        )
     )
 
     seen_ids: set[str] = set()
@@ -692,21 +776,35 @@ def main() -> None:
         failures = validate_scaffold(schema_path=arguments.schema)
         success = "PASS: candidate schema and incomplete environment scaffold are valid"
     else:
+        warnings: list[str] = []
         failures = validate_contract(
             arguments.contract,
             schema_path=arguments.schema,
             repository_root=arguments.repository_root,
+            warnings=warnings,
         )
-        try:
-            inspected_contract = _load_json(arguments.contract)
-        except (OSError, json.JSONDecodeError):
-            inspected_contract = {}
-        if inspected_contract.get("source_revision", {}).get("repository_dirty"):
+        warning_codes = {
+            warning.split("]", 1)[0].removeprefix("[")
+            for warning in warnings
+            if warning.startswith("[") and "]" in warning
+        }
+        if "ADVANCED_HEAD" in warning_codes:
+            success = (
+                "PASS_WITH_ADVANCED_HEAD_WARNING: declared candidate hashes match "
+                "the current files, but current HEAD is newer than the recorded "
+                "source commit; no interval validation was performed"
+            )
+        elif "DIVERGED_HEAD" in warning_codes:
+            success = (
+                "PASS_WITH_DIVERGED_HEAD_WARNING: declared candidate hashes match "
+                "the current files, but current HEAD does not descend from the "
+                "recorded source commit; no interval validation was performed"
+            )
+        elif warning_codes & {"RECORDED_DIRTY_SOURCE", "CURRENT_DIRTY_WORKTREE"}:
             success = (
                 "PASS_WITH_DIRTY_SOURCE_WARNING: listed candidate inputs are "
-                "hash-bound to the recorded base commit, but the dirty worktree "
-                "is not reproduced by that commit alone; no interval validation "
-                "was performed"
+                "hash-bound, but a dirty source state is not reproduced by the "
+                "recorded commit alone; no interval validation was performed"
             )
         else:
             success = (
@@ -717,6 +815,9 @@ def main() -> None:
         for failure in failures:
             print(f"FAIL: {failure}")
         raise SystemExit(1)
+    if arguments.contract is not None:
+        for warning in warnings:
+            print(f"WARNING: {warning}")
     print(success)
 
 

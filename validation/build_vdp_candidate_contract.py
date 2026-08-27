@@ -181,8 +181,10 @@ def _source_revision(
         "ignored_paths": ignored_relative,
         "note": (
             "Dirty status excludes only the generated contract path and was "
-            "sampled before writing it.  A dirty base commit is not a complete "
-            "source snapshot; only the listed hash-bound inputs are replayable."
+            "sampled before writing it; it is historical metadata and need not "
+            "equal the status of a later checkout.  A dirty source commit is not "
+            "a complete snapshot of generation-time changes; only the listed "
+            "hash-bound inputs are replayable."
         ),
     }
 

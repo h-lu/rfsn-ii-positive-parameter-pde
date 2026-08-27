@@ -121,13 +121,22 @@ python3 validation/check_candidate_contract.py path/to/candidate-contract.json
 
 The checker validates the schema, orders exact decimal endpoints with decimal
 arithmetic, resolves every path inside the repository before reading it,
-verifies all referenced SHA-256 hashes, and confirms that embedded branch
-records remain non-claim-bearing.  It also cross-checks branch parameters,
-NPZ prefixes, required array shapes, finite values, endpoints, observables,
-Git HEAD, and dirty state.  A dirty source tree produces
-`PASS_WITH_DIRTY_SOURCE_WARNING`, not an unqualified reproducibility claim;
-every success message explicitly says that no interval validation was
-performed.
+verifies all referenced SHA-256 hashes byte for byte, and confirms that
+embedded branch records remain non-claim-bearing.  It also cross-checks branch
+parameters, NPZ prefixes, required array shapes, finite values, endpoints, and
+observables.  The recorded source commit must exist locally.  An exact HEAD
+match is the cleanest inspection state; if the recorded commit is an ancestor
+of a later HEAD (as normally happens after committing generated artifacts), the
+contract remains valid but the CLI reports `PASS_WITH_ADVANCED_HEAD_WARNING`.
+A divergent existing commit receives a separate warning.
+
+`source_revision.repository_dirty` is generation-time historical metadata, not
+an assertion that every future checkout has the same dirty status.  A recorded
+dirty source or a currently dirty worktree therefore produces an explicit
+warning rather than a false historical-state mismatch.  None of these warnings
+weakens the SHA-256 checks, and none is described as a clean replay of the
+recorded commit.  Every success message explicitly says that no interval
+validation was performed.
 
 [`build_vdp_candidate_contract.py`](build_vdp_candidate_contract.py) is the
 deterministic builder used by `numerics/run_vdp_master.py`.  It hashes the

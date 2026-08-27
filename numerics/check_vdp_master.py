@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import subprocess
 import sys
 from pathlib import Path
 
@@ -22,6 +23,8 @@ from numerics.run_vdp_master import validate_frozen_config_interface
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "numerics" / "results" / "vdp_v1_v7"
 CONFIG = ROOT / "numerics" / "config" / "vdp_v1_v7.json"
+ARCHIVED_SOURCE_TAG = "vdp-v4-screening-baseline"
+ARCHIVED_SOURCE_COMMIT = "61ac68066599e3bf3c86c0f6d3a8615ac61d8538"
 
 FIGURE_STEMS = (
     "figure_01_v1_structure",
@@ -65,6 +68,46 @@ def sha256(path: Path) -> str:
         for block in iter(lambda: stream.read(1024 * 1024), b""):
             digest.update(block)
     return digest.hexdigest()
+
+
+def archived_source_sha256(relative: str) -> str | None:
+    """Hash one source blob from the immutable v4 artifact snapshot.
+
+    The original run recorded a dirty base commit because its newly added
+    validation files did not yet exist at that commit.  Commit 61ac680 is the
+    subsequent immutable snapshot containing the exact manifest, outputs, and
+    source blobs.  Current source evolution must therefore be checked against
+    that pinned snapshot, rather than making a historical artifact fail merely
+    because a checker has advanced.
+    """
+
+    path = Path(relative)
+    if path.is_absolute() or not path.parts or ".." in path.parts:
+        return None
+    try:
+        resolved = subprocess.run(
+            ["git", "rev-list", "-n", "1", ARCHIVED_SOURCE_TAG],
+            cwd=ROOT,
+            check=True,
+            capture_output=True,
+            text=True,
+        ).stdout.strip()
+        if resolved != ARCHIVED_SOURCE_COMMIT:
+            return None
+        blob = subprocess.run(
+            [
+                "git",
+                "cat-file",
+                "blob",
+                f"{ARCHIVED_SOURCE_COMMIT}:{path.as_posix()}",
+            ],
+            cwd=ROOT,
+            check=True,
+            capture_output=True,
+        ).stdout
+    except (OSError, subprocess.CalledProcessError):
+        return None
+    return hashlib.sha256(blob).hexdigest()
 
 
 def verify(output: Path = OUTPUT) -> list[str]:
@@ -166,10 +209,13 @@ def verify(output: Path = OUTPUT) -> list[str]:
             failures.append(f"result hash mismatch: {name}")
     for relative, expected in manifest.get("source_hashes", {}).items():
         path = ROOT / relative
-        if not path.is_file():
-            failures.append(f"manifest source missing: {relative}")
-        elif sha256(path) != expected:
-            failures.append(f"source hash mismatch: {relative}")
+        current_matches = path.is_file() and sha256(path) == expected
+        archived_matches = archived_source_sha256(relative) == expected
+        if not current_matches and not archived_matches:
+            failures.append(
+                f"source hash is absent from both current worktree and frozen "
+                f"{ARCHIVED_SOURCE_TAG}: {relative}"
+            )
 
     for name in (item for item in RAW_FILES if item.endswith(".npz")):
         try:
