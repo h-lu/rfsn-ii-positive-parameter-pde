@@ -20,7 +20,54 @@
     "final_status",
     "claim_bearing",
     "release_eligible",
+    "raw_probe",
+    "logs",
     "nonclaims"
+  ],
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "scope": {
+            "enum": ["V2_LOCAL_GRAPH_KERNEL", "V2_H10_C01_KERNEL"]
+          }
+        },
+        "required": ["scope"]
+      },
+      "then": {
+        "required": ["continuation_bridge", "validation_configuration"]
+      },
+      "else": {
+        "not": {
+          "anyOf": [
+            {"required": ["continuation_bridge"]},
+            {"required": ["validation_configuration"]}
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {"scope": {"const": "V2_H10_C01_KERNEL"}},
+        "required": ["scope"]
+      },
+      "then": {
+        "required": [
+          "h10_c01_configuration",
+          "p2a_prerequisite",
+          "h10_exact_center_audit"
+        ]
+      },
+      "else": {
+        "not": {
+          "anyOf": [
+            {"required": ["h10_c01_configuration"]},
+            {"required": ["p2a_prerequisite"]},
+            {"required": ["h10_exact_center_audit"]}
+          ]
+        }
+      }
+    }
   ],
   "properties": {
     "schema_version": {"const": "rfsn-rigorous-run-certificate/1"},
@@ -30,7 +77,7 @@
     },
     "scope": {
       "type": "string",
-      "enum": ["PREFLIGHT", "V1_V2_1_KERNEL", "V2_LOCAL_GRAPH_KERNEL"]
+      "enum": ["PREFLIGHT", "V1_V2_1_KERNEL", "V2_LOCAL_GRAPH_KERNEL", "V2_H10_C01_KERNEL"]
     },
     "created_at": {"type": "string", "format": "date-time"},
     "source_revision": {
@@ -100,6 +147,48 @@
         "path": {"$ref": "#/$defs/relativePath"},
         "sha256": {"$ref": "#/$defs/sha256"},
         "configuration_id": {"const": "vdp-p2-local-graph-v1"}
+      }
+    },
+    "h10_c01_configuration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256", "configuration_id"],
+      "properties": {
+        "path": {"$ref": "#/$defs/relativePath"},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "configuration_id": {"const": "vdp-p2-h10-c01-v1"}
+      }
+    },
+    "p2a_prerequisite": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["configuration_path", "configuration_sha256", "certificate_path", "certificate_sha256", "certificate_scope", "source_commit", "integrity_status", "mathematical_status", "final_status", "claim_bearing"],
+      "properties": {
+        "configuration_path": {"const": "validation/rigorous/config/vdp_p2_local_graph_v1.json"},
+        "configuration_sha256": {"$ref": "#/$defs/sha256"},
+        "certificate_path": {"const": "validation/rigorous/results/vdp_bridge_v1_p2a_local_graph.json"},
+        "certificate_sha256": {"$ref": "#/$defs/sha256"},
+        "certificate_scope": {"const": "V2_LOCAL_GRAPH_KERNEL"},
+        "source_commit": {"$ref": "#/$defs/sha1"},
+        "integrity_status": {"$ref": "#/$defs/verdict"},
+        "mathematical_status": {"$ref": "#/$defs/verdict"},
+        "final_status": {"$ref": "#/$defs/verdict"},
+        "claim_bearing": {"type": "boolean"}
+      }
+    },
+    "h10_exact_center_audit": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["schema_version", "status", "commit", "frozen_objects", "regeneration", "term_table_audit", "failures", "inconclusive_reasons"],
+      "properties": {
+        "schema_version": {"const": "rfsn-vdp-h10-center-audit/1"},
+        "status": {"$ref": "#/$defs/verdict"},
+        "commit": {"$ref": "#/$defs/sha1"},
+        "frozen_objects": {"type": "object"},
+        "regeneration": {"type": "object"},
+        "term_table_audit": {"type": "object"},
+        "failures": {"type": "array", "items": {"type": "string"}},
+        "inconclusive_reasons": {"type": "array", "items": {"type": "string"}}
       }
     },
     "toolchain": {

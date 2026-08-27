@@ -29,6 +29,7 @@ from rigorous_common import (
     sha256_file,
     validate_exact_bridge,
     validate_exact_box,
+    validate_h10_c01_configuration,
     validate_local_graph_configuration,
 )
 
@@ -37,6 +38,8 @@ REPOSITORY = HERE.parents[1]
 BOX_PATH = HERE / "config" / "vdp_box_v1.json"
 BRIDGE_PATH = HERE / "config" / "vdp_bridge_v1.json"
 LOCAL_GRAPH_CONFIG_PATH = HERE / "config" / "vdp_p2_local_graph_v1.json"
+H10_C01_CONFIG_PATH = HERE / "config" / "vdp_p2_h10_c01_v1.json"
+P2A_CERTIFICATE_PATH = HERE / "results" / "vdp_bridge_v1_p2a_local_graph.json"
 DEPENDENCY_LOCK_PATH = HERE / "dependency.lock.json"
 FLAGSHIP_LOCK_PATH = HERE / "flagship_import.lock.json"
 
@@ -52,9 +55,11 @@ BOUND_SOURCES = (
     "validation/rigorous/continuation_bridge.schema.json",
     "validation/rigorous/parameter_box.schema.json",
     "validation/rigorous/p2_local_graph.schema.json",
+    "validation/rigorous/p2_h10_c01.schema.json",
     "validation/rigorous/config/vdp_bridge_v1.json",
     "validation/rigorous/config/vdp_box_v1.json",
     "validation/rigorous/config/vdp_p2_local_graph_v1.json",
+    "validation/rigorous/config/vdp_p2_h10_c01_v1.json",
     "validation/rigorous/dependency.lock.json",
     "validation/rigorous/flagship_import.lock.json",
     "validation/rigorous/obligations.json",
@@ -64,7 +69,10 @@ BOUND_SOURCES = (
     "validation/rigorous/include/exact_polynomial.hpp",
     "validation/rigorous/src/rounding_self_test.cpp",
     "validation/rigorous/src/vdp_local_graph_probe.cpp",
+    "validation/rigorous/src/vdp_h10_c01_probe.cpp",
     "validation/rigorous/src/vdp_parameter_box_probe.cpp",
+    "validation/rigorous/audit_h10_center.py",
+    "validation/rigorous/results/vdp_bridge_v1_p2a_local_graph.json",
     "validation/rigorous/rigorous_common.py",
     "validation/rigorous/run_validation.py",
     "validation/rigorous/check_certificate.py",
@@ -177,6 +185,104 @@ def verify_local_graph_configuration(
     return ("PASS" if not errors else "FAIL", errors)
 
 
+def verify_p2a_prerequisite(
+        certificate: dict[str, Any]) -> tuple[str, list[str], dict[str, Any]]:
+    errors = schema_errors(certificate) + semantic_errors(certificate, REPOSITORY)
+    by_id = {
+        item.get("id"): item.get("status")
+        for item in certificate.get("obligations", [])
+        if isinstance(item, dict)
+    }
+    expected = {
+        "scope": "V2_LOCAL_GRAPH_KERNEL",
+        "integrity_status": "PASS",
+        "mathematical_status": "PASS",
+        "final_status": "INCONCLUSIVE",
+        "claim_bearing": False,
+    }
+    for key, value in expected.items():
+        if certificate.get(key) != value:
+            errors.append(
+                f"P2a prerequisite {key}={certificate.get(key)!r}, expected {value!r}")
+    for identifier in ("V2.WU.FRAME_BLOCK", "V2.WU.COARSE_GRAPH"):
+        if by_id.get(identifier) != "PASS":
+            errors.append(f"P2a prerequisite {identifier} is not PASS")
+    detail = {
+        "configuration_path":
+            "validation/rigorous/config/vdp_p2_local_graph_v1.json",
+        "configuration_sha256": sha256_file(LOCAL_GRAPH_CONFIG_PATH),
+        "certificate_path":
+            "validation/rigorous/results/vdp_bridge_v1_p2a_local_graph.json",
+        "certificate_sha256": sha256_file(P2A_CERTIFICATE_PATH),
+        "certificate_scope": certificate.get("scope"),
+        "source_commit": certificate.get("source_revision", {}).get("commit"),
+        "integrity_status": certificate.get("integrity_status"),
+        "mathematical_status": certificate.get("mathematical_status"),
+        "final_status": certificate.get("final_status"),
+        "claim_bearing": certificate.get("claim_bearing"),
+    }
+    return ("PASS" if not errors else "FAIL", errors, detail)
+
+
+def verify_h10_c01_configuration(
+        configuration: dict[str, Any], bridge: dict[str, Any],
+        p2a_configuration: dict[str, Any], p2a_certificate: dict[str, Any],
+        flagship_lock: dict[str, Any]) -> tuple[str, list[str]]:
+    errors = validate_h10_c01_configuration(configuration)
+    try:
+        jsonschema.validate(
+            configuration,
+            load_json(HERE / "p2_h10_c01.schema.json"),
+            format_checker=jsonschema.FormatChecker(),
+        )
+    except jsonschema.ValidationError as error:
+        errors.append(f"schema: {error.message}")
+    try:
+        basis = configuration["selection_basis"]
+        tag_commit = git_output(
+            REPOSITORY, "rev-parse", f"{basis['repository_tag']}^{{commit}}")
+        if tag_commit != basis["repository_commit"]:
+            errors.append("H10 C0/C1 selection tag does not resolve to its commit")
+        canonical = {
+            "continuation_bridge": BRIDGE_PATH,
+            "p2a_configuration": LOCAL_GRAPH_CONFIG_PATH,
+            "p2a_certificate": P2A_CERTIFICATE_PATH,
+        }
+        for name, path in canonical.items():
+            selected = basis[name]
+            if safe_repository_path(REPOSITORY, selected["path"]) != path.resolve():
+                errors.append(f"H10 C0/C1 {name} is not canonical")
+            if selected["sha256"] != sha256_file(path):
+                errors.append(f"H10 C0/C1 current {name} hash mismatch")
+            frozen_blob = subprocess.run(
+                ["git", "-C", str(REPOSITORY), "show",
+                 f"{basis['repository_commit']}:{selected['path']}"],
+                check=True, stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE).stdout
+            if selected["sha256"] != sha256_bytes(frozen_blob):
+                errors.append(f"H10 C0/C1 frozen {name} blob hash mismatch")
+        if bridge.get("bridge_id") != "vdp-core-to-positive-bridge-v1":
+            errors.append("H10 C0/C1 bridge identifier changed")
+        if p2a_configuration.get("configuration_id") != \
+                "vdp-p2-local-graph-v1":
+            errors.append("H10 C0/C1 P2a configuration identifier changed")
+        if p2a_certificate.get("scope") != "V2_LOCAL_GRAPH_KERNEL":
+            errors.append("H10 C0/C1 prerequisite certificate scope changed")
+
+        center = configuration["imported_core_center"]
+        if center["commit"] != flagship_lock["commit"]:
+            errors.append("H10 C0/C1 center commit differs from flagship lock")
+        for name in ("generator", "term_table", "reference_probe",
+                     "reference_readme", "source_certificate"):
+            item = center[name]
+            if flagship_lock["files"].get(item["path"]) != item["sha256"]:
+                errors.append(
+                    f"H10 C0/C1 imported {name} differs from flagship lock")
+    except (KeyError, OSError, subprocess.SubprocessError) as error:
+        errors.append(f"H10 C0/C1 configuration verification failed: {error}")
+    return ("PASS" if not errors else "FAIL", errors)
+
+
 def verify_flagship(repository: Path | None) -> tuple[str, dict[str, Any]]:
     lock = load_json(FLAGSHIP_LOCK_PATH)
     detail: dict[str, Any] = {
@@ -208,6 +314,68 @@ def verify_flagship(repository: Path | None) -> tuple[str, dict[str, Any]]:
     detail["repository_path"] = str(repository)
     detail["errors"] = errors
     return ("PASS" if not errors else "FAIL", detail)
+
+
+def run_h10_center_audit(
+        flagship_repository: Path,
+        configuration: dict[str, Any]) -> tuple[
+            dict[str, Any], dict[str, str], dict[str, Any]]:
+    center = configuration["imported_core_center"]
+    protocol = configuration["exact_center_audit"]
+    command = [
+        sys.executable, "-B", str(HERE / "audit_h10_center.py"),
+        "--flagship-repository", str(flagship_repository.resolve()),
+        "--commit", center["commit"],
+        "--generator-path", center["generator"]["path"],
+        "--generator-sha256", center["generator"]["sha256"],
+        "--header-path", center["term_table"]["path"],
+        "--header-sha256", center["term_table"]["sha256"],
+        "--h1-term-count", str(protocol["h1_term_count"]),
+        "--h2-term-count", str(protocol["h2_term_count"]),
+        "--defect1-term-count", str(protocol["defect1_term_count"]),
+        "--defect2-term-count", str(protocol["defect2_term_count"]),
+        "--h-min-degree", str(protocol["center_minimum_total_degree"]),
+        "--h-max-degree", str(protocol["center_maximum_total_degree"]),
+        "--defect-min-degree", str(protocol["defect_minimum_total_degree"]),
+        "--defect-max-degree", str(protocol["defect_maximum_total_degree"]),
+        "--timeout-seconds", "900",
+    ]
+    environment = os.environ.copy()
+    environment.update({
+        "OMP_NUM_THREADS": "1",
+        "OPENBLAS_NUM_THREADS": "1",
+        "LC_ALL": "C.UTF-8",
+    })
+    executed = subprocess.run(
+        command, text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+        env=environment, timeout=960)
+    if executed.returncode not in (0, 1, 2):
+        raise RuntimeError(
+            f"H10 exact-center audit terminated with unexpected code "
+            f"{executed.returncode}:\n{executed.stderr}")
+    try:
+        audit = json.loads(executed.stdout)
+    except json.JSONDecodeError as error:
+        raise RuntimeError(
+            f"H10 exact-center audit emitted invalid JSON: {error}") from error
+    expected_exit = {"PASS": 0, "FAIL": 1, "INCONCLUSIVE": 2}.get(
+        audit.get("status"))
+    if expected_exit != executed.returncode:
+        raise RuntimeError("H10 exact-center audit status/exit mismatch")
+    if audit.get("commit") != center["commit"]:
+        raise RuntimeError("H10 exact-center audit commit mismatch")
+    logs = {
+        "h10_audit_stdout_sha256": sha256_bytes(executed.stdout.encode()),
+        "h10_audit_stderr_sha256": sha256_bytes(executed.stderr.encode()),
+    }
+    execution = {
+        "audit_argv": command,
+        "audit_argv_sha256": sha256_bytes(
+            json.dumps(command, separators=(",", ":")).encode()),
+        "audit_exit_code": executed.returncode,
+        "audit_source_sha256": sha256_file(HERE / "audit_h10_center.py"),
+    }
+    return audit, logs, execution
 
 
 def parse_cache(path: Path) -> dict[str, str]:
@@ -453,11 +621,14 @@ def compile_and_run(
         dependency: dict[str, Any], box: dict[str, Any],
         bridge: dict[str, Any] | None = None,
         local_graph_configuration: dict[str, Any] | None = None,
+        h10_c01_configuration: dict[str, Any] | None = None,
+        flagship_repository: Path | None = None,
         ) -> tuple[dict[str, Any], dict[str, str], dict[str, Any]]:
     source_names = {
         "preflight": "rounding_self_test.cpp",
         "kernel": "vdp_parameter_box_probe.cpp",
         "local-graph": "vdp_local_graph_probe.cpp",
+        "h10-c01": "vdp_h10_c01_probe.cpp",
     }
     source = HERE / "src" / source_names[scope]
     compiler = dependency["compiler"]["executable"]
@@ -466,10 +637,38 @@ def compile_and_run(
     environment.update({"OMP_NUM_THREADS": "1", "OPENBLAS_NUM_THREADS": "1", "LC_ALL": "C.UTF-8"})
     with tempfile.TemporaryDirectory(prefix="rfsn-rigorous-") as temporary:
         binary = Path(temporary) / "probe"
+        extra_compile_arguments: list[str] = []
+        imported_header: dict[str, Any] | None = None
+        if scope == "h10-c01":
+            if h10_c01_configuration is None or flagship_repository is None:
+                raise RuntimeError("H10 C0/C1 scope lacks its frozen inputs")
+            center = h10_c01_configuration["imported_core_center"]
+            term_table = center["term_table"]
+            result = subprocess.run(
+                ["git", "-C", str(flagship_repository.resolve()), "show",
+                 f"{center['commit']}:{term_table['path']}"],
+                check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            observed_hash = sha256_bytes(result.stdout)
+            if observed_hash != term_table["sha256"]:
+                raise RuntimeError("materialized H10 term-table hash mismatch")
+            header = Path(temporary) / "unstable_graph_terms.hpp"
+            header.write_bytes(result.stdout)
+            extra_compile_arguments.extend(["-include", str(header.resolve())])
+            imported_header = {
+                "repository_commit": center["commit"],
+                "repository_path": term_table["path"],
+                "expected_sha256": term_table["sha256"],
+                "materialized_sha256": sha256_file(header),
+                "git_show_stdout_sha256": observed_hash,
+                "git_show_stderr_sha256": sha256_bytes(result.stderr),
+                "compiler_include_mode": "absolute-forced-include",
+                "compiler_include_argument": str(header.resolve()),
+            }
         command = [
             compiler,
             "-std=c++17",
             f"-I{HERE / 'include'}",
+            *extra_compile_arguments,
             *cflags,
             *strict_flags,
             str(source),
@@ -493,6 +692,17 @@ def compile_and_run(
             radius = local_graph_configuration["coordinate_block"][
                 "unstable_radius"]
             run_command.extend([radius["numerator"], radius["denominator"]])
+        elif scope == "h10-c01":
+            if bridge is None or h10_c01_configuration is None:
+                raise RuntimeError("H10 C0/C1 scope lacks its rational inputs")
+            run_command.extend(box_arguments(bridge))
+            radius = h10_c01_configuration["coordinate_domain"][
+                "unstable_radius"]
+            rho = h10_c01_configuration["tube_radii"]["value_euclidean"]
+            eta = h10_c01_configuration["tube_radii"][
+                "first_derivative_frobenius"]
+            for value in (radius, rho, eta):
+                run_command.extend([value["numerator"], value["denominator"]])
         executed = subprocess.run(
             run_command, text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
             env=environment, timeout=120)
@@ -519,6 +729,8 @@ def compile_and_run(
             "probe_argv": run_command,
             "probe_exit_code": executed.returncode,
         }
+        if imported_header is not None:
+            build["imported_header"] = imported_header
         return raw, logs, build
 
 
@@ -546,7 +758,7 @@ def make_obligation(identifier: str, status: str,
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
-        "scope", choices=("preflight", "kernel", "local-graph"))
+        "scope", choices=("preflight", "kernel", "local-graph", "h10-c01"))
     parser.add_argument("--capd-source", type=Path, required=True)
     parser.add_argument("--capd-config", type=Path, required=True)
     parser.add_argument("--flagship-repository", type=Path)
@@ -561,11 +773,18 @@ def main() -> int:
         box_status, box_errors = verify_box(box)
         bridge: dict[str, Any] | None = None
         local_graph_configuration: dict[str, Any] | None = None
+        h10_c01_configuration: dict[str, Any] | None = None
+        p2a_certificate: dict[str, Any] | None = None
         bridge_status = "PASS"
         bridge_errors: list[str] = []
         local_graph_configuration_status = "PASS"
         local_graph_configuration_errors: list[str] = []
-        if arguments.scope == "local-graph":
+        h10_c01_configuration_status = "PASS"
+        h10_c01_configuration_errors: list[str] = []
+        p2a_prerequisite_status = "PASS"
+        p2a_prerequisite_errors: list[str] = []
+        p2a_prerequisite: dict[str, Any] | None = None
+        if arguments.scope in ("local-graph", "h10-c01"):
             bridge = load_json(BRIDGE_PATH)
             local_graph_configuration = load_json(LOCAL_GRAPH_CONFIG_PATH)
             bridge_status, bridge_errors = verify_bridge(bridge, box)
@@ -573,18 +792,44 @@ def main() -> int:
                 local_graph_configuration_errors = \
                 verify_local_graph_configuration(
                     local_graph_configuration, bridge)
+        if arguments.scope == "h10-c01":
+            h10_c01_configuration = load_json(H10_C01_CONFIG_PATH)
+            p2a_certificate = load_json(P2A_CERTIFICATE_PATH)
+            p2a_prerequisite_status, p2a_prerequisite_errors, \
+                p2a_prerequisite = verify_p2a_prerequisite(p2a_certificate)
+            h10_c01_configuration_status, h10_c01_configuration_errors = \
+                verify_h10_c01_configuration(
+                    h10_c01_configuration, bridge,
+                    local_graph_configuration, p2a_certificate,
+                    load_json(FLAGSHIP_LOCK_PATH))
         head = git_output(REPOSITORY, "rev-parse", "HEAD")
         dirty = bool(git_output(REPOSITORY, "status", "--porcelain"))
         if dirty and not arguments.allow_dirty:
             raise RuntimeError(
                 "repository is dirty; use --allow-dirty only for a non-release development run")
+        if arguments.scope == "h10-c01" and \
+                arguments.flagship_repository is None:
+            raise RuntimeError(
+                "H10 C0/C1 validation requires --flagship-repository for "
+                "frozen-object regeneration")
         flagship_status, flagship = verify_flagship(arguments.flagship_repository)
         capd_status, toolchain, cflags, libs = verify_toolchain(
             arguments.capd_source.resolve(), arguments.capd_config.resolve(), dependency)
         toolchain["flagship_import"] = flagship
+        exact_center_audit: dict[str, Any] | None = None
+        exact_center_audit_logs: dict[str, str] = {}
+        if arguments.scope == "h10-c01":
+            assert arguments.flagship_repository is not None
+            assert h10_c01_configuration is not None
+            exact_center_audit, exact_center_audit_logs, audit_execution = \
+                run_h10_center_audit(
+                    arguments.flagship_repository, h10_c01_configuration)
+            toolchain["h10_exact_center_audit_execution"] = audit_execution
         raw, logs, build = compile_and_run(
             arguments.scope, cflags, libs, dependency, box,
-            bridge, local_graph_configuration)
+            bridge, local_graph_configuration, h10_c01_configuration,
+            arguments.flagship_repository)
+        logs.update(exact_center_audit_logs)
         toolchain["probe_build"] = build
         report_resolved = arguments.report.resolve()
         try:
@@ -609,7 +854,7 @@ def main() -> int:
             make_obligation("BOX.FROZEN", box_status, predicates,
                             diagnostics=box_errors),
         ]
-        if arguments.scope == "local-graph":
+        if arguments.scope in ("local-graph", "h10-c01"):
             p0.extend([
                 make_obligation(
                     "BRIDGE.FROZEN", bridge_status, predicates,
@@ -618,6 +863,23 @@ def main() -> int:
                     "P2.LOCAL_GRAPH_CONFIG_FROZEN",
                     local_graph_configuration_status, predicates,
                     diagnostics=local_graph_configuration_errors),
+            ])
+        if arguments.scope == "h10-c01":
+            assert exact_center_audit is not None
+            p0.extend([
+                make_obligation(
+                    "P2.P2A_PREREQUISITE", p2a_prerequisite_status,
+                    predicates, diagnostics=p2a_prerequisite_errors),
+                make_obligation(
+                    "P2.H10_C01_CONFIG_FROZEN",
+                    h10_c01_configuration_status, predicates,
+                    diagnostics=h10_c01_configuration_errors),
+                make_obligation(
+                    "P2.H10_CENTER_EXACT",
+                    exact_center_audit["status"], predicates,
+                    diagnostics=(exact_center_audit.get("failures", []) +
+                                 exact_center_audit.get(
+                                     "inconclusive_reasons", []))),
             ])
         mathematical: list[dict[str, Any]] = []
         if arguments.scope != "preflight":
@@ -637,6 +899,7 @@ def main() -> int:
             "preflight": "PREFLIGHT",
             "kernel": "V1_V2_1_KERNEL",
             "local-graph": "V2_LOCAL_GRAPH_KERNEL",
+            "h10-c01": "V2_H10_C01_KERNEL",
         }[arguments.scope]
         certificate = {
             "schema_version": "rfsn-rigorous-run-certificate/1",
@@ -684,12 +947,18 @@ def main() -> int:
                     "atlas, V3--V6, temporal stability, Turing selection, and "
                     "canard identification remain outside its scope."
                     if arguments.scope == "local-graph" else
+                    "The H10 C0/C1 kernel proves only its two P2b0 tube "
+                    "subobligations; V2.WU.JETS and V2.WU_GRAPH mixed jets "
+                    "and weighted tails, the homoclinic, exact charts, event "
+                    "atlas, V3--V6, temporal stability, Turing selection, "
+                    "and canard identification remain outside its scope."
+                    if arguments.scope == "h10-c01" else
                     "Phase 1 does not validate V2 continuation beyond item (1), "
                     "V3--V6, temporal stability, Turing selection, or canard identification."
                 ),
             ],
         }
-        if arguments.scope == "local-graph":
+        if arguments.scope in ("local-graph", "h10-c01"):
             assert bridge is not None
             assert local_graph_configuration is not None
             certificate["continuation_bridge"] = {
@@ -704,6 +973,18 @@ def main() -> int:
                 "configuration_id": local_graph_configuration[
                     "configuration_id"],
             }
+        if arguments.scope == "h10-c01":
+            assert h10_c01_configuration is not None
+            assert p2a_prerequisite is not None
+            assert exact_center_audit is not None
+            certificate["h10_c01_configuration"] = {
+                "path": "validation/rigorous/config/vdp_p2_h10_c01_v1.json",
+                "sha256": sha256_file(H10_C01_CONFIG_PATH),
+                "configuration_id": h10_c01_configuration[
+                    "configuration_id"],
+            }
+            certificate["p2a_prerequisite"] = p2a_prerequisite
+            certificate["h10_exact_center_audit"] = exact_center_audit
         errors = schema_errors(certificate) + semantic_errors(certificate, REPOSITORY)
         if errors:
             raise RuntimeError("generated certificate failed self-check:\n" + "\n".join(errors))
