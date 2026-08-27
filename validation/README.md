@@ -6,8 +6,9 @@ Nothing currently stored here is a claim-bearing computer-assisted proof.
 The floating candidate-contract remains deliberately non-claim-bearing, while
 [`rigorous/`](rigorous/README.md) contains the separate outward-rounded source
 lane and the formally frozen parameter box.  Clean local certificates are now
-archived through P2b0: phase 1, P2a, exact H10 regeneration, and the true-graph
-\(C^0/C^1\) tubes have mathematical and integrity status `PASS`.  Their
+archived through P2b: phase 1, P2a, exact H10 regeneration, the true-graph
+\(C^0/C^1\) tubes, state-\(C^2/C^3\), the complete parameter/mixed jets, and
+weighted half-orbits have mathematical and integrity status `PASS`.  Their
 aggregate status remains `INCONCLUSIVE` and `claim_bearing: false` while the
 required independent replay is 1/2.
 
@@ -206,10 +207,10 @@ compact finite-flow clauses.  The V3/V5A infinite-end remainders and the
 all-winding reduction still require model-specific interval estimates around
 the analytic constructions.
 
-## Current blockers after P2b0
+## Current blockers after P2b
 
 - The frozen box is an exact rational prevalidation object.  The archived
-  clean certificates through P2b0 pass their implemented obligations, but the
+  clean certificates through P2b pass their implemented obligations, but the
   independent second-machine replay required by policy is pending.
 - The existing finite event faces are proxies rather than the complete V6
   physical arrangement and finite marked atlas; B1/A2 do not prove a component
@@ -218,10 +219,11 @@ the analytic constructions.
   the certified source window/parameter box, infinite V4 graph, V5 uniform
   tube, endpoint adjoint/exchange, matching uniqueness, parameter jets, and
   infinite finite-part remainders are not interval enclosures.
-- P2a/P2b0 now cover the true coarse local graph and its H10-centered
-  \(C^0/C^1\) tubes.  True-graph state derivatives through order three,
-  parameter/mixed derivatives through order two, weighted half-orbit
-  constants, the remaining V2 objects, and V3--V6 remain `PENDING` in
+- P2a/P2b0/P2b now cover the true local graph, its H10-centered
+  \(C^0/C^1\) tubes, state derivatives through order three,
+  parameter/mixed derivatives through order two, and weighted half-orbit
+  constants.  The normalized Kato source phase, the remaining V2 objects, and
+  V3--V6 remain `PENDING` in
   [`rigorous/obligations.json`](rigorous/obligations.json).
 - The policy requires an independent replay on a second machine before any
   aggregate certificate can become claim-bearing.  This repository currently
@@ -231,5 +233,5 @@ These blockers do not make the floating repository a toy.  Its deterministic
 raw outputs and complete B1/A2 return records provide candidate centers,
 scales, event ordering, interfaces, and observable checks for the rigorous
 implementation.  The correct aggregate Issue #7 status is
-`P2B0_LOCAL_PASS_AGGREGATE_INCONCLUSIVE`, not a claim-bearing `PASS`; see the
-[`P2b0 report`](rigorous/P2B0_REPORT.md).
+`P2B_LOCAL_PASS_AGGREGATE_INCONCLUSIVE`, not a claim-bearing `PASS`; see the
+[`P2b report`](rigorous/P2B_JETS_REPORT.md).

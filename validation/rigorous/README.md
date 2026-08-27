@@ -35,8 +35,8 @@ in [`PHASE1_REPORT.md`](PHASE1_REPORT.md).  It records integrity `PASS`,
 mathematical `PASS`, aggregate `INCONCLUSIVE`, and `claim_bearing: false`.
 
 The P2 obligation map, exact moving frame, non-circular graph bootstrap, and
-the boundary between P2a and the still-pending mixed-jet parent obligation are
-frozen in [`P2_VALIDATION_CONTRACT.md`](P2_VALIDATION_CONTRACT.md).
+the boundary between the staged local-graph obligations are frozen in
+[`P2_VALIDATION_CONTRACT.md`](P2_VALIDATION_CONTRACT.md).
 The first clean P2a certificate is archived at
 [`results/vdp_bridge_v1_p2a_local_graph.json`](results/vdp_bridge_v1_p2a_local_graph.json)
 and explained in [`P2A_REPORT.md`](P2A_REPORT.md).  Its two P2a mathematical
@@ -49,6 +49,16 @@ and explained in [`P2B0_REPORT.md`](P2B0_REPORT.md).  Exact H10 regeneration,
 the \(C^0\) tube, the \(C^1\) tube, and all integrity checks pass.  The parent
 mixed-jet and weighted-half-orbit obligations remain pending, and the local
 certificate remains non-claim-bearing while independent replay is 1/2.
+
+The first clean P2b mixed-jet certificate is archived at
+[`results/vdp_bridge_v1_p2b_jets.json`](results/vdp_bridge_v1_p2b_jets.json)
+and explained in [`P2B_JETS_REPORT.md`](P2B_JETS_REPORT.md).  Every P2b
+coefficient, higher-state-tensor, complete mixed-jet, and weighted-half-orbit
+obligation passes, so the local parents `V2.WU.JETS` and `V2.WU_GRAPH` pass as
+well.  Its aggregate remains `INCONCLUSIVE` and non-claim-bearing solely
+because the current-computer-only lane supplies one of two required
+independent machines.  The normalized Kato source phase remains the next
+separate interface before P2c.
 
 ## Frozen phase-1 box
 

@@ -170,9 +170,13 @@ the frozen exact H10 center byte-for-byte and proves uniform true-graph tubes
 
 on that bridge.  Its integrity and mathematical statuses pass locally, while
 the aggregate remains `INCONCLUSIVE` and non-claim-bearing because independent
-replay is still 1/2.  Higher state jets, parameter/mixed jets, and weighted
-half-orbit constants remain necessary for the parent `V2.WU_GRAPH`;
-P2b1--P5 therefore remain pending.
+replay is still 1/2.  The subsequent clean P2b mixed-jet kernel now also
+passes the true-graph state-(C^2/C^3) bounds, the complete rectangular
+state/parameter jets, and the weight-(1/4) half-orbit bounds in moving and
+physical coordinates.  Consequently its local parent obligations
+`V2.WU.JETS` and `V2.WU_GRAPH` pass.  Its aggregate remains `INCONCLUSIVE` and
+non-claim-bearing solely because independent replay remains 1/2.  The
+normalized Kato source-phase interface is next, followed by P2c--P5.
 
 ## Repository map
 
@@ -195,6 +199,7 @@ P2b1--P5 therefore remain pending.
 - [Issue #7 phase-1 local report](validation/rigorous/PHASE1_REPORT.md)
 - [Issue #7 P2a local-graph report](validation/rigorous/P2A_REPORT.md)
 - [Issue #7 P2b0 H10 C0/C1 report](validation/rigorous/P2B0_REPORT.md)
+- [Issue #7 P2b mixed-jet report](validation/rigorous/P2B_JETS_REPORT.md)
 
 ## Initial work queue
 
@@ -204,7 +209,7 @@ P2b1--P5 therefore remain pending.
 - [#4: central--outer matching theorem](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/4), the decisive mathematical go/no-go task
 - [#5: outer algebraic action finite part](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/5)
 - [#6: exhaustive two-end theorem](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/6)
-- [#7: rigorous validation](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/7), with phase 1, P2a, and the two P2b0 H10-centered tube subobligations passing locally, while the P2 mixed-jet parent, P3--P5, and independent replay remain pending
+- [#7: rigorous validation](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/7), with phase 1, P2a, P2b0, and the P2b mixed-jet/weighted-half-orbit parent passing locally; Kato phase, P2c--P5, and independent replay remain pending
 
 The source theory remains in
 [`h-lu/reversible-rfsn-ii-waves`](https://github.com/h-lu/reversible-rfsn-ii-waves).

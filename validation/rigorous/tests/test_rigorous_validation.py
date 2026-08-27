@@ -274,6 +274,43 @@ class ArchivedP2B0CertificateTests(unittest.TestCase):
         self.assertEqual(semantic_errors(inconclusive, REPOSITORY), [])
 
 
+class ArchivedP2JetsCertificateTests(unittest.TestCase):
+    def setUp(self) -> None:
+        self.path = (
+            RIGOROUS / "results" / "vdp_bridge_v1_p2b_jets.json")
+        self.certificate = load_json(self.path)
+
+    def test_clean_certificate_closes_the_local_graph_parent(self) -> None:
+        self.assertEqual(schema_errors(self.certificate), [])
+        self.assertEqual(semantic_errors(self.certificate, REPOSITORY), [])
+        self.assertEqual(self.certificate["scope"], "V2_P2_JETS_KERNEL")
+        self.assertEqual(
+            self.certificate["source_revision"]["commit"],
+            "ae88ae0fb47dc43329ad2b66bd465576994df23c")
+        self.assertFalse(
+            self.certificate["source_revision"]["repository_dirty"])
+        self.assertEqual(self.certificate["integrity_status"], "PASS")
+        self.assertEqual(self.certificate["mathematical_status"], "PASS")
+        self.assertEqual(self.certificate["final_status"], "INCONCLUSIVE")
+        self.assertFalse(self.certificate["claim_bearing"])
+        self.assertFalse(self.certificate["release_eligible"])
+        self.assertEqual(
+            self.certificate["independent_replay"]["observed_distinct_machines"],
+            1)
+        by_id = {
+            item["id"]: item["status"]
+            for item in self.certificate["obligations"]
+        }
+        for identifier in (
+                "P2.JETS.COEFFICIENTS", "V2.WU.STATE_C23",
+                "V2.WU.MIXED_JETS", "V2.WU.WEIGHTED_HALF_ORBITS",
+                "V2.WU.JETS", "V2.WU_GRAPH"):
+            self.assertEqual(by_id[identifier], "PASS")
+        self.assertEqual(
+            hashlib.sha256(self.path.read_bytes()).hexdigest(),
+            "07b0949a3d403c0c0a85a4a157b86d7b32cce3ff0348aeffa1db474d441fca07")
+
+
 class DevelopmentReplayTests(unittest.TestCase):
     @staticmethod
     def sync_p2_probe_stdout(certificate: dict) -> None:

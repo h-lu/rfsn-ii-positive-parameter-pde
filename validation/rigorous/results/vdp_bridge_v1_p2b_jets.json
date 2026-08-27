@@ -1,0 +1,2376 @@
+{
+  "certificate_id": "vdp-p2-jets-20260827t110250z-ae88ae0fb47d",
+  "claim_bearing": false,
+  "continuation_bridge": {
+    "bridge_id": "vdp-core-to-positive-bridge-v1",
+    "path": "validation/rigorous/config/vdp_bridge_v1.json",
+    "sha256": "2b62e6fc5625d3f5634d986f7e9cbe8199abfc45c7b97ca29e5efd464b5b69c7",
+    "variables": {
+      "a2": {
+        "lower": {
+          "denominator": "4",
+          "numerator": "-1"
+        },
+        "upper": {
+          "denominator": "4",
+          "numerator": "1"
+        }
+      },
+      "epsilon": {
+        "lower": {
+          "denominator": "5",
+          "numerator": "4"
+        },
+        "upper": {
+          "denominator": "5",
+          "numerator": "6"
+        }
+      },
+      "r": {
+        "lower": {
+          "denominator": "1",
+          "numerator": "0"
+        },
+        "upper": {
+          "denominator": "25",
+          "numerator": "2"
+        }
+      }
+    }
+  },
+  "created_at": "2026-08-27T11:02:50.233044+00:00",
+  "final_status": "INCONCLUSIVE",
+  "independent_replay": {
+    "observed_distinct_machines": 1,
+    "required_distinct_machines": 2,
+    "status": "PENDING_REQUIRED"
+  },
+  "integrity_status": "PASS",
+  "logs": {
+    "compile_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "compile_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "probe_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "probe_stdout_sha256": "d424a352c15fec86955d165019489dfbe0ebd6a58bf14731c27eb41b3d1f8a12"
+  },
+  "mathematical_status": "PASS",
+  "nonclaims": [
+    "A local mathematical PASS is not an aggregate theorem certificate.",
+    "Independent-machine replay is pending and this certificate is not claim-bearing.",
+    "The P2 mixed-jet kernel proves the local graph and weighted half-orbit obligations in the P2a algebraic frame; normalized Kato source phase, the selected homoclinic, exact charts, event atlas, V3--V6, temporal stability, Turing selection, and canard identification remain outside its scope."
+  ],
+  "obligations": [
+    {
+      "id": "ENV.SOURCE_BINDING",
+      "predicate": "Local and frozen external sources are hash-bound without using dirty flagship files.",
+      "status": "PASS"
+    },
+    {
+      "id": "ENV.CAPD_BINDING",
+      "predicate": "The CAPD commit, FILIB backend, compiler, flags, and linked archives match the declared lock.",
+      "status": "PASS"
+    },
+    {
+      "id": "ENV.ROUNDING",
+      "predicate": "Runtime directed rounding, rational division, square root, endpoint serialization, and floating-point environment tests pass.",
+      "status": "PASS"
+    },
+    {
+      "diagnostics": [],
+      "id": "BOX.FROZEN",
+      "predicate": "A positive-width exact rational box was selected and frozen before interval results were inspected.",
+      "status": "PASS"
+    },
+    {
+      "diagnostics": [],
+      "id": "BRIDGE.FROZEN",
+      "predicate": "The exact rational comparison bridge from the complete r=0 core anchor face through the positive target box was frozen before P2 interval results were inspected.",
+      "status": "PASS"
+    },
+    {
+      "diagnostics": [],
+      "id": "P2.LOCAL_GRAPH_CONFIG_FROZEN",
+      "predicate": "The local graph block, moving frame, proof gates, and claim boundary were frozen before their outward-rounded margins were evaluated.",
+      "status": "PASS"
+    },
+    {
+      "diagnostics": [],
+      "id": "P2.P2A_PREREQUISITE",
+      "predicate": "The immutable P2a certificate is internally valid and records integrity and mathematical PASS for both true local-graph prerequisites on the same bridge.",
+      "status": "PASS"
+    },
+    {
+      "diagnostics": [],
+      "id": "P2.P2B0_PREREQUISITE",
+      "predicate": "The immutable P2b0 certificate is internally valid and records integrity and mathematical PASS for both H10-centered true-graph tube prerequisites on the same bridge.",
+      "status": "PASS"
+    },
+    {
+      "diagnostics": [],
+      "id": "P2.JETS_CONFIG_FROZEN",
+      "predicate": "The parameter normalization, norms, true-orbit domain, exact coefficient grid, tensor radii, Lyapunov--Perron recurrence, rational gates, and nonclaims were frozen before the outward-rounded P2b mixed-jet certificate run.",
+      "status": "PASS"
+    },
+    {
+      "enclosures": {
+        "B_0_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.9dde0c65817p-14",
+          "upper_hex": "0x1.4af4f0d844d04p-7"
+        },
+        "B_1_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.a32bf23b7f5dp-11",
+          "upper_hex": "0x1.89374bc6a7efcp-7"
+        },
+        "B_2_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.a2f49bd3d039p-12",
+          "upper_hex": "0x1.eb851eb851ebbp-8"
+        },
+        "ell_0_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.5ee55f36e45p-15",
+          "upper_hex": "0x1.4af4f0d844d04p-7"
+        },
+        "ell_1_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.8a4cdd339834p-18",
+          "upper_hex": "0x1.f75104d551d6cp-14"
+        },
+        "ell_2_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.a8978aa55175p-18",
+          "upper_hex": "0x1.4f8b588e368f3p-14"
+        },
+        "h_0_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.110a96001294p-21",
+          "upper_hex": "0x1.abd1aa821f29bp-15"
+        },
+        "h_1_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.d40b2d780f22p-26",
+          "upper_hex": "0x1.421f5f40d8379p-21"
+        },
+        "h_2_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.034c8b6ba5bfp-25",
+          "upper_hex": "0x1.ad7f29abcaf4cp-22"
+        },
+        "m_0_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.0b390a6e63ap-7",
+          "upper_hex": "0x1.028f5c28f5c2bp+0"
+        },
+        "m_1_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.a1c4865860ep-13",
+          "upper_hex": "0x1.78d4fdf3b645cp-7"
+        },
+        "m_2_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.1f584c023a99p-12",
+          "upper_hex": "0x1.eb851eb851ebbp-8"
+        },
+        "t_0_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.f4e64ff9cec6p-12",
+          "upper_hex": "0x1.eb851eb851ebbp-8"
+        },
+        "t_1_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.d0b6ccc26b25p-12",
+          "upper_hex": "0x1.eb851eb851ebbp-8"
+        },
+        "t_2_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.e63873922c3ap-14",
+          "upper_hex": "0x1.eb851eb851ebbp-9"
+        }
+      },
+      "id": "P2.JETS.COEFFICIENTS",
+      "predicate": "A gap-free exact rational grid rigorously bounds the normalized-parameter derivatives through order two of every state coefficient needed by the cubic Lyapunov--Perron mixed-jet recurrence on the certified true-orbit tube.",
+      "status": "PASS"
+    },
+    {
+      "enclosures": {
+        "origin_second_gate_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.3891610b1dd2p-5",
+          "upper_hex": "0x1.0fabc949765a3p+0"
+        },
+        "origin_third_gate_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.662b20d6690d1p-4",
+          "upper_hex": "0x1.94f251c53bc49p+1"
+        },
+        "state_normal_gap_lower_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.43f354611664p-7",
+          "upper_hex": "0x1.17b3c2b561f5p-5"
+        },
+        "state_second_no_first_exit_gate_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.0167e107e85fp-6",
+          "upper_hex": "0x1.121a60d6c6396p+0"
+        },
+        "state_third_no_first_exit_gate_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.4e08c43a7f1ap-5",
+          "upper_hex": "0x1.9a110a172749bp+1"
+        }
+      },
+      "id": "V2.WU.STATE_C23",
+      "predicate": "The true local unstable graph has uniform Hilbert--Schmidt second- and third-state-derivative bounds on the complete radius-1/100 disk, with the origin homological and full-disk tensor no-first-exit margins strictly positive; the stable analogue follows by reversibility.",
+      "status": "PASS"
+    },
+    {
+      "enclosures": {
+        "Z_0_0_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.a36e2eb1c41p-14",
+          "upper_hex": "0x1.a36e2eb1c458p-14"
+        },
+        "Z_0_1_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.e74131a63f512p-13",
+          "upper_hex": "0x1.0624dd2f1a9fep-11"
+        },
+        "Z_0_2_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.c36d6b5569783p-13",
+          "upper_hex": "0x1.a36e2eb1c433p-12"
+        },
+        "Z_1_0_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.0924f59e81cdp-3",
+          "upper_hex": "0x1.99999999999a8p-3"
+        },
+        "Z_1_1_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.31acf8dc5c29ap-6",
+          "upper_hex": "0x1.999999999999dp-5"
+        },
+        "Z_1_2_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.2829d8bbf7264p-6",
+          "upper_hex": "0x1.47ae147ae147dp-5"
+        },
+        "Z_2_0_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.3e7f76c0f8d08p+0",
+          "upper_hex": "0x1.8000000000002p+3"
+        },
+        "Z_2_1_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.115c0b1ddf3e4p-1",
+          "upper_hex": "0x1.999999999999dp+0"
+        },
+        "Z_2_2_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.5ea6186015fe9p-1",
+          "upper_hex": "0x1.8000000000002p+0"
+        },
+        "Z_3_0_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.9a3ce627a4cbp+4",
+          "upper_hex": "0x1.5e00000000002p+8"
+        },
+        "Z_3_1_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.90b106d164e46p+4",
+          "upper_hex": "0x1.4000000000002p+6"
+        },
+        "Z_3_2_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.119bf65fc7679p+5",
+          "upper_hex": "0x1.4000000000002p+6"
+        }
+      },
+      "id": "V2.WU.MIXED_JETS",
+      "predicate": "All rectangular graph derivatives D_b^i D_mu^j with 0<=i<=3 and parameter multi-index order |j|<=2 are rigorously bounded, including every pure and cross second parameter derivative, with exact conversion from normalized to original blown-up parameters.",
+      "status": "PASS"
+    },
+    {
+      "enclosures": {
+        "Z_0_0_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.a36e2eb1c41p-14",
+          "upper_hex": "0x1.a36e2eb1c458p-14"
+        },
+        "Z_0_1_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.e74131a63f512p-13",
+          "upper_hex": "0x1.0624dd2f1a9fep-11"
+        },
+        "Z_0_2_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.c36d6b5569783p-13",
+          "upper_hex": "0x1.a36e2eb1c433p-12"
+        },
+        "Z_1_0_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.0924f59e81cdp-3",
+          "upper_hex": "0x1.99999999999a8p-3"
+        },
+        "Z_1_1_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.31acf8dc5c29ap-6",
+          "upper_hex": "0x1.999999999999dp-5"
+        },
+        "Z_1_2_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.2829d8bbf7264p-6",
+          "upper_hex": "0x1.47ae147ae147dp-5"
+        },
+        "Z_2_0_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.3e7f76c0f8d08p+0",
+          "upper_hex": "0x1.8000000000002p+3"
+        },
+        "Z_2_1_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.115c0b1ddf3e4p-1",
+          "upper_hex": "0x1.999999999999dp+0"
+        },
+        "Z_2_2_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.5ea6186015fe9p-1",
+          "upper_hex": "0x1.8000000000002p+0"
+        },
+        "Z_3_0_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.9a3ce627a4cbp+4",
+          "upper_hex": "0x1.5e00000000002p+8"
+        },
+        "Z_3_1_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.90b106d164e46p+4",
+          "upper_hex": "0x1.4000000000002p+6"
+        },
+        "Z_3_2_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.119bf65fc7679p+5",
+          "upper_hex": "0x1.4000000000002p+6"
+        },
+        "alpha_lower_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.0630c976c4p-10",
+          "upper_hex": "0x1.f0377d85a898p-7"
+        },
+        "core_rate_minus_local_weight": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.d413cccfe7794p-2",
+          "upper_hex": "0x1.d413cccfe779ep-2"
+        },
+        "green_operator_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.310d26e00bcp-9",
+          "upper_hex": "0x1.310d26e00e8p-9"
+        },
+        "linearized_contraction_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.239c46510e18p-10",
+          "upper_hex": "0x1.126e978d4fdf6p-4"
+        },
+        "local_minus_reserved_weight": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.999999999998p-5",
+          "upper_hex": "0x1.99999999999b4p-5"
+        },
+        "resolvent_upper_margin": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.249eb3d039ap-8",
+          "upper_hex": "0x1.333333333335p-4"
+        }
+      },
+      "id": "V2.WU.WEIGHTED_HALF_ORBITS",
+      "predicate": "The full rectangular family of local unstable half-orbit derivatives is uniformly bounded in the frozen exponentially weighted backward-time space, first in labelled-operator moving coordinates and then in physical central coordinates by the complete C2 frame Leibniz composition; the stable half-orbit bounds follow by the fixed isometric reverser.",
+      "status": "PASS"
+    },
+    {
+      "id": "V2.WU.JETS",
+      "predicate": "State derivatives through order three, parameter derivatives through order two, all required mixed graph bounds, and the weighted half-orbit constants are rigorously enclosed.",
+      "status": "PASS"
+    },
+    {
+      "id": "V2.WU_GRAPH",
+      "predicate": "Parameter-dependent true local stable/unstable graphs and their required mixed jets are enclosed.",
+      "status": "PASS"
+    }
+  ],
+  "p2_jets_configuration": {
+    "configuration_id": "vdp-p2-jets-v1",
+    "path": "validation/rigorous/config/vdp_p2_jets_v1.json",
+    "sha256": "b8123dff51f7444277f71b1b8a5b0cdbbc94df46a848af05e8288751bb6681e0"
+  },
+  "p2a_prerequisite": {
+    "certificate_path": "validation/rigorous/results/vdp_bridge_v1_p2a_local_graph.json",
+    "certificate_scope": "V2_LOCAL_GRAPH_KERNEL",
+    "certificate_sha256": "192b351c3f153080d82bc856fa3c667388dc16c7b4cf0cfa8568fa347bcaf6be",
+    "claim_bearing": false,
+    "configuration_path": "validation/rigorous/config/vdp_p2_local_graph_v1.json",
+    "configuration_sha256": "b11ecadb088e8fbd686ed4834335f96c460bee9a18b0d1edab4222da645e199b",
+    "final_status": "INCONCLUSIVE",
+    "integrity_status": "PASS",
+    "mathematical_status": "PASS",
+    "source_commit": "83bd821847e733ee6f2caf3bbb3fb2cee153daea"
+  },
+  "p2b0_prerequisite": {
+    "certificate_path": "validation/rigorous/results/vdp_bridge_v1_p2b_h10_c01.json",
+    "certificate_scope": "V2_H10_C01_KERNEL",
+    "certificate_sha256": "91c1762329a9e19e8db69052f9397532512d8031f361f0b6eeb43edbeda5d5ac",
+    "claim_bearing": false,
+    "configuration_path": "validation/rigorous/config/vdp_p2_h10_c01_v1.json",
+    "configuration_sha256": "d09cf22c5ce382e31d2388a86b87a49301840cdd8698bf92135b9667d387ca96",
+    "final_status": "INCONCLUSIVE",
+    "integrity_status": "PASS",
+    "mathematical_status": "PASS",
+    "source_commit": "13483e418c02cef38d8d7c7d4d801c628ab81325"
+  },
+  "parameter_box": {
+    "box_id": "vdp-positive-box-v1",
+    "path": "validation/rigorous/config/vdp_box_v1.json",
+    "sha256": "ce84e84e4e2e53563125497df4ad2df98a533437b04b35bee042e9b04ea1c735",
+    "variables": {
+      "a2": {
+        "lower": {
+          "denominator": "4",
+          "numerator": "-1"
+        },
+        "upper": {
+          "denominator": "4",
+          "numerator": "1"
+        }
+      },
+      "epsilon": {
+        "lower": {
+          "denominator": "5",
+          "numerator": "4"
+        },
+        "upper": {
+          "denominator": "5",
+          "numerator": "6"
+        }
+      },
+      "r": {
+        "lower": {
+          "denominator": "25",
+          "numerator": "1"
+        },
+        "upper": {
+          "denominator": "25",
+          "numerator": "2"
+        }
+      }
+    }
+  },
+  "raw_probe": {
+    "acceptance_gates": {
+      "alpha_lower_gate": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.65e353f7ced8fp-1",
+        "upper_hex": "0x1.65e353f7ced94p-1"
+      },
+      "green_operator_upper_gate": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.1851eb851eb83p+1",
+        "upper_hex": "0x1.1851eb851eb87p+1"
+      },
+      "linearized_contraction_upper_gate": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.126e978d4fdf2p-4",
+        "upper_hex": "0x1.126e978d4fdf6p-4"
+      },
+      "origin_second_margin_lower_gate": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.47ae147ae1479p-7",
+        "upper_hex": "0x1.47ae147ae147dp-7"
+      },
+      "origin_third_margin_lower_gate": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.9999999999997p-5",
+        "upper_hex": "0x1.999999999999dp-5"
+      },
+      "resolvent_upper_gate": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.1333333333331p+0",
+        "upper_hex": "0x1.1333333333335p+0"
+      },
+      "state_normal_gap_lower_gate": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.5c28f5c28f5cp-1",
+        "upper_hex": "0x1.5c28f5c28f5c5p-1"
+      },
+      "state_second_no_first_exit_margin_lower_gate": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.0624dd2f1a9fap-11",
+        "upper_hex": "0x1.0624dd2f1a9fep-11"
+      },
+      "state_third_no_first_exit_margin_lower_gate": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.47ae147ae1479p-7",
+        "upper_hex": "0x1.47ae147ae147dp-7"
+      }
+    },
+    "coefficient_enclosures": {
+      "B_0": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.47b934bf79cd1p-7"
+      },
+      "B_1": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.6f048ca2eff9bp-7"
+      },
+      "B_2": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.d155d4fb14e7cp-8"
+      },
+      "ell_0": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.49960b790debap-7"
+      },
+      "ell_1": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.deac370218532p-14"
+      },
+      "ell_2": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.3501dfe3e177ap-14"
+      },
+      "h_0": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.a78d802a1edf2p-15"
+      },
+      "h_1": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.337f05d517be3p-21"
+      },
+      "h_2": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.8d15983e563c8p-22"
+      },
+      "m_0": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.0078ea1418fb3p+0"
+      },
+      "m_1": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.724debda54c2p-7"
+      },
+      "m_2": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.d98f99f82e41cp-8"
+      },
+      "t_0": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.cc36b9b8b4fefp-8"
+      },
+      "t_1": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.ce79b1ec2b39p-8"
+      },
+      "t_2": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.dc535b1bc0898p-9"
+      }
+    },
+    "coefficient_gate_margins": {
+      "B_0_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.9dde0c65817p-14",
+        "upper_hex": "0x1.4af4f0d844d04p-7"
+      },
+      "B_1_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.a32bf23b7f5dp-11",
+        "upper_hex": "0x1.89374bc6a7efcp-7"
+      },
+      "B_2_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.a2f49bd3d039p-12",
+        "upper_hex": "0x1.eb851eb851ebbp-8"
+      },
+      "ell_0_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.5ee55f36e45p-15",
+        "upper_hex": "0x1.4af4f0d844d04p-7"
+      },
+      "ell_1_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.8a4cdd339834p-18",
+        "upper_hex": "0x1.f75104d551d6cp-14"
+      },
+      "ell_2_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.a8978aa55175p-18",
+        "upper_hex": "0x1.4f8b588e368f3p-14"
+      },
+      "h_0_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.110a96001294p-21",
+        "upper_hex": "0x1.abd1aa821f29bp-15"
+      },
+      "h_1_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.d40b2d780f22p-26",
+        "upper_hex": "0x1.421f5f40d8379p-21"
+      },
+      "h_2_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.034c8b6ba5bfp-25",
+        "upper_hex": "0x1.ad7f29abcaf4cp-22"
+      },
+      "m_0_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.0b390a6e63ap-7",
+        "upper_hex": "0x1.028f5c28f5c2bp+0"
+      },
+      "m_1_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.a1c4865860ep-13",
+        "upper_hex": "0x1.78d4fdf3b645cp-7"
+      },
+      "m_2_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.1f584c023a99p-12",
+        "upper_hex": "0x1.eb851eb851ebbp-8"
+      },
+      "t_0_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.f4e64ff9cec6p-12",
+        "upper_hex": "0x1.eb851eb851ebbp-8"
+      },
+      "t_1_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.d0b6ccc26b25p-12",
+        "upper_hex": "0x1.eb851eb851ebbp-8"
+      },
+      "t_2_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.e63873922c3ap-14",
+        "upper_hex": "0x1.eb851eb851ebbp-9"
+      }
+    },
+    "coefficient_upper_gates": {
+      "B_0_gate": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.4af4f0d844cffp-7",
+        "upper_hex": "0x1.4af4f0d844d04p-7"
+      },
+      "B_1_gate": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.89374bc6a7ef8p-7",
+        "upper_hex": "0x1.89374bc6a7efcp-7"
+      },
+      "B_2_gate": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.eb851eb851eb5p-8",
+        "upper_hex": "0x1.eb851eb851ebbp-8"
+      },
+      "ell_0_gate": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.4af4f0d844cffp-7",
+        "upper_hex": "0x1.4af4f0d844d04p-7"
+      },
+      "ell_1_gate": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.f75104d551d66p-14",
+        "upper_hex": "0x1.f75104d551d6cp-14"
+      },
+      "ell_2_gate": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.4f8b588e368efp-14",
+        "upper_hex": "0x1.4f8b588e368f3p-14"
+      },
+      "h_0_gate": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.abd1aa821f297p-15",
+        "upper_hex": "0x1.abd1aa821f29bp-15"
+      },
+      "h_1_gate": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.421f5f40d8374p-21",
+        "upper_hex": "0x1.421f5f40d8379p-21"
+      },
+      "h_2_gate": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.ad7f29abcaf46p-22",
+        "upper_hex": "0x1.ad7f29abcaf4cp-22"
+      },
+      "m_0_gate": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.028f5c28f5c27p+0",
+        "upper_hex": "0x1.028f5c28f5c2bp+0"
+      },
+      "m_1_gate": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.78d4fdf3b6458p-7",
+        "upper_hex": "0x1.78d4fdf3b645cp-7"
+      },
+      "m_2_gate": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.eb851eb851eb5p-8",
+        "upper_hex": "0x1.eb851eb851ebbp-8"
+      },
+      "t_0_gate": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.eb851eb851eb5p-8",
+        "upper_hex": "0x1.eb851eb851ebbp-8"
+      },
+      "t_1_gate": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.eb851eb851eb5p-8",
+        "upper_hex": "0x1.eb851eb851ebbp-8"
+      },
+      "t_2_gate": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.eb851eb851eb5p-9",
+        "upper_hex": "0x1.eb851eb851ebbp-9"
+      }
+    },
+    "coordinate_composition": {
+      "complete_leibniz_composition": true,
+      "frame_bound_method": "sqrt(2)-times-parameter-HS-Frobenius",
+      "jet_tensor_norm": "labelled-multilinear-operator",
+      "moving_state_norm": "max-of-two-euclidean-blocks",
+      "physical_state_norm": "euclidean",
+      "pure_graph_state_tensor_norm": "hilbert-schmidt"
+    },
+    "frame_derivative_enclosures": {
+      "T_0": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.0062315f11583p+2"
+      },
+      "T_1": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.c1edaa2ea6631p-5"
+      },
+      "T_2": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.1c834aa7e2aa4p-5"
+      }
+    },
+    "grid": {
+      "cell_count": 1024,
+      "ordered_axes": [
+        "theta_r",
+        "theta_a",
+        "theta_epsilon",
+        "x"
+      ],
+      "parameter_derivatives_taken_at_fixed_x": true,
+      "subdivisions": [
+        16,
+        8,
+        4,
+        2
+      ]
+    },
+    "linearization_contract": {
+      "actual_family_source": "analytic-unstable-manifold-plus-P2a-cone-continuation",
+      "coefficient_domain": "P2b0-true-orbit-sharpened-x-tube",
+      "full_product_ball_contraction_claimed": false,
+      "inverse_mode": "along-true-orbit-Neumann"
+    },
+    "lyapunov_perron_coefficients": {
+      "L_0_0": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.3bce7e9f3a204p-12"
+      },
+      "L_0_1": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.df5b2ffeae893p-14"
+      },
+      "L_0_2": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.2ffea662b09cp-14"
+      },
+      "L_1_0": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.ed72a5d8cad23p-6"
+      },
+      "L_1_1": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.767f3d7ef85bp-7"
+      },
+      "L_1_2": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.dafde3fa33f38p-8"
+      },
+      "L_2_0": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.0078ea1418fb3p+2"
+      },
+      "L_2_1": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.724debda54c2p-5"
+      },
+      "L_2_2": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.d98f99f82e41cp-6"
+      },
+      "L_3_0": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.cc36b9b8b4fefp-5"
+      },
+      "L_3_1": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.ce79b1ec2b39p-5"
+      },
+      "L_3_2": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.dc535b1bc0898p-6"
+      }
+    },
+    "lyapunov_perron_enclosures": {
+      "core_rate_minus_local_weight": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.d413cccfe7794p-2",
+        "upper_hex": "0x1.d413cccfe779ep-2"
+      },
+      "final_homoclinic_weight_reserved": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.9999999999997p-3",
+        "upper_hex": "0x1.999999999999dp-3"
+      },
+      "fixed_core_rate": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.6a09e667f3bcbp-1",
+        "upper_hex": "0x1.6a09e667f3bcep-1"
+      },
+      "green_operator": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.1805a83b66b4dp+1",
+        "upper_hex": "0x1.1805a83b66b54p+1"
+      },
+      "linearized_contraction": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.0de026740ba6cp-4"
+      },
+      "local_minus_reserved_weight": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.999999999998p-5",
+        "upper_hex": "0x1.99999999999b4p-5"
+      },
+      "local_tail_weight": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.ffffffffffffdp-3",
+        "upper_hex": "0x1.0000000000002p-2"
+      },
+      "one_minus_linearized_contraction": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.de43fb317e8b2p-1",
+        "upper_hex": "0x1p+0"
+      },
+      "resolvent": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1p+0",
+        "upper_hex": "0x1.120e947f62f97p+0"
+      }
+    },
+    "lyapunov_perron_gate_margins": {
+      "alpha_lower_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.0630c976c4p-10",
+        "upper_hex": "0x1.f0377d85a898p-7"
+      },
+      "core_rate_minus_local_weight": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.d413cccfe7794p-2",
+        "upper_hex": "0x1.d413cccfe779ep-2"
+      },
+      "green_operator_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.310d26e00bcp-9",
+        "upper_hex": "0x1.310d26e00e8p-9"
+      },
+      "linearized_contraction_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.239c46510e18p-10",
+        "upper_hex": "0x1.126e978d4fdf6p-4"
+      },
+      "local_minus_reserved_weight": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.999999999998p-5",
+        "upper_hex": "0x1.99999999999b4p-5"
+      },
+      "resolvent_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.249eb3d039ap-8",
+        "upper_hex": "0x1.333333333335p-4"
+      }
+    },
+    "mathematical_status": "PASS",
+    "normalized_weighted_jet_upper_gates": {
+      "Z_0_0_gate": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.4af4f0d844cffp-7",
+        "upper_hex": "0x1.4af4f0d844d04p-7"
+      },
+      "Z_0_1_gate": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.0624dd2f1a9fap-11",
+        "upper_hex": "0x1.0624dd2f1a9fep-11"
+      },
+      "Z_0_2_gate": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.a36e2eb1c432ap-12",
+        "upper_hex": "0x1.a36e2eb1c433p-12"
+      },
+      "Z_1_0_gate": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.3333333333331p+0",
+        "upper_hex": "0x1.3333333333335p+0"
+      },
+      "Z_1_1_gate": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.9999999999997p-5",
+        "upper_hex": "0x1.999999999999dp-5"
+      },
+      "Z_1_2_gate": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.47ae147ae1479p-5",
+        "upper_hex": "0x1.47ae147ae147dp-5"
+      },
+      "Z_2_0_gate": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.7fffffffffffdp+3",
+        "upper_hex": "0x1.8000000000002p+3"
+      },
+      "Z_2_1_gate": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.9999999999997p+0",
+        "upper_hex": "0x1.999999999999dp+0"
+      },
+      "Z_2_2_gate": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.7fffffffffffdp+0",
+        "upper_hex": "0x1.8000000000002p+0"
+      },
+      "Z_3_0_gate": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.5dffffffffffdp+8",
+        "upper_hex": "0x1.5e00000000002p+8"
+      },
+      "Z_3_1_gate": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.3fffffffffffdp+6",
+        "upper_hex": "0x1.4000000000002p+6"
+      },
+      "Z_3_2_gate": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.3fffffffffffdp+6",
+        "upper_hex": "0x1.4000000000002p+6"
+      }
+    },
+    "obligations": [
+      {
+        "enclosures": {
+          "B_0_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.9dde0c65817p-14",
+            "upper_hex": "0x1.4af4f0d844d04p-7"
+          },
+          "B_1_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.a32bf23b7f5dp-11",
+            "upper_hex": "0x1.89374bc6a7efcp-7"
+          },
+          "B_2_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.a2f49bd3d039p-12",
+            "upper_hex": "0x1.eb851eb851ebbp-8"
+          },
+          "ell_0_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.5ee55f36e45p-15",
+            "upper_hex": "0x1.4af4f0d844d04p-7"
+          },
+          "ell_1_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.8a4cdd339834p-18",
+            "upper_hex": "0x1.f75104d551d6cp-14"
+          },
+          "ell_2_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.a8978aa55175p-18",
+            "upper_hex": "0x1.4f8b588e368f3p-14"
+          },
+          "h_0_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.110a96001294p-21",
+            "upper_hex": "0x1.abd1aa821f29bp-15"
+          },
+          "h_1_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.d40b2d780f22p-26",
+            "upper_hex": "0x1.421f5f40d8379p-21"
+          },
+          "h_2_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.034c8b6ba5bfp-25",
+            "upper_hex": "0x1.ad7f29abcaf4cp-22"
+          },
+          "m_0_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.0b390a6e63ap-7",
+            "upper_hex": "0x1.028f5c28f5c2bp+0"
+          },
+          "m_1_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.a1c4865860ep-13",
+            "upper_hex": "0x1.78d4fdf3b645cp-7"
+          },
+          "m_2_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.1f584c023a99p-12",
+            "upper_hex": "0x1.eb851eb851ebbp-8"
+          },
+          "t_0_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.f4e64ff9cec6p-12",
+            "upper_hex": "0x1.eb851eb851ebbp-8"
+          },
+          "t_1_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.d0b6ccc26b25p-12",
+            "upper_hex": "0x1.eb851eb851ebbp-8"
+          },
+          "t_2_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.e63873922c3ap-14",
+            "upper_hex": "0x1.eb851eb851ebbp-9"
+          }
+        },
+        "id": "P2.JETS.COEFFICIENTS",
+        "predicate": "The exact-rational grid and second-order normalized-parameter AD bound the moving blocks and the state derivatives through cubic order by every frozen coefficient budget",
+        "status": "PASS"
+      },
+      {
+        "enclosures": {
+          "origin_second_gate_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.3891610b1dd2p-5",
+            "upper_hex": "0x1.0fabc949765a3p+0"
+          },
+          "origin_third_gate_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.662b20d6690d1p-4",
+            "upper_hex": "0x1.94f251c53bc49p+1"
+          },
+          "state_normal_gap_lower_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.43f354611664p-7",
+            "upper_hex": "0x1.17b3c2b561f5p-5"
+          },
+          "state_second_no_first_exit_gate_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.0167e107e85fp-6",
+            "upper_hex": "0x1.121a60d6c6396p+0"
+          },
+          "state_third_no_first_exit_gate_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.4e08c43a7f1ap-5",
+            "upper_hex": "0x1.9a110a172749bp+1"
+          }
+        },
+        "id": "V2.WU.STATE_C23",
+        "predicate": "The true local graph has uniform Hilbert-Schmidt C2 and C3 tensor balls, with positive no-first-exit margins both on the true graph tube and at the origin",
+        "status": "PASS"
+      },
+      {
+        "enclosures": {
+          "Z_0_0_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.a36e2eb1c41p-14",
+            "upper_hex": "0x1.a36e2eb1c458p-14"
+          },
+          "Z_0_1_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.e74131a63f512p-13",
+            "upper_hex": "0x1.0624dd2f1a9fep-11"
+          },
+          "Z_0_2_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.c36d6b5569783p-13",
+            "upper_hex": "0x1.a36e2eb1c433p-12"
+          },
+          "Z_1_0_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.0924f59e81cdp-3",
+            "upper_hex": "0x1.99999999999a8p-3"
+          },
+          "Z_1_1_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.31acf8dc5c29ap-6",
+            "upper_hex": "0x1.999999999999dp-5"
+          },
+          "Z_1_2_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.2829d8bbf7264p-6",
+            "upper_hex": "0x1.47ae147ae147dp-5"
+          },
+          "Z_2_0_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.3e7f76c0f8d08p+0",
+            "upper_hex": "0x1.8000000000002p+3"
+          },
+          "Z_2_1_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.115c0b1ddf3e4p-1",
+            "upper_hex": "0x1.999999999999dp+0"
+          },
+          "Z_2_2_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.5ea6186015fe9p-1",
+            "upper_hex": "0x1.8000000000002p+0"
+          },
+          "Z_3_0_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.9a3ce627a4cbp+4",
+            "upper_hex": "0x1.5e00000000002p+8"
+          },
+          "Z_3_1_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.90b106d164e46p+4",
+            "upper_hex": "0x1.4000000000002p+6"
+          },
+          "Z_3_2_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.119bf65fc7679p+5",
+            "upper_hex": "0x1.4000000000002p+6"
+          }
+        },
+        "id": "V2.WU.MIXED_JETS",
+        "predicate": "The complete labelled Fa\u00e0 di Bruno recurrence bounds all D_b^i D_theta^j graph traces for 0<=i<=3 and 0<=j<=2",
+        "status": "PASS"
+      },
+      {
+        "enclosures": {
+          "Z_0_0_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.a36e2eb1c41p-14",
+            "upper_hex": "0x1.a36e2eb1c458p-14"
+          },
+          "Z_0_1_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.e74131a63f512p-13",
+            "upper_hex": "0x1.0624dd2f1a9fep-11"
+          },
+          "Z_0_2_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.c36d6b5569783p-13",
+            "upper_hex": "0x1.a36e2eb1c433p-12"
+          },
+          "Z_1_0_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.0924f59e81cdp-3",
+            "upper_hex": "0x1.99999999999a8p-3"
+          },
+          "Z_1_1_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.31acf8dc5c29ap-6",
+            "upper_hex": "0x1.999999999999dp-5"
+          },
+          "Z_1_2_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.2829d8bbf7264p-6",
+            "upper_hex": "0x1.47ae147ae147dp-5"
+          },
+          "Z_2_0_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.3e7f76c0f8d08p+0",
+            "upper_hex": "0x1.8000000000002p+3"
+          },
+          "Z_2_1_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.115c0b1ddf3e4p-1",
+            "upper_hex": "0x1.999999999999dp+0"
+          },
+          "Z_2_2_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.5ea6186015fe9p-1",
+            "upper_hex": "0x1.8000000000002p+0"
+          },
+          "Z_3_0_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.9a3ce627a4cbp+4",
+            "upper_hex": "0x1.5e00000000002p+8"
+          },
+          "Z_3_1_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.90b106d164e46p+4",
+            "upper_hex": "0x1.4000000000002p+6"
+          },
+          "Z_3_2_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.119bf65fc7679p+5",
+            "upper_hex": "0x1.4000000000002p+6"
+          },
+          "alpha_lower_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.0630c976c4p-10",
+            "upper_hex": "0x1.f0377d85a898p-7"
+          },
+          "core_rate_minus_local_weight": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.d413cccfe7794p-2",
+            "upper_hex": "0x1.d413cccfe779ep-2"
+          },
+          "green_operator_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.310d26e00bcp-9",
+            "upper_hex": "0x1.310d26e00e8p-9"
+          },
+          "linearized_contraction_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.239c46510e18p-10",
+            "upper_hex": "0x1.126e978d4fdf6p-4"
+          },
+          "local_minus_reserved_weight": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.999999999998p-5",
+            "upper_hex": "0x1.99999999999b4p-5"
+          },
+          "resolvent_upper_margin": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.249eb3d039ap-8",
+            "upper_hex": "0x1.333333333335p-4"
+          }
+        },
+        "id": "V2.WU.WEIGHTED_HALF_ORBITS",
+        "predicate": "The Lyapunov-Perron Green, contraction, and resolvent bounds give the same full rectangular weighted jets for unstable and reverser-transported stable local half-orbits",
+        "status": "PASS"
+      }
+    ],
+    "original_parameter_physical_weighted_jet_enclosures": {
+      "Z_0_0": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.482bc450ba0aap-5"
+      },
+      "Z_0_1": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.4c13a71ee24f2p-5"
+      },
+      "Z_0_2": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.655f00022c8ap-1"
+      },
+      "Z_1_0": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.1277b2eecc244p+2"
+      },
+      "Z_1_1": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.26f893dabecf1p+2"
+      },
+      "Z_1_2": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.411f6512e95ecp+6"
+      },
+      "Z_2_0": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.58b415ef769aap+5"
+      },
+      "Z_2_1": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.e626b080500d6p+6"
+      },
+      "Z_2_2": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.2572194ee3121p+11"
+      },
+      "Z_3_0": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.44d89b769dafcp+10"
+      },
+      "Z_3_1": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.73d483f57351bp+12"
+      },
+      "Z_3_2": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.ea2a687b75777p+16"
+      }
+    },
+    "original_parameter_weighted_jet_enclosures": {
+      "Z_0_0": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.47ae147ae1479p-7",
+        "upper_hex": "0x1.47ae147ae147dp-7"
+      },
+      "Z_0_1": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.b688446951bbap-8"
+      },
+      "Z_0_2": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.d8f0ee7a3cc0ap-4"
+      },
+      "Z_1_0": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1p+0",
+        "upper_hex": "0x1.120e947f62f97p+0"
+      },
+      "Z_1_1": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.9130dd93d7ff6p-1"
+      },
+      "Z_1_2": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.b678eaee8ccdcp+3"
+      },
+      "Z_2_0": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.58301127e0e5cp+3"
+      },
+      "Z_2_1": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.aa701750a9974p+4"
+      },
+      "Z_2_2": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.fd763f3eb5269p+8"
+      },
+      "Z_3_0": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.445c319d85b32p+8"
+      },
+      "Z_3_1": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.577ad9563496ap+10"
+      },
+      "Z_3_2": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.bf411dc01515dp+14"
+      }
+    },
+    "parameter_enclosures": {
+      "Dstar": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.6bb98c7e2823ep-8",
+        "upper_hex": "0x1.6bb98c7e28243p-8"
+      },
+      "R": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.47ae147ae1479p-7",
+        "upper_hex": "0x1.47ae147ae147dp-7"
+      },
+      "Xstar": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.48fd9fd36f7e2p-7",
+        "upper_hex": "0x1.48fd9fd36f7e6p-7"
+      },
+      "a2": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "-0x1.0000000000002p-2",
+        "upper_hex": "0x1.0000000000002p-2"
+      },
+      "epsilon": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.9999999999997p-1",
+        "upper_hex": "0x1.3333333333335p+0"
+      },
+      "hom_weight": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.9999999999997p-3",
+        "upper_hex": "0x1.999999999999dp-3"
+      },
+      "omega": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.ffffffffffffdp-3",
+        "upper_hex": "0x1.0000000000002p-2"
+      },
+      "original_first_derivative_scale": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.8fffffffffffdp+4",
+        "upper_hex": "0x1.9000000000002p+4"
+      },
+      "original_second_derivative_scale": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.387fffffffffdp+9",
+        "upper_hex": "0x1.3880000000002p+9"
+      },
+      "r": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.47ae147ae147dp-4"
+      },
+      "sigma2": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.ffffffffffffdp-2",
+        "upper_hex": "0x1.0000000000002p-1"
+      },
+      "sigma3": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.1fffffffffffdp+0",
+        "upper_hex": "0x1.2000000000002p+0"
+      }
+    },
+    "physical_weighted_jet_enclosures": {
+      "Z_0_0": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.482bc450ba0aap-5"
+      },
+      "Z_0_1": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.a90eea64f8b71p-10"
+      },
+      "Z_0_2": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.24c226826533ep-10"
+      },
+      "Z_1_0": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.1277b2eecc244p+2"
+      },
+      "Z_1_1": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.79901969e9feap-3"
+      },
+      "Z_1_2": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.07104c3f01881p-3"
+      },
+      "Z_2_0": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.58b415ef769aap+5"
+      },
+      "Z_2_1": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.372300521ec0cp+2"
+      },
+      "Z_2_2": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.e0c80bf942e12p+1"
+      },
+      "Z_3_0": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.44d89b769dafcp+10"
+      },
+      "Z_3_1": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.dbf14cbf4bed8p+7"
+      },
+      "Z_3_2": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.918b30517a086p+7"
+      }
+    },
+    "recurrence": {
+      "complete": true,
+      "first_parameter_multiindices": [
+        "theta_r",
+        "theta_a",
+        "theta_epsilon"
+      ],
+      "maximum_parameter_order": 2,
+      "maximum_state_order": 3,
+      "normalized_parameter_dimension": 3,
+      "second_symmetric_parameter_multiindices": [
+        "theta_r,theta_r",
+        "theta_r,theta_a",
+        "theta_r,theta_epsilon",
+        "theta_a,theta_a",
+        "theta_a,theta_epsilon",
+        "theta_epsilon,theta_epsilon"
+      ],
+      "target_count": 12,
+      "term_counts": {
+        "Z_0_0": 0,
+        "Z_0_1": 1,
+        "Z_0_2": 4,
+        "Z_1_0": 0,
+        "Z_1_1": 2,
+        "Z_1_2": 9,
+        "Z_2_0": 1,
+        "Z_2_1": 6,
+        "Z_2_2": 25,
+        "Z_3_0": 4,
+        "Z_3_1": 18,
+        "Z_3_2": 73
+      }
+    },
+    "rounding_self_test": {
+      "legacy_capd_is_working": true,
+      "mxcsr_available": true,
+      "mxcsr_pre_restore_hex": "0x5fa0",
+      "status": "PASS",
+      "tests": [
+        {
+          "detail": "IEC 60559 binary64, radix 2, 53 significand bits, FLT_EVAL_METHOD=0",
+          "id": "ROUND.IEEE754_BINARY64",
+          "status": "PASS"
+        },
+        {
+          "detail": "__FAST_MATH__ is not defined",
+          "id": "ROUND.NO_FAST_MATH",
+          "status": "PASS"
+        },
+        {
+          "detail": "observed up/down/cut/nearest=2/1/3/0, expected=2/1/3/0; legacy isWorking()=true",
+          "id": "ROUND.CAPD_MODES",
+          "status": "PASS"
+        },
+        {
+          "detail": "CAPD DoubleRounding::isWorking() returned true",
+          "id": "ROUND.CAPD_LEGACY_SELF_TEST",
+          "status": "PASS"
+        },
+        {
+          "detail": "down=0x1p+0, up=0x1.0000000000001p+0",
+          "id": "ROUND.DIRECTED_ADDITION",
+          "status": "PASS"
+        },
+        {
+          "detail": "{\"lower_hex\":\"0x1.9999999999997p-4\",\"upper_hex\":\"0x1.999999999999dp-4\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}",
+          "id": "ROUND.RATIONAL_DIVISION",
+          "status": "PASS"
+        },
+        {
+          "detail": "{\"lower_hex\":\"-0x1.999999999999dp-4\",\"upper_hex\":\"-0x1.9999999999997p-4\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}",
+          "id": "ROUND.NEGATIVE_RATIONAL_DIVISION",
+          "status": "PASS"
+        },
+        {
+          "detail": "{\"lower_hex\":\"0x1.6a09e667f3bccp+0\",\"upper_hex\":\"0x1.6a09e667f3bcep+0\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}",
+          "id": "ROUND.SQRT",
+          "status": "PASS"
+        },
+        {
+          "detail": "{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1p+0\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}",
+          "id": "ROUND.DEPENDENCY_SQUARE",
+          "status": "PASS"
+        },
+        {
+          "detail": "3*(1/3)^2-2*(1/3)+1 contains exact 2/3: {\"lower_hex\":\"0x1.555555555555p-1\",\"upper_hex\":\"0x1.555555555555bp-1\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}",
+          "id": "ROUND.POLYNOMIAL_CONTAINMENT",
+          "status": "PASS"
+        },
+        {
+          "detail": "hexfloat endpoints round-trip bit-for-bit through strtod",
+          "id": "ROUND.HEX_SERIALIZATION",
+          "status": "PASS"
+        },
+        {
+          "detail": "MXCSR=0x5fa0, FTZ=0, DAZ=0 required",
+          "id": "ROUND.SUBNORMAL_MODE",
+          "status": "PASS"
+        },
+        {
+          "detail": "round-to-nearest restored before returning",
+          "id": "ROUND.RESTORE_NEAREST",
+          "status": "PASS"
+        }
+      ]
+    },
+    "schema_version": "rfsn-vdp-p2-jets-probe/1",
+    "state_tensor_enclosures": {
+      "M_2": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.04c42e2f49437p+0"
+      },
+      "M_3": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.86e00a51314eap+1"
+      },
+      "alpha": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.66666c5c8a3b4p-1",
+        "upper_hex": "0x1.6da431ede57b5p-1"
+      },
+      "kappa_bar": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.6138c31413b5ep-1",
+        "upper_hex": "0x1.6da431ede57b5p-1"
+      },
+      "origin_second_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.8a7ce629d624p-5",
+        "upper_hex": "0x1.123b25726c1cbp+0"
+      },
+      "origin_third_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.197bf6d19aedp-3",
+        "upper_hex": "0x1.9b58b82ba22afp+1"
+      },
+      "state_second_no_first_exit_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.099907f16134p-6",
+        "upper_hex": "0x1.123b25726c1cbp+0"
+      },
+      "state_third_no_first_exit_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.9ff44959376cp-5",
+        "upper_hex": "0x1.9b58b82ba22afp+1"
+      }
+    },
+    "state_tensor_gate_margins": {
+      "origin_second_gate_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.3891610b1dd2p-5",
+        "upper_hex": "0x1.0fabc949765a3p+0"
+      },
+      "origin_third_gate_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.662b20d6690d1p-4",
+        "upper_hex": "0x1.94f251c53bc49p+1"
+      },
+      "state_normal_gap_lower_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.43f354611664p-7",
+        "upper_hex": "0x1.17b3c2b561f5p-5"
+      },
+      "state_second_no_first_exit_gate_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.0167e107e85fp-6",
+        "upper_hex": "0x1.121a60d6c6396p+0"
+      },
+      "state_third_no_first_exit_gate_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.4e08c43a7f1ap-5",
+        "upper_hex": "0x1.9a110a172749bp+1"
+      }
+    },
+    "status": "PASS",
+    "structure_checks": {
+      "algebraic_identities_contain_zero": true,
+      "all_inputs_strictly_positive": true,
+      "bridge_matches_parameter_normalization": true,
+      "complete_parameter_multiindex_coverage": true,
+      "gap_free_exact_rational_grid": true,
+      "homoclinic_weight_below_local_weight": true,
+      "original_parameter_scales_match_frozen_contract": true,
+      "parameter_ad_hessians_symmetric": true,
+      "parameter_grid_nonempty": true,
+      "recurrence_complete": true,
+      "state_degree_at_most_three": true,
+      "subdivisions_match_frozen_contract": true
+    },
+    "structure_status": "PASS",
+    "weighted_jet_enclosures": {
+      "Z_0_0": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.47ae147ae1479p-7",
+        "upper_hex": "0x1.47ae147ae147dp-7"
+      },
+      "Z_0_1": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.18a9218b1596bp-12"
+      },
+      "Z_0_2": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.836ef20e1eed1p-13"
+      },
+      "Z_1_0": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1p+0",
+        "upper_hex": "0x1.120e947f62f97p+0"
+      },
+      "Z_1_1": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.00c31d2b6b84ap-5"
+      },
+      "Z_1_2": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.67325039cb68ep-6"
+      },
+      "Z_2_0": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.58301127e0e5cp+3"
+      },
+      "Z_2_1": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.10eb940aa9fa5p+0"
+      },
+      "Z_2_2": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.a159e79fea011p-1"
+      },
+      "Z_3_0": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.445c319d85b32p+8"
+      },
+      "Z_3_1": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.b7a77c974d8d7p+5"
+      },
+      "Z_3_2": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x0p+0",
+        "upper_hex": "0x1.6e6409a038981p+5"
+      }
+    },
+    "weighted_jet_gate_margins": {
+      "Z_0_0_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.a36e2eb1c41p-14",
+        "upper_hex": "0x1.a36e2eb1c458p-14"
+      },
+      "Z_0_1_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.e74131a63f512p-13",
+        "upper_hex": "0x1.0624dd2f1a9fep-11"
+      },
+      "Z_0_2_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.c36d6b5569783p-13",
+        "upper_hex": "0x1.a36e2eb1c433p-12"
+      },
+      "Z_1_0_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.0924f59e81cdp-3",
+        "upper_hex": "0x1.99999999999a8p-3"
+      },
+      "Z_1_1_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.31acf8dc5c29ap-6",
+        "upper_hex": "0x1.999999999999dp-5"
+      },
+      "Z_1_2_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.2829d8bbf7264p-6",
+        "upper_hex": "0x1.47ae147ae147dp-5"
+      },
+      "Z_2_0_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.3e7f76c0f8d08p+0",
+        "upper_hex": "0x1.8000000000002p+3"
+      },
+      "Z_2_1_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.115c0b1ddf3e4p-1",
+        "upper_hex": "0x1.999999999999dp+0"
+      },
+      "Z_2_2_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.5ea6186015fe9p-1",
+        "upper_hex": "0x1.8000000000002p+0"
+      },
+      "Z_3_0_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.9a3ce627a4cbp+4",
+        "upper_hex": "0x1.5e00000000002p+8"
+      },
+      "Z_3_1_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.90b106d164e46p+4",
+        "upper_hex": "0x1.4000000000002p+6"
+      },
+      "Z_3_2_upper_margin": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.119bf65fc7679p+5",
+        "upper_hex": "0x1.4000000000002p+6"
+      }
+    }
+  },
+  "release_eligible": false,
+  "rounding_self_test": {
+    "legacy_capd_is_working": true,
+    "mxcsr_available": true,
+    "mxcsr_pre_restore_hex": "0x5fa0",
+    "status": "PASS",
+    "tests": [
+      {
+        "detail": "IEC 60559 binary64, radix 2, 53 significand bits, FLT_EVAL_METHOD=0",
+        "id": "ROUND.IEEE754_BINARY64",
+        "status": "PASS"
+      },
+      {
+        "detail": "__FAST_MATH__ is not defined",
+        "id": "ROUND.NO_FAST_MATH",
+        "status": "PASS"
+      },
+      {
+        "detail": "observed up/down/cut/nearest=2/1/3/0, expected=2/1/3/0; legacy isWorking()=true",
+        "id": "ROUND.CAPD_MODES",
+        "status": "PASS"
+      },
+      {
+        "detail": "CAPD DoubleRounding::isWorking() returned true",
+        "id": "ROUND.CAPD_LEGACY_SELF_TEST",
+        "status": "PASS"
+      },
+      {
+        "detail": "down=0x1p+0, up=0x1.0000000000001p+0",
+        "id": "ROUND.DIRECTED_ADDITION",
+        "status": "PASS"
+      },
+      {
+        "detail": "{\"lower_hex\":\"0x1.9999999999997p-4\",\"upper_hex\":\"0x1.999999999999dp-4\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}",
+        "id": "ROUND.RATIONAL_DIVISION",
+        "status": "PASS"
+      },
+      {
+        "detail": "{\"lower_hex\":\"-0x1.999999999999dp-4\",\"upper_hex\":\"-0x1.9999999999997p-4\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}",
+        "id": "ROUND.NEGATIVE_RATIONAL_DIVISION",
+        "status": "PASS"
+      },
+      {
+        "detail": "{\"lower_hex\":\"0x1.6a09e667f3bccp+0\",\"upper_hex\":\"0x1.6a09e667f3bcep+0\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}",
+        "id": "ROUND.SQRT",
+        "status": "PASS"
+      },
+      {
+        "detail": "{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1p+0\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}",
+        "id": "ROUND.DEPENDENCY_SQUARE",
+        "status": "PASS"
+      },
+      {
+        "detail": "3*(1/3)^2-2*(1/3)+1 contains exact 2/3: {\"lower_hex\":\"0x1.555555555555p-1\",\"upper_hex\":\"0x1.555555555555bp-1\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}",
+        "id": "ROUND.POLYNOMIAL_CONTAINMENT",
+        "status": "PASS"
+      },
+      {
+        "detail": "hexfloat endpoints round-trip bit-for-bit through strtod",
+        "id": "ROUND.HEX_SERIALIZATION",
+        "status": "PASS"
+      },
+      {
+        "detail": "MXCSR=0x5fa0, FTZ=0, DAZ=0 required",
+        "id": "ROUND.SUBNORMAL_MODE",
+        "status": "PASS"
+      },
+      {
+        "detail": "round-to-nearest restored before returning",
+        "id": "ROUND.RESTORE_NEAREST",
+        "status": "PASS"
+      }
+    ]
+  },
+  "schema_version": "rfsn-rigorous-run-certificate/1",
+  "scope": "V2_P2_JETS_KERNEL",
+  "source_bindings": [
+    {
+      "path": "RESEARCH_CONTRACT.md",
+      "role": "rigorous-input",
+      "sha256": "2170e0d6095c2f8b2e5b35343f8f491e0831a9ff33b5d966d08dbed1ab098387"
+    },
+    {
+      "path": "theory/BASELINE.md",
+      "role": "rigorous-input",
+      "sha256": "b033f6cb6b52dcfeb09bfe1e983d6a544203db9e3be697cc39ccd84a9748588a"
+    },
+    {
+      "path": "van-der-pol/HAMILTONIAN_CHECK.md",
+      "role": "rigorous-input",
+      "sha256": "4b44187482164dae25a7dcc9061e672c00efcab70e7085d9209d8da24d7e2bc6"
+    },
+    {
+      "path": "van-der-pol/MODEL_AND_CENTRAL_CHART.md",
+      "role": "rigorous-input",
+      "sha256": "be07da0264a8dbfb90ff712e92b6dd8dccb99e1058b4c7d754f39891b68f97e3"
+    },
+    {
+      "path": "van-der-pol/CENTRAL_CONTINUATION.md",
+      "role": "rigorous-input",
+      "sha256": "99aeea571f19a298ec5b763a811cfb20ac8d371ee2cd245c53b13481eedf7d4a"
+    },
+    {
+      "path": "validation/rigorous/README.md",
+      "role": "rigorous-input",
+      "sha256": "48aa4dd8a045a636b9e438723ef5ad589472bb80389deabf3eba900d31870802"
+    },
+    {
+      "path": "validation/rigorous/P2_VALIDATION_CONTRACT.md",
+      "role": "rigorous-input",
+      "sha256": "756f1fe45b1ab708b1d143c6e18334942b9c9943f6159d2b91186be4bf4a0de6"
+    },
+    {
+      "path": "validation/rigorous/certificate.schema.json",
+      "role": "rigorous-input",
+      "sha256": "8e1121f2de500ef77c99a42788a01cf81e190acf8b9b094e563706d16e9b2c46"
+    },
+    {
+      "path": "validation/rigorous/continuation_bridge.schema.json",
+      "role": "rigorous-input",
+      "sha256": "9afc68fcf53dd49bafd1082228754b9585278f5f0664a942a0b61247816012e5"
+    },
+    {
+      "path": "validation/rigorous/parameter_box.schema.json",
+      "role": "rigorous-input",
+      "sha256": "26a8b95a8756aed6ccef085bb867b6f372dc922f0471e359a61a1aefec1d2fc6"
+    },
+    {
+      "path": "validation/rigorous/p2_local_graph.schema.json",
+      "role": "rigorous-input",
+      "sha256": "47bd0053e6c1d6fd2effa227f9c19ae31949c5b2f6654946ba8f8f1f33761dd4"
+    },
+    {
+      "path": "validation/rigorous/p2_h10_c01.schema.json",
+      "role": "rigorous-input",
+      "sha256": "b199845ce26091be221f5b213720d7aa05b7260c3cbc043f949dfc9b06525de9"
+    },
+    {
+      "path": "validation/rigorous/p2_jets.schema.json",
+      "role": "rigorous-input",
+      "sha256": "a1ae4ca57c624222e3933572a2404d989981ad5826833b9293bfbdcf7e64198a"
+    },
+    {
+      "path": "validation/rigorous/config/vdp_bridge_v1.json",
+      "role": "rigorous-input",
+      "sha256": "2b62e6fc5625d3f5634d986f7e9cbe8199abfc45c7b97ca29e5efd464b5b69c7"
+    },
+    {
+      "path": "validation/rigorous/config/vdp_box_v1.json",
+      "role": "rigorous-input",
+      "sha256": "ce84e84e4e2e53563125497df4ad2df98a533437b04b35bee042e9b04ea1c735"
+    },
+    {
+      "path": "validation/rigorous/config/vdp_p2_local_graph_v1.json",
+      "role": "rigorous-input",
+      "sha256": "b11ecadb088e8fbd686ed4834335f96c460bee9a18b0d1edab4222da645e199b"
+    },
+    {
+      "path": "validation/rigorous/config/vdp_p2_h10_c01_v1.json",
+      "role": "rigorous-input",
+      "sha256": "d09cf22c5ce382e31d2388a86b87a49301840cdd8698bf92135b9667d387ca96"
+    },
+    {
+      "path": "validation/rigorous/config/vdp_p2_jets_v1.json",
+      "role": "rigorous-input",
+      "sha256": "b8123dff51f7444277f71b1b8a5b0cdbbc94df46a848af05e8288751bb6681e0"
+    },
+    {
+      "path": "validation/rigorous/dependency.lock.json",
+      "role": "rigorous-input",
+      "sha256": "45d26fdfd2b580d7910140179eb5c6e7ff522443db0bdef358c0e885ec183d76"
+    },
+    {
+      "path": "validation/rigorous/flagship_import.lock.json",
+      "role": "rigorous-input",
+      "sha256": "6c1752d6ee78d4b670c74ecb85e776eddcb4459e0b0e7f7ae14cae2325e0476e"
+    },
+    {
+      "path": "validation/rigorous/obligations.json",
+      "role": "rigorous-input",
+      "sha256": "2e481c487a9bab8f64066ed270d86f8f749234d9d8d056554c03b095bfe9903b"
+    },
+    {
+      "path": "validation/rigorous/include/verdict.hpp",
+      "role": "rigorous-input",
+      "sha256": "b9b308155408e0d1a8a6b2127fd0d111ac546a3cf54ee124b4c249af47b974fa"
+    },
+    {
+      "path": "validation/rigorous/include/interval_io.hpp",
+      "role": "rigorous-input",
+      "sha256": "6520e6a88f141fbe93dfdd89ba22ac907bcaa6d05296b6f85bbe6a9e3142b9ca"
+    },
+    {
+      "path": "validation/rigorous/include/rounding_self_test.hpp",
+      "role": "rigorous-input",
+      "sha256": "6f648c417c9458b32332fef8cbb780ce0255c66e7646c6c48a7ca6414cd9ccc4"
+    },
+    {
+      "path": "validation/rigorous/include/exact_polynomial.hpp",
+      "role": "rigorous-input",
+      "sha256": "9ccccf2739d7e550f2c0f63d8e3ead91ac2060e046fd540c38c7b42f4dec0331"
+    },
+    {
+      "path": "validation/rigorous/src/rounding_self_test.cpp",
+      "role": "rigorous-input",
+      "sha256": "7866b17edc3f5ee5f1682e52a442df21cc0336e57d499e4d77a9a0938b0628cd"
+    },
+    {
+      "path": "validation/rigorous/src/vdp_local_graph_probe.cpp",
+      "role": "rigorous-input",
+      "sha256": "b658421731ef7d8f9361d3ee7ad1fdb7a91337fd71c244eb38855307c3dc098a"
+    },
+    {
+      "path": "validation/rigorous/src/vdp_h10_c01_probe.cpp",
+      "role": "rigorous-input",
+      "sha256": "ead1c64da7c7c97c628cfdc2f4d87571a4591890ddba7ddc7f7477157be08bf2"
+    },
+    {
+      "path": "validation/rigorous/src/vdp_p2_jets_probe.cpp",
+      "role": "rigorous-input",
+      "sha256": "dd58c7624aa2497e9f4dda63bbe9c69005e614a7fe53ba140c078a851bda8dfe"
+    },
+    {
+      "path": "validation/rigorous/src/vdp_parameter_box_probe.cpp",
+      "role": "rigorous-input",
+      "sha256": "5653cb6ea86de08a78a33fad8e89e3239a32e2c56ea1246359328a0e2c9d1ce5"
+    },
+    {
+      "path": "validation/rigorous/audit_h10_center.py",
+      "role": "rigorous-input",
+      "sha256": "db2868feea333d18514553d702805e447bf9391651e2fe4a418a4a81b501b6e2"
+    },
+    {
+      "path": "validation/rigorous/results/vdp_bridge_v1_p2a_local_graph.json",
+      "role": "rigorous-input",
+      "sha256": "192b351c3f153080d82bc856fa3c667388dc16c7b4cf0cfa8568fa347bcaf6be"
+    },
+    {
+      "path": "validation/rigorous/results/vdp_bridge_v1_p2b_h10_c01.json",
+      "role": "rigorous-input",
+      "sha256": "91c1762329a9e19e8db69052f9397532512d8031f361f0b6eeb43edbeda5d5ac"
+    },
+    {
+      "path": "validation/rigorous/design/README.md",
+      "role": "rigorous-input",
+      "sha256": "9f609d36bb696e6e9f48e18a75e7e64baafb682b30878d35ca827337d341931f"
+    },
+    {
+      "path": "validation/rigorous/design/p2b_jets_scout.cpp",
+      "role": "rigorous-input",
+      "sha256": "5cd2e92a370ebd45db37c4a973b7968da8907d695f03d4463119b97d5a7b03b2"
+    },
+    {
+      "path": "validation/rigorous/rigorous_common.py",
+      "role": "rigorous-input",
+      "sha256": "8f2e136f60bd6f82b95922ffbc96d0506dfe94dc064a58e14cf6e199f2e0a232"
+    },
+    {
+      "path": "validation/rigorous/run_validation.py",
+      "role": "rigorous-input",
+      "sha256": "ca67833340ca52c12e6b763e7928af2a84fa1fd9eb3c3d86a6c74593ca82a122"
+    },
+    {
+      "path": "validation/rigorous/check_certificate.py",
+      "role": "rigorous-input",
+      "sha256": "a788d6b55ba773fbd977461f821f8fc2346d96c98b5f60137f6dd5f7a25d7e9b"
+    }
+  ],
+  "source_revision": {
+    "allow_dirty_development": false,
+    "commit": "ae88ae0fb47dc43329ad2b66bd465576994df23c",
+    "report_output_excluded_from_observation": true,
+    "repository": "h-lu/rfsn-ii-positive-parameter-pde",
+    "repository_dirty": false,
+    "working_tree_observation": "BEFORE_REPORT_WRITE"
+  },
+  "toolchain": {
+    "build_programs": {
+      "cmake": {
+        "path": "/tmp/cmake-4.2.3-clean/bin/cmake",
+        "sha256": "eab793b7f3bf89867ec9127c130f9ab7693edefe6d45ddee6880edce05a3070d",
+        "version_first_line": "cmake version 4.2.3"
+      },
+      "make": {
+        "path": "/usr/bin/make",
+        "sha256": "27c9f6d806aee15882b01c2c61848f7aa75caa14bc7b6f608ba422f9e46a7d49"
+      }
+    },
+    "capd": {
+      "cflags": [
+        "-I/tmp/rfsn-vdp-capd-strict-7310792/capdDynSys/include",
+        "-I/tmp/rfsn-vdp-capd-strict-7310792/capdAlg/include",
+        "-I/tmp/rfsn-vdp-capd-strict-7310792/capdAux/include",
+        "-I/tmp/rfsn-vdp-capd-strict-7310792/capdExt/include",
+        "-I/tmp/rfsn-vdp-capd-strict-7310792/capdExt/filibsrc",
+        "-std=c++17",
+        "-O2",
+        "-frounding-math",
+        "-D__USE_FILIB__",
+        "-O2",
+        "-frounding-math",
+        "-DFILIB_EXTENDED",
+        "-DFILIB_HAVE_SSE"
+      ],
+      "cmake_cache_sha256": "f504b9bee1879444e3d9e5cb798a3dfa19fbb1f58dc7079b296cdcb4d8b59e66",
+      "cmake_configuration": {
+        "CAPD_BUILD_EXAMPLES": "OFF",
+        "CAPD_BUILD_TESTS": "OFF",
+        "CAPD_ENABLE_MULTIPRECISION": "OFF",
+        "CAPD_INTERVAL_TYPE": "FILIB",
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_CXX_COMPILER": "/usr/bin/c++",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+      },
+      "cmake_release_flags": [
+        "-O2",
+        "-DNDEBUG",
+        "-fno-fast-math",
+        "-frounding-math",
+        "-ffp-contract=off",
+        "-fno-tree-vectorize",
+        "-fno-ipa-pure-const"
+      ],
+      "compile_commands_scan": {
+        "compiler_paths": [
+          "/usr/bin/x86_64-linux-gnu-g++-15"
+        ],
+        "entries_with_all_strict_flags": 90,
+        "entries_with_filib_selector": 82,
+        "entry_count": 90
+      },
+      "compile_commands_sha256": "2c312a1f6a05f27c7742467e2ae6ea17bd481668ee29156426636b8d833a6d9d",
+      "config_path": "/tmp/rfsn-vdp-capd-strict-7310792/build-strict/bin/capd-config",
+      "config_version": "2.5.1",
+      "libs": [
+        "-L/tmp/rfsn-vdp-capd-strict-7310792/build-strict",
+        "-L/tmp/rfsn-vdp-capd-strict-7310792/build-strict/capdExt/filibsrc",
+        "-lcapd",
+        "-lfilib"
+      ],
+      "linked_archives": {
+        "libcapd.a": {
+          "path": "/tmp/rfsn-vdp-capd-strict-7310792/build-strict/libcapd.a",
+          "sha256": "bf888737d3aab53e66c3bf5ee0199b6eb9f6747b2b567f3c5aa9c7ac0ae1267a"
+        },
+        "libfilib.a": {
+          "path": "/tmp/rfsn-vdp-capd-strict-7310792/build-strict/capdExt/filibsrc/libfilib.a",
+          "sha256": "f0105bda942524bc7a1c3c9ad39a0f34e031e26afdc15017704cdd3878fc3d5c"
+        }
+      },
+      "source_commit": "731079217a9254ea2948d742df2b170895effe7f",
+      "source_dirty": false,
+      "source_path": "/tmp/rfsn-vdp-capd-strict-7310792",
+      "source_tree": "f83b177786fa322240b24f21173eaf9b32496d48"
+    },
+    "compiler": {
+      "path": "/usr/bin/g++",
+      "sha256": "e6718f7e0c7d057c3ff77b550c603da9bc4030e3ede3c053705acce1293dbe4d",
+      "version_first_line": "g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0"
+    },
+    "dependency_lock_sha256": "45d26fdfd2b580d7910140179eb5c6e7ff522443db0bdef358c0e885ec183d76",
+    "fatal_errors": [],
+    "flagship_import": {
+      "access": "git-object-read-only",
+      "commit": "d54add098545063d5efe8f1d6f062d4cfc116a0d",
+      "errors": [],
+      "lock_sha256": "6c1752d6ee78d4b670c74ecb85e776eddcb4459e0b0e7f7ae14cae2325e0476e",
+      "repository_path": "/home/hblu/Documents/Codex/2026-08-22/reversible-rfsn-ii-waves",
+      "tree": "b9cd34b1bae1c29bdd722d9ed3c33402c4b3ee89"
+    },
+    "incomplete_checks": [],
+    "probe_build": {
+      "binary_sha256": "1e4a31f7c5dc00d62af97908f666811126af18881a9433b73f04c3c5b7bf7556",
+      "compile_argv": [
+        "/usr/bin/g++",
+        "-std=c++17",
+        "-I/home/hblu/Documents/Codex/2026-08-27/rfsn-ii-positive-parameter-pde/validation/rigorous/include",
+        "-I/tmp/rfsn-vdp-capd-strict-7310792/capdDynSys/include",
+        "-I/tmp/rfsn-vdp-capd-strict-7310792/capdAlg/include",
+        "-I/tmp/rfsn-vdp-capd-strict-7310792/capdAux/include",
+        "-I/tmp/rfsn-vdp-capd-strict-7310792/capdExt/include",
+        "-I/tmp/rfsn-vdp-capd-strict-7310792/capdExt/filibsrc",
+        "-std=c++17",
+        "-O2",
+        "-frounding-math",
+        "-D__USE_FILIB__",
+        "-O2",
+        "-frounding-math",
+        "-DFILIB_EXTENDED",
+        "-DFILIB_HAVE_SSE",
+        "-O2",
+        "-DNDEBUG",
+        "-fno-fast-math",
+        "-frounding-math",
+        "-ffp-contract=off",
+        "-fno-tree-vectorize",
+        "-fno-ipa-pure-const",
+        "/home/hblu/Documents/Codex/2026-08-27/rfsn-ii-positive-parameter-pde/validation/rigorous/src/vdp_p2_jets_probe.cpp",
+        "-o",
+        "/tmp/rfsn-rigorous-fl4np9wh/probe",
+        "-L/tmp/rfsn-vdp-capd-strict-7310792/build-strict",
+        "-L/tmp/rfsn-vdp-capd-strict-7310792/build-strict/capdExt/filibsrc",
+        "-lcapd",
+        "-lfilib"
+      ],
+      "compile_argv_sha256": "0c32e55ac9405e60f15028af74eb702c7a7c5e7b8d8cefbba3f35f2e2c0ddc76",
+      "probe_argv": [
+        "/tmp/rfsn-rigorous-fl4np9wh/probe",
+        "0",
+        "1",
+        "2",
+        "25",
+        "-1",
+        "4",
+        "1",
+        "4",
+        "4",
+        "5",
+        "6",
+        "5",
+        "1",
+        "100",
+        "251",
+        "25000",
+        "111",
+        "20000",
+        "1",
+        "4",
+        "1",
+        "5",
+        "1",
+        "2",
+        "9",
+        "8",
+        "25",
+        "1",
+        "625",
+        "1",
+        "16",
+        "8",
+        "4",
+        "2",
+        "101",
+        "10000",
+        "3",
+        "250",
+        "3",
+        "400",
+        "51",
+        "1000000",
+        "3",
+        "5000000",
+        "2",
+        "5000000",
+        "101",
+        "10000",
+        "3",
+        "25000",
+        "1",
+        "12500",
+        "101",
+        "100",
+        "23",
+        "2000",
+        "3",
+        "400",
+        "3",
+        "400",
+        "3",
+        "400",
+        "3",
+        "800",
+        "699",
+        "1000",
+        "219",
+        "100",
+        "67",
+        "1000",
+        "43",
+        "40",
+        "17",
+        "25",
+        "1",
+        "2000",
+        "1",
+        "100",
+        "1",
+        "100",
+        "1",
+        "20",
+        "101",
+        "10000",
+        "1",
+        "2000",
+        "1",
+        "2500",
+        "6",
+        "5",
+        "1",
+        "20",
+        "1",
+        "25",
+        "12",
+        "1",
+        "8",
+        "5",
+        "3",
+        "2",
+        "350",
+        "1",
+        "80",
+        "1",
+        "80",
+        "1"
+      ],
+      "probe_exit_code": 0,
+      "probe_stdout": "{\"schema_version\":\"rfsn-vdp-p2-jets-probe/1\",\"status\":\"PASS\",\"mathematical_status\":\"PASS\",\"structure_status\":\"PASS\",\"structure_checks\":{\"gap_free_exact_rational_grid\":true,\"bridge_matches_parameter_normalization\":true,\"subdivisions_match_frozen_contract\":true,\"parameter_ad_hessians_symmetric\":true,\"algebraic_identities_contain_zero\":true,\"state_degree_at_most_three\":true,\"complete_parameter_multiindex_coverage\":true,\"original_parameter_scales_match_frozen_contract\":true,\"all_inputs_strictly_positive\":true,\"homoclinic_weight_below_local_weight\":true,\"parameter_grid_nonempty\":true,\"recurrence_complete\":true},\"rounding_self_test\":{\"status\":\"PASS\",\"tests\":[{\"id\":\"ROUND.IEEE754_BINARY64\",\"status\":\"PASS\",\"detail\":\"IEC 60559 binary64, radix 2, 53 significand bits, FLT_EVAL_METHOD=0\"},{\"id\":\"ROUND.NO_FAST_MATH\",\"status\":\"PASS\",\"detail\":\"__FAST_MATH__ is not defined\"},{\"id\":\"ROUND.CAPD_MODES\",\"status\":\"PASS\",\"detail\":\"observed up/down/cut/nearest=2/1/3/0, expected=2/1/3/0; legacy isWorking()=true\"},{\"id\":\"ROUND.CAPD_LEGACY_SELF_TEST\",\"status\":\"PASS\",\"detail\":\"CAPD DoubleRounding::isWorking() returned true\"},{\"id\":\"ROUND.DIRECTED_ADDITION\",\"status\":\"PASS\",\"detail\":\"down=0x1p+0, up=0x1.0000000000001p+0\"},{\"id\":\"ROUND.RATIONAL_DIVISION\",\"status\":\"PASS\",\"detail\":\"{\\\"lower_hex\\\":\\\"0x1.9999999999997p-4\\\",\\\"upper_hex\\\":\\\"0x1.999999999999dp-4\\\",\\\"endpoint_format\\\":\\\"IEEE754_BINARY64_HEX\\\"}\"},{\"id\":\"ROUND.NEGATIVE_RATIONAL_DIVISION\",\"status\":\"PASS\",\"detail\":\"{\\\"lower_hex\\\":\\\"-0x1.999999999999dp-4\\\",\\\"upper_hex\\\":\\\"-0x1.9999999999997p-4\\\",\\\"endpoint_format\\\":\\\"IEEE754_BINARY64_HEX\\\"}\"},{\"id\":\"ROUND.SQRT\",\"status\":\"PASS\",\"detail\":\"{\\\"lower_hex\\\":\\\"0x1.6a09e667f3bccp+0\\\",\\\"upper_hex\\\":\\\"0x1.6a09e667f3bcep+0\\\",\\\"endpoint_format\\\":\\\"IEEE754_BINARY64_HEX\\\"}\"},{\"id\":\"ROUND.DEPENDENCY_SQUARE\",\"status\":\"PASS\",\"detail\":\"{\\\"lower_hex\\\":\\\"0x0p+0\\\",\\\"upper_hex\\\":\\\"0x1p+0\\\",\\\"endpoint_format\\\":\\\"IEEE754_BINARY64_HEX\\\"}\"},{\"id\":\"ROUND.POLYNOMIAL_CONTAINMENT\",\"status\":\"PASS\",\"detail\":\"3*(1/3)^2-2*(1/3)+1 contains exact 2/3: {\\\"lower_hex\\\":\\\"0x1.555555555555p-1\\\",\\\"upper_hex\\\":\\\"0x1.555555555555bp-1\\\",\\\"endpoint_format\\\":\\\"IEEE754_BINARY64_HEX\\\"}\"},{\"id\":\"ROUND.HEX_SERIALIZATION\",\"status\":\"PASS\",\"detail\":\"hexfloat endpoints round-trip bit-for-bit through strtod\"},{\"id\":\"ROUND.SUBNORMAL_MODE\",\"status\":\"PASS\",\"detail\":\"MXCSR=0x5fa0, FTZ=0, DAZ=0 required\"},{\"id\":\"ROUND.RESTORE_NEAREST\",\"status\":\"PASS\",\"detail\":\"round-to-nearest restored before returning\"}],\"mxcsr_available\":true,\"legacy_capd_is_working\":true,\"mxcsr_pre_restore_hex\":\"0x5fa0\"},\"grid\":{\"ordered_axes\":[\"theta_r\",\"theta_a\",\"theta_epsilon\",\"x\"],\"subdivisions\":[16,8,4,2],\"cell_count\":1024,\"parameter_derivatives_taken_at_fixed_x\":true},\"parameter_enclosures\":{\"r\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.47ae147ae147dp-4\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"a2\":{\"lower_hex\":\"-0x1.0000000000002p-2\",\"upper_hex\":\"0x1.0000000000002p-2\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"epsilon\":{\"lower_hex\":\"0x1.9999999999997p-1\",\"upper_hex\":\"0x1.3333333333335p+0\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"R\":{\"lower_hex\":\"0x1.47ae147ae1479p-7\",\"upper_hex\":\"0x1.47ae147ae147dp-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Xstar\":{\"lower_hex\":\"0x1.48fd9fd36f7e2p-7\",\"upper_hex\":\"0x1.48fd9fd36f7e6p-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Dstar\":{\"lower_hex\":\"0x1.6bb98c7e2823ep-8\",\"upper_hex\":\"0x1.6bb98c7e28243p-8\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"omega\":{\"lower_hex\":\"0x1.ffffffffffffdp-3\",\"upper_hex\":\"0x1.0000000000002p-2\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"hom_weight\":{\"lower_hex\":\"0x1.9999999999997p-3\",\"upper_hex\":\"0x1.999999999999dp-3\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"sigma2\":{\"lower_hex\":\"0x1.ffffffffffffdp-2\",\"upper_hex\":\"0x1.0000000000002p-1\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"sigma3\":{\"lower_hex\":\"0x1.1fffffffffffdp+0\",\"upper_hex\":\"0x1.2000000000002p+0\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"original_first_derivative_scale\":{\"lower_hex\":\"0x1.8fffffffffffdp+4\",\"upper_hex\":\"0x1.9000000000002p+4\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"original_second_derivative_scale\":{\"lower_hex\":\"0x1.387fffffffffdp+9\",\"upper_hex\":\"0x1.3880000000002p+9\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}},\"coefficient_upper_gates\":{\"B_0_gate\":{\"lower_hex\":\"0x1.4af4f0d844cffp-7\",\"upper_hex\":\"0x1.4af4f0d844d04p-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"B_1_gate\":{\"lower_hex\":\"0x1.89374bc6a7ef8p-7\",\"upper_hex\":\"0x1.89374bc6a7efcp-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"B_2_gate\":{\"lower_hex\":\"0x1.eb851eb851eb5p-8\",\"upper_hex\":\"0x1.eb851eb851ebbp-8\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"h_0_gate\":{\"lower_hex\":\"0x1.abd1aa821f297p-15\",\"upper_hex\":\"0x1.abd1aa821f29bp-15\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"h_1_gate\":{\"lower_hex\":\"0x1.421f5f40d8374p-21\",\"upper_hex\":\"0x1.421f5f40d8379p-21\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"h_2_gate\":{\"lower_hex\":\"0x1.ad7f29abcaf46p-22\",\"upper_hex\":\"0x1.ad7f29abcaf4cp-22\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"ell_0_gate\":{\"lower_hex\":\"0x1.4af4f0d844cffp-7\",\"upper_hex\":\"0x1.4af4f0d844d04p-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"ell_1_gate\":{\"lower_hex\":\"0x1.f75104d551d66p-14\",\"upper_hex\":\"0x1.f75104d551d6cp-14\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"ell_2_gate\":{\"lower_hex\":\"0x1.4f8b588e368efp-14\",\"upper_hex\":\"0x1.4f8b588e368f3p-14\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"m_0_gate\":{\"lower_hex\":\"0x1.028f5c28f5c27p+0\",\"upper_hex\":\"0x1.028f5c28f5c2bp+0\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"m_1_gate\":{\"lower_hex\":\"0x1.78d4fdf3b6458p-7\",\"upper_hex\":\"0x1.78d4fdf3b645cp-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"m_2_gate\":{\"lower_hex\":\"0x1.eb851eb851eb5p-8\",\"upper_hex\":\"0x1.eb851eb851ebbp-8\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"t_0_gate\":{\"lower_hex\":\"0x1.eb851eb851eb5p-8\",\"upper_hex\":\"0x1.eb851eb851ebbp-8\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"t_1_gate\":{\"lower_hex\":\"0x1.eb851eb851eb5p-8\",\"upper_hex\":\"0x1.eb851eb851ebbp-8\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"t_2_gate\":{\"lower_hex\":\"0x1.eb851eb851eb5p-9\",\"upper_hex\":\"0x1.eb851eb851ebbp-9\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}},\"acceptance_gates\":{\"alpha_lower_gate\":{\"lower_hex\":\"0x1.65e353f7ced8fp-1\",\"upper_hex\":\"0x1.65e353f7ced94p-1\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"green_operator_upper_gate\":{\"lower_hex\":\"0x1.1851eb851eb83p+1\",\"upper_hex\":\"0x1.1851eb851eb87p+1\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"linearized_contraction_upper_gate\":{\"lower_hex\":\"0x1.126e978d4fdf2p-4\",\"upper_hex\":\"0x1.126e978d4fdf6p-4\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"resolvent_upper_gate\":{\"lower_hex\":\"0x1.1333333333331p+0\",\"upper_hex\":\"0x1.1333333333335p+0\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"state_normal_gap_lower_gate\":{\"lower_hex\":\"0x1.5c28f5c28f5cp-1\",\"upper_hex\":\"0x1.5c28f5c28f5c5p-1\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"state_second_no_first_exit_margin_lower_gate\":{\"lower_hex\":\"0x1.0624dd2f1a9fap-11\",\"upper_hex\":\"0x1.0624dd2f1a9fep-11\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"state_third_no_first_exit_margin_lower_gate\":{\"lower_hex\":\"0x1.47ae147ae1479p-7\",\"upper_hex\":\"0x1.47ae147ae147dp-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"origin_second_margin_lower_gate\":{\"lower_hex\":\"0x1.47ae147ae1479p-7\",\"upper_hex\":\"0x1.47ae147ae147dp-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"origin_third_margin_lower_gate\":{\"lower_hex\":\"0x1.9999999999997p-5\",\"upper_hex\":\"0x1.999999999999dp-5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}},\"normalized_weighted_jet_upper_gates\":{\"Z_0_0_gate\":{\"lower_hex\":\"0x1.4af4f0d844cffp-7\",\"upper_hex\":\"0x1.4af4f0d844d04p-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_0_1_gate\":{\"lower_hex\":\"0x1.0624dd2f1a9fap-11\",\"upper_hex\":\"0x1.0624dd2f1a9fep-11\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_0_2_gate\":{\"lower_hex\":\"0x1.a36e2eb1c432ap-12\",\"upper_hex\":\"0x1.a36e2eb1c433p-12\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_1_0_gate\":{\"lower_hex\":\"0x1.3333333333331p+0\",\"upper_hex\":\"0x1.3333333333335p+0\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_1_1_gate\":{\"lower_hex\":\"0x1.9999999999997p-5\",\"upper_hex\":\"0x1.999999999999dp-5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_1_2_gate\":{\"lower_hex\":\"0x1.47ae147ae1479p-5\",\"upper_hex\":\"0x1.47ae147ae147dp-5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_2_0_gate\":{\"lower_hex\":\"0x1.7fffffffffffdp+3\",\"upper_hex\":\"0x1.8000000000002p+3\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_2_1_gate\":{\"lower_hex\":\"0x1.9999999999997p+0\",\"upper_hex\":\"0x1.999999999999dp+0\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_2_2_gate\":{\"lower_hex\":\"0x1.7fffffffffffdp+0\",\"upper_hex\":\"0x1.8000000000002p+0\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_3_0_gate\":{\"lower_hex\":\"0x1.5dffffffffffdp+8\",\"upper_hex\":\"0x1.5e00000000002p+8\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_3_1_gate\":{\"lower_hex\":\"0x1.3fffffffffffdp+6\",\"upper_hex\":\"0x1.4000000000002p+6\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_3_2_gate\":{\"lower_hex\":\"0x1.3fffffffffffdp+6\",\"upper_hex\":\"0x1.4000000000002p+6\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}},\"coefficient_enclosures\":{\"B_0\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.47b934bf79cd1p-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"B_1\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.6f048ca2eff9bp-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"B_2\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.d155d4fb14e7cp-8\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"h_0\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.a78d802a1edf2p-15\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"h_1\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.337f05d517be3p-21\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"h_2\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.8d15983e563c8p-22\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"ell_0\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.49960b790debap-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"ell_1\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.deac370218532p-14\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"ell_2\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.3501dfe3e177ap-14\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"m_0\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.0078ea1418fb3p+0\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"m_1\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.724debda54c2p-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"m_2\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.d98f99f82e41cp-8\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"t_0\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.cc36b9b8b4fefp-8\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"t_1\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.ce79b1ec2b39p-8\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"t_2\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.dc535b1bc0898p-9\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}},\"coefficient_gate_margins\":{\"B_0_upper_margin\":{\"lower_hex\":\"0x1.9dde0c65817p-14\",\"upper_hex\":\"0x1.4af4f0d844d04p-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"B_1_upper_margin\":{\"lower_hex\":\"0x1.a32bf23b7f5dp-11\",\"upper_hex\":\"0x1.89374bc6a7efcp-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"B_2_upper_margin\":{\"lower_hex\":\"0x1.a2f49bd3d039p-12\",\"upper_hex\":\"0x1.eb851eb851ebbp-8\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"h_0_upper_margin\":{\"lower_hex\":\"0x1.110a96001294p-21\",\"upper_hex\":\"0x1.abd1aa821f29bp-15\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"h_1_upper_margin\":{\"lower_hex\":\"0x1.d40b2d780f22p-26\",\"upper_hex\":\"0x1.421f5f40d8379p-21\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"h_2_upper_margin\":{\"lower_hex\":\"0x1.034c8b6ba5bfp-25\",\"upper_hex\":\"0x1.ad7f29abcaf4cp-22\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"ell_0_upper_margin\":{\"lower_hex\":\"0x1.5ee55f36e45p-15\",\"upper_hex\":\"0x1.4af4f0d844d04p-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"ell_1_upper_margin\":{\"lower_hex\":\"0x1.8a4cdd339834p-18\",\"upper_hex\":\"0x1.f75104d551d6cp-14\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"ell_2_upper_margin\":{\"lower_hex\":\"0x1.a8978aa55175p-18\",\"upper_hex\":\"0x1.4f8b588e368f3p-14\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"m_0_upper_margin\":{\"lower_hex\":\"0x1.0b390a6e63ap-7\",\"upper_hex\":\"0x1.028f5c28f5c2bp+0\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"m_1_upper_margin\":{\"lower_hex\":\"0x1.a1c4865860ep-13\",\"upper_hex\":\"0x1.78d4fdf3b645cp-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"m_2_upper_margin\":{\"lower_hex\":\"0x1.1f584c023a99p-12\",\"upper_hex\":\"0x1.eb851eb851ebbp-8\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"t_0_upper_margin\":{\"lower_hex\":\"0x1.f4e64ff9cec6p-12\",\"upper_hex\":\"0x1.eb851eb851ebbp-8\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"t_1_upper_margin\":{\"lower_hex\":\"0x1.d0b6ccc26b25p-12\",\"upper_hex\":\"0x1.eb851eb851ebbp-8\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"t_2_upper_margin\":{\"lower_hex\":\"0x1.e63873922c3ap-14\",\"upper_hex\":\"0x1.eb851eb851ebbp-9\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}},\"lyapunov_perron_coefficients\":{\"L_0_0\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.3bce7e9f3a204p-12\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"L_1_0\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.ed72a5d8cad23p-6\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"L_2_0\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.0078ea1418fb3p+2\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"L_3_0\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.cc36b9b8b4fefp-5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"L_0_1\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.df5b2ffeae893p-14\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"L_1_1\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.767f3d7ef85bp-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"L_2_1\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.724debda54c2p-5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"L_3_1\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.ce79b1ec2b39p-5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"L_0_2\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.2ffea662b09cp-14\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"L_1_2\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.dafde3fa33f38p-8\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"L_2_2\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.d98f99f82e41cp-6\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"L_3_2\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.dc535b1bc0898p-6\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}},\"lyapunov_perron_enclosures\":{\"fixed_core_rate\":{\"lower_hex\":\"0x1.6a09e667f3bcbp-1\",\"upper_hex\":\"0x1.6a09e667f3bcep-1\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"local_tail_weight\":{\"lower_hex\":\"0x1.ffffffffffffdp-3\",\"upper_hex\":\"0x1.0000000000002p-2\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"final_homoclinic_weight_reserved\":{\"lower_hex\":\"0x1.9999999999997p-3\",\"upper_hex\":\"0x1.999999999999dp-3\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"core_rate_minus_local_weight\":{\"lower_hex\":\"0x1.d413cccfe7794p-2\",\"upper_hex\":\"0x1.d413cccfe779ep-2\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"local_minus_reserved_weight\":{\"lower_hex\":\"0x1.999999999998p-5\",\"upper_hex\":\"0x1.99999999999b4p-5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"green_operator\":{\"lower_hex\":\"0x1.1805a83b66b4dp+1\",\"upper_hex\":\"0x1.1805a83b66b54p+1\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"linearized_contraction\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.0de026740ba6cp-4\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"one_minus_linearized_contraction\":{\"lower_hex\":\"0x1.de43fb317e8b2p-1\",\"upper_hex\":\"0x1p+0\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"resolvent\":{\"lower_hex\":\"0x1p+0\",\"upper_hex\":\"0x1.120e947f62f97p+0\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}},\"lyapunov_perron_gate_margins\":{\"alpha_lower_margin\":{\"lower_hex\":\"0x1.0630c976c4p-10\",\"upper_hex\":\"0x1.f0377d85a898p-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"core_rate_minus_local_weight\":{\"lower_hex\":\"0x1.d413cccfe7794p-2\",\"upper_hex\":\"0x1.d413cccfe779ep-2\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"local_minus_reserved_weight\":{\"lower_hex\":\"0x1.999999999998p-5\",\"upper_hex\":\"0x1.99999999999b4p-5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"green_operator_upper_margin\":{\"lower_hex\":\"0x1.310d26e00bcp-9\",\"upper_hex\":\"0x1.310d26e00e8p-9\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"linearized_contraction_upper_margin\":{\"lower_hex\":\"0x1.239c46510e18p-10\",\"upper_hex\":\"0x1.126e978d4fdf6p-4\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"resolvent_upper_margin\":{\"lower_hex\":\"0x1.249eb3d039ap-8\",\"upper_hex\":\"0x1.333333333335p-4\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}},\"state_tensor_enclosures\":{\"alpha\":{\"lower_hex\":\"0x1.66666c5c8a3b4p-1\",\"upper_hex\":\"0x1.6da431ede57b5p-1\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"kappa_bar\":{\"lower_hex\":\"0x1.6138c31413b5ep-1\",\"upper_hex\":\"0x1.6da431ede57b5p-1\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"M_2\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.04c42e2f49437p+0\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"M_3\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.86e00a51314eap+1\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"state_second_no_first_exit_margin\":{\"lower_hex\":\"0x1.099907f16134p-6\",\"upper_hex\":\"0x1.123b25726c1cbp+0\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"state_third_no_first_exit_margin\":{\"lower_hex\":\"0x1.9ff44959376cp-5\",\"upper_hex\":\"0x1.9b58b82ba22afp+1\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"origin_second_margin\":{\"lower_hex\":\"0x1.8a7ce629d624p-5\",\"upper_hex\":\"0x1.123b25726c1cbp+0\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"origin_third_margin\":{\"lower_hex\":\"0x1.197bf6d19aedp-3\",\"upper_hex\":\"0x1.9b58b82ba22afp+1\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}},\"state_tensor_gate_margins\":{\"state_normal_gap_lower_margin\":{\"lower_hex\":\"0x1.43f354611664p-7\",\"upper_hex\":\"0x1.17b3c2b561f5p-5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"state_second_no_first_exit_gate_margin\":{\"lower_hex\":\"0x1.0167e107e85fp-6\",\"upper_hex\":\"0x1.121a60d6c6396p+0\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"state_third_no_first_exit_gate_margin\":{\"lower_hex\":\"0x1.4e08c43a7f1ap-5\",\"upper_hex\":\"0x1.9a110a172749bp+1\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"origin_second_gate_margin\":{\"lower_hex\":\"0x1.3891610b1dd2p-5\",\"upper_hex\":\"0x1.0fabc949765a3p+0\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"origin_third_gate_margin\":{\"lower_hex\":\"0x1.662b20d6690d1p-4\",\"upper_hex\":\"0x1.94f251c53bc49p+1\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}},\"weighted_jet_enclosures\":{\"Z_0_0\":{\"lower_hex\":\"0x1.47ae147ae1479p-7\",\"upper_hex\":\"0x1.47ae147ae147dp-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_0_1\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.18a9218b1596bp-12\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_0_2\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.836ef20e1eed1p-13\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_1_0\":{\"lower_hex\":\"0x1p+0\",\"upper_hex\":\"0x1.120e947f62f97p+0\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_1_1\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.00c31d2b6b84ap-5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_1_2\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.67325039cb68ep-6\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_2_0\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.58301127e0e5cp+3\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_2_1\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.10eb940aa9fa5p+0\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_2_2\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.a159e79fea011p-1\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_3_0\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.445c319d85b32p+8\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_3_1\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.b7a77c974d8d7p+5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_3_2\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.6e6409a038981p+5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}},\"original_parameter_weighted_jet_enclosures\":{\"Z_0_0\":{\"lower_hex\":\"0x1.47ae147ae1479p-7\",\"upper_hex\":\"0x1.47ae147ae147dp-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_0_1\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.b688446951bbap-8\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_0_2\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.d8f0ee7a3cc0ap-4\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_1_0\":{\"lower_hex\":\"0x1p+0\",\"upper_hex\":\"0x1.120e947f62f97p+0\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_1_1\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.9130dd93d7ff6p-1\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_1_2\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.b678eaee8ccdcp+3\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_2_0\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.58301127e0e5cp+3\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_2_1\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.aa701750a9974p+4\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_2_2\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.fd763f3eb5269p+8\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_3_0\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.445c319d85b32p+8\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_3_1\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.577ad9563496ap+10\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_3_2\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.bf411dc01515dp+14\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}},\"frame_derivative_enclosures\":{\"T_0\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.0062315f11583p+2\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"T_1\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.c1edaa2ea6631p-5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"T_2\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.1c834aa7e2aa4p-5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}},\"physical_weighted_jet_enclosures\":{\"Z_0_0\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.482bc450ba0aap-5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_0_1\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.a90eea64f8b71p-10\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_0_2\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.24c226826533ep-10\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_1_0\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.1277b2eecc244p+2\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_1_1\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.79901969e9feap-3\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_1_2\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.07104c3f01881p-3\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_2_0\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.58b415ef769aap+5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_2_1\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.372300521ec0cp+2\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_2_2\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.e0c80bf942e12p+1\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_3_0\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.44d89b769dafcp+10\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_3_1\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.dbf14cbf4bed8p+7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_3_2\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.918b30517a086p+7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}},\"original_parameter_physical_weighted_jet_enclosures\":{\"Z_0_0\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.482bc450ba0aap-5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_0_1\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.4c13a71ee24f2p-5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_0_2\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.655f00022c8ap-1\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_1_0\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.1277b2eecc244p+2\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_1_1\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.26f893dabecf1p+2\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_1_2\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.411f6512e95ecp+6\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_2_0\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.58b415ef769aap+5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_2_1\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.e626b080500d6p+6\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_2_2\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.2572194ee3121p+11\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_3_0\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.44d89b769dafcp+10\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_3_1\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.73d483f57351bp+12\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_3_2\":{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1.ea2a687b75777p+16\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}},\"coordinate_composition\":{\"moving_state_norm\":\"max-of-two-euclidean-blocks\",\"physical_state_norm\":\"euclidean\",\"jet_tensor_norm\":\"labelled-multilinear-operator\",\"pure_graph_state_tensor_norm\":\"hilbert-schmidt\",\"frame_bound_method\":\"sqrt(2)-times-parameter-HS-Frobenius\",\"complete_leibniz_composition\":true},\"linearization_contract\":{\"actual_family_source\":\"analytic-unstable-manifold-plus-P2a-cone-continuation\",\"coefficient_domain\":\"P2b0-true-orbit-sharpened-x-tube\",\"inverse_mode\":\"along-true-orbit-Neumann\",\"full_product_ball_contraction_claimed\":false},\"weighted_jet_gate_margins\":{\"Z_0_0_upper_margin\":{\"lower_hex\":\"0x1.a36e2eb1c41p-14\",\"upper_hex\":\"0x1.a36e2eb1c458p-14\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_0_1_upper_margin\":{\"lower_hex\":\"0x1.e74131a63f512p-13\",\"upper_hex\":\"0x1.0624dd2f1a9fep-11\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_0_2_upper_margin\":{\"lower_hex\":\"0x1.c36d6b5569783p-13\",\"upper_hex\":\"0x1.a36e2eb1c433p-12\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_1_0_upper_margin\":{\"lower_hex\":\"0x1.0924f59e81cdp-3\",\"upper_hex\":\"0x1.99999999999a8p-3\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_1_1_upper_margin\":{\"lower_hex\":\"0x1.31acf8dc5c29ap-6\",\"upper_hex\":\"0x1.999999999999dp-5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_1_2_upper_margin\":{\"lower_hex\":\"0x1.2829d8bbf7264p-6\",\"upper_hex\":\"0x1.47ae147ae147dp-5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_2_0_upper_margin\":{\"lower_hex\":\"0x1.3e7f76c0f8d08p+0\",\"upper_hex\":\"0x1.8000000000002p+3\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_2_1_upper_margin\":{\"lower_hex\":\"0x1.115c0b1ddf3e4p-1\",\"upper_hex\":\"0x1.999999999999dp+0\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_2_2_upper_margin\":{\"lower_hex\":\"0x1.5ea6186015fe9p-1\",\"upper_hex\":\"0x1.8000000000002p+0\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_3_0_upper_margin\":{\"lower_hex\":\"0x1.9a3ce627a4cbp+4\",\"upper_hex\":\"0x1.5e00000000002p+8\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_3_1_upper_margin\":{\"lower_hex\":\"0x1.90b106d164e46p+4\",\"upper_hex\":\"0x1.4000000000002p+6\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_3_2_upper_margin\":{\"lower_hex\":\"0x1.119bf65fc7679p+5\",\"upper_hex\":\"0x1.4000000000002p+6\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}},\"recurrence\":{\"complete\":true,\"target_count\":12,\"maximum_state_order\":3,\"maximum_parameter_order\":2,\"normalized_parameter_dimension\":3,\"first_parameter_multiindices\":[\"theta_r\",\"theta_a\",\"theta_epsilon\"],\"second_symmetric_parameter_multiindices\":[\"theta_r,theta_r\",\"theta_r,theta_a\",\"theta_r,theta_epsilon\",\"theta_a,theta_a\",\"theta_a,theta_epsilon\",\"theta_epsilon,theta_epsilon\"],\"term_counts\":{\"Z_0_0\":0,\"Z_0_1\":1,\"Z_0_2\":4,\"Z_1_0\":0,\"Z_1_1\":2,\"Z_1_2\":9,\"Z_2_0\":1,\"Z_2_1\":6,\"Z_2_2\":25,\"Z_3_0\":4,\"Z_3_1\":18,\"Z_3_2\":73}},\"obligations\":[{\"id\":\"P2.JETS.COEFFICIENTS\",\"status\":\"PASS\",\"predicate\":\"The exact-rational grid and second-order normalized-parameter AD bound the moving blocks and the state derivatives through cubic order by every frozen coefficient budget\",\"enclosures\":{\"B_0_upper_margin\":{\"lower_hex\":\"0x1.9dde0c65817p-14\",\"upper_hex\":\"0x1.4af4f0d844d04p-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"B_1_upper_margin\":{\"lower_hex\":\"0x1.a32bf23b7f5dp-11\",\"upper_hex\":\"0x1.89374bc6a7efcp-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"B_2_upper_margin\":{\"lower_hex\":\"0x1.a2f49bd3d039p-12\",\"upper_hex\":\"0x1.eb851eb851ebbp-8\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"h_0_upper_margin\":{\"lower_hex\":\"0x1.110a96001294p-21\",\"upper_hex\":\"0x1.abd1aa821f29bp-15\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"h_1_upper_margin\":{\"lower_hex\":\"0x1.d40b2d780f22p-26\",\"upper_hex\":\"0x1.421f5f40d8379p-21\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"h_2_upper_margin\":{\"lower_hex\":\"0x1.034c8b6ba5bfp-25\",\"upper_hex\":\"0x1.ad7f29abcaf4cp-22\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"ell_0_upper_margin\":{\"lower_hex\":\"0x1.5ee55f36e45p-15\",\"upper_hex\":\"0x1.4af4f0d844d04p-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"ell_1_upper_margin\":{\"lower_hex\":\"0x1.8a4cdd339834p-18\",\"upper_hex\":\"0x1.f75104d551d6cp-14\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"ell_2_upper_margin\":{\"lower_hex\":\"0x1.a8978aa55175p-18\",\"upper_hex\":\"0x1.4f8b588e368f3p-14\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"m_0_upper_margin\":{\"lower_hex\":\"0x1.0b390a6e63ap-7\",\"upper_hex\":\"0x1.028f5c28f5c2bp+0\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"m_1_upper_margin\":{\"lower_hex\":\"0x1.a1c4865860ep-13\",\"upper_hex\":\"0x1.78d4fdf3b645cp-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"m_2_upper_margin\":{\"lower_hex\":\"0x1.1f584c023a99p-12\",\"upper_hex\":\"0x1.eb851eb851ebbp-8\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"t_0_upper_margin\":{\"lower_hex\":\"0x1.f4e64ff9cec6p-12\",\"upper_hex\":\"0x1.eb851eb851ebbp-8\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"t_1_upper_margin\":{\"lower_hex\":\"0x1.d0b6ccc26b25p-12\",\"upper_hex\":\"0x1.eb851eb851ebbp-8\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"t_2_upper_margin\":{\"lower_hex\":\"0x1.e63873922c3ap-14\",\"upper_hex\":\"0x1.eb851eb851ebbp-9\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}}},{\"id\":\"V2.WU.STATE_C23\",\"status\":\"PASS\",\"predicate\":\"The true local graph has uniform Hilbert-Schmidt C2 and C3 tensor balls, with positive no-first-exit margins both on the true graph tube and at the origin\",\"enclosures\":{\"state_normal_gap_lower_margin\":{\"lower_hex\":\"0x1.43f354611664p-7\",\"upper_hex\":\"0x1.17b3c2b561f5p-5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"state_second_no_first_exit_gate_margin\":{\"lower_hex\":\"0x1.0167e107e85fp-6\",\"upper_hex\":\"0x1.121a60d6c6396p+0\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"state_third_no_first_exit_gate_margin\":{\"lower_hex\":\"0x1.4e08c43a7f1ap-5\",\"upper_hex\":\"0x1.9a110a172749bp+1\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"origin_second_gate_margin\":{\"lower_hex\":\"0x1.3891610b1dd2p-5\",\"upper_hex\":\"0x1.0fabc949765a3p+0\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"origin_third_gate_margin\":{\"lower_hex\":\"0x1.662b20d6690d1p-4\",\"upper_hex\":\"0x1.94f251c53bc49p+1\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}}},{\"id\":\"V2.WU.MIXED_JETS\",\"status\":\"PASS\",\"predicate\":\"The complete labelled Fa\u00e0 di Bruno recurrence bounds all D_b^i D_theta^j graph traces for 0<=i<=3 and 0<=j<=2\",\"enclosures\":{\"Z_0_0_upper_margin\":{\"lower_hex\":\"0x1.a36e2eb1c41p-14\",\"upper_hex\":\"0x1.a36e2eb1c458p-14\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_0_1_upper_margin\":{\"lower_hex\":\"0x1.e74131a63f512p-13\",\"upper_hex\":\"0x1.0624dd2f1a9fep-11\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_0_2_upper_margin\":{\"lower_hex\":\"0x1.c36d6b5569783p-13\",\"upper_hex\":\"0x1.a36e2eb1c433p-12\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_1_0_upper_margin\":{\"lower_hex\":\"0x1.0924f59e81cdp-3\",\"upper_hex\":\"0x1.99999999999a8p-3\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_1_1_upper_margin\":{\"lower_hex\":\"0x1.31acf8dc5c29ap-6\",\"upper_hex\":\"0x1.999999999999dp-5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_1_2_upper_margin\":{\"lower_hex\":\"0x1.2829d8bbf7264p-6\",\"upper_hex\":\"0x1.47ae147ae147dp-5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_2_0_upper_margin\":{\"lower_hex\":\"0x1.3e7f76c0f8d08p+0\",\"upper_hex\":\"0x1.8000000000002p+3\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_2_1_upper_margin\":{\"lower_hex\":\"0x1.115c0b1ddf3e4p-1\",\"upper_hex\":\"0x1.999999999999dp+0\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_2_2_upper_margin\":{\"lower_hex\":\"0x1.5ea6186015fe9p-1\",\"upper_hex\":\"0x1.8000000000002p+0\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_3_0_upper_margin\":{\"lower_hex\":\"0x1.9a3ce627a4cbp+4\",\"upper_hex\":\"0x1.5e00000000002p+8\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_3_1_upper_margin\":{\"lower_hex\":\"0x1.90b106d164e46p+4\",\"upper_hex\":\"0x1.4000000000002p+6\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_3_2_upper_margin\":{\"lower_hex\":\"0x1.119bf65fc7679p+5\",\"upper_hex\":\"0x1.4000000000002p+6\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}}},{\"id\":\"V2.WU.WEIGHTED_HALF_ORBITS\",\"status\":\"PASS\",\"predicate\":\"The Lyapunov-Perron Green, contraction, and resolvent bounds give the same full rectangular weighted jets for unstable and reverser-transported stable local half-orbits\",\"enclosures\":{\"alpha_lower_margin\":{\"lower_hex\":\"0x1.0630c976c4p-10\",\"upper_hex\":\"0x1.f0377d85a898p-7\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"core_rate_minus_local_weight\":{\"lower_hex\":\"0x1.d413cccfe7794p-2\",\"upper_hex\":\"0x1.d413cccfe779ep-2\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"local_minus_reserved_weight\":{\"lower_hex\":\"0x1.999999999998p-5\",\"upper_hex\":\"0x1.99999999999b4p-5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"green_operator_upper_margin\":{\"lower_hex\":\"0x1.310d26e00bcp-9\",\"upper_hex\":\"0x1.310d26e00e8p-9\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"linearized_contraction_upper_margin\":{\"lower_hex\":\"0x1.239c46510e18p-10\",\"upper_hex\":\"0x1.126e978d4fdf6p-4\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"resolvent_upper_margin\":{\"lower_hex\":\"0x1.249eb3d039ap-8\",\"upper_hex\":\"0x1.333333333335p-4\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_0_0_upper_margin\":{\"lower_hex\":\"0x1.a36e2eb1c41p-14\",\"upper_hex\":\"0x1.a36e2eb1c458p-14\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_0_1_upper_margin\":{\"lower_hex\":\"0x1.e74131a63f512p-13\",\"upper_hex\":\"0x1.0624dd2f1a9fep-11\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_0_2_upper_margin\":{\"lower_hex\":\"0x1.c36d6b5569783p-13\",\"upper_hex\":\"0x1.a36e2eb1c433p-12\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_1_0_upper_margin\":{\"lower_hex\":\"0x1.0924f59e81cdp-3\",\"upper_hex\":\"0x1.99999999999a8p-3\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_1_1_upper_margin\":{\"lower_hex\":\"0x1.31acf8dc5c29ap-6\",\"upper_hex\":\"0x1.999999999999dp-5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_1_2_upper_margin\":{\"lower_hex\":\"0x1.2829d8bbf7264p-6\",\"upper_hex\":\"0x1.47ae147ae147dp-5\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_2_0_upper_margin\":{\"lower_hex\":\"0x1.3e7f76c0f8d08p+0\",\"upper_hex\":\"0x1.8000000000002p+3\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_2_1_upper_margin\":{\"lower_hex\":\"0x1.115c0b1ddf3e4p-1\",\"upper_hex\":\"0x1.999999999999dp+0\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_2_2_upper_margin\":{\"lower_hex\":\"0x1.5ea6186015fe9p-1\",\"upper_hex\":\"0x1.8000000000002p+0\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_3_0_upper_margin\":{\"lower_hex\":\"0x1.9a3ce627a4cbp+4\",\"upper_hex\":\"0x1.5e00000000002p+8\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_3_1_upper_margin\":{\"lower_hex\":\"0x1.90b106d164e46p+4\",\"upper_hex\":\"0x1.4000000000002p+6\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"},\"Z_3_2_upper_margin\":{\"lower_hex\":\"0x1.119bf65fc7679p+5\",\"upper_hex\":\"0x1.4000000000002p+6\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}}}]}\n",
+      "source_sha256": "dd58c7624aa2497e9f4dda63bbe9c69005e614a7fe53ba140c078a851bda8dfe"
+    },
+    "report_output": {
+      "excluded_from_prewrite_source_observation": true,
+      "inside_repository": true,
+      "path": "validation/rigorous/results/vdp_bridge_v1_p2b_jets.json"
+    },
+    "status": "PASS",
+    "strict_library_build_status": "PASS"
+  },
+  "validation_configuration": {
+    "configuration_id": "vdp-p2-local-graph-v1",
+    "path": "validation/rigorous/config/vdp_p2_local_graph_v1.json",
+    "sha256": "b11ecadb088e8fbd686ed4834335f96c460bee9a18b0d1edab4222da645e199b"
+  }
+}

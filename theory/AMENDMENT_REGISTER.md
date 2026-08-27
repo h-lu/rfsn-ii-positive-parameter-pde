@@ -108,11 +108,13 @@ certificates remain `INCONCLUSIVE` and non-claim-bearing because independent
 replay is pending.  The subsequent clean P2b0 run, documented in
 [`P2B0_REPORT.md`](../validation/rigorous/P2B0_REPORT.md), also passes exact
 H10 regeneration and uniform true-graph \(C^0/C^1\) tubes on the same bridge.
-It does not supply true-graph \(C^2/C^3\), parameter/mixed jets, or weighted
-half-orbit constants, so the parent `V2.WU_GRAPH` remains pending.  None of
-these local certificates proves the remaining V2 validation objects or
-V3--V7, makes a temporal-stability claim, or qualifies here as
-`Computer-assisted` evidence before independent replay.
+The subsequent clean P2b run, documented in
+[`P2B_JETS_REPORT.md`](../validation/rigorous/P2B_JETS_REPORT.md), supplies
+true-graph \(C^2/C^3\), the complete parameter/mixed jets, and weighted
+half-orbit constants, so the local parent `V2.WU_GRAPH` now passes.  The Kato
+source phase and remaining V2 validation objects remain pending.  None of
+these local certificates proves V3--V7, makes a temporal-stability claim, or
+qualifies here as `Computer-assisted` evidence before independent replay.
 
 Numerical work can later become `Computer-assisted` only if every
 claim-bearing bound is interval rigorous, tied to immutable source and
