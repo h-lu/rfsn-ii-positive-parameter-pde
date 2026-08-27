@@ -21,6 +21,7 @@ from rigorous_common import (  # noqa: E402
     load_json,
     validate_exact_bridge,
     validate_exact_box,
+    validate_h10_c01_configuration,
     validate_local_graph_configuration,
 )
 
@@ -99,6 +100,41 @@ class FrozenP2BridgeTests(unittest.TestCase):
         mutated = copy.deepcopy(self.bridge)
         mutated["variables"]["r"]["lower"]["numerator"] = "1"
         self.assertTrue(validate_exact_bridge(mutated))
+
+
+class FrozenP2H10C01Tests(unittest.TestCase):
+    def setUp(self) -> None:
+        self.configuration = load_json(
+            RIGOROUS / "config" / "vdp_p2_h10_c01_v1.json")
+
+    def test_schema_exact_radii_gates_and_imports(self) -> None:
+        jsonschema.validate(
+            self.configuration,
+            load_json(RIGOROUS / "p2_h10_c01.schema.json"),
+            format_checker=jsonschema.FormatChecker(),
+        )
+        self.assertEqual(validate_h10_c01_configuration(self.configuration), [])
+
+    def test_post_freeze_mutation_is_detected(self) -> None:
+        invalid = copy.deepcopy(self.configuration)
+        invalid["tube_radii"]["value_euclidean"]["numerator"] = "2"
+        self.assertTrue(validate_h10_c01_configuration(invalid))
+        invalid = copy.deepcopy(self.configuration)
+        invalid["acceptance_gates"]["c1_cone_margin_lower"] = {
+            "numerator": "0", "denominator": "1"}
+        self.assertTrue(validate_h10_c01_configuration(invalid))
+        invalid = copy.deepcopy(self.configuration)
+        invalid["imported_core_center"]["term_table"]["sha256"] = "0" * 64
+        self.assertTrue(validate_h10_c01_configuration(invalid))
+        invalid = copy.deepcopy(self.configuration)
+        invalid["exact_center_audit"]["defect_maximum_total_degree"] = 10
+        self.assertTrue(validate_h10_c01_configuration(invalid))
+        invalid = copy.deepcopy(self.configuration)
+        invalid["selection_basis"]["p2a_certificate"]["sha256"] = "0" * 64
+        self.assertTrue(validate_h10_c01_configuration(invalid))
+        invalid = copy.deepcopy(self.configuration)
+        invalid["proof_formulas"].remove("X0=R+H")
+        self.assertTrue(validate_h10_c01_configuration(invalid))
 
 
 class DevelopmentReplayTests(unittest.TestCase):

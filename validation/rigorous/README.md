@@ -67,6 +67,10 @@ positive-parameter root is the continuation of the selected core branch,
 rather than an unrelated root found only inside the target box.  The P2a
 block and its acceptance gates are independently frozen in
 [`config/vdp_p2_local_graph_v1.json`](config/vdp_p2_local_graph_v1.json).
+The next P2b0 center, \(C^0/C^1\) radii, symbolically differenced residual,
+and acceptance margins are preregistered independently in
+[`config/vdp_p2_h10_c01_v1.json`](config/vdp_p2_h10_c01_v1.json).  Freezing
+that file is not a validation result.
 
 ## Strict replay
 

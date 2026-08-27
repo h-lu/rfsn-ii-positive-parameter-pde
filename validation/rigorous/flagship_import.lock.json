@@ -14,14 +14,16 @@
     "validation/origin-algebraic-heteroclinic/certificate.json": "60882ee1d3b2b18264b85764288505ae8b47d00bc826a2bddec152898f690fbe",
     "validation/future-target-fold/certificate.json": "88fa64035bb4352f5e25aa8d1627b191936264958c125dface59c5a767f6b3ce",
     "validation/origin-unstable-pole-entry/certificate.json": "7f325a87810f8b0dda2542aed90263b39f9a9f4bd2e8ebb3abcc238d032eb6e2",
+    "validation/origin-algebraic-heteroclinic/README.md": "96241bcfc7481f12c0dacfc33246a142b257388653c4be7590e7924e151d9cae",
+    "validation/origin-algebraic-heteroclinic/generate_polynomial_header.py": "7c612d51b357569b64a51f0bb36c59e215e26c8d14b584419c24e32ffed5bfcb",
     "validation/origin-algebraic-heteroclinic/unstable_graph_terms.hpp": "d617587ea1b9037c1c7575ccdde5029529ec5b736dee259baff9a2a162001e96",
     "validation/origin-algebraic-heteroclinic/unstable_graph_probe.cpp": "a2102394a7afbb70331e810a4676f19ec9a79dd3492509ab3c7aad2464e2d2c2"
   },
   "phase_1_use": "Provenance and toolchain cross-check only. The V1/V2.1 kernel is implemented locally and does not import a positive-parameter conclusion.",
+  "p2b_h10_use": "The degree-ten core graph generator, exact term table, original graph probe, README proof boundary, and source certificate are immutable centers for a new local positive-parameter tube proof. Their core error radii are not copied to positive parameters.",
   "nonclaims": [
     "Hash verification is not independent replay of a flagship certificate.",
     "No positive-parameter end or matching theorem is imported from the flagship.",
     "The flagship current HEAD is not interchangeable with the frozen commit."
   ]
 }
-

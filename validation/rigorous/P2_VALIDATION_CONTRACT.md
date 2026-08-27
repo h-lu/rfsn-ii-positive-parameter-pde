@@ -30,6 +30,8 @@ interface.  Their executable refinements are:
 |---|---|---|
 | P2a | `V2.WU.FRAME_BLOCK` | A nonsingular parameter-dependent real eigenframe, an isolating local block, and a strict difference cone on all of \(B_0\). |
 | P2a | `V2.WU.COARSE_GRAPH` | True local \(W^u\) and \(W^s=\mathcal RW^u\) graphs on the radius-\(.01\) disk, Lipschitz at most one, with an explicit quadratic value bound and backward decay rate. |
+| P2b0 | `V2.WU.H10_C0_TUBE` | A uniform \(C^0\) tube around the frozen degree-ten core graph, with a symbolically differenced parameter residual. |
+| P2b0 | `V2.WU.H10_C1_TUBE` | A uniform state-\(C^1\) tube around the same graph, using a transformed tangent Riccati cone. |
 | P2b | `V2.WU.JETS` | Validated \(D_b^{\le3}D_\mu^{\le2}\) graph bounds and the weighted half-orbit/tail constants actually consumed downstream. |
 | P2c | `V2.HOM.BRANCH` | A gap-free parameter cover from the complete \(r=0\) anchor face through \(B_+\), with interval Newton/Krawczyk inclusion for the same selected \((\phi,T)\) branch. |
 | P2c | `V2.HOM.FIRST_HIT` | No earlier nonzero hit of \(\operatorname{Fix}\mathcal R=\{P=Q=0\}\), proved by sign tubes and a final flow-box argument. |
@@ -220,7 +222,168 @@ The frozen gates require \(K_1<1/4\) and \(\gamma_1>2/3\).  Consequently
 The order of these tests prevents the circular use of a quadratic graph
 estimate to prove the cone that creates the graph.
 
-## 4. What P2a does and does not settle
+## 4. H10-centered C0/C1 refinement for P2b
+
+Let \(p=H_{10}\) be the frozen degree-ten core graph, put
+
+\[
+ y=s-p(u),\qquad x_0=u_1+p_1(u),\qquad
+ q_\mu=\left(\frac1{4\alpha},-\frac1{4\beta}\right),
+ \qquad G_\mu(x)=q_\mu n_\mu(x).
+\]
+
+In the moving frame, \(B_s=-B_u\), and the exact transformed residual is
+
+\[
+ R_\mu(u)=B_{s,\mu}p-G_\mu(x_0)
+           -Dp\bigl(B_{u,\mu}u+G_\mu(x_0)\bigr).
+\]
+
+The residual dynamics are therefore
+
+\[
+ y'=B_{s,\mu}y+R_\mu(u)
+ -(I+Dp)\bigl(G_\mu(x_0+y_1)-G_\mu(x_0)\bigr).
+\]
+
+Direct interval evaluation of \(R_\mu\) is forbidden because it destroys the
+degree-ten core cancellations.  The executable probe must instead use
+
+\[
+ R_\mu=R_0+\Delta B_s p-\Delta G
+       -Dp\bigl(\Delta B_u u+\Delta G\bigr),
+ \qquad \Delta G=G_\mu(x_0)-G_0(x_0),
+\]
+
+where \(R_0\) is the exact frozen defect table.
+
+For the scalar implementation, if \(\delta_B\) bounds both block
+differences, \(F_0\) and \(F_1\) bound \(\Delta G\) and its scalar
+derivative, and \(D_0,D_1\) bound the core defect and its derivative, the
+probe first fixes
+
+\[
+\begin{gathered}
+ X_0=R+\lVert p\rVert,\qquad X=X_0+\rho,\\
+ C_q=\delta_q(1+\delta_a)+\tfrac12\delta_a,\\
+ F_0=(C_q+kbX_0)X_0^2,\qquad
+ F_1=2C_qX_0+3kbX_0^2,
+\end{gathered}
+\]
+
+where \(k\ge\lVert q_\mu\rVert\),
+\(\delta_q\ge\lVert q_\mu-q_0\rVert\), and
+\(\delta_a\ge|a-1|\).  It then uses
+
+\[
+\begin{aligned}
+ E_0&=D_0+\delta_B(\lVert p\rVert+dR)+(1+d)F_0,\\
+ E_1&=D_1+\delta_B(2d+d_2R)+d_2F_0+(1+d)^2F_1.
+\end{aligned}
+\]
+
+The two occurrences of \(\delta_Bd\) in \(E_1\) come from differentiating
+\(\Delta B_sp\) and \(Dp\,\Delta B_uu\), respectively; neither may be
+dropped.  Moreover the quadratic coefficient in \(\Delta G\) is
+\(\lVert a q_\mu-q_0\rVert\), bounded by
+
+\[
+ \lVert q_\mu-q_0\rVert(1+|a-1|)
+ +\tfrac12|a-1|,
+\]
+
+not merely by \(\lVert q_\mu-q_0\rVert\).
+
+Before evaluating any interval bound, the runner must read the generator and
+term table from the frozen flagship Git commit, rerun the exact homological
+recursion over \(\mathbb Q(\sqrt2)\), and require a byte-identical generated
+header.  It must also reject repeated monomials, nonpositive denominators, or
+an unexpected degree.  A table hash establishes provenance but is not, by
+itself, the exact invariance calculation.
+
+Write \(d=\lVert Dp\rVert\), \(d_2=\lVert D^2p\rVert\), and, on the
+complete value tube \(|x|\le R+\lVert p_1\rVert+\rho\), set
+
+\[
+ \ell=\lVert q_\mu\rVert\sup|n_\mu'(x)|,
+ \qquad m=\lVert q_\mu\rVert\sup|n_\mu''(x)|,
+ \qquad \kappa=\alpha-(1+d)\ell.
+\]
+
+If \(E_0\ge\sup\lVert R_\mu\rVert\), then on
+\(\lVert y\rVert=\rho\),
+
+\[
+ \frac12D\lVert y\rVert^2
+ \le-\rho\bigl(\kappa\rho-E_0\bigr).
+\]
+
+Thus \(m_{C^0}=\kappa\rho-E_0>0\) prevents a first exit of the
+true graph, which starts at \(y=0\) at the origin.
+
+For the derivative tube put \(K=D(H_\mu-p)\) and
+\(C=q_\mu n_\mu'(x)e_1^T\), with \(x=x_0+y_1\).  Differentiating the graph
+equation gives the matrix Riccati equation
+
+\[
+ \dot K=M+[B_s-(I+Dp)C]K
+ -K[B_u+C(I+Dp)]-KCK.
+\]
+
+The forcing satisfies
+
+\[
+ \lVert M\rVert_F\le
+ G_u:=E_1+\bigl(d_2\ell+(1+d)^2m\bigr)\rho,
+ \qquad E_1\ge\sup\lVert DR_\mu\rVert_F.
+\]
+
+The rotational parts of \(B_sK-KB_u\) are skew for the Frobenius inner
+product, while its real part is exactly \(-2\alpha\lVert K\rVert_F^2\).
+Consequently
+
+\[
+ \frac12D\lVert K\rVert_F^2
+ \le \lVert K\rVert_FG_u
+ -2\kappa\lVert K\rVert_F^2
+ +\ell\lVert K\rVert_F^3.
+\]
+
+The frozen values are
+
+\[
+ \rho=\frac1{200000},\qquad \eta=\frac3{10000},
+\]
+
+and the second no-first-exit gate is
+
+\[
+ m_{C^1}=2\kappa\eta-G_u-\ell\eta^2>0.
+\]
+
+Along every nonzero unstable orbit, backward time tends to the origin and
+\(y,K\to0\), because both graphs have the same value and tangent plane there.
+P2a supplies the analytic germ, its finite smooth continuation, and the cone
+that keeps the \(u\)-projection nonsingular on the complete radial disk.  The
+two nested no-first-exit arguments therefore apply to that already-existing
+true graph.  A pass proves
+
+\[
+ \lVert H_\mu-H_{10}\rVert_2\le5\cdot10^{-6},\qquad
+ \lVert D H_\mu-DH_{10}\rVert_{2\to2}
+ \le\lVert\cdot\rVert_F\le3\cdot10^{-4}
+\]
+
+on the complete bridge, plus the reversible stable analogue.  It still does
+not bound \(D_b^2,D_b^3,D_\mu,D_\mu^2\), their mixed derivatives, or the
+weighted half-orbit constants.  Therefore neither `V2.WU.JETS` nor its parent
+passes at P2b0.
+
+The radii, rational budgets, imported term-table hashes, and exact formula
+strings are preregistered in
+[`config/vdp_p2_h10_c01_v1.json`](config/vdp_p2_h10_c01_v1.json).
+
+## 5. What P2a and P2b0 do and do not settle
 
 A P2a `PASS` is a genuine uniform positive-parameter result: it supplies a
 true local source disk and a rigorous value enclosure on all of \(B_0\), not
@@ -234,7 +397,7 @@ weighted half-orbits.  The frozen core \(H_{10}\) table may be used as a
 center for a positive-parameter residual tube, but its zero-parameter
 \(10^{-20}\)/\(10^{-18}\) error bounds cannot be copied to \(B_0\).
 
-## 5. Homoclinic, chart, and atlas boundaries
+## 6. Homoclinic, chart, and atlas boundaries
 
 The selected homoclinic stage must use a validated true-graph source and a
 gap-free interval parameter cover.  The symmetry section is codimension two,

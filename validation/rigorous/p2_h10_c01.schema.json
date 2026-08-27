@@ -1,0 +1,167 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/h-lu/rfsn-ii-positive-parameter-pde/validation/rigorous/p2_h10_c01.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "configuration_id",
+    "status",
+    "frozen_before_outward_rounded_p2b_run",
+    "selection_date",
+    "selection_basis",
+    "imported_core_center",
+    "exact_center_audit",
+    "coordinate_domain",
+    "tube_radii",
+    "reference_upper_bounds",
+    "parameter_auxiliary_gates",
+    "proof_formulas",
+    "acceptance_gates",
+    "proved_subobligations",
+    "pending_obligations",
+    "mutation_policy",
+    "nonclaims"
+  ],
+  "properties": {
+    "schema_version": {"const": "rfsn-vdp-p2-h10-c01-config/1"},
+    "configuration_id": {"const": "vdp-p2-h10-c01-v1"},
+    "status": {"const": "FROZEN_PRE_P2B_CERTIFICATE"},
+    "frozen_before_outward_rounded_p2b_run": {"const": true},
+    "selection_date": {"type": "string", "format": "date"},
+    "selection_basis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repository_commit", "repository_tag", "continuation_bridge", "p2a_configuration", "p2a_certificate", "scout_note"],
+      "properties": {
+        "repository_commit": {"$ref": "#/$defs/sha1"},
+        "repository_tag": {"type": "string", "minLength": 1},
+        "continuation_bridge": {"$ref": "#/$defs/hashedFile"},
+        "p2a_configuration": {"$ref": "#/$defs/hashedFile"},
+        "p2a_certificate": {"$ref": "#/$defs/hashedFile"},
+        "scout_note": {"type": "string", "minLength": 1}
+      }
+    },
+    "imported_core_center": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repository", "commit", "coordinate_compatibility", "generator", "term_table", "reference_probe", "reference_readme", "source_certificate"],
+      "properties": {
+        "repository": {"const": "https://github.com/h-lu/reversible-rfsn-ii-waves"},
+        "commit": {"$ref": "#/$defs/sha1"},
+        "coordinate_compatibility": {"type": "string", "minLength": 1},
+        "generator": {"$ref": "#/$defs/hashedFile"},
+        "term_table": {"$ref": "#/$defs/hashedFile"},
+        "reference_probe": {"$ref": "#/$defs/hashedFile"},
+        "reference_readme": {"$ref": "#/$defs/hashedFile"},
+        "source_certificate": {"$ref": "#/$defs/hashedFile"}
+      }
+    },
+    "exact_center_audit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["regenerate_term_table_from_frozen_generator", "require_byte_identical_term_table", "coefficient_field", "center_minimum_total_degree", "center_maximum_total_degree", "h1_term_count", "h2_term_count", "require_center_degrees_zero_and_one_to_vanish", "defect_minimum_total_degree", "defect_maximum_total_degree", "defect1_term_count", "defect2_term_count", "require_defect_degrees_zero_through_ten_to_vanish", "require_unique_monomials_positive_denominators"],
+      "properties": {
+        "regenerate_term_table_from_frozen_generator": {"const": true},
+        "require_byte_identical_term_table": {"const": true},
+        "coefficient_field": {"const": "Q(sqrt(2))"},
+        "center_minimum_total_degree": {"const": 2},
+        "center_maximum_total_degree": {"const": 10},
+        "h1_term_count": {"const": 54},
+        "h2_term_count": {"const": 63},
+        "require_center_degrees_zero_and_one_to_vanish": {"const": true},
+        "defect_minimum_total_degree": {"const": 11},
+        "defect_maximum_total_degree": {"const": 29},
+        "defect1_term_count": {"const": 361},
+        "defect2_term_count": {"const": 361},
+        "require_defect_degrees_zero_through_ten_to_vanish": {"const": true},
+        "require_unique_monomials_positive_denominators": {"const": true}
+      }
+    },
+    "coordinate_domain": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["unstable_radius", "state_norm", "derivative_norm"],
+      "properties": {
+        "unstable_radius": {"$ref": "#/$defs/rational"},
+        "state_norm": {"const": "euclidean"},
+        "derivative_norm": {"const": "frobenius"}
+      }
+    },
+    "tube_radii": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value_euclidean", "first_derivative_frobenius"],
+      "properties": {
+        "value_euclidean": {"$ref": "#/$defs/rational"},
+        "first_derivative_frobenius": {"$ref": "#/$defs/rational"}
+      }
+    },
+    "reference_upper_bounds": {"$ref": "#/$defs/rationalMap"},
+    "parameter_auxiliary_gates": {"$ref": "#/$defs/rationalMap"},
+    "proof_formulas": {
+      "type": "array",
+      "minItems": 10,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "acceptance_gates": {"$ref": "#/$defs/rationalMap"},
+    "proved_subobligations": {
+      "type": "array",
+      "prefixItems": [
+        {"const": "V2.WU.H10_C0_TUBE"},
+        {"const": "V2.WU.H10_C1_TUBE"}
+      ],
+      "items": false
+    },
+    "pending_obligations": {
+      "type": "array",
+      "prefixItems": [
+        {"const": "V2.WU.JETS"},
+        {"const": "V2.WU_GRAPH"}
+      ],
+      "items": false
+    },
+    "mutation_policy": {"type": "string", "minLength": 1},
+    "nonclaims": {
+      "type": "array",
+      "minItems": 5,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    }
+  },
+  "$defs": {
+    "sha1": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "relativePath": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$)).+$"
+    },
+    "hashedFile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"$ref": "#/$defs/relativePath"},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "integerString": {"type": "string", "pattern": "^-?(?:0|[1-9][0-9]*)$"},
+    "positiveIntegerString": {"type": "string", "pattern": "^[1-9][0-9]*$"},
+    "rational": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["numerator", "denominator"],
+      "properties": {
+        "numerator": {"$ref": "#/$defs/integerString"},
+        "denominator": {"$ref": "#/$defs/positiveIntegerString"}
+      }
+    },
+    "rationalMap": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {"$ref": "#/$defs/rational"}
+    }
+  }
+}

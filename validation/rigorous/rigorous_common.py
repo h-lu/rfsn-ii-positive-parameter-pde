@@ -35,6 +35,56 @@ LOCAL_GRAPH_ACCEPTANCE_GATES = {
     "backward_decay_rate_lower": "2/3",
 }
 
+H10_C01_FORMULAS = [
+    "q_mu=(1/(4*alpha),-1/(4*beta))",
+    "G_mu(x)=q_mu*n_mu(x)",
+    "x0=u1+H10_1(u)",
+    "y=s-H10(u)",
+    "R_mu=Bs_mu*H10-G_mu(x0)-DH10*(Bu_mu*u+G_mu(x0))",
+    "R_mu=R_0+DeltaBs*H10-DeltaG-DH10*(DeltaBu*u+DeltaG)",
+    "X0=R+H",
+    "X=X0+rho",
+    "Cq=norm(a*q_mu-q_0)<=delta_q*(1+delta_a)+(1/2)*delta_a",
+    "delta_G=(Cq+k*b*X0)*X0^2",
+    "delta_G_prime=2*Cq*X0+3*k*b*X0^2",
+    "E0=D0+delta_B*H+(1+d)*delta_G+d*delta_B*R",
+    "E1=D1+delta_B*d+(1+d)*delta_G_prime+d2*(delta_B*R+delta_G)+d*(delta_B+(1+d)*delta_G_prime)",
+    "ell=k*(2*(1+delta_a)*X+3*b*X^2)",
+    "m=k*(2*(1+delta_a)+6*b*X)",
+    "kappa=alpha-(1+norm(DH10))*ell",
+    "c0_margin=kappa*rho-E0",
+    "Gu=E1+(norm(D2H10)*ell+(1+norm(DH10))^2*m)*rho",
+    "c1_margin=2*kappa*eta-Gu-ell*eta^2",
+]
+
+H10_C01_REFERENCE_BOUNDS = {
+    "h10_euclidean": Fraction(33, 10**6),
+    "dh10_frobenius": Fraction(21, 4000),
+    "d2h10_frobenius": Fraction(427, 1000),
+    "core_defect_euclidean": Fraction(23, 10**25),
+    "core_defect_derivative_frobenius": Fraction(21, 10**22),
+}
+
+H10_C01_PARAMETER_GATES = {
+    "absolute_a_minus_one_upper": Fraction(11, 78125),
+    "b_upper": Fraction(22, 9375),
+    "absolute_c_upper": Fraction(156261, 3906250),
+    "alpha_lower": Fraction(699, 1000),
+    "q_norm_upper": Fraction(501, 1000),
+    "delta_block_operator_upper": Fraction(101, 10000),
+    "delta_q_norm_upper": Fraction(51, 10000),
+}
+
+H10_C01_ACCEPTANCE_GATES = {
+    "center_residual_euclidean_upper": Fraction(3, 2000000),
+    "center_residual_derivative_frobenius_upper": Fraction(27, 100000),
+    "weighted_nonlinear_lipschitz_upper": Fraction(101, 10000),
+    "weighted_nonlinear_second_upper": Fraction(101, 100),
+    "normal_contraction_lower": Fraction(17, 25),
+    "c0_inward_margin_lower": Fraction(19, 10000000),
+    "c1_cone_margin_lower": Fraction(1, 8000),
+}
+
 
 def load_json(path: Path) -> dict[str, Any]:
     with path.open("r", encoding="utf-8") as handle:
@@ -171,6 +221,130 @@ def validate_local_graph_configuration(configuration: dict[str, Any]) -> list[st
         errors.append("local-graph subobligation list changed")
     if configuration.get("pending_parent_obligation") != "V2.WU_GRAPH":
         errors.append("local-graph parent-obligation boundary changed")
+    return errors
+
+
+def _validate_rational_map(
+        observed: Any, expected: dict[str, Fraction], label: str) -> list[str]:
+    errors: list[str] = []
+    if not isinstance(observed, dict):
+        return [f"{label} is not an object"]
+    if set(observed) != set(expected):
+        errors.append(
+            f"{label} keys changed: {sorted(observed)} != {sorted(expected)}")
+    for name in set(observed) & set(expected):
+        try:
+            value = fraction(observed[name])
+        except (KeyError, TypeError, ValueError, ZeroDivisionError) as error:
+            errors.append(f"invalid {label}.{name}: {error}")
+            continue
+        if value != expected[name]:
+            errors.append(
+                f"{label}.{name} changed: {value!r} != {expected[name]!r}")
+    return errors
+
+
+def validate_h10_c01_configuration(configuration: dict[str, Any]) -> list[str]:
+    errors: list[str] = []
+    if configuration.get("configuration_id") != "vdp-p2-h10-c01-v1":
+        errors.append("unexpected H10 C0/C1 configuration identifier")
+    if configuration.get("status") != "FROZEN_PRE_P2B_CERTIFICATE":
+        errors.append("H10 C0/C1 configuration is not frozen")
+    if configuration.get("frozen_before_outward_rounded_p2b_run") is not True:
+        errors.append(
+            "H10 C0/C1 configuration was not frozen before the P2b run")
+    domain = configuration.get("coordinate_domain", {})
+    try:
+        if fraction(domain["unstable_radius"]) != Fraction(1, 100):
+            errors.append("H10 C0/C1 unstable radius changed")
+    except (KeyError, TypeError, ValueError, ZeroDivisionError) as error:
+        errors.append(f"invalid H10 C0/C1 unstable radius: {error}")
+    radii = configuration.get("tube_radii", {})
+    expected_radii = {
+        "value_euclidean": Fraction(1, 200000),
+        "first_derivative_frobenius": Fraction(3, 10000),
+    }
+    errors.extend(_validate_rational_map(radii, expected_radii, "tube_radii"))
+    errors.extend(_validate_rational_map(
+        configuration.get("reference_upper_bounds"),
+        H10_C01_REFERENCE_BOUNDS, "reference_upper_bounds"))
+    errors.extend(_validate_rational_map(
+        configuration.get("parameter_auxiliary_gates"),
+        H10_C01_PARAMETER_GATES, "parameter_auxiliary_gates"))
+    errors.extend(_validate_rational_map(
+        configuration.get("acceptance_gates"),
+        H10_C01_ACCEPTANCE_GATES, "acceptance_gates"))
+    if configuration.get("proof_formulas") != H10_C01_FORMULAS:
+        errors.append("H10 C0/C1 proof formulas changed")
+    if configuration.get("proved_subobligations") != [
+            "V2.WU.H10_C0_TUBE", "V2.WU.H10_C1_TUBE"]:
+        errors.append("H10 C0/C1 subobligations changed")
+    if configuration.get("pending_obligations") != [
+            "V2.WU.JETS", "V2.WU_GRAPH"]:
+        errors.append("H10 C0/C1 parent-obligation boundary changed")
+    basis = configuration.get("selection_basis", {})
+    if basis.get("repository_commit") != \
+            "b5596ee2726863b5f9002721a72766d3a59235ca":
+        errors.append("H10 C0/C1 selection commit changed")
+    if basis.get("repository_tag") != "vdp-issue7-p2a-v1":
+        errors.append("H10 C0/C1 selection tag changed")
+    expected_selection_files = {
+        "continuation_bridge": (
+            "validation/rigorous/config/vdp_bridge_v1.json",
+            "2b62e6fc5625d3f5634d986f7e9cbe8199abfc45c7b97ca29e5efd464b5b69c7"),
+        "p2a_configuration": (
+            "validation/rigorous/config/vdp_p2_local_graph_v1.json",
+            "b11ecadb088e8fbd686ed4834335f96c460bee9a18b0d1edab4222da645e199b"),
+        "p2a_certificate": (
+            "validation/rigorous/results/vdp_bridge_v1_p2a_local_graph.json",
+            "192b351c3f153080d82bc856fa3c667388dc16c7b4cf0cfa8568fa347bcaf6be"),
+    }
+    for name, (path, digest) in expected_selection_files.items():
+        item = basis.get(name, {})
+        if item.get("path") != path or item.get("sha256") != digest:
+            errors.append(f"H10 C0/C1 selection {name} binding changed")
+    center = configuration.get("imported_core_center", {})
+    if center.get("commit") != "d54add098545063d5efe8f1d6f062d4cfc116a0d":
+        errors.append("H10 C0/C1 core commit changed")
+    expected_imports = {
+        "generator": (
+            "validation/origin-algebraic-heteroclinic/"
+            "generate_polynomial_header.py",
+            "7c612d51b357569b64a51f0bb36c59e215e26c8d14b584419c24e32ffed5bfcb"),
+        "term_table": (
+            "validation/origin-algebraic-heteroclinic/unstable_graph_terms.hpp",
+            "d617587ea1b9037c1c7575ccdde5029529ec5b736dee259baff9a2a162001e96"),
+        "reference_probe": (
+            "validation/origin-algebraic-heteroclinic/unstable_graph_probe.cpp",
+            "a2102394a7afbb70331e810a4676f19ec9a79dd3492509ab3c7aad2464e2d2c2"),
+        "reference_readme": (
+            "validation/origin-algebraic-heteroclinic/README.md",
+            "96241bcfc7481f12c0dacfc33246a142b257388653c4be7590e7924e151d9cae"),
+        "source_certificate": (
+            "validation/origin-algebraic-heteroclinic/certificate.json",
+            "60882ee1d3b2b18264b85764288505ae8b47d00bc826a2bddec152898f690fbe"),
+    }
+    for name, (path, digest) in expected_imports.items():
+        item = center.get(name, {})
+        if item.get("path") != path or item.get("sha256") != digest:
+            errors.append(f"H10 C0/C1 imported {name} binding changed")
+    if configuration.get("exact_center_audit") != {
+            "regenerate_term_table_from_frozen_generator": True,
+            "require_byte_identical_term_table": True,
+            "coefficient_field": "Q(sqrt(2))",
+            "center_minimum_total_degree": 2,
+            "center_maximum_total_degree": 10,
+            "h1_term_count": 54,
+            "h2_term_count": 63,
+            "require_center_degrees_zero_and_one_to_vanish": True,
+            "defect_minimum_total_degree": 11,
+            "defect_maximum_total_degree": 29,
+            "defect1_term_count": 361,
+            "defect2_term_count": 361,
+            "require_defect_degrees_zero_through_ten_to_vanish": True,
+            "require_unique_monomials_positive_denominators": True,
+            }:
+        errors.append("H10 C0/C1 exact-center audit protocol changed")
     return errors
 
 
