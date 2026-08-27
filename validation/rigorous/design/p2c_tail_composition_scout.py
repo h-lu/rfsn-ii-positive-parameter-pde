@@ -65,6 +65,15 @@ DECAY_FACTOR = Fraction(4, 5)
 SHIFT_EXPONENTIAL_UPPER = Fraction(27)
 FIRST_ORIGINAL_PARAMETER_SCALE = Fraction(25)
 SECOND_ORIGINAL_PARAMETER_SCALE = Fraction(625)
+
+# Exact bridge and rational square-root bounds used only for the physical
+# van der Pol field on the compact local pre-source segment.  On
+# epsilon in [4/5,6/5], 4/5 < sqrt(epsilon) < 11/10, hence
+# |D_theta_epsilon sqrt(epsilon)| <= 1/8.
+R_UPPER = Fraction(2, 25)
+A2_ABSOLUTE_UPPER = Fraction(1, 4)
+SQRT_EPSILON_UPPER = Fraction(11, 10)
+SQRT_EPSILON_THETA_DERIVATIVE_UPPER = Fraction(1, 8)
 PHASE_FIRST_NORM_UPPER = Fraction(621, 500)
 TIME_FIRST_NORM_UPPER = Fraction(206, 125)
 PHASE_SECOND_NORM_UPPER = Fraction(39059, 1000)
@@ -227,6 +236,75 @@ def fraction_json(value: Fraction) -> dict[str, str]:
         "numerator": str(value.numerator),
         "denominator": str(value.denominator),
         "decimal_approx": format(float(value), ".17g"),
+    }
+
+
+def physical_field_bounds(state_radius: Fraction) -> dict[str, Fraction]:
+    """Bound F, D_z F, D_theta F, and D_theta D_z F on a physical ball.
+
+    The exact field is
+
+      F=(P, c*U-V-a*U^2+b*U^3, Q, U),
+
+    with a=1+sqrt(epsilon)*r^3*a2, b=sqrt(epsilon)*r^2/3, and
+    c=2*r*a2+sqrt(epsilon)*r^4*a2^2.  Coefficient first derivatives are
+    bounded by their entrywise l1 sums in normalized theta coordinates.
+    These dominate the corresponding Euclidean parameter operator norms.
+    """
+    r = R_UPPER
+    a2 = A2_ABSOLUTE_UPPER
+    sqrt_epsilon = SQRT_EPSILON_UPPER
+    sqrt_epsilon_e = SQRT_EPSILON_THETA_DERIVATIVE_UPPER
+
+    coefficient_a = 1 + sqrt_epsilon * r**3 * a2
+    coefficient_b = sqrt_epsilon * r**2 / 3
+    coefficient_c = 2 * r * a2 + sqrt_epsilon * r**4 * a2**2
+
+    coefficient_a_theta = (
+        sqrt_epsilon * 3 * r**2 * a2 / 25
+        + sqrt_epsilon * r**3 / 4
+        + sqrt_epsilon_e * r**3 * a2
+    )
+    coefficient_b_theta = (
+        2 * sqrt_epsilon * r / 75
+        + sqrt_epsilon_e * r**2 / 3
+    )
+    coefficient_c_theta = (
+        2 * a2 / 25
+        + 4 * sqrt_epsilon * r**3 * a2**2 / 25
+        + r / 2
+        + sqrt_epsilon * r**4 * a2 / 2
+        + sqrt_epsilon_e * r**4 * a2**2
+    )
+
+    x = state_radius
+    nonlinear_row = coefficient_c * x + x + coefficient_a * x**2 + coefficient_b * x**3
+    field_value = 3 * x + nonlinear_row
+    nonlinear_state_derivative = (
+        coefficient_c + 2 * coefficient_a * x + 3 * coefficient_b * x**2
+    )
+    field_state_derivative = 1 + nonlinear_state_derivative
+    field_parameter_derivative = (
+        coefficient_c_theta * x
+        + coefficient_a_theta * x**2
+        + coefficient_b_theta * x**3
+    )
+    field_parameter_state_derivative = (
+        coefficient_c_theta
+        + 2 * coefficient_a_theta * x
+        + 3 * coefficient_b_theta * x**2
+    )
+    return {
+        "a": coefficient_a,
+        "b": coefficient_b,
+        "c": coefficient_c,
+        "Dtheta_a": coefficient_a_theta,
+        "Dtheta_b": coefficient_b_theta,
+        "Dtheta_c": coefficient_c_theta,
+        "F": field_value,
+        "DzF": field_state_derivative,
+        "DthetaF": field_parameter_derivative,
+        "DthetaDzF": field_parameter_state_derivative,
     }
 
 
@@ -415,6 +493,43 @@ def main() -> int:
         FIRST_ORIGINAL_PARAMETER_SCALE * normalized_c[1],
         SECOND_ORIGINAL_PARAMETER_SCALE * normalized_c[2],
     ]
+
+    # Compact local pre-source segment.  For fixed xi in [-11,-T_h], put
+    # t=xi+T_h(theta), so t lies in [T_h-11,0].  The physical weighted jets
+    # are bounded by P_ij because exp(omega*t)<=1.  Time derivatives follow
+    # from Z_t=F(Z), Z_{theta t}=D_theta F+D_z F Z_theta,
+    # Z_{b t}=D_z F Z_b, and Z_{tt}=D_z F F.
+    field = physical_field_bounds(physical[0, 0])
+    segment_time_value = field["F"]
+    segment_time_parameter = field["DthetaF"] + field["DzF"] * physical[0, 1]
+    segment_time_state = field["DzF"] * physical[1, 0]
+    segment_time_time = field["DzF"] * field["F"]
+    segment0 = physical[0, 0]
+    segment1 = (
+        physical[0, 1]
+        + physical[1, 0] * source_total_b1
+        + segment_time_value * t1
+    )
+    segment2 = (
+        physical[0, 2]
+        + 2 * physical[1, 1] * source_total_b1
+        + physical[2, 0] * source_total_b1 * source_total_b1
+        + physical[1, 0] * source_total_b2
+        + 2 * (segment_time_parameter + segment_time_state * source_total_b1) * t1
+        + segment_time_time * t1 * t1
+        + segment_time_value * t2
+    )
+    segment = [segment0, segment1, segment2]
+    compact_normalized_c = [SHIFT_EXPONENTIAL_UPPER * value for value in segment]
+    compact_original_c = [
+        compact_normalized_c[0],
+        FIRST_ORIGINAL_PARAMETER_SCALE * compact_normalized_c[1],
+        SECOND_ORIGINAL_PARAMETER_SCALE * compact_normalized_c[2],
+    ]
+    compact_common_normalized = max(compact_normalized_c)
+    compact_common_original = max(compact_original_c)
+    covered_common_normalized = max(normalized_c + compact_normalized_c)
+    covered_common_original = max(original_c + compact_original_c)
     normalized_common_c = max(normalized_c)
     original_common_c = max(original_c)
 
@@ -429,6 +544,7 @@ def main() -> int:
             "tail_weight": fraction_json(TAIL_WEIGHT),
             "decay_factor_upper": fraction_json(DECAY_FACTOR),
             "shift_exponential_upper": fraction_json(SHIFT_EXPONENTIAL_UPPER),
+            "shift_exponential_reason": "exp(11/5)<exp(3)<3^3=27",
             "decay_exponential_proof": (
                 "exp(1/4)>1+1/4=5/4, hence exp(-1/4)<4/5"
             ),
@@ -503,6 +619,93 @@ def main() -> int:
                 "common_C": fraction_json(original_common_c),
             },
             "negative_and_positive_tails_use_same_constants": True,
+        },
+        "compact_local_pre_source_segment": {
+            "domain": "fixed xi in [-11,-T_h], plus its reversible reflection",
+            "formula": (
+                "Y(theta,xi)=physical_Z(theta,b_s(theta),xi+T_h(theta))"
+            ),
+            "chain_rule_bounds": {
+                "C0": "P00",
+                "C1": "P01+P10*s1+|F|*t1",
+                "C2": (
+                    "P02+2*P11*s1+P20*s1^2+P10*s2+"
+                    "2*(|Dtheta F|+|DzF|*P01+|DzF|*P10*s1)*t1+"
+                    "|DzF|*|F|*t1^2+|F|*t2"
+                ),
+            },
+            "finite_time_ode_integration": False,
+            "field_bound_contract": {
+                "state_ball_radius": fraction_json(physical[0, 0]),
+                "state_norm": "euclidean-on-R4",
+                "parameter_norm": (
+                    "entrywise-l1 coefficient bounds dominating Euclidean operator norms"
+                ),
+                "DzF_norm_proof": (
+                    "sqrt(||DzF||_1*||DzF||_infinity) <= "
+                    "1+|c-2*a*U+3*b*U^2|"
+                ),
+                "field_bound_formulas": {
+                    "F": "4*X+|c|*X+|a|*X^2+|b|*X^3",
+                    "DzF": "1+|c|+2*|a|*X+3*|b|*X^2",
+                    "DthetaF": (
+                        "|Dtheta c|_l1*X+|Dtheta a|_l1*X^2+"
+                        "|Dtheta b|_l1*X^3"
+                    ),
+                    "DthetaDzF": (
+                        "|Dtheta c|_l1+2*|Dtheta a|_l1*X+"
+                        "3*|Dtheta b|_l1*X^2"
+                    ),
+                },
+                "coefficient_bounds": {
+                    "absolute_a": fraction_json(field["a"]),
+                    "absolute_b": fraction_json(field["b"]),
+                    "absolute_c": fraction_json(field["c"]),
+                    "Dtheta_a_l1": fraction_json(field["Dtheta_a"]),
+                    "Dtheta_b_l1": fraction_json(field["Dtheta_b"]),
+                    "Dtheta_c_l1": fraction_json(field["Dtheta_c"]),
+                },
+                "field_bounds": {
+                    "F_euclidean_upper": fraction_json(field["F"]),
+                    "DzF_operator_upper": fraction_json(field["DzF"]),
+                    "DthetaF_operator_upper": fraction_json(field["DthetaF"]),
+                    "DthetaDzF_operator_upper": fraction_json(field["DthetaDzF"]),
+                },
+                "DthetaDzF_usage": (
+                    "validated as part of the physical field C1 contract; "
+                    "the displayed fixed-xi C2 chain needs only F, DzF, and DthetaF"
+                ),
+            },
+            "fixed_xi_normalized_parameter_bounds": {
+                "C0": fraction_json(segment[0]),
+                "C1": fraction_json(segment[1]),
+                "C2": fraction_json(segment[2]),
+            },
+            "weight_one_fifth_compact_constants": {
+                "normalized_parameters": {
+                    "C0": fraction_json(compact_normalized_c[0]),
+                    "C1": fraction_json(compact_normalized_c[1]),
+                    "C2": fraction_json(compact_normalized_c[2]),
+                    "common_C": fraction_json(compact_common_normalized),
+                },
+                "original_parameters_coarse_25_625": {
+                    "C0": fraction_json(compact_original_c[0]),
+                    "C1": fraction_json(compact_original_c[1]),
+                    "C2": fraction_json(compact_original_c[2]),
+                    "common_C": fraction_json(compact_common_original),
+                },
+                "negative_and_reflected_positive_segments_use_same_constants": True,
+            },
+        },
+        "covered_local_and_infinite_common_C": {
+            "scope_boundary": (
+                "covers the two infinite tails and local pre-source segments only; "
+                "it does not yet cover the source-to-symmetry compact core"
+            ),
+            "normalized_parameters": fraction_json(covered_common_normalized),
+            "original_parameters_coarse_25_625": fraction_json(
+                covered_common_original
+            ),
         },
     }
     print(json.dumps(output, indent=2, sort_keys=True))
