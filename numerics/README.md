@@ -157,12 +157,22 @@ Its proposed Issue #7 box
 \]
 
 is formally frozen for Issue #7.  Clean interval kernels now pass the
-implemented V1/V2(1), P2a true coarse-graph, and P2b0 H10-centered
-\(C^0/C^1\) obligations locally.  The higher graph jets, remaining V2--V6
-objects, and independent replay remain pending.  Detailed numerical
+implemented V1/V2(1), P2a true coarse-graph, P2b0 H10-centered
+\(C^0/C^1\), P2b mixed-jet/weighted-half-orbit, and P2bK normalized source
+interfaces locally.  The P2c multiple-shooting design scout now passes at
+the core, the primary positive point, and a 27-point strict grid, but a
+gap-free same-root parameter cover, first-hit proof, and full homoclinic
+tails remain pending.  Detailed numerical
 values, stopping rules, and figure semantics are in the
 [screening report](VDP_DYNAMICS_SCREENING_REPORT.md) and
 [dynamics figure contracts](VDP_DYNAMICS_FIGURE_CONTRACTS.md).
+
+For P2c candidate generation,
+[`vdp_p2c_branch_scout.py`](vdp_p2c_branch_scout.py) uses the direct
+radius-`.01` P2bK algebraic source and must not be replaced by the historical
+unit-normalized eigenframe anchor in `vdp_return_coding.py`.  Its saved
+two-point and \(3\times3\times3\) outputs are floating candidate data for the
+strict multiple-shooting design, not interval validation.
 
 ## Reproduce
 

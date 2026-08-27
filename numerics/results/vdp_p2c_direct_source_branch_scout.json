@@ -1,0 +1,330 @@
+{
+  "claim_bearing": false,
+  "common_first_hit_partition": [
+    [
+      "P>0",
+      0.0,
+      1.55
+    ],
+    [
+      "Q>0",
+      1.55,
+      1.9
+    ],
+    [
+      "P<0",
+      1.9,
+      7.35
+    ],
+    [
+      "Q<0",
+      7.35,
+      9.55
+    ],
+    [
+      "U>0",
+      9.55,
+      "T"
+    ]
+  ],
+  "configuration": {
+    "atol": 1e-13,
+    "first_hit_sample_step": 0.0005,
+    "flight_max_step": 0.015,
+    "graph_boundary_tolerance": 1e-09,
+    "graph_horizon": 10.0,
+    "graph_max_step": 0.04,
+    "phase_difference_step": 1e-05,
+    "pre_endpoint_gap": 0.02,
+    "rtol": 1e-11,
+    "shooting_root_tolerance": 3e-10,
+    "source_radius": 0.01
+  },
+  "evidence_status": "COMPUTED/FLOAT_DIRECT_SOURCE_BRANCH_SCOUT -- not interval validation",
+  "nonclaims": [
+    "The finite-horizon source is not an interval enclosure of the true graph.",
+    "The shooting root and finite-difference columns are ordinary binary64 computations.",
+    "Sampled sign margins do not prove a first-hit statement between samples or uniformly in parameter.",
+    "Only the core and one positive parameter point are emitted; there is no gap-free parameter cover.",
+    "This scout does not prove homoclinic uniqueness, weighted tails, exact charts, or event atlases."
+  ],
+  "samples": {
+    "core": {
+      "endpoint_phase_column": [
+        -10.889706593397717,
+        -68.26141527411441,
+        35.41712672125996,
+        30.414647880137867
+      ],
+      "endpoint_pq_speed": 16.599726472087728,
+      "endpoint_state": [
+        4.878523478127812,
+        1.5404344466674047e-15,
+        -7.933330442214769,
+        -9.020562075079397e-17
+      ],
+      "endpoint_time_column": [
+        1.5404344466674047e-15,
+        -15.866660884429521,
+        -9.020562075079397e-17,
+        4.878523478127812
+      ],
+      "evidence_status": "COMPUTED/FLOAT_DIRECT_SOURCE_BRANCH_SCOUT -- not interval validation",
+      "first_hit_common_segments_passed": true,
+      "first_hit_segments": [
+        {
+          "component": "P",
+          "label": "P_positive_0_to_1_55",
+          "relation": ">0",
+          "sample_count": 3101,
+          "sampled_signed_margin": 0.002858555850226175,
+          "time_interval": [
+            0.0,
+            1.55
+          ],
+          "time_of_sampled_minimum": 1.55
+        },
+        {
+          "component": "Q",
+          "label": "Q_positive_1_55_to_1_90",
+          "relation": ">0",
+          "sample_count": 701,
+          "sampled_signed_margin": 0.02963113449620607,
+          "time_interval": [
+            1.55,
+            1.9
+          ],
+          "time_of_sampled_minimum": 1.55
+        },
+        {
+          "component": "P",
+          "label": "P_negative_1_90_to_7_35",
+          "relation": "<0",
+          "sample_count": 10901,
+          "sampled_signed_margin": 0.005834655994003709,
+          "time_interval": [
+            1.9,
+            7.35
+          ],
+          "time_of_sampled_minimum": 1.9
+        },
+        {
+          "component": "Q",
+          "label": "Q_negative_7_35_to_9_55",
+          "relation": "<0",
+          "sample_count": 4402,
+          "sampled_signed_margin": 0.4248264915813549,
+          "time_interval": [
+            7.35,
+            9.55
+          ],
+          "time_of_sampled_minimum": 9.55
+        },
+        {
+          "component": "U",
+          "label": "U_positive_9_55_to_endpoint",
+          "relation": ">0",
+          "sample_count": 176,
+          "sampled_signed_margin": 4.818227723180288,
+          "time_interval": [
+            9.55,
+            9.637442067896481
+          ],
+          "time_of_sampled_minimum": 9.55
+        }
+      ],
+      "graph_backward_endpoint_norm": 1.203152906279341e-05,
+      "graph_boundary_residual_inf": 2.5042306739424735e-15,
+      "graph_root_function_evaluations": 10,
+      "graph_solver_reported_success": true,
+      "half_time": 9.637442067896481,
+      "initial_seed": [
+        5.861505585644915,
+        9.63744206789648
+      ],
+      "minimum_pq_norm_before_endpoint_window": 0.009989139118710745,
+      "parameters": {
+        "a2": 0.0,
+        "epsilon": 1.0,
+        "r": 0.0
+      },
+      "phase": 5.861505585644914,
+      "phase_difference_step": 1e-05,
+      "shooting_determinant": 149.56398676848104,
+      "shooting_phase_column": [
+        -68.26141527411441,
+        30.414647880137867
+      ],
+      "shooting_residual": [
+        1.5404344466674047e-15,
+        -9.020562075079397e-17
+      ],
+      "shooting_residual_inf": 1.5404344466674047e-15,
+      "shooting_root_function_evaluations": 6,
+      "shooting_solver_reported_success": true,
+      "shooting_time_column": [
+        -15.866660884429521,
+        4.878523478127812
+      ],
+      "source_algebraic_coordinates": [
+        0.009124027284967157,
+        -0.004092936122537817,
+        7.09550048040488e-06,
+        -1.0724078808031431e-05
+      ],
+      "source_algebraic_unstable_radius": 0.010000000000000004,
+      "source_energy_abs": 9.078869705586015e-18,
+      "source_radius_error": 3.469446951953614e-18,
+      "source_state": [
+        0.009131122785447561,
+        0.00933320410678848,
+        -0.004103660201345849,
+        0.003560084470063027
+      ],
+      "time_of_minimum_pq_norm_before_endpoint_window": 0.0
+    },
+    "primary_r_0p08_a2_0_epsilon_1": {
+      "endpoint_phase_column": [
+        -11.278746122878045,
+        -70.64659842213536,
+        36.59832709272948,
+        31.436234493987037
+      ],
+      "endpoint_pq_speed": 16.724697548980185,
+      "endpoint_state": [
+        4.925566685678441,
+        -8.541778395709798e-14,
+        -8.02333562165332,
+        4.3319514642092827e-14
+      ],
+      "endpoint_time_column": [
+        -8.541778395709798e-14,
+        -15.982937806604847,
+        4.3319514642092827e-14,
+        4.925566685678441
+      ],
+      "evidence_status": "COMPUTED/FLOAT_DIRECT_SOURCE_BRANCH_SCOUT -- not interval validation",
+      "first_hit_common_segments_passed": true,
+      "first_hit_segments": [
+        {
+          "component": "P",
+          "label": "P_positive_0_to_1_55",
+          "relation": ">0",
+          "sample_count": 3101,
+          "sampled_signed_margin": 0.0028985069785023043,
+          "time_interval": [
+            0.0,
+            1.55
+          ],
+          "time_of_sampled_minimum": 1.55
+        },
+        {
+          "component": "Q",
+          "label": "Q_positive_1_55_to_1_90",
+          "relation": ">0",
+          "sample_count": 701,
+          "sampled_signed_margin": 0.02962661753277372,
+          "time_interval": [
+            1.55,
+            1.9
+          ],
+          "time_of_sampled_minimum": 1.55
+        },
+        {
+          "component": "P",
+          "label": "P_negative_1_90_to_7_35",
+          "relation": "<0",
+          "sample_count": 10901,
+          "sampled_signed_margin": 0.005784066812911577,
+          "time_interval": [
+            1.9,
+            7.35
+          ],
+          "time_of_sampled_minimum": 1.9
+        },
+        {
+          "component": "Q",
+          "label": "Q_negative_7_35_to_9_55",
+          "relation": "<0",
+          "sample_count": 4402,
+          "sampled_signed_margin": 0.5026924765119577,
+          "time_interval": [
+            7.35,
+            9.55
+          ],
+          "time_of_sampled_minimum": 9.55
+        },
+        {
+          "component": "U",
+          "label": "U_positive_9_55_to_endpoint",
+          "relation": ">0",
+          "sample_count": 207,
+          "sampled_signed_margin": 4.842066425731728,
+          "time_interval": [
+            9.55,
+            9.65263970139728
+          ],
+          "time_of_sampled_minimum": 9.55
+        }
+      ],
+      "graph_backward_endpoint_norm": 1.2031466346721324e-05,
+      "graph_boundary_residual_inf": 1.358045383233978e-15,
+      "graph_root_function_evaluations": 10,
+      "graph_solver_reported_success": true,
+      "half_time": 9.65263970139728,
+      "initial_seed": [
+        5.861505585644914,
+        9.637442067896481
+      ],
+      "minimum_pq_norm_before_endpoint_window": 0.009989151251124522,
+      "parameters": {
+        "a2": 0.0,
+        "epsilon": 1.0,
+        "r": 0.08
+      },
+      "phase": 5.860149488413829,
+      "phase_difference_step": 1e-05,
+      "shooting_determinant": 154.46884914666782,
+      "shooting_phase_column": [
+        -70.64659842213536,
+        31.436234493987037
+      ],
+      "shooting_residual": [
+        -8.541778395709798e-14,
+        4.3319514642092827e-14
+      ],
+      "shooting_residual_inf": 8.541778395709798e-14,
+      "shooting_root_function_evaluations": 10,
+      "shooting_solver_reported_success": true,
+      "shooting_time_column": [
+        -15.982937806604847,
+        4.925566685678441
+      ],
+      "source_algebraic_coordinates": [
+        0.009118468477785142,
+        -0.004105305423429384,
+        7.082198150414748e-06,
+        -1.0701317886745252e-05
+      ],
+      "source_algebraic_unstable_radius": 0.01,
+      "source_energy_abs": 8.983741998861237e-18,
+      "source_radius_error": 0.0,
+      "source_state": [
+        0.009125550675935557,
+        0.009338045353643264,
+        -0.00411600674131613,
+        0.0035474006950363068
+      ],
+      "time_of_minimum_pq_norm_before_endpoint_window": 0.0
+    }
+  },
+  "schema_version": "rfsn-vdp-p2c-direct-source-branch-scout/1",
+  "source_contract": {
+    "algebraic_frame_formula": "E=[[1,0],[alpha,-beta],[c/2,2*alpha*beta],[alpha,beta]]",
+    "historical_normalized_eigenframe_anchor_reused": false,
+    "phase_rotation_formula": "b(phi)=R*R_chi*(cos(phi),sin(phi)); R_chi=[[1,-y],[y,1]]/sqrt(1+y^2); y=(1/sqrt(2)-alpha)/beta",
+    "source_radius": 0.01,
+    "true_graph_model": "finite-horizon floating approximation with b fixed in the P2bK algebraic coordinates"
+  },
+  "theorem_validation_status": "NOT_INTERVAL_VALIDATED"
+}

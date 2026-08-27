@@ -49,3 +49,16 @@ require unavailable fourth and fifth state derivatives of the true graph.
 Its output selects rational gates only; the later formal kernel must
 separately verify the exact Kato identities, the complete gap-free bridge,
 the frozen P2b prerequisite, and the anchor-face phase convention.
+
+`p2c_homoclinic_multishoot_scout.cpp` tests the selected symmetric
+homoclinic shooting core using nine short segments and an event-reduced
+Krawczyk map.  It preserves the zero-energy correlation between the two
+stable graph coordinates instead of treating their errors independently.
+Fixed-parameter strict tests pass at the core, the primary positive point,
+and a 27-point target grid.  Its parameter-cell and `a2-affine` modes are
+diagnostic experiments: they neither establish a gap-free selected branch
+nor discharge first-hit or tail obligations.  Results and the precisely
+located source-remainder obstruction are recorded in
+[`../P2C_SCOUT_REPORT.md`](../P2C_SCOUT_REPORT.md).  The H10 header supplied
+at compile time must be extracted from the Git object named by
+`flagship_import.lock.json`, never from the flagship working tree.
