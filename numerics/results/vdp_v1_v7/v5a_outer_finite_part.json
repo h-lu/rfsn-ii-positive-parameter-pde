@@ -1,0 +1,71 @@
+{
+  "balances": {
+    "action_cut_balance": -5.282907434333629e-17,
+    "exact_gauge_composition_balance": 0.0,
+    "length_cut_balance": 8.627035366078837e-22,
+    "scope": "Finite-grid algebra on the coupled source-K1-outer candidate.  The same saved outer segment is used, but no infinite-tail, uniform-parameter, or interval conclusion is claimed.",
+    "synthetic_reference_change_balance": -4.85722573273506e-17
+  },
+  "claim_bearing": false,
+  "diagnostics": {
+    "action_counterterm_at_q_end": -11502944.558660306,
+    "action_density_scaled": -52.192161758855846,
+    "action_density_scaled_limit": -55.242717280199024,
+    "counterterm_action_diverges_negative": true,
+    "evidence_status": "COMPUTED/E1_MATCHED_CANDIDATE",
+    "length_counterterm_at_q_end": 14.035895810885378,
+    "length_density_scaled": 0.7446948448181998,
+    "length_density_scaled_limit": 0.7071067811865475,
+    "matching_status": "NOT_NUMERICALLY_RESOLVED",
+    "minimum_pi": 0.003816255903123951,
+    "neighbor_energy_residual_inf": 2.220446049250313e-16,
+    "physical_distance_increases": true,
+    "q_end": 200.0,
+    "q_over_u_squared_minus_q_star": -0.037371070803659534,
+    "reference_energy_residual_inf": 2.7755575615628914e-16,
+    "renormalized_action_at_q_end": 0.8797449096998025,
+    "renormalized_action_tail_change": 2.991028847931787e-07,
+    "renormalized_length_at_q_end": -2.6392516520423178e-05,
+    "renormalized_length_tail_change": -9.686006066222247e-14,
+    "same_q_beta_gap_initial": 7.784773805063898e-05,
+    "same_q_beta_gap_terminal": 1.0945359744420069e-17,
+    "u_times_p_minus_delta_q_star": -0.0032303648792050155,
+    "u_times_v_minus_f": 0.002150712393464974,
+    "u_x_minus_q_star": -0.035690826746761495,
+    "validation_status": "NOT_INTERVAL_VALIDATED"
+  },
+  "finite_part_output_refinement": [
+    {
+      "output_points": 801.0,
+      "relative_action": 0.9046528130354061,
+      "relative_action_tail_change": 5.0371403182647434e-05,
+      "relative_length": -2.7138823847494433e-05,
+      "relative_length_tail_change": -1.7971705307468552e-11
+    },
+    {
+      "output_points": 1601.0,
+      "relative_action": 0.8856634721852426,
+      "relative_action_tail_change": -2.0372811549096426e-05,
+      "relative_length": -2.657081534214372e-05,
+      "relative_length_tail_change": 7.27548137499103e-12
+    },
+    {
+      "output_points": 3201.0,
+      "relative_action": 0.8809346472413712,
+      "relative_action_tail_change": 1.1013764157352668e-06,
+      "relative_length": -2.6428210474072343e-05,
+      "relative_length_tail_change": -3.8330888688250207e-13
+    },
+    {
+      "output_points": 6401.0,
+      "relative_action": 0.8797449096998025,
+      "relative_action_tail_change": 2.991028847931787e-07,
+      "relative_length": -2.6392516520423178e-05,
+      "relative_length_tail_change": -9.686006066222247e-14
+    }
+  ],
+  "matched_tail_status": "COMPUTED/E1_MATCHED_CANDIDATE",
+  "scope": "The neighboring tail is the actual saved outer segment of the coupled candidate.  Finite Q does not validate V5A's improper limits, mixed jets, or uniform reference covariance.",
+  "status": "COMPUTED/E1_MATCHED_FINITE_HORIZON_SAME_Q_SUBTRACTION",
+  "validation_status": "NOT_INTERVAL_VALIDATED"
+}

@@ -1,0 +1,122 @@
+{
+  "central_flight_time": 9.912617982288234,
+  "claim_bearing": false,
+  "configuration": {
+    "boundary_tolerance": 1e-08,
+    "max_nodes": 120000,
+    "mesh_points": 401,
+    "outer_r1": 2.0,
+    "output_points": 6401,
+    "q_end": 200.0,
+    "q_label": 100.0,
+    "same_section_root_tolerance": 2e-12,
+    "scaled_beta_collar": 0.25,
+    "seam_beta_bracket": [
+      0.0,
+      0.0004
+    ],
+    "section_m": 4.0,
+    "source_flowback_tau": 2.0,
+    "source_graph_boundary_tolerance": 2e-10,
+    "source_graph_horizon": 10.0,
+    "source_phase_offset_bracket": [
+      0.002,
+      0.0022
+    ],
+    "source_phase_reference_midpoint": 5.756691395749909,
+    "source_phase_seed": 5.758838882776014,
+    "source_radius": 0.01,
+    "tolerance": 2e-05
+  },
+  "diagnostics": {
+    "b_star": 0.0004,
+    "beta_equals_delta_b_residual": 0.0,
+    "boundary_and_interface_residual_inf": 2.220446049250313e-16,
+    "central_energy_residual_inf": 3.115953328691745e-10,
+    "central_k1_q1_interface_residual": -4.195754854663392e-12,
+    "finite_horizon_only": true,
+    "gamma_horizon_difference_at_seam": -1.6059744679941534e-17,
+    "gamma_short_horizon": 112.5,
+    "k1_energy_residual_inf": 3.725290298461914e-07,
+    "k1_leaf_invariant_residual_inf": 1.3877787807814457e-17,
+    "k1_seam_leading_guess_residual": -3.501694389367125e-11,
+    "label_alpha": 2.1085033414440562e-05,
+    "label_beta": 2.107169807740987e-05,
+    "label_scaled_b": 0.003292452824595292,
+    "leading_guess_alpha": 7.794883844382138e-05,
+    "leading_guess_beta": 7.784770264135224e-05,
+    "leading_guess_gamma": 7.794887346076527e-05,
+    "minimum_k1_pi_scaled": 0.304290315268072,
+    "minimum_outer_pi": 0.003894916035431321,
+    "outer_energy_residual_inf": 2.220446049250313e-16,
+    "q_end": 200.0,
+    "q_label": 100.0,
+    "q_r": 24.999999999999996,
+    "q_r_q_label_separated": true,
+    "same_section_root_gamma": 7.794887381797582e-05,
+    "same_section_root_passed": true,
+    "same_section_root_residual": 1.667400755227949e-13,
+    "same_section_root_tolerance": 2e-12,
+    "scaled_arrival_margin_passed": true,
+    "scaled_beta_collar": 0.25,
+    "seam_alpha": 7.794887398471589e-05,
+    "seam_beta": 7.784773805063898e-05,
+    "seam_beta_bracket_lower": 0.0,
+    "seam_beta_bracket_margin": 7.784773805063898e-05,
+    "seam_beta_bracket_upper": 0.0004,
+    "seam_beta_in_bracket": true,
+    "solver_nodes": 508.0,
+    "solver_rms_residual_max": 1.6278961086638112e-05,
+    "solver_rms_residual_passed": true,
+    "solver_rms_residual_tolerance": 2e-05,
+    "solver_success": true,
+    "source_model": "finite-horizon nonlinear W^u source from vdp_source_to_pole; not interval validated",
+    "source_phase_bracket_lower": 5.758691395749909,
+    "source_phase_bracket_margin": 5.2512291957462764e-05,
+    "source_phase_bracket_upper": 5.7588913957499095,
+    "source_phase_in_bracket": true,
+    "source_provider_unique_evaluations": 9.0,
+    "unscaled_arrival_margin_passed": true,
+    "z_r": 0.2
+  },
+  "independent_gamma_grid": {
+    "beta_grid": [
+      0.0,
+      0.0004,
+      161
+    ],
+    "candidate_q_end": 200.0,
+    "claim_bearing": false,
+    "horizon_difference_from_candidate": [
+      -5.149960319306146e-19,
+      -4.472333961502706e-19,
+      4.0657581468206416e-20
+    ],
+    "horizon_gamma_at_candidate_seam_beta": [
+      7.79488738179753e-05,
+      7.794887381797537e-05,
+      7.794887381797586e-05
+    ],
+    "horizon_q_end": [
+      100.0,
+      200.0,
+      400.0
+    ],
+    "maximum_boundary_residual": 4.5288138537278265e-23,
+    "maximum_energy_residual": 2.7755575615628914e-16,
+    "maximum_solver_rms_residual": 1.9997657104112927e-08,
+    "scope": "A frozen finite beta grid and finite-Q horizon sensitivity, not a continuous or infinite-horizon V4 graph theorem.",
+    "solver_tolerance": 2e-08,
+    "status": "COMPUTED/E1_FINITE_HORIZON_GAMMA_BETA_GRID",
+    "validation_status": "NOT_INTERVAL_VALIDATED"
+  },
+  "parameters": {
+    "a2": 0.0,
+    "epsilon": 1.0,
+    "r": 0.08
+  },
+  "scope": "One floating-point nonlinear-Wu -> central -> resolved-K1 -> finite-horizon outer candidate.  It is not the uniform V4 graph, the V5 adjoint/exchange proof, or Issue #7 interval validation.",
+  "source_phase": 5.758838883457952,
+  "status": "COMPUTED/E1_MATCHED_CANDIDATE",
+  "validation_status": "NOT_INTERVAL_VALIDATED"
+}

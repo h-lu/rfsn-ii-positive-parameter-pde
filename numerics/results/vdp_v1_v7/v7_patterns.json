@@ -1,0 +1,303 @@
+{
+  "bi_infinite_orbit_status": "NOT_NUMERICALLY_RESOLVED",
+  "expected_period_slope": 0.7108612701053386,
+  "finite_window_approximants": [
+    {
+      "central_window_x": 0.6933333333333334,
+      "coding_status": "word metadata only; a full numerical V6 branch-itinerary identification is not yet resolved",
+      "level": 1,
+      "pulse_count": 1,
+      "requested_finite_word": [
+        "A1",
+        "B1",
+        "A0"
+      ],
+      "solver_success": true,
+      "status": "COMPUTED/E1 finite-window homoclinic approximant"
+    },
+    {
+      "central_window_x": 0.9866666666666667,
+      "coding_status": "word metadata only; a full numerical V6 branch-itinerary identification is not yet resolved",
+      "level": 2,
+      "pulse_count": 2,
+      "requested_finite_word": [
+        "A2",
+        "A1",
+        "B1",
+        "A0",
+        "A2"
+      ],
+      "solver_success": true,
+      "status": "COMPUTED/E1 finite-window homoclinic approximant"
+    },
+    {
+      "central_window_x": 1.2266666666666668,
+      "coding_status": "word metadata only; a full numerical V6 branch-itinerary identification is not yet resolved",
+      "level": 3,
+      "pulse_count": 3,
+      "requested_finite_word": [
+        "B0",
+        "A2",
+        "A1",
+        "B1",
+        "A0",
+        "A2",
+        "B0"
+      ],
+      "solver_success": true,
+      "status": "COMPUTED/E1 finite-window homoclinic approximant"
+    },
+    {
+      "central_window_x": 1.4666666666666668,
+      "coding_status": "word metadata only; a full numerical V6 branch-itinerary identification is not yet resolved",
+      "level": 4,
+      "pulse_count": 4,
+      "requested_finite_word": [
+        "A1",
+        "B0",
+        "A2",
+        "A1",
+        "B1",
+        "A0",
+        "A2",
+        "B0",
+        "A1"
+      ],
+      "solver_success": true,
+      "status": "COMPUTED/E1 finite-window homoclinic approximant"
+    }
+  ],
+  "itinerary_status": "NOT_NUMERICALLY_RESOLVED",
+  "multipulses": [
+    {
+      "diagnostics": {
+        "acceptance_thresholds": {
+          "boundary_residual": 1e-07,
+          "hamiltonian_drift": 5e-06,
+          "physical_stationary_residual": 2e-06,
+          "solver_rms_residual": 2e-06,
+          "tail_norm": 1e-05
+        },
+        "boundary_residual_inf": 6.617444900424222e-24,
+        "central_action": 14.62075896143338,
+        "evidence_status": "COMPUTED/E1 continued primary homoclinic",
+        "finite_difference_trim_points": 24.0,
+        "hamiltonian_drift": 4.699684968861962e-12,
+        "normalized_ode_residual_inf": 2.090631667783782e-09,
+        "physical_action": 4.7909302964824904e-05,
+        "physical_stationary_u_residual_inf": 3.846597609468046e-08,
+        "physical_stationary_v_residual_inf": 6.405567612235985e-07,
+        "residual_gate_passed": true,
+        "solver_success": true,
+        "tail_norm": 1.352356258021287e-07,
+        "truncated_physical_domain_length": 4.16
+      },
+      "pulse_count_observed": 1,
+      "pulse_count_requested": 1
+    },
+    {
+      "diagnostics": {
+        "acceptance_thresholds": {
+          "boundary_residual": 1e-07,
+          "hamiltonian_drift": 5e-06,
+          "physical_stationary_residual": 2e-06,
+          "solver_rms_residual": 2e-06,
+          "tail_norm": 1e-05
+        },
+        "boundary_residual_inf": 8.258496007954424e-24,
+        "central_action": 29.241188138386757,
+        "domain_half_xi": 37.0,
+        "evidence_status": "COMPUTED/E1 actual full-ODE multipulse",
+        "finite_difference_trim_points": 26.0,
+        "hamiltonian_abs_max": 2.2231332325040043e-07,
+        "hamiltonian_drift": 2.2283598483650337e-07,
+        "initial_guess_separation_xi": 18.0,
+        "nodes": 4558,
+        "normalized_ode_residual_inf": 1.5985034940158016e-06,
+        "physical_action": 9.581752529186574e-05,
+        "physical_stationary_u_residual_inf": 6.371738323312885e-08,
+        "physical_stationary_v_residual_inf": 1.060486926669768e-06,
+        "residual_gate_passed": true,
+        "solver_message": "The algorithm converged to the desired accuracy.",
+        "solver_rms_residual_max": 1.0334457073246574e-06,
+        "solver_success": true,
+        "tail_norm": 3.4183322824208e-08,
+        "truncated_physical_domain_length": 5.92
+      },
+      "pulse_count_observed": 2,
+      "pulse_count_requested": 2
+    },
+    {
+      "diagnostics": {
+        "acceptance_thresholds": {
+          "boundary_residual": 1e-07,
+          "hamiltonian_drift": 5e-06,
+          "physical_stationary_residual": 2e-06,
+          "solver_rms_residual": 2e-06,
+          "tail_norm": 1e-05
+        },
+        "boundary_residual_inf": 3.308722450212111e-24,
+        "central_action": 43.86161605732246,
+        "domain_half_xi": 46.0,
+        "evidence_status": "COMPUTED/E1 actual full-ODE multipulse",
+        "finite_difference_trim_points": 33.0,
+        "hamiltonian_abs_max": 5.548534158239526e-07,
+        "hamiltonian_drift": 6.374567156353095e-07,
+        "initial_guess_separation_xi": 18.0,
+        "nodes": 5888,
+        "normalized_ode_residual_inf": 1.504081719616579e-05,
+        "physical_action": 0.00014372574349663425,
+        "physical_stationary_u_residual_inf": 7.459916865259954e-08,
+        "physical_stationary_v_residual_inf": 1.2756991970563902e-06,
+        "residual_gate_passed": true,
+        "solver_message": "The algorithm converged to the desired accuracy.",
+        "solver_rms_residual_max": 1.99514393063653e-06,
+        "solver_success": true,
+        "tail_norm": 3.554042774788801e-08,
+        "truncated_physical_domain_length": 7.36
+      },
+      "pulse_count_observed": 3,
+      "pulse_count_requested": 3
+    },
+    {
+      "diagnostics": {
+        "acceptance_thresholds": {
+          "boundary_residual": 1e-07,
+          "hamiltonian_drift": 5e-06,
+          "physical_stationary_residual": 2e-06,
+          "solver_rms_residual": 2e-06,
+          "tail_norm": 1e-05
+        },
+        "boundary_residual_inf": 2.1970931544806063e-23,
+        "central_action": 58.48204972126943,
+        "domain_half_xi": 55.0,
+        "evidence_status": "COMPUTED/E1 actual full-ODE multipulse",
+        "finite_difference_trim_points": 39.0,
+        "hamiltonian_abs_max": 1.6459043470917756e-06,
+        "hamiltonian_drift": 1.6480729512391608e-06,
+        "initial_guess_separation_xi": 18.0,
+        "nodes": 14300,
+        "normalized_ode_residual_inf": 1.5985061387890909e-06,
+        "physical_action": 0.00019163398052665572,
+        "physical_stationary_u_residual_inf": 6.371716085881805e-08,
+        "physical_stationary_v_residual_inf": 1.0603381100926512e-06,
+        "residual_gate_passed": true,
+        "solver_message": "The algorithm converged to the desired accuracy.",
+        "solver_rms_residual_max": 1.0334146927776487e-06,
+        "solver_success": true,
+        "tail_norm": 3.695136485964391e-08,
+        "truncated_physical_domain_length": 8.8
+      },
+      "pulse_count_observed": 4,
+      "pulse_count_requested": 4
+    }
+  ],
+  "period_fit": {
+    "families": [
+      "A",
+      "B"
+    ],
+    "intercepts": {
+      "A": 0.7394956560667197,
+      "B": 1.093704494984621
+    },
+    "residual_inf": 0.0007144040267930141,
+    "residuals": [
+      0.0006057010660354134,
+      -0.0004969981052778127,
+      -0.0007144040267930141,
+      0.0004969981052780348,
+      0.0001087029607562684
+    ],
+    "slope": 0.7100283400219449
+  },
+  "period_slope_relative_error": 0.0011717196004646935,
+  "periodic_orbits": [
+    {
+      "central_action": 14.446815895673442,
+      "diagnostics": {
+        "closure_residual": 2.4453074114194617e-13,
+        "evidence_status": "COMPUTED/E1 actual reversible periodic orbit",
+        "finite_difference_trim_points": 12.0,
+        "hamiltonian_drift": 4.6851411639181606e-14,
+        "physical_action": 4.7339326326942744e-05,
+        "physical_period": 0.7401013571327552,
+        "physical_stationary_u_residual_inf": 4.837500768668443e-09,
+        "physical_stationary_v_residual_inf": 8.551576657911397e-08
+      },
+      "family": "A",
+      "initial_offset": -0.0055473631873296445,
+      "physical_action": 4.7339326326942744e-05,
+      "relative_winding": 0
+    },
+    {
+      "central_action": 14.628410426559133,
+      "diagnostics": {
+        "closure_residual": 3.9198017661584705e-13,
+        "evidence_status": "COMPUTED/E1 actual reversible periodic orbit",
+        "finite_difference_trim_points": 12.0,
+        "hamiltonian_drift": 4.9404924595819466e-14,
+        "physical_action": 4.7934375285748975e-05,
+        "physical_period": 1.0932074968793433,
+        "physical_stationary_u_residual_inf": 1.055049010027613e-08,
+        "physical_stationary_v_residual_inf": 1.7752655248615135e-07
+      },
+      "family": "B",
+      "initial_offset": 0.00024236984619221857,
+      "physical_action": 4.7934375285748975e-05,
+      "relative_winding": 0
+    },
+    {
+      "central_action": 14.620428576083123,
+      "diagnostics": {
+        "closure_residual": 2.9248294866786317e-12,
+        "evidence_status": "COMPUTED/E1 actual reversible periodic orbit",
+        "finite_difference_trim_points": 12.0,
+        "hamiltonian_drift": 3.9246383920499284e-14,
+        "physical_action": 4.7908220358109184e-05,
+        "physical_period": 1.4488095920618715,
+        "physical_stationary_u_residual_inf": 1.842530469137963e-08,
+        "physical_stationary_v_residual_inf": 3.0909322695782393e-07
+      },
+      "family": "A",
+      "initial_offset": -1.0468285932216078e-05,
+      "physical_action": 4.7908220358109184e-05,
+      "relative_winding": 1
+    },
+    {
+      "central_action": 14.620773239188976,
+      "diagnostics": {
+        "closure_residual": 1.0004612835498965e-11,
+        "evidence_status": "COMPUTED/E1 actual reversible periodic orbit",
+        "finite_difference_trim_points": 12.0,
+        "hamiltonian_drift": 7.249756350802272e-14,
+        "physical_action": 4.7909349750174445e-05,
+        "physical_period": 1.804229833111844,
+        "physical_stationary_u_residual_inf": 2.8372324192534396e-08,
+        "physical_stationary_v_residual_inf": 4.771482156051832e-07
+      },
+      "family": "B",
+      "initial_offset": 4.52386670256137e-07,
+      "physical_action": 4.7909349750174445e-05,
+      "relative_winding": 1
+    },
+    {
+      "central_action": 14.62075834443964,
+      "diagnostics": {
+        "closure_residual": 2.4879261382504628e-11,
+        "evidence_status": "COMPUTED/E1 actual reversible periodic orbit",
+        "finite_difference_trim_points": 12.0,
+        "hamiltonian_drift": 5.562217353372034e-14,
+        "physical_action": 4.790930094305982e-05,
+        "physical_period": 2.159661039071366,
+        "physical_stationary_u_residual_inf": 4.030056539980516e-08,
+        "physical_stationary_v_residual_inf": 6.808593174534305e-07
+      },
+      "family": "A",
+      "initial_offset": -1.9549395642318854e-08,
+      "physical_action": 4.790930094305982e-05,
+      "relative_winding": 2
+    }
+  ],
+  "status": "COMPUTED/E1 actual stationary full-ODE profiles"
+}

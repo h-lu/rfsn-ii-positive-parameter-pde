@@ -1,0 +1,501 @@
+{
+  "evidence_status": "COMPUTED/E1 non-rigorous floating-point numerics",
+  "nonclaims": [
+    "not task #7 interval validation",
+    "no explicit theorem box is certified by these parameter samples",
+    "finite periodic samples do not prove asymptotic accumulation",
+    "neutral/Turing curves are context only; no stationary branch connection is inferred",
+    "no temporal spectral or nonlinear stability conclusion",
+    "no experimental calibration"
+  ],
+  "software": {
+    "python": "3.14.4",
+    "numpy": "2.5.2",
+    "scipy": "1.18.0",
+    "matplotlib": "3.11.1",
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43"
+  },
+  "source_sha256": {
+    "run_atlas.py": "d0f8202a550ef37ee3f459d41719fa1d2f4985ebfa8a903820d558669af32c25",
+    "rfsn_numerics.py": "901028067b3112d71b42d5b3f1478df3aeb7eb2bc9bb130f01103170e975ba78"
+  },
+  "solver_settings": {
+    "homoclinic_method": "scipy.integrate.solve_bvp",
+    "brusselator_domain_xi": 24.0,
+    "brusselator_tolerance": 1e-08,
+    "vdp_homoclinic_domain_xi": 26.0,
+    "vdp_homoclinic_tolerance": 2e-10,
+    "periodic_integrator": "DOP853",
+    "periodic_primary_rtol": 1e-12,
+    "periodic_primary_atol": 1e-14,
+    "periodic_primary_max_step": 0.008,
+    "periodic_independent_max_step": 0.004
+  },
+  "brusselator": {
+    "parameters": {
+      "A": 1.0,
+      "B": 1.0,
+      "r": [
+        0.025,
+        0.03535533905932738,
+        0.05,
+        0.07071067811865475,
+        0.1,
+        0.1414213562373095
+      ]
+    },
+    "homoclinics": [
+      {
+        "model": "brusselator",
+        "r": 0.025,
+        "d": 3.9062500000000007e-07,
+        "epsilon": 1.0,
+        "a2": 0.0,
+        "domain": 24.0,
+        "diagnostics": {
+          "solver_success": true,
+          "nodes": 2312.0,
+          "normalized_ode_residual_inf": 5.1423945102158086e-08,
+          "boundary_residual_inf": 1.3234889800848443e-23,
+          "tail_norm": 5.508535804520422e-07,
+          "center_amplitude": 9.344599942359903,
+          "nontrivial_branch": true,
+          "min_physical_u": 0.9992413485927676,
+          "min_physical_v": 0.9999968902329524
+        },
+        "center": [
+          4.893257513527439,
+          2.2037501091826722e-26,
+          -7.961003642070513,
+          0.0
+        ],
+        "tail": [
+          -1.602248952118416e-07,
+          3.6428689538844534e-07,
+          3.5503506334534086e-07,
+          -1.3788695259090533e-07
+        ]
+      },
+      {
+        "model": "brusselator",
+        "r": 0.03535533905932738,
+        "d": 1.5625000000000011e-06,
+        "epsilon": 1.0,
+        "a2": 0.0,
+        "domain": 24.0,
+        "diagnostics": {
+          "solver_success": true,
+          "nodes": 2313.0,
+          "normalized_ode_residual_inf": 5.180020323791723e-08,
+          "boundary_residual_inf": 5.293955920339377e-23,
+          "tail_norm": 5.514043361471991e-07,
+          "center_amplitude": 9.376151770270834,
+          "nontrivial_branch": true,
+          "min_physical_u": 0.9984799548570024,
+          "min_physical_v": 0.9999875173354925
+        },
+        "center": [
+          4.908117191930803,
+          2.3911006577830367e-26,
+          -7.988905284795044,
+          0.0
+        ],
+        "tail": [
+          -1.62331098760526e-07,
+          3.6534721516466075e-07,
+          3.5450932486332494e-07,
+          -1.3616132803960977e-07
+        ]
+      },
+      {
+        "model": "brusselator",
+        "r": 0.05,
+        "d": 6.250000000000001e-06,
+        "epsilon": 1.0,
+        "a2": 0.0,
+        "domain": 24.0,
+        "diagnostics": {
+          "solver_success": true,
+          "nodes": 2320.0,
+          "normalized_ode_residual_inf": 5.256380131157812e-08,
+          "boundary_residual_inf": 1.3234889800848443e-23,
+          "tail_norm": 5.525433881018834e-07,
+          "center_amplitude": 9.440052847955494,
+          "nontrivial_branch": true,
+          "min_physical_u": 0.9969488173481214,
+          "min_physical_v": 0.9999497162061934
+        },
+        "center": [
+          4.9382207150793365,
+          -4.7730039464351815e-26,
+          -8.045407009055165,
+          0.0
+        ],
+        "tail": [
+          -1.6657264922521694e-07,
+          3.674733357054592e-07,
+          3.534378281116636e-07,
+          -1.3267553455861584e-07
+        ]
+      },
+      {
+        "model": "brusselator",
+        "r": 0.07071067811865475,
+        "d": 2.4999999999999998e-05,
+        "epsilon": 1.0,
+        "a2": 0.0,
+        "domain": 24.0,
+        "diagnostics": {
+          "solver_success": true,
+          "nodes": 2326.0,
+          "normalized_ode_residual_inf": 5.460719165739647e-08,
+          "boundary_residual_inf": 5.293955920339377e-23,
+          "tail_norm": 5.549763626637112e-07,
+          "center_amplitude": 9.571153931668691,
+          "nontrivial_branch": true,
+          "min_physical_u": 0.9938522509402198,
+          "min_physical_v": 0.9997959675036877
+        },
+        "center": [
+          5.000017230110851,
+          1.5267693957034668e-26,
+          -8.16129985249235,
+          0.0
+        ],
+        "tail": [
+          -1.7517718810477784e-07,
+          3.7174855026826747e-07,
+          3.512114080637271e-07,
+          -1.2555985864312685e-07
+        ]
+      },
+      {
+        "model": "brusselator",
+        "r": 0.1,
+        "d": 0.00010000000000000002,
+        "epsilon": 1.0,
+        "a2": 0.0,
+        "domain": 24.0,
+        "diagnostics": {
+          "solver_success": true,
+          "nodes": 2338.0,
+          "normalized_ode_residual_inf": 5.970144201228322e-08,
+          "boundary_residual_inf": 6.617444900424221e-23,
+          "tail_norm": 5.605030820340495e-07,
+          "center_amplitude": 9.847498249059438,
+          "nontrivial_branch": true,
+          "min_physical_u": 0.9875142345497525,
+          "min_physical_v": 0.9991594528327853
+        },
+        "center": [
+          5.1304256874019005,
+          -1.3781581286837447e-26,
+          -8.40547167214758,
+          0.0
+        ],
+        "tail": [
+          -1.9291408261017406e-07,
+          3.803993822713061e-07,
+          3.4639512087619964e-07,
+          -1.1070046025701525e-07
+        ]
+      },
+      {
+        "model": "brusselator",
+        "r": 0.1414213562373095,
+        "d": 0.00039999999999999996,
+        "epsilon": 1.0,
+        "a2": 0.0,
+        "domain": 24.0,
+        "diagnostics": {
+          "solver_success": true,
+          "nodes": 2360.0,
+          "normalized_ode_residual_inf": 6.699540300303397e-08,
+          "boundary_residual_inf": 1.3234889800848443e-23,
+          "tail_norm": 5.746005585468773e-07,
+          "center_amplitude": 10.465719668918942,
+          "nontrivial_branch": true,
+          "min_physical_u": 0.9741886375872779,
+          "min_physical_v": 0.9964195173599086
+        },
+        "center": [
+          5.422839531871137,
+          1.2844930150338092e-26,
+          -8.951206600228398,
+          0.0
+        ],
+        "tail": [
+          -2.308956825837268e-07,
+          3.9817137935423373e-07,
+          3.3501217530520877e-07,
+          -7.797038352475379e-08
+        ]
+      }
+    ],
+    "observables": [
+      {
+        "r": 0.025,
+        "d": 3.9062500000000007e-07,
+        "amplitude_u": 0.00305828594595465,
+        "amplitude_v": 3.1097670476837947e-06,
+        "width_u": 0.03209183674996995,
+        "width_v": 0.0831905358572821,
+        "scaled_amplitude_u": 4.893257513527439,
+        "scaled_amplitude_v": 7.961003642070513
+      },
+      {
+        "r": 0.03535533905932738,
+        "d": 1.5625000000000011e-06,
+        "amplitude_u": 0.006135146489913506,
+        "amplitude_v": 1.2482664507492265e-05,
+        "width_u": 0.045361312381327415,
+        "width_v": 0.11763805804621806,
+        "scaled_amplitude_u": 4.908117191930803,
+        "scaled_amplitude_v": 7.988905284795044
+      },
+      {
+        "r": 0.05,
+        "d": 6.250000000000001e-06,
+        "amplitude_u": 0.012345551787698344,
+        "amplitude_v": 5.028379380659479e-05,
+        "width_u": 0.06408392342278411,
+        "width_v": 0.16633477875757124,
+        "scaled_amplitude_u": 4.9382207150793365,
+        "scaled_amplitude_v": 8.045407009055165
+      },
+      {
+        "r": 0.07071067811865475,
+        "d": 2.4999999999999998e-05,
+        "amplitude_u": 0.025000086150554254,
+        "amplitude_v": 0.00020403249631230873,
+        "width_u": 0.09043702480113444,
+        "width_v": 0.23515177289433906,
+        "scaled_amplitude_u": 5.000017230110851,
+        "scaled_amplitude_v": 8.16129985249235
+      },
+      {
+        "r": 0.1,
+        "d": 0.00010000000000000002,
+        "amplitude_u": 0.051304256874019016,
+        "amplitude_v": 0.0008405471672147582,
+        "width_u": 0.12733941731727846,
+        "width_v": 0.33235724589883164,
+        "scaled_amplitude_u": 5.1304256874019005,
+        "scaled_amplitude_v": 8.40547167214758
+      },
+      {
+        "r": 0.1414213562373095,
+        "d": 0.00039999999999999996,
+        "amplitude_u": 0.10845679063742275,
+        "amplitude_v": 0.0035804826400913587,
+        "width_u": 0.17840070585875178,
+        "width_v": 0.4696706247164505,
+        "scaled_amplitude_u": 5.422839531871137,
+        "scaled_amplitude_v": 8.951206600228398
+      }
+    ],
+    "scaling_fits_smallest_four": {
+      "amplitude_u_slope": 0.505111759851438,
+      "amplitude_v_slope": 1.0058856730798968,
+      "width_u_slope": 0.2491310799570824,
+      "width_v_slope": 0.24985188301859476
+    }
+  },
+  "van_der_pol": {
+    "parameters": {
+      "r": 0.08,
+      "d": 4.096e-05,
+      "a2": 0.0,
+      "a": 1.0,
+      "epsilon": 1.0
+    },
+    "homoclinic": {
+      "model": "vdp",
+      "r": 0.08,
+      "d": 4.096e-05,
+      "epsilon": 1.0,
+      "a2": 0.0,
+      "domain": 26.0,
+      "diagnostics": {
+        "solver_success": true,
+        "nodes": 5951.0,
+        "normalized_ode_residual_inf": 2.090631667783782e-09,
+        "boundary_residual_inf": 6.617444900424222e-24,
+        "tail_norm": 1.352356258021287e-07,
+        "center_amplitude": 9.414622757857229,
+        "nontrivial_branch": true,
+        "hamiltonian_drift": 4.699684968861962e-12,
+        "hamiltonian_abs_max": 3.894884414989974e-12
+      },
+      "center": [
+        4.925566685678478,
+        -1.6170302817125657e-28,
+        -8.023335621653727,
+        -9.006787388109594e-29
+      ],
+      "tail": [
+        7.975386349996434e-08,
+        -1.9087269855497725e-08,
+        5.2760387601644304e-08,
+        -9.370172555780444e-08
+      ]
+    },
+    "periodic_orbits": [
+      {
+        "family": "A",
+        "relative_winding": 0,
+        "initial_offset_from_homoclinic": -0.0055473631873296445,
+        "half_period_xi": 4.62563348207972,
+        "central_action": 14.446815895673442,
+        "physical_action": 4.7339326326942744e-05,
+        "diagnostics": {
+          "closure_residual": 2.4453074114194617e-13,
+          "independent_step_halving_closure_residual": 5.033660120667971e-13,
+          "endpoint_step_halving_difference": 2.588352709248509e-13,
+          "hamiltonian_drift": 4.6851411639181606e-14,
+          "hamiltonian_abs_max": 2.581268532253489e-14,
+          "initial_u": 4.920019322491148,
+          "initial_v": -8.005345035927762,
+          "branch_selection_event_component": "Q",
+          "branch_selection_residual_component": "P",
+          "branch_selection_event_index": 0,
+          "branch_selection_event_count": 7,
+          "branch_selection_event_time_xi": 4.625633482079207,
+          "branch_selection_scalar_residual": -2.264724865974621e-13,
+          "branch_selection_transversality": 0.6978861125322927,
+          "full_period_xi": 9.25126696415944,
+          "physical_period": 0.7401013571327552
+        }
+      },
+      {
+        "family": "B",
+        "relative_winding": 0,
+        "initial_offset_from_homoclinic": 0.00024236984619221857,
+        "half_period_xi": 6.832546855495895,
+        "central_action": 14.628410426559133,
+        "physical_action": 4.7934375285748975e-05,
+        "diagnostics": {
+          "closure_residual": 3.9198017661584705e-13,
+          "independent_step_halving_closure_residual": 1.6281947510621113e-12,
+          "endpoint_step_halving_difference": 1.7282009157071343e-12,
+          "hamiltonian_drift": 4.9404924595819466e-14,
+          "hamiltonian_abs_max": 3.952393967665557e-14,
+          "initial_u": 4.92580905552467,
+          "initial_v": -8.024122105035456,
+          "branch_selection_event_component": "P",
+          "branch_selection_residual_component": "Q",
+          "branch_selection_event_index": 1,
+          "branch_selection_event_count": 10,
+          "branch_selection_event_time_xi": 6.832546855489681,
+          "branch_selection_scalar_residual": 7.096541940832069e-13,
+          "branch_selection_transversality": 0.1500752861146163,
+          "full_period_xi": 13.66509371099179,
+          "physical_period": 1.0932074968793433
+        }
+      },
+      {
+        "family": "A",
+        "relative_winding": 1,
+        "initial_offset_from_homoclinic": -1.0468285932216078e-05,
+        "half_period_xi": 9.055059950386697,
+        "central_action": 14.620428576083123,
+        "physical_action": 4.7908220358109184e-05,
+        "diagnostics": {
+          "closure_residual": 2.9248294866786317e-12,
+          "independent_step_halving_closure_residual": 4.300564272101751e-12,
+          "endpoint_step_halving_difference": 2.0726198535214735e-12,
+          "hamiltonian_drift": 3.9246383920499284e-14,
+          "hamiltonian_abs_max": 3.758104938356155e-14,
+          "initial_u": 4.925556217392546,
+          "initial_v": -8.023301653219347,
+          "branch_selection_event_component": "Q",
+          "branch_selection_residual_component": "P",
+          "branch_selection_event_index": 1,
+          "branch_selection_event_count": 7,
+          "branch_selection_event_time_xi": 9.055059950257998,
+          "branch_selection_scalar_residual": 4.289549664872794e-12,
+          "branch_selection_transversality": 0.03056879402554474,
+          "full_period_xi": 18.110119900773395,
+          "physical_period": 1.4488095920618715
+        }
+      },
+      {
+        "family": "B",
+        "relative_winding": 1,
+        "initial_offset_from_homoclinic": 4.52386670256137e-07,
+        "half_period_xi": 11.276436456949025,
+        "central_action": 14.620773239188976,
+        "physical_action": 4.7909349750174445e-05,
+        "diagnostics": {
+          "closure_residual": 1.0004612835498965e-11,
+          "independent_step_halving_closure_residual": 5.988078176117399e-11,
+          "endpoint_step_halving_difference": 7.011125707778731e-11,
+          "hamiltonian_drift": 7.249756350802272e-14,
+          "hamiltonian_abs_max": 7.349676423018536e-14,
+          "initial_u": 4.925567138065149,
+          "initial_v": -8.02333708959993,
+          "branch_selection_event_component": "P",
+          "branch_selection_residual_component": "Q",
+          "branch_selection_event_index": 2,
+          "branch_selection_event_count": 9,
+          "branch_selection_event_time_xi": 11.276436449963771,
+          "branch_selection_scalar_residual": -2.419486559888244e-11,
+          "branch_selection_transversality": 0.006349429699767029,
+          "full_period_xi": 22.55287291389805,
+          "physical_period": 1.804229833111844
+        }
+      },
+      {
+        "family": "A",
+        "relative_winding": 2,
+        "initial_offset_from_homoclinic": -1.9549395642318854e-08,
+        "half_period_xi": 13.497881494196037,
+        "central_action": 14.62075834443964,
+        "physical_action": 4.790930094305982e-05,
+        "diagnostics": {
+          "closure_residual": 2.4879261382504628e-11,
+          "independent_step_halving_closure_residual": 5.929631535992305e-11,
+          "endpoint_step_halving_difference": 5.479501639753248e-11,
+          "hamiltonian_drift": 5.562217353372034e-14,
+          "hamiltonian_abs_max": 3.8191672047105385e-14,
+          "initial_u": 4.9255666661290824,
+          "initial_v": -8.023335558217736,
+          "branch_selection_event_component": "Q",
+          "branch_selection_residual_component": "P",
+          "branch_selection_event_index": 2,
+          "branch_selection_event_count": 7,
+          "branch_selection_event_time_xi": 13.497881668737628,
+          "branch_selection_scalar_residual": 1.3510464409399692e-10,
+          "branch_selection_transversality": 0.0013210334502734933,
+          "full_period_xi": 26.995762988392073,
+          "physical_period": 2.159661039071366
+        }
+      }
+    ],
+    "common_slope_fit": {
+      "families": [
+        "A",
+        "B"
+      ],
+      "slope": 0.7100283400219449,
+      "intercepts": {
+        "A": 0.7394956560667197,
+        "B": 1.093704494984621
+      },
+      "residuals": [
+        0.0006057010660354134,
+        -0.0004969981052778127,
+        -0.0007144040267930141,
+        0.0004969981052780348,
+        0.0001087029607562684
+      ],
+      "residual_inf": 0.0007144040267930141
+    },
+    "period_law_summary": {
+      "expected_period_slope": 0.7108612701053387,
+      "fitted_period_slope": 0.7100283400219449,
+      "period_slope_relative_error": 0.0011717196004649036
+    }
+  },
+  "reproduction": "python3 numerics/run_atlas.py"
+}

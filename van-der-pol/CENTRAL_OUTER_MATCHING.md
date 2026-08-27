@@ -13,9 +13,13 @@ return--first-exit theorem.
 
 ## 1. Final common parameter box and theorem
 
-The upper radius in V3 and V4 was an existential sufficiently small number.
-We decrease it once, after all constants in this proof have been chosen, and
-retain the notation
+The annulus is selected by a rerun, not by a nesting argument.  Work first on
+the closed V2 comparison wedge \(0\le r\le r_*\).  The scaled outer field in
+Section 4 and the resolved \(K_1\) field in Section 5 extend to this closed
+wedge, so their graph-transform, overlap, exchange, and source-incidence
+estimates produce a smallness threshold without using a positive lower
+endpoint for \(r\).  After every such threshold has been collected, choose
+\(r_{\rm p}>0\) once and freeze
 
 \[
  \mathcal P_{\rm p}
@@ -33,6 +37,15 @@ with
 \tag{2}
 \]
 
+V3 and V4 are then rerun on this exact annulus.  In particular, the box above
+is not asserted to be a subset of an earlier box
+\([r_{\rm old}/2,r_{\rm old}]\), which would generally be false after changing
+the upper radius.  Every small-\(r\) condition below is one of the thresholds
+collected before this final choice; the annulus is not changed after V3--V4
+have been rerun.  The collection includes V3's internal cone-entry,
+source-window, compact-flow, and regular-singular small-\(r\) thresholds, not
+only the new V5 overlap and matching estimates.
+
 For the limiting argument only, the resolved vector field is considered on
 the closed extension \(0\le r\le r_{\rm p}\).  No positive-parameter result
 is inferred from compactness at \(r=0\); that face supplies the
@@ -40,7 +53,7 @@ comparison problem.
 
 ### Theorem V5
 
-After the final decrease of \(r_{\rm p}>0\), the following statements hold
+For this final choice of \(r_{\rm p}>0\), the following statements hold
 for every \(\mu\in\mathcal P_{\rm p}\).
 
 1. **Matched future sheet.**  A fixed subordinate patch of the V4 outer
@@ -672,8 +685,21 @@ that
 The stable and unstable blocks are one-dimensional.  Their
 normal-versus-center gaps
 \(\lambda_*-(2j+2)\theta_{\rm c}\) are positive for \(0\le j\le5\).
-The relative overflowing NHIM theorem therefore gives a \(C^5\) locally
-invariant center graph
+Choose one sufficiently small time \(T>0\).  The doubled collar above and a
+slightly smaller working collar give the common \(|t|\le T\) flow-domain
+buffer required in
+[the local relative overflowing NHIM theorem](../theory/RELATIVE_OVERFLOWING_NHIM.md).
+Apply its Corollary 2 with
+
+\[
+ c=(r_1,\sigma,H),\qquad
+ \lambda=(a_2,\epsilon),\qquad k=5.
+\]
+
+The positive-root calculation following (34), the displayed
+\(o_{C^1}(1)\) comparison, the uniform fifth-derivative bounds, the doubled
+flow collar, and the two-sided gaps above verify its four hypotheses.  That
+result therefore gives a \(C^5\) locally invariant center graph
 
 \[
  \mathcal S^{\rm c}:
@@ -703,8 +729,9 @@ future sheet will come from the global staying graph below.  If
 \]
 
 The remainders have the state and two external derivatives used below,
-uniformly on the fixed compact cylinder.  The center graph itself is not
-claimed unique: along the cubic \(\sigma\)-drift, different overflowing
+uniformly on the fixed compact cylinder.  The center graph is unique only for
+the fixed doubled extension used in the local theorem.  It is not claimed
+intrinsically unique: along the cubic \(\sigma\)-drift, different overflowing
 extensions may differ by \(C^\infty\)-flat terms.  Its invariance recursion
 nevertheless fixes the joint weighted five-jet.  On \(H=0,r_1=0\), that
 jet agrees with (39); on \(\sigma=0\), algebraic equilibrium uniqueness
@@ -1107,7 +1134,8 @@ complement on the fixed central cut.  At \(r=0\), (51) gives
  =144\sqrt3+O(r)\ge72\sqrt3
 \]
 
-after the final decrease of \(r_{\rm p}\).  This proves (6).
+after imposing the corresponding threshold in the final choice of
+\(r_{\rm p}\).  This proves (6).
 For the source operator we retain the certificate-conditioned row (55).
 
 ## 7. Uniform finite-dimensional matching
@@ -1166,7 +1194,8 @@ Transport from the certificate cut to (13) leaves this pairing unchanged.
 Fix a closed phase--time product neighborhood of the certified zero before
 varying \(r\).  V2 gives \(C^2\) convergence of the source and finite
 central flow, while (55) gives \(C^1\) convergence of the target row.
-Decrease \(r_{\rm p}\) so that throughout this preselected neighborhood
+Include in the final choice of \(r_{\rm p}\) the requirement that throughout
+this preselected neighborhood
 
 \[
  |\chi_\mu-\chi_0|<\frac12|\chi_0|,
@@ -1181,8 +1210,8 @@ produces unique \(C^2\) functions \(\phi_{\rm a}(\mu)\) and
 \(t_{\rm a}(\mu)\).
 
 The finite V2 gate anchor, inactive faces, event ordering, and
-source-to-boundary distances have strict compact margins.  After the same
-decrease of \(r_{\rm p}\), the selected orbit stays in that first-hit
+source-to-boundary distances have strict compact margins.  Under the same
+final smallness requirement, the selected orbit stays in that first-hit
 component.  Once it reaches (3), invariance and V4 local maximality keep it
 in the positive future-staying channel.  This proves Theorem V5(3).
 

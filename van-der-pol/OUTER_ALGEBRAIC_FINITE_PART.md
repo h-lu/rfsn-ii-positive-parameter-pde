@@ -87,10 +87,54 @@ Every matched orbit reaches \(z=z_*\) uniquely because
 The choice (7), not merely future boundedness, is part of the
 normalization.
 
+The label interval is chosen together with the V5 arrival map, not after it.
+In the scaled V5 outer trace,
+
+\[
+ A=\alpha/\delta,\qquad B=\beta/\delta.
+\tag{7a}
+\]
+
+Equations V5(24)--(30) give a fixed scaled graph collar
+\(|B|\le B_*\) on the closed comparison family.  On its future sheet,
+\(B\to0\) as \(z\downarrow0\), uniformly with the mixed derivatives used
+below.  After a preliminary choice of \(z_*\), the tail contraction in
+Lemma 1 supplies some interval \(|\beta|\le b_{\rm tail}\).  Replace \(B_*\)
+by
+
+\[
+ \min\{B_*,b_{\rm tail}/\delta_-\}
+\]
+
+and then decrease \(z_*\) and the fixed subordinate V5 patch once more so
+that its whole arrival image satisfies
+
+\[
+ |B_{\rm arr}|\le B_*/8.
+\tag{7b}
+\]
+
+Since \(\delta_-=(r_{\rm p}/2)^2\) and
+\(\delta_+=r_{\rm p}^2=4\delta_-\), set
+\(b_*=\delta_-B_*\le b_{\rm tail}\).  Decreasing the cut and interval
+preserves every strict tail estimate.  The exact identity
+\(\beta=\delta B\) then gives
+
+\[
+ |\beta_{\rm arr}|\le\delta_+B_*/8
+   =\delta_-B_*/2.
+\tag{7c}
+\]
+
+Thus the V5 arrivals lie strictly inside the fixed interval
+\(I_\beta=[-b_*,b_*]\); this is a proved containment, not an assumption
+attached later in V6.
+
 ### Theorem V5A
 
-After decreasing \(z_*>0\) and then a fixed interval
-\(I_\beta=[-b_*,b_*]\) if necessary, the following hold uniformly for
+For the jointly chosen \(z_*>0\) and
+\(I_\beta=[-b_*,b_*]\) above, retaining the strict arrival margin (7c), the
+following hold uniformly for
 \((b_0,\mu)\in I_\beta\times\mathcal P_{\rm p}\).
 
 1. **Exact outer weights.**  Let \(b(\mathfrak q;b_0,\mu)\) be the orbit on
@@ -204,7 +248,13 @@ After decreasing \(z_*>0\) and then a fixed interval
    (13) only from the terminal segment and then taking \(Q\to\infty\)
    preserves the equality exactly.
 
-Items 1--4 are the outer algebraic length/action finite-part theorem needed
+5. **Compatibility with the matched sheet.**  The selected V5 connection
+   and the fixed subordinate event patch chosen above reach \(z=z_*\) with
+   arrival label in the interior of \(I_\beta\), with the strict margin in
+   (7c).  The arrival map is mixed-\(C^2\), so composing it with the two
+   finite parts in item 2 is legitimate on that whole patch.
+
+Items 1--5 are the outer algebraic length/action finite-part theorem needed
 before the exhaustive V6 assembly.  They do not prove that all high-winding
 source points have a labelled first event.
 
@@ -719,12 +769,14 @@ one-form.
 
 ## 7. Compatibility with V5 and evidence boundary
 
-V5 supplies a mixed-\(C^2\) arrival map from the fixed central matching
-section through \(K_2\), \(K_1\), and the outer overlap.  Flowing that map
-to \(z=z_*\) is a compact first-hit operation with a uniform hit-speed
-margin, so its stable label \(b_0\) is mixed \(C^2\).  Composing it with
-(12) and using (40) gives a mixed-\(C^2\) central-plus-algebraic spatial
-length and action potential independent of every subordinate matching cut.
+V5 supplies the arrival map used in (7b)--(7c) from the fixed central
+matching section through \(K_2\), \(K_1\), and the outer overlap.  Flowing
+that map to \(z=z_*\) is a compact first-hit operation with a uniform
+hit-speed margin, so its stable label \(b_0\) is mixed \(C^2\).  The strict
+containment in Theorem V5A(5) makes composition with (12) valid on the whole
+fixed patch.  Equation (40) then gives a mixed-\(C^2\)
+central-plus-algebraic spatial length and action potential independent of
+every subordinate matching cut.
 This closes issue #5's noncompact-end obligation.
 
 The theorem does not prove:

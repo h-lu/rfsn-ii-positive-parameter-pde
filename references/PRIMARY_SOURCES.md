@@ -12,6 +12,33 @@ source revision, and all hypotheses restated.  In particular, the singular
 core theorem does not itself prove positive-parameter persistence of either
 noncompact end.
 
+The source repository is read-only for this project.  If a needed statement is
+not present at the frozen revision, it must be formulated and proved as a
+local result under [`theory/`](../theory/README.md), then mapped to the model
+hypotheses.  It must not be described as an imported flagship theorem or
+silently taken from an uncommitted upstream working tree.
+
+## Classical invariant-manifold input for local amendment T1
+
+The boundaryless analytic input restated in
+[the relative overflowing NHIM note](../theory/RELATIVE_OVERFLOWING_NHIM.md)
+is taken from the following classical sources:
+
+- M. W. Hirsch, C. C. Pugh, and M. Shub, *Invariant Manifolds*, Lecture
+  Notes in Mathematics 583, Springer (1977): the \(C^r\) section theorem,
+  pp. 25--38, DOI <https://doi.org/10.1007/BFb0092045>, and the local theory
+  of normally hyperbolic invariant manifolds, pp. 39--53, DOI
+  <https://doi.org/10.1007/BFb0092046>;
+- N. Fenichel, *Persistence and Smoothness of Invariant Manifolds for Flows*,
+  Indiana University Mathematics Journal **21** (1972), 193--226, DOI
+  <https://doi.org/10.1512/IUMJ.1972.21.21017>.
+
+These sources provide the compact boundaryless persistence theorem used as
+the analytic input.  The admissible doubling construction, flow-collar
+localization, treatment of corners, and restriction back to the overflowing
+block are local arguments proved in T1; they are not attributed to the
+classical theorem without proof.
+
 For the Brusselator localized-profile track, the frozen source revision is
 d54add098545063d5efe8f1d6f062d4cfc116a0d.  The imported result is
 Proposition 8.6, specifically its verification of Definition 2.1(I2),

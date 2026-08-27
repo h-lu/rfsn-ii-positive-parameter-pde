@@ -1,0 +1,117 @@
+{
+  "evidence_status": "COMPUTED/E1 non-rigorous exploratory numerics",
+  "configuration_version": 4,
+  "frozen_before_claim_bearing_run": "2026-08-27",
+  "version_note": "Version 4 removes obsolete duplicate pole/cutoff inputs and wires every frozen source, pole-connection, matched-outer, event, and acceptance field into candidate generation, provenance, or a machine QA gate. It also freezes an independent Gamma(beta) grid and horizon ladder. Every object remains floating-point COMPUTED/E1 until outward-rounded replay succeeds. Version 3 first connected the nonlinear source, pole, outer match, and complete finite branches.",
+  "nonclaims": [
+    "The sampled parameters are not certified to lie in an explicit theorem box.",
+    "Finite floating-point samples do not prove uniformity, exhaustiveness, uniqueness, or an infinite-limit assertion.",
+    "This configuration is not the outward-rounded interval validation required by issue #7.",
+    "Stationary spatial coding is not temporal chaos and no temporal stability or Turing-branch selection is claimed."
+  ],
+  "parameters": {
+    "primary": {"r": 0.08, "a2": 0.0, "epsilon": 1.0},
+    "r_slice": [0.04, 0.06, 0.08],
+    "a2_slice": [-0.25, 0.0, 0.25],
+    "epsilon_slice": [0.8, 1.0, 1.2]
+  },
+  "central": {
+    "homoclinic_domain_xi": 26.0,
+    "homoclinic_tolerance": 2e-10,
+    "passage_radius": 0.08,
+    "passage_nu": [0.0001, 3e-05, 1e-05, 3e-06, 1e-06],
+    "source_radius": 0.01
+  },
+  "source_manifold": {
+    "phase_convention": "frozen_core_exact_linear_coordinates_at_a2_zero",
+    "source_radius": 0.01,
+    "flowback_tau": 2.0,
+    "graph_horizon_ladder": [8.0, 10.0],
+    "graph_boundary_tolerance": 2e-10
+  },
+  "pole_connection": {
+    "phase_window": [-0.2, 0.2],
+    "phase_samples": 9,
+    "representative_phase": 0.0,
+    "gate_x": 10.0,
+    "blowup_u_levels": [20.0, 50.0, 100.0, 200.0, 500.0],
+    "label_fit_levels": [100.0, 200.0, 500.0],
+    "local_sigma_min": 0.0005,
+    "local_sigma_cut": 0.003,
+    "local_points": 320,
+    "action_cutoff_sigmas": [0.00255, 0.0012, 0.00055, 0.0003, 0.00016, 0.00008, 0.00005]
+  },
+  "outer": {
+    "neighboring_beta0": 0.0002,
+    "q_start": 25.0,
+    "q_end_ladder": [40.0, 65.0, 100.0, 200.0, 400.0],
+    "points_per_q_unit": 50,
+    "minimum_points": 1601,
+    "tolerance": 2e-9,
+    "chart_probe": {"section_m": 4.0, "p2": 0.7, "v2": -0.2, "q2": 0.5}
+  },
+  "matched_outer": {
+    "core_algebraic_phase_midpoint": 5.756691395749909,
+    "central_section_m": 4.0,
+    "source_phase_offset_bracket": [0.002, 0.0022],
+    "source_phase_seed": 5.758838882776014,
+    "beta_grid": [0.0, 0.0004, 161],
+    "candidate_q_end": 200.0,
+    "gamma_horizon_ladder": [100.0, 200.0, 400.0],
+    "seam_r1": 2.0,
+    "label_q": 100.0,
+    "scaled_beta_collar": 0.25,
+    "mesh_points": 401,
+    "output_points": 6401,
+    "finite_part_output_ladder": [801, 1601, 3201, 6401],
+    "coupled_bvp_tolerance": 2e-5,
+    "boundary_tolerance": 1e-8,
+    "same_section_root_residual_tolerance": 2e-12
+  },
+  "events": {
+    "phase_samples": 97,
+    "nu_samples": 41,
+    "nu_range": [-0.0002, 0.0002],
+    "maximum_xi": 80.0,
+    "local_return_radius": 0.01,
+    "terminal_u": -10.0,
+    "escape_norm": 60.0,
+    "uncertain_margin": 0.000001
+  },
+  "periodic_orbits": [
+    {"family": "A", "relative_winding": 0, "bracket": [-0.0062, -0.0046], "event_index": 0, "event_component": 3, "residual_component": 1},
+    {"family": "B", "relative_winding": 0, "bracket": [0.00017, 0.00032], "event_index": 1, "event_component": 1, "residual_component": 3},
+    {"family": "A", "relative_winding": 1, "bracket": [-1.8e-05, -8e-06], "event_index": 1, "event_component": 3, "residual_component": 1},
+    {"family": "B", "relative_winding": 1, "bracket": [3e-07, 6.2e-07], "event_index": 2, "event_component": 1, "residual_component": 3},
+    {"family": "A", "relative_winding": 2, "bracket": [-3.5e-08, -1e-08], "event_index": 2, "event_component": 3, "residual_component": 1}
+  ],
+  "coded_patterns": {
+    "periodic_words": [["A0"], ["B0"], ["A1"], ["B1"], ["A2"]],
+    "multipulse_target_counts": [1, 2, 3, 4],
+    "aperiodic_word": ["A1", "B0", "A2", "A1", "B1", "A0", "A2", "B0", "A1"],
+    "aperiodic_window_levels": [1, 2, 3, 4]
+  },
+  "solver": {
+    "method": "DOP853",
+    "rtol": 1e-11,
+    "atol": 1e-13,
+    "max_step": 0.02,
+    "independent_max_step": 0.01,
+    "bvp_max_nodes": 120000
+  },
+  "acceptance": {
+    "energy_drift": 1e-08,
+    "closure_residual": 1e-08,
+    "independent_difference": 1e-06,
+    "finite_part_grid_difference": 0.002,
+    "event_hit_residual": 1e-08,
+    "matched_bvp_rms_residual_factor": 1.0,
+    "complete_return_min_abs_event_speed": 0.0001,
+    "complete_return_action_quadrature_difference": 1e-10,
+    "multipulse_solver_rms_residual_factor": 1.0,
+    "multipulse_boundary_residual": 1e-07,
+    "multipulse_tail_norm": 1e-05,
+    "multipulse_hamiltonian_drift": 5e-06,
+    "multipulse_physical_fd_residual": 2e-06
+  }
+}

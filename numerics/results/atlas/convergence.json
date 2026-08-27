@@ -1,0 +1,68 @@
+{
+  "evidence_status": "COMPUTED/QA non-rigorous",
+  "model": "Brusselator A=B=1, r=0.1",
+  "software": {
+    "python": "3.14.4",
+    "numpy": "2.5.2",
+    "scipy": "1.18.0",
+    "matplotlib": "3.11.1",
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43"
+  },
+  "source_sha256": {
+    "check_convergence.py": "7c581154e651345fec3792467832c380fee9b0966d8423addc38e76961f72a36",
+    "rfsn_numerics.py": "901028067b3112d71b42d5b3f1478df3aeb7eb2bc9bb130f01103170e975ba78"
+  },
+  "cases": [
+    {
+      "domain": 16.0,
+      "tolerance": 1e-08,
+      "center_u": 5.130425687401904,
+      "center_v": -8.405471672147591,
+      "amplitude_u": 0.05130425687401905,
+      "amplitude_v": 0.0008405471672147593,
+      "width_u": 0.12733941731727844,
+      "width_v": 0.33235724589883187,
+      "normalized_ode_residual_inf": 5.970144378864006e-08,
+      "tail_norm": 0.00016258389577469858
+    },
+    {
+      "domain": 20.0,
+      "tolerance": 1e-08,
+      "center_u": 5.1304256874019005,
+      "center_v": -8.40547167214758,
+      "amplitude_u": 0.051304256874019016,
+      "amplitude_v": 0.0008405471672147582,
+      "width_u": 0.12733941731727846,
+      "width_v": 0.33235724589883164,
+      "normalized_ode_residual_inf": 5.970144201228322e-08,
+      "tail_norm": 9.54926755534904e-06
+    },
+    {
+      "domain": 24.0,
+      "tolerance": 1e-08,
+      "center_u": 5.1304256874019005,
+      "center_v": -8.40547167214758,
+      "amplitude_u": 0.051304256874019016,
+      "amplitude_v": 0.0008405471672147582,
+      "width_u": 0.12733941731727846,
+      "width_v": 0.33235724589883164,
+      "normalized_ode_residual_inf": 5.970144201228322e-08,
+      "tail_norm": 5.605030820340495e-07
+    },
+    {
+      "domain": 28.0,
+      "tolerance": 1e-08,
+      "center_u": 5.1304256874019005,
+      "center_v": -8.40547167214758,
+      "amplitude_u": 0.051304256874019016,
+      "amplitude_v": 0.0008405471672147582,
+      "width_u": 0.12733941731727846,
+      "width_v": 0.33235724589883164,
+      "normalized_ode_residual_inf": 5.760733934323525e-08,
+      "tail_norm": 3.2876813888949194e-08
+    }
+  ],
+  "reference_domain": 28.0,
+  "maximum_common_observable_difference_L24_to_L28": 0.0,
+  "reproduction": "python3 numerics/check_convergence.py"
+}

@@ -7,10 +7,11 @@ return--first-exit theory proved for the RFSN-II Hamiltonian core:
 2. a positive-parameter two-end exact-action theorem for the van der Pol
    reaction--diffusion system.
 
-The projects are deliberately separate from the flagship manuscript.  A
-statement proved here may be cited by a later companion paper or supplement,
-but it does not alter the claims of the existing paper until it has a complete
-proof and a separately audited dependency chain.
+The projects are deliberately separate from the flagship manuscript, which is
+a read-only, revision-pinned source for this repository.  Missing abstract
+lemmas or strengthened formulations needed by the applications are developed
+locally in [`theory/`](theory/README.md).  They may support this repository's
+theorems, but they do not edit or alter the claims of the flagship paper.
 
 ## Present status
 
@@ -38,9 +39,13 @@ theorem-sized claim retains the status in the
 
 The analytic van der Pol track is now closed on a nonempty compact positive
 annular parameter box.  [Theorems V6--V7](van-der-pol/TWO_END_RETURN_EXIT_AND_PDE.md)
-prove the exhaustive high-winding return--first-exit relation, both compatible
-finite parts, exact branch composition, and the resulting periodic,
-multipulse, and aperiodic stationary spatial PDE patterns.  Their reusable
+prove the exhaustive physical high-winding return--first-exit relation, both
+compatible finite parts, exact branch composition, and the resulting
+periodic, multipulse, and aperiodic stationary spatial PDE patterns.  The
+relative \(K_1\) NHIM interface and finite marked-atlas descent are proved
+locally in [theory/](theory/README.md).  Raw winding labels remain chartwise;
+the physical relation, profiles, periods, and closed actions agree on
+overlaps.  Their reusable
 high-winding and coding inputs are isolated in a strictly bounded
 [frozen modular import](van-der-pol/RETURN_EXIT_CODING_IMPORT.md); neither
 positive end is imported from the flagship model.
@@ -68,13 +73,71 @@ Numerical continuation never changes a mathematical statement from Proposed to
 Proved.  PDE temporal stability and experimental realization are not completion
 criteria for either first-stage project.
 
+## Numerical atlas
+
+The [reproducible theorem-to-PDE atlas](numerics/README.md) now supplies
+**Numerically observed** positive-parameter profiles, scaling-collapse tests,
+zero-energy reversible periodic orbits, a high-winding period-law test, and
+domain-convergence diagnostics.  Every computed figure is labelled
+`COMPUTED/E1` or `COMPUTED/QA`; the Turing/canard context figure explicitly
+separates exact formulas, computed samples, and schematic geometry.
+
+The atlas is explanatory evidence only.  In particular, it does not replace
+task #7, certify an explicit positive theorem box, prove temporal stability,
+or calibrate an experiment.
+
+A second, van der Pol-specific master run follows the paper's full V1--V7
+order:
+
+```bash
+python3 numerics/run_vdp_master.py
+```
+
+It writes the nine editable figures, PNG previews, machine-readable stage
+diagnostics, profile arrays, QA summary, and provenance manifest to
+[`numerics/results/vdp_v1_v7/`](numerics/results/vdp_v1_v7/).  Its scope and
+interpretation are fixed by the
+[coverage matrix](numerics/VAN_DER_POL_COVERAGE_MATRIX.md),
+[numerical report](numerics/VAN_DER_POL_NUMERICAL_REPORT.md), and
+[figure contracts](numerics/VAN_DER_POL_FIGURE_CONTRACTS.md).
+
+Configuration v4 adds a stronger, still non-rigorous candidate layer.  It now
+samples a finite-horizon nonlinear-\(W^u\) source window to the V3 gate and
+continues one representative on the same physical orbit into the pole chart;
+solves a coupled nonlinear-\(W^u\)--central--resolved-\(K_1\)--finite-horizon
+outer V4/V5 candidate, together with a frozen 161-point independent
+\(\Gamma(\beta)\) grid and three terminal horizons; evaluates V5A same-\(Q\)
+finite-cut subtraction on that saved outer
+leg; and records complete B1 and A2 finite returns with augmented physical
+length and action.  The generated Issue #7 schema-v2 contract binds the
+configuration and direct generator sources as well as the candidate data, but
+remains `claim_bearing: false` with `final_status: NOT_RUN`.
+
+The master run still does not numerically certify the paper's global and
+uniform objects.  The actual infinite V4 future-staying graph, uniform V5
+tube, adjoint/exchange and uniqueness statements, parameter jets, exhaustive
+V6 cells and cross forms for all windings, and every outward-rounded interval
+obligation remain unresolved.  The computed V7 periodic and multipulse
+stationary profiles are not assigned proved theorem-edge itineraries and do
+not construct a bi-infinite aperiodic orbit.  These explicit numerical
+boundaries neither weaken the analytic V1--V7 theorems nor establish temporal
+stability, Turing-branch selection, or canard identification.
+
 ## Repository map
 
+- [Frozen theory baseline and local amendments](theory/README.md)
 - [Brusselator programme](brusselator/README.md)
 - [van der Pol programme](van-der-pol/README.md)
 - [Research contract](RESEARCH_CONTRACT.md)
 - [Claim register](CLAIM_REGISTER.md)
+- [Proof-seam audit](proof-audit/SEAM_AUDIT_2026-08-27.md)
 - [Primary sources](references/PRIMARY_SOURCES.md)
+- [Numerical atlas and reproduction instructions](numerics/README.md)
+- [Numerical results and interpretation](numerics/NUMERICAL_REPORT.md)
+- [Van der Pol V1--V7 numerical coverage](numerics/VAN_DER_POL_COVERAGE_MATRIX.md)
+- [Van der Pol V1--V7 numerical report](numerics/VAN_DER_POL_NUMERICAL_REPORT.md)
+- [Van der Pol V1--V7 figure contracts](numerics/VAN_DER_POL_FIGURE_CONTRACTS.md)
+- [Issue #7 candidate-contract workspace](validation/README.md)
 
 ## Initial work queue
 

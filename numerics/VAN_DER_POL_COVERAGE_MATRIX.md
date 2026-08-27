@@ -1,0 +1,213 @@
+# van der Pol V1--V7 numerical coverage matrix
+
+This matrix separates the **analytic status of the paper** from the
+**status of the present floating-point realization**.  The analytic status is
+fixed by [the claim register](../CLAIM_REGISTER.md): V1 is derived and
+V2--V7 (including V5A) are proved.  A missing numerical object below does not
+weaken those proofs; conversely, a successful computation does not prove or
+certify any theorem.
+
+The exploratory parameter, section, cutoff, solver, and tolerance choices are
+frozen in [`config/vdp_v1_v7.json`](config/vdp_v1_v7.json).  They are not an
+explicit certified subbox of the existential theorem box.  This document is
+synchronized with the current implementation and generated atlas; detailed
+numerical values remain in the machine-readable result files.
+
+## Evidence vocabulary
+
+| Label | Meaning in this matrix |
+|---|---|
+| `EXACT/DERIVED` | A displayed algebraic identity or coordinate formula is reduced exactly, normally by symbolic algebra or direct substitution. |
+| `COMPUTED/E1` | A finite floating-point orbit, profile, graph proxy, event, integral, or map sample is actually computed.  It is explanatory evidence only. |
+| `COMPUTED/QA` | A residual, refinement, round-trip, independent-integration, covariance, or conservation check is computed. |
+| `NOT_INTERVAL_VALIDATED` | A concrete floating-point candidate exists, but no outward-rounded enclosure or certified parameter box has been supplied.  This is a mandatory qualifier, not a failed numerical solve. |
+| `RIGOROUS-ONLY (#7)` | The clause is uniform, exhaustive, unique, or genuinely infinite and cannot be validated by finite sampling.  Outward-rounded validation of a preselected explicit box is the separate task #7. |
+| `NOT NUMERICALLY RESOLVED` | This is a stop-rule status, not a weaker evidence grade.  The theorem object cannot presently be instantiated because its defining constants, chart data, source map, or matching object are non-explicit.  A listed proxy does not inherit the status of that object. |
+
+“Proved” in the paper-status column always means proved by the cited analytic
+note, not by the numerical implementation.
+
+## Reproduction and generated evidence
+
+[`run_vdp_master.py`](run_vdp_master.py) is the one-command V1--V7 runner.  It
+executes the exact bridge checks, central/end computations, finite event
+sampling, and profile solves, then calls
+[`render_vdp_figures.py`](render_vdp_figures.py) to render nine figures in PDF,
+SVG, and PNG.  The current run records
+`PASS_WITH_EXPLICIT_UNRESOLVED_THEOREM_OBJECTS` in
+[`qa.json`](results/vdp_v1_v7/qa.json): every declared numerical QA gate passes,
+while the non-explicit theorem objects remain listed rather than counted as
+numerical successes.
+
+The principal raw artifacts are
+[`v1_structure.json`](results/vdp_v1_v7/v1_structure.json),
+[`v1_bridge.npz`](results/vdp_v1_v7/v1_bridge.npz),
+[`v2_central.json`](results/vdp_v1_v7/v2_central.json),
+[`v3_pole.json`](results/vdp_v1_v7/v3_pole.json),
+[`v4_v5_outer_matching.json`](results/vdp_v1_v7/v4_v5_outer_matching.json),
+[`v4_v5_matched_candidate.json`](results/vdp_v1_v7/v4_v5_matched_candidate.json),
+[`v4_v5_matched_candidate.npz`](results/vdp_v1_v7/v4_v5_matched_candidate.npz),
+[`v5a_outer_finite_part.json`](results/vdp_v1_v7/v5a_outer_finite_part.json),
+[`v6_events.json`](results/vdp_v1_v7/v6_events.json),
+[`v6_complete_branches.npz`](results/vdp_v1_v7/v6_complete_branches.npz),
+the two generated `v6_complete_*.json` records, the hash-bound
+[`v6_candidate_contract.json`](results/vdp_v1_v7/v6_candidate_contract.json), and
+[`v7_patterns.json`](results/vdp_v1_v7/v7_patterns.json), with compressed arrays
+beside them.  Hashes and the environment snapshot are recorded in
+[`manifest.json`](results/vdp_v1_v7/manifest.json); the rendered QA overview is
+[`figure_09_numerical_qa.png`](results/vdp_v1_v7/figure_09_numerical_qa.png).
+
+## Headline status
+
+| Stage | Paper status | Numerical headline |
+|---|---|---|
+| V1 | Derived | Exact Hamiltonian/reverser identities and the complete physical/fast/central state, clock, energy, and action bridge are implemented and pass the frozen-run QA checks. |
+| V2 | Proved | Positive-parameter saddle spectra, homoclinic slices, a transversality proxy, and two signed logarithmic-passage experiments are implemented.  The transported exact phase/action chart and certified event atlas are not reconstructed. |
+| V3 | Proved | A finite-horizon nonlinear-\(W^u\) source window and one same-physical-orbit source--gate--pole candidate are computed, including fitted pole labels, local overlap, and source-anchored Laurent--log finite-cut action.  The certified parameter-window, basin, improper-limit, and uniform clauses remain unvalidated. |
+| V4 | Proved | Exact outer equations, an independent horizon ladder, and the outer leg of a connected finite-horizon V4/V5 candidate are implemented.  The theorem's infinite maximal future-staying graph and uniform normal/bunching estimates are not numerically resolved. |
+| V5 | Proved | A coupled nonlinear-\(W^u\)--central--resolved-\(K_1\)--outer BVP supplies a same-section floating root and interface diagnostics.  The theorem's uniform tube, endpoint adjoint/exchange, uniqueness, and parameter jets remain unvalidated. |
+| V5A | Proved | Exact densities and same-\(Q\) finite-cut subtraction are evaluated using the saved matched candidate's outer leg and an independently computed reference tail.  Infinite limits, exponential flatness, mixed jets, and uniform covariance remain unresolved. |
+| V6 | Proved | Alongside the finite first-event section, complete B1 and A2 finite returns realize opposite target transverse-sign proxies and carry augmented physical length/action through both segments.  They do not form an exhaustive theorem-coordinate atlas, cross-form family, or all-winding cocycle. |
+| V7 | Proved | The atlas contains five actual full-ODE periodic profiles and symmetric one- through four-pulse profiles reconstructed in physical PDE variables; their closure/profile residual gates pass.  Their V6 edge itineraries, a multi-edge coding computation, and a true nonperiodic bi-infinite numerical orbit are not resolved. |
+
+## V1 -- exact Hamiltonian structure and clocks
+
+Analytic source: [Hamiltonian check](../van-der-pol/HAMILTONIAN_CHECK.md) and
+[model/central-chart bridge](../van-der-pol/MODEL_AND_CENTRAL_CHART.md).
+
+| Item | Paper conclusion | Numerical object and evidence | Implementation | Current status | Must not be claimed |
+|---|---|---|---|---|---|
+| V1.1 | The physical stationary spatial field has first integral \(\mathcal G_\delta\), primitive \(\lambda_\delta\), and convention \(\iota_Xd\lambda=d(-\mathcal G_\delta)\) in fast space. | Symbolic residuals for first-integral conservation and Hamiltonian contraction: `EXACT/DERIVED`. | [`vdp_central.py`](vdp_central.py), `symbolic_hamiltonian_checks`; regression in [`test_vdp_central.py`](test_vdp_central.py). | **Implemented.** | The identities do not imply a homoclinic, either end, or a return relation. |
+| V1.2 | The reverser is anti-symplectic: \(D\mathcal R X=-X\circ\mathcal R\), \(\mathcal R^*\lambda=-\lambda\), and \(\mathcal R^*d\lambda=-d\lambda\). | Physical and central reverser/primitive/two-form residuals: `EXACT/DERIVED`. | [`vdp_central.py`](vdp_central.py), `symbolic_hamiltonian_checks`. | **Implemented.** | Numerical reversibility is not a proof of global orbit symmetry or uniqueness. |
+| V1.3 | Physical, fast, and central charts and their spatial clocks preserve the same orbit; clock changes rescale Hamiltonians but not \(\int\lambda\). | Exact central-to-physical and physical-to-central maps, physical-\(x\) and fast-\(y\) fields, and the \(x\), \(y\), and \(\xi\) clock factors: `EXACT/DERIVED`; same-orbit round-trip and vector-field pushforward defects plus independently integrated physical/central clock refinement: `COMPUTED/QA`. | [`vdp_bridge.py`](vdp_bridge.py), `central_to_physical`, `physical_to_central`, `physical_field_x`, `fast_field_y`, `bridge_diagnostics`, and `bridge_refinement_diagnostics`; regression in [`test_vdp_bridge.py`](test_vdp_bridge.py); raw output in [`v1_bridge.npz`](results/vdp_v1_v7/v1_bridge.npz). | **Implemented and passed on the frozen exploratory run.** | Pointwise exact formulas and a finite refinement ladder do not certify a uniform positive theorem box or replace task #7. |
+| V1.4 | Equilibrium-energy subtraction and physical/central energy and action scaling have fixed signs and powers. | Exact factors \(\epsilon^{5/2}r^6\) for shifted energy and \(\epsilon^{9/4}r^5\) for action, evaluated on the same orbit: `EXACT/DERIVED`; energy drift/scaling and action-endpoint defects in the direct and independently integrated formulations: `COMPUTED/QA`. | [`vdp_bridge.py`](vdp_bridge.py), `physical_first_integral`, `bridge_diagnostics`, and `bridge_refinement_diagnostics`; [`run_vdp_master.py`](run_vdp_master.py); stored diagnostics in [`v1_structure.json`](results/vdp_v1_v7/v1_structure.json). | **Implemented and passed on the frozen exploratory run.** | The finite computation checks the derived scaling; it is not numerical evidence for V2--V7 existence, uniformity, or end matching. |
+
+## V2 -- central persistence, local passage, and finite gates
+
+Analytic source: [Theorem V2](../van-der-pol/CENTRAL_CONTINUATION.md), with
+the [frozen core import](../van-der-pol/CENTRAL_CORE_IMPORT.md).
+
+| Item | Paper conclusion | Numerical object and evidence | Implementation | Current status | Must not be claimed |
+|---|---|---|---|---|---|
+| V2.1 | On a positive cusp wedge the origin is a uniform saddle-focus, with \(C^2\) parameter-dependent stable/unstable manifolds and weighted tails. | Closed-form/eigensolver quartet comparison: `COMPUTED/E1` and `COMPUTED/QA`; deterministic reversible eigenspace frame: `COMPUTED/E1`. | [`vdp_central.py`](vdp_central.py), `saddle_focus_spectrum`; [`vdp_return_coding.py`](vdp_return_coding.py), `reversible_saddle_frame`. | **Implemented on finite samples; uniform part is `RIGOROUS-ONLY (#7)`.** | No uniform wedge, manifold regularity, or two-parameter-derivative bound follows from point spectra. |
+| V2.2 | A selected symmetric zero-energy homoclinic continues \(C^2\), has weighted tails, and is transverse modulo flow in the regular energy surface. | Positive-\(r\) collocation continuation: `COMPUTED/E1`; ODE, boundary, energy, and reversibility defects plus finite-tail transversality singular values/angles: `COMPUTED/QA`. | [`vdp_central.py`](vdp_central.py), `compute_homoclinic_continuation` and `transversality_proxy`; base solver in [`rfsn_numerics.py`](rfsn_numerics.py). | **Implemented on declared slices.** | The finite-tail proxy is not an interval lower bound, a proof of transversality, a uniform continuation theorem, or global homoclinic uniqueness. |
+| V2.3 | Both signs of the exact zero-energy local passage preserve the action coordinate \(\nu\) and obey the stated logarithmic time/phase laws with weighted-log mixed \(C^2\) remainders. | Paired exact-ODE trajectories for both perturbation signs and fitted leading slopes: `COMPUTED/E1`; event and energy-difference defects: `COMPUTED/QA`. | [`vdp_central.py`](vdp_central.py), `local_passage_log_law`. | **Partial proxy.** | `nu_proxy` is a raw linear eigen-coordinate, not the theorem's exact action coordinate; the experiment does not check exact preservation or the full mixed-derivative remainder estimates. |
+| V2.4 | The compact source cell, homoclinic tube, two finite gate apertures, laterals, return aperture, stable cut, priorities, and first-hit margins continue as one exhaustive clean/neat arrangement. | User-defined affine first-event probes and actual finite central-ODE first hits against a numerical return sphere, deep stable cut, \(U\)-gate, and escape sphere: `COMPUTED/E1`; hit speed, competing gap, and energy drift: `COMPUTED/QA`. | [`vdp_central.py`](vdp_central.py), `trace_affine_event_proxies`; [`vdp_return_coding.py`](vdp_return_coding.py), `integrate_first_event`. | **`NOT NUMERICALLY RESOLVED` for the theorem arrangement; finite proxies implemented.** | Proxy faces are not the V2 physical faces.  Finite samples cannot establish clean/neat incidence, priority, exhaustion, or absence of a residual component.  At V2 the two terminal labels are only finite **gates**. |
+| V2.5 | The transported absolute source phases, gate anchors, homoclinic phase, gaps, and cyclic order persist \(C^2\). | Homoclinic and periodic intersections with a deterministic numerical outgoing section: `COMPUTED/E1`; reconstruction/energy defects: `COMPUTED/QA`. | [`vdp_return_coding.py`](vdp_return_coding.py), `homoclinic_source_anchor`, `periodic_source_anchor`, and `numerical_source_coordinates`. | **`NOT NUMERICALLY RESOLVED` in the theorem phase.** | `numerical_canonical_eigenplane_phase` is not the transported V2 absolute phase, so its angles cannot certify the theorem's phase gaps or cyclic order. |
+
+## V3 -- genuine positive pole and pole action finite part
+
+Analytic source: [Theorem V3](../van-der-pol/POSITIVE_POLE_FINITE_PART.md).
+
+| Item | Paper conclusion | Numerical object and evidence | Implementation | Current status | Must not be claimed |
+|---|---|---|---|---|---|
+| V3.1 | A nonempty transported V2 source window crosses the actual pole gate, enters an invariant cone, and reaches \(u=+\infty\) at finite physical distance with uniform first-hit margins. | Nine predeclared phases on a finite-horizon nonlinear-\(W^u\) source approximation reach the physical \(-U=10\) gate with recorded cone margins; one representative phase is continued on the same physical IVP to increasing \(u\)-levels and the local pole overlap: `COMPUTED/E1`/`COMPUTED/QA`. | [`vdp_source_to_pole.py`](vdp_source_to_pole.py), `compute_v2_source_candidate`, `compute_pole_window_candidate`, and `compute_source_to_pole_connection`; arrays and records in [`v3_pole.npz`](results/vdp_v1_v7/v3_pole.npz) and [`v3_pole.json`](results/vdp_v1_v7/v3_pole.json). | **Finite candidate seam closed; `NOT_INTERVAL_VALIDATED (#7)`.** | The sampled window is not the theorem's certified transported window.  Finite phases, fitted cone margins, and one connected orbit do not prove openness, first-hit exhaustion, invariant-cone entry for a parameter box, or finite-distance blow-up uniformly. |
+| V3.2 | The exact remaining-distance compactification has a normally hyperbolic boundary equilibrium manifold, spectrum \(\{-1,0,0,1,4\}\), and an open local pole basin. | Exact physical and compactified fields, transforms and indicial spectra: `EXACT/DERIVED`; the global physical candidate and fitted local compactified realization overlap with an independently measured defect: `COMPUTED/E1`/`COMPUTED/QA`. | [`vdp_pole.py`](vdp_pole.py), fields/transforms and `realize_local_pole`; [`vdp_source_to_pole.py`](vdp_source_to_pole.py), `compute_source_to_pole_connection`. | **Implemented for one connected finite candidate; theorem basin is `RIGOROUS-ONLY (#7)`.** | A small global/local overlap defect does not establish normal hyperbolicity, the basin projection theorem, uniqueness of the end orbit, or uniformity on a theorem box. |
+| V3.3 | Every orbit in the local basin has unique labels \((Z_0,W_0,\kappa)\) and the complete resonant Laurent/log expansion with mixed two parameter derivatives. | \(Z_0,W_0\) are fitted along the representative connected orbit from the frozen high-\(u\) ladder and \(\kappa\) is fixed by the exact energy identity; the resulting local jet and overlap are checked: `COMPUTED/E1`/`COMPUTED/QA`. | [`vdp_source_to_pole.py`](vdp_source_to_pole.py), `PoleEndFit`; [`vdp_pole.py`](vdp_pole.py), `normalized_jet`, resonance/indicial residuals, and `energy_projected_jet`. | **Candidate labels now belong to the connected orbit; uniqueness and mixed jets are `RIGOROUS-ONLY (#7)`.** | A stable finite-level fit is not proof of the complete expansion, remainder estimates, unique label map, or two parameter derivatives. |
+| V3.4 | The Laurent--log-subtracted pole action has a genuine \(\sigma\downarrow0\) finite part and exact moving-cut additivity. | The physical action is augmented from the nonlinear-\(W^u\) source cut along the same source-to-pole IVP; raw action, complete analytic divergence, subtracted ladder, physical/compact density agreement, and a moved gate cut are recorded: `COMPUTED/E1`/`COMPUTED/QA`. | [`vdp_source_to_pole.py`](vdp_source_to_pole.py), `SameOrbitActionLadder`, `physical_action_density`, and `same_orbit_moving_cut_balance`; local formulas in [`vdp_pole.py`](vdp_pole.py). | **Same-orbit finite-cut candidate implemented; improper limit and uniform clauses are `RIGOROUS-ONLY (#7)`.** | A finite plateau and floating cut balance do not prove the \(\sigma\downarrow0\) limit, coordinate independence, mixed derivatives, or an interval-enclosed end value. |
+
+## V4 -- outer future-staying graph
+
+Analytic source: [Theorem V4](../van-der-pol/OUTER_FUTURE_STAYING.md).
+
+| Item | Paper conclusion | Numerical object and evidence | Implementation | Current status | Must not be claimed |
+|---|---|---|---|---|---|
+| V4.1 | The positive outer field has an exact smooth compactification in \((z,E,\beta,\alpha)\) on a fixed corridor. | Exact outer vector field, normal coordinates, positive energy root, and energy residual: `EXACT/DERIVED` and `COMPUTED/QA`. | [`vdp_outer.py`](vdp_outer.py), `compactified_outer_rhs_tau`, `normal_outer_state`, `positive_energy_root`, and `energy_equation_residual`. | **Explicit formulas implemented.** | Evaluation at exploratory points does not show that those points lie in the theorem's non-explicit fixed corridor. |
+| V4.2 | The maximal forward-staying set is the unique codimension-one graph \(\alpha=\Gamma_\mu(z,E,\beta)\), locally maximal with the stated faces. | Finite-horizon continuations impose `alpha(Q_end)=0`; one such outer solution is simultaneously coupled to the resolved \(K_1\) and nonlinear-\(W^u\) central source.  An independent same-section \(\Gamma\)-solve checks its seam value: `COMPUTED/E1`/`COMPUTED/QA`. | [`vdp_matched_outer.py`](vdp_matched_outer.py), `finite_horizon_gamma_continuation` and `compute_matched_outer_candidate`; independent outer ladder in [`vdp_outer.py`](vdp_outer.py). | **Connected finite-horizon graph candidate implemented; the infinite \(\Gamma_\mu\) is `NOT NUMERICALLY RESOLVED`/`NOT_INTERVAL_VALIDATED`.** | The artificial terminal condition is not the maximal theorem graph and does not establish future-staying uniqueness, local maximality, face incidence, or a graph on a parameter box. |
+| V4.3 | The graph is normally expanding and third-order bunched in intrinsic tangent/normal quotient norms. | No quotient-cocycle computation on the actual graph is available. | Analytic proof only; no claim-bearing numerical implementation in the current modules. | **`NOT NUMERICALLY RESOLVED`; uniform bound is `RIGOROUS-ONLY (#7)`.** | No rate or bunching margin may be inferred from the artificial terminal condition or from decay of a neighboring tail. |
+| V4.4 | \(\Gamma_\mu\) has mixed total-three state regularity and two external parameter derivatives. | No parameter-differentiated actual graph grid is available. | Analytic proof only. | **`NOT NUMERICALLY RESOLVED`; regularity statement is `RIGOROUS-ONLY (#7)`.** | Smooth-looking plotted curves do not establish mixed derivatives or uniform regularity. |
+| V4.5 | Graph orbits remain in the positive outer channel, reach \(u=+\infty\) only at infinite physical distance, and satisfy four physical asymptotic relations. | Physical density/asymptotic diagnostics use the saved matched candidate outer leg and an independent finite-horizon reference tail at common \(Q\): `COMPUTED/E1`; positivity, energy and scaled-limit checks: `COMPUTED/QA`. | [`vdp_outer.py`](vdp_outer.py), density/diagnostic helpers; candidate assembly in [`run_vdp_master.py`](run_vdp_master.py), `matched_outer_tail_pair`. | **Finite matched-tail evidence.** | Trends on finite \(Q\) do not prove infinite physical distance or the asymptotics on the theorem graph, let alone uniformity over compact families. |
+
+## V5 -- actual `K2 -> K1 -> outer` matching
+
+Analytic source: [Theorem V5](../van-der-pol/CENTRAL_OUTER_MATCHING.md).
+
+The distinction in this section is decisive: **V5 is analytically proved**.
+Configuration v4 now supplies one explicit floating-point matching candidate,
+but the candidate solves a finite-horizon collocation problem and does not
+replace the theorem's uniform tube, adjoint/exchange, uniqueness, or parameter
+regularity arguments.
+
+| Item | Paper conclusion | Numerical object and evidence | Implementation | Current status | Must not be claimed |
+|---|---|---|---|---|---|
+| V5.1 | A subordinate V4 patch has a unique backward saturation through the outer tube, resolved `K1` corner, and `K2` overlap to a central cooriented graph. | One coupled collocation problem starts on the finite-horizon nonlinear-\(W^u\) source, integrates the central leg to \(U=-M\), crosses an explicitly resolved \(K_1\) energy sheet, and joins a finite-horizon outer leg.  Boundary, chart-interface, energy, positivity and arrival-collar residuals are saved: `COMPUTED/E1`/`COMPUTED/QA`. | [`vdp_matched_outer.py`](vdp_matched_outer.py), `compute_matched_outer_candidate`, `central_to_resolved_k1`, `resolved_k1_rhs_r1`, and `resolved_k1_to_outer_normal`; output in [`v4_v5_matched_candidate.json`](results/vdp_v1_v7/v4_v5_matched_candidate.json). | **One connected three-piece candidate implemented; theorem backward saturation remains `NOT_INTERVAL_VALIDATED`.** | A converged finite-horizon BVP is not the unique invariant tube, a \(K_2\) overlap theorem, or uniform orientation control. |
+| V5.2 | The matched central graph converges to the frozen algebraic sheet with \(O(r)\) control and two parameter derivatives. | The candidate records one source phase, central flight time, seam state, label state, and leading-sheet comparison at one parameter point: `COMPUTED/E1`/`COMPUTED/QA`. | [`vdp_matched_outer.py`](vdp_matched_outer.py), `k1_center_graph_leading_guess` and `compute_matched_outer_candidate`. | **Point-candidate comparison only; uniform \(O(r)\) and mixed derivatives are `RIGOROUS-ONLY (#7)`.** | One \(r\)-value and one fitted phase cannot establish convergence order, a graph over a patch, uniqueness, or parameter jets. |
+| V5.3 | The endpoint-anchored adjoint continues, the positive-parameter exchange stays positive, the source-phase/flight-time operator is invertible, and a unique source orbit enters the matched graph. | The coupled BVP computes a source phase/flight time and an independent finite-horizon same-section root residual.  The frozen formula \(24B_2B_3=144\sqrt3\) remains an exact analytic comparison: `COMPUTED/E1`/`COMPUTED/QA` plus `EXACT/DERIVED`. | [`vdp_matched_outer.py`](vdp_matched_outer.py), `compute_matched_outer_candidate` and `finite_horizon_gamma_continuation`; analytic comparison in [`vdp_outer.py`](vdp_outer.py). | **Finite-horizon matching root candidate computed; adjoint, exchange, operator invertibility, and uniqueness remain `NOT NUMERICALLY RESOLVED`/`RIGOROUS-ONLY (#7)`.** | The BVP's small root residual is not the theorem's endpoint adjoint pairing, Jacobian singular-value bound, unique source incidence, or a uniform positive-parameter exchange estimate. |
+| V5.4 | Truncated action composes exactly and is covariant when any `K2`, `K1`, or outer cut moves. | The saved outer leg supports finite-grid cut/reference/gauge balances, but no complete action split across the central, resolved-\(K_1\), and outer pieces is stored. | [`vdp_outer.py`](vdp_outer.py), finite-cut helpers; candidate segment in [`v4_v5_matched_candidate.npz`](results/vdp_v1_v7/v4_v5_matched_candidate.npz). | **Outer finite-cut candidate checks implemented; full V5 branch covariance is `NOT NUMERICALLY RESOLVED`.** | Generic or outer-only quadrature identities are not moving-cut covariance across every chart of the selected V5 orbit. |
+
+## V5A -- algebraic length and action finite parts
+
+Analytic source: [Theorem V5A](../van-der-pol/OUTER_ALGEBRAIC_FINITE_PART.md).
+
+| Item | Paper conclusion | Numerical object and evidence | Implementation | Current status | Must not be claimed |
+|---|---|---|---|---|---|
+| V5A.1 | On the actual V4 graph, physical length and action have the exact common-\(Q=z^{-2}\) densities. | Exact density formulas are evaluated on the saved outer leg of the coupled V4/V5 candidate and an independent finite-horizon reference on exactly the same \(Q\)-grid: `EXACT/DERIVED`/`COMPUTED/E1`; energy and positivity checks: `COMPUTED/QA`. | [`run_vdp_master.py`](run_vdp_master.py), `matched_outer_tail_pair`; [`vdp_outer.py`](vdp_outer.py), `outer_physical_densities`. | **Candidate-dependent finite-grid realization complete.** | The candidate's outer leg is not the certified infinite V4 graph. |
+| V5A.2 | Same-\(Q\) shadowing is exponentially flat and the reference-subtracted length/action limits exist with mixed two-jets. | The matched candidate and reference tail supply cumulative same-\(Q\) density differences and finite-cut subtractions: `COMPUTED/E1`; tail, energy and cut diagnostics: `COMPUTED/QA`. | [`vdp_outer.py`](vdp_outer.py), `reference_subtracted_integrals` and `outer_asymptotic_diagnostics`; outputs in [`v5a_outer_finite_part.json`](results/vdp_v1_v7/v5a_outer_finite_part.json) and [`v4_v5a_outer.npz`](results/vdp_v1_v7/v4_v5a_outer.npz). | **Matched finite-horizon candidate implemented; improper limits remain `NOT NUMERICALLY RESOLVED`.** | A small finite-\(Q\) gap or apparent plateau is not exponential flatness on \([Q_*,\infty)\), existence of the improper limit, or a mixed-jet result. |
+| V5A.3 | The complete reference length/action counterterms diverge with the stated leading orders. | Raw reference counterterms and leading-order comparisons on a finite \(Q\) ladder: `COMPUTED/E1` and `COMPUTED/QA`. | [`vdp_outer.py`](vdp_outer.py), `reference_subtracted_integrals`, `leading_counterterm_differences`, and `outer_asymptotic_diagnostics`. | **Partial proxy; infinite asymptotic statement is `RIGOROUS-ONLY (#7)`.** | Finite-\(Q\) growth does not prove divergence or the complete remainder estimates on the actual graph. |
+| V5A.4 | The finite parts are covariant under cut, reference, admissible coordinate, and exact-gauge changes and compose strictly with every finite V5 branch. | Cut/reference balances and exact endpoint-coboundary algebra are evaluated on data whose neighboring tail is the saved V5 candidate outer leg: `COMPUTED/QA`/`EXACT/DERIVED`. | [`vdp_outer.py`](vdp_outer.py), `numerical_cut_balance`, `reference_change_balance`, `gauge_composition_balance`, and `terminal_potential_transfer`; assembly in [`run_vdp_master.py`](run_vdp_master.py). | **Finite-grid candidate checks implemented; infinite covariance and full-chart V5 composition remain `NOT_NUMERICALLY_RESOLVED`.** | A same-tail finite-cut identity does not prove reference/coordinate covariance at infinity or composition across the central and \(K_1\) cuts. |
+
+## V6 -- exhaustive return/first-exit relation and branch action
+
+Analytic source: [Theorem V6](../van-der-pol/TWO_END_RETURN_EXIT_AND_PDE.md)
+and the bounded [coding import](../van-der-pol/RETURN_EXIT_CODING_IMPORT.md).
+
+| Item | Paper conclusion | Numerical object and evidence | Implementation | Current status | Must not be claimed |
+|---|---|---|---|---|---|
+| V6.1 | In every chart of the finite marked cover, all actual return, cut, lateral, pole, and algebraic faces pull back cleanly to one local exact source cell with uniform margins; the physical relation descends on overlaps. | A deterministic reversible eigenframe, one numerically solved zero-energy outgoing section, and finite first-event integrations: `COMPUTED/E1`; energy, reconstruction, hit-speed, and event diagnostics: `COMPUTED/QA`. | [`vdp_return_coding.py`](vdp_return_coding.py), `zero_energy_source_state`, `integrate_first_event`, and `sample_first_event_atlas`. | **One finite numerical presentation implemented; the theorem cells, overlap recodings, and physical descent are `NOT NUMERICALLY RESOLVED`.** | The numerical phase/transverse coordinates are not V2's exact phase/action coordinates and do not prove the optional global marking T2G; the finite return sphere, stable cut, \(U\)-gate, and escape sphere are not all the physical V6 faces. |
+| V6.2 | The literal connected-component census is disjoint and exhaustive for every \(n\ge N\), with both target-sign returns, their common cut, and the selected pole/algebraic cells nonempty. | The frozen finite atlas has 166 samples: 163 `pole_gate_proxy`, one `return+`, one `return-`, and one `stable_cut_proxy`.  In addition, periodic anchors B1 and A2 are integrated as complete finite source-to-source returns with negative and positive target transverse-sign proxies, respectively: `COMPUTED/E1`. | [`vdp_return_coding.py`](vdp_return_coding.py), first-event sampling; [`vdp_complete_branches.py`](vdp_complete_branches.py), `integrate_complete_return_branch`; records in [`v6_events.json`](results/vdp_v1_v7/v6_events.json). | **Both proxy return signs represented by complete candidates; exhaustiveness is `RIGOROUS-ONLY (#7)`.** | Numerical transverse signs are not exact V2 action signs.  Two selected returns and a finite grid do not prove no gaps/no overlaps, connected cells, all \(n\ge N\), or a pole/algebraic end census. |
+| V6.3 | Each chartwise return branch has a completed cross form, exponentially thin scale \(e^{-2\pi\alpha n/\beta}\), contraction, and limiting mixed two-jets. | Event times and a local winding proxy are available, but no theorem-coordinate cross-form fit or connected strip computation is implemented. | [`vdp_return_coding.py`](vdp_return_coding.py), `integrate_first_event`; periodic slope utilities in [`rfsn_numerics.py`](rfsn_numerics.py) are only indirect diagnostics. | **`NOT NUMERICALLY RESOLVED`; uniform/all-winding claims are `RIGOROUS-ONLY (#7)`.** | Angular variation or family-relative winding is not a chartwise V6 edge label, a strip width, a bounded overlap recoding, or a cross-form contraction estimate. |
+| V6.4 | Every return and exit branch has physical length/action asymptotics; pole and algebraic exits receive the compatible V3 and V5A finite parts. | B1 and A2 each consist of a global and local-passage segment on one continued return; physical length and action are augmented through both pieces.  The frozen records give B1 \((L,\mathscr A)\approx(1.804227066,4.790934975\times10^{-5})\) and A2 \((2.159739115,4.790930102\times10^{-5})\), with segment composition and independent quadrature checks: `COMPUTED/E1`/`COMPUTED/QA`. | [`vdp_complete_branches.py`](vdp_complete_branches.py), `CompleteReturnBranch` and `integrate_complete_return_branch`; dense arrays in [`v6_complete_branches.npz`](results/vdp_v1_v7/v6_complete_branches.npz). | **Two ordinary finite return records complete; exit branches and all-winding asymptotics remain unresolved.** | B1/A2 are numerical-family metadata, not certified V6 edge labels.  Ordinary returns have zero end counterterms; they do not validate a pole/algebraic exit or uniform \(n\to\infty\) law. |
+| V6.5 | The branch action is an exact cocycle; finite-cut transfers telescope and closed actions are invariant under admissible exact gauges. | For each B1/A2 return, the two stored segment contributions reproduce the directly augmented total length/action; the branch records are hash-bound in a candidate contract: `COMPUTED/QA`.  Endpoint-coboundary and V5A finite-cut algebra are checked separately. | [`vdp_complete_branches.py`](vdp_complete_branches.py), branch composition diagnostics; [`v6_candidate_contract.json`](results/vdp_v1_v7/v6_candidate_contract.json); helpers in [`vdp_outer.py`](vdp_outer.py). | **Finite two-segment composition computed; the theorem cocycle on composable edge families is `NOT NUMERICALLY RESOLVED`/`RIGOROUS-ONLY (#7)`.** | Segment additivity inside two trajectories is not a branch-map pullback identity, a multi-edge telescoping computation, closed-action gauge invariance on a certified cycle, or an exhaustive cocycle. |
+
+## V7 -- coded stationary PDE patterns
+
+Analytic source: [Theorem V7](../van-der-pol/TWO_END_RETURN_EXIT_AND_PDE.md).
+
+Here too the two statuses must remain separate.  **The paper proves** the
+coding conclusions for the graph established in V6.  Numerically, that graph
+and its theorem-coordinate edges are not explicit, so a computed orbit can be
+a genuine stationary spatial profile while its V7 word is still unresolved.
+
+| Item | Paper conclusion | Numerical object and evidence | Implementation | Current status | Must not be claimed |
+|---|---|---|---|---|---|
+| V7.1 | The two-sided edge shift is conjugate to the recurrent set; one-sided words give stable plaques and finite words end in a unique first-exit component. | No numerical conjugacy or complete theorem-edge itinerary map is available. | Analytic proof only; [`vdp_return_coding.py`](vdp_return_coding.py) supplies only numerical-section event data. | **`NOT NUMERICALLY RESOLVED`; conjugacy/exhaustiveness is `RIGOROUS-ONLY (#7)`.** | Finite event labels or a list of requested symbols do not establish a conjugacy, stable plaque, or unique terminal component. |
+| V7.2 | Roof and action potentials on recurrent codes have summable variations. | Finite period/action samples can be compared, but no theorem-code variation sequence is presently computed. | [`rfsn_numerics.py`](rfsn_numerics.py), `common_slope_fit`, provides only a finite trend diagnostic. | **`NOT NUMERICALLY RESOLVED`; summability is `RIGOROUS-ONLY (#7)`.** | Decay across a few windings cannot prove summable variations. |
+| V7.3 | Every primitive periodic edge word gives one bounded spatially periodic orbit and stationary PDE profile, with the stated period/action asymptotics. | Five actual reversible zero-energy periodic full-ODE orbits and physical profiles: `COMPUTED/E1`; closure, energy, independent step-halving, stationary-PDE residual, period, and action checks: `COMPUTED/QA`. | [`rfsn_numerics.py`](rfsn_numerics.py), `compute_periodic_orbit`; [`vdp_return_coding.py`](vdp_return_coding.py), `periodic_profile_diagnostics` and `periodic_source_anchor`; records in [`v7_patterns.json`](results/vdp_v1_v7/v7_patterns.json) and arrays in [`v7_periodic.npz`](results/vdp_v1_v7/v7_periodic.npz). | **Five profiles computed and the frozen closure gate passes; V7 word identification is `NOT NUMERICALLY RESOLVED`.**  Current `A/B` and `relative_winding` labels are numerical family labels, not absolute V7 graph edges. | A periodic orbit may not be advertised as realizing a declared primitive or multi-edge V7 word until every section crossing is matched to the V6 itinerary.  A finite slope fit is not the uniform asymptotic theorem. |
+| V7.4 | Every finite admissible word has a unique completed-section homoclinic solution; arbitrarily long words yield multipulse stationary PDE profiles. | Actual symmetric one- through four-pulse full-ODE profiles: the one-pulse profile is the continued primary homoclinic and the two- through four-pulse profiles are full-ODE collocation solutions, not retained superposition guesses: `COMPUTED/E1`.  Solver RMS, boundary, tail, energy, observed-pulse-count, and physical stationary-PDE thresholds form the explicit collocation residual gate: `COMPUTED/QA`. | [`vdp_return_coding.py`](vdp_return_coding.py), `solve_symmetric_multipulse`; execution and aggregate gate in [`run_vdp_master.py`](run_vdp_master.py); records in [`v7_patterns.json`](results/vdp_v1_v7/v7_patterns.json) and arrays in [`v7_multipulses.npz`](results/vdp_v1_v7/v7_multipulses.npz). | **One- through four-pulse full-ODE profiles computed; the two- through four-pulse collocation gates and the frozen aggregate QA check pass.  Declared finite-word itinerary remains `NOT NUMERICALLY_RESOLVED`.** | A superposition initial guess is not evidence, and pulse count alone is not a V7 edge word.  The computed four samples do not numerically establish existence/uniqueness for every finite admissible word. |
+| V7.5 | Every nonperiodic bi-infinite word gives a bounded nonperiodic stationary spatial solution. | Four finite-window records package the computed one- through four-pulse profiles: `COMPUTED/E1` for each finite orbit only. | [`vdp_return_coding.py`](vdp_return_coding.py), `finite_window_approximants`; stored in [`v7_patterns.json`](results/vdp_v1_v7/v7_patterns.json). | **`NOT NUMERICALLY RESOLVED` for a fixed nonperiodic word.**  The requested words remain explicit metadata because the V6 branch-itinerary checker is missing. | A sequence of finite-window approximants is not a numerically constructed infinite orbit.  Common-window convergence, one fixed nonperiodic itinerary, and nonperiodicity must not be asserted without additional evidence. |
+| V7.6 | The inverse scaling turns the spatial orbits into stationary solutions of the original PDE. | Physical \((x,u,v)\) reconstruction and independent finite-difference stationary residuals for the periodic and one- through four-pulse outputs: `COMPUTED/E1` and `COMPUTED/QA`. | [`vdp_return_coding.py`](vdp_return_coding.py), `_physical_profile` and `stationary_pde_residual`; periodic reconstruction also in [`rfsn_numerics.py`](rfsn_numerics.py); aggregate checks in [`qa.json`](results/vdp_v1_v7/qa.json). | **Implemented for every returned numerical profile; the frozen periodic-closure and multipulse residual checks pass.** | A stationary residual does not imply temporal spectral/nonlinear stability, PDE initial-value selection, experimental observability, or membership in a Turing branch. |
+
+## Cross-stage stop conditions and nonclaims
+
+The following boundaries apply to every numerical panel, table, and report:
+
+- The sampled point \((r,a_2,\epsilon)=(0.08,0,1)\), and the declared slices
+  around it, are exploratory; they are not certified to lie in an explicit
+  V2--V7 theorem box.
+- The new V3 source-window orbit, V4/V5 coupled root, V5A common-\(Q\) tail,
+  and B1/A2 returns are finite floating-point candidates.  They cannot be
+  silently promoted to a certified V3 window, the infinite V4 graph, the
+  uniform V5 tube/adjoint/unique root, or the V6 theorem-coordinate face
+  arrangement and cross forms.
+- V5 and V7 are **strictly proved analytic results** in this repository.  Their
+  `NOT NUMERICALLY RESOLVED` entries record missing explicit numerical data or
+  itinerary identification, not a gap in the paper and not negative numerical
+  evidence.
+- Finite sampling never proves uniformity, uniqueness, an exhaustive component
+  census, all \(n\ge N\), an improper limit, a bi-infinite orbit, or summable
+  variations.
+- [`v6_candidate_contract.json`](results/vdp_v1_v7/v6_candidate_contract.json)
+  is a hash-bound replay manifest with `claim_bearing: false` and
+  `final_status: NOT_RUN`; schema validation is not interval validation.
+- The computed high winding is organized by the spatial saddle-focus return
+  mechanism.  It must not be relabelled a canard.  The matched outer orbit may
+  contain slow geometry organized by canards, but neither canard tracking nor a
+  canard theorem is part of this numerical coverage.
+- V7 produces stationary **spatial** patterns.  It does not establish temporal
+  chaos, temporal stability, dynamic selection from initial data, a Turing
+  bifurcation connection, Turing-branch selection, or experimental
+  observability.
+
+The issue can be closed only after each unresolved computational acceptance
+item is either represented by the specified actual object or left explicitly
+open under the stop rule; a schematic panel cannot change an unresolved row.

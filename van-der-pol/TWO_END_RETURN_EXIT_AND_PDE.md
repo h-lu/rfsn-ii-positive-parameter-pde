@@ -70,22 +70,39 @@ In the universal central chart, the exact clock and primitive identities are
 \tag{5}
 \]
 
-Let \((\phi,\nu)\) be the V2 exact action--angle coordinates on the fixed
-physical incoming saddle face, expressed in the common transported phase
-lift.  Once \(N\) and \(\nu_N\) have been chosen below, put
+Restrict the finite V2 exact-chart cover to the final box and write
 
 \[
- \Sigma_\sigma=I_s^\circ\times
-   \{\nu:0<\sigma\nu<\nu_N\},\qquad
- \Sigma_N=\Sigma_+\sqcup\Sigma_-.
+ \mathcal P_{\rm V}=\bigcup_{i=1}^m V_i,\qquad
+ V_i\Subset U_i.
 \tag{6}
 \]
 
-The half-open residual-angle interval inherited from V2 assigns every point
-of (6) one current sign \(\sigma\) and one winding \(n\ge N\).  No point on
-an angular cut is duplicated.  This \(\Sigma_N\), rather than the
-zero-action true-unstable source circle \(S_\mu(\phi)\) used to anchor V3
-and V5, is the high-winding source section.
+On \(U_i\), let \((\phi_i,\nu_i)\) be the exact action--angle coordinates on
+the auxiliary incoming section, transported by the event-free slide to the
+fixed physical saddle face.  The boundary phase is compared with the common
+V2 transported phase, but the nonlinear exact chart and its transverse
+action coordinate remain chartwise.  Once the common threshold \(N\) and
+local widths \(\nu_{N,i}\) have been chosen below, put
+
+\[
+ \Sigma_{N,i,\sigma}=I_{s,i}^\circ\times
+   \{\nu_i:0<\sigma\nu_i<\nu_{N,i}\},\qquad
+ \Sigma_{N,i}=\Sigma_{N,i,+}\sqcup\Sigma_{N,i,-}.
+\tag{6a}
+\]
+
+Each half-open local angular lift assigns one sign and one local winding
+\(n_i\ge N\), without duplicating its cut.  On overlaps, these raw windings
+may differ by a bounded integer recoding.  The global domain is therefore the
+intrinsic part of the fixed physical source collar whose saddle-block
+residence time is at least the common threshold \(T_*\) chosen in Section 4;
+it is denoted by \(\Sigma_{T_*}\).  The finite-atlas descent proved in
+[the local theory layer](../theory/FINITE_MARKED_ATLAS_DESCENT.md) identifies
+the chartwise partitions on \(\Sigma_{T_*}\).  It does not manufacture a
+single global exact \((\phi,\nu)\) chart or a parameter-global winding label.
+The source here is distinct from the zero-action true-unstable circle
+\(S_\mu(\phi)\) used to anchor V3 and V5.
 
 For later rates, fix
 
@@ -109,34 +126,45 @@ where
 
 ### Theorem V6: exhaustive two-end return--first-exit relation
 
-There are an integer \(N\), a width \(\nu_N>0\), and constants
-\(0<\vartheta<1\), \(m_{\rm cf}>0\), \(m_{\rm ev}>0\), and \(C<\infty\),
-uniform on (1), with the following properties.
+There are the finite compatible marked cover (6), an integer \(N\), local
+widths \(\nu_{N,i}>0\), one intrinsic residence threshold \(T_*>0\), and
+constants \(0<\vartheta<1\), \(m_{\rm cf}>0\), \(m_{\rm ev}>0\), and
+\(C<\infty\), uniform after taking the finite maximum or minimum over the
+cover, with the following properties.  Raw coordinates, signs, windings,
+component labels, cross forms, and limiting branch functions below are
+chartwise representatives.  The physical first-event relation, trapped
+Poincaré system, closed periods, and closed actions descend to
+\(\Sigma_{T_*}\).
 
-1. **One actual limiting event arrangement.**  For each source sign, all
-   actual outgoing faces, the actual algebraic entrance, the actual open
-   pole window, and, inside the homoclinic aperture, all return-band faces
-   pull back to one compact reference cell
+1. **One actual limiting event arrangement.**  On each \(V_i\) and for each
+   local source sign, all actual outgoing faces, the actual algebraic
+   entrance, the actual open pole window, and, inside the homoclinic aperture,
+   all return-band faces pull back through the same local limiting template to
+   one compact reference cell
 
    \[
-    Z_{\rm exit}=I_s\times\overline J_0.
+    Z_{{\rm exit},i}=I_{s,i}\times\overline J_{0,i}.
    \tag{9}
    \]
 
-   The pullbacks are state-\(C^3\), mixed-\(C^2\) in \(\mu\), clean and
+   A fixed affine normalization identifies the finitely many abstract
+   rectangles when uniform constants are taken; it does not identify their
+   raw marking coordinates.  The pullbacks are state-\(C^3\), mixed-\(C^2\)
+   in \(\mu\), clean and
    neat at the boundary.  Every active conormal least singular value, empty
    incidence gap, event speed, inactive sign, earlier-event exclusion,
    strict event-order gap, flow-domain buffer, and anchor-to-boundary
    distance is at least \(m_{\rm ev}\) after fixed normalization.  Their
-   labelled connected sign strata exhaust (9).  Common faces and corners
-   are separate lower-dimensional strata with one fixed priority.
+   labelled connected sign strata exhaust (9) in that marking.  Common faces
+   and corners are separate lower-dimensional strata with one fixed priority.
 
-2. **Literal component census.**  The physical flow gives the disjoint
-   identity
+2. **Literal component census.**  On every \(V_i\), the physical flow gives
+   the following disjoint identity in its marked coordinates (the index
+   \(i\) is suppressed on the right-hand side):
 
    \[
    \begin{aligned}
-    \Sigma_N={}&
+    \Sigma_{N,i}={}&
       \bigsqcup_{\substack{\sigma,\sigma'\in\{+,-\}\\n\ge N}}
          \mathcal V_{\sigma,n}^{\sigma'}
       \ \sqcup\!
@@ -151,11 +179,12 @@ uniform on (1), with the following properties.
    \tag{10}
    \]
 
-   Every union in (10) is over nonempty connected components only.  Every
-   point has exactly one winding, current sign, connected-cell label, and
-   first event.  Every return also has exactly one next sign.  The stable
-   cut \(\mathcal I_{\sigma,n}\) is a first-exit face and belongs to neither
-   adjacent return component.  There is no unnamed high-winding component.
+   Every union in (10) is over nonempty connected components only.  In that
+   marking, every point has exactly one winding, current sign,
+   connected-cell label, and first event.  Every return also has exactly one
+   next sign.  The stable cut \(\mathcal I_{\sigma,n}\) is a first-exit face
+   and belongs to neither adjacent return component.  There is no unnamed
+   high-winding component.
 
    For every \((\sigma,n)\), both target-sign returns and their common cut
    are nonempty.  Fix the unique limiting connected cells containing the
@@ -171,11 +200,16 @@ uniform on (1), with the following properties.
    \(E_{\mathrm a,\sigma_{\rm a},n,\ell_{\rm a}}\) and
    \(E_{\mathrm p,\sigma_{\rm p},n,\ell_{\rm p}}\) are nonempty for every
    \(n\ge N\).  No nonemptiness is asserted for every other source sign or
-   cell label.
+   cell label.  On the common represented physical domain in
+   \(V_i\cap V_j\), the two final-\(N\) identities have a finite common
+   refinement and describe the same physical first event; their raw windings
+   need agree only up to a bounded integer recoding.  The physical relation on
+   all of \(\Sigma_{T_*}\) descends from the initial-\(N_i^0\) partitions
+   constructed in Section 4.  A global integer label is not asserted.
 
-3. **Cross forms and mixed two-jets.**  For
-   \(a_\star=(\sigma,n,\sigma')\), the return map has a completed cross
-   form on one fixed rectangle,
+3. **Cross forms and mixed two-jets.**  On \(V_i\), for the local symbol
+   \(a_{\star,i}=(\sigma_i,n_i,\sigma_i')\), the return map has a completed
+   cross form on one fixed rectangle for that marking.  Suppressing \(i\),
 
    \[
     x'=f_{a_\star}(x,y'),\qquad y=g_{a_\star}(x,y'),
@@ -185,7 +219,7 @@ uniform on (1), with the following properties.
    and, with
 
    \[
-    \varepsilon_{\mu,a_\star}=\nu_N^{-1}
+    \varepsilon_{\mu,a_\star}=\nu_{N,i}^{-1}
        \exp\!\left(-{2\pi\alpha_\mu\over\beta_\mu}n\right),
     \qquad \widetilde g_{a_\star}
        =g_{a_\star}/\varepsilon_{\mu,a_\star},
@@ -214,7 +248,9 @@ uniform on (1), with the following properties.
 
    Here and below mixed \(C^2_{z,\mu}\) means all derivatives
    \(D_z^iD_\mu^j\) with \(i+j\le2\), \(j\le2\), in the fixed component
-   charts.
+   charts of one marking.  On overlaps these functions form the compatible
+   mixed-\(C^2\) atlas described above; raw functions from two markings are
+   not asserted to be literally equal.
 
 4. **Physical spatial length and action.**  Put
 
@@ -372,8 +408,9 @@ uniform on (1), with the following properties.
 
 ### Theorem V7: coding and stationary PDE patterns
 
-For every \(\mu\in\mathcal P_{\rm V}\), let \(\mathcal G_N\) be the
-two-vertex graph with vertices \(\{+,-\}\) and all edges
+Fix \(\mu\in\mathcal P_{\rm V}\) and choose any marked chart \(V_i\)
+containing it.  Let \(\mathcal G_{N,i}\) be the local two-vertex graph with
+vertices \(\{+,-\}\) and all edges
 
 \[
  a_\star=(\sigma,n,\sigma'),\qquad
@@ -383,11 +420,12 @@ two-vertex graph with vertices \(\{+,-\}\) and all edges
 
 Then:
 
-1. the two-sided edge shift \(\Sigma_{\mathcal G_N}\) is homeomorphic and
-   conjugate to the set \(K_\mu\subset\Sigma_N\) whose return iterates exist
-   in both directions; one-sided future words give stable plaques, and every
-   point outside the forward trapped set has a finite return word followed by
-   its unique first-exit component;
+1. the two-sided edge shift \(\Sigma_{\mathcal G_{N,i}}\) is homeomorphic
+   and conjugate to the represented trapped set
+   \(K_{\mu,i}\subset\Sigma_{N,i}\subset\Sigma_{T_*}\), where the second
+   inclusion uses the physical section embedding; one-sided future words give
+   stable plaques, and every point outside the forward trapped set has a finite
+   return word followed by its unique physical first-exit component;
 2. the physical roof and action potentials on recurrent codes have summable
    variations;
 3. every primitive periodic edge word gives one bounded spatially periodic
@@ -399,15 +437,25 @@ Then:
    endpoint on the selected primary unstable-image trace in the completed
    section and its last endpoint on the local stable trace;
    the resulting orbit is homoclinic to the homogeneous state and makes the
-   prescribed finite sequence of high-winding visits through the global
-   homoclinic tube.  Arbitrarily long words therefore give localized
+   prescribed finite sequence of high-winding visits through the fixed
+   physical homoclinic tube.  Arbitrarily long words therefore give localized
    multipulse stationary PDE profiles; and
 5. the coding is a statement about the independent spatial variable
    \(\mathsf x\).  Its symbolic dynamics or spatial entropy is not temporal
    chaos of the parabolic PDE, and no temporal spectral or nonlinear
    stability is asserted.
 
-For a fixed cyclic sign word
+On an overlap, the same physical orbit is represented in the other marking,
+after a finite realized-itinerary refinement and bounded winding recoding,
+once the recoded labels lie above that marking's initial local applicability
+threshold.  It need not belong to the other chart's identically truncated
+integer alphabet.  Thus the symbolic words, their integer origins, and the
+finite truncations are local, whereas the stationary profiles, their closed
+spatial periods, and their closed actions are independent of the chosen
+marking.  No one globally labelled shift over the full parameter box is
+asserted.
+
+In one fixed marked chart, for a cyclic sign word
 \(\boldsymbol\sigma=(\sigma_0,\ldots,\sigma_m)\),
 \(\sigma_m=\sigma_0\), and windings
 \(\mathbf n=(n_0,\ldots,n_{m-1})\), assume that the induced cyclic edge
@@ -437,9 +485,11 @@ and closed action
 \]
 
 The constants are the sums of the limiting branch potentials evaluated at
-the limiting cyclic cross-form fixed point.  A nonempty finite cylinder of
-return windings \(n_0,\ldots,n_{m-1}\), followed by a terminal winding
-\(n_m\), similarly has
+the limiting cyclic cross-form fixed point in that marking.  Under a bounded
+winding recoding the constant term changes by the compensating bounded roof
+correction, so the physical equality is unchanged.  A nonempty finite
+cylinder of return windings \(n_0,\ldots,n_{m-1}\), followed by a terminal
+winding \(n_m\), similarly has
 
 \[
  \begin{aligned}
@@ -476,7 +526,8 @@ zero-energy surface \(H_{\rm ph}=0\).
 
 ### 3.1 The algebraic event hypersurface
 
-On the fixed V5 central section, choose a compact subordinate patch
+On the fixed V5 central section, take the compact subordinate patch already
+selected in V5A,
 
 \[
  \mathcal A_\mu
@@ -485,11 +536,11 @@ On the fixed V5 central section, choose a compact subordinate patch
 \tag{31}
 \]
 
-which contains the V5 selected connection in its relative interior.  Choose
-it small enough that its V5 arrival labels on the V5A cut \(z=z_*\) lie in
-the interior of the interval \(I_\beta\) used by V5A.  This is possible
-because the selected label is interior and the compact arrival map is
-mixed-\(C^2\).  More precisely, choose a small ambient neighborhood
+which contains the V5 selected connection in its relative interior.  The
+whole V5 arrival image on the V5A cut \(z=z_*\) lies in the interior of
+\(I_\beta\), with the uniform margin proved in V5A(7c); any further shrinking
+of the patch preserves that containment.  More precisely, choose a small
+ambient neighborhood
 \(\mathcal U_{{\rm c},\mu}\) of the selected target point in the fixed
 central section and take
 \(\mathcal A_\mu\Subset\mathcal U_{{\rm c},\mu}\).  Shrink this
@@ -688,8 +739,9 @@ the limiting source arrangement and its exact-winding continuation.
 
 ## 4. Pullback to one source cell and high-winding stratification
 
-We first freeze the target H1 constants.  Write the compact homoclinic
-transition in the V2 exact section coordinates as
+Fix one \(V_i\), suppress the chart index, and first freeze the target H1
+constants.  Write the compact homoclinic transition in that V2 exact section
+chart as
 
 \[
  (\bar\phi,\bar\nu)
@@ -700,8 +752,10 @@ transition in the V2 exact section coordinates as
 
 V2 transversality modulo flow is exactly
 \(\partial_\psi G^{\rm hom}_\mu\ne0\) after fixing the transverse section
-directions.  Choose a compact interval \(J_\psi\) about the continued
-homoclinic point and then the final parameter box so that
+directions.  As part of the finite core choices made before the radius is
+frozen in Section 3.3, choose a compact interval \(J_\psi\) about the
+continued homoclinic point and include the following lower bound among the
+requirements defining the final parameter box:
 
 \[
  d_*:=\inf_{\mu,\psi\in J_\psi}
@@ -893,9 +947,10 @@ the same estimate by the chain rule and the uniform spare mixed derivative
 (H2-reg); bounded mixed two-jets alone would give qualitative convergence
 but would not justify retaining this quantitative \(C^2\) rate.
 
-Increase \(N\) until the right side of (40), after composition with every
-finite defining function, is smaller than the controlled-isotopy threshold
-set by \(m_{\rm ev}\).  Apply the isotopy first to the whole outgoing cell
+On each \(V_i\), increase an initial threshold \(N_i^0\) until the right side
+of (40), after composition with every finite defining function, is smaller
+than the controlled-isotopy threshold set by \(m_{\rm ev}\).  Apply the
+isotopy first to the whole outgoing cell
 and then, relative to its homoclinic-cell boundary, to the pulled-back
 return faces.  Compact first-hit stability preserves every strict ordering
 inequality.  This gives a componentwise bijection between every limiting
@@ -909,15 +964,54 @@ proves (10)--(11).  This proof is whole-cell: it does not extrapolate a
 component census from the two selected end orbits.
 
 The same clock inversion and finite-dimensional matching equations give
-(12)--(15).  Thus items 1--3 of Theorem V6 follow.
+(12)--(15).  Repeat this construction on the finite cover (6), retain the
+initial thresholds \(N_i^0\), and take the minimum of all strict margins.  The
+local clock estimates also give
+
+\[
+ \left|n_i-\frac{\beta_\mu}{2\pi}
+       \mathcal T_{{\rm sf},\mu}\right|\le C_i.
+\tag{40a}
+\]
+
+Choose \(T_*\) so large that (40a) implies
+\(\mathcal T_{{\rm sf},\mu}\ge T_*\Rightarrow n_i\ge N_i^0\) in every
+applicable chart.  All local H1--H2, terminal, cross-form, exact-action, and
+coding conclusions have now been proved before any descent is invoked.
+Proposition 1 of
+[the finite marked-atlas descent note](../theory/FINITE_MARKED_ATLAS_DESCENT.md)
+then identifies the local decompositions with one physical exhaustive
+first-event relation on \(\Sigma_{T_*}\).  It also identifies the trapped
+Poincaré maps and the compatible mixed-\(C^2\) branch data on overlaps,
+allowing only bounded recoding.
+
+Let \(K\) be the maximum of the finitely many overlap recoding bounds, let
+\(C_{\rm res}=\max_i C_i\), and let
+\(\beta^*=\sup_{\mathcal P_{\rm V}}\beta_\mu\).  Now choose the single
+displayed integer \(N\) so that
+
+\[
+ N\ge\max_iN_i^0+K,\qquad
+ \frac{2\pi}{\beta^*}(N-C_{\rm res})\ge T_*.
+\tag{40b}
+\]
+
+Shrink each local width \(\nu_{N,i}\) to retain only branches with
+\(n_i\ge N\).  Equation (40a) and (40b) put every such entire branch, and
+hence every V7 trapped set used below, inside \(\Sigma_{T_*}\).  On an
+overlap its recoded label is still above the other chart's initial threshold,
+although it need not be at least that chart's final displayed \(N\).  Thus
+items 1--3 of Theorem V6 follow without a global exact saddle chart, with the
+domain and threshold convention stated in Section 2.
 
 ## 5. Physical length, the two finite parts, and exact composition
 
-The imported saddle-passage clock is \(\xi\), and its normalized action
-uses \(P\,dU-Q\,dV\).  Multiplying by the exact factors (5) gives (16)--
-(18); on the positive compact box these factors and all of their parameter
-derivatives are bounded.  In a local exact gauge the action density
-vanishes quadratically at the saddle, so the action-gluing lemma applies.
+In one marked chart, the imported saddle-passage clock is \(\xi\), and its
+normalized action uses \(P\,dU-Q\,dV\).  Multiplying by the exact factors (5)
+gives (16)--(18); on the positive compact box these factors and all of their
+parameter derivatives are bounded.  In the local exact gauge the action
+density vanishes quadratically at the saddle, so the action-gluing lemma
+applies.
 
 On an algebraic component, the compact arrival map from Section 3.1 lands
 inside the V5A label interval.  Compose the finite source-to-\(z_*\) branch
@@ -952,7 +1046,12 @@ rate after two derivatives.  Equation (24) is the ambient endpoint
 derivative of one orbit integral; its restriction proves (25), and
 splitting the same integral proves (26).  The moving-cut identities of V3,
 V5, and V5A show that all intermediate segment transfers cancel exactly.
-This proves Theorem V6(4)--(5).
+On an overlap, a change of marking consists of event-free section slides,
+exact chart gauges, and a finite cut refinement.  Proposition 1 of the local
+finite-atlas note shows that the resulting endpoint coboundaries telescope,
+including after the V3 or V5A terminal limit.  Hence the physical length,
+closed action, and first-exit finite parts represented here are compatible
+atlas data.  This proves Theorem V6(4)--(5).
 
 For a fixed finite itinerary, repeated use of (26) gives (30).  For a
 cyclic word, the cross-form equations on the product of its section
@@ -963,10 +1062,12 @@ gives (29).
 
 ## 6. Coding, multipulses, and the original PDE
 
-The return strips in (10), the full sign adjacency, (12)--(15), and the
-strict first-exit partition satisfy the frozen countable coding theorem.
-This proves Theorem V7(1)--(2), the periodic codes, and the bi-infinite
-aperiodic codes.
+In each marked chart, the return strips in (10), the full sign adjacency,
+(12)--(15), and the strict first-exit partition satisfy the frozen countable
+coding theorem.  This proves the local symbolic statements in Theorem
+V7(1)--(2), the periodic codes, and the bi-infinite aperiodic codes.  The
+finite-atlas descent identifies their physical Poincaré systems and profiles
+on overlaps, but retains the bounded recoding of raw words.
 
 For completeness, multipulses use the completed, not merely open, branch
 boxes.  Let \(\overline\Sigma\) be the completed section; its regular part
@@ -1046,30 +1147,35 @@ core excursions.
 
 ## 7. Dependency and interpretation audit
 
-The proof uses the following chain and no shorter one:
+The proof uses the following dependency chain:
 
 \[
- \mathrm{V1}\longrightarrow\mathrm{V2}
- \longrightarrow
- \begin{cases}
-  \mathrm{V3},\\
-  \mathrm{V4}\longrightarrow\mathrm{V5}\longrightarrow\mathrm{V5A}
- \end{cases}
- \longrightarrow\mathrm{V6}\longrightarrow\mathrm{V7}.
+\begin{gathered}
+ \mathrm{V1}\longrightarrow\mathrm{V2}\longrightarrow\mathrm{V3},\\
+ \mathrm{V1}\longrightarrow\mathrm{V4},\\
+ (\mathrm{V2}+\mathrm{V4}+\mathrm{T1})
+    \longrightarrow\mathrm{V5}\longrightarrow\mathrm{V5A},\\
+ (\mathrm{V2}+\mathrm{V3}+\mathrm{V5A}+\mathrm{T2})
+    \longrightarrow\mathrm{V6}\longrightarrow\mathrm{V7}.
+\end{gathered}
 \tag{46}
 \]
 
 - V1 supplies the physical exact Hamiltonian structure and primitive.
-- V2 supplies the saddle-focus, transverse homoclinic, local passage,
-  compact event atlas, common phases, and finite return targets.
+- V2 supplies the saddle-focus, transverse homoclinic, parameter-local exact
+  passages, compact physical event atlas, common transported anchor phase,
+  and finite return targets.
 - V3 supplies the actual thickened pole channel, finite physical distance,
   and pole finite part.
 - V4--V5 supply the actual matched algebraic event patch and its whole
-  future-staying tube.
+  future-staying tube; T1 is the relative saddle-NHIM input used inside V5.
 - V5A supplies the reference-normalized algebraic physical-length and
   action finite parts.
 - The frozen modular import supplies only H1--H2 high-winding selection,
   component persistence, exact local gluing, cross forms, and coding.
+- T2, the local finite-marked-atlas proposition, descends those chartwise modules
+  to the physical first-event relation and invariant closed observables; it
+  does not assert a global winding alphabet.
 
 The following are not conclusions of V6--V7:
 
@@ -1080,6 +1186,7 @@ The following are not conclusions of V6--V7:
 - temporal chaos or temporal entropy of the PDE semiflow; or
 - experimental realization.
 
-Thus V6 is a two-end **continuation and assembly** theorem on the positive
-box (1), not a claim that the singular ends persist unchanged.  V7 concerns
+Thus V6 is a two-end **continuation and finite-atlas assembly** theorem on the
+positive box (1), not a claim that the singular ends persist unchanged or
+that one exact saddle chart globalizes over the parameter box.  V7 concerns
 stationary spatial dynamics only.

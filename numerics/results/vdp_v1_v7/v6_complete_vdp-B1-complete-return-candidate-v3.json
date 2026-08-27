@@ -1,0 +1,180 @@
+{
+  "branch_id": "vdp-B1-complete-return-candidate-v3",
+  "branch_type": "finite_return",
+  "chart": {
+    "coordinate_status": "numerical_linear_reversible_eigenframe_not_exact_V2_chart",
+    "incoming_face": "stable_radius_equals_source_radius",
+    "local_return_radius": 0.01,
+    "phase_name": "numerical_canonical_eigenplane_phase",
+    "source_face": "unstable_radius_equals_source_radius",
+    "source_radius": 0.01,
+    "transverse_name": "numerical_transverse_coordinate_not_exact_action"
+  },
+  "claim_bearing": false,
+  "diagnostics": {
+    "action_scale": 3.2768000000000005e-06,
+    "configured_local_return_radius": 0.01,
+    "energy_abs_max": 8.576472865229334e-14,
+    "energy_drift": 5.94246873930615e-14,
+    "incoming_event_speed": -0.007059440199703227,
+    "incoming_face_residual": 1.9081958235744878e-17,
+    "incoming_unstable_radius": 0.002015454214922377,
+    "length_scale_dx_dxi": 0.08,
+    "local_residence_time_xi": 2.265799629889269,
+    "local_residence_turns_proxy": 0.25499204699150496,
+    "local_return_equals_source_radius": true,
+    "minimum_escape_margin": 49.92178159881975,
+    "minimum_terminal_gate_margin": 8.778044987809022,
+    "physical_action_augmented": 4.7909349748229135e-05,
+    "physical_action_resampled_quadrature": 4.790934974821595e-05,
+    "physical_length_augmented": 1.8042270661823492,
+    "resampled_action_difference": -1.3186608922854948e-17,
+    "segment_action_composition_residual": 0.0,
+    "segment_length_composition_residual": 0.0,
+    "solver_atol": 1e-13,
+    "solver_max_step": 0.02,
+    "solver_method": "DOP853",
+    "solver_rtol": 1e-11,
+    "solver_success": true,
+    "source_face_residual": 4.73232564246473e-15,
+    "source_reconstruction_defect": 6.7590559974339426e-12,
+    "source_stable_radius": 0.0020154050272768653,
+    "source_target_state_defect_inf": 1.7341588357758925e-07,
+    "target_event_speed": 0.007059440747976646,
+    "target_face_residual": 1.9081958235744878e-17,
+    "target_reconstruction_defect": 4.235947377314472e-12,
+    "target_sign_is_not_unstable_first_coordinate_sign": true,
+    "target_stable_radius": 0.002015454293932137,
+    "target_unstable_first_coordinate": 0.007180728078445679,
+    "winding_status": "PROXY_ONLY_UNCALIBRATED_NO_INTEGER_V6_LABEL"
+  },
+  "event": {
+    "incoming_time_xi": 20.287038697389693,
+    "local_residence_turns_proxy": 0.25499204699150496,
+    "physical_event": "return",
+    "return_time_xi": 22.552838327278963,
+    "target_sign_semantics": "sign of target numerical transverse coordinate; not the sign of the first unstable eigen-coordinate",
+    "winding_status": "PROXY_ONLY_UNCALIBRATED_NO_INTEGER_V6_LABEL"
+  },
+  "evidence_status": "COMPUTED/E1_NONRIGOROUS_COMPLETE_RETURN_CANDIDATE",
+  "model": "van_der_pol_stationary_central_ode",
+  "nonclaims": [
+    "This is a floating-point candidate, not outward-rounded validation.",
+    "The transverse signs are not the exact V2 action signs.",
+    "No integer V6 winding label or exhaustive return cell is certified.",
+    "A single return trajectory does not validate a V6 cross form."
+  ],
+  "observables": {
+    "action_counterterm": 0.0,
+    "length_counterterm": 0.0,
+    "normalization": "ordinary finite return branch",
+    "physical_action": 4.7909349748229135e-05,
+    "physical_length": 1.8042270661823492
+  },
+  "parameters": {
+    "a2": {
+      "binary64_hex": "0x0.0p+0",
+      "decimal": "0.0"
+    },
+    "epsilon": {
+      "binary64_hex": "0x1.0000000000000p+0",
+      "decimal": "1.0"
+    },
+    "r": {
+      "binary64_hex": "0x1.47ae147ae147bp-4",
+      "decimal": "0.08"
+    }
+  },
+  "provenance": {
+    "configuration_version": 4,
+    "family": "B",
+    "relative_winding_is_not_V6_label": true,
+    "relative_winding_metadata": 1,
+    "source": "periodic_source_anchor from current master run"
+  },
+  "schema_version": "rfsn-vdp-sampled-branch/1",
+  "segments": [
+    {
+      "end_face": "incoming_stable_radius",
+      "end_state": [
+        0.004055377232101722,
+        -0.00709093999826073,
+        -0.005914068320832013,
+        -0.0015356878053162308
+      ],
+      "name": "global_excursion",
+      "physical_action": 4.7909225749486506e-05,
+      "physical_length": 1.6229630957911987,
+      "start_face": "outgoing_unstable_radius",
+      "start_state": [
+        0.0040554020828554955,
+        0.0070909393784836005,
+        -0.005914044358061063,
+        0.0015356527706468924
+      ],
+      "xi_duration": 20.287038697389693,
+      "xi_end": 20.287038697389693,
+      "xi_start": 0.0
+    },
+    {
+      "end_face": "outgoing_unstable_radius",
+      "end_state": [
+        0.004055280842111075,
+        0.0070909078986231295,
+        -0.00591421777394464,
+        0.0015355150921229537
+      ],
+      "name": "local_saddle_passage",
+      "physical_action": 1.2399874262959947e-10,
+      "physical_length": 0.1812639703911505,
+      "start_face": "incoming_stable_radius",
+      "start_state": [
+        0.004055377232101722,
+        -0.00709093999826073,
+        -0.005914068320832013,
+        -0.0015356878053162308
+      ],
+      "xi_duration": 2.265799629889269,
+      "xi_end": 22.552838327278963,
+      "xi_start": 20.287038697389693
+    }
+  ],
+  "source": {
+    "linear_coordinates": [
+      0.00718089838779042,
+      -0.006959504173741373,
+      -0.0014456937613400796,
+      -0.0014042175659046696
+    ],
+    "phase": 5.513442718303675,
+    "sign_proxy": "negative",
+    "stable_radius": 0.0020154050272768653,
+    "state": [
+      0.0040554020828554955,
+      0.0070909393784836005,
+      -0.005914044358061063,
+      0.0015356527706468924
+    ],
+    "transverse_coordinate_proxy": -0.002015399155474445,
+    "unstable_radius": 0.010000000000004733
+  },
+  "target": {
+    "linear_coordinates": [
+      0.007180728078445679,
+      -0.006959679896620351,
+      -0.00144569491230041,
+      -0.0014042870901201788
+    ],
+    "phase": 5.513418247136333,
+    "sign_proxy": "negative",
+    "stable_radius": 0.002015454293932137,
+    "state": [
+      0.004055280842111075,
+      0.0070909078986231295,
+      -0.00591421777394464,
+      0.0015355150921229537
+    ],
+    "transverse_coordinate_proxy": -0.002015448423046447,
+    "unstable_radius": 0.009999999999999981
+  }
+}

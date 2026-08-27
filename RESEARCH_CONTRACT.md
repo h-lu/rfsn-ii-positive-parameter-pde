@@ -3,10 +3,31 @@
 ## Objective
 
 Establish a genuine positive-parameter PDE application of the RFSN-II
-spatial-dynamics mechanism without changing the claims of the existing
-flagship manuscript.
+spatial-dynamics mechanism while treating the existing flagship manuscript as
+a read-only, revision-pinned source.  When the application exposes a missing
+abstract lemma or an unnecessarily narrow abstract formulation, state and
+prove the required amendment in this repository.  Such a result belongs to
+this repository only and does not alter the flagship manuscript or its claim
+status.
 
-The programme has two logically independent tracks.
+The programme has one local theory layer and two model tracks.
+
+### Track T: local abstract amendments
+
+Maintain the exact boundary between the frozen RFSN-II inputs and abstract
+results proved here.  The first seam obligations are:
+
+1. a parameter-dependent relative overflowing invariant-manifold result with
+   the boundary, regularity, uniformity, and local-uniqueness clauses actually
+   used at the resolved \(K_1\) corner; and
+2. a precise marked-coordinate interface from V2 to V6.  The default route is
+   descent from the finite compatible marked atlas already supplied by the
+   frozen source.  A single global angle/action chart may be used only if a
+   separate globalization criterion is proved for this parameter family.
+
+The provenance and status rules for this layer are fixed in
+[`theory/`](theory/README.md).  A local abstract theorem is not an upstream
+edit and must not be attributed to the flagship baseline.
 
 ### Track B: Brusselator localized stationary pattern
 
@@ -49,6 +70,17 @@ change of cut.
 
 ## Proof order
 
+### Local theory layer
+
+1. Freeze the exact flagship revision and the imported theorem clauses.
+2. State each locally needed abstract amendment independently of the van der
+   Pol formulas, with its full boundary and parameter hypotheses.
+3. Prove the amendment or retain it as Proposed; do not repair a missing
+   implication by strengthening prose in the application.
+4. Give a clause-by-clause application map before using the result in V2--V7.
+5. Use finite compatible marked charts unless a global marked trivialization
+   has itself been proved.
+
 ### Brusselator
 
 1. Derive the positive-parameter stationary system and blow-up coordinates.
@@ -80,6 +112,11 @@ change of cut.
    only after the analytic hypotheses and observables have been frozen.
 
 ## Completion criteria
+
+Track T is complete for a particular seam only when the abstract statement,
+proof, frozen-source boundary, and model-specific hypothesis map all appear in
+this repository.  A theorem name, a generic citation to normal hyperbolicity,
+or a numerical example does not discharge an abstract seam.
 
 Track B is complete only when the theorem is stated in original PDE variables,
 all small-parameter quantifiers are explicit, the orbit is proved homoclinic in
@@ -131,6 +168,8 @@ The first-stage projects do not claim:
 - that Hamiltonian action is a chemical free energy;
 - a global phase-space partition outside the fixed source cell;
 - a positive-parameter Brusselator exact-action theorem.
+- incorporation of any local abstract amendment into the read-only flagship
+  manuscript.
 
 Temporal stability requires a separate Bloch/Evans and nonlinear-semigroup
 analysis.  Experimental validation requires a specified physical system,

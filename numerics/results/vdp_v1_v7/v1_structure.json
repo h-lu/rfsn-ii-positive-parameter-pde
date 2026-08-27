@@ -1,0 +1,86 @@
+{
+  "bridge": {
+    "action_scaling_endpoint_defect": 3.9979955110402976e-19,
+    "central_action_endpoint": 14.620758961433372,
+    "central_energy_drift": 4.699684968861962e-12,
+    "clock_relations": {
+      "delta": 0.0064,
+      "x_per_xi": 0.08,
+      "x_per_y": 0.0064,
+      "xi_per_x": 12.5
+    },
+    "energy_scaling_defect_inf": 1.1104394648953077e-16,
+    "evidence_status": "EXACT/DERIVED formulas with COMPUTED/QA orbit evaluation",
+    "fast_clock_pushforward_defect_inf": 2.933137494627024e-15,
+    "physical_action_endpoint": 4.7909302964824484e-05,
+    "physical_energy_drift": 2.220446049250313e-16,
+    "physical_pushforward_defect_inf": 2.933137494627024e-15,
+    "roundtrip_state_defect_inf": 1.3552006739026012e-12,
+    "scaled_central_action_endpoint": 4.7909302964824884e-05
+  },
+  "independent_refinement": {
+    "evidence_status": "COMPUTED/QA independent physical/central integrations",
+    "rows": [
+      {
+        "action_endpoint_defect": 3.267440517051867e-09,
+        "central_solver_success": true,
+        "endpoint_state_defect_inf": 0.00021832544871092097,
+        "energy_scaling_defect_inf": 1.3350824632783315e-16,
+        "max_step_xi": 0.5,
+        "physical_solver_success": true,
+        "tolerance": 1e-05,
+        "trajectory_state_defect_inf": 0.00040353806420445615
+      },
+      {
+        "action_endpoint_defect": 4.417930390553278e-12,
+        "central_solver_success": true,
+        "endpoint_state_defect_inf": 2.7958322468268904e-07,
+        "energy_scaling_defect_inf": 1.2640815282338737e-16,
+        "max_step_xi": 0.25,
+        "physical_solver_success": true,
+        "tolerance": 1e-07,
+        "trajectory_state_defect_inf": 2.0619350016293225e-06
+      },
+      {
+        "action_endpoint_defect": 2.318688318604656e-15,
+        "central_solver_success": true,
+        "endpoint_state_defect_inf": 2.4515778296319013e-10,
+        "energy_scaling_defect_inf": 1.2948889780872709e-16,
+        "max_step_xi": 0.125,
+        "physical_solver_success": true,
+        "tolerance": 1e-09,
+        "trajectory_state_defect_inf": 1.1436670277475969e-08
+      },
+      {
+        "action_endpoint_defect": 2.8291578064651435e-16,
+        "central_solver_success": true,
+        "endpoint_state_defect_inf": 1.3415313304676602e-10,
+        "energy_scaling_defect_inf": 1.1334405462548604e-16,
+        "max_step_xi": 0.0625,
+        "physical_solver_success": true,
+        "tolerance": 1e-11,
+        "trajectory_state_defect_inf": 1.3415313304676602e-10
+      }
+    ],
+    "xi_span": [
+      -3.0,
+      3.0
+    ]
+  },
+  "status": "EXACT/DERIVED plus COMPUTED/QA",
+  "symbolic": {
+    "evidence_status": "EXACT/DERIVED symbolic identities",
+    "passed": true,
+    "residuals": {
+      "central_energy_reversibility": "0",
+      "central_hamiltonian_contraction": "0",
+      "central_reverser_primitive": "0",
+      "central_reverser_vector_field": "0",
+      "physical_first_integral": "0",
+      "physical_hamiltonian_contraction": "0",
+      "physical_reverser_primitive": "0",
+      "physical_reverser_two_form": "0",
+      "physical_reverser_vector_field": "0"
+    }
+  }
+}

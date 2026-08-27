@@ -1,0 +1,223 @@
+{
+  "checks": {
+    "frozen_configuration_interface_consumed": true,
+    "v1_bridge_action": true,
+    "v1_bridge_roundtrip": true,
+    "v1_independent_clock_refinement": true,
+    "v1_symbolic_exact": true,
+    "v2_all_slice_solvers": true,
+    "v2_passage_phase_slopes": true,
+    "v2_passage_time_slopes": true,
+    "v3_action_density_crosscheck": true,
+    "v3_field_crosscheck": true,
+    "v3_gate_event_and_energy": true,
+    "v3_independent_orbit": true,
+    "v3_moving_cut": true,
+    "v3_same_orbit_global_local_overlap": true,
+    "v3_source_graph_boundary_residuals": true,
+    "v3_source_window_cone_margins": true,
+    "v4_energy_equation": true,
+    "v4_independent_gamma_grid_residuals": true,
+    "v5_arrival_margins": true,
+    "v5_coupled_bvp_rms_residual": true,
+    "v5_coupled_candidate_energy": true,
+    "v5_coupled_candidate_interfaces": true,
+    "v5_exact_chart_identity": true,
+    "v5_frozen_phase_and_beta_brackets": true,
+    "v5_same_section_root_residual": true,
+    "v5_uniform_theorem_objects_not_interval_validated": true,
+    "v5a_cut_reference_gauge_balances": true,
+    "v5a_endpoint_grid_refinement": true,
+    "v6_candidate_contract_hash_bound_not_run": true,
+    "v6_complete_return_action_quadrature": true,
+    "v6_complete_return_both_target_signs": true,
+    "v6_complete_return_composition": true,
+    "v6_complete_return_energy": true,
+    "v6_complete_return_event_transversality": true,
+    "v6_complete_return_face_residuals": true,
+    "v6_finite_sampling_not_called_exhaustive": true,
+    "v6_refined_labels_stable": true,
+    "v7_biinfinite_orbit_not_claimed": true,
+    "v7_multipulse_residual_gates": true,
+    "v7_periodic_closure": true
+  },
+  "frozen_configuration_interface": {
+    "acceptance": [
+      "closure_residual",
+      "complete_return_action_quadrature_difference",
+      "complete_return_min_abs_event_speed",
+      "energy_drift",
+      "event_hit_residual",
+      "finite_part_grid_difference",
+      "independent_difference",
+      "matched_bvp_rms_residual_factor",
+      "multipulse_boundary_residual",
+      "multipulse_hamiltonian_drift",
+      "multipulse_physical_fd_residual",
+      "multipulse_solver_rms_residual_factor",
+      "multipulse_tail_norm"
+    ],
+    "events": [
+      "escape_norm",
+      "local_return_radius",
+      "maximum_xi",
+      "nu_range",
+      "nu_samples",
+      "phase_samples",
+      "terminal_u",
+      "uncertain_margin"
+    ],
+    "matched_outer": [
+      "beta_grid",
+      "boundary_tolerance",
+      "candidate_q_end",
+      "central_section_m",
+      "core_algebraic_phase_midpoint",
+      "coupled_bvp_tolerance",
+      "finite_part_output_ladder",
+      "gamma_horizon_ladder",
+      "label_q",
+      "mesh_points",
+      "output_points",
+      "same_section_root_residual_tolerance",
+      "scaled_beta_collar",
+      "seam_r1",
+      "source_phase_offset_bracket",
+      "source_phase_seed"
+    ],
+    "pole_connection": [
+      "action_cutoff_sigmas",
+      "blowup_u_levels",
+      "gate_x",
+      "label_fit_levels",
+      "local_points",
+      "local_sigma_cut",
+      "local_sigma_min",
+      "phase_samples",
+      "phase_window",
+      "representative_phase"
+    ],
+    "source_manifold": [
+      "flowback_tau",
+      "graph_boundary_tolerance",
+      "graph_horizon_ladder",
+      "phase_convention",
+      "source_radius"
+    ]
+  },
+  "metrics": {
+    "v3_gate_energy_drift": {
+      "comparator": "<=",
+      "measured": 1.6653345369377348e-16,
+      "passed": true,
+      "ratio": 1.6653345369377348e-08,
+      "threshold": 1e-08
+    },
+    "v3_gate_residual": {
+      "comparator": "<=",
+      "measured": 8.881784197001252e-15,
+      "passed": true,
+      "ratio": 8.881784197001252e-07,
+      "threshold": 1e-08
+    },
+    "v3_source_graph_boundary_residual": {
+      "comparator": "<=",
+      "measured": 1.007999276902245e-15,
+      "passed": true,
+      "ratio": 5.039996384511225e-06,
+      "threshold": 2e-10
+    },
+    "v4_gamma_boundary_residual": {
+      "comparator": "<=",
+      "measured": 4.5288138537278265e-23,
+      "passed": true,
+      "ratio": 4.5288138537278265e-15,
+      "threshold": 1e-08
+    },
+    "v4_gamma_energy_residual": {
+      "comparator": "<=",
+      "measured": 2.7755575615628914e-16,
+      "passed": true,
+      "ratio": 2.7755575615628914e-05,
+      "threshold": 1e-11
+    },
+    "v4_gamma_solver_rms_residual": {
+      "comparator": "<=",
+      "measured": 1.9997657104112927e-08,
+      "passed": true,
+      "ratio": 0.9998828552056463,
+      "threshold": 2e-08
+    },
+    "v5_beta_bracket_margin": {
+      "comparator": ">=",
+      "measured": 7.784773805063898e-05,
+      "passed": true,
+      "ratio": null,
+      "threshold": 0.0
+    },
+    "v5_coupled_bvp_rms_residual": {
+      "comparator": "<=",
+      "measured": 1.6278961086638112e-05,
+      "passed": true,
+      "ratio": 0.8139480543319055,
+      "threshold": 2e-05
+    },
+    "v5_phase_bracket_margin": {
+      "comparator": ">=",
+      "measured": 5.2512291957462764e-05,
+      "passed": true,
+      "ratio": null,
+      "threshold": 0.0
+    },
+    "v5_same_section_root_residual": {
+      "comparator": "<=",
+      "measured": 1.667400755227949e-13,
+      "passed": true,
+      "ratio": 0.08337003776139745,
+      "threshold": 2e-12
+    },
+    "v5a_endpoint_grid_difference": {
+      "comparator": "<=",
+      "measured": 0.0011897375415687028,
+      "passed": true,
+      "ratio": 0.5948687707843514,
+      "threshold": 0.002
+    },
+    "v6_complete_action_quadrature_difference": {
+      "comparator": "<=",
+      "measured": 1.3186608922854948e-17,
+      "passed": true,
+      "ratio": 1.3186608922854948e-07,
+      "threshold": 1e-10
+    },
+    "v6_complete_energy_defect": {
+      "comparator": "<=",
+      "measured": 8.576472865229334e-14,
+      "passed": true,
+      "ratio": 8.576472865229334e-06,
+      "threshold": 1e-08
+    },
+    "v6_complete_face_residual": {
+      "comparator": "<=",
+      "measured": 5.752343046339092e-15,
+      "passed": true,
+      "ratio": 5.752343046339092e-07,
+      "threshold": 1e-08
+    },
+    "v6_complete_min_abs_event_speed": {
+      "comparator": ">=",
+      "measured": 0.007052541045972752,
+      "passed": true,
+      "ratio": 70.52541045972752,
+      "threshold": 0.0001
+    }
+  },
+  "status": "PASS_WITH_EXPLICIT_UNRESOLVED_THEOREM_OBJECTS",
+  "unresolved_are_not_failures_of_the_paper": [
+    "V3 certified uniform parameter box and improper-limit enclosure",
+    "V4 infinite future-staying graph and uniform cocycle/bunching bounds",
+    "V5 uniform tube, adjoint/exchange, uniqueness, and parameter derivatives",
+    "V6 exhaustive theorem-coordinate cells, cross forms, and all-winding bounds",
+    "V7 theorem-edge itineraries and a bi-infinite numerical orbit"
+  ]
+}

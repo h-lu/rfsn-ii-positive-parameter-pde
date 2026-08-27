@@ -76,10 +76,13 @@ intrinsic quotient norms, has mixed-total-three regularity with two external
 parameter derivatives, and reaches \(u=+\infty\) only at infinite physical
 spatial distance.  [Theorem V5](CENTRAL_OUTER_MATCHING.md) now attaches the
 V2 finite gate through \(K_2\) and \(K_1\) to that same graph.  It proves the
-global future-staying tube, endpoint-anchored adjoint and nonzero exchange
+future-staying physical tube, endpoint-anchored adjoint and nonzero exchange
 coefficient, uniformly invertible matching operator, two external parameter
 derivatives, and exact covariance of every finite truncated action under a
-moving matching cut.  Thus the algebraic-directed label is a genuine matched
+moving matching cut.  Its auxiliary saddle-type center graph now uses the
+[local relative overflowing NHIM theorem](../theory/RELATIVE_OVERFLOWING_NHIM.md),
+and its final annulus is selected before V3--V4 are rerun.  Thus the
+algebraic-directed label is a genuine matched
 outer exit; V5 deliberately leaves its infinite-end action renormalization
 as the next theorem.
 
@@ -90,14 +93,23 @@ exponentially flat same-\(Q\) shadowing with two parameter derivatives, and
 subtracts the reference orbit's complete physical length and action tails.
 The resulting finite parts have mixed two-jets, are covariant under
 admissible section, compactification, reference, and exact-gauge changes,
-and compose strictly with every finite V5 branch.
+compose strictly with every finite V5 branch, and contain the V5 arrival
+labels with a proved scaled-coordinate margin.
 
-[Theorems V6--V7](TWO_END_RETURN_EXIT_AND_PDE.md) complete the global
-obligation.  They pull every actual end, return, cut, and lateral face to one
-source rectangle; verify clean/neat incidences, first-hit margins, and a
-component census with no residual cell; attach both finite parts to the exact
-branch cocycle; and translate the resulting recurrent and finite-word codes to
-stationary PDE patterns.  The high-winding, action-gluing, and coding inputs
+[Theorems V6--V7](TWO_END_RETURN_EXIT_AND_PDE.md) complete the physical
+obligation on a finite compatible marked atlas.  In every marking they pull
+every actual end, return, cut, and lateral face through the same limiting
+template; verify clean/neat incidences, first-hit margins, and a component
+census with no residual cell; attach both finite parts to the exact branch
+cocycle; and translate the recurrent and finite-word codes to stationary PDE
+patterns.  The
+[finite-atlas descent theorem](../theory/FINITE_MARKED_ATLAS_DESCENT.md)
+identifies the physical first-event relation, trapped system, periods, and
+closed actions on overlaps.  V6 proves every chartwise local module before
+invoking that descent theorem, and its final coding truncation lies inside the
+common physical residence-time domain.  Raw winding labels remain local and
+may undergo a bounded recoding.  The high-winding, action-gluing, and coding
+inputs
 used in that proof are frozen, with their model-specific exclusions, in
 [RETURN_EXIT_CODING_IMPORT.md](RETURN_EXIT_CODING_IMPORT.md).
 
@@ -115,13 +127,16 @@ compact positive annular box
 
 with \(d=r^4\), \(\delta=r^2\), and
 \(a=1+\sqrt\epsilon\,r^3a_2\).  Theorem V6 proves the exhaustive
-high-winding first-return/first-exit relation, including the outer algebraic
+physical high-winding first-return/first-exit relation, including the outer algebraic
 exit, finite-distance pole exit, uniform mixed-parameter spatial-length and
 action asymptotics, compatible finite parts, and exact branch composition.
-Theorem V7 proves the periodic, multipulse, and aperiodic stationary spatial
-PDE patterns supported by the graph actually established in V6.  This is an
+Theorem V7 proves, in every local marking, the periodic, multipulse, and
+aperiodic stationary spatial PDE patterns supported by the physical relation
+actually established in V6; the profiles and closed observables agree on
+overlaps.  This is an
 existence theorem on a fixed positive subbox; it does not claim one uniform
-two-end arrangement for every \(0<\delta\le\delta_0\).
+two-end arrangement for every \(0<\delta\le\delta_0\), nor one global exact
+saddle chart or immutable winding alphabet over the parameter box.
 
 ## Completed decisive theorem: central-to-outer matching
 

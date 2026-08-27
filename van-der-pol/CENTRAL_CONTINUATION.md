@@ -96,7 +96,8 @@ core source circle is continued using this frame and the true unstable graph;
 its transported label \(\phi\) is declared to be the common source phase.
 Every local exact saddle chart is tangent-normalized to the same frame, and
 its oriented-blow-up boundary phase is compared with \(\phi\) by its
-\(C^2\), degree-one transition map.  This fixes the lift in which numerical
+\(C^3\)-in-phase, \(C^2\)-in-parameter, degree-one transition map.  This
+fixes the lift in which numerical
 phase gaps are compared; it is not an invariant claim about Euclidean angular
 distance under arbitrary phase reparametrizations.
 
@@ -168,7 +169,11 @@ following statements hold on (3).
    parameter cover carries \(C^2\) families of reversible exact symplectic
    saddle coordinates, exact incoming and outgoing section coordinates, and
    event-free slides to the physical saddle faces.  The charts are
-   tangent-normalized to the phase frame fixed above.  For
+   tangent-normalized to the phase frame fixed above.  On every overlap, the
+   chart transition is exact symplectic and extends to the oriented real
+   blow-up as a state-\(C^3\), parameter-\(C^2\) diffeomorphism with uniform
+   mixed bounds; it preserves the signed axis faces and has degree one on the
+   phase boundary.  For
    \(\sigma\in\{+,-\}\), the zero-energy passage preserves the transverse
    action \(\nu\) exactly and has universal-clock time and phase
 
@@ -568,11 +573,21 @@ parameter-local reversible exact symplectic saddle charts.  Postcomposition
 with the unique linear symplectic phase rotation and radial normalization
 makes every chart tangent-normalized to the Kato frame fixed in Section 1.
 This normalization does not change the normal form, exact transverse action,
-or weighted-log estimates.  On the oriented blow-up, each transition from a
-normalized local phase to the transported source phase is a \(C^2\)
-degree-one circle diffeomorphism, equal to the frozen transition at \(r=0\).
-All source-phase comparisons below are made after this transition; no local
-angle gauge is silently identified with another.
+or weighted-log estimates.
+
+On an overlap, the transition is the composition of one analytic exact
+symplectic saddle chart with the inverse of the other.  It preserves the
+stable and unstable axes, and tangent normalization gives a uniformly
+invertible axis derivative.  Taylor division by the corresponding radial
+variables therefore lifts the transition and its inverse to the oriented real
+blow-up.  The analytic state norm and its two parameter derivatives are
+uniform on a smaller common ball, so the lifted maps have the state-\(C^3\),
+parameter-\(C^2\) mixed bounds required by the admissible-marking change.
+Their boundary circle maps have degree one.  Separately, each transition from
+a normalized local boundary phase to the transported source phase is a
+\(C^2\) degree-one circle diffeomorphism, equal to the frozen transition at
+\(r=0\).  All source-phase comparisons below are made after this transition;
+no local angle gauge is silently identified with another.
 
 Compactness of (3) gives a finite parameter cover.  Taking the minimum section
 width and maximum constant on that finite cover, for each fixed \(m\), gives

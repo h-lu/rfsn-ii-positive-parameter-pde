@@ -1,0 +1,74 @@
+{
+  "schema_version": "rfsn-validation-environment-lock/1",
+  "recorded_at": "2026-08-27T12:29:24+08:00",
+  "lock_status": "INCOMPLETE_SCAFFOLD_NOT_CLAIM_BEARING",
+  "claim_bearing": false,
+  "purpose": "Inventory the reproducible floating-point candidate environment and pin the proposed rigorous backend before any Issue #7 run.",
+  "exploratory_runtime": {
+    "python": {
+      "implementation": "CPython",
+      "version": "3.14.4",
+      "compiler": "GCC 15.2.0"
+    },
+    "packages": {
+      "jsonschema": "4.19.2",
+      "numpy": "2.5.2",
+      "scipy": "1.18.0"
+    },
+    "platform": {
+      "system": "Linux",
+      "kernel": "7.0.0-30-generic",
+      "architecture": "x86_64",
+      "libc": "glibc 2.43"
+    },
+    "floating_point": {
+      "format": "IEEE-754 binary64 expected by NumPy/SciPy",
+      "rounding_mode_control": "NOT_EXPLICITLY_CONTROLLED",
+      "outward_rounding": false,
+      "status": "NONRIGOROUS_CANDIDATE_ONLY"
+    }
+  },
+  "proposed_claim_bearing_backend": {
+    "status": "PINNED_SOURCE_NOT_INSTALLED_NOT_EXECUTED",
+    "name": "CAPD::DynSys",
+    "repository": "https://github.com/CAPDGroup/CAPD",
+    "release": "v6.0.0",
+    "commit": "693998cd6d73a0c4e1b141bfb79fcad1c40c3cbe",
+    "build_system": "CMake source build",
+    "required_capabilities": [
+      "outward-rounded interval arithmetic",
+      "validated ODE flow enclosures",
+      "rigorous Poincare maps",
+      "C0-C2 flow and map derivatives",
+      "interval Newton or Krawczyk operators"
+    ],
+    "compiler_candidate": {
+      "c": "gcc (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+      "cxx": "g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+      "required_flags": [
+        "-frounding-math",
+        "-fno-fast-math",
+        "-ffp-contract=off"
+      ]
+    }
+  },
+  "rounding_validation": {
+    "status": "NOT_IMPLEMENTED",
+    "required_before_claim_bearing_run": [
+      "record the process and thread floating-point environment",
+      "verify directed-rounding containment on rational test vectors",
+      "verify sqrt and polynomial interval containment",
+      "reject fast-math and unrecorded FMA contraction",
+      "record interval endpoint format and precision",
+      "rerun the rounding self-test before every certificate"
+    ]
+  },
+  "dependency_lock_gaps": [
+    "No installable Python lockfile with artifact hashes is committed yet.",
+    "The pinned CAPD source has not been vendored or added as a pinned submodule.",
+    "No container image digest or complete native system-package manifest exists.",
+    "No claim-bearing interval executable or binary hash exists.",
+    "No independent-machine replay has been performed."
+  ],
+  "issue_7_status": "SCAFFOLD_ONLY_NOT_A_VALIDATION_RESULT"
+}

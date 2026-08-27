@@ -1,0 +1,209 @@
+{
+  "candidate_branches": [
+    {
+      "array_prefix": "vdp_B1_complete_return_candidate_v3",
+      "arrays": {
+        "path": "numerics/results/vdp_v1_v7/v6_complete_branches.npz",
+        "role": "vdp-B1-complete-return-candidate-v3 sampled numeric arrays",
+        "sha256": "daf72ad454334b245c80aab07257f23423d07a33af0be77c4da840c2fceafca2"
+      },
+      "branch_id": "vdp-B1-complete-return-candidate-v3",
+      "branch_type": "finite_return",
+      "evidence_status": "COMPUTED/E1_NONRIGOROUS_CANDIDATE",
+      "record": {
+        "path": "numerics/results/vdp_v1_v7/v6_complete_vdp-B1-complete-return-candidate-v3.json",
+        "role": "vdp-B1-complete-return-candidate-v3 candidate record",
+        "sha256": "25be246afcd348b308755de6d8786349d3ef64639ef951a90f2c51c854aa4441"
+      }
+    },
+    {
+      "array_prefix": "vdp_A2_complete_return_candidate_v3",
+      "arrays": {
+        "path": "numerics/results/vdp_v1_v7/v6_complete_branches.npz",
+        "role": "vdp-A2-complete-return-candidate-v3 sampled numeric arrays",
+        "sha256": "daf72ad454334b245c80aab07257f23423d07a33af0be77c4da840c2fceafca2"
+      },
+      "branch_id": "vdp-A2-complete-return-candidate-v3",
+      "branch_type": "finite_return",
+      "evidence_status": "COMPUTED/E1_NONRIGOROUS_CANDIDATE",
+      "record": {
+        "path": "numerics/results/vdp_v1_v7/v6_complete_vdp-A2-complete-return-candidate-v3.json",
+        "role": "vdp-A2-complete-return-candidate-v3 candidate record",
+        "sha256": "18312f151c9534472065e4cfa1a881f2db8e5fbb66721d7ae2ad32c77c71de40"
+      }
+    }
+  ],
+  "claim_bearing": false,
+  "contract_id": "vdp-v6-b1-a2-candidate-v3",
+  "created_at": "2026-08-27T00:00:00+08:00",
+  "environment_lock": {
+    "path": "validation/environment.lock.json",
+    "role": "non-claim-bearing candidate environment lock",
+    "sha256": "2cb1eb36010caa1728fcc079ce70c8a5d17eaba367c94238693377cd7c08d9ba"
+  },
+  "final_status": "NOT_RUN",
+  "nonclaims": [
+    "This contract records floating-point candidate inputs only.",
+    "No outward-rounded integration or interval enclosure was performed.",
+    "No exhaustive V6 return/first-exit cell atlas is certified.",
+    "Numerical transverse signs are not exact V2 action signs.",
+    "A winding proxy is not an integer V6 winding certificate.",
+    "The recorded base commit does not snapshot unlisted dirty-worktree files; only explicitly hash-bound inputs are replay bindings."
+  ],
+  "obligations": [
+    {
+      "candidate_evidence": [
+        {
+          "path": "numerics/results/vdp_v1_v7/v3_pole.json",
+          "role": "candidate evidence 1",
+          "sha256": "5c82d8a46eb14d43a5576f040a3bf4e0bd2360e27df712123cb1a9ea41e53855"
+        },
+        {
+          "path": "numerics/results/vdp_v1_v7/v4_v5_matched_candidate.json",
+          "role": "candidate evidence 2",
+          "sha256": "065f1442fadb7489675e9fe53eb730b9061be68d0cb5691224a9bb2664bc468f"
+        },
+        {
+          "path": "numerics/results/vdp_v1_v7/v5a_outer_finite_part.json",
+          "role": "candidate evidence 3",
+          "sha256": "7efec460324a09bc11b52ab327a71313b5806e680b6d823bb6d4ee3d197130b7"
+        },
+        {
+          "path": "numerics/results/vdp_v1_v7/v6_events.json",
+          "role": "candidate evidence 4",
+          "sha256": "7ac54b26748780e18e26f6f8dd8ba2324cc100bbaf73c4cc9f39c063d6005b1f"
+        }
+      ],
+      "id": "V6.candidate_replay_inputs",
+      "predicate": "all listed floating-point branch and finite-part inputs are present and hash-bound for deterministic replay",
+      "status": "CANDIDATE_READY",
+      "theorem_clause": "V6(1)--(5)"
+    },
+    {
+      "blocker": "The candidate environment has no implemented directed-rounding or interval replay backend.",
+      "id": "V6.outward_rounded_validation",
+      "predicate": "outward-rounded enclosures verify exhaustive first-event cells, transversality, chart labels, and length/action bounds",
+      "status": "BLOCKED",
+      "theorem_clause": "Issue #7 validation gate for V6"
+    }
+  ],
+  "observables": [
+    {
+      "definition": "candidate first return or first-exit target in the declared local numerical chart",
+      "id": "V6.first_event_target",
+      "normalization": "branch-record target-face convention",
+      "status": "DRAFT_DEFINITION"
+    },
+    {
+      "definition": "physical length accumulated along one finite branch",
+      "id": "V6.physical_length",
+      "normalization": "branch record plus its declared end counterterm",
+      "status": "FIXED_DEFINITION"
+    },
+    {
+      "definition": "physical action accumulated along one finite branch",
+      "id": "V6.physical_action",
+      "normalization": "branch record plus its declared end counterterm",
+      "status": "FIXED_DEFINITION"
+    },
+    {
+      "definition": "integer local winding label after future rigorous chart calibration",
+      "id": "V6.local_winding_label",
+      "normalization": "V6 chart-local marked-section convention",
+      "status": "DRAFT_DEFINITION"
+    }
+  ],
+  "parameter_domain": {
+    "selection_note": "Exact point parameters for deterministic candidate replay; no outward-rounded parameter box has been validated.",
+    "selection_status": "PRESELECTED_FOR_FUTURE_VALIDATION_NOT_YET_RUN",
+    "variables": {
+      "a2": {
+        "endpoint_semantics": "exact_base10_rational",
+        "lower_decimal": "0.0",
+        "upper_decimal": "0.0"
+      },
+      "epsilon": {
+        "endpoint_semantics": "exact_base10_rational",
+        "lower_decimal": "1.0",
+        "upper_decimal": "1.0"
+      },
+      "r": {
+        "endpoint_semantics": "exact_base10_rational",
+        "lower_decimal": "0.08",
+        "upper_decimal": "0.08"
+      }
+    }
+  },
+  "replay_bindings": [
+    {
+      "path": "numerics/config/vdp_v1_v7.json",
+      "role": "candidate configuration",
+      "sha256": "333501d13ea1506fe02c98077ce7de36316b3a1d5aca248a436a0ddbe5f53bab"
+    },
+    {
+      "path": "numerics/rfsn_numerics.py",
+      "role": "candidate generator source 1",
+      "sha256": "901028067b3112d71b42d5b3f1478df3aeb7eb2bc9bb130f01103170e975ba78"
+    },
+    {
+      "path": "numerics/vdp_return_coding.py",
+      "role": "candidate generator source 2",
+      "sha256": "1cd619bca097a9157e8f8c6a3d78bda6ce939c434b946c47c69997c2ea33e3b1"
+    },
+    {
+      "path": "numerics/vdp_complete_branches.py",
+      "role": "candidate generator source 3",
+      "sha256": "67d5bf2c34a5e8ea08a497393c90a6adb8db4bf236cdb33c7cf11c78b75b01ae"
+    },
+    {
+      "path": "numerics/run_vdp_master.py",
+      "role": "candidate generator source 4",
+      "sha256": "2fbceddfed44d5408d83b24aa39c6c6671861c4ec990f8ded495786ccb9a3d86"
+    }
+  ],
+  "schema_version": "rfsn-candidate-validation-contract/2",
+  "source_revision": {
+    "commit": "262d12dd61bc9fd3a4f44017fdfc5f14cc571259",
+    "ignored_paths": [
+      "numerics/results/vdp_v1_v7/v6_candidate_contract.json"
+    ],
+    "note": "Dirty status excludes only the generated contract path and was sampled before writing it.  A dirty base commit is not a complete source snapshot; only the listed hash-bound inputs are replayable.",
+    "repository": "h-lu/rfsn-ii-positive-parameter-pde",
+    "repository_dirty": true,
+    "reproducibility_status": "DIRTY_BASE_COMMIT_WITH_HASH_BOUND_REPLAY_INPUTS_ONLY"
+  },
+  "status": "DRAFT_CANDIDATE_ONLY",
+  "theorem_target": "V6",
+  "theory_bindings": [
+    {
+      "path": "van-der-pol/CENTRAL_CONTINUATION.md",
+      "role": "V2 theorem",
+      "sha256": "99aeea571f19a298ec5b763a811cfb20ac8d371ee2cd245c53b13481eedf7d4a"
+    },
+    {
+      "path": "van-der-pol/POSITIVE_POLE_FINITE_PART.md",
+      "role": "V3 theorem",
+      "sha256": "4e8096c86cc129f2cd0af71c6580537e9a4819a08f3d89ce47bd04caccfd62bc"
+    },
+    {
+      "path": "van-der-pol/OUTER_FUTURE_STAYING.md",
+      "role": "V4 theorem",
+      "sha256": "73f94309d3122ac9c32c9dff083afceef7f492fafe0bf966042fe457291dbf21"
+    },
+    {
+      "path": "van-der-pol/CENTRAL_OUTER_MATCHING.md",
+      "role": "V5 theorem",
+      "sha256": "9a69aeb4dff689d0afb3ecb9fb678ab3228535053e2329ffd3af02f04c28191c"
+    },
+    {
+      "path": "van-der-pol/OUTER_ALGEBRAIC_FINITE_PART.md",
+      "role": "V5A theorem",
+      "sha256": "dfe6f36395a0fa887734f3933335874138dac4cc56fb15ab1521c003972600e6"
+    },
+    {
+      "path": "van-der-pol/TWO_END_RETURN_EXIT_AND_PDE.md",
+      "role": "V6 theorem",
+      "sha256": "ea08e14285fc8c22eef16b60050d835093244f5d2b7bab199d4e300e3ed96b1d"
+    }
+  ]
+}

@@ -1,0 +1,713 @@
+{
+  "action_cutoff": {
+    "density": [
+      35756.82704767861,
+      750867.7366601988,
+      17149123.867013194,
+      194043831.68795913,
+      2399510073.3322463,
+      38398020272.250465,
+      251653152489.5321
+    ],
+    "diagnostics": {
+      "action_definition": "Integral from the numerical V2 source cut of (epsilon*p^2-q^2)/delta in physical x.",
+      "last_subtracted_value": -7.456920052412897,
+      "last_three_subtracted_spread": 0.014616534521337599,
+      "minimum_cutoff_sigma": 5e-05,
+      "moving_cut_at_gate_residual": -1.1084999584909383e-10,
+      "physical_compact_density_relative_defect_inf": 2.0348443122432452e-16,
+      "scope_note": "Raw action and Laurent-log subtraction on the same floating-point source-to-pole IVP; no improper-limit or interval claim.",
+      "source_to_gate_action": 0.0003881828105300879,
+      "status": "COMPUTED/E1_SAME_ORBIT_ACTION_FINITE_PART",
+      "theorem_validation_status": "NOT_INTERVAL_VALIDATED (#7)"
+    },
+    "divergent_part": [
+      36.347700678867994,
+      303.71942536393414,
+      3140.2221729079583,
+      19388.649096799418,
+      127934.26783826332,
+      1023855.3993406476,
+      4194064.1665806253
+    ],
+    "endpoint_x": [
+      0.9449157681723621,
+      0.9462657681723622,
+      0.9469157681723621,
+      0.9471657681723622,
+      0.9473057681723621,
+      0.9473857681723622,
+      0.9474157681723622
+    ],
+    "raw_action": [
+      29.195340900445853,
+      296.4078174644016,
+      3132.8297281085815,
+      19381.224812976943,
+      127926.82553474543,
+      1023847.9466222303,
+      4194056.709660573
+    ],
+    "sigma": [
+      0.00255,
+      0.0012,
+      0.00055,
+      0.0003,
+      0.00016,
+      8e-05,
+      5e-05
+    ],
+    "source_cut_x": 0.0,
+    "status": "COMPUTED/E1_SAME_ORBIT_ACTION_FINITE_PART",
+    "subtracted_action": [
+      -7.1523597784221415,
+      -7.311607899532532,
+      -7.39244479937679,
+      -7.4242838224745356,
+      -7.44230351789156,
+      -7.452718417276628,
+      -7.456920052412897
+    ],
+    "theorem_validation_status": "NOT_INTERVAL_VALIDATED (#7)"
+  },
+  "claim_bearing": false,
+  "connection": {
+    "action_ladder": {
+      "density": [
+        35756.82704767861,
+        750867.7366601988,
+        17149123.867013194,
+        194043831.68795913,
+        2399510073.3322463,
+        38398020272.250465,
+        251653152489.5321
+      ],
+      "diagnostics": {
+        "action_definition": "Integral from the numerical V2 source cut of (epsilon*p^2-q^2)/delta in physical x.",
+        "last_subtracted_value": -7.456920052412897,
+        "last_three_subtracted_spread": 0.014616534521337599,
+        "minimum_cutoff_sigma": 5e-05,
+        "moving_cut_at_gate_residual": -1.1084999584909383e-10,
+        "physical_compact_density_relative_defect_inf": 2.0348443122432452e-16,
+        "scope_note": "Raw action and Laurent-log subtraction on the same floating-point source-to-pole IVP; no improper-limit or interval claim.",
+        "source_to_gate_action": 0.0003881828105300879,
+        "status": "COMPUTED/E1_SAME_ORBIT_ACTION_FINITE_PART",
+        "theorem_validation_status": "NOT_INTERVAL_VALIDATED (#7)"
+      },
+      "divergent_part": [
+        36.347700678867994,
+        303.71942536393414,
+        3140.2221729079583,
+        19388.649096799418,
+        127934.26783826332,
+        1023855.3993406476,
+        4194064.1665806253
+      ],
+      "endpoint_x": [
+        0.9449157681723621,
+        0.9462657681723622,
+        0.9469157681723621,
+        0.9471657681723622,
+        0.9473057681723621,
+        0.9473857681723622,
+        0.9474157681723622
+      ],
+      "raw_action": [
+        29.195340900445853,
+        296.4078174644016,
+        3132.8297281085815,
+        19381.224812976943,
+        127926.82553474543,
+        1023847.9466222303,
+        4194056.709660573
+      ],
+      "sigma": [
+        0.00255,
+        0.0012,
+        0.00055,
+        0.0003,
+        0.00016,
+        8e-05,
+        5e-05
+      ],
+      "source_cut_x": 0.0,
+      "status": "COMPUTED/E1_SAME_ORBIT_ACTION_FINITE_PART",
+      "subtracted_action": [
+        -7.1523597784221415,
+        -7.311607899532532,
+        -7.39244479937679,
+        -7.4242838224745356,
+        -7.44230351789156,
+        -7.452718417276628,
+        -7.456920052412897
+      ],
+      "theorem_validation_status": "NOT_INTERVAL_VALIDATED (#7)"
+    },
+    "diagnostics": {
+      "global_local_compact_relative_defect_inf": 6.400432461806105e-08,
+      "global_local_physical_relative_defect_inf": 6.406553000840466e-08,
+      "same_physical_ivp_source_to_last_level": true,
+      "scope_note": "A complete floating-point candidate from a finite-horizon W^u source to the local pole chart; not a certified parameter box, uniform source window, or interval basin-entry proof.",
+      "solver_success": true,
+      "status": "COMPUTED/E1_SOURCE_TO_POLE",
+      "theorem_validation_status": "NOT_INTERVAL_VALIDATED (#7)"
+    },
+    "end_fit": {
+      "blowup_estimate_ladder": [
+        0.9474657547940983,
+        0.9474657680277954,
+        0.9474657681677603,
+        0.9474657681722184,
+        0.9474657681723622
+      ],
+      "compact_state": [
+        [
+          1.0023921120854928,
+          1.0003924639302122,
+          1.000099029709758,
+          1.0000248768788609,
+          1.00000399200458
+        ],
+        [
+          0.9977220383481635,
+          0.9996152325292094,
+          0.9999019505682509,
+          0.9999752467980861,
+          0.9999960158242226
+        ],
+        [
+          -0.0681318764109202,
+          -0.06858797117843196,
+          -0.06874252826903479,
+          -0.06882034202856684,
+          -0.06886721005048961
+        ],
+        [
+          -0.6663882537240702,
+          -0.6664131225126393,
+          -0.6664214350591774,
+          -0.6664255983189704,
+          -0.666428098872206
+        ]
+      ],
+      "diagnostics": {
+        "blowup_position_x": 0.9474657681723622,
+        "kappa_extraction_note": "kappa is imposed by the exact fixed-source energy identity; direct sigma^-4 subtraction is intentionally not used.",
+        "label_energy_defect": 1.1102230246251565e-16,
+        "label_fit_levels": [
+          100.0,
+          200.0,
+          500.0
+        ],
+        "maximum_abs_X_minus_one": 0.002392112085492837,
+        "maximum_abs_Y_minus_one": 0.0022779616518364687,
+        "minimum_X": 1.00000399200458,
+        "pole_time_last_three_spread": 4.601874437071274e-12,
+        "remaining_distance_at_gate": 0.0540338839377541,
+        "status": "COMPUTED/E1_POLE_TIME_AND_END_LABEL_FIT",
+        "w0_last_three_spread": 3.806742421286202e-11,
+        "z0_last_three_spread": 4.218847493575595e-15
+      },
+      "hit_state": [
+        [
+          20.000000000000544,
+          50.00000000000787,
+          99.9999999999864,
+          200.00000000006887,
+          499.99999999939774
+        ],
+        [
+          162.15063376571595,
+          1019.4276902883993,
+          4081.274244676228,
+          16328.714975437211,
+          102060.85112608566
+        ],
+        [
+          -0.6664763097973843,
+          -0.6664527900162056,
+          -0.6664429673615864,
+          -0.666437215523473,
+          -0.6664331960442436
+        ],
+        [
+          0.04393985231308787,
+          0.05787950831866661,
+          0.06859583440596898,
+          0.07938546726639419,
+          0.0937033730407988
+        ]
+      ],
+      "hit_x": [
+        0.9466800564293861,
+        0.9471521104342304,
+        0.9473089853041995,
+        0.947387382550652,
+        0.9474344145784913
+      ],
+      "labels": {
+        "kappa": 16524678.71208843,
+        "w0": -0.0688985323343616,
+        "z0": -0.6664297670756484
+      },
+      "level_u": [
+        20.0,
+        50.0,
+        100.0,
+        200.0,
+        500.0
+      ],
+      "remaining_sigma": [
+        0.0007857117429760363,
+        0.00031365773813174513,
+        0.00015678286816267484,
+        7.838562171014196e-05,
+        3.1353593870853125e-05
+      ],
+      "w0_ladder": [
+        -0.06889855603482506,
+        -0.06889853294718085,
+        -0.06889853237049912,
+        -0.0688985323343616,
+        -0.06889853233243169
+      ],
+      "z0_ladder": [
+        -0.6664297670905237,
+        -0.6664297670758021,
+        -0.6664297670756526,
+        -0.6664297670756484,
+        -0.6664297670756484
+      ]
+    },
+    "gate": {
+      "central_state": [
+        -10.000000000000009,
+        -27.339991871724607,
+        3.4939252455237813,
+        -0.5131445236000426
+      ],
+      "central_time": 11.1678985529326,
+      "cone": {
+        "D": 53.493925245523876,
+        "D_prime": 272.88677419364626,
+        "K": 272.88677419364626,
+        "K_prime": 1793.7477413345418,
+        "x": 10.000000000000009,
+        "x_prime": 27.339991871724607,
+        "y": 27.339991871724607,
+        "y_prime": 105.62725857885731,
+        "z": -3.4939252455237813,
+        "zeta": 0.5131445236000426
+      },
+      "diagnostics": {
+        "event_semantics": "First hit of x=-U=10 on the same physical source-to-pole IVP.",
+        "event_speed_physical": 2.187199349737969,
+        "gate_energy_defect": 0.0,
+        "gate_residual": 8.881784197001252e-15,
+        "gate_section_x": 10.0,
+        "solver_success": true,
+        "source_to_gate_energy_drift": 1.6653345369377348e-16,
+        "status": "COMPUTED/E1_PHYSICAL_FIRST_POLE_GATE_HIT"
+      },
+      "phase": 0.0,
+      "physical_state": [
+        1.064,
+        0.013998075838323002,
+        -0.6668097778447234,
+        0.00026272999608322183
+      ],
+      "physical_time": 0.8934318842346081
+    },
+    "local_realization_diagnostics": {
+      "evidence_status": "COMPUTED/E1_LOCAL_ASYMPTOTIC_SEED",
+      "hamiltonian_drift": 1.382431946694851e-10,
+      "hamiltonian_relative_drift": 1.382431946694851e-10,
+      "independent_physical_compact_defect_inf": 1.887379141862766e-15,
+      "independent_physical_hamiltonian_drift": 7.275957614183426e-11,
+      "independent_physical_solver_success": true,
+      "initial_energy_identity_defect": -9.701406344930774e-12,
+      "initial_energy_projection_delta_Y": 1.9089622460555233e-07,
+      "initial_jet_vector_residual_inf": 0.00036760845258543284,
+      "initial_normalized_indicial_residual": 79509208.1458836,
+      "initial_scalar_indicial_residual": 1.8380422704168675e-07,
+      "max_physical_compact_field_relative_defect": 1.0130178237665354e-15,
+      "maximum_physical_u": 31.38437855178141,
+      "minimum_physical_u": 5.386209069167397,
+      "sigma_cut": 0.003,
+      "sigma_min": 0.0005,
+      "small_sigma_W_minus_W0": 0.0004921958824308931,
+      "small_sigma_X_minus_one": 0.0009858508621476414,
+      "small_sigma_Y_minus_one": -0.0009552909563945722,
+      "small_sigma_Z_minus_Z0": 2.6487206738146085e-05,
+      "solver_success": true,
+      "source_window_reason": "Theorem V3 proves the V2 source window on an existential compact box, but the constants r_p, A, epsilon_-/epsilon_+ and the continued source map S_mu(phi) are not supplied as explicit numerical data.",
+      "source_window_status": "NOT_NUMERICALLY_RESOLVED"
+    },
+    "source": {
+      "b0": [
+        0.00037693088907335046,
+        -0.0024096861873046495
+      ],
+      "core_state": [
+        0.010010028438363485,
+        0.007052156030624258,
+        -1.6716859156476774e-05,
+        0.007075797239563629
+      ],
+      "diagnostics": {
+        "b0_norm": 0.0024389884002234295,
+        "core_anchor_defect": "NOT_APPLICABLE",
+        "core_graph_boundary_residual_inf": 1.007999276902245e-15,
+        "core_graph_energy_abs": 7.208245087178176e-17,
+        "graph_boundary_residual_tolerance": 2e-10,
+        "graph_boundary_residuals_passed": true,
+        "horizon_source_defect": 2.5681091710929608e-14,
+        "positive_graph_boundary_residual_inf": 4.578213079909493e-18,
+        "positive_graph_energy_abs": 6.116844032102231e-19,
+        "scope_note": "Numerical realization of V2 (27)--(28) in a phase-calibrated finite-horizon graph; general-parameter Kato transport and interval validation remain unresolved.",
+        "source_central_energy_abs": 6.09595467512004e-19,
+        "status": "COMPUTED/E1_V2_MOVING_SOURCE_CANDIDATE",
+        "theorem_validation_status": "NOT_INTERVAL_VALIDATED (#7)"
+      },
+      "flowback_tau": 2.0,
+      "graph_horizon": 10.0,
+      "local_graph_state": [
+        0.0003769148261763243,
+        0.0019703578358153595,
+        -0.002409812552441492,
+        -0.0014372743440436574
+      ],
+      "parameters": {
+        "a2": 0.0,
+        "epsilon": 1.0,
+        "r": 0.08
+      },
+      "phase": 0.0,
+      "source_radius": 0.01,
+      "source_state": [
+        0.01001002869763507,
+        0.007052156834174782,
+        -1.6716840572481012e-05,
+        0.0070757973130179536
+      ]
+    },
+    "status": "COMPUTED/E1_SOURCE_TO_POLE",
+    "theorem_validation_status": "NOT_INTERVAL_VALIDATED (#7)"
+  },
+  "diagnostics": {
+    "global_local_compact_relative_defect_inf": 6.400432461806105e-08,
+    "global_local_physical_relative_defect_inf": 6.406553000840466e-08,
+    "same_physical_ivp_source_to_last_level": true,
+    "scope_note": "A complete floating-point candidate from a finite-horizon W^u source to the local pole chart; not a certified parameter box, uniform source window, or interval basin-entry proof.",
+    "solver_success": true,
+    "status": "COMPUTED/E1_SOURCE_TO_POLE",
+    "theorem_validation_status": "NOT_INTERVAL_VALIDATED (#7)"
+  },
+  "global_source_window_status": "COMPUTED/E1_V2_SOURCE_WINDOW_TO_POLE_GATE",
+  "labels": {
+    "kappa": 16524678.71208843,
+    "w0": -0.0688985323343616,
+    "z0": -0.6664297670756484
+  },
+  "local_diagnostics": {
+    "evidence_status": "COMPUTED/E1_LOCAL_ASYMPTOTIC_SEED",
+    "hamiltonian_drift": 1.382431946694851e-10,
+    "hamiltonian_relative_drift": 1.382431946694851e-10,
+    "independent_physical_compact_defect_inf": 1.887379141862766e-15,
+    "independent_physical_hamiltonian_drift": 7.275957614183426e-11,
+    "independent_physical_solver_success": true,
+    "initial_energy_identity_defect": -9.701406344930774e-12,
+    "initial_energy_projection_delta_Y": 1.9089622460555233e-07,
+    "initial_jet_vector_residual_inf": 0.00036760845258543284,
+    "initial_normalized_indicial_residual": 79509208.1458836,
+    "initial_scalar_indicial_residual": 1.8380422704168675e-07,
+    "max_physical_compact_field_relative_defect": 1.0130178237665354e-15,
+    "maximum_physical_u": 31.38437855178141,
+    "minimum_physical_u": 5.386209069167397,
+    "sigma_cut": 0.003,
+    "sigma_min": 0.0005,
+    "small_sigma_W_minus_W0": 0.0004921958824308931,
+    "small_sigma_X_minus_one": 0.0009858508621476414,
+    "small_sigma_Y_minus_one": -0.0009552909563945722,
+    "small_sigma_Z_minus_Z0": 2.6487206738146085e-05,
+    "solver_success": true,
+    "source_window_reason": "Theorem V3 proves the V2 source window on an existential compact box, but the constants r_p, A, epsilon_-/epsilon_+ and the continued source map S_mu(phi) are not supplied as explicit numerical data.",
+    "source_window_status": "NOT_NUMERICALLY_RESOLVED"
+  },
+  "moving_cut": {
+    "endpoint_sigma": 5e-05,
+    "finite_part_earlier_cut": -7.456920052412897,
+    "finite_part_later_cut": -7.457308235112578,
+    "finite_segment_action": 0.0003881828105300879,
+    "moving_cut_additivity_residual": -1.1084999584909383e-10,
+    "status": "COMPUTED/QA_SAME_ORBIT_MOVING_CUT"
+  },
+  "pole_connection_configuration_provenance": {
+    "action_cutoff_sigmas": [
+      0.00255,
+      0.0012,
+      0.00055,
+      0.0003,
+      0.00016,
+      8e-05,
+      5e-05
+    ],
+    "blowup_u_levels": [
+      20.0,
+      50.0,
+      100.0,
+      200.0,
+      500.0
+    ],
+    "gate_x": 10.0,
+    "label_fit_levels": [
+      100.0,
+      200.0,
+      500.0
+    ],
+    "local_points": 320,
+    "local_sigma_cut": 0.003,
+    "local_sigma_min": 0.0005,
+    "phase_samples": 9,
+    "phase_window": [
+      -0.2,
+      0.2
+    ],
+    "representative_phase": 0.0
+  },
+  "scope": "The source window, gate, local pole overlap, labels, and finite-cut action are connected floating-point candidates.  Uniformity on a certified parameter box and the improper limit remain unvalidated.",
+  "source_configuration_provenance": {
+    "flowback_tau": 2.0,
+    "graph_boundary_tolerance": 2e-10,
+    "graph_horizon_ladder": [
+      8.0,
+      10.0
+    ],
+    "phase_convention": "frozen_core_exact_linear_coordinates_at_a2_zero",
+    "source_radius": 0.01
+  },
+  "source_window": {
+    "cone_d": [
+      52.226376426649956,
+      52.64845407037607,
+      52.98894270554945,
+      53.26644525064876,
+      53.493925245523876,
+      53.680760538878545,
+      53.83394510766525,
+      53.95882882811721,
+      54.05959239387292
+    ],
+    "cone_k": [
+      268.08692355018457,
+      269.71620703636233,
+      271.0105237741293,
+      272.0491244753695,
+      272.8867741936463,
+      273.56277902316543,
+      274.10623869937285,
+      274.5392601364609,
+      274.8790080629425
+    ],
+    "cone_k_prime": [
+      1755.9091621581008,
+      1768.4672895311453,
+      1778.6282681144771,
+      1786.9288620844322,
+      1793.7477413345418,
+      1799.3611130141612,
+      1803.97619698054,
+      1807.7522047550328,
+      1810.813977107377
+    ],
+    "cone_y": [
+      26.875863977894106,
+      27.03052747347061,
+      27.15521142848362,
+      27.256762027882356,
+      27.33999187172461,
+      27.408396054713606,
+      27.464584696851908,
+      27.510554031871578,
+      27.547862346020835
+    ],
+    "cone_y_prime": [
+      104.35970975998339,
+      104.7817874037095,
+      105.12227603888287,
+      105.39977858398218,
+      105.62725857885731,
+      105.81409387221198,
+      105.96727844099868,
+      106.09216216145064,
+      106.19292572720634
+    ],
+    "diagnostics": {
+      "maximum_gate_residual": 8.881784197001252e-15,
+      "maximum_source_energy_abs": 1.1672887564361902e-18,
+      "minimum_D": 52.226376426649956,
+      "minimum_K": 268.08692355018457,
+      "minimum_K_prime": 1755.9091621581008,
+      "minimum_y": 26.875863977894106,
+      "minimum_y_prime": 104.35970975998339,
+      "sample_count": 9.0,
+      "scope_note": "Finite phase samples on the V3 closed arc; not an exhaustive interval proof over phase or the existential parameter box.",
+      "status": "COMPUTED/E1_V2_SOURCE_WINDOW_TO_POLE_GATE",
+      "theorem_validation_status": "NOT_INTERVAL_VALIDATED (#7)"
+    },
+    "gate_states": [
+      [
+        -10.000000000000009,
+        -26.875863977894106,
+        2.2263764266498627,
+        -0.6717162287567425
+      ],
+      [
+        -10.000000000000009,
+        -27.03052747347061,
+        2.648454070375977,
+        -0.5890676983440143
+      ],
+      [
+        -10.000000000000009,
+        -27.15521142848362,
+        2.9889427055493574,
+        -0.5415905107071874
+      ],
+      [
+        -10.000000000000009,
+        -27.256762027882356,
+        3.2664452506486663,
+        -0.5184958034542786
+      ],
+      [
+        -10.000000000000009,
+        -27.33999187172461,
+        3.4939252455237813,
+        -0.5131445236000423
+      ],
+      [
+        -10.000000000000009,
+        -27.408396054713606,
+        3.680760538878449,
+        -0.5211815239708824
+      ],
+      [
+        -10.000000000000009,
+        -27.464584696851908,
+        3.833945107665159,
+        -0.539608269146467
+      ],
+      [
+        -10.000000000000009,
+        -27.510554031871578,
+        3.9588288281171193,
+        -0.5662801822551384
+      ],
+      [
+        -10.000000000000009,
+        -27.547862346020835,
+        4.05959239387283,
+        -0.5996153972661146
+      ]
+    ],
+    "gate_times_x": [
+      0.9259632222301738,
+      0.9161622331719765,
+      0.9077162502010244,
+      0.9002219301830247,
+      0.8934318842346081,
+      0.8871835750653219,
+      0.8813645783271479,
+      0.8758939577024211,
+      0.8707115468312645
+    ],
+    "gate_times_xi": [
+      11.574540277877173,
+      11.452027914649706,
+      11.346453127512804,
+      11.252774127287807,
+      11.1678985529326,
+      11.089794688316523,
+      11.017057229089348,
+      10.948674471280263,
+      10.883894335390806
+    ],
+    "parameters": {
+      "a2": 0.0,
+      "epsilon": 1.0,
+      "r": 0.08
+    },
+    "phases": [
+      -0.2,
+      -0.15000000000000002,
+      -0.1,
+      -0.04999999999999999,
+      0.0,
+      0.04999999999999999,
+      0.10000000000000003,
+      0.15000000000000002,
+      0.2
+    ],
+    "source_states": [
+      [
+        0.009809645365080036,
+        0.008318508784097225,
+        -0.002000925966782695,
+        0.005529027589096355
+      ],
+      [
+        0.00989701979509869,
+        0.00803121320110854,
+        -0.0015093149587615652,
+        0.005938957584956065
+      ],
+      [
+        0.009959637168652124,
+        0.007723865942495966,
+        -0.0010139197493802981,
+        0.006334048910291428
+      ],
+      [
+        0.009997338818504623,
+        0.007397240205099115,
+        -0.0005159736690235075,
+        0.006713312102628801
+      ],
+      [
+        0.01001002869763507,
+        0.007052156834174782,
+        -1.6716840572481012e-05,
+        0.0070757973130179536
+      ],
+      [
+        0.009997673637650462,
+        0.0066894822267738714,
+        0.00048260687503223987,
+        0.00742059669916949
+      ],
+      [
+        0.009960303446388106,
+        0.006310126127127347,
+        0.0009807529472196227,
+        0.00774684671289021
+      ],
+      [
+        0.009898010844311198,
+        0.005915039319951628,
+        0.0014764792509531913,
+        0.008053730275913138
+      ],
+      [
+        0.009810951239743482,
+        0.005505211227774829,
+        0.0019685491413090716,
+        0.008340478838506693
+      ]
+    ],
+    "status": "COMPUTED/E1_V2_SOURCE_WINDOW_TO_POLE_GATE",
+    "theorem_validation_status": "NOT_INTERVAL_VALIDATED (#7)"
+  },
+  "status": "COMPUTED/E1_SOURCE_TO_POLE",
+  "validation_status": "NOT_INTERVAL_VALIDATED (#7)"
+}

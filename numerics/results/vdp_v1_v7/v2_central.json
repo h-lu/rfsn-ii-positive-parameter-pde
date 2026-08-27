@@ -1,0 +1,792 @@
+{
+  "parameter_slices": {
+    "a2_slice_at_primary_r": [
+      {
+        "a2": -0.25,
+        "center": [
+          4.857039203046028,
+          2.6765168609572927e-28,
+          -7.898627786144567,
+          -8.136524317554394e-28
+        ],
+        "diagnostics": {
+          "boundary_residual_inf": 1.3234889800848443e-23,
+          "center_amplitude": 9.272494309730313,
+          "hamiltonian_abs_max": 3.726546848881185e-12,
+          "hamiltonian_drift": 4.4992306893584854e-12,
+          "nodes": 5925.0,
+          "nontrivial_branch": true,
+          "normalized_ode_residual_inf": 2.0119852450761755e-09,
+          "solver_success": true,
+          "tail_norm": 1.5526274769003967e-07
+        },
+        "epsilon": 1.0,
+        "r": 0.08,
+        "spectrum": {
+          "a2": -0.25,
+          "alpha": 0.7000004571427079,
+          "beta": 0.7141423947645176,
+          "c": -0.03999744,
+          "characteristic_residual_inf": 2.991822213598717e-15,
+          "eigenvalues": [
+            {
+              "imag": 0.7141423947645177,
+              "real": -0.7000004571427086
+            },
+            {
+              "imag": -0.7141423947645177,
+              "real": -0.7000004571427086
+            },
+            {
+              "imag": 0.7141423947645177,
+              "real": 0.7000004571427078
+            },
+            {
+              "imag": -0.7141423947645177,
+              "real": 0.7000004571427078
+            }
+          ],
+          "epsilon": 1.0,
+          "evidence_status": "COMPUTED/FLOAT -- explanatory evidence, not theorem validation",
+          "is_saddle_focus": true,
+          "quartet_match_error": 7.850462293418876e-16,
+          "r": 0.08
+        },
+        "tail": [
+          1.0182459183019187e-07,
+          -4.05098941898651e-08,
+          4.103797992452274e-08,
+          -1.0204462746914286e-07
+        ],
+        "transversality": {
+          "evidence_status": "COMPUTED/FLOAT_PROXY -- not the exact V2 saddle chart or certified event atlas",
+          "flow_to_stable_distance": 3.200514424287929e-14,
+          "flow_to_unstable_distance": 3.2005144242879296e-14,
+          "fundamental_condition_number": 11.801671555554508,
+          "quotient_sine": 0.454883312610237,
+          "rank_defect_singular_value": 4.4476375595228634e-14,
+          "rank_three_singular_value": 0.3308306975170356,
+          "scope_note": "Finite-tail variational proxy for transversality modulo flow; not an interval lower bound and not the V2 shooting certificate.",
+          "stable_energy_tangency_defect": 2.5084605264623592e-14,
+          "unstable_energy_tangency_defect": 2.5084605264623592e-14
+        }
+      },
+      {
+        "a2": 0.0,
+        "center": [
+          4.925566685678478,
+          -5.3421858463599e-29,
+          -8.023335621653727,
+          -2.5500320108065446e-28
+        ],
+        "diagnostics": {
+          "boundary_residual_inf": 6.617444900424222e-24,
+          "center_amplitude": 9.414622757857229,
+          "hamiltonian_abs_max": 3.894884414989974e-12,
+          "hamiltonian_drift": 4.699684968861962e-12,
+          "nodes": 5951.0,
+          "nontrivial_branch": true,
+          "normalized_ode_residual_inf": 2.090631667783782e-09,
+          "solver_success": true,
+          "tail_norm": 1.352356258021287e-07
+        },
+        "epsilon": 1.0,
+        "r": 0.08,
+        "spectrum": {
+          "a2": 0.0,
+          "alpha": 0.7071067811865476,
+          "beta": 0.7071067811865476,
+          "c": 0.0,
+          "characteristic_residual_inf": 2.962444526161419e-15,
+          "eigenvalues": [
+            {
+              "imag": 0.7071067811865476,
+              "real": -0.7071067811865477
+            },
+            {
+              "imag": -0.7071067811865476,
+              "real": -0.7071067811865477
+            },
+            {
+              "imag": 0.7071067811865469,
+              "real": 0.7071067811865471
+            },
+            {
+              "imag": -0.7071067811865469,
+              "real": 0.7071067811865471
+            }
+          ],
+          "epsilon": 1.0,
+          "evidence_status": "COMPUTED/FLOAT -- explanatory evidence, not theorem validation",
+          "is_saddle_focus": true,
+          "quartet_match_error": 8.005932084973442e-16,
+          "r": 0.08
+        },
+        "tail": [
+          7.975386349996434e-08,
+          -1.9087269855497725e-08,
+          5.2760387601644304e-08,
+          -9.370172555780444e-08
+        ],
+        "transversality": {
+          "evidence_status": "COMPUTED/FLOAT_PROXY -- not the exact V2 saddle chart or certified event atlas",
+          "flow_to_stable_distance": 1.777986455717927e-14,
+          "flow_to_unstable_distance": 1.7779864557179258e-14,
+          "fundamental_condition_number": 12.678821568929761,
+          "quotient_sine": 0.45582439718829393,
+          "rank_defect_singular_value": 2.448582132049947e-14,
+          "rank_three_singular_value": 0.33155734495949307,
+          "scope_note": "Finite-tail variational proxy for transversality modulo flow; not an interval lower bound and not the V2 shooting certificate.",
+          "stable_energy_tangency_defect": 1.3010920657264728e-14,
+          "unstable_energy_tangency_defect": 1.3010920657264728e-14
+        }
+      },
+      {
+        "a2": 0.25,
+        "center": [
+          4.993954912488253,
+          2.745871094009533e-28,
+          -8.14794866573888,
+          5.736448541281222e-28
+        ],
+        "diagnostics": {
+          "boundary_residual_inf": 9.926167350636332e-24,
+          "center_amplitude": 9.556602593363479,
+          "hamiltonian_abs_max": 4.063027692069454e-12,
+          "hamiltonian_drift": 4.903371733668172e-12,
+          "nodes": 5972.0,
+          "nontrivial_branch": true,
+          "normalized_ode_residual_inf": 2.170729374029179e-09,
+          "solver_success": true,
+          "tail_norm": 1.1782333307954097e-07
+        },
+        "epsilon": 1.0,
+        "r": 0.08,
+        "spectrum": {
+          "a2": 0.25,
+          "alpha": 0.7141432909437713,
+          "beta": 0.6999995428569936,
+          "c": 0.04000256,
+          "characteristic_residual_inf": 3.66379511908605e-15,
+          "eigenvalues": [
+            {
+              "imag": 0.6999995428569938,
+              "real": -0.7141432909437717
+            },
+            {
+              "imag": -0.6999995428569938,
+              "real": -0.7141432909437717
+            },
+            {
+              "imag": 0.699999542856993,
+              "real": 0.7141432909437707
+            },
+            {
+              "imag": -0.699999542856993,
+              "real": 0.7141432909437707
+            }
+          ],
+          "epsilon": 1.0,
+          "evidence_status": "COMPUTED/FLOAT -- explanatory evidence, not theorem validation",
+          "is_saddle_focus": true,
+          "quartet_match_error": 8.671119018262734e-16,
+          "r": 0.08
+        },
+        "tail": [
+          5.9486611490189805e-08,
+          -2.077145532425828e-09,
+          5.889946914293141e-08,
+          -8.288678346096962e-08
+        ],
+        "transversality": {
+          "evidence_status": "COMPUTED/FLOAT_PROXY -- not the exact V2 saddle chart or certified event atlas",
+          "flow_to_stable_distance": 1.542479476611104e-14,
+          "flow_to_unstable_distance": 1.5424794766111085e-14,
+          "fundamental_condition_number": 13.499407351953812,
+          "quotient_sine": 0.4567196890732814,
+          "rank_defect_singular_value": 2.0442511418859564e-14,
+          "rank_three_singular_value": 0.3322489133682217,
+          "scope_note": "Finite-tail variational proxy for transversality modulo flow; not an interval lower bound and not the V2 shooting certificate.",
+          "stable_energy_tangency_defect": 1.119589766475996e-14,
+          "unstable_energy_tangency_defect": 1.119589766475996e-14
+        }
+      }
+    ],
+    "epsilon_slice_at_primary_r": [
+      {
+        "a2": 0.0,
+        "center": [
+          4.920514205706928,
+          -1.494278392991609e-28,
+          -8.013657005375213,
+          -1.1741371615568736e-27
+        ],
+        "diagnostics": {
+          "boundary_residual_inf": 6.617444900424222e-24,
+          "center_amplitude": 9.403731102512603,
+          "hamiltonian_abs_max": 3.879563337250147e-12,
+          "hamiltonian_drift": 4.684061168031882e-12,
+          "nodes": 5949.0,
+          "nontrivial_branch": true,
+          "normalized_ode_residual_inf": 2.0918360377208955e-09,
+          "solver_success": true,
+          "tail_norm": 1.3508010733773923e-07
+        },
+        "epsilon": 0.8,
+        "r": 0.08,
+        "spectrum": {
+          "a2": 0.0,
+          "alpha": 0.7071067811865476,
+          "beta": 0.7071067811865476,
+          "c": 0.0,
+          "characteristic_residual_inf": 2.962444526161419e-15,
+          "eigenvalues": [
+            {
+              "imag": 0.7071067811865476,
+              "real": -0.7071067811865477
+            },
+            {
+              "imag": -0.7071067811865476,
+              "real": -0.7071067811865477
+            },
+            {
+              "imag": 0.7071067811865469,
+              "real": 0.7071067811865471
+            },
+            {
+              "imag": -0.7071067811865469,
+              "real": 0.7071067811865471
+            }
+          ],
+          "epsilon": 0.8,
+          "evidence_status": "COMPUTED/FLOAT -- explanatory evidence, not theorem validation",
+          "is_saddle_focus": true,
+          "quartet_match_error": 8.005932084973442e-16,
+          "r": 0.08
+        },
+        "tail": [
+          7.971522011740918e-08,
+          -1.9159637310571728e-08,
+          5.261940118264907e-08,
+          -9.357470810702498e-08
+        ],
+        "transversality": {
+          "evidence_status": "COMPUTED/FLOAT_PROXY -- not the exact V2 saddle chart or certified event atlas",
+          "flow_to_stable_distance": 1.9195531213909608e-14,
+          "flow_to_unstable_distance": 1.9195531213909555e-14,
+          "fundamental_condition_number": 12.632949261637608,
+          "quotient_sine": 0.45618494817787897,
+          "rank_defect_singular_value": 2.6583770848875577e-14,
+          "rank_three_singular_value": 0.33183581984528654,
+          "scope_note": "Finite-tail variational proxy for transversality modulo flow; not an interval lower bound and not the V2 shooting certificate.",
+          "stable_energy_tangency_defect": 1.4642369594057322e-14,
+          "unstable_energy_tangency_defect": 1.4642369594057322e-14
+        }
+      },
+      {
+        "a2": 0.0,
+        "center": [
+          4.925566685678478,
+          -5.3421858463599e-29,
+          -8.023335621653727,
+          -2.5500320108065446e-28
+        ],
+        "diagnostics": {
+          "boundary_residual_inf": 6.617444900424222e-24,
+          "center_amplitude": 9.414622757857229,
+          "hamiltonian_abs_max": 3.894884414989974e-12,
+          "hamiltonian_drift": 4.699684968861962e-12,
+          "nodes": 5951.0,
+          "nontrivial_branch": true,
+          "normalized_ode_residual_inf": 2.090631667783782e-09,
+          "solver_success": true,
+          "tail_norm": 1.352356258021287e-07
+        },
+        "epsilon": 1.0,
+        "r": 0.08,
+        "spectrum": {
+          "a2": 0.0,
+          "alpha": 0.7071067811865476,
+          "beta": 0.7071067811865476,
+          "c": 0.0,
+          "characteristic_residual_inf": 2.962444526161419e-15,
+          "eigenvalues": [
+            {
+              "imag": 0.7071067811865476,
+              "real": -0.7071067811865477
+            },
+            {
+              "imag": -0.7071067811865476,
+              "real": -0.7071067811865477
+            },
+            {
+              "imag": 0.7071067811865469,
+              "real": 0.7071067811865471
+            },
+            {
+              "imag": -0.7071067811865469,
+              "real": 0.7071067811865471
+            }
+          ],
+          "epsilon": 1.0,
+          "evidence_status": "COMPUTED/FLOAT -- explanatory evidence, not theorem validation",
+          "is_saddle_focus": true,
+          "quartet_match_error": 8.005932084973442e-16,
+          "r": 0.08
+        },
+        "tail": [
+          7.975386349996434e-08,
+          -1.9087269855497725e-08,
+          5.2760387601644304e-08,
+          -9.370172555780444e-08
+        ],
+        "transversality": {
+          "evidence_status": "COMPUTED/FLOAT_PROXY -- not the exact V2 saddle chart or certified event atlas",
+          "flow_to_stable_distance": 1.777986455717927e-14,
+          "flow_to_unstable_distance": 1.7779864557179258e-14,
+          "fundamental_condition_number": 12.678821568929761,
+          "quotient_sine": 0.45582439718829393,
+          "rank_defect_singular_value": 2.448582132049947e-14,
+          "rank_three_singular_value": 0.33155734495949307,
+          "scope_note": "Finite-tail variational proxy for transversality modulo flow; not an interval lower bound and not the V2 shooting certificate.",
+          "stable_energy_tangency_defect": 1.3010920657264728e-14,
+          "unstable_energy_tangency_defect": 1.3010920657264728e-14
+        }
+      },
+      {
+        "a2": 0.0,
+        "center": [
+          4.930152417495291,
+          3.705685236375011e-28,
+          -8.032122624402465,
+          -5.749230811781114e-28
+        ],
+        "diagnostics": {
+          "boundary_residual_inf": 6.617444900424222e-24,
+          "center_amplitude": 9.424510422996656,
+          "hamiltonian_abs_max": 3.902989043069738e-12,
+          "hamiltonian_drift": 4.710399422845688e-12,
+          "nodes": 5950.0,
+          "nontrivial_branch": true,
+          "normalized_ode_residual_inf": 2.0894646013402962e-09,
+          "solver_success": true,
+          "tail_norm": 1.3537684956298375e-07
+        },
+        "epsilon": 1.2,
+        "r": 0.08,
+        "spectrum": {
+          "a2": 0.0,
+          "alpha": 0.7071067811865476,
+          "beta": 0.7071067811865476,
+          "c": 0.0,
+          "characteristic_residual_inf": 2.962444526161419e-15,
+          "eigenvalues": [
+            {
+              "imag": 0.7071067811865476,
+              "real": -0.7071067811865477
+            },
+            {
+              "imag": -0.7071067811865476,
+              "real": -0.7071067811865477
+            },
+            {
+              "imag": 0.7071067811865469,
+              "real": 0.7071067811865471
+            },
+            {
+              "imag": -0.7071067811865469,
+              "real": 0.7071067811865471
+            }
+          ],
+          "epsilon": 1.2,
+          "evidence_status": "COMPUTED/FLOAT -- explanatory evidence, not theorem validation",
+          "is_saddle_focus": true,
+          "quartet_match_error": 8.005932084973442e-16,
+          "r": 0.08
+        },
+        "tail": [
+          7.97888151182108e-08,
+          -1.9021413629055925e-08,
+          5.288847398849146e-08,
+          -9.381701083679726e-08
+        ],
+        "transversality": {
+          "evidence_status": "COMPUTED/FLOAT_PROXY -- not the exact V2 saddle chart or certified event atlas",
+          "flow_to_stable_distance": 1.850194675036992e-14,
+          "flow_to_unstable_distance": 1.8501946750369946e-14,
+          "fundamental_condition_number": 12.720592856007146,
+          "quotient_sine": 0.45549702267231074,
+          "rank_defect_singular_value": 2.5529163198637964e-14,
+          "rank_three_singular_value": 0.3313045324863134,
+          "scope_note": "Finite-tail variational proxy for transversality modulo flow; not an interval lower bound and not the V2 shooting certificate.",
+          "stable_energy_tangency_defect": 1.3399483526517742e-14,
+          "unstable_energy_tangency_defect": 1.3399483526517742e-14
+        }
+      }
+    ],
+    "r_slice": {
+      "bvp_tolerance": 2e-10,
+      "domain_xi": 26.0,
+      "evidence_status": "COMPUTED/FLOAT -- explanatory evidence, not theorem validation",
+      "samples": [
+        {
+          "a2": 0.0,
+          "center": [
+            4.890116148032263,
+            -1.588982435787264e-28,
+            -7.955486846918523,
+            -1.0529208041191062e-28
+          ],
+          "diagnostics": {
+            "boundary_residual_inf": 1.3234889800848443e-23,
+            "center_amplitude": 9.33825502504293,
+            "hamiltonian_abs_max": 3.885149146842792e-12,
+            "hamiltonian_drift": 4.679907066803735e-12,
+            "nodes": 5943.0,
+            "nontrivial_branch": true,
+            "normalized_ode_residual_inf": 2.097559459457443e-09,
+            "solver_success": true,
+            "tail_norm": 1.3414618819326082e-07
+          },
+          "epsilon": 1.0,
+          "r": 0.04,
+          "spectrum": {
+            "a2": 0.0,
+            "alpha": 0.7071067811865476,
+            "beta": 0.7071067811865476,
+            "c": 0.0,
+            "characteristic_residual_inf": 2.962444526161419e-15,
+            "eigenvalues": [
+              {
+                "imag": 0.7071067811865476,
+                "real": -0.7071067811865477
+              },
+              {
+                "imag": -0.7071067811865476,
+                "real": -0.7071067811865477
+              },
+              {
+                "imag": 0.7071067811865469,
+                "real": 0.7071067811865471
+              },
+              {
+                "imag": -0.7071067811865469,
+                "real": 0.7071067811865471
+              }
+            ],
+            "epsilon": 1.0,
+            "evidence_status": "COMPUTED/FLOAT -- explanatory evidence, not theorem validation",
+            "is_saddle_focus": true,
+            "quartet_match_error": 8.005932084973442e-16,
+            "r": 0.04
+          },
+          "tail": [
+            7.947976067683389e-08,
+            -1.959079146662384e-08,
+            5.177419768711132e-08,
+            -9.281056401672246e-08
+          ],
+          "transversality": {
+            "evidence_status": "COMPUTED/FLOAT_PROXY -- not the exact V2 saddle chart or certified event atlas",
+            "flow_to_stable_distance": 1.965554003101885e-14,
+            "flow_to_unstable_distance": 1.965554003101883e-14,
+            "fundamental_condition_number": 12.360265358591564,
+            "quotient_sine": 0.45835101132606265,
+            "rank_defect_singular_value": 2.7071704885749405e-14,
+            "rank_three_singular_value": 0.3335097318363726,
+            "scope_note": "Finite-tail variational proxy for transversality modulo flow; not an interval lower bound and not the V2 shooting certificate.",
+            "stable_energy_tangency_defect": 1.4206081194884386e-14,
+            "unstable_energy_tangency_defect": 1.4206081194884386e-14
+          }
+        },
+        {
+          "a2": 0.0,
+          "center": [
+            4.904762951888843,
+            -6.327624851783772e-31,
+            -7.983502148703644,
+            4.089836032066483e-28
+          ],
+          "diagnostics": {
+            "boundary_residual_inf": 6.617444900424222e-24,
+            "center_amplitude": 9.369792216083399,
+            "hamiltonian_abs_max": 3.865796571744795e-12,
+            "hamiltonian_drift": 4.664593289528383e-12,
+            "nodes": 5946.0,
+            "nontrivial_branch": true,
+            "normalized_ode_residual_inf": 2.094923345907773e-09,
+            "solver_success": true,
+            "tail_norm": 1.345958073573357e-07
+          },
+          "epsilon": 1.0,
+          "r": 0.06,
+          "spectrum": {
+            "a2": 0.0,
+            "alpha": 0.7071067811865476,
+            "beta": 0.7071067811865476,
+            "c": 0.0,
+            "characteristic_residual_inf": 2.962444526161419e-15,
+            "eigenvalues": [
+              {
+                "imag": 0.7071067811865476,
+                "real": -0.7071067811865477
+              },
+              {
+                "imag": -0.7071067811865476,
+                "real": -0.7071067811865477
+              },
+              {
+                "imag": 0.7071067811865469,
+                "real": 0.7071067811865471
+              },
+              {
+                "imag": -0.7071067811865469,
+                "real": 0.7071067811865471
+              }
+            ],
+            "epsilon": 1.0,
+            "evidence_status": "COMPUTED/FLOAT -- explanatory evidence, not theorem validation",
+            "is_saddle_focus": true,
+            "quartet_match_error": 8.005932084973442e-16,
+            "r": 0.06
+          },
+          "tail": [
+            7.95938462782263e-08,
+            -1.9383954811680266e-08,
+            5.2180794491120856e-08,
+            -9.317874207642673e-08
+          ],
+          "transversality": {
+            "evidence_status": "COMPUTED/FLOAT_PROXY -- not the exact V2 saddle chart or certified event atlas",
+            "flow_to_stable_distance": 2.25920685265204e-14,
+            "flow_to_unstable_distance": 2.2592068526520413e-14,
+            "fundamental_condition_number": 12.490949015994085,
+            "quotient_sine": 0.45730800755163226,
+            "rank_defect_singular_value": 3.1000410389466204e-14,
+            "rank_three_singular_value": 0.3327035088244393,
+            "scope_note": "Finite-tail variational proxy for transversality modulo flow; not an interval lower bound and not the V2 shooting certificate.",
+            "stable_energy_tangency_defect": 1.630416772122295e-14,
+            "unstable_energy_tangency_defect": 1.630416772122295e-14
+          }
+        },
+        {
+          "a2": 0.0,
+          "center": [
+            4.925566685678478,
+            -5.3421858463599e-29,
+            -8.023335621653727,
+            -2.5500320108065446e-28
+          ],
+          "diagnostics": {
+            "boundary_residual_inf": 6.617444900424222e-24,
+            "center_amplitude": 9.414622757857229,
+            "hamiltonian_abs_max": 3.894884414989974e-12,
+            "hamiltonian_drift": 4.699684968861962e-12,
+            "nodes": 5951.0,
+            "nontrivial_branch": true,
+            "normalized_ode_residual_inf": 2.090631667783782e-09,
+            "solver_success": true,
+            "tail_norm": 1.352356258021287e-07
+          },
+          "epsilon": 1.0,
+          "r": 0.08,
+          "spectrum": {
+            "a2": 0.0,
+            "alpha": 0.7071067811865476,
+            "beta": 0.7071067811865476,
+            "c": 0.0,
+            "characteristic_residual_inf": 2.962444526161419e-15,
+            "eigenvalues": [
+              {
+                "imag": 0.7071067811865476,
+                "real": -0.7071067811865477
+              },
+              {
+                "imag": -0.7071067811865476,
+                "real": -0.7071067811865477
+              },
+              {
+                "imag": 0.7071067811865469,
+                "real": 0.7071067811865471
+              },
+              {
+                "imag": -0.7071067811865469,
+                "real": 0.7071067811865471
+              }
+            ],
+            "epsilon": 1.0,
+            "evidence_status": "COMPUTED/FLOAT -- explanatory evidence, not theorem validation",
+            "is_saddle_focus": true,
+            "quartet_match_error": 8.005932084973442e-16,
+            "r": 0.08
+          },
+          "tail": [
+            7.975386349996434e-08,
+            -1.9087269855497725e-08,
+            5.2760387601644304e-08,
+            -9.370172555780444e-08
+          ],
+          "transversality": {
+            "evidence_status": "COMPUTED/FLOAT_PROXY -- not the exact V2 saddle chart or certified event atlas",
+            "flow_to_stable_distance": 1.777986455717927e-14,
+            "flow_to_unstable_distance": 1.7779864557179258e-14,
+            "fundamental_condition_number": 12.678821568929761,
+            "quotient_sine": 0.45582439718829393,
+            "rank_defect_singular_value": 2.448582132049947e-14,
+            "rank_three_singular_value": 0.33155734495949307,
+            "scope_note": "Finite-tail variational proxy for transversality modulo flow; not an interval lower bound and not the V2 shooting certificate.",
+            "stable_energy_tangency_defect": 1.3010920657264728e-14,
+            "unstable_energy_tangency_defect": 1.3010920657264728e-14
+          }
+        }
+      ],
+      "scope_note": "Exploratory one-dimensional continuation slice; it is not an explicit V2 theorem wedge or a uniform validation."
+    }
+  },
+  "passage": {
+    "a2": 0.0,
+    "alpha": 0.7071067811865476,
+    "beta": 0.7071067811865476,
+    "eigenframe_condition_number": 1.000000000000001,
+    "epsilon": 1.0,
+    "evidence_status": "COMPUTED/FLOAT_PROXY -- not the exact V2 saddle chart or certified event atlas",
+    "expected_phase_slope": 1.0,
+    "expected_time_slope": -1.414213562373095,
+    "fitted_phase_slopes": {
+      "-1": 1.0011429293201999,
+      "1": 0.99889554964094
+    },
+    "fitted_time_slopes": {
+      "-1": -1.4146948702748188,
+      "1": -1.4137778588710321
+    },
+    "incoming_stable_radius": 0.08,
+    "outgoing_difference_radius": 0.015,
+    "r": 0.08,
+    "samples": [
+      {
+        "base_energy_abs_max": 1.503890468454926e-16,
+        "energy_difference_drift": 7.308630040937113e-19,
+        "event_residual": 5.204170427930421e-18,
+        "initial_adjustment": 4.22218511134649e-10,
+        "integration_steps": 180,
+        "nu_proxy": -0.0001,
+        "oriented_phase_change": -5.047517737564023,
+        "passage_time_xi": 7.119133742553111,
+        "perturbed_energy_abs_max": 2.0818662385358686e-16,
+        "sign": -1
+      },
+      {
+        "base_energy_abs_max": 1.506456618720034e-16,
+        "energy_difference_drift": 9.313116656809434e-19,
+        "event_residual": 6.938893903907228e-18,
+        "initial_adjustment": 3.798890752541216e-11,
+        "integration_steps": 222,
+        "nu_proxy": -3e-05,
+        "oriented_phase_change": -6.254298899251263,
+        "passage_time_xi": 8.823809745751966,
+        "perturbed_energy_abs_max": 1.5137741218240044e-16,
+        "sign": -1
+      },
+      {
+        "base_energy_abs_max": 1.506551640834407e-16,
+        "energy_difference_drift": 7.648011648016022e-19,
+        "event_residual": 6.938893903907228e-18,
+        "initial_adjustment": 4.220655472963349e-12,
+        "integration_steps": 261,
+        "nu_proxy": -1e-05,
+        "oriented_phase_change": -7.357495252779587,
+        "passage_time_xi": 10.381168764843554,
+        "perturbed_energy_abs_max": 1.5044297690178073e-16,
+        "sign": -1
+      },
+      {
+        "base_energy_abs_max": 1.5054389837780967e-16,
+        "energy_difference_drift": 4.989362427897151e-19,
+        "event_residual": 8.673617379884035e-18,
+        "initial_adjustment": 3.7984136228090024e-13,
+        "integration_steps": 304,
+        "nu_proxy": -3e-06,
+        "oriented_phase_change": -8.561073699157399,
+        "passage_time_xi": 12.081943521813152,
+        "perturbed_energy_abs_max": 1.5065050153774638e-16,
+        "sign": -1
+      },
+      {
+        "base_energy_abs_max": 1.5062520272277464e-16,
+        "energy_difference_drift": 7.318744650371046e-19,
+        "event_residual": 5.204170427930421e-18,
+        "initial_adjustment": 4.2200337089102024e-14,
+        "integration_steps": 342,
+        "nu_proxy": -1e-06,
+        "oriented_phase_change": -9.657147804318392,
+        "passage_time_xi": 13.633695522057586,
+        "perturbed_energy_abs_max": 1.5042038848625768e-16,
+        "sign": -1
+      },
+      {
+        "base_energy_abs_max": 1.5102254353120664e-16,
+        "energy_difference_drift": 1.2033169303255705e-18,
+        "event_residual": 5.204170427930421e-18,
+        "initial_adjustment": 4.21880574195317e-10,
+        "integration_steps": 180,
+        "nu_proxy": 0.0001,
+        "oriented_phase_change": -5.055437039771114,
+        "passage_time_xi": 7.1236435120449695,
+        "perturbed_energy_abs_max": 2.082425339993157e-16,
+        "sign": 1
+      },
+      {
+        "base_energy_abs_max": 1.5051706832227712e-16,
+        "energy_difference_drift": 9.643317076076887e-19,
+        "event_residual": 3.469446951953614e-18,
+        "initial_adjustment": 3.797977910453848e-11,
+        "integration_steps": 222,
+        "nu_proxy": 3e-05,
+        "oriented_phase_change": -6.2565805893477675,
+        "passage_time_xi": 8.824363489711732,
+        "perturbed_energy_abs_max": 1.5151088399101516e-16,
+        "sign": 1
+      },
+      {
+        "base_energy_abs_max": 1.5072860740792715e-16,
+        "energy_difference_drift": 1.2208957591132412e-18,
+        "event_residual": 5.204170427930421e-18,
+        "initial_adjustment": 4.220309829643288e-12,
+        "integration_steps": 261,
+        "nu_proxy": 1e-05,
+        "oriented_phase_change": -7.35076460594001,
+        "passage_time_xi": 10.374498692193002,
+        "perturbed_energy_abs_max": 1.5042553794406477e-16,
+        "sign": 1
+      },
+      {
+        "base_energy_abs_max": 1.5080359838593867e-16,
+        "energy_difference_drift": 3.973971859606285e-19,
+        "event_residual": 1.734723475976807e-18,
+        "initial_adjustment": 3.7984095312352433e-13,
+        "integration_steps": 304,
+        "nu_proxy": 3e-06,
+        "oriented_phase_change": -8.555132695399925,
+        "passage_time_xi": 12.079066897570781,
+        "perturbed_energy_abs_max": 1.507342901516601e-16,
+        "sign": 1
+      },
+      {
+        "base_energy_abs_max": 1.503890468454926e-16,
+        "energy_difference_drift": 1.0127700116426846e-18,
+        "event_residual": 3.469446951953614e-18,
+        "initial_adjustment": 4.2204299134191325e-14,
+        "integration_steps": 342,
+        "nu_proxy": 1e-06,
+        "oriented_phase_change": -9.656291519668812,
+        "passage_time_xi": 13.634661363030077,
+        "perturbed_energy_abs_max": 1.5071193207039472e-16,
+        "sign": 1
+      }
+    ],
+    "scope_note": "Paired-orbit experiment around the numerical homoclinic using a raw linear eigen-coordinate amplitude nu_proxy.  It tests the leading time/phase slopes only; nu_proxy is not the exact V2 action coordinate."
+  },
+  "scope": "The exact transported V2 phase/action chart and exhaustive clean-event arrangement remain NOT_NUMERICALLY_RESOLVED.",
+  "status": "COMPUTED/E1 finite slices and passage proxy"
+}
