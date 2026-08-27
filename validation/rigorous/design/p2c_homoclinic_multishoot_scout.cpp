@@ -1238,14 +1238,28 @@ FaceContainmentResult mapMuFaceEnclosure(
       ||source.parameterSlopes.size()!=kSegments
       ||target.parameterSlopes.size()!=kSegments)
     throw std::runtime_error("incompatible mu-affine shooting charts");
-  MuBox sourceEta,targetEta;
-  interval deltaShift=source.phi0-target.phi0;
+  MuBox faceCentre,faceOffset,sourceCentreOffset,targetCentreOffset;
+  MuBox phaseSlopeDifference;
+  interval deltaConstant=source.phi0-target.phi0;
   for(int parameter=0;parameter<3;++parameter){
-    sourceEta[parameter]=face[parameter]-source.parameterCentre[parameter];
-    targetEta[parameter]=face[parameter]-target.parameterCentre[parameter];
-    deltaShift+=source.phaseSlopes[parameter]*sourceEta[parameter]
-      -target.phaseSlopes[parameter]*targetEta[parameter];
+    // A face parameter is one shared interval variable.  Centre the exact
+    // affine difference so interval arithmetic does not treat the same
+    // parameter as two independent copies in the source and target charts.
+    faceCentre[parameter]=pointAtMidpoint(face[parameter]);
+    faceOffset[parameter]=face[parameter]-faceCentre[parameter];
+    sourceCentreOffset[parameter]=
+      faceCentre[parameter]-source.parameterCentre[parameter];
+    targetCentreOffset[parameter]=
+      faceCentre[parameter]-target.parameterCentre[parameter];
+    phaseSlopeDifference[parameter]=source.phaseSlopes[parameter]
+      -target.phaseSlopes[parameter];
+    deltaConstant+=source.phaseSlopes[parameter]
+        *sourceCentreOffset[parameter]
+      -target.phaseSlopes[parameter]*targetCentreOffset[parameter];
   }
+  interval deltaShift=deltaConstant;
+  for(int parameter=0;parameter<3;++parameter)
+    deltaShift+=phaseSlopeDifference[parameter]*faceOffset[parameter];
   IVector mapped(source.K.dimension());
   mapped[0]=source.K[0]+deltaShift;
   mapped[1]=source.K[1];
@@ -1254,7 +1268,7 @@ FaceContainmentResult mapMuFaceEnclosure(
       const int index=2+4*node+coordinate;
       interval physical=source.chart.nodes[node][coordinate]
         -target.chart.nodes[node][coordinate]
-        -target.chart.phaseTangents[node][coordinate]*deltaShift
+        -target.chart.phaseTangents[node][coordinate]*deltaConstant
         +(source.chart.phaseTangents[node][coordinate]
           -target.chart.phaseTangents[node][coordinate])*source.K[0]
         +(source.chart.errorTangents[node][coordinate]
@@ -1262,9 +1276,14 @@ FaceContainmentResult mapMuFaceEnclosure(
         +source.K[index];
       for(int parameter=0;parameter<3;++parameter)
         physical+=source.parameterSlopes[node][parameter][coordinate]
-          *sourceEta[parameter]
+            *sourceCentreOffset[parameter]
           -target.parameterSlopes[node][parameter][coordinate]
-          *targetEta[parameter];
+            *targetCentreOffset[parameter]
+          +(source.parameterSlopes[node][parameter][coordinate]
+            -target.parameterSlopes[node][parameter][coordinate]
+            -target.chart.phaseTangents[node][coordinate]
+              *phaseSlopeDifference[parameter])
+            *faceOffset[parameter];
       mapped[index]=physical;
     }
   }
@@ -1287,6 +1306,313 @@ std::pair<interval,MuBox> rFacePredictor(const interval&rCentre){
   const MuBox slopes={pointAtMidpoint(
     -interval(2.)*predictorQuadratic*rCentre),interval(0.),interval(0.)};
   return {phi0,slopes};
+}
+
+constexpr int kMuGridRCells=32;
+constexpr int kMuGridA2Cells=128;
+constexpr int kMuGridEpsilonCells=4;
+
+interval muGridRFace(int index){
+  if(index<0||index>kMuGridRCells)
+    throw std::out_of_range("mu-grid r face index");
+  return index==0?interval(0.):interval(index)/interval(400);
+}
+
+interval muGridA2Face(int index){
+  if(index<0||index>kMuGridA2Cells)
+    throw std::out_of_range("mu-grid a2 face index");
+  const int numerator=index-64;
+  return numerator==0?interval(0.):interval(numerator)/interval(256);
+}
+
+interval muGridEpsilonFace(int index){
+  if(index<0||index>kMuGridEpsilonCells)
+    throw std::out_of_range("mu-grid epsilon face index");
+  const int numerator=8+index;
+  return numerator==10?interval(1.):interval(numerator)/interval(10);
+}
+
+MuBox muGridCellBox(int rIndex,int a2Index,int epsilonIndex){
+  const interval rLeft=muGridRFace(rIndex),rRight=muGridRFace(rIndex+1);
+  const interval aLeft=muGridA2Face(a2Index),aRight=muGridA2Face(a2Index+1);
+  const interval eLeft=muGridEpsilonFace(epsilonIndex);
+  const interval eRight=muGridEpsilonFace(epsilonIndex+1);
+  return {interval(rLeft.leftBound(),rRight.rightBound()),
+          interval(aLeft.leftBound(),aRight.rightBound()),
+          interval(eLeft.leftBound(),eRight.rightBound())};
+}
+
+std::pair<interval,MuBox> muGridPhasePredictor(const MuBox&centre){
+  // This fitted binary64 polynomial chooses a shooting chart only.  It is
+  // not an enclosure of the true phase or its derivatives: the phase
+  // correction remains a Newton unknown and every proof gate below uses the
+  // outward-rounded flow, source remainder, and full interval Jacobian.
+  const double r=midpointValue(centre[0]);
+  const double a2=midpointValue(centre[1]);
+  const double epsilon=midpointValue(centre[2]);
+  const double r2=r*r,r3=r2*r,r4=r2*r2,a2Squared=a2*a2;
+  const double s=std::sqrt(epsilon)-1.;
+  const double B0=5.861505575152651
+    -.210967554368243*r2-.144824979256505*r4;
+  const double B1=5.418818020704685*r
+    -.00126716957025419*r2+1.744493268274117*r3;
+  const double B2=.000246297424945125*r
+    -1.933406374738756*r2+.232626825497133*r3;
+  const double C0=-.211485862199655*r2-.187230618196915*r4;
+  const double C1=-.00600542276151165*r+.203700985551162*r2;
+  const double C2=.000510439999174864*r;
+  const double phase=B0+a2*B1+a2Squared*B2
+    +s*(C0+a2*C1+a2Squared*C2);
+  const double phaseR=-2.*.210967554368243*r
+    -4.*.144824979256505*r3
+    +a2*(5.418818020704685-2.*.00126716957025419*r
+      +3.*1.744493268274117*r2)
+    +a2Squared*(.000246297424945125-2.*1.933406374738756*r
+      +3.*.232626825497133*r2)
+    +s*(-2.*.211485862199655*r-4.*.187230618196915*r3
+      +a2*(-.00600542276151165+2.*.203700985551162*r)
+      +a2Squared*.000510439999174864);
+  const double phaseA2=B1+2.*a2*B2+s*(C1+2.*a2*C2);
+  const double phaseEpsilon=(C0+a2*C1+a2Squared*C2)
+    /(2.*std::sqrt(epsilon));
+  return {interval(phase),
+          MuBox{interval(phaseR),interval(phaseA2),interval(phaseEpsilon)}};
+}
+
+MuAffineCellResult buildMuGridBox(
+    double radiusFactor,const MuBox&cell){
+  MuBox centre;
+  for(int parameter=0;parameter<3;++parameter)
+    centre[parameter]=pointAtMidpoint(cell[parameter]);
+  const auto predictor=muGridPhasePredictor(centre);
+  return buildMuAffineCell(
+    radiusFactor,cell,predictor.first,predictor.second,false);
+}
+
+MuAffineCellResult buildMuGridCell(
+    double radiusFactor,int rIndex,int a2Index,int epsilonIndex){
+  return buildMuGridBox(
+    radiusFactor,muGridCellBox(rIndex,a2Index,epsilonIndex));
+}
+
+struct MuGridCellStats{
+  bool success=true;
+  int count=0,passCount=0;
+  double maxInclusion=0.,maxContraction=0.;
+  double determinantLower=0.,determinantUpper=0.;
+  int worstInclusionA2=-1,worstInclusionEpsilon=-1;
+  int worstContractionA2=-1,worstContractionEpsilon=-1;
+};
+
+void updateMuGridCellStats(MuGridCellStats&stats,
+    const MuAffineCellResult&cell,int a2Index,int epsilonIndex){
+  if(stats.count==0){
+    stats.determinantLower=cell.determinant.leftBound();
+    stats.determinantUpper=cell.determinant.rightBound();
+  }else{
+    stats.determinantLower=std::min(
+      stats.determinantLower,cell.determinant.leftBound());
+    stats.determinantUpper=std::max(
+      stats.determinantUpper,cell.determinant.rightBound());
+  }
+  ++stats.count;
+  if(cell.success)++stats.passCount;
+  stats.success=stats.success&&cell.success;
+  if(cell.maxInclusion>stats.maxInclusion){
+    stats.maxInclusion=cell.maxInclusion;
+    stats.worstInclusionA2=a2Index;
+    stats.worstInclusionEpsilon=epsilonIndex;
+  }
+  if(cell.maxContraction>stats.maxContraction){
+    stats.maxContraction=cell.maxContraction;
+    stats.worstContractionA2=a2Index;
+    stats.worstContractionEpsilon=epsilonIndex;
+  }
+}
+
+struct MuGridFaceStats{
+  bool success=true;
+  int count=0,passCount=0;
+  double maxRatio=0.;
+  int worstCoordinate=-1;
+  int worstA2=-1,worstEpsilon=-1;
+};
+
+void updateMuGridFaceStats(MuGridFaceStats&stats,
+    const FaceContainmentResult&face,int a2Index,int epsilonIndex){
+  ++stats.count;
+  if(face.success)++stats.passCount;
+  stats.success=stats.success&&face.success;
+  if(face.maxRatio>stats.maxRatio){
+    stats.maxRatio=face.maxRatio;
+    stats.worstCoordinate=face.worstIndex;
+    stats.worstA2=a2Index;
+    stats.worstEpsilon=epsilonIndex;
+  }
+}
+
+int muGridSlabOffset(int a2Index,int epsilonIndex){
+  return a2Index*kMuGridEpsilonCells+epsilonIndex;
+}
+
+std::vector<MuAffineCellResult> buildMuGridSlab(
+    double radiusFactor,int rIndex,MuGridCellStats*stats=nullptr){
+  std::vector<MuAffineCellResult> slab;
+  slab.reserve(kMuGridA2Cells*kMuGridEpsilonCells);
+  for(int a2Index=0;a2Index<kMuGridA2Cells;++a2Index)
+    for(int epsilonIndex=0;epsilonIndex<kMuGridEpsilonCells;++epsilonIndex){
+      slab.push_back(buildMuGridCell(
+        radiusFactor,rIndex,a2Index,epsilonIndex));
+      if(stats)updateMuGridCellStats(
+        *stats,slab.back(),a2Index,epsilonIndex);
+    }
+  return slab;
+}
+
+int runMuGridFace(double radiusFactor,const std::string&axis,
+                  int rIndex,int a2Index,int epsilonIndex){
+  if(rIndex<0||rIndex>=kMuGridRCells
+      ||a2Index<0||a2Index>=kMuGridA2Cells
+      ||epsilonIndex<0||epsilonIndex>=kMuGridEpsilonCells)
+    throw std::invalid_argument("mu-grid face lower-cell index is out of range");
+  int upperR=rIndex,upperA2=a2Index,upperEpsilon=epsilonIndex;
+  const MuBox lowerBox=muGridCellBox(rIndex,a2Index,epsilonIndex);
+  MuBox face;
+  if(axis=="r"){
+    if(rIndex+1>=kMuGridRCells)
+      throw std::invalid_argument("mu-grid r face has no upper cell");
+    ++upperR;
+    face={muGridRFace(rIndex+1),lowerBox[1],lowerBox[2]};
+  }else if(axis=="a2"){
+    if(a2Index+1>=kMuGridA2Cells)
+      throw std::invalid_argument("mu-grid a2 face has no upper cell");
+    ++upperA2;
+    face={lowerBox[0],muGridA2Face(a2Index+1),lowerBox[2]};
+  }else if(axis=="epsilon"){
+    if(epsilonIndex+1>=kMuGridEpsilonCells)
+      throw std::invalid_argument("mu-grid epsilon face has no upper cell");
+    ++upperEpsilon;
+    face={lowerBox[0],lowerBox[1],
+          muGridEpsilonFace(epsilonIndex+1)};
+  }else{
+    throw std::invalid_argument("mu-grid face axis must be r, a2, or epsilon");
+  }
+  const MuAffineCellResult lower=buildMuGridCell(
+    radiusFactor,rIndex,a2Index,epsilonIndex);
+  const MuAffineCellResult upper=buildMuGridCell(
+    radiusFactor,upperR,upperA2,upperEpsilon);
+  const FaceContainmentResult lowerIntoUpper=mapMuFaceEnclosure(
+    lower,upper,face);
+  const FaceContainmentResult upperIntoLower=mapMuFaceEnclosure(
+    upper,lower,face);
+  const bool success=lower.success&&upper.success&&lowerIntoUpper.success;
+  std::cout<<std::setprecision(17)
+    <<"mode mu-grid-face\n"
+    <<"axis "<<axis<<" lower_indices "<<rIndex<<" "<<a2Index<<" "
+       <<epsilonIndex<<" upper_indices "<<upperR<<" "<<upperA2<<" "
+       <<upperEpsilon<<"\n"
+    <<"face "<<face[0]<<" "<<face[1]<<" "<<face[2]<<"\n"
+    <<"lower max_inclusion "<<lower.maxInclusion
+    <<" max_contraction "<<lower.maxContraction<<" "
+       <<(lower.success?"PASS":"INCONCLUSIVE")<<"\n"
+    <<"upper max_inclusion "<<upper.maxInclusion
+    <<" max_contraction "<<upper.maxContraction<<" "
+       <<(upper.success?"PASS":"INCONCLUSIVE")<<"\n"
+    <<"direct_face_map direction lower->upper max_ratio "
+       <<lowerIntoUpper.maxRatio
+    <<" worst "<<lowerIntoUpper.worstIndex<<" "
+       <<shootingCoordinateName(lowerIntoUpper.worstIndex)<<" "
+       <<(lowerIntoUpper.success?"PASS":"INCONCLUSIVE")<<"\n"
+    <<"direct_face_map direction upper->lower max_ratio "
+       <<upperIntoLower.maxRatio
+    <<" worst "<<upperIntoLower.worstIndex<<" "
+       <<shootingCoordinateName(upperIntoLower.worstIndex)<<" "
+       <<(upperIntoLower.success?"PASS":"INCONCLUSIVE")
+       <<" diagnostic_not_required\n"
+    <<(success?"PASS":"INCONCLUSIVE")
+    <<" mu-grid face root identification\n";
+  return success?0:20;
+}
+
+void reportMuGridFaceStats(const char*axis,const MuGridFaceStats&stats){
+  std::cout<<axis<<"_faces "<<stats.count
+    <<" pass "<<stats.passCount
+    <<" max_ratio "<<stats.maxRatio
+    <<" worst_a2_index "<<stats.worstA2
+    <<" worst_epsilon_index "<<stats.worstEpsilon
+    <<" worst_coordinate "<<stats.worstCoordinate<<" "
+    <<shootingCoordinateName(stats.worstCoordinate)<<" "
+    <<(stats.success?"PASS":"INCONCLUSIVE")<<"\n";
+}
+
+int runMuGridSlab(double radiusFactor,int rIndex){
+  if(rIndex<0||rIndex>=kMuGridRCells)
+    throw std::invalid_argument("mu-grid r_index must lie in [0,31]");
+  MuGridCellStats cellStats;
+  const std::vector<MuAffineCellResult> slab=buildMuGridSlab(
+    radiusFactor,rIndex,&cellStats);
+  MuGridFaceStats a2Faces,epsilonFaces,rFaces;
+  const MuBox firstCell=muGridCellBox(rIndex,0,0);
+  const interval rCell=firstCell[0];
+  for(int a2Index=0;a2Index+1<kMuGridA2Cells;++a2Index)
+    for(int epsilonIndex=0;epsilonIndex<kMuGridEpsilonCells;++epsilonIndex){
+      const MuBox cell=muGridCellBox(rIndex,a2Index,epsilonIndex);
+      const MuBox face={rCell,muGridA2Face(a2Index+1),cell[2]};
+      updateMuGridFaceStats(a2Faces,mapMuFaceEnclosure(
+        slab[muGridSlabOffset(a2Index,epsilonIndex)],
+        slab[muGridSlabOffset(a2Index+1,epsilonIndex)],face),
+        a2Index,epsilonIndex);
+    }
+  for(int a2Index=0;a2Index<kMuGridA2Cells;++a2Index)
+    for(int epsilonIndex=0;
+        epsilonIndex+1<kMuGridEpsilonCells;++epsilonIndex){
+      const MuBox cell=muGridCellBox(rIndex,a2Index,epsilonIndex);
+      const MuBox face={rCell,cell[1],
+                        muGridEpsilonFace(epsilonIndex+1)};
+      updateMuGridFaceStats(epsilonFaces,mapMuFaceEnclosure(
+        slab[muGridSlabOffset(a2Index,epsilonIndex)],
+        slab[muGridSlabOffset(a2Index,epsilonIndex+1)],face),
+        a2Index,epsilonIndex);
+    }
+  if(rIndex+1<kMuGridRCells){
+    const std::vector<MuAffineCellResult> next=buildMuGridSlab(
+      radiusFactor,rIndex+1);
+    for(int a2Index=0;a2Index<kMuGridA2Cells;++a2Index)
+      for(int epsilonIndex=0;epsilonIndex<kMuGridEpsilonCells;
+          ++epsilonIndex){
+        const MuBox cell=muGridCellBox(rIndex,a2Index,epsilonIndex);
+        const MuBox face={muGridRFace(rIndex+1),cell[1],cell[2]};
+        updateMuGridFaceStats(rFaces,mapMuFaceEnclosure(
+          slab[muGridSlabOffset(a2Index,epsilonIndex)],
+          next[muGridSlabOffset(a2Index,epsilonIndex)],face),
+          a2Index,epsilonIndex);
+      }
+  }
+  const bool success=cellStats.success&&a2Faces.success
+    &&epsilonFaces.success&&rFaces.success;
+  std::cout<<std::setprecision(17)
+    <<"mode mu-grid-slab\n"
+    <<"grid "<<kMuGridRCells<<" "<<kMuGridA2Cells<<" "
+       <<kMuGridEpsilonCells<<" radius_factor "<<radiusFactor<<"\n"
+    <<"r_index "<<rIndex<<" r_cell "<<rCell<<"\n"
+    <<"cells "<<cellStats.count<<" pass "<<cellStats.passCount
+    <<" max_inclusion "<<cellStats.maxInclusion
+    <<" worst_inclusion_a2_index "<<cellStats.worstInclusionA2
+    <<" worst_inclusion_epsilon_index "
+       <<cellStats.worstInclusionEpsilon
+    <<" max_contraction "<<cellStats.maxContraction
+    <<" worst_contraction_a2_index "<<cellStats.worstContractionA2
+    <<" worst_contraction_epsilon_index "
+       <<cellStats.worstContractionEpsilon
+    <<" determinant_hull "
+       <<interval(cellStats.determinantLower,cellStats.determinantUpper)<<" "
+    <<(cellStats.success?"PASS":"INCONCLUSIVE")<<"\n";
+  reportMuGridFaceStats("a2",a2Faces);
+  reportMuGridFaceStats("epsilon",epsilonFaces);
+  reportMuGridFaceStats("r",rFaces);
+  std::cout<<(success?"PASS":"INCONCLUSIVE")
+    <<" mu-grid slab root identification\n";
+  return success?0:20;
 }
 
 FaceContainmentResult importFrozenCoreRoot(
@@ -1344,6 +1670,67 @@ FaceContainmentResult importFrozenCoreRoot(
     success=success&&interior(frozen[i],core.X[i]);
   }
   return {success,frozen,maxRatio,worstIndex};
+}
+
+int runMuGridAnchor(double radiusFactor){
+  // The exact point (0,0,1) is the lower-r/upper-a2/upper-epsilon corner of
+  // this grid cell.  One successful core-to-cell map anchors the connected
+  // common-face cover; no separate anchor is needed for every degenerate
+  // (a2,epsilon) representation on r=0.
+  constexpr int anchorR=0,anchorA2=63,anchorEpsilon=1;
+  const MuAffineCellResult cell=buildMuGridCell(
+    radiusFactor,anchorR,anchorA2,anchorEpsilon);
+  const interval zero(0.),one(1.);
+  const MuBox coreCell={zero,zero,one};
+  const MuBox zeroSlopes={zero,zero,zero};
+  const interval corePhase=rFacePredictor(zero).first;
+  constexpr double coreRadiusFactor=1.5;
+  const MuAffineCellResult core=buildMuAffineCell(
+    coreRadiusFactor,coreCell,corePhase,zeroSlopes,false,true);
+  const MuBox anchorPoint={zero,zero,one};
+  const FaceContainmentResult intoCell=mapMuFaceEnclosure(
+    core,cell,anchorPoint);
+  const FaceContainmentResult frozenImport=importFrozenCoreRoot(core);
+  double coreParameterSlopeMax=0.;
+  for(const MuSlopes&nodeSlopes:core.parameterSlopes)
+    for(int parameter=0;parameter<3;++parameter)
+      for(int coordinate=0;coordinate<4;++coordinate)
+        coreParameterSlopeMax=std::max(coreParameterSlopeMax,
+          absUpper(nodeSlopes[parameter][coordinate]));
+  const bool success=cell.success&&core.success
+    &&coreParameterSlopeMax==0.&&intoCell.success&&frozenImport.success;
+  std::cout<<std::setprecision(17)
+    <<"mode mu-grid-anchor\n"
+    <<"grid_radius_factor "<<radiusFactor
+       <<" core_radius_factor "<<coreRadiusFactor<<"\n"
+    <<"anchor_cell_indices "<<anchorR<<" "<<anchorA2<<" "
+       <<anchorEpsilon<<" parameter_cell "<<cell.parameterCell[0]<<" "
+       <<cell.parameterCell[1]<<" "<<cell.parameterCell[2]<<"\n"
+    <<"anchor_point "<<anchorPoint[0]<<" "<<anchorPoint[1]<<" "
+       <<anchorPoint[2]<<"\n"
+    <<"anchor_cell max_inclusion "<<cell.maxInclusion
+    <<" max_contraction "<<cell.maxContraction
+    <<" determinant "<<cell.determinant<<" "
+    <<(cell.success?"PASS":"INCONCLUSIVE")<<"\n"
+    <<"core max_inclusion "<<core.maxInclusion
+    <<" max_contraction "<<core.maxContraction
+    <<" determinant "<<core.determinant
+    <<" node_parameter_slope_max "<<coreParameterSlopeMax<<" "
+    <<(core.success&&coreParameterSlopeMax==0.?"PASS":"INCONCLUSIVE")<<"\n"
+    <<"anchor_face direction core->cell max_ratio "<<intoCell.maxRatio
+    <<" worst "<<intoCell.worstIndex<<" "
+       <<shootingCoordinateName(intoCell.worstIndex)<<" "
+    <<(intoCell.success?"PASS":"INCONCLUSIVE")<<"\n"
+    <<"anchor_import phase "
+       <<interval("5.8615055856447817","5.8615055856450482")
+    <<" graph_c0 "<<interval("-1e-20","1e-20")
+    <<" max_ratio "<<frozenImport.maxRatio
+    <<" worst "<<frozenImport.worstIndex<<" "
+       <<shootingCoordinateName(frozenImport.worstIndex)<<" "
+    <<(frozenImport.success?"PASS":"INCONCLUSIVE")<<"\n"
+    <<(success?"PASS":"INCONCLUSIVE")
+    <<" mu-grid frozen-core anchor\n";
+  return success?0:20;
 }
 
 int runMuRFaces(double radiusFactor){
@@ -1453,6 +1840,28 @@ int runMuRFaces(double radiusFactor){
 int main(int argc,char**argv){
  std::string stage="argument parsing";
  try{
+ if(argc==7 && std::string(argv[1])=="mu-grid-face"){
+   const double factor=std::stod(argv[2]);
+   if(!std::isfinite(factor)||factor<=1.)
+     throw std::invalid_argument("radius_factor must be finite and greater than one");
+   stage="mu-grid common-face experiment";
+   return runMuGridFace(factor,argv[3],std::stoi(argv[4]),
+                        std::stoi(argv[5]),std::stoi(argv[6]));
+ }
+ if(argc==4 && std::string(argv[1])=="mu-grid-slab"){
+   const double factor=std::stod(argv[2]);
+   if(!std::isfinite(factor)||factor<=1.)
+     throw std::invalid_argument("radius_factor must be finite and greater than one");
+   stage="mu-grid slab experiment";
+   return runMuGridSlab(factor,std::stoi(argv[3]));
+ }
+ if(argc==3 && std::string(argv[1])=="mu-grid-anchor"){
+   const double factor=std::stod(argv[2]);
+   if(!std::isfinite(factor)||factor<=1.)
+     throw std::invalid_argument("radius_factor must be finite and greater than one");
+   stage="mu-grid frozen-core anchor experiment";
+   return runMuGridAnchor(factor);
+ }
  if(argc==3 && std::string(argv[1])=="mu-r-faces"){
    const double factor=std::stod(argv[2]);
    if(!std::isfinite(factor)||factor<=1.)
@@ -1496,6 +1905,9 @@ int main(int argc,char**argv){
      "[a2-affine radius_factor a2_lo a2_hi phi0] or "
      "[a2-faces radius_factor phi0_0 phi0_1 phi0_2 phi0_3] or "
      "[mu-r-faces radius_factor] or "
+     "[mu-grid-anchor radius_factor] or "
+     "[mu-grid-face radius_factor axis r_index a2_index epsilon_index] or "
+     "[mu-grid-slab radius_factor r_index] or "
      "[mu-affine radius_factor r_lo r_hi a2_lo a2_hi eps_lo eps_hi "
      "phi0 phi_r phi_a2 phi_epsilon]");
  const bool cellMode=argc==9;
