@@ -1,0 +1,1650 @@
+{
+  "claim_boundary": [
+    "linear temporal Fourier prescreen only",
+    "no nonlinear Turing branch or mode-selection claim",
+    "no stability claim for nonconstant stationary profiles",
+    "no nonlinear time-evolution conclusion",
+    "no canard identification",
+    "not outward-rounded issue #7 validation"
+  ],
+  "evidence_status": "DERIVED_FORMULAS+COMPUTED/E1_LINEAR_PRESCREEN",
+  "frozen_cartesian_slice_scan": {
+    "classical_stationary_turing_point_count": 0,
+    "closest_sample_to_stationary_threshold": {
+      "all_fourier_modes_asymptotically_stable": false,
+      "homogeneous_equilibrium": [
+        0.999985689164944,
+        -0.6666666664618677
+      ],
+      "homogeneous_status": "LONG_WAVE_OSCILLATORY_UNSTABLE",
+      "interpretation": "long-wave homogeneous instability with no stationary finite-k zero",
+      "parameters": {
+        "a": 0.999985689164944,
+        "a2": -0.25,
+        "alpha_fprime_a": -2.862146531201759e-05,
+        "d": 2.56e-06,
+        "epsilon": 0.8,
+        "r": 0.04
+      },
+      "stationary": {
+        "classical_stationary_turing_from_stable_homogeneous_state": false,
+        "has_stationary_real_unstable_band": false,
+        "k_roots": [],
+        "minimum_determinant": 0.7999200011448626,
+        "obstruction": "homogeneous stability requires alpha>0, while a positive-k stationary zero requires alpha<=-2*sqrt(d*epsilon)",
+        "onset_k_critical": 23.643540225079395,
+        "onset_q_critical": 559.0169943749474,
+        "onset_wavelength": 0.26574638346734675,
+        "q_minimum_determinant": 5.5901299437534355,
+        "q_roots": [],
+        "stationary_discriminant": -8.191180811723394e-06,
+        "stationary_zero_status": "NONE",
+        "threshold_alpha": -0.002862167011199731,
+        "threshold_margin_alpha_minus_threshold": 0.0028335455458877133,
+        "wavelengths_at_roots": []
+      },
+      "temporal_regime": "LONG_WAVE_OSCILLATORY_UNSTABLE",
+      "zero_mode_determinant": 0.8,
+      "zero_mode_eigenvalues": [
+        {
+          "imag": 0.8944271908854309,
+          "real": 1.4310732656008796e-05
+        },
+        {
+          "imag": -0.8944271908854309,
+          "real": 1.4310732656008796e-05
+        }
+      ],
+      "zero_mode_spectral_abscissa": 1.4310732656008796e-05,
+      "zero_mode_trace": 2.862146531201759e-05
+    },
+    "first_stationary_band_witness": null,
+    "point_count": 27,
+    "records": [
+      {
+        "all_fourier_modes_asymptotically_stable": false,
+        "homogeneous_equilibrium": [
+          0.999985689164944,
+          -0.6666666664618677
+        ],
+        "homogeneous_status": "LONG_WAVE_OSCILLATORY_UNSTABLE",
+        "interpretation": "long-wave homogeneous instability with no stationary finite-k zero",
+        "parameters": {
+          "a": 0.999985689164944,
+          "a2": -0.25,
+          "alpha_fprime_a": -2.862146531201759e-05,
+          "d": 2.56e-06,
+          "epsilon": 0.8,
+          "r": 0.04
+        },
+        "stationary": {
+          "classical_stationary_turing_from_stable_homogeneous_state": false,
+          "has_stationary_real_unstable_band": false,
+          "k_roots": [],
+          "minimum_determinant": 0.7999200011448626,
+          "obstruction": "homogeneous stability requires alpha>0, while a positive-k stationary zero requires alpha<=-2*sqrt(d*epsilon)",
+          "onset_k_critical": 23.643540225079395,
+          "onset_q_critical": 559.0169943749474,
+          "onset_wavelength": 0.26574638346734675,
+          "q_minimum_determinant": 5.5901299437534355,
+          "q_roots": [],
+          "stationary_discriminant": -8.191180811723394e-06,
+          "stationary_zero_status": "NONE",
+          "threshold_alpha": -0.002862167011199731,
+          "threshold_margin_alpha_minus_threshold": 0.0028335455458877133,
+          "wavelengths_at_roots": []
+        },
+        "temporal_regime": "LONG_WAVE_OSCILLATORY_UNSTABLE",
+        "zero_mode_determinant": 0.8,
+        "zero_mode_eigenvalues": [
+          {
+            "imag": 0.8944271908854309,
+            "real": 1.4310732656008796e-05
+          },
+          {
+            "imag": -0.8944271908854309,
+            "real": 1.4310732656008796e-05
+          }
+        ],
+        "zero_mode_spectral_abscissa": 1.4310732656008796e-05,
+        "zero_mode_trace": 2.862146531201759e-05
+      },
+      {
+        "all_fourier_modes_asymptotically_stable": false,
+        "homogeneous_equilibrium": [
+          0.999984,
+          -0.666666666410668
+        ],
+        "homogeneous_status": "LONG_WAVE_OSCILLATORY_UNSTABLE",
+        "interpretation": "long-wave homogeneous instability with no stationary finite-k zero",
+        "parameters": {
+          "a": 0.999984,
+          "a2": -0.25,
+          "alpha_fprime_a": -3.1999744000033026e-05,
+          "d": 2.56e-06,
+          "epsilon": 1.0,
+          "r": 0.04
+        },
+        "stationary": {
+          "classical_stationary_turing_from_stable_homogeneous_state": false,
+          "has_stationary_real_unstable_band": false,
+          "k_roots": [],
+          "minimum_determinant": 0.9999000015999934,
+          "obstruction": "homogeneous stability requires alpha>0, while a positive-k stationary zero requires alpha<=-2*sqrt(d*epsilon)",
+          "onset_k_critical": 25.0,
+          "onset_q_critical": 625.0,
+          "onset_wavelength": 0.25132741228718347,
+          "q_minimum_determinant": 6.24995000000645,
+          "q_roots": [],
+          "stationary_discriminant": -1.0238976016383932e-05,
+          "stationary_zero_status": "NONE",
+          "threshold_alpha": -0.0032,
+          "threshold_margin_alpha_minus_threshold": 0.003168000255999967,
+          "wavelengths_at_roots": []
+        },
+        "temporal_regime": "LONG_WAVE_OSCILLATORY_UNSTABLE",
+        "zero_mode_determinant": 1.0,
+        "zero_mode_eigenvalues": [
+          {
+            "imag": 0.999999999872002,
+            "real": 1.5999872000016513e-05
+          },
+          {
+            "imag": -0.999999999872002,
+            "real": 1.5999872000016513e-05
+          }
+        ],
+        "zero_mode_spectral_abscissa": 1.5999872000016513e-05,
+        "zero_mode_trace": 3.1999744000033026e-05
+      },
+      {
+        "all_fourier_modes_asymptotically_stable": false,
+        "homogeneous_equilibrium": [
+          0.9999824728781599,
+          -0.6666666663594685
+        ],
+        "homogeneous_status": "LONG_WAVE_OSCILLATORY_UNSTABLE",
+        "interpretation": "long-wave homogeneous instability with no stationary finite-k zero",
+        "parameters": {
+          "a": 0.9999824728781599,
+          "a2": -0.25,
+          "alpha_fprime_a": -3.5053936480178294e-05,
+          "d": 2.56e-06,
+          "epsilon": 1.2,
+          "r": 0.04
+        },
+        "stationary": {
+          "classical_stationary_turing_from_stable_homogeneous_state": false,
+          "has_stationary_real_unstable_band": false,
+          "k_roots": [],
+          "minimum_determinant": 1.1998800021032463,
+          "obstruction": "homogeneous stability requires alpha>0, while a positive-k stationary zero requires alpha<=-2*sqrt(d*epsilon)",
+          "onset_k_critical": 26.16587848480264,
+          "onset_q_critical": 684.6531968814577,
+          "onset_wavelength": 0.24012896455316463,
+          "q_minimum_determinant": 6.846471968784823,
+          "q_roots": [],
+          "stationary_discriminant": -1.2286771221537244e-05,
+          "stationary_zero_status": "NONE",
+          "threshold_alpha": -0.0035054243680330633,
+          "threshold_margin_alpha_minus_threshold": 0.003470370431552885,
+          "wavelengths_at_roots": []
+        },
+        "temporal_regime": "LONG_WAVE_OSCILLATORY_UNSTABLE",
+        "zero_mode_determinant": 1.2,
+        "zero_mode_eigenvalues": [
+          {
+            "imag": 1.0954451148701176,
+            "real": 1.7526968240089147e-05
+          },
+          {
+            "imag": -1.0954451148701176,
+            "real": 1.7526968240089147e-05
+          }
+        ],
+        "zero_mode_spectral_abscissa": 1.7526968240089147e-05,
+        "zero_mode_trace": 3.5053936480178294e-05
+      },
+      {
+        "all_fourier_modes_asymptotically_stable": false,
+        "homogeneous_equilibrium": [
+          1.0,
+          -0.6666666666666667
+        ],
+        "homogeneous_status": "HOPF_BOUNDARY_K0",
+        "interpretation": "neutral Hopf pair at k=0; every k>0 is damped; no Turing band",
+        "parameters": {
+          "a": 1.0,
+          "a2": 0.0,
+          "alpha_fprime_a": 0.0,
+          "d": 2.56e-06,
+          "epsilon": 0.8,
+          "r": 0.04
+        },
+        "stationary": {
+          "classical_stationary_turing_from_stable_homogeneous_state": false,
+          "has_stationary_real_unstable_band": false,
+          "k_roots": [],
+          "minimum_determinant": 0.8,
+          "obstruction": "homogeneous stability requires alpha>0, while a positive-k stationary zero requires alpha<=-2*sqrt(d*epsilon)",
+          "onset_k_critical": 23.643540225079395,
+          "onset_q_critical": 559.0169943749474,
+          "onset_wavelength": 0.26574638346734675,
+          "q_minimum_determinant": 0.0,
+          "q_roots": [],
+          "stationary_discriminant": -8.192e-06,
+          "stationary_zero_status": "NONE",
+          "threshold_alpha": -0.002862167011199731,
+          "threshold_margin_alpha_minus_threshold": 0.002862167011199731,
+          "wavelengths_at_roots": []
+        },
+        "temporal_regime": "HOPF_BOUNDARY_K0",
+        "zero_mode_determinant": 0.8,
+        "zero_mode_eigenvalues": [
+          {
+            "imag": 0.8944271909999159,
+            "real": 0.0
+          },
+          {
+            "imag": -0.8944271909999159,
+            "real": -0.0
+          }
+        ],
+        "zero_mode_spectral_abscissa": -0.0,
+        "zero_mode_trace": -0.0
+      },
+      {
+        "all_fourier_modes_asymptotically_stable": false,
+        "homogeneous_equilibrium": [
+          1.0,
+          -0.6666666666666667
+        ],
+        "homogeneous_status": "HOPF_BOUNDARY_K0",
+        "interpretation": "neutral Hopf pair at k=0; every k>0 is damped; no Turing band",
+        "parameters": {
+          "a": 1.0,
+          "a2": 0.0,
+          "alpha_fprime_a": 0.0,
+          "d": 2.56e-06,
+          "epsilon": 1.0,
+          "r": 0.04
+        },
+        "stationary": {
+          "classical_stationary_turing_from_stable_homogeneous_state": false,
+          "has_stationary_real_unstable_band": false,
+          "k_roots": [],
+          "minimum_determinant": 1.0,
+          "obstruction": "homogeneous stability requires alpha>0, while a positive-k stationary zero requires alpha<=-2*sqrt(d*epsilon)",
+          "onset_k_critical": 25.0,
+          "onset_q_critical": 625.0,
+          "onset_wavelength": 0.25132741228718347,
+          "q_minimum_determinant": 0.0,
+          "q_roots": [],
+          "stationary_discriminant": -1.024e-05,
+          "stationary_zero_status": "NONE",
+          "threshold_alpha": -0.0032,
+          "threshold_margin_alpha_minus_threshold": 0.0032,
+          "wavelengths_at_roots": []
+        },
+        "temporal_regime": "HOPF_BOUNDARY_K0",
+        "zero_mode_determinant": 1.0,
+        "zero_mode_eigenvalues": [
+          {
+            "imag": 1.0,
+            "real": 0.0
+          },
+          {
+            "imag": -1.0,
+            "real": -0.0
+          }
+        ],
+        "zero_mode_spectral_abscissa": -0.0,
+        "zero_mode_trace": -0.0
+      },
+      {
+        "all_fourier_modes_asymptotically_stable": false,
+        "homogeneous_equilibrium": [
+          1.0,
+          -0.6666666666666667
+        ],
+        "homogeneous_status": "HOPF_BOUNDARY_K0",
+        "interpretation": "neutral Hopf pair at k=0; every k>0 is damped; no Turing band",
+        "parameters": {
+          "a": 1.0,
+          "a2": 0.0,
+          "alpha_fprime_a": 0.0,
+          "d": 2.56e-06,
+          "epsilon": 1.2,
+          "r": 0.04
+        },
+        "stationary": {
+          "classical_stationary_turing_from_stable_homogeneous_state": false,
+          "has_stationary_real_unstable_band": false,
+          "k_roots": [],
+          "minimum_determinant": 1.2,
+          "obstruction": "homogeneous stability requires alpha>0, while a positive-k stationary zero requires alpha<=-2*sqrt(d*epsilon)",
+          "onset_k_critical": 26.16587848480264,
+          "onset_q_critical": 684.6531968814577,
+          "onset_wavelength": 0.24012896455316463,
+          "q_minimum_determinant": 0.0,
+          "q_roots": [],
+          "stationary_discriminant": -1.2288e-05,
+          "stationary_zero_status": "NONE",
+          "threshold_alpha": -0.0035054243680330633,
+          "threshold_margin_alpha_minus_threshold": 0.0035054243680330633,
+          "wavelengths_at_roots": []
+        },
+        "temporal_regime": "HOPF_BOUNDARY_K0",
+        "zero_mode_determinant": 1.2,
+        "zero_mode_eigenvalues": [
+          {
+            "imag": 1.0954451150103321,
+            "real": 0.0
+          },
+          {
+            "imag": -1.0954451150103321,
+            "real": -0.0
+          }
+        ],
+        "zero_mode_spectral_abscissa": -0.0,
+        "zero_mode_trace": -0.0
+      },
+      {
+        "all_fourier_modes_asymptotically_stable": true,
+        "homogeneous_equilibrium": [
+          1.000014310835056,
+          -0.6666666664618657
+        ],
+        "homogeneous_status": "STABLE_ALL_K",
+        "interpretation": "stable homogeneous state; analytic determinant monotonicity excludes Turing",
+        "parameters": {
+          "a": 1.000014310835056,
+          "a2": 0.25,
+          "alpha_fprime_a": 2.862187491214918e-05,
+          "d": 2.56e-06,
+          "epsilon": 0.8,
+          "r": 0.04
+        },
+        "stationary": {
+          "classical_stationary_turing_from_stable_homogeneous_state": false,
+          "has_stationary_real_unstable_band": false,
+          "k_roots": [],
+          "minimum_determinant": 0.8,
+          "obstruction": "homogeneous stability requires alpha>0, while a positive-k stationary zero requires alpha<=-2*sqrt(d*epsilon)",
+          "onset_k_critical": 23.643540225079395,
+          "onset_q_critical": 559.0169943749474,
+          "onset_wavelength": 0.26574638346734675,
+          "q_minimum_determinant": 0.0,
+          "q_roots": [],
+          "stationary_discriminant": -8.191180788276514e-06,
+          "stationary_zero_status": "NONE",
+          "threshold_alpha": -0.002862167011199731,
+          "threshold_margin_alpha_minus_threshold": 0.00289078888611188,
+          "wavelengths_at_roots": []
+        },
+        "temporal_regime": "STABLE_ALL_K",
+        "zero_mode_determinant": 0.8,
+        "zero_mode_eigenvalues": [
+          {
+            "imag": 0.8944271908854275,
+            "real": -1.431093745607459e-05
+          },
+          {
+            "imag": -0.8944271908854275,
+            "real": -1.431093745607459e-05
+          }
+        ],
+        "zero_mode_spectral_abscissa": -1.431093745607459e-05,
+        "zero_mode_trace": -2.862187491214918e-05
+      },
+      {
+        "all_fourier_modes_asymptotically_stable": true,
+        "homogeneous_equilibrium": [
+          1.000016,
+          -0.6666666664106653
+        ],
+        "homogeneous_status": "STABLE_ALL_K",
+        "interpretation": "stable homogeneous state; analytic determinant monotonicity excludes Turing",
+        "parameters": {
+          "a": 1.000016,
+          "a2": 0.25,
+          "alpha_fprime_a": 3.2000256000142e-05,
+          "d": 2.56e-06,
+          "epsilon": 1.0,
+          "r": 0.04
+        },
+        "stationary": {
+          "classical_stationary_turing_from_stable_homogeneous_state": false,
+          "has_stationary_real_unstable_band": false,
+          "k_roots": [],
+          "minimum_determinant": 1.0,
+          "obstruction": "homogeneous stability requires alpha>0, while a positive-k stationary zero requires alpha<=-2*sqrt(d*epsilon)",
+          "onset_k_critical": 25.0,
+          "onset_q_critical": 625.0,
+          "onset_wavelength": 0.25132741228718347,
+          "q_minimum_determinant": 0.0,
+          "q_roots": [],
+          "stationary_discriminant": -1.0238975983615925e-05,
+          "stationary_zero_status": "NONE",
+          "threshold_alpha": -0.0032,
+          "threshold_margin_alpha_minus_threshold": 0.003232000256000142,
+          "wavelengths_at_roots": []
+        },
+        "temporal_regime": "STABLE_ALL_K",
+        "zero_mode_determinant": 1.0,
+        "zero_mode_eigenvalues": [
+          {
+            "imag": 0.999999999871998,
+            "real": -1.6000128000071e-05
+          },
+          {
+            "imag": -0.999999999871998,
+            "real": -1.6000128000071e-05
+          }
+        ],
+        "zero_mode_spectral_abscissa": -1.6000128000071e-05,
+        "zero_mode_trace": -3.2000256000142e-05
+      },
+      {
+        "all_fourier_modes_asymptotically_stable": true,
+        "homogeneous_equilibrium": [
+          1.00001752712184,
+          -0.6666666663594649
+        ],
+        "homogeneous_status": "STABLE_ALL_K",
+        "interpretation": "stable homogeneous state; analytic determinant monotonicity excludes Turing",
+        "parameters": {
+          "a": 1.00001752712184,
+          "a2": 0.25,
+          "alpha_fprime_a": 3.5054550880264657e-05,
+          "d": 2.56e-06,
+          "epsilon": 1.2,
+          "r": 0.04
+        },
+        "stationary": {
+          "classical_stationary_turing_from_stable_homogeneous_state": false,
+          "has_stationary_real_unstable_band": false,
+          "k_roots": [],
+          "minimum_determinant": 1.2,
+          "obstruction": "homogeneous stability requires alpha>0, while a positive-k stationary zero requires alpha<=-2*sqrt(d*epsilon)",
+          "onset_k_critical": 26.16587848480264,
+          "onset_q_critical": 684.6531968814577,
+          "onset_wavelength": 0.24012896455316463,
+          "q_minimum_determinant": 0.0,
+          "q_roots": [],
+          "stationary_discriminant": -1.2286771178462583e-05,
+          "stationary_zero_status": "NONE",
+          "threshold_alpha": -0.0035054243680330633,
+          "threshold_margin_alpha_minus_threshold": 0.003540478918913328,
+          "wavelengths_at_roots": []
+        },
+        "temporal_regime": "STABLE_ALL_K",
+        "zero_mode_determinant": 1.2,
+        "zero_mode_eigenvalues": [
+          {
+            "imag": 1.0954451148701128,
+            "real": -1.7527275440132328e-05
+          },
+          {
+            "imag": -1.0954451148701128,
+            "real": -1.7527275440132328e-05
+          }
+        ],
+        "zero_mode_spectral_abscissa": -1.7527275440132328e-05,
+        "zero_mode_trace": -3.5054550880264657e-05
+      },
+      {
+        "all_fourier_modes_asymptotically_stable": false,
+        "homogeneous_equilibrium": [
+          0.999951700931686,
+          -0.6666666643339043
+        ],
+        "homogeneous_status": "LONG_WAVE_OSCILLATORY_UNSTABLE",
+        "interpretation": "long-wave homogeneous instability with no stationary finite-k zero",
+        "parameters": {
+          "a": 0.999951700931686,
+          "a2": -0.25,
+          "alpha_fprime_a": -9.659580382814781e-05,
+          "d": 1.2959999999999998e-05,
+          "epsilon": 0.8,
+          "r": 0.06
+        },
+        "stationary": {
+          "classical_stationary_turing_from_stable_homogeneous_state": false,
+          "has_stationary_real_unstable_band": false,
+          "k_roots": [],
+          "minimum_determinant": 0.7998200086937268,
+          "obstruction": "homogeneous stability requires alpha>0, while a positive-k stationary zero requires alpha<=-2*sqrt(d*epsilon)",
+          "onset_k_critical": 15.762360150052931,
+          "onset_q_critical": 248.45199749997664,
+          "onset_wavelength": 0.39861957520102004,
+          "q_minimum_determinant": 3.726689962505703,
+          "q_roots": [],
+          "stationary_discriminant": -4.146266925068279e-05,
+          "stationary_zero_status": "NONE",
+          "threshold_alpha": -0.0064398757751993945,
+          "threshold_margin_alpha_minus_threshold": 0.006343279971371247,
+          "wavelengths_at_roots": []
+        },
+        "temporal_regime": "LONG_WAVE_OSCILLATORY_UNSTABLE",
+        "zero_mode_determinant": 0.8,
+        "zero_mode_eigenvalues": [
+          {
+            "imag": 0.8944271896959041,
+            "real": 4.8297901914073904e-05
+          },
+          {
+            "imag": -0.8944271896959041,
+            "real": 4.8297901914073904e-05
+          }
+        ],
+        "zero_mode_spectral_abscissa": 4.8297901914073904e-05,
+        "zero_mode_trace": 9.659580382814781e-05
+      },
+      {
+        "all_fourier_modes_asymptotically_stable": false,
+        "homogeneous_equilibrium": [
+          0.999946,
+          -0.6666666637507191
+        ],
+        "homogeneous_status": "LONG_WAVE_OSCILLATORY_UNSTABLE",
+        "interpretation": "long-wave homogeneous instability with no stationary finite-k zero",
+        "parameters": {
+          "a": 0.999946,
+          "a2": -0.25,
+          "alpha_fprime_a": -0.00010799708399999997,
+          "d": 1.2959999999999998e-05,
+          "epsilon": 1.0,
+          "r": 0.06
+        },
+        "stationary": {
+          "classical_stationary_turing_from_stable_homogeneous_state": false,
+          "has_stationary_real_unstable_band": false,
+          "k_roots": [],
+          "minimum_determinant": 0.999775012149836,
+          "obstruction": "homogeneous stability requires alpha>0, while a positive-k stationary zero requires alpha<=-2*sqrt(d*epsilon)",
+          "onset_k_critical": 16.666666666666668,
+          "onset_q_critical": 277.77777777777777,
+          "onset_wavelength": 0.37699111843077515,
+          "q_minimum_determinant": 4.166554166666666,
+          "q_roots": [],
+          "stationary_discriminant": -5.182833662984749e-05,
+          "stationary_zero_status": "NONE",
+          "threshold_alpha": -0.0072,
+          "threshold_margin_alpha_minus_threshold": 0.007092002916,
+          "wavelengths_at_roots": []
+        },
+        "temporal_regime": "LONG_WAVE_OSCILLATORY_UNSTABLE",
+        "zero_mode_determinant": 1.0,
+        "zero_mode_eigenvalues": [
+          {
+            "imag": 0.9999999985420787,
+            "real": 5.399854199999998e-05
+          },
+          {
+            "imag": -0.9999999985420787,
+            "real": 5.399854199999998e-05
+          }
+        ],
+        "zero_mode_spectral_abscissa": 5.399854199999998e-05,
+        "zero_mode_trace": 0.00010799708399999997
+      },
+      {
+        "all_fourier_modes_asymptotically_stable": false,
+        "homogeneous_equilibrium": [
+          0.9999408459637894,
+          -0.6666666631675358
+        ],
+        "homogeneous_status": "LONG_WAVE_OSCILLATORY_UNSTABLE",
+        "interpretation": "long-wave homogeneous instability with no stationary finite-k zero",
+        "parameters": {
+          "a": 0.9999408459637894,
+          "a2": -0.25,
+          "alpha_fprime_a": -0.00011830457322115073,
+          "d": 1.2959999999999998e-05,
+          "epsilon": 1.2,
+          "r": 0.06
+        },
+        "stationary": {
+          "classical_stationary_turing_from_stable_homogeneous_state": false,
+          "has_stationary_real_unstable_band": false,
+          "k_roots": [],
+          "minimum_determinant": 1.1997300159713533,
+          "obstruction": "homogeneous stability requires alpha>0, while a positive-k stationary zero requires alpha<=-2*sqrt(d*epsilon)",
+          "onset_k_critical": 17.443918989868425,
+          "onset_q_critical": 304.2903097250923,
+          "onset_wavelength": 0.36019344682974697,
+          "q_minimum_determinant": 4.5642196458777295,
+          "q_roots": [],
+          "stationary_discriminant": -6.219400402795495e-05,
+          "stationary_zero_status": "NONE",
+          "threshold_alpha": -0.00788720482807439,
+          "threshold_margin_alpha_minus_threshold": 0.00776890025485324,
+          "wavelengths_at_roots": []
+        },
+        "temporal_regime": "LONG_WAVE_OSCILLATORY_UNSTABLE",
+        "zero_mode_determinant": 1.2,
+        "zero_mode_eigenvalues": [
+          {
+            "imag": 1.0954451134132677,
+            "real": 5.9152286610575366e-05
+          },
+          {
+            "imag": -1.0954451134132677,
+            "real": 5.9152286610575366e-05
+          }
+        ],
+        "zero_mode_spectral_abscissa": 5.9152286610575366e-05,
+        "zero_mode_trace": 0.00011830457322115073
+      },
+      {
+        "all_fourier_modes_asymptotically_stable": false,
+        "homogeneous_equilibrium": [
+          1.0,
+          -0.6666666666666667
+        ],
+        "homogeneous_status": "HOPF_BOUNDARY_K0",
+        "interpretation": "neutral Hopf pair at k=0; every k>0 is damped; no Turing band",
+        "parameters": {
+          "a": 1.0,
+          "a2": 0.0,
+          "alpha_fprime_a": 0.0,
+          "d": 1.2959999999999998e-05,
+          "epsilon": 0.8,
+          "r": 0.06
+        },
+        "stationary": {
+          "classical_stationary_turing_from_stable_homogeneous_state": false,
+          "has_stationary_real_unstable_band": false,
+          "k_roots": [],
+          "minimum_determinant": 0.8,
+          "obstruction": "homogeneous stability requires alpha>0, while a positive-k stationary zero requires alpha<=-2*sqrt(d*epsilon)",
+          "onset_k_critical": 15.762360150052931,
+          "onset_q_critical": 248.45199749997664,
+          "onset_wavelength": 0.39861957520102004,
+          "q_minimum_determinant": 0.0,
+          "q_roots": [],
+          "stationary_discriminant": -4.1472e-05,
+          "stationary_zero_status": "NONE",
+          "threshold_alpha": -0.0064398757751993945,
+          "threshold_margin_alpha_minus_threshold": 0.0064398757751993945,
+          "wavelengths_at_roots": []
+        },
+        "temporal_regime": "HOPF_BOUNDARY_K0",
+        "zero_mode_determinant": 0.8,
+        "zero_mode_eigenvalues": [
+          {
+            "imag": 0.8944271909999159,
+            "real": 0.0
+          },
+          {
+            "imag": -0.8944271909999159,
+            "real": -0.0
+          }
+        ],
+        "zero_mode_spectral_abscissa": -0.0,
+        "zero_mode_trace": -0.0
+      },
+      {
+        "all_fourier_modes_asymptotically_stable": false,
+        "homogeneous_equilibrium": [
+          1.0,
+          -0.6666666666666667
+        ],
+        "homogeneous_status": "HOPF_BOUNDARY_K0",
+        "interpretation": "neutral Hopf pair at k=0; every k>0 is damped; no Turing band",
+        "parameters": {
+          "a": 1.0,
+          "a2": 0.0,
+          "alpha_fprime_a": 0.0,
+          "d": 1.2959999999999998e-05,
+          "epsilon": 1.0,
+          "r": 0.06
+        },
+        "stationary": {
+          "classical_stationary_turing_from_stable_homogeneous_state": false,
+          "has_stationary_real_unstable_band": false,
+          "k_roots": [],
+          "minimum_determinant": 1.0,
+          "obstruction": "homogeneous stability requires alpha>0, while a positive-k stationary zero requires alpha<=-2*sqrt(d*epsilon)",
+          "onset_k_critical": 16.666666666666668,
+          "onset_q_critical": 277.77777777777777,
+          "onset_wavelength": 0.37699111843077515,
+          "q_minimum_determinant": 0.0,
+          "q_roots": [],
+          "stationary_discriminant": -5.183999999999999e-05,
+          "stationary_zero_status": "NONE",
+          "threshold_alpha": -0.0072,
+          "threshold_margin_alpha_minus_threshold": 0.0072,
+          "wavelengths_at_roots": []
+        },
+        "temporal_regime": "HOPF_BOUNDARY_K0",
+        "zero_mode_determinant": 1.0,
+        "zero_mode_eigenvalues": [
+          {
+            "imag": 1.0,
+            "real": 0.0
+          },
+          {
+            "imag": -1.0,
+            "real": -0.0
+          }
+        ],
+        "zero_mode_spectral_abscissa": -0.0,
+        "zero_mode_trace": -0.0
+      },
+      {
+        "all_fourier_modes_asymptotically_stable": false,
+        "homogeneous_equilibrium": [
+          1.0,
+          -0.6666666666666667
+        ],
+        "homogeneous_status": "HOPF_BOUNDARY_K0",
+        "interpretation": "neutral Hopf pair at k=0; every k>0 is damped; no Turing band",
+        "parameters": {
+          "a": 1.0,
+          "a2": 0.0,
+          "alpha_fprime_a": 0.0,
+          "d": 1.2959999999999998e-05,
+          "epsilon": 1.2,
+          "r": 0.06
+        },
+        "stationary": {
+          "classical_stationary_turing_from_stable_homogeneous_state": false,
+          "has_stationary_real_unstable_band": false,
+          "k_roots": [],
+          "minimum_determinant": 1.2,
+          "obstruction": "homogeneous stability requires alpha>0, while a positive-k stationary zero requires alpha<=-2*sqrt(d*epsilon)",
+          "onset_k_critical": 17.443918989868425,
+          "onset_q_critical": 304.2903097250923,
+          "onset_wavelength": 0.36019344682974697,
+          "q_minimum_determinant": 0.0,
+          "q_roots": [],
+          "stationary_discriminant": -6.220799999999998e-05,
+          "stationary_zero_status": "NONE",
+          "threshold_alpha": -0.00788720482807439,
+          "threshold_margin_alpha_minus_threshold": 0.00788720482807439,
+          "wavelengths_at_roots": []
+        },
+        "temporal_regime": "HOPF_BOUNDARY_K0",
+        "zero_mode_determinant": 1.2,
+        "zero_mode_eigenvalues": [
+          {
+            "imag": 1.0954451150103321,
+            "real": 0.0
+          },
+          {
+            "imag": -1.0954451150103321,
+            "real": -0.0
+          }
+        ],
+        "zero_mode_spectral_abscissa": -0.0,
+        "zero_mode_trace": -0.0
+      },
+      {
+        "all_fourier_modes_asymptotically_stable": true,
+        "homogeneous_equilibrium": [
+          1.000048299068314,
+          -0.666666664333829
+        ],
+        "homogeneous_status": "STABLE_ALL_K",
+        "interpretation": "stable homogeneous state; analytic determinant monotonicity excludes Turing",
+        "parameters": {
+          "a": 1.000048299068314,
+          "a2": 0.25,
+          "alpha_fprime_a": 9.660046942783218e-05,
+          "d": 1.2959999999999998e-05,
+          "epsilon": 0.8,
+          "r": 0.06
+        },
+        "stationary": {
+          "classical_stationary_turing_from_stable_homogeneous_state": false,
+          "has_stationary_real_unstable_band": false,
+          "k_roots": [],
+          "minimum_determinant": 0.8,
+          "obstruction": "homogeneous stability requires alpha>0, while a positive-k stationary zero requires alpha<=-2*sqrt(d*epsilon)",
+          "onset_k_critical": 15.762360150052931,
+          "onset_q_critical": 248.45199749997664,
+          "onset_wavelength": 0.39861957520102004,
+          "q_minimum_determinant": 0.0,
+          "q_roots": [],
+          "stationary_discriminant": -4.146266834930632e-05,
+          "stationary_zero_status": "NONE",
+          "threshold_alpha": -0.0064398757751993945,
+          "threshold_margin_alpha_minus_threshold": 0.006536476244627227,
+          "wavelengths_at_roots": []
+        },
+        "temporal_regime": "STABLE_ALL_K",
+        "zero_mode_determinant": 0.8,
+        "zero_mode_eigenvalues": [
+          {
+            "imag": 0.8944271896957781,
+            "real": -4.830023471391609e-05
+          },
+          {
+            "imag": -0.8944271896957781,
+            "real": -4.830023471391609e-05
+          }
+        ],
+        "zero_mode_spectral_abscissa": -4.830023471391609e-05,
+        "zero_mode_trace": -9.660046942783218e-05
+      },
+      {
+        "all_fourier_modes_asymptotically_stable": true,
+        "homogeneous_equilibrium": [
+          1.000054,
+          -0.6666666637506142
+        ],
+        "homogeneous_status": "STABLE_ALL_K",
+        "interpretation": "stable homogeneous state; analytic determinant monotonicity excludes Turing",
+        "parameters": {
+          "a": 1.000054,
+          "a2": 0.25,
+          "alpha_fprime_a": 0.00010800291600010503,
+          "d": 1.2959999999999998e-05,
+          "epsilon": 1.0,
+          "r": 0.06
+        },
+        "stationary": {
+          "classical_stationary_turing_from_stable_homogeneous_state": false,
+          "has_stationary_real_unstable_band": false,
+          "k_roots": [],
+          "minimum_determinant": 1.0,
+          "obstruction": "homogeneous stability requires alpha>0, while a positive-k stationary zero requires alpha<=-2*sqrt(d*epsilon)",
+          "onset_k_critical": 16.666666666666668,
+          "onset_q_critical": 277.77777777777777,
+          "onset_wavelength": 0.37699111843077515,
+          "q_minimum_determinant": 0.0,
+          "q_roots": [],
+          "stationary_discriminant": -5.1828335370135463e-05,
+          "stationary_zero_status": "NONE",
+          "threshold_alpha": -0.0072,
+          "threshold_margin_alpha_minus_threshold": 0.007308002916000105,
+          "wavelengths_at_roots": []
+        },
+        "temporal_regime": "STABLE_ALL_K",
+        "zero_mode_determinant": 1.0,
+        "zero_mode_eigenvalues": [
+          {
+            "imag": 0.9999999985419212,
+            "real": -5.4001458000052516e-05
+          },
+          {
+            "imag": -0.9999999985419212,
+            "real": -5.4001458000052516e-05
+          }
+        ],
+        "zero_mode_spectral_abscissa": -5.4001458000052516e-05,
+        "zero_mode_trace": -0.00010800291600010503
+      },
+      {
+        "all_fourier_modes_asymptotically_stable": true,
+        "homogeneous_equilibrium": [
+          1.0000591540362105,
+          -0.6666666631673976
+        ],
+        "homogeneous_status": "STABLE_ALL_K",
+        "interpretation": "stable homogeneous state; analytic determinant monotonicity excludes Turing",
+        "parameters": {
+          "a": 1.0000591540362105,
+          "a2": 0.25,
+          "alpha_fprime_a": 0.00011831157162101036,
+          "d": 1.2959999999999998e-05,
+          "epsilon": 1.2,
+          "r": 0.06
+        },
+        "stationary": {
+          "classical_stationary_turing_from_stable_homogeneous_state": false,
+          "has_stationary_real_unstable_band": false,
+          "k_roots": [],
+          "minimum_determinant": 1.2,
+          "obstruction": "homogeneous stability requires alpha>0, while a positive-k stationary zero requires alpha<=-2*sqrt(d*epsilon)",
+          "onset_k_critical": 17.443918989868425,
+          "onset_q_critical": 304.2903097250923,
+          "onset_wavelength": 0.36019344682974697,
+          "q_minimum_determinant": 0.0,
+          "q_roots": [],
+          "stationary_discriminant": -6.219400237202056e-05,
+          "stationary_zero_status": "NONE",
+          "threshold_alpha": -0.00788720482807439,
+          "threshold_margin_alpha_minus_threshold": 0.0080055163996954,
+          "wavelengths_at_roots": []
+        },
+        "temporal_regime": "STABLE_ALL_K",
+        "zero_mode_determinant": 1.2,
+        "zero_mode_eigenvalues": [
+          {
+            "imag": 1.0954451134130787,
+            "real": -5.915578581050518e-05
+          },
+          {
+            "imag": -1.0954451134130787,
+            "real": -5.915578581050518e-05
+          }
+        ],
+        "zero_mode_spectral_abscissa": -5.915578581050518e-05,
+        "zero_mode_trace": -0.00011831157162101036
+      },
+      {
+        "all_fourier_modes_asymptotically_stable": false,
+        "homogeneous_equilibrium": [
+          0.999885513319552,
+          -0.6666666535599668
+        ],
+        "homogeneous_status": "LONG_WAVE_OSCILLATORY_UNSTABLE",
+        "interpretation": "long-wave homogeneous instability with no stationary finite-k zero",
+        "parameters": {
+          "a": 0.999885513319552,
+          "a2": -0.25,
+          "alpha_fprime_a": -0.00022896025369600892,
+          "d": 4.096e-05,
+          "epsilon": 0.8,
+          "r": 0.08
+        },
+        "stationary": {
+          "classical_stationary_turing_from_stable_homogeneous_state": false,
+          "has_stationary_real_unstable_band": false,
+          "k_roots": [],
+          "minimum_determinant": 0.7996800366346891,
+          "obstruction": "homogeneous stability requires alpha>0, while a positive-k stationary zero requires alpha<=-2*sqrt(d*epsilon)",
+          "onset_k_critical": 11.821770112539697,
+          "onset_q_critical": 139.75424859373686,
+          "onset_wavelength": 0.5314927669346935,
+          "q_minimum_determinant": 2.794924971875109,
+          "q_roots": [],
+          "stationary_discriminant": -0.00013101957720222746,
+          "stationary_zero_status": "NONE",
+          "threshold_alpha": -0.011448668044798924,
+          "threshold_margin_alpha_minus_threshold": 0.011219707791102915,
+          "wavelengths_at_roots": []
+        },
+        "temporal_regime": "LONG_WAVE_OSCILLATORY_UNSTABLE",
+        "zero_mode_determinant": 0.8,
+        "zero_mode_eigenvalues": [
+          {
+            "imag": 0.8944271836736072,
+            "real": 0.00011448012684800446
+          },
+          {
+            "imag": -0.8944271836736072,
+            "real": 0.00011448012684800446
+          }
+        ],
+        "zero_mode_spectral_abscissa": 0.00011448012684800446,
+        "zero_mode_trace": 0.00022896025369600892
+      },
+      {
+        "all_fourier_modes_asymptotically_stable": false,
+        "homogeneous_equilibrium": [
+          0.999872,
+          -0.6666666502833658
+        ],
+        "homogeneous_status": "LONG_WAVE_OSCILLATORY_UNSTABLE",
+        "interpretation": "long-wave homogeneous instability with no stationary finite-k zero",
+        "parameters": {
+          "a": 0.999872,
+          "a2": -0.25,
+          "alpha_fprime_a": -0.0002559836159999884,
+          "d": 4.096e-05,
+          "epsilon": 1.0,
+          "r": 0.08
+        },
+        "stationary": {
+          "classical_stationary_turing_from_stable_homogeneous_state": false,
+          "has_stationary_real_unstable_band": false,
+          "k_roots": [],
+          "minimum_determinant": 0.9996000511983616,
+          "obstruction": "homogeneous stability requires alpha>0, while a positive-k stationary zero requires alpha<=-2*sqrt(d*epsilon)",
+          "onset_k_critical": 12.5,
+          "onset_q_critical": 156.25,
+          "onset_wavelength": 0.5026548245743669,
+          "q_minimum_determinant": 3.124799999999859,
+          "q_roots": [],
+          "stationary_discriminant": -0.00016377447238833957,
+          "stationary_zero_status": "NONE",
+          "threshold_alpha": -0.0128,
+          "threshold_margin_alpha_minus_threshold": 0.012544016384000012,
+          "wavelengths_at_roots": []
+        },
+        "temporal_regime": "LONG_WAVE_OSCILLATORY_UNSTABLE",
+        "zero_mode_determinant": 1.0,
+        "zero_mode_eigenvalues": [
+          {
+            "imag": 0.9999999918090485,
+            "real": 0.0001279918079999942
+          },
+          {
+            "imag": -0.9999999918090485,
+            "real": 0.0001279918079999942
+          }
+        ],
+        "zero_mode_spectral_abscissa": 0.0001279918079999942,
+        "zero_mode_trace": 0.0002559836159999884
+      },
+      {
+        "all_fourier_modes_asymptotically_stable": false,
+        "homogeneous_equilibrium": [
+          0.9998597830252787,
+          -0.6666666470067857
+        ],
+        "homogeneous_status": "LONG_WAVE_OSCILLATORY_UNSTABLE",
+        "interpretation": "long-wave homogeneous instability with no stationary finite-k zero",
+        "parameters": {
+          "a": 0.9998597830252787,
+          "a2": -0.25,
+          "alpha_fprime_a": -0.00028041428864267193,
+          "d": 4.096e-05,
+          "epsilon": 1.2,
+          "r": 0.08
+        },
+        "stationary": {
+          "classical_stationary_turing_from_stable_homogeneous_state": false,
+          "has_stationary_real_unstable_band": false,
+          "k_roots": [],
+          "minimum_determinant": 1.1995200673017885,
+          "obstruction": "homogeneous stability requires alpha>0, while a positive-k stationary zero requires alpha<=-2*sqrt(d*epsilon)",
+          "onset_k_critical": 13.08293924240132,
+          "onset_q_critical": 171.16329922036442,
+          "onset_wavelength": 0.48025792910632925,
+          "q_minimum_determinant": 3.4230259844076163,
+          "q_roots": [],
+          "stationary_discriminant": -0.00019652936782672503,
+          "stationary_zero_status": "NONE",
+          "threshold_alpha": -0.014021697472132253,
+          "threshold_margin_alpha_minus_threshold": 0.013741283183489581,
+          "wavelengths_at_roots": []
+        },
+        "temporal_regime": "LONG_WAVE_OSCILLATORY_UNSTABLE",
+        "zero_mode_determinant": 1.2,
+        "zero_mode_eigenvalues": [
+          {
+            "imag": 1.095445106037704,
+            "real": 0.00014020714432133596
+          },
+          {
+            "imag": -1.095445106037704,
+            "real": 0.00014020714432133596
+          }
+        ],
+        "zero_mode_spectral_abscissa": 0.00014020714432133596,
+        "zero_mode_trace": 0.00028041428864267193
+      },
+      {
+        "all_fourier_modes_asymptotically_stable": false,
+        "homogeneous_equilibrium": [
+          1.0,
+          -0.6666666666666667
+        ],
+        "homogeneous_status": "HOPF_BOUNDARY_K0",
+        "interpretation": "neutral Hopf pair at k=0; every k>0 is damped; no Turing band",
+        "parameters": {
+          "a": 1.0,
+          "a2": 0.0,
+          "alpha_fprime_a": 0.0,
+          "d": 4.096e-05,
+          "epsilon": 0.8,
+          "r": 0.08
+        },
+        "stationary": {
+          "classical_stationary_turing_from_stable_homogeneous_state": false,
+          "has_stationary_real_unstable_band": false,
+          "k_roots": [],
+          "minimum_determinant": 0.8,
+          "obstruction": "homogeneous stability requires alpha>0, while a positive-k stationary zero requires alpha<=-2*sqrt(d*epsilon)",
+          "onset_k_critical": 11.821770112539697,
+          "onset_q_critical": 139.75424859373686,
+          "onset_wavelength": 0.5314927669346935,
+          "q_minimum_determinant": 0.0,
+          "q_roots": [],
+          "stationary_discriminant": -0.000131072,
+          "stationary_zero_status": "NONE",
+          "threshold_alpha": -0.011448668044798924,
+          "threshold_margin_alpha_minus_threshold": 0.011448668044798924,
+          "wavelengths_at_roots": []
+        },
+        "temporal_regime": "HOPF_BOUNDARY_K0",
+        "zero_mode_determinant": 0.8,
+        "zero_mode_eigenvalues": [
+          {
+            "imag": 0.8944271909999159,
+            "real": 0.0
+          },
+          {
+            "imag": -0.8944271909999159,
+            "real": -0.0
+          }
+        ],
+        "zero_mode_spectral_abscissa": -0.0,
+        "zero_mode_trace": -0.0
+      },
+      {
+        "all_fourier_modes_asymptotically_stable": false,
+        "homogeneous_equilibrium": [
+          1.0,
+          -0.6666666666666667
+        ],
+        "homogeneous_status": "HOPF_BOUNDARY_K0",
+        "interpretation": "neutral Hopf pair at k=0; every k>0 is damped; no Turing band",
+        "parameters": {
+          "a": 1.0,
+          "a2": 0.0,
+          "alpha_fprime_a": 0.0,
+          "d": 4.096e-05,
+          "epsilon": 1.0,
+          "r": 0.08
+        },
+        "stationary": {
+          "classical_stationary_turing_from_stable_homogeneous_state": false,
+          "has_stationary_real_unstable_band": false,
+          "k_roots": [],
+          "minimum_determinant": 1.0,
+          "obstruction": "homogeneous stability requires alpha>0, while a positive-k stationary zero requires alpha<=-2*sqrt(d*epsilon)",
+          "onset_k_critical": 12.5,
+          "onset_q_critical": 156.25,
+          "onset_wavelength": 0.5026548245743669,
+          "q_minimum_determinant": 0.0,
+          "q_roots": [],
+          "stationary_discriminant": -0.00016384,
+          "stationary_zero_status": "NONE",
+          "threshold_alpha": -0.0128,
+          "threshold_margin_alpha_minus_threshold": 0.0128,
+          "wavelengths_at_roots": []
+        },
+        "temporal_regime": "HOPF_BOUNDARY_K0",
+        "zero_mode_determinant": 1.0,
+        "zero_mode_eigenvalues": [
+          {
+            "imag": 1.0,
+            "real": 0.0
+          },
+          {
+            "imag": -1.0,
+            "real": -0.0
+          }
+        ],
+        "zero_mode_spectral_abscissa": -0.0,
+        "zero_mode_trace": -0.0
+      },
+      {
+        "all_fourier_modes_asymptotically_stable": false,
+        "homogeneous_equilibrium": [
+          1.0,
+          -0.6666666666666667
+        ],
+        "homogeneous_status": "HOPF_BOUNDARY_K0",
+        "interpretation": "neutral Hopf pair at k=0; every k>0 is damped; no Turing band",
+        "parameters": {
+          "a": 1.0,
+          "a2": 0.0,
+          "alpha_fprime_a": 0.0,
+          "d": 4.096e-05,
+          "epsilon": 1.2,
+          "r": 0.08
+        },
+        "stationary": {
+          "classical_stationary_turing_from_stable_homogeneous_state": false,
+          "has_stationary_real_unstable_band": false,
+          "k_roots": [],
+          "minimum_determinant": 1.2,
+          "obstruction": "homogeneous stability requires alpha>0, while a positive-k stationary zero requires alpha<=-2*sqrt(d*epsilon)",
+          "onset_k_critical": 13.08293924240132,
+          "onset_q_critical": 171.16329922036442,
+          "onset_wavelength": 0.48025792910632925,
+          "q_minimum_determinant": 0.0,
+          "q_roots": [],
+          "stationary_discriminant": -0.000196608,
+          "stationary_zero_status": "NONE",
+          "threshold_alpha": -0.014021697472132253,
+          "threshold_margin_alpha_minus_threshold": 0.014021697472132253,
+          "wavelengths_at_roots": []
+        },
+        "temporal_regime": "HOPF_BOUNDARY_K0",
+        "zero_mode_determinant": 1.2,
+        "zero_mode_eigenvalues": [
+          {
+            "imag": 1.0954451150103321,
+            "real": 0.0
+          },
+          {
+            "imag": -1.0954451150103321,
+            "real": -0.0
+          }
+        ],
+        "zero_mode_spectral_abscissa": -0.0,
+        "zero_mode_trace": -0.0
+      },
+      {
+        "all_fourier_modes_asymptotically_stable": true,
+        "homogeneous_equilibrium": [
+          1.000114486680448,
+          -0.6666666535589665
+        ],
+        "homogeneous_status": "STABLE_ALL_K",
+        "interpretation": "stable homogeneous state; analytic determinant monotonicity excludes Turing",
+        "parameters": {
+          "a": 1.000114486680448,
+          "a2": 0.25,
+          "alpha_fprime_a": 0.00022898646809577095,
+          "d": 4.096e-05,
+          "epsilon": 0.8,
+          "r": 0.08
+        },
+        "stationary": {
+          "classical_stationary_turing_from_stable_homogeneous_state": false,
+          "has_stationary_real_unstable_band": false,
+          "k_roots": [],
+          "minimum_determinant": 0.8,
+          "obstruction": "homogeneous stability requires alpha>0, while a positive-k stationary zero requires alpha<=-2*sqrt(d*epsilon)",
+          "onset_k_critical": 11.821770112539697,
+          "onset_q_critical": 139.75424859373686,
+          "onset_wavelength": 0.5314927669346935,
+          "q_minimum_determinant": 0.0,
+          "q_roots": [],
+          "stationary_discriminant": -0.00013101956519742902,
+          "stationary_zero_status": "NONE",
+          "threshold_alpha": -0.011448668044798924,
+          "threshold_margin_alpha_minus_threshold": 0.011677654512894695,
+          "wavelengths_at_roots": []
+        },
+        "temporal_regime": "STABLE_ALL_K",
+        "zero_mode_determinant": 0.8,
+        "zero_mode_eigenvalues": [
+          {
+            "imag": 0.8944271836719294,
+            "real": -0.00011449323404788547
+          },
+          {
+            "imag": -0.8944271836719294,
+            "real": -0.00011449323404788547
+          }
+        ],
+        "zero_mode_spectral_abscissa": -0.00011449323404788547,
+        "zero_mode_trace": -0.00022898646809577095
+      },
+      {
+        "all_fourier_modes_asymptotically_stable": true,
+        "homogeneous_equilibrium": [
+          1.000128,
+          -0.6666666502819676
+        ],
+        "homogeneous_status": "STABLE_ALL_K",
+        "interpretation": "stable homogeneous state; analytic determinant monotonicity excludes Turing",
+        "parameters": {
+          "a": 1.000128,
+          "a2": 0.25,
+          "alpha_fprime_a": 0.00025601638399974647,
+          "d": 4.096e-05,
+          "epsilon": 1.0,
+          "r": 0.08
+        },
+        "stationary": {
+          "classical_stationary_turing_from_stable_homogeneous_state": false,
+          "has_stationary_real_unstable_band": false,
+          "k_roots": [],
+          "minimum_determinant": 1.0,
+          "obstruction": "homogeneous stability requires alpha>0, while a positive-k stationary zero requires alpha<=-2*sqrt(d*epsilon)",
+          "onset_k_critical": 12.5,
+          "onset_q_critical": 156.25,
+          "onset_wavelength": 0.5026548245743669,
+          "q_minimum_determinant": 0.0,
+          "q_roots": [],
+          "stationary_discriminant": -0.0001637744556111237,
+          "stationary_zero_status": "NONE",
+          "threshold_alpha": -0.0128,
+          "threshold_margin_alpha_minus_threshold": 0.013056016383999747,
+          "wavelengths_at_roots": []
+        },
+        "temporal_regime": "STABLE_ALL_K",
+        "zero_mode_determinant": 1.0,
+        "zero_mode_eigenvalues": [
+          {
+            "imag": 0.9999999918069513,
+            "real": -0.00012800819199987323
+          },
+          {
+            "imag": -0.9999999918069513,
+            "real": -0.00012800819199987323
+          }
+        ],
+        "zero_mode_spectral_abscissa": -0.00012800819199987323,
+        "zero_mode_trace": -0.00025601638399974647
+      },
+      {
+        "all_fourier_modes_asymptotically_stable": true,
+        "homogeneous_equilibrium": [
+          1.0001402169747213,
+          -0.6666666470049478
+        ],
+        "homogeneous_status": "STABLE_ALL_K",
+        "interpretation": "stable homogeneous state; analytic determinant monotonicity excludes Turing",
+        "parameters": {
+          "a": 1.0001402169747213,
+          "a2": 0.25,
+          "alpha_fprime_a": 0.00028045361024275905,
+          "d": 4.096e-05,
+          "epsilon": 1.2,
+          "r": 0.08
+        },
+        "stationary": {
+          "classical_stationary_turing_from_stable_homogeneous_state": false,
+          "has_stationary_real_unstable_band": false,
+          "k_roots": [],
+          "minimum_determinant": 1.2,
+          "obstruction": "homogeneous stability requires alpha>0, while a positive-k stationary zero requires alpha<=-2*sqrt(d*epsilon)",
+          "onset_k_critical": 13.08293924240132,
+          "onset_q_critical": 171.16329922036442,
+          "onset_wavelength": 0.48025792910632925,
+          "q_minimum_determinant": 0.0,
+          "q_roots": [],
+          "stationary_discriminant": -0.0001965293457725018,
+          "stationary_zero_status": "NONE",
+          "threshold_alpha": -0.014021697472132253,
+          "threshold_margin_alpha_minus_threshold": 0.014302151082375012,
+          "wavelengths_at_roots": []
+        },
+        "temporal_regime": "STABLE_ALL_K",
+        "zero_mode_determinant": 1.2,
+        "zero_mode_eigenvalues": [
+          {
+            "imag": 1.0954451060351875,
+            "real": -0.00014022680512137953
+          },
+          {
+            "imag": -1.0954451060351875,
+            "real": -0.00014022680512137953
+          }
+        ],
+        "zero_mode_spectral_abscissa": -0.00014022680512137953,
+        "zero_mode_trace": -0.00028045361024275905
+      }
+    ],
+    "regime_counts": {
+      "HOPF_BOUNDARY_K0": 9,
+      "LONG_WAVE_OSCILLATORY_UNSTABLE": 9,
+      "STABLE_ALL_K": 9
+    },
+    "shape": [
+      3,
+      3,
+      3
+    ]
+  },
+  "model": {
+    "alpha": "a^2-1",
+    "determinant": "r^4 k^4+alpha k^2+epsilon",
+    "equations": [
+      "u_t = v - (u^3/3-u) + r^4 u_xx",
+      "v_t = epsilon(a-u) + v_xx",
+      "a = 1 + sqrt(epsilon) r^3 a2"
+    ],
+    "fourier_symbol": "[[-alpha-r^4 k^2,1],[-epsilon,-k^2]]",
+    "homogeneous_equilibrium": "(a, a^3/3-a)",
+    "trace": "-alpha-(r^4+1)k^2"
+  },
+  "primary": {
+    "all_fourier_modes_asymptotically_stable": false,
+    "homogeneous_equilibrium": [
+      1.0,
+      -0.6666666666666667
+    ],
+    "homogeneous_status": "HOPF_BOUNDARY_K0",
+    "interpretation": "neutral Hopf pair at k=0; every k>0 is damped; no Turing band",
+    "parameters": {
+      "a": 1.0,
+      "a2": 0.0,
+      "alpha_fprime_a": 0.0,
+      "d": 4.096e-05,
+      "epsilon": 1.0,
+      "r": 0.08
+    },
+    "stationary": {
+      "classical_stationary_turing_from_stable_homogeneous_state": false,
+      "has_stationary_real_unstable_band": false,
+      "k_roots": [],
+      "minimum_determinant": 1.0,
+      "obstruction": "homogeneous stability requires alpha>0, while a positive-k stationary zero requires alpha<=-2*sqrt(d*epsilon)",
+      "onset_k_critical": 12.5,
+      "onset_q_critical": 156.25,
+      "onset_wavelength": 0.5026548245743669,
+      "q_minimum_determinant": 0.0,
+      "q_roots": [],
+      "stationary_discriminant": -0.00016384,
+      "stationary_zero_status": "NONE",
+      "threshold_alpha": -0.0128,
+      "threshold_margin_alpha_minus_threshold": 0.0128,
+      "wavelengths_at_roots": []
+    },
+    "temporal_regime": "HOPF_BOUNDARY_K0",
+    "zero_mode_determinant": 1.0,
+    "zero_mode_eigenvalues": [
+      {
+        "imag": 1.0,
+        "real": 0.0
+      },
+      {
+        "imag": -1.0,
+        "real": -0.0
+      }
+    ],
+    "zero_mode_spectral_abscissa": -0.0,
+    "zero_mode_trace": -0.0
+  },
+  "primary_near_a_equals_one_stationary_band_a2_interval": [
+    -3893.709741933471,
+    -12.540258066528118
+  ],
+  "recommended_figure_quantities": {
+    "dispersion_panel": [
+      "k",
+      "leading_growth_rate",
+      "lambda_plus/minus real and imaginary parts",
+      "trace",
+      "determinant"
+    ],
+    "mandatory_labels": [
+      "Hopf boundary k=0",
+      "long-wave instability",
+      "finite-k stationary-real band (not classical Turing)",
+      "COMPUTED/E1 linear prescreen"
+    ],
+    "threshold_panel": [
+      "near-a=1 a2 threshold versus r",
+      "onset k_critical=epsilon^(1/4)/r"
+    ]
+  },
+  "schema_version": "vdp-temporal-linear-prescreen-v1",
+  "wide_diagnostic_domain": {
+    "a2": [
+      -60.0,
+      5.0,
+      261
+    ],
+    "epsilon_log_grid": [
+      0.25,
+      4.0,
+      9
+    ],
+    "r": [
+      0.02,
+      0.24,
+      12
+    ],
+    "scan": {
+      "classical_stationary_turing_point_count": 0,
+      "closest_sample_to_stationary_threshold": {
+        "all_fourier_modes_asymptotically_stable": false,
+        "homogeneous_equilibrium": [
+          0.9998,
+          -0.6666666266693333
+        ],
+        "homogeneous_status": "LONG_WAVE_OSCILLATORY_UNSTABLE",
+        "interpretation": "long-wave homogeneous instability with no stationary finite-k zero",
+        "parameters": {
+          "a": 0.9998,
+          "a2": -50.0,
+          "alpha_fprime_a": -0.000399959999999977,
+          "d": 1.6e-07,
+          "epsilon": 0.25,
+          "r": 0.02
+        },
+        "stationary": {
+          "classical_stationary_turing_from_stable_homogeneous_state": false,
+          "has_stationary_real_unstable_band": false,
+          "k_roots": [],
+          "minimum_determinant": 4.999750002876446e-05,
+          "obstruction": "homogeneous stability requires alpha>0, while a positive-k stationary zero requires alpha<=-2*sqrt(d*epsilon)",
+          "onset_k_critical": 35.35533905932738,
+          "onset_q_critical": 1250.0,
+          "onset_wavelength": 0.17771531752633463,
+          "q_minimum_determinant": 1249.8749999999281,
+          "q_roots": [],
+          "stationary_discriminant": -3.19984000184058e-11,
+          "stationary_zero_status": "NONE",
+          "threshold_alpha": -0.0004,
+          "threshold_margin_alpha_minus_threshold": 4.0000000023018584e-08,
+          "wavelengths_at_roots": []
+        },
+        "temporal_regime": "LONG_WAVE_OSCILLATORY_UNSTABLE",
+        "zero_mode_determinant": 0.25,
+        "zero_mode_eigenvalues": [
+          {
+            "imag": 0.499999960007998,
+            "real": 0.0001999799999999885
+          },
+          {
+            "imag": -0.499999960007998,
+            "real": 0.0001999799999999885
+          }
+        ],
+        "zero_mode_spectral_abscissa": 0.0001999799999999885,
+        "zero_mode_trace": 0.000399959999999977
+      },
+      "first_stationary_band_witness": {
+        "all_fourier_modes_asymptotically_stable": false,
+        "homogeneous_equilibrium": [
+          0.99976,
+          -0.6666666090712747
+        ],
+        "homogeneous_status": "LONG_WAVE_OSCILLATORY_UNSTABLE",
+        "interpretation": "zero mode is already unstable; a finite-k stationary-real band also exists, but it is not classical diffusion-driven Turing selection",
+        "parameters": {
+          "a": 0.99976,
+          "a2": -60.0,
+          "alpha_fprime_a": -0.00047994240000004407,
+          "d": 1.6e-07,
+          "epsilon": 0.25,
+          "r": 0.02
+        },
+        "stationary": {
+          "classical_stationary_turing_from_stable_homogeneous_state": false,
+          "has_stationary_real_unstable_band": true,
+          "k_roots": [
+            25.903464615472338,
+            48.25609309626348
+          ],
+          "minimum_determinant": -0.10991360518406607,
+          "obstruction": "homogeneous stability requires alpha>0, while a positive-k stationary zero requires alpha<=-2*sqrt(d*epsilon)",
+          "onset_k_critical": 35.35533905932738,
+          "onset_q_critical": 1250.0,
+          "onset_wavelength": 0.17771531752633463,
+          "q_minimum_determinant": 1499.8200000001377,
+          "q_roots": [
+            670.9894790850274,
+            2328.650520915248
+          ],
+          "stationary_discriminant": 7.03447073178023e-08,
+          "stationary_zero_status": "TWO_POSITIVE_ZEROS",
+          "threshold_alpha": -0.0004,
+          "threshold_margin_alpha_minus_threshold": -7.994240000004405e-05,
+          "wavelengths_at_roots": [
+            0.24256158009946638,
+            0.13020501462158568
+          ]
+        },
+        "temporal_regime": "LONG_WAVE_OSCILLATORY_UNSTABLE+FINITE_K_STATIONARY_REAL_UNSTABLE_BAND",
+        "zero_mode_determinant": 0.25,
+        "zero_mode_eigenvalues": [
+          {
+            "imag": 0.49999994241381984,
+            "real": 0.00023997120000002203
+          },
+          {
+            "imag": -0.49999994241381984,
+            "real": 0.00023997120000002203
+          }
+        ],
+        "zero_mode_spectral_abscissa": 0.00023997120000002203,
+        "zero_mode_trace": 0.00047994240000004407
+      },
+      "point_count": 28188,
+      "regime_counts": {
+        "HOPF_BOUNDARY_K0": 108,
+        "LONG_WAVE_OSCILLATORY_UNSTABLE": 5572,
+        "LONG_WAVE_OSCILLATORY_UNSTABLE+FINITE_K_STATIONARY_REAL_UNSTABLE_BAND": 20348,
+        "STABLE_ALL_K": 2160
+      },
+      "shape": [
+        12,
+        261,
+        9
+      ]
+    }
+  },
+  "wide_stationary_band_witness_at_primary_r_epsilon": {
+    "all_fourier_modes_asymptotically_stable": false,
+    "homogeneous_equilibrium": [
+      0.98976,
+      -0.666562166980608
+    ],
+    "homogeneous_status": "LONG_WAVE_OSCILLATORY_UNSTABLE",
+    "interpretation": "zero mode is already unstable; a finite-k stationary-real band also exists, but it is not classical diffusion-driven Turing selection",
+    "parameters": {
+      "a": 0.98976,
+      "a2": -20.0,
+      "alpha_fprime_a": -0.020375142400000046,
+      "d": 4.096e-05,
+      "epsilon": 1.0,
+      "r": 0.08
+    },
+    "stationary": {
+      "classical_stationary_turing_from_stable_homogeneous_state": false,
+      "has_stationary_real_unstable_band": true,
+      "k_roots": [
+        7.430090071718442,
+        21.029354757722647
+      ],
+      "minimum_determinant": -1.533852708864011,
+      "obstruction": "homogeneous stability requires alpha>0, while a positive-k stationary zero requires alpha<=-2*sqrt(d*epsilon)",
+      "onset_k_critical": 12.5,
+      "onset_q_critical": 156.25,
+      "onset_wavelength": 0.5026548245743669,
+      "q_minimum_determinant": 248.72000000000057,
+      "q_roots": [
+        55.206238473848956,
+        442.2337615261522
+      ],
+      "stationary_discriminant": 0.0002513064278202796,
+      "stationary_zero_status": "TWO_POSITIVE_ZEROS",
+      "threshold_alpha": -0.0128,
+      "threshold_margin_alpha_minus_threshold": -0.007575142400000045,
+      "wavelengths_at_roots": [
+        0.8456405301324164,
+        0.29878164972571025
+      ]
+    },
+    "temporal_regime": "LONG_WAVE_OSCILLATORY_UNSTABLE+FINITE_K_STATIONARY_REAL_UNSTABLE_BAND",
+    "zero_mode_determinant": 1.0,
+    "zero_mode_eigenvalues": [
+      {
+        "imag": 0.9999481053499951,
+        "real": 0.010187571200000023
+      },
+      {
+        "imag": -0.9999481053499951,
+        "real": 0.010187571200000023
+      }
+    ],
+    "zero_mode_spectral_abscissa": 0.010187571200000023,
+    "zero_mode_trace": 0.020375142400000046
+  }
+}

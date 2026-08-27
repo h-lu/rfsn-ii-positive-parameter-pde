@@ -1,0 +1,993 @@
+{
+  "canard_identification_status": "NO_CANARD_IDENTIFICATION_FROM_CURRENT_DATA",
+  "critical_manifold": "p=0, v=f(u)",
+  "fold_collar": 0.002,
+  "folds": [
+    -1.0,
+    1.0
+  ],
+  "maximal_canard_reference": {
+    "blowup_a2_leading": -0.008333333333333333,
+    "blowup_a2_remainder_order": "O(r^3)",
+    "configured_reference_curve": "Vo--Doelman--Kaper (2025), Lemma 6.4 leading term only",
+    "interpretation": "The sample is compared only with the published leading coincidence curve.  The unbounded O(r^3) remainder and the absence of finite-parameter slow-manifold continuation prevent a canard identification.",
+    "physical_a_leading": 0.9999957333333334,
+    "physical_remainder_order": "O(delta^3)=O(r^6)",
+    "sample_minus_leading_a2": 0.008333333333333333,
+    "source": "Vo--Doelman--Kaper (2025), Lemma 6.4"
+  },
+  "outer_diagnostics": {
+    "canard_identification_status": "NO_CANARD_IDENTIFICATION_FROM_CURRENT_DATA",
+    "crosses_a_fold": false,
+    "maximum_abs_p": 0.0043078054515955835,
+    "maximum_abs_v_minus_f": 0.00015207833173531098,
+    "maximum_u": 14.142135623730951,
+    "minimum_distance_to_fold_set": 4.0,
+    "minimum_q": 14.60593524764049,
+    "minimum_u": 5.0,
+    "scope": "The saved outer leg is an actual finite-horizon candidate in the outer chart.  Exclusion of both folds shows that this leg alone cannot demonstrate a fold canard.",
+    "status": "COMPUTED/E1_OUTER_SEGMENT_EXCLUDES_FOLD"
+  },
+  "parameters": {
+    "a2": 0.0,
+    "epsilon": 1.0,
+    "r": 0.08
+  },
+  "positive_fold_singular_reduced_classification": "FSN_DEGENERATE_SINGULAR_LIMIT",
+  "profile_diagnostics": {
+    "A0": {
+      "canard_identification_status": "NO_CANARD_IDENTIFICATION_FROM_CURRENT_DATA",
+      "crossing_count": 2,
+      "crossings": [
+        {
+          "direction": 1,
+          "fold": 1.0,
+          "p": 0.0016230317113729294,
+          "physical_x": 0.09439878478713107,
+          "q": -0.0016230321074469406,
+          "v_minus_f": 0.00022477941867737883
+        },
+        {
+          "direction": -1,
+          "fold": 1.0,
+          "p": -0.0016230317113729294,
+          "physical_x": 0.645702572345624,
+          "q": 0.0016230321074469406,
+          "v_minus_f": 0.0002247794186772678
+        }
+      ],
+      "fold": 1.0,
+      "fold_collar": 0.002,
+      "folded_linear_product": 0.0,
+      "maximum_abs_p": 0.0028898079801283364,
+      "maximum_abs_q": 0.001623032342324722,
+      "maximum_abs_v_minus_f": 0.0006531961540563458,
+      "maximum_scaled_p": 5.6441562111881565,
+      "maximum_scaled_q": 3.169985043602972,
+      "maximum_scaled_v_minus_f": 15.947171729891254,
+      "minimum_abs_fast_normal_eigenvalue_squared": 1.817874354470561e-05,
+      "minimum_abs_u_minus_fold": 9.089413081087017e-06,
+      "physical_x_in_fold_collar": 0.03182435835670843,
+      "samples_on_elliptic_side": 1532,
+      "samples_on_hyperbolic_side": 4469,
+      "scope": "An actual finite-parameter orbit crosses a neighborhood of the singular fold.  No attracting/repelling finite-parameter slow manifolds, maximal-canard intersection, or exponentially small parameter window has been computed.",
+      "singular_reduced_classification": "FSN_DEGENERATE_SINGULAR_LIMIT",
+      "status": "COMPUTED/E1_FOLD_PASSAGE_DIAGNOSTIC"
+    },
+    "A1": {
+      "canard_identification_status": "NO_CANARD_IDENTIFICATION_FROM_CURRENT_DATA",
+      "crossing_count": 4,
+      "crossings": [
+        {
+          "direction": 1,
+          "fold": 1.0,
+          "p": 0.001624037658966365,
+          "physical_x": 0.09436330954848898,
+          "q": -0.0016240389069257753,
+          "v_minus_f": 0.00022548463229954407
+        },
+        {
+          "direction": -1,
+          "fold": 1.0,
+          "p": -2.7261985997464288e-05,
+          "physical_x": 0.5483918683259087,
+          "q": 2.7261983052599995e-05,
+          "v_minus_f": -2.7980467670607467e-06
+        },
+        {
+          "direction": 1,
+          "fold": 1.0,
+          "p": 2.7261985997464288e-05,
+          "physical_x": 0.9004177237359628,
+          "q": -2.7261983052599995e-05,
+          "v_minus_f": -2.7980467670607467e-06
+        },
+        {
+          "direction": -1,
+          "fold": 1.0,
+          "p": -0.001624037658966365,
+          "physical_x": 1.3544462825133825,
+          "q": 0.0016240389069257753,
+          "v_minus_f": 0.00022548463229954407
+        }
+      ],
+      "fold": 1.0,
+      "fold_collar": 0.002,
+      "folded_linear_product": 0.0,
+      "maximum_abs_p": 0.0028944946754980994,
+      "maximum_abs_q": 0.0016240398083550444,
+      "maximum_abs_v_minus_f": 0.0006546583665087979,
+      "maximum_scaled_p": 5.653309913082224,
+      "maximum_scaled_q": 3.1719527506934457,
+      "maximum_scaled_v_minus_f": 15.9828702760937,
+      "minimum_abs_fast_normal_eigenvalue_squared": 1.483125358081594e-07,
+      "minimum_abs_u_minus_fold": 7.415626512852214e-08,
+      "physical_x_in_fold_collar": 0.7062946761301622,
+      "samples_on_elliptic_side": 2239,
+      "samples_on_hyperbolic_side": 3762,
+      "scope": "An actual finite-parameter orbit crosses a neighborhood of the singular fold.  No attracting/repelling finite-parameter slow manifolds, maximal-canard intersection, or exponentially small parameter window has been computed.",
+      "singular_reduced_classification": "FSN_DEGENERATE_SINGULAR_LIMIT",
+      "status": "COMPUTED/E1_FOLD_PASSAGE_DIAGNOSTIC"
+    },
+    "A2": {
+      "canard_identification_status": "NO_CANARD_IDENTIFICATION_FROM_CURRENT_DATA",
+      "crossing_count": 6,
+      "crossings": [
+        {
+          "direction": 1,
+          "fold": 1.0,
+          "p": 0.001624037577144144,
+          "physical_x": 0.09436332762756112,
+          "q": -0.0016240398156675915,
+          "v_minus_f": 0.0002254858261514503
+        },
+        {
+          "direction": -1,
+          "fold": 1.0,
+          "p": -2.611316433096659e-05,
+          "physical_x": 0.548316797012665,
+          "q": 2.6113163146153886e-05,
+          "v_minus_f": -2.9395702241252764e-06
+        },
+        {
+          "direction": 1,
+          "fold": 1.0,
+          "p": 1.2010264805646973e-06,
+          "physical_x": 0.9020401979723858,
+          "q": -1.201026255589474e-06,
+          "v_minus_f": 1.2468186383340907e-07
+        },
+        {
+          "direction": -1,
+          "fold": 1.0,
+          "p": -1.2010264805646973e-06,
+          "physical_x": 1.2576208410989802,
+          "q": 1.2010262555894742e-06,
+          "v_minus_f": 1.2468186372238677e-07
+        },
+        {
+          "direction": 1,
+          "fold": 1.0,
+          "p": 2.611316433096659e-05,
+          "physical_x": 1.611344242058701,
+          "q": -2.6113163146153886e-05,
+          "v_minus_f": -2.9395702241252764e-06
+        },
+        {
+          "direction": -1,
+          "fold": 1.0,
+          "p": -0.001624037577144144,
+          "physical_x": 2.065297711443805,
+          "q": 0.0016240398156675915,
+          "v_minus_f": 0.0002254858261514503
+        }
+      ],
+      "fold": 1.0,
+      "fold_collar": 0.002,
+      "folded_linear_product": 0.0,
+      "maximum_abs_p": 0.0028945042448509494,
+      "maximum_abs_q": 0.0016240416116193818,
+      "maximum_abs_v_minus_f": 0.0006546611273930969,
+      "maximum_scaled_p": 5.65332860322451,
+      "maximum_scaled_q": 3.1719562726941044,
+      "maximum_scaled_v_minus_f": 15.98293768049553,
+      "minimum_abs_fast_normal_eigenvalue_squared": 8.150028873998849e-09,
+      "minimum_abs_u_minus_fold": 4.0750144369994246e-09,
+      "physical_x_in_fold_collar": 1.417817472150352,
+      "samples_on_elliptic_side": 2492,
+      "samples_on_hyperbolic_side": 3509,
+      "scope": "An actual finite-parameter orbit crosses a neighborhood of the singular fold.  No attracting/repelling finite-parameter slow manifolds, maximal-canard intersection, or exponentially small parameter window has been computed.",
+      "singular_reduced_classification": "FSN_DEGENERATE_SINGULAR_LIMIT",
+      "status": "COMPUTED/E1_FOLD_PASSAGE_DIAGNOSTIC"
+    },
+    "B0": {
+      "canard_identification_status": "NO_CANARD_IDENTIFICATION_FROM_CURRENT_DATA",
+      "crossing_count": 2,
+      "crossings": [
+        {
+          "direction": 1,
+          "fold": 1.0,
+          "p": 0.0016240853545750544,
+          "physical_x": 0.09436161536191993,
+          "q": -0.0016240857476670402,
+          "v_minus_f": 0.00022551697820649697
+        },
+        {
+          "direction": -1,
+          "fold": 1.0,
+          "p": -0.0016240853545750544,
+          "physical_x": 0.9988458815174233,
+          "q": 0.0016240857476670404,
+          "v_minus_f": 0.00022551697820649697
+        }
+      ],
+      "fold": 1.0,
+      "fold_collar": 0.002,
+      "folded_linear_product": 0.0,
+      "maximum_abs_p": 0.0028947164893448904,
+      "maximum_abs_q": 0.0016240860905604232,
+      "maximum_abs_v_minus_f": 0.0006547251758943773,
+      "maximum_scaled_p": 5.653743143251738,
+      "maximum_scaled_q": 3.172043145625826,
+      "maximum_scaled_v_minus_f": 15.98450136460882,
+      "minimum_abs_fast_normal_eigenvalue_squared": 2.6645352591003757e-15,
+      "minimum_abs_u_minus_fold": 1.3322676295501878e-15,
+      "physical_x_in_fold_collar": 0.3594830652238241,
+      "samples_on_elliptic_side": 1036,
+      "samples_on_hyperbolic_side": 4965,
+      "scope": "An actual finite-parameter orbit crosses a neighborhood of the singular fold.  No attracting/repelling finite-parameter slow manifolds, maximal-canard intersection, or exponentially small parameter window has been computed.",
+      "singular_reduced_classification": "FSN_DEGENERATE_SINGULAR_LIMIT",
+      "status": "COMPUTED/E1_FOLD_PASSAGE_DIAGNOSTIC"
+    },
+    "B1": {
+      "canard_identification_status": "NO_CANARD_IDENTIFICATION_FROM_CURRENT_DATA",
+      "crossing_count": 6,
+      "crossings": [
+        {
+          "direction": 1,
+          "fold": 1.0,
+          "p": 0.001624038515312487,
+          "physical_x": 0.0943632873173585,
+          "q": -0.0016240403334059504,
+          "v_minus_f": 0.00022548594656424115
+        },
+        {
+          "direction": -1,
+          "fold": 1.0,
+          "p": -2.6061337703063294e-05,
+          "physical_x": 0.5483133382635567,
+          "q": 2.606133754779358e-05,
+          "v_minus_f": -2.94595770389261e-06
+        },
+        {
+          "direction": 1,
+          "fold": 1.0,
+          "p": 2.9016691046562627e-12,
+          "physical_x": 0.9021148451501702,
+          "q": -5.115533845648872e-15,
+          "v_minus_f": 2.60072638202935e-07
+        },
+        {
+          "direction": -1,
+          "fold": 1.0,
+          "p": -2.901669105648963e-12,
+          "physical_x": 0.902114987961674,
+          "q": -5.1267569739534784e-15,
+          "v_minus_f": 2.600726380919127e-07
+        },
+        {
+          "direction": 1,
+          "fold": 1.0,
+          "p": 2.6061337703063294e-05,
+          "physical_x": 1.2559164948482873,
+          "q": -2.6061337547793576e-05,
+          "v_minus_f": -2.9459577037815876e-06
+        },
+        {
+          "direction": -1,
+          "fold": 1.0,
+          "p": -0.001624038515312487,
+          "physical_x": 1.7098665457944855,
+          "q": 0.0016240403334059504,
+          "v_minus_f": 0.00022548594656413012
+        }
+      ],
+      "fold": 1.0,
+      "fold_collar": 0.002,
+      "folded_linear_product": 0.0,
+      "maximum_abs_p": 0.0028945122230764645,
+      "maximum_abs_q": 0.0016240416935910673,
+      "maximum_abs_v_minus_f": 0.0006546612520935691,
+      "maximum_scaled_p": 5.653344185696219,
+      "maximum_scaled_q": 3.171956432795053,
+      "maximum_scaled_v_minus_f": 15.98294072494065,
+      "minimum_abs_fast_normal_eigenvalue_squared": 1.3633538742396922e-13,
+      "minimum_abs_u_minus_fold": 6.816769371198461e-14,
+      "physical_x_in_fold_collar": 1.0617892567863203,
+      "samples_on_elliptic_side": 2980,
+      "samples_on_hyperbolic_side": 3021,
+      "scope": "An actual finite-parameter orbit crosses a neighborhood of the singular fold.  No attracting/repelling finite-parameter slow manifolds, maximal-canard intersection, or exponentially small parameter window has been computed.",
+      "singular_reduced_classification": "FSN_DEGENERATE_SINGULAR_LIMIT",
+      "status": "COMPUTED/E1_FOLD_PASSAGE_DIAGNOSTIC"
+    },
+    "pulse_1": {
+      "canard_identification_status": "NO_CANARD_IDENTIFICATION_FROM_CURRENT_DATA",
+      "crossing_count": 12,
+      "crossings": [
+        {
+          "direction": 1,
+          "fold": 1.0,
+          "p": 9.283196833272932e-11,
+          "physical_x": -1.9684072012571656,
+          "q": -9.28319777285374e-11,
+          "v_minus_f": -1.0502709812953981e-11
+        },
+        {
+          "direction": -1,
+          "fold": 1.0,
+          "p": -2.148198562310059e-09,
+          "physical_x": -1.6129764859792082,
+          "q": 2.1481985694450517e-09,
+          "v_minus_f": 2.430410317444398e-10
+        },
+        {
+          "direction": 1,
+          "fold": 1.0,
+          "p": 4.9708858281944545e-08,
+          "physical_x": -1.257549196118017,
+          "q": -4.9708858270428364e-08,
+          "v_minus_f": -5.623863930104278e-09
+        },
+        {
+          "direction": -1,
+          "fold": 1.0,
+          "p": -1.1513175131401621e-06,
+          "physical_x": -0.9020432818538198,
+          "q": 1.1513175135559073e-06,
+          "v_minus_f": 1.302843153361266e-07
+        },
+        {
+          "direction": 1,
+          "fold": 1.0,
+          "p": 2.6111022910845382e-05,
+          "physical_x": -0.5483166293117132,
+          "q": -2.6111021882772817e-05,
+          "v_minus_f": -2.9398354622900413e-06
+        },
+        {
+          "direction": -1,
+          "fold": 1.0,
+          "p": -0.001624037113545981,
+          "physical_x": -0.09436334730957566,
+          "q": 0.0016240395873718054,
+          "v_minus_f": 0.00022548579646386457
+        },
+        {
+          "direction": 1,
+          "fold": 1.0,
+          "p": 0.001624037113545981,
+          "physical_x": 0.09436334730957566,
+          "q": -0.0016240395873718054,
+          "v_minus_f": 0.00022548579646386457
+        },
+        {
+          "direction": -1,
+          "fold": 1.0,
+          "p": -2.6111022910845382e-05,
+          "physical_x": 0.5483166293117132,
+          "q": 2.6111021882772817e-05,
+          "v_minus_f": -2.9398354622900413e-06
+        },
+        {
+          "direction": 1,
+          "fold": 1.0,
+          "p": 1.1513175131401621e-06,
+          "physical_x": 0.9020432818538198,
+          "q": -1.1513175135559073e-06,
+          "v_minus_f": 1.302843153361266e-07
+        },
+        {
+          "direction": -1,
+          "fold": 1.0,
+          "p": -4.970885828194454e-08,
+          "physical_x": 1.257549196118017,
+          "q": 4.970885827042836e-08,
+          "v_minus_f": -5.623863819081976e-09
+        },
+        {
+          "direction": 1,
+          "fold": 1.0,
+          "p": 2.148198562310059e-09,
+          "physical_x": 1.6129764859792082,
+          "q": -2.1481985694450517e-09,
+          "v_minus_f": 2.430410317444398e-10
+        },
+        {
+          "direction": -1,
+          "fold": 1.0,
+          "p": -9.283196833272933e-11,
+          "physical_x": 1.9684072012571656,
+          "q": 9.283197772853739e-11,
+          "v_minus_f": -1.0502820835256443e-11
+        }
+      ],
+      "fold": 1.0,
+      "fold_collar": 0.002,
+      "folded_linear_product": 0.0,
+      "maximum_abs_p": 0.0028945109044765135,
+      "maximum_abs_q": 0.0016240414227331403,
+      "maximum_abs_v_minus_f": 0.0006546611325586316,
+      "maximum_scaled_p": 5.65334161030569,
+      "maximum_scaled_q": 3.171955903775664,
+      "maximum_scaled_v_minus_f": 15.982937806607216,
+      "minimum_abs_fast_normal_eigenvalue_squared": 9.801048861390882e-13,
+      "minimum_abs_u_minus_fold": 4.900524430695441e-13,
+      "physical_x_in_fold_collar": 3.417786666666667,
+      "samples_on_elliptic_side": 5281,
+      "samples_on_hyperbolic_side": 6720,
+      "scope": "An actual finite-parameter orbit crosses a neighborhood of the singular fold.  No attracting/repelling finite-parameter slow manifolds, maximal-canard intersection, or exponentially small parameter window has been computed.",
+      "singular_reduced_classification": "FSN_DEGENERATE_SINGULAR_LIMIT",
+      "status": "COMPUTED/E1_FOLD_PASSAGE_DIAGNOSTIC"
+    },
+    "pulse_2": {
+      "canard_identification_status": "NO_CANARD_IDENTIFICATION_FROM_CURRENT_DATA",
+      "crossing_count": 16,
+      "crossings": [
+        {
+          "direction": 1,
+          "fold": 1.0,
+          "p": 9.28318047138815e-11,
+          "physical_x": -2.6928121478631306,
+          "q": -9.283180712356655e-11,
+          "v_minus_f": -1.0502709812953981e-11
+        },
+        {
+          "direction": -1,
+          "fold": 1.0,
+          "p": -2.148197428590017e-09,
+          "physical_x": -2.33738129004217,
+          "q": 2.148197424535278e-09,
+          "v_minus_f": 2.4304092072213734e-10
+        },
+        {
+          "direction": 1,
+          "fold": 1.0,
+          "p": 4.9708767672314926e-08,
+          "physical_x": -1.981954146674707,
+          "q": -4.9708767669143476e-08,
+          "v_minus_f": -5.623853605030149e-09
+        },
+        {
+          "direction": -1,
+          "fold": 1.0,
+          "p": -1.1513130315213634e-06,
+          "physical_x": -1.6264484666026342,
+          "q": 1.1513130352982224e-06,
+          "v_minus_f": 1.3028380863033817e-07
+        },
+        {
+          "direction": 1,
+          "fold": 1.0,
+          "p": 2.611097047492008e-05,
+          "physical_x": -1.272721604706771,
+          "q": -2.6110968650253245e-05,
+          "v_minus_f": -2.9398294758564703e-06
+        },
+        {
+          "direction": -1,
+          "fold": 1.0,
+          "p": -0.0016240300763899513,
+          "physical_x": -0.8187684825465368,
+          "q": 0.0016240345261970437,
+          "v_minus_f": 0.00022548503062447267
+        },
+        {
+          "direction": 1,
+          "fold": 1.0,
+          "p": 0.0016240310828459544,
+          "physical_x": -0.6300412457436426,
+          "q": -0.0016240371906130508,
+          "v_minus_f": 0.000225484456743974
+        },
+        {
+          "direction": -1,
+          "fold": 1.0,
+          "p": -2.7261995921919744e-05,
+          "physical_x": -0.1760129148475501,
+          "q": 2.7261991834501664e-05,
+          "v_minus_f": -2.798047653684854e-06
+        },
+        {
+          "direction": 1,
+          "fold": 1.0,
+          "p": 2.7261995921919744e-05,
+          "physical_x": 0.1760129148475501,
+          "q": -2.7261991834501664e-05,
+          "v_minus_f": -2.798047653684854e-06
+        },
+        {
+          "direction": -1,
+          "fold": 1.0,
+          "p": -0.0016240310828459542,
+          "physical_x": 0.6300412457436425,
+          "q": 0.0016240371906130506,
+          "v_minus_f": 0.000225484456743974
+        },
+        {
+          "direction": 1,
+          "fold": 1.0,
+          "p": 0.0016240300763899513,
+          "physical_x": 0.8187684825465369,
+          "q": -0.0016240345261970437,
+          "v_minus_f": 0.00022548503062447267
+        },
+        {
+          "direction": -1,
+          "fold": 1.0,
+          "p": -2.6110970474920083e-05,
+          "physical_x": 1.272721604706771,
+          "q": 2.6110968650253245e-05,
+          "v_minus_f": -2.9398294759674926e-06
+        },
+        {
+          "direction": 1,
+          "fold": 1.0,
+          "p": 1.1513130315213634e-06,
+          "physical_x": 1.6264484666026342,
+          "q": -1.1513130352982224e-06,
+          "v_minus_f": 1.3028380863033817e-07
+        },
+        {
+          "direction": -1,
+          "fold": 1.0,
+          "p": -4.970876767231492e-08,
+          "physical_x": 1.9819541466747068,
+          "q": 4.970876766914347e-08,
+          "v_minus_f": -5.623853494007847e-09
+        },
+        {
+          "direction": 1,
+          "fold": 1.0,
+          "p": 2.148197428590017e-09,
+          "physical_x": 2.3373812900421704,
+          "q": -2.148197424535278e-09,
+          "v_minus_f": 2.430408096998349e-10
+        },
+        {
+          "direction": -1,
+          "fold": 1.0,
+          "p": -9.28318047138815e-11,
+          "physical_x": 2.6928121478631306,
+          "q": 9.283180712356655e-11,
+          "v_minus_f": -1.0502709812953981e-11
+        }
+      ],
+      "fold": 1.0,
+      "fold_collar": 0.002,
+      "folded_linear_product": 0.0,
+      "maximum_abs_p": 0.002894496036319676,
+      "maximum_abs_q": 0.0016240390994639714,
+      "maximum_abs_v_minus_f": 0.0006546590043423617,
+      "maximum_scaled_p": 5.653312570936866,
+      "maximum_scaled_q": 3.1719513661405685,
+      "maximum_scaled_v_minus_f": 15.982885848202189,
+      "minimum_abs_fast_normal_eigenvalue_squared": 2.2319923687064147e-12,
+      "minimum_abs_u_minus_fold": 1.1159961843532074e-12,
+      "physical_x_in_fold_collar": 4.435555555555556,
+      "samples_on_elliptic_side": 6039,
+      "samples_on_hyperbolic_side": 7282,
+      "scope": "An actual finite-parameter orbit crosses a neighborhood of the singular fold.  No attracting/repelling finite-parameter slow manifolds, maximal-canard intersection, or exponentially small parameter window has been computed.",
+      "singular_reduced_classification": "FSN_DEGENERATE_SINGULAR_LIMIT",
+      "status": "COMPUTED/E1_FOLD_PASSAGE_DIAGNOSTIC"
+    },
+    "pulse_3": {
+      "canard_identification_status": "NO_CANARD_IDENTIFICATION_FROM_CURRENT_DATA",
+      "crossing_count": 20,
+      "crossings": [
+        {
+          "direction": 1,
+          "fold": 1.0,
+          "p": 9.283173585056833e-11,
+          "physical_x": -3.41721699669967,
+          "q": -9.283173506253861e-11,
+          "v_minus_f": -1.0502709812953981e-11
+        },
+        {
+          "direction": -1,
+          "fold": 1.0,
+          "p": -2.148200005897912e-09,
+          "physical_x": -3.0617859165016337,
+          "q": 2.1482000090052044e-09,
+          "v_minus_f": 2.4304125378904473e-10
+        },
+        {
+          "direction": 1,
+          "fold": 1.0,
+          "p": 4.970878794211092e-08,
+          "physical_x": -2.7063588632662827,
+          "q": -4.9708787941634305e-08,
+          "v_minus_f": -5.623855825476198e-09
+        },
+        {
+          "direction": -1,
+          "fold": 1.0,
+          "p": -1.151313148906252e-06,
+          "physical_x": -2.35085321821366,
+          "q": 1.1513131525471851e-06,
+          "v_minus_f": 1.3028382195301447e-07
+        },
+        {
+          "direction": 1,
+          "fold": 1.0,
+          "p": 2.6110964902679694e-05,
+          "physical_x": -1.9971263919356104,
+          "q": -2.6110962960332736e-05,
+          "v_minus_f": -2.9398288350357404e-06
+        },
+        {
+          "direction": -1,
+          "fold": 1.0,
+          "p": -0.001624032922251766,
+          "physical_x": -1.5431731242467015,
+          "q": 0.0016240359415870468,
+          "v_minus_f": 0.00022548522717391606
+        },
+        {
+          "direction": 1,
+          "fold": 1.0,
+          "p": 0.0016240306310940189,
+          "physical_x": -1.354445989884351,
+          "q": -0.0016240369705990817,
+          "v_minus_f": 0.00022548442636094457
+        },
+        {
+          "direction": -1,
+          "fold": 1.0,
+          "p": -2.726198917072317e-05,
+          "physical_x": -0.9004176341594977,
+          "q": 2.7261979455644576e-05,
+          "v_minus_f": -2.798046502827667e-06
+        },
+        {
+          "direction": 1,
+          "fold": 1.0,
+          "p": 2.7261964910660608e-05,
+          "physical_x": -0.5483920013707787,
+          "q": -2.7261948128633197e-05,
+          "v_minus_f": -2.7980430592489114e-06
+        },
+        {
+          "direction": -1,
+          "fold": 1.0,
+          "p": -0.0016240292374692209,
+          "physical_x": -0.09436366936358559,
+          "q": 0.0016240347163828139,
+          "v_minus_f": 0.0002254840502262656
+        },
+        {
+          "direction": 1,
+          "fold": 1.0,
+          "p": 0.0016240292374692209,
+          "physical_x": 0.09436366936358559,
+          "q": -0.0016240347163828139,
+          "v_minus_f": 0.0002254840502262656
+        },
+        {
+          "direction": -1,
+          "fold": 1.0,
+          "p": -2.7261964910660608e-05,
+          "physical_x": 0.5483920013707788,
+          "q": 2.7261948128633197e-05,
+          "v_minus_f": -2.7980430593599337e-06
+        },
+        {
+          "direction": 1,
+          "fold": 1.0,
+          "p": 2.726198917072317e-05,
+          "physical_x": 0.9004176341594977,
+          "q": -2.7261979455644576e-05,
+          "v_minus_f": -2.798046502827667e-06
+        },
+        {
+          "direction": -1,
+          "fold": 1.0,
+          "p": -0.0016240306310940189,
+          "physical_x": 1.354445989884351,
+          "q": 0.0016240369705990817,
+          "v_minus_f": 0.00022548442636094457
+        },
+        {
+          "direction": 1,
+          "fold": 1.0,
+          "p": 0.001624032922251766,
+          "physical_x": 1.5431731242467015,
+          "q": -0.0016240359415870468,
+          "v_minus_f": 0.00022548522717391606
+        },
+        {
+          "direction": -1,
+          "fold": 1.0,
+          "p": -2.6110964902679694e-05,
+          "physical_x": 1.9971263919356104,
+          "q": 2.6110962960332736e-05,
+          "v_minus_f": -2.9398288350357404e-06
+        },
+        {
+          "direction": 1,
+          "fold": 1.0,
+          "p": 1.151313148906252e-06,
+          "physical_x": 2.35085321821366,
+          "q": -1.1513131525471851e-06,
+          "v_minus_f": 1.3028382184199216e-07
+        },
+        {
+          "direction": -1,
+          "fold": 1.0,
+          "p": -4.970878794211093e-08,
+          "physical_x": 2.706358863266283,
+          "q": 4.9708787941634305e-08,
+          "v_minus_f": -5.623855936498501e-09
+        },
+        {
+          "direction": 1,
+          "fold": 1.0,
+          "p": 2.148200005897912e-09,
+          "physical_x": 3.0617859165016337,
+          "q": -2.1482000090052044e-09,
+          "v_minus_f": 2.4304114276674227e-10
+        },
+        {
+          "direction": -1,
+          "fold": 1.0,
+          "p": -9.283173585056835e-11,
+          "physical_x": 3.41721699669967,
+          "q": 9.283173506253861e-11,
+          "v_minus_f": -1.0502709812953981e-11
+        }
+      ],
+      "fold": 1.0,
+      "fold_collar": 0.002,
+      "folded_linear_product": 0.0,
+      "maximum_abs_p": 0.002894503486519225,
+      "maximum_abs_q": 0.0016240384595159322,
+      "maximum_abs_v_minus_f": 0.0006546583665483219,
+      "maximum_scaled_p": 5.653327122107861,
+      "maximum_scaled_q": 3.1719501162420545,
+      "maximum_scaled_v_minus_f": 15.98287027705864,
+      "minimum_abs_fast_normal_eigenvalue_squared": 3.3812952437983768e-12,
+      "minimum_abs_u_minus_fold": 1.6906476218991884e-12,
+      "physical_x_in_fold_collar": 5.132888888888889,
+      "samples_on_elliptic_side": 7235,
+      "samples_on_hyperbolic_side": 9326,
+      "scope": "An actual finite-parameter orbit crosses a neighborhood of the singular fold.  No attracting/repelling finite-parameter slow manifolds, maximal-canard intersection, or exponentially small parameter window has been computed.",
+      "singular_reduced_classification": "FSN_DEGENERATE_SINGULAR_LIMIT",
+      "status": "COMPUTED/E1_FOLD_PASSAGE_DIAGNOSTIC"
+    },
+    "pulse_4": {
+      "canard_identification_status": "NO_CANARD_IDENTIFICATION_FROM_CURRENT_DATA",
+      "crossing_count": 24,
+      "crossings": [
+        {
+          "direction": 1,
+          "fold": 1.0,
+          "p": 9.283168634053421e-11,
+          "physical_x": -4.141621678650475,
+          "q": -9.283168595982167e-11,
+          "v_minus_f": -1.0502709812953981e-11
+        },
+        {
+          "direction": -1,
+          "fold": 1.0,
+          "p": -2.1481984191419636e-09,
+          "physical_x": -3.7861906219430086,
+          "q": 2.148198423849639e-09,
+          "v_minus_f": 2.430410317444398e-10
+        },
+        {
+          "direction": 1,
+          "fold": 1.0,
+          "p": 4.970882112760941e-08,
+          "physical_x": -3.4307634101096065,
+          "q": -4.970882112882782e-08,
+          "v_minus_f": -5.623859600234482e-09
+        },
+        {
+          "direction": -1,
+          "fold": 1.0,
+          "p": -1.1513135558220688e-06,
+          "physical_x": -3.075257800244778,
+          "q": 1.1513135591354504e-06,
+          "v_minus_f": 1.3028386791624769e-07
+        },
+        {
+          "direction": 1,
+          "fold": 1.0,
+          "p": 2.611096590404428e-05,
+          "physical_x": -2.721531009876876,
+          "q": -2.611096400143018e-05,
+          "v_minus_f": -2.9398289528304034e-06
+        },
+        {
+          "direction": -1,
+          "fold": 1.0,
+          "p": -0.0016240366063437152,
+          "physical_x": -2.2675775892255388,
+          "q": 0.0016240377771639927,
+          "v_minus_f": 0.00022548548218770392
+        },
+        {
+          "direction": 1,
+          "fold": 1.0,
+          "p": 0.0016240310097161165,
+          "physical_x": -2.0788506286846693,
+          "q": -0.0016240371634026883,
+          "v_minus_f": 0.00022548445329784172
+        },
+        {
+          "direction": -1,
+          "fold": 1.0,
+          "p": -2.7261973320960716e-05,
+          "physical_x": -1.624822148223882,
+          "q": 2.726194976331126e-05,
+          "v_minus_f": -2.7980434520458175e-06
+        },
+        {
+          "direction": 1,
+          "fold": 1.0,
+          "p": 2.726195178414494e-05,
+          "physical_x": -1.2727967983951631,
+          "q": -2.7261922766580658e-05,
+          "v_minus_f": -2.798040448226402e-06
+        },
+        {
+          "direction": -1,
+          "fold": 1.0,
+          "p": -0.001624031281934429,
+          "physical_x": -0.8187682879188921,
+          "q": 0.001624035725742825,
+          "v_minus_f": 0.000225484190215397
+        },
+        {
+          "direction": 1,
+          "fold": 1.0,
+          "p": 0.0016240279787174054,
+          "physical_x": -0.6300409841955772,
+          "q": -0.0016240340893551423,
+          "v_minus_f": 0.00022548396320898334
+        },
+        {
+          "direction": -1,
+          "fold": 1.0,
+          "p": -2.7261990884384627e-05,
+          "physical_x": -0.17601283208052543,
+          "q": 2.7261979551725542e-05,
+          "v_minus_f": -2.798046394913989e-06
+        },
+        {
+          "direction": 1,
+          "fold": 1.0,
+          "p": 2.726199088438463e-05,
+          "physical_x": 0.17601283208052543,
+          "q": -2.7261979551725542e-05,
+          "v_minus_f": -2.798046394913989e-06
+        },
+        {
+          "direction": -1,
+          "fold": 1.0,
+          "p": -0.0016240279787174056,
+          "physical_x": 0.6300409841955773,
+          "q": 0.0016240340893551425,
+          "v_minus_f": 0.00022548396320898334
+        },
+        {
+          "direction": 1,
+          "fold": 1.0,
+          "p": 0.001624031281934429,
+          "physical_x": 0.8187682879188921,
+          "q": -0.001624035725742825,
+          "v_minus_f": 0.00022548419021550803
+        },
+        {
+          "direction": -1,
+          "fold": 1.0,
+          "p": -2.7261951784144942e-05,
+          "physical_x": 1.2727967983951634,
+          "q": 2.7261922766580658e-05,
+          "v_minus_f": -2.798040448226402e-06
+        },
+        {
+          "direction": 1,
+          "fold": 1.0,
+          "p": 2.7261973320960716e-05,
+          "physical_x": 1.624822148223882,
+          "q": -2.726194976331126e-05,
+          "v_minus_f": -2.7980434520458175e-06
+        },
+        {
+          "direction": -1,
+          "fold": 1.0,
+          "p": -0.0016240310097161165,
+          "physical_x": 2.0788506286846693,
+          "q": 0.0016240371634026883,
+          "v_minus_f": 0.00022548445329784172
+        },
+        {
+          "direction": 1,
+          "fold": 1.0,
+          "p": 0.0016240366063437152,
+          "physical_x": 2.267577589225539,
+          "q": -0.001624037777163993,
+          "v_minus_f": 0.00022548548218770392
+        },
+        {
+          "direction": -1,
+          "fold": 1.0,
+          "p": -2.6110965904044277e-05,
+          "physical_x": 2.7215310098768755,
+          "q": 2.611096400143018e-05,
+          "v_minus_f": -2.939828952719381e-06
+        },
+        {
+          "direction": 1,
+          "fold": 1.0,
+          "p": 1.1513135558220688e-06,
+          "physical_x": 3.075257800244778,
+          "q": -1.1513135591354504e-06,
+          "v_minus_f": 1.3028386791624769e-07
+        },
+        {
+          "direction": -1,
+          "fold": 1.0,
+          "p": -4.970882112760941e-08,
+          "physical_x": 3.4307634101096065,
+          "q": 4.970882112882782e-08,
+          "v_minus_f": -5.623859600234482e-09
+        },
+        {
+          "direction": 1,
+          "fold": 1.0,
+          "p": 2.1481984191419636e-09,
+          "physical_x": 3.786190621943009,
+          "q": -2.148198423849639e-09,
+          "v_minus_f": 2.4304092072213734e-10
+        },
+        {
+          "direction": -1,
+          "fold": 1.0,
+          "p": -9.283168634053421e-11,
+          "physical_x": 4.141621678650475,
+          "q": 9.283168595982167e-11,
+          "v_minus_f": -1.0502709812953981e-11
+        }
+      ],
+      "fold": 1.0,
+      "fold_collar": 0.002,
+      "folded_linear_product": 0.0,
+      "maximum_abs_p": 0.0028945075516525623,
+      "maximum_abs_q": 0.0016240389342405928,
+      "maximum_abs_v_minus_f": 0.0006546576129021764,
+      "maximum_scaled_p": 5.6533350618214095,
+      "maximum_scaled_q": 3.1719510434386575,
+      "maximum_scaled_v_minus_f": 15.982851877494541,
+      "minimum_abs_fast_normal_eigenvalue_squared": 4.533706743359289e-12,
+      "minimum_abs_u_minus_fold": 2.2668533716796446e-12,
+      "physical_x_in_fold_collar": 5.830222222222222,
+      "samples_on_elliptic_side": 8431,
+      "samples_on_hyperbolic_side": 11370,
+      "scope": "An actual finite-parameter orbit crosses a neighborhood of the singular fold.  No attracting/repelling finite-parameter slow manifolds, maximal-canard intersection, or exponentially small parameter window has been computed.",
+      "singular_reduced_classification": "FSN_DEGENERATE_SINGULAR_LIMIT",
+      "status": "COMPUTED/E1_FOLD_PASSAGE_DIAGNOSTIC"
+    }
+  },
+  "reference_curve_configuration": "Vo--Doelman--Kaper (2025), Lemma 6.4 leading term only",
+  "required_before_canard_claim": [
+    "compute the relevant finite-parameter slow manifolds in the spatial problem",
+    "continue their fold passage or intersection in a parameter family",
+    "separate singular, desingularized, and physical spatial time",
+    "enclose or resolve the remainder in the maximal-canard parameter curve",
+    "measure parameter sensitivity and numerical refinement"
+  ],
+  "screened_fold": 1.0,
+  "screened_fold_singular_reduced_classification": "FSN_DEGENERATE_SINGULAR_LIMIT",
+  "status": "COMPUTED/E1_SLOW_FAST_GEOMETRY_SCREEN"
+}

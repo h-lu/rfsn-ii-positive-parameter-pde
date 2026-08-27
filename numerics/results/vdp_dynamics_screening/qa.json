@@ -1,0 +1,94 @@
+{
+  "check_count": 17,
+  "checks": {
+    "bloch.bloch_conjugacy_crosscheck": {
+      "limit": 1e-07,
+      "passed": true,
+      "value": 1.1834176804816476e-11
+    },
+    "bloch.constant_profile_dispersion_crosscheck": {
+      "limit": 1e-08,
+      "passed": true,
+      "value": 2.5012105750206387e-12
+    },
+    "bloch.grid_refinement_matching_defect": {
+      "limit": 1e-07,
+      "passed": true,
+      "value": 5.173198033848302e-09
+    },
+    "bloch.translation_vector_residual": {
+      "limit": 5e-06,
+      "passed": true,
+      "value": 3.566381193960621e-07
+    },
+    "canard.outer_fold_exclusion": {
+      "expected": false,
+      "passed": true,
+      "value": false
+    },
+    "canard.stop_rule_preserved": {
+      "expected": "NO_CANARD_IDENTIFICATION_FROM_CURRENT_DATA",
+      "passed": true,
+      "value": "NO_CANARD_IDENTIFICATION_FROM_CURRENT_DATA"
+    },
+    "pulse.boundary_final_state_sensitivity": {
+      "limit": 1e-08,
+      "passed": true,
+      "value": 5.109989635591699e-12
+    },
+    "pulse.grid_final_state_sensitivity": {
+      "limit": 5e-05,
+      "passed": true,
+      "value": 1.58213119467888e-05
+    },
+    "pulse.homogeneous_fourier_crosscheck": {
+      "limit": 1e-08,
+      "passed": true,
+      "value": 4.547473508864641e-13
+    },
+    "pulse.leading_mode_eigenpair_residual": {
+      "limit": 1e-07,
+      "passed": true,
+      "value": 3.1815747666307486e-12
+    },
+    "pulse.leading_mode_envelope_amplification_sensitivity": {
+      "limit": 0.0001,
+      "passed": true,
+      "value": 5.5290068255109404e-05
+    },
+    "pulse.spectral_boundary_abscissa_sensitivity": {
+      "limit": 1e-09,
+      "passed": true,
+      "value": 4.926614671774132e-15
+    },
+    "pulse.spectral_grid_abscissa_sensitivity": {
+      "limit": 0.0002,
+      "passed": true,
+      "value": 4.964140621308705e-05
+    },
+    "pulse.time_step_final_state_sensitivity": {
+      "limit": 0.003,
+      "passed": true,
+      "value": 0.0018417511859890458
+    },
+    "pulse.zero_perturbation_invariance": {
+      "limit": 1e-14,
+      "passed": true,
+      "value": 0.0
+    },
+    "turing.classical_obstruction_scan": {
+      "expected": 0,
+      "passed": true,
+      "value": 0
+    },
+    "turing.primary_classification": {
+      "expected": "HOPF_BOUNDARY_K0",
+      "passed": true,
+      "value": "HOPF_BOUNDARY_K0"
+    }
+  },
+  "claim_bearing": false,
+  "passed_count": 17,
+  "schema_version": "vdp-dynamics-screening-qa/1",
+  "status": "PASS_COMPUTATIONAL_QA_NOT_A_THEOREM"
+}

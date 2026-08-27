@@ -1,0 +1,79 @@
+{
+  "claim_bearing": false,
+  "conclusions": {
+    "canard": {
+      "next_required": [
+        "compute the relevant finite-parameter slow manifolds in the spatial problem",
+        "continue their fold passage or intersection in a parameter family",
+        "separate singular, desingularized, and physical spatial time",
+        "enclose or resolve the remainder in the maximal-canard parameter curve",
+        "measure parameter sensitivity and numerical refinement"
+      ],
+      "singular_reduced_classification": "FSN_DEGENERATE_SINGULAR_LIMIT",
+      "status": "NO_CANARD_IDENTIFICATION_FROM_CURRENT_DATA"
+    },
+    "classical_stationary_turing": {
+      "reason": "homogeneous stability requires alpha>0, while a positive-k stationary zero requires alpha<=-2*sqrt(d*epsilon)",
+      "relation_to_v7": "V7 profiles arise from global stationary spatial dynamics; their existence does not require a local Turing bifurcation.",
+      "status": "ANALYTICALLY_EXCLUDED_FOR_THE_HOMOGENEOUS_STATE"
+    },
+    "issue_7": {
+      "scope": "The box targets the V2--V7 stationary spatial existence/coding obligations.  It is deliberately not a temporal-stability box.",
+      "status": "PROCEED_WITH_EXISTENCE_VALIDATION_ON_PRESELECTED_BOX"
+    },
+    "multipulse_temporal_screen": {
+      "next_required": "Whole-line essential/point spectrum, Evans enclosures, and nonlinear semigroup estimates.",
+      "profile_signals": {
+        "pulse_1": "POSITIVE_GROWTH_CANDIDATE_ACROSS_GRID_AND_BOUNDARY_CHECKS",
+        "pulse_2": "POSITIVE_GROWTH_CANDIDATE_ACROSS_GRID_AND_BOUNDARY_CHECKS",
+        "pulse_3": "POSITIVE_GROWTH_CANDIDATE_ACROSS_GRID_AND_BOUNDARY_CHECKS",
+        "pulse_4": "POSITIVE_GROWTH_CANDIDATE_ACROSS_GRID_AND_BOUNDARY_CHECKS"
+      },
+      "status": "FINITE_WINDOW_AND_SHORT_TIME_SIGNALS_RECORDED"
+    },
+    "periodic_profile_temporal_screen": {
+      "next_required": "Converged Evans/Bloch analysis and, only if spectrally viable, nonlinear orbital stability.",
+      "profile_outcomes": {
+        "A0": "SAMPLED_BLOCH_INSTABILITY_DETECTED",
+        "A1": "SAMPLED_BLOCH_INSTABILITY_DETECTED",
+        "A2": "SAMPLED_BLOCH_INSTABILITY_DETECTED",
+        "B0": "SAMPLED_BLOCH_INSTABILITY_DETECTED",
+        "B1": "SAMPLED_BLOCH_INSTABILITY_DETECTED"
+      },
+      "status": "SAMPLED_BLOCH_INSTABILITY_DETECTED"
+    }
+  },
+  "evidence_status": "DERIVED_FORMULAS + COMPUTED/E1 NONRIGOROUS_PRESCREEN",
+  "issue_7_preselected_box": {
+    "a2": [
+      -0.25,
+      0.25
+    ],
+    "epsilon": [
+      0.8,
+      1.2
+    ],
+    "immutability_rule": "Do not move or shrink this box after inspecting a failed rigorous validation merely to obtain PASS. A changed box is a new preregistered experiment with a new identifier.",
+    "r": [
+      0.04,
+      0.08
+    ],
+    "selection_rule": "the analytic annulus [r_V/2,r_V] with the already frozen exploratory slices; it is not selected for temporal stability",
+    "selection_status": "PRESELECTED_BEFORE_FIRST_OUTWARD_ROUNDED_RUN"
+  },
+  "nonclaims": [
+    "A sampled positive eigenvalue is numerical instability evidence, not a spectral theorem.",
+    "Absence of a sampled positive eigenvalue is not a stability proof.",
+    "Short-time residual-subtracted perturbation evolution is not nonlinear asymptotic stability or direct pattern selection.",
+    "The Turing calculation does not connect a nonconstant profile to a nonlinear bifurcating branch.",
+    "Fold passage and singular FSN-II degeneracy are not finite-parameter maximal-canard identification.",
+    "The preselected box is an input to Issue #7, not an interval certificate that its theorem obligations hold."
+  ],
+  "ordering": [
+    "freeze this screening and parameter-box input",
+    "run outward-rounded Issue #7 obligations",
+    "retain PASS/FAIL/INCONCLUSIVE without moving the box",
+    "then continue periodic/pulse dynamics and canard branches as separate research"
+  ],
+  "schema_version": "vdp-dynamics-screening-decision/1"
+}

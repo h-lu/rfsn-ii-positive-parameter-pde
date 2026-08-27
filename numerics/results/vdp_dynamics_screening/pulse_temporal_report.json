@@ -1,0 +1,3081 @@
+{
+  "base_residual_treatment": "subtract the frozen profile residual so zero perturbation is invariant",
+  "boundary_conditions_on_perturbations": [
+    "neumann",
+    "periodic"
+  ],
+  "claim_bearing": false,
+  "evidence_status": "COMPUTED/E1 CANDIDATE_ONLY finite-window temporal screen",
+  "final_status": "TEMPORAL_PRESCREEN_ONLY",
+  "homogeneous_fourier_validation": {
+    "continuum_fourier_samples": [
+      {
+        "growth_rates": [
+          {
+            "imag": -1.0,
+            "real": 0.0
+          },
+          {
+            "imag": 1.0,
+            "real": 0.0
+          }
+        ],
+        "wavenumber": 0.0
+      },
+      {
+        "growth_rates": [
+          {
+            "imag": -0.9512527146372801,
+            "real": -0.30843777062767586
+          },
+          {
+            "imag": 0.9512527146372801,
+            "real": -0.30843777062767586
+          }
+        ],
+        "wavenumber": 0.7853981633974483
+      },
+      {
+        "growth_rates": [
+          {
+            "imag": 0.0,
+            "real": -0.5113298990427174
+          },
+          {
+            "imag": 0.0,
+            "real": -1.9561722659786893
+          }
+        ],
+        "wavenumber": 1.5707963267948966
+      }
+    ],
+    "finite_volume_matrix_vs_analytic_discrete_modes": {
+      "neumann": {
+        "analytic_discrete_spectral_abscissa": 0.0,
+        "matrix_spectral_abscissa": 4.718447854656915e-15,
+        "maximum_eigenvalue_matching_error": 2.2737367544323206e-13
+      },
+      "periodic": {
+        "analytic_discrete_spectral_abscissa": 0.0,
+        "matrix_spectral_abscissa": 2.55351295663786e-15,
+        "maximum_eigenvalue_matching_error": 4.547473508864641e-13
+      }
+    },
+    "parameters": {
+      "a": 1.0,
+      "a2": 0.0,
+      "d": 4.096e-05,
+      "epsilon": 1.0,
+      "equilibrium_u": 1.0,
+      "equilibrium_v": -0.6666666666666667,
+      "r": 0.08
+    },
+    "status": "PASS"
+  },
+  "linearization": "physical PDE linearization on the frozen saved profile",
+  "nonclaims": [
+    "A finite-window spectrum is not a whole-line spectral-stability theorem.",
+    "A short residual-subtracted perturbation evolution is not nonlinear stability.",
+    "No observed growth or decay establishes Turing-branch selection or time-asymptotic pattern selection.",
+    "No interval arithmetic, Evans-function enclosure, semigroup estimate, or nonlinear bootstrap is performed."
+  ],
+  "parameters": {
+    "a": 1.0,
+    "a2": 0.0,
+    "d": 4.096e-05,
+    "epsilon": 1.0,
+    "equilibrium_u": 1.0,
+    "equilibrium_v": -0.6666666666666667,
+    "r": 0.08
+  },
+  "profile_count": 4,
+  "profiles": [
+    {
+      "claim_bearing": false,
+      "evidence_status": "COMPUTED/E1 CANDIDATE_ONLY finite-window temporal screen",
+      "frozen_physical_interval": [
+        -2.08,
+        2.08
+      ],
+      "linear_spectra": {
+        "coarse_neumann": {
+          "boundary_condition_on_perturbations": "neumann",
+          "cell_width": 0.0343801652892562,
+          "evidence_status": "COMPUTED/E1 CANDIDATE_ONLY finite-window temporal screen",
+          "frozen_interval": [
+            -2.08,
+            2.08
+          ],
+          "grid_points": 121,
+          "interpretation": "finite-window floating-point spectrum only",
+          "leading_eigenvalues": [
+            {
+              "imag": 0.0,
+              "real": 0.02274985330823038
+            },
+            {
+              "imag": 0.0,
+              "real": 0.0025123330710284434
+            },
+            {
+              "imag": -0.9999553440598413,
+              "real": -1.2270362181723837e-05
+            },
+            {
+              "imag": 0.9999553440598413,
+              "real": -1.2270362181723837e-05
+            },
+            {
+              "imag": 0.0,
+              "real": -0.01291515303689773
+            },
+            {
+              "imag": 0.0,
+              "real": -0.01291556158007125
+            },
+            {
+              "imag": 0.0,
+              "real": -0.013261168225055433
+            },
+            {
+              "imag": 0.0,
+              "real": -0.013261272431821581
+            },
+            {
+              "imag": 0.0,
+              "real": -0.013837628868345681
+            },
+            {
+              "imag": 0.0,
+              "real": -0.01384433271928098
+            },
+            {
+              "imag": 0.0,
+              "real": -0.01466158396483887
+            },
+            {
+              "imag": 0.0,
+              "real": -0.014662562849452785
+            }
+          ],
+          "near_neutral_eigenvalue_count_abs_real_part_le_1e-8": 0,
+          "spectral_abscissa": 0.02274985330823038,
+          "unstable_eigenvalue_count_real_part_gt_1e-8": 2
+        },
+        "fine_neumann": {
+          "boundary_condition_on_perturbations": "neumann",
+          "cell_width": 0.025838509316770186,
+          "evidence_status": "COMPUTED/E1 CANDIDATE_ONLY finite-window temporal screen",
+          "frozen_interval": [
+            -2.08,
+            2.08
+          ],
+          "grid_points": 161,
+          "interpretation": "finite-window floating-point spectrum only",
+          "leading_eigenvalues": [
+            {
+              "imag": 0.0,
+              "real": 0.02209850899793955
+            },
+            {
+              "imag": 0.0,
+              "real": 0.0013664335447762675
+            },
+            {
+              "imag": -0.9999553433118937,
+              "real": -1.2262463175288785e-05
+            },
+            {
+              "imag": 0.9999553433118937,
+              "real": -1.2262463175288785e-05
+            },
+            {
+              "imag": 0.0,
+              "real": -0.012917647714970336
+            },
+            {
+              "imag": 0.0,
+              "real": -0.01291794906594323
+            },
+            {
+              "imag": 0.0,
+              "real": -0.013270621124702687
+            },
+            {
+              "imag": 0.0,
+              "real": -0.013270981691680575
+            },
+            {
+              "imag": 0.0,
+              "real": -0.013861026246911873
+            },
+            {
+              "imag": 0.0,
+              "real": -0.013867179828696773
+            },
+            {
+              "imag": 0.0,
+              "real": -0.01470220614034586
+            },
+            {
+              "imag": 0.0,
+              "real": -0.014704531482335375
+            }
+          ],
+          "near_neutral_eigenvalue_count_abs_real_part_le_1e-8": 0,
+          "spectral_abscissa": 0.02209850899793955,
+          "unstable_eigenvalue_count_real_part_gt_1e-8": 2
+        },
+        "fine_periodic": {
+          "boundary_condition_on_perturbations": "periodic",
+          "cell_width": 0.025838509316770186,
+          "evidence_status": "COMPUTED/E1 CANDIDATE_ONLY finite-window temporal screen",
+          "frozen_interval": [
+            -2.08,
+            2.08
+          ],
+          "grid_points": 161,
+          "interpretation": "finite-window floating-point spectrum only",
+          "leading_eigenvalues": [
+            {
+              "imag": 0.0,
+              "real": 0.022098508997956713
+            },
+            {
+              "imag": 0.0,
+              "real": 0.001366433544716595
+            },
+            {
+              "imag": -0.9999553433115694,
+              "real": -1.2262463270129587e-05
+            },
+            {
+              "imag": 0.9999553433115694,
+              "real": -1.2262463270129587e-05
+            },
+            {
+              "imag": 0.0,
+              "real": -0.012917647715016129
+            },
+            {
+              "imag": 0.0,
+              "real": -0.012917774880999378
+            },
+            {
+              "imag": 0.0,
+              "real": -0.013270621124639769
+            },
+            {
+              "imag": 0.0,
+              "real": -0.013272060593403127
+            },
+            {
+              "imag": 0.0,
+              "real": -0.013861026246887431
+            },
+            {
+              "imag": 0.0,
+              "real": -0.01386410904961678
+            },
+            {
+              "imag": 0.0,
+              "real": -0.014704531482354472
+            },
+            {
+              "imag": 0.0,
+              "real": -0.014705666285702941
+            }
+          ],
+          "near_neutral_eigenvalue_count_abs_real_part_le_1e-8": 0,
+          "spectral_abscissa": 0.022098508997956713,
+          "unstable_eigenvalue_count_real_part_gt_1e-8": 2
+        }
+      },
+      "nonclaim": "This signal prioritizes later analysis; it is not a temporal-stability conclusion.",
+      "profile": "pulse_1",
+      "pulse_count": 1,
+      "refined_real_axis_spectra": {
+        "coarse_neumann": {
+          "boundary_condition_on_perturbations": "neumann",
+          "cell_width": 0.008,
+          "evidence_status": "COMPUTED/E1 CANDIDATE_ONLY finite-window temporal screen",
+          "grid_points": 520,
+          "leading_eigenpair_residual_l2": 1.736321216962954e-13,
+          "leading_real_axis_candidate": {
+            "imag": 0.0,
+            "real": 0.021446704015316398
+          },
+          "nonclaim": "not an exhaustive high-resolution complex spectrum",
+          "real_shift": 0.07180585928584192,
+          "returned_shift_invert_candidates": [
+            {
+              "imag": 0.0,
+              "real": 0.021446704015316398
+            },
+            {
+              "imag": 0.0,
+              "real": 0.00012212561723282112
+            },
+            {
+              "imag": 0.0,
+              "real": -0.012920526050087922
+            },
+            {
+              "imag": 0.0,
+              "real": -0.012920734448885265
+            },
+            {
+              "imag": 0.0,
+              "real": -0.0132816853754026
+            },
+            {
+              "imag": 0.0,
+              "real": -0.013282414708237503
+            },
+            {
+              "imag": 0.0,
+              "real": -0.013888114701887472
+            },
+            {
+              "imag": 0.0,
+              "real": -0.013893898724584394
+            },
+            {
+              "imag": 0.0,
+              "real": -0.014749754892466077
+            },
+            {
+              "imag": 0.0,
+              "real": -0.01475299964068559
+            },
+            {
+              "imag": 0.0,
+              "real": -0.015846354609060587
+            },
+            {
+              "imag": 0.0,
+              "real": -0.01586229632884599
+            }
+          ],
+          "search_scope": "high-resolution real-axis refinement anchored by the weighted-energy upper bound",
+          "weighted_energy_real_part_upper_bound": 0.061805859285841924
+        },
+        "fine_neumann": {
+          "boundary_condition_on_perturbations": "neumann",
+          "cell_width": 0.004,
+          "evidence_status": "COMPUTED/E1 CANDIDATE_ONLY finite-window temporal screen",
+          "grid_points": 1040,
+          "leading_eigenpair_residual_l2": 6.252482331039343e-13,
+          "leading_real_axis_candidate": {
+            "imag": 0.0,
+            "real": 0.02139761970875223
+          },
+          "nonclaim": "not an exhaustive high-resolution complex spectrum",
+          "real_shift": 0.07199129805887737,
+          "returned_shift_invert_candidates": [
+            {
+              "imag": 0.0,
+              "real": 0.02139761970875223
+            },
+            {
+              "imag": 0.0,
+              "real": 3.0380276724126243e-05
+            },
+            {
+              "imag": 0.0,
+              "real": -0.012920753706730362
+            },
+            {
+              "imag": 0.0,
+              "real": -0.012920955109600257
+            },
+            {
+              "imag": 0.0,
+              "real": -0.013282564208507985
+            },
+            {
+              "imag": 0.0,
+              "real": -0.01328332572666674
+            },
+            {
+              "imag": 0.0,
+              "real": -0.013890262982859211
+            },
+            {
+              "imag": 0.0,
+              "real": -0.013896017333203392
+            },
+            {
+              "imag": 0.0,
+              "real": -0.014753532273818107
+            },
+            {
+              "imag": 0.0,
+              "real": -0.01475682875631354
+            },
+            {
+              "imag": 0.0,
+              "real": -0.015852439735709142
+            },
+            {
+              "imag": 0.0,
+              "real": -0.015868724168399503
+            }
+          ],
+          "search_scope": "high-resolution real-axis refinement anchored by the weighted-energy upper bound",
+          "weighted_energy_real_part_upper_bound": 0.061991298058877375
+        },
+        "fine_periodic": {
+          "boundary_condition_on_perturbations": "periodic",
+          "cell_width": 0.004,
+          "evidence_status": "COMPUTED/E1 CANDIDATE_ONLY finite-window temporal screen",
+          "grid_points": 1040,
+          "leading_eigenpair_residual_l2": 8.729223635610225e-13,
+          "leading_real_axis_candidate": {
+            "imag": 0.0,
+            "real": 0.02139761970874894
+          },
+          "nonclaim": "not an exhaustive high-resolution complex spectrum",
+          "real_shift": 0.07199129805887737,
+          "returned_shift_invert_candidates": [
+            {
+              "imag": 0.0,
+              "real": 0.02139761970874894
+            },
+            {
+              "imag": 0.0,
+              "real": 3.0380276723612765e-05
+            },
+            {
+              "imag": 0.0,
+              "real": -0.012920753706730959
+            },
+            {
+              "imag": 0.0,
+              "real": -0.012920832144968128
+            },
+            {
+              "imag": 0.0,
+              "real": -0.01328256420850947
+            },
+            {
+              "imag": 0.0,
+              "real": -0.013284379490530865
+            },
+            {
+              "imag": 0.0,
+              "real": -0.013890262982868842
+            },
+            {
+              "imag": 0.0,
+              "real": -0.013892289255643286
+            },
+            {
+              "imag": 0.0,
+              "real": -0.014756828756314289
+            },
+            {
+              "imag": 0.0,
+              "real": -0.014759403022254952
+            },
+            {
+              "imag": 0.0,
+              "real": -0.015852439735712556
+            },
+            {
+              "imag": 0.0,
+              "real": -0.015871059295151868
+            }
+          ],
+          "search_scope": "high-resolution real-axis refinement anchored by the weighted-energy upper bound",
+          "weighted_energy_real_part_upper_bound": 0.061991298058877375
+        }
+      },
+      "screen_signal": "POSITIVE_GROWTH_CANDIDATE_ACROSS_GRID_AND_BOUNDARY_CHECKS",
+      "sensitivity": {
+        "boundary_final_state_difference_over_initial_rms": 3.767933577379533e-12,
+        "full_spectrum_audit_boundary_abscissa_difference": 1.716335407131453e-14,
+        "full_spectrum_audit_grid_abscissa_difference": 0.0006513443102908294,
+        "grid_final_state_difference_over_initial_rms": 1.58213119467888e-05,
+        "leading_mode_complex_eigenpair_relative_residual": 6.252482331039343e-13,
+        "leading_mode_expected_linear_envelope_amplification": 1.0216281903913076,
+        "leading_mode_observed_nonlinear_amplification": 1.0215729003230525,
+        "spectral_boundary_abscissa_difference": 3.2890357104520263e-15,
+        "spectral_grid_abscissa_difference": 4.9084306564167735e-05,
+        "spectral_sign_agrees_across_checks": true,
+        "time_step_final_state_difference_over_initial_rms": 0.0016191359866345267
+      },
+      "short_time_runs": {
+        "coarse_neumann_half_dt": {
+          "actual_dt": 0.005,
+          "boundary_condition_on_perturbations": "neumann",
+          "effective_log_growth_rate": -0.16114627885388152,
+          "evidence_status": "COMPUTED/E1 CANDIDATE_ONLY finite-window temporal screen",
+          "final_perturbation_rms": 8.511675541859895e-06,
+          "final_time": 1.0,
+          "finite_time_amplification": 0.8511675541859894,
+          "grid_points": 520,
+          "initial_perturbation_rms": 1e-05,
+          "interpretation": "short residual-subtracted frozen-profile perturbation run only",
+          "maximum_perturbation_rms": 1e-05,
+          "requested_dt": 0.005,
+          "sample_rms": [
+            1e-05,
+            9.919577118481301e-06,
+            9.848135509367824e-06,
+            9.778940264871912e-06,
+            9.70948512029844e-06,
+            9.638799371064886e-06,
+            9.566586491147556e-06,
+            9.492872161103422e-06,
+            9.41784010649355e-06,
+            9.34174923839848e-06,
+            9.264889447551042e-06,
+            9.18755707119867e-06,
+            9.110040974160352e-06,
+            9.032614656022178e-06,
+            8.955531926108747e-06,
+            8.879024758360041e-06,
+            8.803302506078003e-06,
+            8.728551973606906e-06,
+            8.654938027373794e-06,
+            8.582604541275636e-06,
+            8.511675541859895e-06
+          ],
+          "sample_times": [
+            0.0,
+            0.05,
+            0.1,
+            0.15,
+            0.2,
+            0.25,
+            0.3,
+            0.35000000000000003,
+            0.4,
+            0.45,
+            0.5,
+            0.55,
+            0.6,
+            0.65,
+            0.7000000000000001,
+            0.75,
+            0.8,
+            0.85,
+            0.9,
+            0.9500000000000001,
+            1.0
+          ],
+          "zero_perturbation_defect_inf": 0.0
+        },
+        "fine_neumann_dt": {
+          "actual_dt": 0.01,
+          "boundary_condition_on_perturbations": "neumann",
+          "effective_log_growth_rate": -0.159861686192241,
+          "evidence_status": "COMPUTED/E1 CANDIDATE_ONLY finite-window temporal screen",
+          "final_perturbation_rms": 8.52261660369855e-06,
+          "final_time": 1.0,
+          "finite_time_amplification": 0.8522616603698548,
+          "grid_points": 1040,
+          "initial_perturbation_rms": 1e-05,
+          "interpretation": "short residual-subtracted frozen-profile perturbation run only",
+          "maximum_perturbation_rms": 1e-05,
+          "requested_dt": 0.01,
+          "sample_rms": [
+            1e-05,
+            9.92023447127624e-06,
+            9.849181422880217e-06,
+            9.780378112956482e-06,
+            9.7113598370486e-06,
+            9.641155875519404e-06,
+            9.569460715786162e-06,
+            9.496290323940177e-06,
+            9.421820164671884e-06,
+            9.346302696043998e-06,
+            9.270022997300996e-06,
+            9.193273961359978e-06,
+            9.116342111190607e-06,
+            9.039499478627457e-06,
+            8.962999088750575e-06,
+            8.887072657736527e-06,
+            8.811929679193959e-06,
+            8.737757391447175e-06,
+            8.6647213041373e-06,
+            8.592966075627604e-06,
+            8.52261660369855e-06
+          ],
+          "sample_times": [
+            0.0,
+            0.05,
+            0.1,
+            0.15,
+            0.2,
+            0.25,
+            0.3,
+            0.35000000000000003,
+            0.4,
+            0.45,
+            0.5,
+            0.55,
+            0.6,
+            0.65,
+            0.7000000000000001,
+            0.75,
+            0.8,
+            0.85,
+            0.9,
+            0.9500000000000001,
+            1.0
+          ],
+          "zero_perturbation_defect_inf": 0.0
+        },
+        "fine_neumann_half_dt": {
+          "actual_dt": 0.005,
+          "boundary_condition_on_perturbations": "neumann",
+          "effective_log_growth_rate": -0.1611455376158747,
+          "evidence_status": "COMPUTED/E1 CANDIDATE_ONLY finite-window temporal screen",
+          "final_perturbation_rms": 8.511681851039647e-06,
+          "final_time": 1.0,
+          "finite_time_amplification": 0.8511681851039646,
+          "grid_points": 1040,
+          "initial_perturbation_rms": 1e-05,
+          "interpretation": "short residual-subtracted frozen-profile perturbation run only",
+          "maximum_perturbation_rms": 1e-05,
+          "requested_dt": 0.005,
+          "sample_rms": [
+            1e-05,
+            9.919575963387995e-06,
+            9.848134186348732e-06,
+            9.778939037692748e-06,
+            9.70948408164466e-06,
+            9.638798565170248e-06,
+            9.566585950624548e-06,
+            9.49287191809975e-06,
+            9.417840195145186e-06,
+            9.341749694416295e-06,
+            9.264890307014682e-06,
+            9.187558369284476e-06,
+            9.110042744042568e-06,
+            9.032616928010753e-06,
+            8.955534727022238e-06,
+            8.87902811110787e-06,
+            8.803306429419642e-06,
+            8.728556482055743e-06,
+            8.654943131215571e-06,
+            8.582610246675961e-06,
+            8.511681851039647e-06
+          ],
+          "sample_times": [
+            0.0,
+            0.05,
+            0.1,
+            0.15,
+            0.2,
+            0.25,
+            0.3,
+            0.35000000000000003,
+            0.4,
+            0.45,
+            0.5,
+            0.55,
+            0.6,
+            0.65,
+            0.7000000000000001,
+            0.75,
+            0.8,
+            0.85,
+            0.9,
+            0.9500000000000001,
+            1.0
+          ],
+          "zero_perturbation_defect_inf": 0.0
+        },
+        "fine_neumann_leading_mode_half_dt": {
+          "actual_dt": 0.005,
+          "boundary_condition_on_perturbations": "neumann",
+          "complex_eigenpair_relative_residual": 6.252482331039343e-13,
+          "effective_log_growth_rate": 0.02134349868413064,
+          "evidence_status": "COMPUTED/E1 CANDIDATE_ONLY finite-window temporal screen",
+          "expected_linear_envelope_amplification": 1.0216281903913076,
+          "final_perturbation_rms": 1.0215729003230525e-05,
+          "final_time": 1.0,
+          "finite_time_amplification": 1.0215729003230525,
+          "grid_points": 1040,
+          "initial_mode_eigenvalue": {
+            "imag": 0.0,
+            "real": 0.02139761970875223
+          },
+          "initial_perturbation_rms": 1e-05,
+          "interpretation": "short residual-subtracted frozen-profile perturbation run only",
+          "maximum_perturbation_rms": 1.0215729003230525e-05,
+          "requested_dt": 0.005,
+          "sample_rms": [
+            1e-05,
+            1.0010677427674546e-05,
+            1.002136648370958e-05,
+            1.0032066972981627e-05,
+            1.0042778874866951e-05,
+            1.0053502190763881e-05,
+            1.0064236928317183e-05,
+            1.0074983097558415e-05,
+            1.0085740709603952e-05,
+            1.0096509776124187e-05,
+            1.0107290309097184e-05,
+            1.0118082320682252e-05,
+            1.0128885823150233e-05,
+            1.013970082884402e-05,
+            1.0150527350154499e-05,
+            1.0161365399505991e-05,
+            1.0172214989347925e-05,
+            1.0183076132149e-05,
+            1.0193948840394434e-05,
+            1.0204833126583856e-05,
+            1.0215729003230525e-05
+          ],
+          "sample_times": [
+            0.0,
+            0.05,
+            0.1,
+            0.15,
+            0.2,
+            0.25,
+            0.3,
+            0.35000000000000003,
+            0.4,
+            0.45,
+            0.5,
+            0.55,
+            0.6,
+            0.65,
+            0.7000000000000001,
+            0.75,
+            0.8,
+            0.85,
+            0.9,
+            0.9500000000000001,
+            1.0
+          ],
+          "zero_perturbation_defect_inf": 0.0
+        },
+        "fine_periodic_half_dt": {
+          "actual_dt": 0.005,
+          "boundary_condition_on_perturbations": "periodic",
+          "effective_log_growth_rate": -0.16114553761811856,
+          "evidence_status": "COMPUTED/E1 CANDIDATE_ONLY finite-window temporal screen",
+          "final_perturbation_rms": 8.511681851020548e-06,
+          "final_time": 1.0,
+          "finite_time_amplification": 0.8511681851020547,
+          "grid_points": 1040,
+          "initial_perturbation_rms": 1e-05,
+          "interpretation": "short residual-subtracted frozen-profile perturbation run only",
+          "maximum_perturbation_rms": 1e-05,
+          "requested_dt": 0.005,
+          "sample_rms": [
+            1e-05,
+            9.919575963387599e-06,
+            9.848134186347927e-06,
+            9.778939037691503e-06,
+            9.70948408164293e-06,
+            9.638798565167978e-06,
+            9.566585950621682e-06,
+            9.492871918096227e-06,
+            9.417840195140942e-06,
+            9.341749694411259e-06,
+            9.264890307008773e-06,
+            9.18755836927762e-06,
+            9.110042744034685e-06,
+            9.032616928001756e-06,
+            8.955534727012047e-06,
+            8.879028111096402e-06,
+            8.803306429406807e-06,
+            8.728556482041459e-06,
+            8.654943131199759e-06,
+            8.582610246658548e-06,
+            8.511681851020548e-06
+          ],
+          "sample_times": [
+            0.0,
+            0.05,
+            0.1,
+            0.15,
+            0.2,
+            0.25,
+            0.3,
+            0.35000000000000003,
+            0.4,
+            0.45,
+            0.5,
+            0.55,
+            0.6,
+            0.65,
+            0.7000000000000001,
+            0.75,
+            0.8,
+            0.85,
+            0.9,
+            0.9500000000000001,
+            1.0
+          ],
+          "zero_perturbation_defect_inf": 0.0
+        }
+      },
+      "source_archive_arrays": [
+        "pulse_1_physical_x",
+        "pulse_1_physical_u",
+        "pulse_1_physical_v"
+      ],
+      "tail_diagnostics": {
+        "left_one_sided_u_slope": -1.5180164817468672e-09,
+        "left_one_sided_v_slope": -4.8038496257812255e-11,
+        "left_u_minus_equilibrium": -5.104247025045083e-10,
+        "left_v_minus_equilibrium": -2.1610491174328672e-12,
+        "periodic_endpoint_u_gap": 0.0,
+        "periodic_endpoint_v_gap": 0.0,
+        "right_one_sided_u_slope": 1.5180164817468672e-09,
+        "right_one_sided_v_slope": 4.8038496257812255e-11,
+        "right_u_minus_equilibrium": -5.104247025045083e-10,
+        "right_v_minus_equilibrium": -2.1610491174328672e-12
+      }
+    },
+    {
+      "claim_bearing": false,
+      "evidence_status": "COMPUTED/E1 CANDIDATE_ONLY finite-window temporal screen",
+      "frozen_physical_interval": [
+        -2.96,
+        2.96
+      ],
+      "linear_spectra": {
+        "coarse_neumann": {
+          "boundary_condition_on_perturbations": "neumann",
+          "cell_width": 0.04892561983471074,
+          "evidence_status": "COMPUTED/E1 CANDIDATE_ONLY finite-window temporal screen",
+          "frozen_interval": [
+            -2.96,
+            2.96
+          ],
+          "grid_points": 121,
+          "interpretation": "finite-window floating-point spectrum only",
+          "leading_eigenvalues": [
+            {
+              "imag": 0.0,
+              "real": 0.025127123160706973
+            },
+            {
+              "imag": 0.0,
+              "real": 0.025116131549068194
+            },
+            {
+              "imag": 0.0,
+              "real": 0.0052684686970339446
+            },
+            {
+              "imag": 0.0,
+              "real": 0.005268467485102941
+            },
+            {
+              "imag": -0.9999372269856861,
+              "real": -1.7278211767973728e-05
+            },
+            {
+              "imag": 0.9999372269856861,
+              "real": -1.7278211767973728e-05
+            },
+            {
+              "imag": 0.0,
+              "real": -0.012893336489126626
+            },
+            {
+              "imag": 0.0,
+              "real": -0.012893336501734212
+            },
+            {
+              "imag": 0.0,
+              "real": -0.013168457940447643
+            },
+            {
+              "imag": 0.0,
+              "real": -0.013168505718444086
+            },
+            {
+              "imag": 0.0,
+              "real": -0.01363682972380499
+            },
+            {
+              "imag": 0.0,
+              "real": -0.013636897493041025
+            }
+          ],
+          "near_neutral_eigenvalue_count_abs_real_part_le_1e-8": 0,
+          "spectral_abscissa": 0.025127123160706973,
+          "unstable_eigenvalue_count_real_part_gt_1e-8": 4
+        },
+        "fine_neumann": {
+          "boundary_condition_on_perturbations": "neumann",
+          "cell_width": 0.03677018633540373,
+          "evidence_status": "COMPUTED/E1 CANDIDATE_ONLY finite-window temporal screen",
+          "frozen_interval": [
+            -2.96,
+            2.96
+          ],
+          "grid_points": 161,
+          "interpretation": "finite-window floating-point spectrum only",
+          "leading_eigenvalues": [
+            {
+              "imag": 0.0,
+              "real": 0.022912374977651966
+            },
+            {
+              "imag": 0.0,
+              "real": 0.022903182097131353
+            },
+            {
+              "imag": 0.0,
+              "real": 0.0031348839387342303
+            },
+            {
+              "imag": 0.0,
+              "real": 0.003134839377889582
+            },
+            {
+              "imag": -0.9999372388002817,
+              "real": -1.7255181569836298e-05
+            },
+            {
+              "imag": 0.9999372388002817,
+              "real": -1.7255181569836298e-05
+            },
+            {
+              "imag": 0.0,
+              "real": -0.012897417841230588
+            },
+            {
+              "imag": 0.0,
+              "real": -0.012897417953513438
+            },
+            {
+              "imag": 0.0,
+              "real": -0.013188464100210217
+            },
+            {
+              "imag": 0.0,
+              "real": -0.013188470646081009
+            },
+            {
+              "imag": 0.0,
+              "real": -0.013678132507029919
+            },
+            {
+              "imag": 0.0,
+              "real": -0.013678133544930953
+            }
+          ],
+          "near_neutral_eigenvalue_count_abs_real_part_le_1e-8": 0,
+          "spectral_abscissa": 0.022912374977651966,
+          "unstable_eigenvalue_count_real_part_gt_1e-8": 4
+        },
+        "fine_periodic": {
+          "boundary_condition_on_perturbations": "periodic",
+          "cell_width": 0.03677018633540373,
+          "evidence_status": "COMPUTED/E1 CANDIDATE_ONLY finite-window temporal screen",
+          "frozen_interval": [
+            -2.96,
+            2.96
+          ],
+          "grid_points": 161,
+          "interpretation": "finite-window floating-point spectrum only",
+          "leading_eigenvalues": [
+            {
+              "imag": 0.0,
+              "real": 0.022912374977629164
+            },
+            {
+              "imag": 0.0,
+              "real": 0.022903182097131547
+            },
+            {
+              "imag": 0.0,
+              "real": 0.003134883938750629
+            },
+            {
+              "imag": 0.0,
+              "real": 0.0031348393778812484
+            },
+            {
+              "imag": -0.9999372388003239,
+              "real": -1.7255181547445354e-05
+            },
+            {
+              "imag": 0.9999372388003239,
+              "real": -1.7255181547445354e-05
+            },
+            {
+              "imag": 0.0,
+              "real": -0.012897304982632191
+            },
+            {
+              "imag": 0.0,
+              "real": -0.012897417953494932
+            },
+            {
+              "imag": 0.0,
+              "real": -0.0131884706460955
+            },
+            {
+              "imag": 0.0,
+              "real": -0.01318912660955995
+            },
+            {
+              "imag": 0.0,
+              "real": -0.01367613642639859
+            },
+            {
+              "imag": 0.0,
+              "real": -0.0136781325070191
+            }
+          ],
+          "near_neutral_eigenvalue_count_abs_real_part_le_1e-8": 0,
+          "spectral_abscissa": 0.022912374977629164,
+          "unstable_eigenvalue_count_real_part_gt_1e-8": 4
+        }
+      },
+      "nonclaim": "This signal prioritizes later analysis; it is not a temporal-stability conclusion.",
+      "profile": "pulse_2",
+      "pulse_count": 2,
+      "refined_real_axis_spectra": {
+        "coarse_neumann": {
+          "boundary_condition_on_perturbations": "neumann",
+          "cell_width": 0.008,
+          "evidence_status": "COMPUTED/E1 CANDIDATE_ONLY finite-window temporal screen",
+          "grid_points": 740,
+          "leading_eigenpair_residual_l2": 5.185502302752469e-13,
+          "leading_real_axis_candidate": {
+            "imag": 0.0,
+            "real": 0.021450600782816256
+          },
+          "nonclaim": "not an exhaustive high-resolution complex spectrum",
+          "real_shift": 0.07205091207293977,
+          "returned_shift_invert_candidates": [
+            {
+              "imag": 0.0,
+              "real": 0.021450600782816256
+            },
+            {
+              "imag": 0.0,
+              "real": 0.021443062719672022
+            },
+            {
+              "imag": 0.0,
+              "real": 0.0001221310037551604
+            },
+            {
+              "imag": 0.0,
+              "real": 0.00012204762740314345
+            },
+            {
+              "imag": 0.0,
+              "real": -0.012902428416512957
+            },
+            {
+              "imag": 0.0,
+              "real": -0.012902428838771504
+            },
+            {
+              "imag": 0.0,
+              "real": -0.013209609922162274
+            },
+            {
+              "imag": 0.0,
+              "real": -0.013209613119383457
+            },
+            {
+              "imag": 0.0,
+              "real": -0.013725234034598147
+            },
+            {
+              "imag": 0.0,
+              "real": -0.013725234849420787
+            },
+            {
+              "imag": 0.0,
+              "real": -0.014450220545009024
+            },
+            {
+              "imag": 0.0,
+              "real": -0.014450652166174527
+            }
+          ],
+          "search_scope": "high-resolution real-axis refinement anchored by the weighted-energy upper bound",
+          "weighted_energy_real_part_upper_bound": 0.06205091207293978
+        },
+        "fine_neumann": {
+          "boundary_condition_on_perturbations": "neumann",
+          "cell_width": 0.004,
+          "evidence_status": "COMPUTED/E1 CANDIDATE_ONLY finite-window temporal screen",
+          "grid_points": 1480,
+          "leading_eigenpair_residual_l2": 1.1994736974428384e-12,
+          "leading_real_axis_candidate": {
+            "imag": 0.0,
+            "real": 0.0214009772923468
+          },
+          "nonclaim": "not an exhaustive high-resolution complex spectrum",
+          "real_shift": 0.07201331505191398,
+          "returned_shift_invert_candidates": [
+            {
+              "imag": 0.0,
+              "real": 0.0214009772923468
+            },
+            {
+              "imag": 0.0,
+              "real": 0.021393496518226904
+            },
+            {
+              "imag": 0.0,
+              "real": 3.0378645023615425e-05
+            },
+            {
+              "imag": 0.0,
+              "real": 3.0296035943858102e-05
+            },
+            {
+              "imag": 0.0,
+              "real": -0.012902614984433472
+            },
+            {
+              "imag": 0.0,
+              "real": -0.01290261541960025
+            },
+            {
+              "imag": 0.0,
+              "real": -0.013210391454973644
+            },
+            {
+              "imag": 0.0,
+              "real": -0.013210394553476168
+            },
+            {
+              "imag": 0.0,
+              "real": -0.013726977370990517
+            },
+            {
+              "imag": 0.0,
+              "real": -0.013726977998160306
+            },
+            {
+              "imag": 0.0,
+              "real": -0.014453481379045646
+            },
+            {
+              "imag": 0.0,
+              "real": -0.014453916639378908
+            }
+          ],
+          "search_scope": "high-resolution real-axis refinement anchored by the weighted-energy upper bound",
+          "weighted_energy_real_part_upper_bound": 0.062013315051913986
+        },
+        "fine_periodic": {
+          "boundary_condition_on_perturbations": "periodic",
+          "cell_width": 0.004,
+          "evidence_status": "COMPUTED/E1 CANDIDATE_ONLY finite-window temporal screen",
+          "grid_points": 1480,
+          "leading_eigenpair_residual_l2": 1.4322928306013064e-12,
+          "leading_real_axis_candidate": {
+            "imag": 0.0,
+            "real": 0.021400977292351728
+          },
+          "nonclaim": "not an exhaustive high-resolution complex spectrum",
+          "real_shift": 0.07201331505191398,
+          "returned_shift_invert_candidates": [
+            {
+              "imag": 0.0,
+              "real": 0.021400977292351728
+            },
+            {
+              "imag": 0.0,
+              "real": 0.021393496518230998
+            },
+            {
+              "imag": 0.0,
+              "real": 3.0378645023282358e-05
+            },
+            {
+              "imag": 0.0,
+              "real": 3.0296035943663813e-05
+            },
+            {
+              "imag": 0.0,
+              "real": -0.012902615419600055
+            },
+            {
+              "imag": 0.0,
+              "real": -0.012902707667510976
+            },
+            {
+              "imag": 0.0,
+              "real": -0.013210218469674087
+            },
+            {
+              "imag": 0.0,
+              "real": -0.013210394553477098
+            },
+            {
+              "imag": 0.0,
+              "real": -0.013726407783557978
+            },
+            {
+              "imag": 0.0,
+              "real": -0.013726977370997137
+            },
+            {
+              "imag": 0.0,
+              "real": -0.014453916639373635
+            },
+            {
+              "imag": 0.0,
+              "real": -0.014456976201927402
+            }
+          ],
+          "search_scope": "high-resolution real-axis refinement anchored by the weighted-energy upper bound",
+          "weighted_energy_real_part_upper_bound": 0.062013315051913986
+        }
+      },
+      "screen_signal": "POSITIVE_GROWTH_CANDIDATE_ACROSS_GRID_AND_BOUNDARY_CHECKS",
+      "sensitivity": {
+        "boundary_final_state_difference_over_initial_rms": 4.437199785666839e-12,
+        "full_spectrum_audit_boundary_abscissa_difference": 2.2801205368239152e-14,
+        "full_spectrum_audit_grid_abscissa_difference": 0.0022147481830550077,
+        "grid_final_state_difference_over_initial_rms": 8.66971206440681e-06,
+        "leading_mode_complex_eigenpair_relative_residual": 1.1994736974428384e-12,
+        "leading_mode_expected_linear_envelope_amplification": 1.021631620599118,
+        "leading_mode_observed_nonlinear_amplification": 1.0216296920122971,
+        "spectral_boundary_abscissa_difference": 4.926614671774132e-15,
+        "spectral_grid_abscissa_difference": 4.9623490469455356e-05,
+        "spectral_sign_agrees_across_checks": true,
+        "time_step_final_state_difference_over_initial_rms": 0.001673163469157726
+      },
+      "short_time_runs": {
+        "coarse_neumann_half_dt": {
+          "actual_dt": 0.005,
+          "boundary_condition_on_perturbations": "neumann",
+          "effective_log_growth_rate": -0.1666781572790808,
+          "evidence_status": "COMPUTED/E1 CANDIDATE_ONLY finite-window temporal screen",
+          "final_perturbation_rms": 8.4647199835308e-06,
+          "final_time": 1.0,
+          "finite_time_amplification": 0.8464719983530797,
+          "grid_points": 740,
+          "initial_perturbation_rms": 1.0000000000000003e-05,
+          "interpretation": "short residual-subtracted frozen-profile perturbation run only",
+          "maximum_perturbation_rms": 1.0000000000000003e-05,
+          "requested_dt": 0.005,
+          "sample_rms": [
+            1.0000000000000003e-05,
+            9.954353643635699e-06,
+            9.906022692805222e-06,
+            9.854119870282109e-06,
+            9.798211431183208e-06,
+            9.73811162033237e-06,
+            9.67379102869874e-06,
+            9.605329114087246e-06,
+            9.53288594428338e-06,
+            9.45668328914589e-06,
+            9.376990794911303e-06,
+            9.29411522709283e-06,
+            9.208391739909965e-06,
+            9.120176581445186e-06,
+            9.029840870864443e-06,
+            8.93776520816872e-06,
+            8.844334950298941e-06,
+            8.749936033861148e-06,
+            8.654951255964904e-06,
+            8.559756946754413e-06,
+            8.4647199835308e-06
+          ],
+          "sample_times": [
+            0.0,
+            0.05,
+            0.1,
+            0.15,
+            0.2,
+            0.25,
+            0.3,
+            0.35000000000000003,
+            0.4,
+            0.45,
+            0.5,
+            0.55,
+            0.6,
+            0.65,
+            0.7000000000000001,
+            0.75,
+            0.8,
+            0.85,
+            0.9,
+            0.9500000000000001,
+            1.0
+          ],
+          "zero_perturbation_defect_inf": 0.0
+        },
+        "fine_neumann_dt": {
+          "actual_dt": 0.01,
+          "boundary_condition_on_perturbations": "neumann",
+          "effective_log_growth_rate": -0.16500543754139665,
+          "evidence_status": "COMPUTED/E1 CANDIDATE_ONLY finite-window temporal screen",
+          "final_perturbation_rms": 8.478890936433347e-06,
+          "final_time": 1.0,
+          "finite_time_amplification": 0.8478890936433346,
+          "grid_points": 1480,
+          "initial_perturbation_rms": 1e-05,
+          "interpretation": "short residual-subtracted frozen-profile perturbation run only",
+          "maximum_perturbation_rms": 1e-05,
+          "requested_dt": 0.01,
+          "sample_rms": [
+            1e-05,
+            9.955137800931395e-06,
+            9.907541723948914e-06,
+            9.856355546669107e-06,
+            9.80115656953478e-06,
+            9.741763561185598e-06,
+            9.678149107151669e-06,
+            9.610393489827384e-06,
+            9.53865697859822e-06,
+            9.46316119087695e-06,
+            9.384175425110484e-06,
+            9.302006009184712e-06,
+            9.216987644243205e-06,
+            9.129476163343645e-06,
+            9.039842346930734e-06,
+            8.948466559127603e-06,
+            8.855734041053282e-06,
+            8.762030743145934e-06,
+            8.667739609274746e-06,
+            8.573237247242975e-06,
+            8.478890936433347e-06
+          ],
+          "sample_times": [
+            0.0,
+            0.05,
+            0.1,
+            0.15,
+            0.2,
+            0.25,
+            0.3,
+            0.35000000000000003,
+            0.4,
+            0.45,
+            0.5,
+            0.55,
+            0.6,
+            0.65,
+            0.7000000000000001,
+            0.75,
+            0.8,
+            0.85,
+            0.9,
+            0.9500000000000001,
+            1.0
+          ],
+          "zero_perturbation_defect_inf": 0.0
+        },
+        "fine_neumann_half_dt": {
+          "actual_dt": 0.005,
+          "boundary_condition_on_perturbations": "neumann",
+          "effective_log_growth_rate": -0.16667804369051786,
+          "evidence_status": "COMPUTED/E1 CANDIDATE_ONLY finite-window temporal screen",
+          "final_perturbation_rms": 8.464720945026231e-06,
+          "final_time": 1.0,
+          "finite_time_amplification": 0.8464720945026231,
+          "grid_points": 1480,
+          "initial_perturbation_rms": 1e-05,
+          "interpretation": "short residual-subtracted frozen-profile perturbation run only",
+          "maximum_perturbation_rms": 1e-05,
+          "requested_dt": 0.005,
+          "sample_rms": [
+            1e-05,
+            9.954353207262813e-06,
+            9.906022023661952e-06,
+            9.854119076963851e-06,
+            9.798210580366656e-06,
+            9.738110756825502e-06,
+            9.673790184556624e-06,
+            9.605328313453134e-06,
+            9.532885206262244e-06,
+            9.456682629622229e-06,
+            9.3769902277298e-06,
+            9.294114764823409e-06,
+            9.208391394329131e-06,
+            9.120176363820104e-06,
+            9.02984079209643e-06,
+            8.937765278839121e-06,
+            8.844335180645006e-06,
+            8.749936433704904e-06,
+            8.654951834611753e-06,
+            8.559757712873352e-06,
+            8.464720945026231e-06
+          ],
+          "sample_times": [
+            0.0,
+            0.05,
+            0.1,
+            0.15,
+            0.2,
+            0.25,
+            0.3,
+            0.35000000000000003,
+            0.4,
+            0.45,
+            0.5,
+            0.55,
+            0.6,
+            0.65,
+            0.7000000000000001,
+            0.75,
+            0.8,
+            0.85,
+            0.9,
+            0.9500000000000001,
+            1.0
+          ],
+          "zero_perturbation_defect_inf": 0.0
+        },
+        "fine_neumann_leading_mode_half_dt": {
+          "actual_dt": 0.005,
+          "boundary_condition_on_perturbations": "neumann",
+          "complex_eigenpair_relative_residual": 1.1994736974428384e-12,
+          "effective_log_growth_rate": 0.021399089538872436,
+          "evidence_status": "COMPUTED/E1 CANDIDATE_ONLY finite-window temporal screen",
+          "expected_linear_envelope_amplification": 1.021631620599118,
+          "final_perturbation_rms": 1.0216296920122973e-05,
+          "final_time": 1.0,
+          "finite_time_amplification": 1.0216296920122971,
+          "grid_points": 1480,
+          "initial_mode_eigenvalue": {
+            "imag": 0.0,
+            "real": 0.0214009772923468
+          },
+          "initial_perturbation_rms": 1e-05,
+          "interpretation": "short residual-subtracted frozen-profile perturbation run only",
+          "maximum_perturbation_rms": 1.0216296920122973e-05,
+          "requested_dt": 0.005,
+          "sample_rms": [
+            1e-05,
+            1.0010704893907632e-05,
+            1.0021421516160946e-05,
+            1.0032149669146802e-05,
+            1.0042889334279543e-05,
+            1.0053640513792541e-05,
+            1.0064403215005893e-05,
+            1.007517744716307e-05,
+            1.0085963220508153e-05,
+            1.009676054590252e-05,
+            1.0107569434620611e-05,
+            1.011838989822577e-05,
+            1.01292219484891e-05,
+            1.0140065597334906e-05,
+            1.0150920856802845e-05,
+            1.016178773902164e-05,
+            1.0172666256189945e-05,
+            1.018355642056311e-05,
+            1.0194458244443036e-05,
+            1.0205371740171148e-05,
+            1.0216296920122973e-05
+          ],
+          "sample_times": [
+            0.0,
+            0.05,
+            0.1,
+            0.15,
+            0.2,
+            0.25,
+            0.3,
+            0.35000000000000003,
+            0.4,
+            0.45,
+            0.5,
+            0.55,
+            0.6,
+            0.65,
+            0.7000000000000001,
+            0.75,
+            0.8,
+            0.85,
+            0.9,
+            0.9500000000000001,
+            1.0
+          ],
+          "zero_perturbation_defect_inf": 0.0
+        },
+        "fine_periodic_half_dt": {
+          "actual_dt": 0.005,
+          "boundary_condition_on_perturbations": "periodic",
+          "effective_log_growth_rate": -0.16667804369352168,
+          "evidence_status": "COMPUTED/E1 CANDIDATE_ONLY finite-window temporal screen",
+          "final_perturbation_rms": 8.464720945000805e-06,
+          "final_time": 1.0,
+          "finite_time_amplification": 0.8464720945000804,
+          "grid_points": 1480,
+          "initial_perturbation_rms": 1e-05,
+          "interpretation": "short residual-subtracted frozen-profile perturbation run only",
+          "maximum_perturbation_rms": 1e-05,
+          "requested_dt": 0.005,
+          "sample_rms": [
+            1e-05,
+            9.954353207262381e-06,
+            9.90602202366102e-06,
+            9.854119076962353e-06,
+            9.798210580364507e-06,
+            9.738110756822619e-06,
+            9.673790184552919e-06,
+            9.605328313448509e-06,
+            9.53288520625661e-06,
+            9.456682629615488e-06,
+            9.376990227721853e-06,
+            9.294114764814157e-06,
+            9.208391394318472e-06,
+            9.120176363807938e-06,
+            9.029840792082656e-06,
+            8.93776527882364e-06,
+            8.84433518062772e-06,
+            8.749936433685717e-06,
+            8.654951834590574e-06,
+            8.55975771285009e-06,
+            8.464720945000805e-06
+          ],
+          "sample_times": [
+            0.0,
+            0.05,
+            0.1,
+            0.15,
+            0.2,
+            0.25,
+            0.3,
+            0.35000000000000003,
+            0.4,
+            0.45,
+            0.5,
+            0.55,
+            0.6,
+            0.65,
+            0.7000000000000001,
+            0.75,
+            0.8,
+            0.85,
+            0.9,
+            0.9500000000000001,
+            1.0
+          ],
+          "zero_perturbation_defect_inf": 0.0
+        }
+      },
+      "source_archive_arrays": [
+        "pulse_2_physical_x",
+        "pulse_2_physical_u",
+        "pulse_2_physical_v"
+      ],
+      "tail_diagnostics": {
+        "left_one_sided_u_slope": -1.9374502002742193e-09,
+        "left_one_sided_v_slope": 0.0,
+        "left_u_minus_equilibrium": -1.0879031009380924e-10,
+        "left_v_minus_equilibrium": 7.038813976123492e-13,
+        "periodic_endpoint_u_gap": 0.0,
+        "periodic_endpoint_v_gap": 0.0,
+        "right_one_sided_u_slope": 1.9374502002742193e-09,
+        "right_one_sided_v_slope": 0.0,
+        "right_u_minus_equilibrium": -1.0879031009380924e-10,
+        "right_v_minus_equilibrium": 7.038813976123492e-13
+      }
+    },
+    {
+      "claim_bearing": false,
+      "evidence_status": "COMPUTED/E1 CANDIDATE_ONLY finite-window temporal screen",
+      "frozen_physical_interval": [
+        -3.68,
+        3.68
+      ],
+      "linear_spectra": {
+        "coarse_neumann": {
+          "boundary_condition_on_perturbations": "neumann",
+          "cell_width": 0.060826446280991736,
+          "evidence_status": "COMPUTED/E1 CANDIDATE_ONLY finite-window temporal screen",
+          "frozen_interval": [
+            -3.68,
+            3.68
+          ],
+          "grid_points": 121,
+          "interpretation": "finite-window floating-point spectrum only",
+          "leading_eigenvalues": [
+            {
+              "imag": 0.0,
+              "real": 0.030761083547850433
+            },
+            {
+              "imag": 0.0,
+              "real": 0.029079836225503083
+            },
+            {
+              "imag": 0.0,
+              "real": 0.029079771436342938
+            },
+            {
+              "imag": 0.0,
+              "real": 0.0045341322751622
+            },
+            {
+              "imag": 0.0,
+              "real": 0.00453413227511096
+            },
+            {
+              "imag": -0.999923939245712,
+              "real": -2.0628819709545e-05
+            },
+            {
+              "imag": 0.999923939245712,
+              "real": -2.0628819709545e-05
+            },
+            {
+              "imag": 0.0,
+              "real": -4.690764837848815e-05
+            },
+            {
+              "imag": 0.0,
+              "real": -0.01154849937736923
+            },
+            {
+              "imag": 0.0,
+              "real": -0.012888501942730607
+            },
+            {
+              "imag": 0.0,
+              "real": -0.01288850194978042
+            },
+            {
+              "imag": 0.0,
+              "real": -0.013146860703594087
+            }
+          ],
+          "near_neutral_eigenvalue_count_abs_real_part_le_1e-8": 0,
+          "spectral_abscissa": 0.030761083547850433,
+          "unstable_eigenvalue_count_real_part_gt_1e-8": 5
+        },
+        "fine_neumann": {
+          "boundary_condition_on_perturbations": "neumann",
+          "cell_width": 0.045714285714285714,
+          "evidence_status": "COMPUTED/E1 CANDIDATE_ONLY finite-window temporal screen",
+          "frozen_interval": [
+            -3.68,
+            3.68
+          ],
+          "grid_points": 161,
+          "interpretation": "finite-window floating-point spectrum only",
+          "leading_eigenvalues": [
+            {
+              "imag": 0.0,
+              "real": 0.0248625299033395
+            },
+            {
+              "imag": 0.0,
+              "real": 0.023753539999485207
+            },
+            {
+              "imag": 0.0,
+              "real": 0.023753495869418422
+            },
+            {
+              "imag": 0.0,
+              "real": 0.006115517622074092
+            },
+            {
+              "imag": 0.0,
+              "real": 0.006115517621999418
+            },
+            {
+              "imag": 0.0,
+              "real": 0.0033525141836624837
+            },
+            {
+              "imag": -0.9999242762068518,
+              "real": -2.084248040101766e-05
+            },
+            {
+              "imag": 0.9999242762068518,
+              "real": -2.084248040101766e-05
+            },
+            {
+              "imag": 0.0,
+              "real": -0.012894949528568239
+            },
+            {
+              "imag": 0.0,
+              "real": -0.012894949529231332
+            },
+            {
+              "imag": 0.0,
+              "real": -0.013177340795094205
+            },
+            {
+              "imag": 0.0,
+              "real": -0.013177340902405956
+            }
+          ],
+          "near_neutral_eigenvalue_count_abs_real_part_le_1e-8": 0,
+          "spectral_abscissa": 0.0248625299033395,
+          "unstable_eigenvalue_count_real_part_gt_1e-8": 6
+        },
+        "fine_periodic": {
+          "boundary_condition_on_perturbations": "periodic",
+          "cell_width": 0.045714285714285714,
+          "evidence_status": "COMPUTED/E1 CANDIDATE_ONLY finite-window temporal screen",
+          "frozen_interval": [
+            -3.68,
+            3.68
+          ],
+          "grid_points": 161,
+          "interpretation": "finite-window floating-point spectrum only",
+          "leading_eigenvalues": [
+            {
+              "imag": 0.0,
+              "real": 0.024862529903376285
+            },
+            {
+              "imag": 0.0,
+              "real": 0.023753539999531163
+            },
+            {
+              "imag": 0.0,
+              "real": 0.02375349586943024
+            },
+            {
+              "imag": 0.0,
+              "real": 0.006115517622061916
+            },
+            {
+              "imag": 0.0,
+              "real": 0.006115517621976337
+            },
+            {
+              "imag": 0.0,
+              "real": 0.0033525141836648026
+            },
+            {
+              "imag": -0.9999242762069158,
+              "real": -2.08424804579721e-05
+            },
+            {
+              "imag": 0.9999242762069158,
+              "real": -2.08424804579721e-05
+            },
+            {
+              "imag": 0.0,
+              "real": -0.012894566649335705
+            },
+            {
+              "imag": 0.0,
+              "real": -0.012894949528563295
+            },
+            {
+              "imag": 0.0,
+              "real": -0.013177340795089273
+            },
+            {
+              "imag": 0.0,
+              "real": -0.01317906477722002
+            }
+          ],
+          "near_neutral_eigenvalue_count_abs_real_part_le_1e-8": 0,
+          "spectral_abscissa": 0.024862529903376285,
+          "unstable_eigenvalue_count_real_part_gt_1e-8": 6
+        }
+      },
+      "nonclaim": "This signal prioritizes later analysis; it is not a temporal-stability conclusion.",
+      "profile": "pulse_3",
+      "pulse_count": 3,
+      "refined_real_axis_spectra": {
+        "coarse_neumann": {
+          "boundary_condition_on_perturbations": "neumann",
+          "cell_width": 0.008,
+          "evidence_status": "COMPUTED/E1 CANDIDATE_ONLY finite-window temporal screen",
+          "grid_points": 920,
+          "leading_eigenpair_residual_l2": 7.103173080428164e-13,
+          "leading_real_axis_candidate": {
+            "imag": 0.0,
+            "real": 0.021452103906493138
+          },
+          "nonclaim": "not an exhaustive high-resolution complex spectrum",
+          "real_shift": 0.0718960900067591,
+          "returned_shift_invert_candidates": [
+            {
+              "imag": 0.0,
+              "real": 0.021452103906493138
+            },
+            {
+              "imag": 0.0,
+              "real": 0.021446829559086805
+            },
+            {
+              "imag": 0.0,
+              "real": 0.021441442855741094
+            },
+            {
+              "imag": 0.0,
+              "real": 0.0001221313481807318
+            },
+            {
+              "imag": 0.0,
+              "real": 0.00012208931461385464
+            },
+            {
+              "imag": 0.0,
+              "real": 0.00012200662322135736
+            },
+            {
+              "imag": 0.0,
+              "real": -0.012902875164098646
+            },
+            {
+              "imag": 0.0,
+              "real": -0.01290287516472105
+            },
+            {
+              "imag": 0.0,
+              "real": -0.013211473628878714
+            },
+            {
+              "imag": 0.0,
+              "real": -0.013211473629351739
+            },
+            {
+              "imag": 0.0,
+              "real": -0.01372930882582589
+            },
+            {
+              "imag": 0.0,
+              "real": -0.013729308848405383
+            }
+          ],
+          "search_scope": "high-resolution real-axis refinement anchored by the weighted-energy upper bound",
+          "weighted_energy_real_part_upper_bound": 0.06189609000675911
+        },
+        "fine_neumann": {
+          "boundary_condition_on_perturbations": "neumann",
+          "cell_width": 0.004,
+          "evidence_status": "COMPUTED/E1 CANDIDATE_ONLY finite-window temporal screen",
+          "grid_points": 1840,
+          "leading_eigenpair_residual_l2": 2.1167850135087567e-12,
+          "leading_real_axis_candidate": {
+            "imag": 0.0,
+            "real": 0.02140246836251178
+          },
+          "nonclaim": "not an exhaustive high-resolution complex spectrum",
+          "real_shift": 0.07203075776738475,
+          "returned_shift_invert_candidates": [
+            {
+              "imag": 0.0,
+              "real": 0.02140246836251178
+            },
+            {
+              "imag": 0.0,
+              "real": 0.0213972347330936
+            },
+            {
+              "imag": 0.0,
+              "real": 0.021391888321678224
+            },
+            {
+              "imag": 0.0,
+              "real": 3.037881237329121e-05
+            },
+            {
+              "imag": 0.0,
+              "real": 3.033733975103814e-05
+            },
+            {
+              "imag": 0.0,
+              "real": 3.0255065322087882e-05
+            },
+            {
+              "imag": 0.0,
+              "real": -0.012903062731397866
+            },
+            {
+              "imag": 0.0,
+              "real": -0.012903062732018813
+            },
+            {
+              "imag": 0.0,
+              "real": -0.013212258411248248
+            },
+            {
+              "imag": 0.0,
+              "real": -0.013212258412104452
+            },
+            {
+              "imag": 0.0,
+              "real": -0.01373105863321604
+            },
+            {
+              "imag": 0.0,
+              "real": -0.013731058657631204
+            }
+          ],
+          "search_scope": "high-resolution real-axis refinement anchored by the weighted-energy upper bound",
+          "weighted_energy_real_part_upper_bound": 0.06203075776738476
+        },
+        "fine_periodic": {
+          "boundary_condition_on_perturbations": "periodic",
+          "cell_width": 0.004,
+          "evidence_status": "COMPUTED/E1 CANDIDATE_ONLY finite-window temporal screen",
+          "grid_points": 1840,
+          "leading_eigenpair_residual_l2": 2.581004364964983e-12,
+          "leading_real_axis_candidate": {
+            "imag": 0.0,
+            "real": 0.021402468362512944
+          },
+          "nonclaim": "not an exhaustive high-resolution complex spectrum",
+          "real_shift": 0.07203075776738475,
+          "returned_shift_invert_candidates": [
+            {
+              "imag": 0.0,
+              "real": 0.021402468362512944
+            },
+            {
+              "imag": 0.0,
+              "real": 0.021397234733096578
+            },
+            {
+              "imag": 0.0,
+              "real": 0.021391888321677113
+            },
+            {
+              "imag": 0.0,
+              "real": 3.037881237284712e-05
+            },
+            {
+              "imag": 0.0,
+              "real": 3.0337339752509185e-05
+            },
+            {
+              "imag": 0.0,
+              "real": 3.0255065322948305e-05
+            },
+            {
+              "imag": 0.0,
+              "real": -0.012903062731398712
+            },
+            {
+              "imag": 0.0,
+              "real": -0.012903168992805442
+            },
+            {
+              "imag": 0.0,
+              "real": -0.013212015666908578
+            },
+            {
+              "imag": 0.0,
+              "real": -0.013212258412108227
+            },
+            {
+              "imag": 0.0,
+              "real": -0.013730665895481844
+            },
+            {
+              "imag": 0.0,
+              "real": -0.013731058633216275
+            }
+          ],
+          "search_scope": "high-resolution real-axis refinement anchored by the weighted-energy upper bound",
+          "weighted_energy_real_part_upper_bound": 0.06203075776738476
+        }
+      },
+      "screen_signal": "POSITIVE_GROWTH_CANDIDATE_ACROSS_GRID_AND_BOUNDARY_CHECKS",
+      "sensitivity": {
+        "boundary_final_state_difference_over_initial_rms": 4.817245658106024e-12,
+        "full_spectrum_audit_boundary_abscissa_difference": 3.678307658461222e-14,
+        "full_spectrum_audit_grid_abscissa_difference": 0.0058985536445109316,
+        "grid_final_state_difference_over_initial_rms": 1.0688380950177987e-05,
+        "leading_mode_complex_eigenpair_relative_residual": 2.1167850135087567e-12,
+        "leading_mode_expected_linear_envelope_amplification": 1.0216331439246829,
+        "leading_mode_observed_nonlinear_amplification": 1.0216245911734858,
+        "spectral_boundary_abscissa_difference": 1.1657341758564144e-15,
+        "spectral_grid_abscissa_difference": 4.963554398135922e-05,
+        "spectral_sign_agrees_across_checks": true,
+        "time_step_final_state_difference_over_initial_rms": 0.001752846596411165
+      },
+      "short_time_runs": {
+        "coarse_neumann_half_dt": {
+          "actual_dt": 0.005,
+          "boundary_condition_on_perturbations": "neumann",
+          "effective_log_growth_rate": -0.14776443490653007,
+          "evidence_status": "COMPUTED/E1 CANDIDATE_ONLY finite-window temporal screen",
+          "final_perturbation_rms": 8.626342975386725e-06,
+          "final_time": 1.0,
+          "finite_time_amplification": 0.8626342975386723,
+          "grid_points": 920,
+          "initial_perturbation_rms": 1.0000000000000003e-05,
+          "interpretation": "short residual-subtracted frozen-profile perturbation run only",
+          "maximum_perturbation_rms": 1.0000000000000003e-05,
+          "requested_dt": 0.005,
+          "sample_rms": [
+            1.0000000000000003e-05,
+            9.96956756628807e-06,
+            9.934778046809058e-06,
+            9.895409253966429e-06,
+            9.85135168561825e-06,
+            9.802578912984245e-06,
+            9.749130189373997e-06,
+            9.691099191060978e-06,
+            9.62862607428907e-06,
+            9.561891433619147e-06,
+            9.491111401252363e-06,
+            9.416533456062196e-06,
+            9.338432686826077e-06,
+            9.257108352643421e-06,
+            9.172880640944807e-06,
+            9.086087558136327e-06,
+            8.997081909524023e-06,
+            8.906228339142037e-06,
+            8.813900409574381e-06,
+            8.720477708675453e-06,
+            8.626342975386725e-06
+          ],
+          "sample_times": [
+            0.0,
+            0.05,
+            0.1,
+            0.15,
+            0.2,
+            0.25,
+            0.3,
+            0.35000000000000003,
+            0.4,
+            0.45,
+            0.5,
+            0.55,
+            0.6,
+            0.65,
+            0.7000000000000001,
+            0.75,
+            0.8,
+            0.85,
+            0.9,
+            0.9500000000000001,
+            1.0
+          ],
+          "zero_perturbation_defect_inf": 0.0
+        },
+        "fine_neumann_dt": {
+          "actual_dt": 0.01,
+          "boundary_condition_on_perturbations": "neumann",
+          "effective_log_growth_rate": -0.14591023893046676,
+          "evidence_status": "COMPUTED/E1 CANDIDATE_ONLY finite-window temporal screen",
+          "final_perturbation_rms": 8.64235274385711e-06,
+          "final_time": 1.0,
+          "finite_time_amplification": 0.8642352743857109,
+          "grid_points": 1840,
+          "initial_perturbation_rms": 1e-05,
+          "interpretation": "short residual-subtracted frozen-profile perturbation run only",
+          "maximum_perturbation_rms": 1e-05,
+          "requested_dt": 0.01,
+          "sample_rms": [
+            1e-05,
+            9.970450151138513e-06,
+            9.9365239013175e-06,
+            9.898005013222651e-06,
+            9.854787000688438e-06,
+            9.806845087228216e-06,
+            9.75421949190027e-06,
+            9.697004492528222e-06,
+            9.635340649370548e-06,
+            9.569408856266677e-06,
+            9.499425495550969e-06,
+            9.425638282937321e-06,
+            9.348322555526963e-06,
+            9.26777785030817e-06,
+            9.184324675780792e-06,
+            9.098301412862844e-06,
+            9.01006130226166e-06,
+            8.919969489170712e-06,
+            8.82840010547582e-06,
+            8.735733376407203e-06,
+            8.64235274385711e-06
+          ],
+          "sample_times": [
+            0.0,
+            0.05,
+            0.1,
+            0.15,
+            0.2,
+            0.25,
+            0.3,
+            0.35000000000000003,
+            0.4,
+            0.45,
+            0.5,
+            0.55,
+            0.6,
+            0.65,
+            0.7000000000000001,
+            0.75,
+            0.8,
+            0.85,
+            0.9,
+            0.9500000000000001,
+            1.0
+          ],
+          "zero_perturbation_defect_inf": 0.0
+        },
+        "fine_neumann_half_dt": {
+          "actual_dt": 0.005,
+          "boundary_condition_on_perturbations": "neumann",
+          "effective_log_growth_rate": -0.1477644724739709,
+          "evidence_status": "COMPUTED/E1 CANDIDATE_ONLY finite-window temporal screen",
+          "final_perturbation_rms": 8.6263426513171e-06,
+          "final_time": 1.0,
+          "finite_time_amplification": 0.8626342651317099,
+          "grid_points": 1840,
+          "initial_perturbation_rms": 1e-05,
+          "interpretation": "short residual-subtracted frozen-profile perturbation run only",
+          "maximum_perturbation_rms": 1e-05,
+          "requested_dt": 0.005,
+          "sample_rms": [
+            1e-05,
+            9.969567349814882e-06,
+            9.934777669413591e-06,
+            9.895408754241139e-06,
+            9.851351092757895e-06,
+            9.802578250391772e-06,
+            9.749129476531589e-06,
+            9.691098444580939e-06,
+            9.628625308554661e-06,
+            9.561890661209518e-06,
+            9.491110633246807e-06,
+            9.416532702273043e-06,
+            9.33843195598397e-06,
+            9.257107652548135e-06,
+            9.172879978588859e-06,
+            9.086086939805252e-06,
+            8.997081340876118e-06,
+            8.906227825269598e-06,
+            8.813899955048375e-06,
+            8.720477317575223e-06,
+            8.6263426513171e-06
+          ],
+          "sample_times": [
+            0.0,
+            0.05,
+            0.1,
+            0.15,
+            0.2,
+            0.25,
+            0.3,
+            0.35000000000000003,
+            0.4,
+            0.45,
+            0.5,
+            0.55,
+            0.6,
+            0.65,
+            0.7000000000000001,
+            0.75,
+            0.8,
+            0.85,
+            0.9,
+            0.9500000000000001,
+            1.0
+          ],
+          "zero_perturbation_defect_inf": 0.0
+        },
+        "fine_neumann_leading_mode_half_dt": {
+          "actual_dt": 0.005,
+          "boundary_condition_on_perturbations": "neumann",
+          "complex_eigenpair_relative_residual": 2.1167850135087567e-12,
+          "effective_log_growth_rate": 0.02139409668129879,
+          "evidence_status": "COMPUTED/E1 CANDIDATE_ONLY finite-window temporal screen",
+          "expected_linear_envelope_amplification": 1.0216331439246829,
+          "final_perturbation_rms": 1.0216245911734859e-05,
+          "final_time": 1.0,
+          "finite_time_amplification": 1.0216245911734858,
+          "grid_points": 1840,
+          "initial_mode_eigenvalue": {
+            "imag": 0.0,
+            "real": 0.02140246836251178
+          },
+          "initial_perturbation_rms": 1e-05,
+          "interpretation": "short residual-subtracted frozen-profile perturbation run only",
+          "maximum_perturbation_rms": 1.0216245911734859e-05,
+          "requested_dt": 0.005,
+          "sample_rms": [
+            1e-05,
+            1.0010702436033499e-05,
+            1.0021416586081973e-05,
+            1.003214225437738e-05,
+            1.0042879424539331e-05,
+            1.005362810003315e-05,
+            1.0064388288682073e-05,
+            1.0075159999874844e-05,
+            1.0085943243847017e-05,
+            1.0096738031392642e-05,
+            1.010754437370291e-05,
+            1.0118362282260384e-05,
+            1.0129191768765463e-05,
+            1.0140032845083632e-05,
+            1.0150885523207568e-05,
+            1.0161749815228915e-05,
+            1.017262573331781e-05,
+            1.0183513289707366e-05,
+            1.0194412496682329e-05,
+            1.0205323366570242e-05,
+            1.0216245911734859e-05
+          ],
+          "sample_times": [
+            0.0,
+            0.05,
+            0.1,
+            0.15,
+            0.2,
+            0.25,
+            0.3,
+            0.35000000000000003,
+            0.4,
+            0.45,
+            0.5,
+            0.55,
+            0.6,
+            0.65,
+            0.7000000000000001,
+            0.75,
+            0.8,
+            0.85,
+            0.9,
+            0.9500000000000001,
+            1.0
+          ],
+          "zero_perturbation_defect_inf": 0.0
+        },
+        "fine_periodic_half_dt": {
+          "actual_dt": 0.005,
+          "boundary_condition_on_perturbations": "periodic",
+          "effective_log_growth_rate": -0.1477644724774151,
+          "evidence_status": "COMPUTED/E1 CANDIDATE_ONLY finite-window temporal screen",
+          "final_perturbation_rms": 8.62634265128739e-06,
+          "final_time": 1.0,
+          "finite_time_amplification": 0.8626342651287389,
+          "grid_points": 1840,
+          "initial_perturbation_rms": 1e-05,
+          "interpretation": "short residual-subtracted frozen-profile perturbation run only",
+          "maximum_perturbation_rms": 1e-05,
+          "requested_dt": 0.005,
+          "sample_rms": [
+            1e-05,
+            9.969567349814434e-06,
+            9.934777669412609e-06,
+            9.895408754239524e-06,
+            9.851351092755549e-06,
+            9.802578250388584e-06,
+            9.749129476527448e-06,
+            9.691098444575731e-06,
+            9.628625308548266e-06,
+            9.561890661201821e-06,
+            9.49111063323769e-06,
+            9.41653270226238e-06,
+            9.338431955971638e-06,
+            9.257107652534024e-06,
+            9.172879978572847e-06,
+            9.086086939787223e-06,
+            8.997081340855958e-06,
+            8.9062278252472e-06,
+            8.813899955023635e-06,
+            8.720477317548047e-06,
+            8.62634265128739e-06
+          ],
+          "sample_times": [
+            0.0,
+            0.05,
+            0.1,
+            0.15,
+            0.2,
+            0.25,
+            0.3,
+            0.35000000000000003,
+            0.4,
+            0.45,
+            0.5,
+            0.55,
+            0.6,
+            0.65,
+            0.7000000000000001,
+            0.75,
+            0.8,
+            0.85,
+            0.9,
+            0.9500000000000001,
+            1.0
+          ],
+          "zero_perturbation_defect_inf": 0.0
+        }
+      },
+      "source_archive_arrays": [
+        "pulse_3_physical_x",
+        "pulse_3_physical_u",
+        "pulse_3_physical_v"
+      ],
+      "tail_diagnostics": {
+        "left_one_sided_u_slope": -2.013139654978073e-09,
+        "left_one_sided_v_slope": -4.996003610815419e-13,
+        "left_u_minus_equilibrium": -1.1747436357012475e-10,
+        "left_v_minus_equilibrium": 7.031042414951116e-13,
+        "periodic_endpoint_u_gap": 0.0,
+        "periodic_endpoint_v_gap": 0.0,
+        "right_one_sided_u_slope": 2.013139654978073e-09,
+        "right_one_sided_v_slope": 4.996003610815419e-13,
+        "right_u_minus_equilibrium": -1.1747436357012475e-10,
+        "right_v_minus_equilibrium": 7.031042414951116e-13
+      }
+    },
+    {
+      "claim_bearing": false,
+      "evidence_status": "COMPUTED/E1 CANDIDATE_ONLY finite-window temporal screen",
+      "frozen_physical_interval": [
+        -4.4,
+        4.4
+      ],
+      "linear_spectra": {
+        "coarse_neumann": {
+          "boundary_condition_on_perturbations": "neumann",
+          "cell_width": 0.07272727272727274,
+          "evidence_status": "COMPUTED/E1 CANDIDATE_ONLY finite-window temporal screen",
+          "frozen_interval": [
+            -4.4,
+            4.4
+          ],
+          "grid_points": 121,
+          "interpretation": "finite-window floating-point spectrum only",
+          "leading_eigenvalues": [
+            {
+              "imag": 0.0,
+              "real": 0.03451900488889333
+            },
+            {
+              "imag": 0.0,
+              "real": 0.03449539747666795
+            },
+            {
+              "imag": 0.0,
+              "real": 0.03357198330721418
+            },
+            {
+              "imag": 0.0,
+              "real": 0.033571980137964176
+            },
+            {
+              "imag": -0.9999131721984102,
+              "real": -2.0179197359609935e-05
+            },
+            {
+              "imag": 0.9999131721984102,
+              "real": -2.0179197359609935e-05
+            },
+            {
+              "imag": 0.0,
+              "real": -0.0023521455356470353
+            },
+            {
+              "imag": 0.0,
+              "real": -0.0023521455356482097
+            },
+            {
+              "imag": 0.0,
+              "real": -0.00486842072076154
+            },
+            {
+              "imag": 0.0,
+              "real": -0.00486895826342142
+            },
+            {
+              "imag": 0.0,
+              "real": -0.012882468844521613
+            },
+            {
+              "imag": 0.0,
+              "real": -0.012882468844654493
+            }
+          ],
+          "near_neutral_eigenvalue_count_abs_real_part_le_1e-8": 0,
+          "spectral_abscissa": 0.03451900488889333,
+          "unstable_eigenvalue_count_real_part_gt_1e-8": 4
+        },
+        "fine_neumann": {
+          "boundary_condition_on_perturbations": "neumann",
+          "cell_width": 0.054658385093167706,
+          "evidence_status": "COMPUTED/E1 CANDIDATE_ONLY finite-window temporal screen",
+          "frozen_interval": [
+            -4.4,
+            4.4
+          ],
+          "grid_points": 161,
+          "interpretation": "finite-window floating-point spectrum only",
+          "leading_eigenvalues": [
+            {
+              "imag": 0.0,
+              "real": 0.026141479626162128
+            },
+            {
+              "imag": 0.0,
+              "real": 0.02614147119453853
+            },
+            {
+              "imag": 0.0,
+              "real": 0.025928909944831907
+            },
+            {
+              "imag": 0.0,
+              "real": 0.025916039238929857
+            },
+            {
+              "imag": 0.0,
+              "real": 0.0076140866712124085
+            },
+            {
+              "imag": 0.0,
+              "real": 0.007614086380083198
+            },
+            {
+              "imag": 0.0,
+              "real": 0.007182036559846966
+            },
+            {
+              "imag": 0.0,
+              "real": 0.00718203655984665
+            },
+            {
+              "imag": -0.9999155567680814,
+              "real": -2.326804725572007e-05
+            },
+            {
+              "imag": 0.9999155567680814,
+              "real": -2.326804725572007e-05
+            },
+            {
+              "imag": 0.0,
+              "real": -0.01289181404655609
+            },
+            {
+              "imag": 0.0,
+              "real": -0.01289181404655854
+            }
+          ],
+          "near_neutral_eigenvalue_count_abs_real_part_le_1e-8": 0,
+          "spectral_abscissa": 0.026141479626162128,
+          "unstable_eigenvalue_count_real_part_gt_1e-8": 8
+        },
+        "fine_periodic": {
+          "boundary_condition_on_perturbations": "periodic",
+          "cell_width": 0.054658385093167706,
+          "evidence_status": "COMPUTED/E1 CANDIDATE_ONLY finite-window temporal screen",
+          "frozen_interval": [
+            -4.4,
+            4.4
+          ],
+          "grid_points": 161,
+          "interpretation": "finite-window floating-point spectrum only",
+          "leading_eigenvalues": [
+            {
+              "imag": 0.0,
+              "real": 0.026141479626221594
+            },
+            {
+              "imag": 0.0,
+              "real": 0.026141471194517176
+            },
+            {
+              "imag": 0.0,
+              "real": 0.02592890994483301
+            },
+            {
+              "imag": 0.0,
+              "real": 0.025916039238930138
+            },
+            {
+              "imag": 0.0,
+              "real": 0.0076140866712410046
+            },
+            {
+              "imag": 0.0,
+              "real": 0.007614086380109816
+            },
+            {
+              "imag": 0.0,
+              "real": 0.007182036559919982
+            },
+            {
+              "imag": 0.0,
+              "real": 0.007182036559846448
+            },
+            {
+              "imag": -0.9999155567680409,
+              "real": -2.3268047249501086e-05
+            },
+            {
+              "imag": 0.9999155567680409,
+              "real": -2.3268047249501086e-05
+            },
+            {
+              "imag": 0.0,
+              "real": -0.012890718428752607
+            },
+            {
+              "imag": 0.0,
+              "real": -0.012891814046577394
+            }
+          ],
+          "near_neutral_eigenvalue_count_abs_real_part_le_1e-8": 0,
+          "spectral_abscissa": 0.026141479626221594,
+          "unstable_eigenvalue_count_real_part_gt_1e-8": 8
+        }
+      },
+      "nonclaim": "This signal prioritizes later analysis; it is not a temporal-stability conclusion.",
+      "profile": "pulse_4",
+      "pulse_count": 4,
+      "refined_real_axis_spectra": {
+        "coarse_neumann": {
+          "boundary_condition_on_perturbations": "neumann",
+          "cell_width": 0.008,
+          "evidence_status": "COMPUTED/E1 CANDIDATE_ONLY finite-window temporal screen",
+          "grid_points": 1100,
+          "leading_eigenpair_residual_l2": 6.140620673720215e-13,
+          "leading_real_axis_candidate": {
+            "imag": 0.0,
+            "real": 0.02145284657347679
+          },
+          "nonclaim": "not an exhaustive high-resolution complex spectrum",
+          "real_shift": 0.07205084971538288,
+          "returned_shift_invert_candidates": [
+            {
+              "imag": 0.0,
+              "real": 0.02145284657347679
+            },
+            {
+              "imag": 0.0,
+              "real": 0.021449127251290875
+            },
+            {
+              "imag": 0.0,
+              "real": 0.02144446778423037
+            },
+            {
+              "imag": 0.0,
+              "real": 0.021440649126816688
+            },
+            {
+              "imag": 0.0,
+              "real": 0.000122131401932693
+            },
+            {
+              "imag": 0.0,
+              "real": 0.00012210669846389466
+            },
+            {
+              "imag": 0.0,
+              "real": 0.00012204802122581238
+            },
+            {
+              "imag": 0.0,
+              "real": 0.00012198934874164957
+            },
+            {
+              "imag": 0.0,
+              "real": -0.012903325242488245
+            },
+            {
+              "imag": 0.0,
+              "real": -0.012903325242489522
+            },
+            {
+              "imag": 0.0,
+              "real": -0.013213347191815106
+            },
+            {
+              "imag": 0.0,
+              "real": -0.013213347191823821
+            }
+          ],
+          "search_scope": "high-resolution real-axis refinement anchored by the weighted-energy upper bound",
+          "weighted_energy_real_part_upper_bound": 0.06205084971538288
+        },
+        "fine_neumann": {
+          "boundary_condition_on_perturbations": "neumann",
+          "cell_width": 0.004,
+          "evidence_status": "COMPUTED/E1 CANDIDATE_ONLY finite-window temporal screen",
+          "grid_points": 2200,
+          "leading_eigenpair_residual_l2": 3.1815747666307486e-12,
+          "leading_real_axis_candidate": {
+            "imag": 0.0,
+            "real": 0.021403205167263704
+          },
+          "nonclaim": "not an exhaustive high-resolution complex spectrum",
+          "real_shift": 0.07204313195020394,
+          "returned_shift_invert_candidates": [
+            {
+              "imag": 0.0,
+              "real": 0.021403205167263704
+            },
+            {
+              "imag": 0.0,
+              "real": 0.02139951464839685
+            },
+            {
+              "imag": 0.0,
+              "real": 0.02139489057958311
+            },
+            {
+              "imag": 0.0,
+              "real": 0.021391100408092285
+            },
+            {
+              "imag": 0.0,
+              "real": 3.037875096588427e-05
+            },
+            {
+              "imag": 0.0,
+              "real": 3.0354476833069355e-05
+            },
+            {
+              "imag": 0.0,
+              "real": 3.029614100753808e-05
+            },
+            {
+              "imag": 0.0,
+              "real": 3.023780651970065e-05
+            },
+            {
+              "imag": 0.0,
+              "real": -0.012903513842266609
+            },
+            {
+              "imag": 0.0,
+              "real": -0.012903513842272674
+            },
+            {
+              "imag": 0.0,
+              "real": -0.013214135143456776
+            },
+            {
+              "imag": 0.0,
+              "real": -0.013214135143471917
+            }
+          ],
+          "search_scope": "high-resolution real-axis refinement anchored by the weighted-energy upper bound",
+          "weighted_energy_real_part_upper_bound": 0.062043131950203945
+        },
+        "fine_periodic": {
+          "boundary_condition_on_perturbations": "periodic",
+          "cell_width": 0.004,
+          "evidence_status": "COMPUTED/E1 CANDIDATE_ONLY finite-window temporal screen",
+          "grid_points": 2200,
+          "leading_eigenpair_residual_l2": 2.1702771433767154e-12,
+          "leading_real_axis_candidate": {
+            "imag": 0.0,
+            "real": 0.021403205167268187
+          },
+          "nonclaim": "not an exhaustive high-resolution complex spectrum",
+          "real_shift": 0.07204313195020394,
+          "returned_shift_invert_candidates": [
+            {
+              "imag": 0.0,
+              "real": 0.021403205167268187
+            },
+            {
+              "imag": 0.0,
+              "real": 0.021399514648399467
+            },
+            {
+              "imag": 0.0,
+              "real": 0.02139489057958762
+            },
+            {
+              "imag": 0.0,
+              "real": 0.021391100408096178
+            },
+            {
+              "imag": 0.0,
+              "real": 3.037875096809084e-05
+            },
+            {
+              "imag": 0.0,
+              "real": 3.0354476832680777e-05
+            },
+            {
+              "imag": 0.0,
+              "real": 3.0296141007565836e-05
+            },
+            {
+              "imag": 0.0,
+              "real": 3.023780652063046e-05
+            },
+            {
+              "imag": 0.0,
+              "real": -0.012903513842267247
+            },
+            {
+              "imag": 0.0,
+              "real": -0.012903632683110441
+            },
+            {
+              "imag": 0.0,
+              "real": -0.013213825360720494
+            },
+            {
+              "imag": 0.0,
+              "real": -0.013214135143454805
+            }
+          ],
+          "search_scope": "high-resolution real-axis refinement anchored by the weighted-energy upper bound",
+          "weighted_energy_real_part_upper_bound": 0.062043131950203945
+        }
+      },
+      "screen_signal": "POSITIVE_GROWTH_CANDIDATE_ACROSS_GRID_AND_BOUNDARY_CHECKS",
+      "sensitivity": {
+        "boundary_final_state_difference_over_initial_rms": 5.109989635591699e-12,
+        "full_spectrum_audit_boundary_abscissa_difference": 5.946632075648495e-14,
+        "full_spectrum_audit_grid_abscissa_difference": 0.008377525262731205,
+        "grid_final_state_difference_over_initial_rms": 9.656124033528484e-06,
+        "leading_mode_complex_eigenpair_relative_residual": 3.1815747666307486e-12,
+        "leading_mode_expected_linear_envelope_amplification": 1.0216338966691154,
+        "leading_mode_observed_nonlinear_amplification": 1.0216319635050475,
+        "spectral_boundary_abscissa_difference": 4.4825254619240695e-15,
+        "spectral_grid_abscissa_difference": 4.964140621308705e-05,
+        "spectral_sign_agrees_across_checks": true,
+        "time_step_final_state_difference_over_initial_rms": 0.0018417511859890458
+      },
+      "short_time_runs": {
+        "coarse_neumann_half_dt": {
+          "actual_dt": 0.005,
+          "boundary_condition_on_perturbations": "neumann",
+          "effective_log_growth_rate": -0.12732571696785275,
+          "evidence_status": "COMPUTED/E1 CANDIDATE_ONLY finite-window temporal screen",
+          "final_perturbation_rms": 8.804468494099581e-06,
+          "final_time": 1.0,
+          "finite_time_amplification": 0.880446849409958,
+          "grid_points": 1100,
+          "initial_perturbation_rms": 1e-05,
+          "interpretation": "short residual-subtracted frozen-profile perturbation run only",
+          "maximum_perturbation_rms": 1e-05,
+          "requested_dt": 0.005,
+          "sample_rms": [
+            1e-05,
+            9.978306257752489e-06,
+            9.952302239186638e-06,
+            9.921840615053559e-06,
+            9.886838461294408e-06,
+            9.84726901170578e-06,
+            9.803155157755304e-06,
+            9.754564133014364e-06,
+            9.701603043420065e-06,
+            9.6444150203992e-06,
+            9.583175839163074e-06,
+            9.51809088461615e-06,
+            9.449392374046088e-06,
+            9.377336764752219e-06,
+            9.302202288942485e-06,
+            9.224286569200104e-06,
+            9.14390427656302e-06,
+            9.061384800417408e-06,
+            8.9770699054437e-06,
+            8.891311356122725e-06,
+            8.804468494099581e-06
+          ],
+          "sample_times": [
+            0.0,
+            0.05,
+            0.1,
+            0.15,
+            0.2,
+            0.25,
+            0.3,
+            0.35000000000000003,
+            0.4,
+            0.45,
+            0.5,
+            0.55,
+            0.6,
+            0.65,
+            0.7000000000000001,
+            0.75,
+            0.8,
+            0.85,
+            0.9,
+            0.9500000000000001,
+            1.0
+          ],
+          "zero_perturbation_defect_inf": 0.0
+        },
+        "fine_neumann_dt": {
+          "actual_dt": 0.01,
+          "boundary_condition_on_perturbations": "neumann",
+          "effective_log_growth_rate": -0.12534022122892371,
+          "evidence_status": "COMPUTED/E1 CANDIDATE_ONLY finite-window temporal screen",
+          "final_perturbation_rms": 8.82196709472807e-06,
+          "final_time": 1.0,
+          "finite_time_amplification": 0.882196709472807,
+          "grid_points": 2200,
+          "initial_perturbation_rms": 9.999999999999999e-06,
+          "interpretation": "short residual-subtracted frozen-profile perturbation run only",
+          "maximum_perturbation_rms": 9.999999999999999e-06,
+          "requested_dt": 0.01,
+          "sample_rms": [
+            9.999999999999999e-06,
+            9.979267016207907e-06,
+            9.95420939772216e-06,
+            9.924682032271143e-06,
+            9.89060347921785e-06,
+            9.851947973412357e-06,
+            9.808739085035125e-06,
+            9.76104451384431e-06,
+            9.708971698418833e-06,
+            9.652664027656493e-06,
+            9.592297502829928e-06,
+            9.528077736470775e-06,
+            9.460237199846424e-06,
+            9.389032649007871e-06,
+            9.314742673036777e-06,
+            9.237665318723047e-06,
+            9.158115754373158e-06,
+            9.076423942418677e-06,
+            8.992932296388493e-06,
+            8.907993302984465e-06,
+            8.82196709472807e-06
+          ],
+          "sample_times": [
+            0.0,
+            0.05,
+            0.1,
+            0.15,
+            0.2,
+            0.25,
+            0.3,
+            0.35000000000000003,
+            0.4,
+            0.45,
+            0.5,
+            0.55,
+            0.6,
+            0.65,
+            0.7000000000000001,
+            0.75,
+            0.8,
+            0.85,
+            0.9,
+            0.9500000000000001,
+            1.0
+          ],
+          "zero_perturbation_defect_inf": 0.0
+        },
+        "fine_neumann_half_dt": {
+          "actual_dt": 0.005,
+          "boundary_condition_on_perturbations": "neumann",
+          "effective_log_growth_rate": -0.1273258062197,
+          "evidence_status": "COMPUTED/E1 CANDIDATE_ONLY finite-window temporal screen",
+          "final_perturbation_rms": 8.804467708284537e-06,
+          "final_time": 1.0,
+          "finite_time_amplification": 0.8804467708284538,
+          "grid_points": 2200,
+          "initial_perturbation_rms": 9.999999999999999e-06,
+          "interpretation": "short residual-subtracted frozen-profile perturbation run only",
+          "maximum_perturbation_rms": 9.999999999999999e-06,
+          "requested_dt": 0.005,
+          "sample_rms": [
+            9.999999999999999e-06,
+            9.978306140918629e-06,
+            9.952302018558278e-06,
+            9.921840301569931e-06,
+            9.886838064686048e-06,
+            9.847268540952537e-06,
+            9.803154621318325e-06,
+            9.754563538946009e-06,
+            9.701602399406786e-06,
+            9.644414333769615e-06,
+            9.583175116878553e-06,
+            9.518090133254685e-06,
+            9.449391599785556e-06,
+            9.377335973356156e-06,
+            9.302201485750086e-06,
+            9.224285759120582e-06,
+            9.143903464074468e-06,
+            9.06138398956947e-06,
+            8.977069099863173e-06,
+            8.891310559021579e-06,
+            8.804467708284537e-06
+          ],
+          "sample_times": [
+            0.0,
+            0.05,
+            0.1,
+            0.15,
+            0.2,
+            0.25,
+            0.3,
+            0.35000000000000003,
+            0.4,
+            0.45,
+            0.5,
+            0.55,
+            0.6,
+            0.65,
+            0.7000000000000001,
+            0.75,
+            0.8,
+            0.85,
+            0.9,
+            0.9500000000000001,
+            1.0
+          ],
+          "zero_perturbation_defect_inf": 0.0
+        },
+        "fine_neumann_leading_mode_half_dt": {
+          "actual_dt": 0.005,
+          "boundary_condition_on_perturbations": "neumann",
+          "complex_eigenpair_relative_residual": 3.1815747666307486e-12,
+          "effective_log_growth_rate": 0.021401312937666422,
+          "evidence_status": "COMPUTED/E1 CANDIDATE_ONLY finite-window temporal screen",
+          "expected_linear_envelope_amplification": 1.0216338966691154,
+          "final_perturbation_rms": 1.0216319635050475e-05,
+          "final_time": 1.0,
+          "finite_time_amplification": 1.0216319635050475,
+          "grid_points": 2200,
+          "initial_mode_eigenvalue": {
+            "imag": 0.0,
+            "real": 0.021403205167263704
+          },
+          "initial_perturbation_rms": 1e-05,
+          "interpretation": "short residual-subtracted frozen-profile perturbation run only",
+          "maximum_perturbation_rms": 1.0216319635050475e-05,
+          "requested_dt": 0.005,
+          "sample_rms": [
+            1e-05,
+            1.0010706006281383e-05,
+            1.0021423738732199e-05,
+            1.0032153001462548e-05,
+            1.0042893778648284e-05,
+            1.0053646073993706e-05,
+            1.0064409895290706e-05,
+            1.0075185251776458e-05,
+            1.0085972153497559e-05,
+            1.0096770611058293e-05,
+            1.010758063547465e-05,
+            1.0118402238074241e-05,
+            1.0129235430423938e-05,
+            1.0140080224276693e-05,
+            1.0150936631531534e-05,
+            1.016180466420381e-05,
+            1.0172684334402285e-05,
+            1.0183575654312144e-05,
+            1.0194478636181761e-05,
+            1.0205393292312412e-05,
+            1.0216319635050475e-05
+          ],
+          "sample_times": [
+            0.0,
+            0.05,
+            0.1,
+            0.15,
+            0.2,
+            0.25,
+            0.3,
+            0.35000000000000003,
+            0.4,
+            0.45,
+            0.5,
+            0.55,
+            0.6,
+            0.65,
+            0.7000000000000001,
+            0.75,
+            0.8,
+            0.85,
+            0.9,
+            0.9500000000000001,
+            1.0
+          ],
+          "zero_perturbation_defect_inf": 0.0
+        },
+        "fine_periodic_half_dt": {
+          "actual_dt": 0.005,
+          "boundary_condition_on_perturbations": "periodic",
+          "effective_log_growth_rate": -0.12732580622346942,
+          "evidence_status": "COMPUTED/E1 CANDIDATE_ONLY finite-window temporal screen",
+          "final_perturbation_rms": 8.804467708251349e-06,
+          "final_time": 1.0,
+          "finite_time_amplification": 0.880446770825135,
+          "grid_points": 2200,
+          "initial_perturbation_rms": 9.999999999999999e-06,
+          "interpretation": "short residual-subtracted frozen-profile perturbation run only",
+          "maximum_perturbation_rms": 9.999999999999999e-06,
+          "requested_dt": 0.005,
+          "sample_rms": [
+            9.999999999999999e-06,
+            9.978306140918172e-06,
+            9.952302018557262e-06,
+            9.92184030156824e-06,
+            9.886838064683563e-06,
+            9.847268540949136e-06,
+            9.803154621313873e-06,
+            9.754563538940375e-06,
+            9.701602399399834e-06,
+            9.644414333761207e-06,
+            9.583175116868546e-06,
+            9.518090133242945e-06,
+            9.449391599771945e-06,
+            9.377335973340533e-06,
+            9.30220148573232e-06,
+            9.224285759100539e-06,
+            9.14390346405203e-06,
+            9.061383989544507e-06,
+            8.977069099835573e-06,
+            8.891310558991238e-06,
+            8.804467708251349e-06
+          ],
+          "sample_times": [
+            0.0,
+            0.05,
+            0.1,
+            0.15,
+            0.2,
+            0.25,
+            0.3,
+            0.35000000000000003,
+            0.4,
+            0.45,
+            0.5,
+            0.55,
+            0.6,
+            0.65,
+            0.7000000000000001,
+            0.75,
+            0.8,
+            0.85,
+            0.9,
+            0.9500000000000001,
+            1.0
+          ],
+          "zero_perturbation_defect_inf": 0.0
+        }
+      },
+      "source_archive_arrays": [
+        "pulse_4_physical_x",
+        "pulse_4_physical_u",
+        "pulse_4_physical_v"
+      ],
+      "tail_diagnostics": {
+        "left_one_sided_u_slope": -2.0885793094992988e-09,
+        "left_one_sided_v_slope": -9.992007221620853e-13,
+        "left_u_minus_equilibrium": -1.2649103986461796e-10,
+        "left_v_minus_equilibrium": 6.999956170261612e-13,
+        "periodic_endpoint_u_gap": 0.0,
+        "periodic_endpoint_v_gap": 0.0,
+        "right_one_sided_u_slope": 2.0885793094992988e-09,
+        "right_one_sided_v_slope": 9.992007221620853e-13,
+        "right_u_minus_equilibrium": -1.2649103986461796e-10,
+        "right_v_minus_equilibrium": 6.999956170261612e-13
+      }
+    }
+  ],
+  "source_archive": "/home/hblu/Documents/Codex/2026-08-27/rfsn-ii-positive-parameter-pde/numerics/results/vdp_v1_v7/v7_multipulses.npz",
+  "space_discretization": "second-order cell-centred finite-volume Laplacian",
+  "time_discretization": "first-order diffusion-implicit/reaction-explicit IMEX Euler"
+}

@@ -1,0 +1,197 @@
+{
+  "claim_bearing": false,
+  "constant_profile_dispersion_matching_defect": 2.5012105750206387e-12,
+  "interpretation": {
+    "bloch_spectrum": "finite-dimensional candidate spectra at the listed phases",
+    "co_periodic_spectrum": "theta=0 on the same Fourier grid",
+    "proof_status": "NOT_A_PROOF / NOT_INTERVAL_VALIDATED",
+    "sideband_stability": "not established: no continuum-in-theta enclosure was performed"
+  },
+  "method": {
+    "bloch_phase_convention": "z(x+L)=exp(i*theta)z(x), periodic factor derivative D_theta=d/dx+i*theta/L",
+    "coarse_grid_points": 95,
+    "discretization": "dense odd Fourier collocation",
+    "grid_points": 127,
+    "leading_eigenvalue_sort": "decreasing real part, then imaginary part",
+    "theta_interval": "[-pi, pi]"
+  },
+  "nonclaims": [
+    "Finite Fourier collocation is not an interval enclosure of the Bloch spectrum.",
+    "A finite Bloch-phase grid cannot prove stability between sampled phases.",
+    "No sampled positive real part is not a proof of spectral or nonlinear stability.",
+    "A sampled positive real part is numerical instability evidence, not a rigorous theorem.",
+    "This screen does not identify a Turing branch or prove dynamical pattern selection."
+  ],
+  "parameters": {
+    "d": 4.096e-05,
+    "epsilon": 1.0,
+    "homogeneous_u": 1.0,
+    "instability_tolerance": 1e-06
+  },
+  "profiles": [
+    {
+      "bloch_conjugacy_matching_defect": 1.1834176804816476e-11,
+      "bloch_wavenumber_at_sampled_max": 4.244814069468423,
+      "co_periodic_max_real_part": 0.020040922018269784,
+      "co_periodic_outcome": "SAMPLED_COPERIODIC_INSTABILITY_DETECTED",
+      "floquet_multiplier_at_sampled_max": {
+        "imag": 1.2246467991473532e-16,
+        "real": -1.0
+      },
+      "grid_refinement_max_matching_defect": 5.455982656949802e-12,
+      "label": "A0",
+      "period": 0.7401013571327552,
+      "sampled_max_real_part": 0.022395087736253212,
+      "sampled_nonzero_bloch_max_real_part": 0.022395087736253212,
+      "sampled_nonzero_bloch_outcome": "SAMPLED_NONZERO_BLOCH_INSTABILITY_DETECTED",
+      "sampled_positive_phase_count": 25,
+      "screening_outcome": "SAMPLED_BLOCH_INSTABILITY_DETECTED",
+      "sideband_stability_status": "NOT_PROVED; only finitely many Bloch phases were sampled",
+      "theta_at_sampled_max": 3.141592653589793,
+      "translation_eigenvalue_at_theta_zero": {
+        "imag": -4.654538841703864e-13,
+        "real": 1.9852441983796575e-12
+      },
+      "translation_eigenvalue_modulus": 2.039078675649713e-12,
+      "translation_vector_relative_residual": 7.707155769626154e-08
+    },
+    {
+      "bloch_conjugacy_matching_defect": 5.219259354577409e-12,
+      "bloch_wavenumber_at_sampled_max": -2.873738665859633,
+      "co_periodic_max_real_part": 0.021290079251703436,
+      "co_periodic_outcome": "SAMPLED_COPERIODIC_INSTABILITY_DETECTED",
+      "floquet_multiplier_at_sampled_max": {
+        "imag": -1.2246467991473532e-16,
+        "real": -1.0
+      },
+      "grid_refinement_max_matching_defect": 6.7698424641613886e-12,
+      "label": "B0",
+      "period": 1.0932074968793433,
+      "sampled_max_real_part": 0.02148482656401316,
+      "sampled_nonzero_bloch_max_real_part": 0.02148482656401316,
+      "sampled_nonzero_bloch_outcome": "SAMPLED_NONZERO_BLOCH_INSTABILITY_DETECTED",
+      "sampled_positive_phase_count": 25,
+      "screening_outcome": "SAMPLED_BLOCH_INSTABILITY_DETECTED",
+      "sideband_stability_status": "NOT_PROVED; only finitely many Bloch phases were sampled",
+      "theta_at_sampled_max": -3.141592653589793,
+      "translation_eigenvalue_at_theta_zero": {
+        "imag": 1.29540883932729e-13,
+        "real": 4.642389341853701e-13
+      },
+      "translation_eigenvalue_modulus": 4.819736804262668e-13,
+      "translation_vector_relative_residual": 2.7854834365066357e-08
+    },
+    {
+      "bloch_conjugacy_matching_defect": 3.981200799309166e-12,
+      "bloch_wavenumber_at_sampled_max": 2.1683958132268017,
+      "co_periodic_max_real_part": 0.02137380020919753,
+      "co_periodic_outcome": "SAMPLED_COPERIODIC_INSTABILITY_DETECTED",
+      "floquet_multiplier_at_sampled_max": {
+        "imag": 1.2246467991473532e-16,
+        "real": -1.0
+      },
+      "grid_refinement_max_matching_defect": 2.7068821115059412e-12,
+      "label": "A1",
+      "period": 1.4488095920618715,
+      "sampled_max_real_part": 0.0213887252366737,
+      "sampled_nonzero_bloch_max_real_part": 0.0213887252366737,
+      "sampled_nonzero_bloch_outcome": "SAMPLED_NONZERO_BLOCH_INSTABILITY_DETECTED",
+      "sampled_positive_phase_count": 25,
+      "screening_outcome": "SAMPLED_BLOCH_INSTABILITY_DETECTED",
+      "sideband_stability_status": "NOT_PROVED; only finitely many Bloch phases were sampled",
+      "theta_at_sampled_max": 3.141592653589793,
+      "translation_eigenvalue_at_theta_zero": {
+        "imag": 5.1001639744848e-14,
+        "real": 2.28643343170412e-14
+      },
+      "translation_eigenvalue_modulus": 5.5892262795709813e-14,
+      "translation_vector_relative_residual": 1.4974843932129315e-08
+    },
+    {
+      "bloch_conjugacy_matching_defect": 5.3436740196962325e-12,
+      "bloch_wavenumber_at_sampled_max": 1.7412375052968354,
+      "co_periodic_max_real_part": 0.021380931442417365,
+      "co_periodic_outcome": "SAMPLED_COPERIODIC_INSTABILITY_DETECTED",
+      "floquet_multiplier_at_sampled_max": {
+        "imag": 1.2246467991473532e-16,
+        "real": -1.0
+      },
+      "grid_refinement_max_matching_defect": 2.555631782551171e-11,
+      "label": "B1",
+      "period": 1.804229833111844,
+      "sampled_max_real_part": 0.021382083332342625,
+      "sampled_nonzero_bloch_max_real_part": 0.021382083332342625,
+      "sampled_nonzero_bloch_outcome": "SAMPLED_NONZERO_BLOCH_INSTABILITY_DETECTED",
+      "sampled_positive_phase_count": 25,
+      "screening_outcome": "SAMPLED_BLOCH_INSTABILITY_DETECTED",
+      "sideband_stability_status": "NOT_PROVED; only finitely many Bloch phases were sampled",
+      "theta_at_sampled_max": 3.141592653589793,
+      "translation_eigenvalue_at_theta_zero": {
+        "imag": -2.7281631482192896e-14,
+        "real": 5.044340448179797e-13
+      },
+      "translation_eigenvalue_modulus": 5.051712511493086e-13,
+      "translation_vector_relative_residual": 1.1190034510107185e-08
+    },
+    {
+      "bloch_conjugacy_matching_defect": 1.3355702960408738e-12,
+      "bloch_wavenumber_at_sampled_max": -1.4546693192838487,
+      "co_periodic_max_real_part": 0.02138145204436229,
+      "co_periodic_outcome": "SAMPLED_COPERIODIC_INSTABILITY_DETECTED",
+      "floquet_multiplier_at_sampled_max": {
+        "imag": -1.2246467991473532e-16,
+        "real": -1.0
+      },
+      "grid_refinement_max_matching_defect": 5.173198033848302e-09,
+      "label": "A2",
+      "period": 2.159661039071366,
+      "sampled_max_real_part": 0.02138154090436039,
+      "sampled_nonzero_bloch_max_real_part": 0.02138154090436039,
+      "sampled_nonzero_bloch_outcome": "SAMPLED_NONZERO_BLOCH_INSTABILITY_DETECTED",
+      "sampled_positive_phase_count": 25,
+      "screening_outcome": "SAMPLED_BLOCH_INSTABILITY_DETECTED",
+      "sideband_stability_status": "NOT_PROVED; only finitely many Bloch phases were sampled",
+      "theta_at_sampled_max": -3.141592653589793,
+      "translation_eigenvalue_at_theta_zero": {
+        "imag": -1.6130916724939584e-14,
+        "real": -4.943119969980633e-13
+      },
+      "translation_eigenvalue_modulus": 4.945751276101542e-13,
+      "translation_vector_relative_residual": 3.566381193960621e-07
+    }
+  ],
+  "refinement_theta": [
+    -1.5707963267948966,
+    0.0,
+    1.5707963267948966
+  ],
+  "screening_outcome": "SAMPLED_BLOCH_INSTABILITY_DETECTED",
+  "status": "COMPUTED/E1 NONRIGOROUS_FINITE_FOURIER_BLOCH_SCREEN",
+  "theta": [
+    -3.141592653589793,
+    -2.8797932657906435,
+    -2.6179938779914944,
+    -2.356194490192345,
+    -2.0943951023931957,
+    -1.8325957145940461,
+    -1.5707963267948966,
+    -1.3089969389957472,
+    -1.0471975511965979,
+    -0.7853981633974483,
+    -0.5235987755982991,
+    -0.2617993877991496,
+    0.0,
+    0.26179938779914913,
+    0.5235987755982987,
+    0.7853981633974478,
+    1.0471975511965974,
+    1.3089969389957465,
+    1.5707963267948966,
+    1.8325957145940457,
+    2.094395102393195,
+    2.356194490192345,
+    2.617993877991494,
+    2.879793265790643,
+    3.141592653589793
+  ]
+}

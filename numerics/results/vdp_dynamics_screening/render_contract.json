@@ -1,0 +1,65 @@
+{
+  "candidate_baseline": {
+    "commit": "61ac680",
+    "results_directory": "numerics/results/vdp_v1_v7",
+    "tag": "vdp-v4-screening-baseline"
+  },
+  "candidate_baseline_git_blobs": {
+    "numerics/results/vdp_v1_v7/v4_v5_matched_candidate.npz": "d8adb555af64057dac0c901e396286534d2f554c95a4ab7a6722507f46a8cf14",
+    "numerics/results/vdp_v1_v7/v7_multipulses.npz": "28303dc49bdf1fa69b828fd6f6ccb955f4418adbfe0c789985d1332a58bac340",
+    "numerics/results/vdp_v1_v7/v7_periodic.npz": "9004fb1611d213129cab7d93c785b291ea5d6292843ca29002589c006ec38270"
+  },
+  "candidate_tag_resolved": "61ac68066599e3bf3c86c0f6d3a8615ac61d8538",
+  "claim_bearing": false,
+  "configuration_sha256": "10ed7b990d699cffdc00433849f20bd0b05fbf81ca14b4e44f8dfbe14d6d9d21",
+  "configuration_version": 1,
+  "environment": {
+    "matplotlib": "3.11.1",
+    "numpy": "2.5.2",
+    "platform": "Linux-7.0.0-30-generic-x86_64-with-glibc2.43",
+    "python": "3.14.4",
+    "scipy": "1.18.0"
+  },
+  "qa_status": "PASS_COMPUTATIONAL_QA_NOT_A_THEOREM",
+  "run_mode": "OFFICIAL_CLEAN_SOURCE",
+  "schema_version": "vdp-dynamics-screening-results/1",
+  "source_dirty_at_run_start": false,
+  "source_files": {
+    "numerics/VDP_DYNAMICS_FIGURE_CONTRACTS.md": "d863587e6d247b8ab0575cf297440a5261de868173beffdcd5c78f19bf28c4ba",
+    "numerics/check_vdp_dynamics_screening.py": "6a3265cb565a5f7cc623fc7b9ced394a6806c97e543ac29e4c65847240a0b6eb",
+    "numerics/config/vdp_dynamics_screening.json": "10ed7b990d699cffdc00433849f20bd0b05fbf81ca14b4e44f8dfbe14d6d9d21",
+    "numerics/render_vdp_dynamics_figures.py": "3a1bef63bdbb3c0ffcb107d67fe18dabe7979c06a9d8f22b6d7a4be6afd85546",
+    "numerics/results/vdp_v1_v7/v4_v5_matched_candidate.npz": "d8adb555af64057dac0c901e396286534d2f554c95a4ab7a6722507f46a8cf14",
+    "numerics/results/vdp_v1_v7/v7_multipulses.npz": "28303dc49bdf1fa69b828fd6f6ccb955f4418adbfe0c789985d1332a58bac340",
+    "numerics/results/vdp_v1_v7/v7_periodic.npz": "9004fb1611d213129cab7d93c785b291ea5d6292843ca29002589c006ec38270",
+    "numerics/rfsn_numerics.py": "901028067b3112d71b42d5b3f1478df3aeb7eb2bc9bb130f01103170e975ba78",
+    "numerics/run_vdp_dynamics_screening.py": "001e6bd6dd024fdc741071f4731d1ab1cb1672461fd28bff8d0c9f1e3f090bd2",
+    "numerics/vdp_bloch_stability.py": "1354d0d75bc3cc8662badc9f1eae8f1f601303a29b5fa57d609ebaa287512a21",
+    "numerics/vdp_bridge.py": "c5eed3bada2fb96cf653bc7ba91df445941cfdf88f369d91d64714a76e2174be",
+    "numerics/vdp_canard_diagnostics.py": "92de37c2cdd18f2be88f6b6fe69ee67f42aa3d90b7dd2a5778fee7da5324a2d0",
+    "numerics/vdp_outer.py": "a430ce78a494851da3ae1e1a8e88be8039f43180c86ecbaac6563ec44e0d56af",
+    "numerics/vdp_pole.py": "76de1add19960334b0f1016507201ca8e278960c461b101e10dbc865e5750463",
+    "numerics/vdp_temporal_screen.py": "f12389e677393941d568931a298956a0cb62a51f025c3eb854054558a5bc2caf",
+    "numerics/vdp_turing.py": "675b160a746d999addd9a34080fd6de48afc08fb405d77a1b6d2a0bc286740c7"
+  },
+  "source_revision_at_run_end": "e775902c23d31310813f0d0ee7b6abd9b44f578e",
+  "source_revision_at_run_start": "e775902c23d31310813f0d0ee7b6abd9b44f578e",
+  "source_revision_git_blobs": {
+    "numerics/VDP_DYNAMICS_FIGURE_CONTRACTS.md": "d863587e6d247b8ab0575cf297440a5261de868173beffdcd5c78f19bf28c4ba",
+    "numerics/check_vdp_dynamics_screening.py": "6a3265cb565a5f7cc623fc7b9ced394a6806c97e543ac29e4c65847240a0b6eb",
+    "numerics/config/vdp_dynamics_screening.json": "10ed7b990d699cffdc00433849f20bd0b05fbf81ca14b4e44f8dfbe14d6d9d21",
+    "numerics/render_vdp_dynamics_figures.py": "3a1bef63bdbb3c0ffcb107d67fe18dabe7979c06a9d8f22b6d7a4be6afd85546",
+    "numerics/results/vdp_v1_v7/v4_v5_matched_candidate.npz": "d8adb555af64057dac0c901e396286534d2f554c95a4ab7a6722507f46a8cf14",
+    "numerics/results/vdp_v1_v7/v7_multipulses.npz": "28303dc49bdf1fa69b828fd6f6ccb955f4418adbfe0c789985d1332a58bac340",
+    "numerics/results/vdp_v1_v7/v7_periodic.npz": "9004fb1611d213129cab7d93c785b291ea5d6292843ca29002589c006ec38270",
+    "numerics/rfsn_numerics.py": "901028067b3112d71b42d5b3f1478df3aeb7eb2bc9bb130f01103170e975ba78",
+    "numerics/run_vdp_dynamics_screening.py": "001e6bd6dd024fdc741071f4731d1ab1cb1672461fd28bff8d0c9f1e3f090bd2",
+    "numerics/vdp_bloch_stability.py": "1354d0d75bc3cc8662badc9f1eae8f1f601303a29b5fa57d609ebaa287512a21",
+    "numerics/vdp_bridge.py": "c5eed3bada2fb96cf653bc7ba91df445941cfdf88f369d91d64714a76e2174be",
+    "numerics/vdp_canard_diagnostics.py": "92de37c2cdd18f2be88f6b6fe69ee67f42aa3d90b7dd2a5778fee7da5324a2d0",
+    "numerics/vdp_outer.py": "a430ce78a494851da3ae1e1a8e88be8039f43180c86ecbaac6563ec44e0d56af",
+    "numerics/vdp_pole.py": "76de1add19960334b0f1016507201ca8e278960c461b101e10dbc865e5750463",
+    "numerics/vdp_temporal_screen.py": "f12389e677393941d568931a298956a0cb62a51f025c3eb854054558a5bc2caf",
+    "numerics/vdp_turing.py": "675b160a746d999addd9a34080fd6de48afc08fb405d77a1b6d2a0bc286740c7"
+  }
+}
