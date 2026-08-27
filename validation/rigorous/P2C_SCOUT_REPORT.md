@@ -160,19 +160,68 @@ within the declared true-graph \(C^0/C^1\) error budgets.  This resolves the
 earlier affine-source obstruction and shows that the failed unsplit run was
 an interval-curvature effect, not disappearance of the orbit.
 
-This is not yet a proof that the four locally unique zeros are the same
-globally selected branch.  The adjacent cells share parameter faces, but a
-common uniqueness domain or explicit face-containment gate has not yet
-identified their zeros.  Nor does this one-dimensional slice cover the full
-\((r,a_2,\epsilon)\) theorem box.
+## Common-face root identification
+
+Cell \(i\) represents the physical phase and shooting nodes by
+
+\[
+ \phi=\bar\phi_i+\kappa\eta_i+\delta_i,
+ \qquad
+ z_n=\bar z_{i,n}+A_{i,n}\eta_i+B_{i,n}\delta_i
+      +E_{i,n}e_i+\xi_{i,n}.
+\]
+
+On a common face, equality of the physical phase determines an exact affine
+shift \(\delta_j=\delta_i+d_{ij}\), while \(e_j=e_i\).  Equality of every
+physical node then gives the affine change
+
+\[
+ \xi_{j,n}=\xi_{i,n}+c_{ij,n}
+ +(B_{i,n}-B_{j,n})\delta_i+(E_{i,n}-E_{j,n})e_i.
+\]
+
+Let \(K_i\) be the complete 38-dimensional Krawczyk image for cell \(i\),
+and let \(X_j\) be the neighboring cell's proven uniqueness box.  The
+implemented common-face gate checks the coordinatewise strict containment
+
+\[
+ T_{ij}(K_i)\subset\operatorname{int}X_j.
+\]
+
+This is stronger than overlap of two root boxes.  A root enclosed by
+\(K_i\) is thereby placed inside a box in which cell \(j\) has exactly one
+root of the same physical shooting problem, so the two roots coincide.  The
+same actual P2b true-graph error function is used on both sides of the face;
+the two cells do not choose independent graph errors.
+
+Both directions pass on all three exact dyadic faces:
+
+| common face | left to right max. ratio | right to left max. ratio |
+|---:|---:|---:|
+| \(-1/64\) | 0.897795 | 0.935687 |
+| \(0\) | 0.890512 | 0.932416 |
+| \(1/64\) | 0.887678 | 0.933968 |
+
+Every coordinate is strictly contained; the worst case is the final-node
+\(U\) correction on the face \(a_2=-1/64\).  Consequently, on the exact
+slice
+
+\[
+ r=2/25,\qquad a_2\in[-1/32,1/32],\qquad\epsilon=1,
+\]
+
+the four locally unique transverse root families join into one common slice
+branch.  This still does not identify that branch as the continuation of the
+selected \(r=0\) core branch, because the one-dimensional slice does not
+cover the full \((r,a_2,\epsilon)\) comparison bridge.
 
 ## Proof boundary
 
 The following remain open and are not consequences of the results above:
 
-- common-face containment identifying the four slice cells with one another,
-  followed by a gap-free three-parameter cover connecting them to the
-  complete `r=0` anchor face, hence identification of one selected branch;
+- a gap-free three-parameter cover connecting the slice branch to the
+  complete `r=0` anchor face, hence identification of the selected branch on
+  the full comparison bridge;
 - exclusion of any other zero in the fixed larger shooting sub-box;
 - the no-earlier-symmetry-hit sign tubes and final flow box;
 - explicit first and second parameter bounds for \((\phi_h,T_h)\), needed

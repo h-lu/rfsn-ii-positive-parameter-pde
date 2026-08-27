@@ -365,8 +365,19 @@ struct AffineEvaluation{
   interval returnTime;
 };
 
-int runA2AffineCell(double radiusFactor,const interval&a2Cell,
-                    const interval&phi0){
+struct A2AffineCellResult{
+  bool success;
+  interval a2Cell,a2Centre,phi0;
+  PointOrbit chart;
+  std::vector<IVector> parameterSlopes;
+  IVector X,K;
+  double maxInclusion,maxContraction;
+  interval determinant;
+};
+
+A2AffineCellResult buildA2AffineCell(
+    double radiusFactor,const interval&a2Cell,const interval&phi0,
+    bool report){
   if(a2Cell.leftBound()>=a2Cell.rightBound())
     throw std::invalid_argument("a2-affine cell must have positive width");
   const interval certifiedA2Domain("-0.25","0.25");
@@ -560,21 +571,22 @@ int runA2AffineCell(double radiusFactor,const interval&a2Cell,
     fixedR,a2Centre,phi0,centre.source.state,sourceParameterSlope,
     centre.source.phaseDerivative,centre.source.errorDerivative,
     eta,zero[0],zero[1]);
-  std::cout<<std::setprecision(17)
-    <<"mode a2-affine-cell\n"
-    <<"parameters "<<fixedR<<" "<<a2Cell<<" "<<interval(1.)<<"\n"
-    <<"a2_centre "<<a2Centre<<" eta "<<eta<<"\n"
-    <<"phase_centre "<<phi0<<" phase_a2_slope "<<kPhaseA2Slope<<"\n"
-    <<"event_shear "<<eventShear<<" reference_return "
-       <<referenceReturnTime<<"\n"
-    <<"source_columns "<<sourceParameterSlope<<" "
-       <<centre.source.phaseDerivative<<" "
-       <<centre.source.errorDerivative<<"\n"
-    <<"source_zero_remainder "<<sourceDiagnostic.remainder<<"\n"
-    <<"base_event_residual "<<base.residual[dimension-1]<<"\n"
-    <<"pre_delta_prediction "<<predicted[0]<<" final_delta_box "<<X[0]<<"\n"
-    <<"pre_last_node_boxes "<<X[dimension-4]<<" "<<X[dimension-3]
-       <<" "<<X[dimension-2]<<" "<<X[dimension-1]<<"\n"<<std::flush;
+  if(report)
+    std::cout<<std::setprecision(17)
+      <<"mode a2-affine-cell\n"
+      <<"parameters "<<fixedR<<" "<<a2Cell<<" "<<interval(1.)<<"\n"
+      <<"a2_centre "<<a2Centre<<" eta "<<eta<<"\n"
+      <<"phase_centre "<<phi0<<" phase_a2_slope "<<kPhaseA2Slope<<"\n"
+      <<"event_shear "<<eventShear<<" reference_return "
+         <<referenceReturnTime<<"\n"
+      <<"source_columns "<<sourceParameterSlope<<" "
+         <<centre.source.phaseDerivative<<" "
+         <<centre.source.errorDerivative<<"\n"
+      <<"source_zero_remainder "<<sourceDiagnostic.remainder<<"\n"
+      <<"base_event_residual "<<base.residual[dimension-1]<<"\n"
+      <<"pre_delta_prediction "<<predicted[0]<<" final_delta_box "<<X[0]<<"\n"
+      <<"pre_last_node_boxes "<<X[dimension-4]<<" "<<X[dimension-3]
+         <<" "<<X[dimension-2]<<" "<<X[dimension-1]<<"\n"<<std::flush;
   const AffineEvaluation data=evaluate(X);
   const IMatrix C=midpointInverse(data.derivative);
   const IMatrix R=IMatrix::Identity(dimension)-C*data.derivative;
@@ -596,21 +608,152 @@ int runA2AffineCell(double radiusFactor,const interval&a2Cell,
     && !data.endpointPhaseColumn[2].contains(0.);
   const bool success=inclusion&&maxContraction<1.&&transverse
     &&data.endpoint[0].leftBound()>1.;
-  std::cout<<std::setprecision(17)
-    <<"source_full_box_remainder "<<affineSourceData(
-       fixedR,a2Centre,phi0,centre.source.state,sourceParameterSlope,
-       centre.source.phaseDerivative,centre.source.errorDerivative,
-       eta,X[0],X[1]).remainder<<"\n"
-    <<"base_event_residual "<<base.residual[dimension-1]<<"\n"
-    <<"delta_predicted "<<predicted[0]<<" box "<<X[0]<<" K "<<K[0]<<"\n"
-    <<"endpoint_box "<<data.endpoint<<" return_box "<<data.returnTime<<"\n"
-    <<"event_delta_column "<<data.endpointPhaseColumn[1]<<"\n"
-    <<"event_L_phase_column "<<data.endpointPhaseColumn[0]<<" "
-       <<data.endpointPhaseColumn[2]<<"\n"
-    <<"shooting_determinant "<<determinant<<"\n"
-    <<"max_inclusion_ratio "<<maxInclusion<<" index "<<worstInclusion<<"\n"
-    <<"max_contraction_ratio "<<maxContraction<<" index "<<worstContraction<<"\n"
-    <<(success?"PASS":"INCONCLUSIVE")<<" a2-affine multiple shooting\n";
+  if(report)
+    std::cout<<std::setprecision(17)
+      <<"source_full_box_remainder "<<affineSourceData(
+         fixedR,a2Centre,phi0,centre.source.state,sourceParameterSlope,
+         centre.source.phaseDerivative,centre.source.errorDerivative,
+         eta,X[0],X[1]).remainder<<"\n"
+      <<"base_event_residual "<<base.residual[dimension-1]<<"\n"
+      <<"delta_predicted "<<predicted[0]<<" box "<<X[0]<<" K "<<K[0]<<"\n"
+      <<"endpoint_box "<<data.endpoint<<" return_box "<<data.returnTime<<"\n"
+      <<"event_delta_column "<<data.endpointPhaseColumn[1]<<"\n"
+      <<"event_L_phase_column "<<data.endpointPhaseColumn[0]<<" "
+         <<data.endpointPhaseColumn[2]<<"\n"
+      <<"shooting_determinant "<<determinant<<"\n"
+      <<"max_inclusion_ratio "<<maxInclusion<<" index "<<worstInclusion<<"\n"
+      <<"max_contraction_ratio "<<maxContraction<<" index "<<worstContraction<<"\n"
+      <<(success?"PASS":"INCONCLUSIVE")<<" a2-affine multiple shooting\n";
+  return {success,a2Cell,a2Centre,phi0,centre,parameterSlopes,X,K,
+          maxInclusion,maxContraction,determinant};
+}
+
+int runA2AffineCell(double radiusFactor,const interval&a2Cell,
+                    const interval&phi0){
+  return buildA2AffineCell(radiusFactor,a2Cell,phi0,true).success?0:20;
+}
+
+struct FaceContainmentResult{
+  bool success;
+  IVector mapped;
+  double maxRatio;
+  int worstIndex;
+};
+
+FaceContainmentResult mapFaceEnclosure(
+    const A2AffineCellResult&source,const A2AffineCellResult&target,
+    const interval&face){
+  if(face.leftBound()<source.a2Cell.leftBound()
+      || face.rightBound()>source.a2Cell.rightBound()
+      || face.leftBound()<target.a2Cell.leftBound()
+      || face.rightBound()>target.a2Cell.rightBound())
+    throw std::invalid_argument("common face does not belong to both cells");
+  if(source.K.dimension()!=target.X.dimension()
+      || source.K.dimension()!=2+4*kSegments)
+    throw std::runtime_error("incompatible affine shooting charts");
+  const interval sourceEta=face-source.a2Centre;
+  const interval targetEta=face-target.a2Centre;
+  // Both source charts describe the same physical source phase.  This is
+  // the exact affine change between their phase-correction coordinates.
+  const interval deltaShift=source.phi0-target.phi0
+    +interval(kPhaseA2Slope)*(sourceEta-targetEta);
+  IVector mapped(source.K.dimension());
+  mapped[0]=source.K[0]+deltaShift;
+  mapped[1]=source.K[1];
+  for(int node=0;node<kSegments;++node){
+    for(int coordinate=0;coordinate<4;++coordinate){
+      const int index=2+4*node+coordinate;
+      mapped[index]=source.chart.nodes[node][coordinate]
+        -target.chart.nodes[node][coordinate]
+        +source.parameterSlopes[node][coordinate]*sourceEta
+        -target.parameterSlopes[node][coordinate]*targetEta
+        -target.chart.phaseTangents[node][coordinate]*deltaShift
+        +(source.chart.phaseTangents[node][coordinate]
+          -target.chart.phaseTangents[node][coordinate])*source.K[0]
+        +(source.chart.errorTangents[node][coordinate]
+          -target.chart.errorTangents[node][coordinate])*source.K[1]
+        +source.K[index];
+    }
+  }
+  bool success=source.success&&target.success;
+  double maxRatio=0.;
+  int worstIndex=-1;
+  for(int i=0;i<mapped.dimension();++i){
+    const double ratio=absUpper(mapped[i])/absUpper(target.X[i]);
+    if(ratio>maxRatio){maxRatio=ratio;worstIndex=i;}
+    success=success&&interior(mapped[i],target.X[i]);
+  }
+  return {success,mapped,maxRatio,worstIndex};
+}
+
+std::string shootingCoordinateName(int index){
+  if(index<0)return "none";
+  if(index==0)return "delta";
+  if(index==1)return "graph-e";
+  return "node-"+std::to_string((index-2)/4)+"-coordinate-"
+    +std::to_string((index-2)%4);
+}
+
+int runA2CommonFaces(double radiusFactor,
+                     const std::array<interval,4>&phaseCentres){
+  // These are exact dyadic rationals.  Constructing them arithmetically
+  // makes the common endpoints and the derived chart centres identical
+  // outward interval objects in the two adjacent runs.
+  const interval one(1.),zero(0.);
+  const std::array<interval,5> faces={
+    -one/interval(32.),-one/interval(64.),zero,
+     one/interval(64.), one/interval(32.)};
+  std::vector<A2AffineCellResult> cells;
+  cells.reserve(4);
+  bool success=true;
+  std::cout<<std::setprecision(17)<<"mode a2-common-faces\n";
+  for(int i=0;i<4;++i){
+    const interval cell(faces[i].leftBound(),faces[i+1].rightBound());
+    cells.push_back(buildA2AffineCell(
+      radiusFactor,cell,phaseCentres[i],false));
+    const A2AffineCellResult&result=cells.back();
+    success=success&&result.success;
+    std::cout<<"cell "<<i<<" "<<result.a2Cell
+      <<" centre "<<result.a2Centre<<" phase "<<result.phi0
+      <<" max_inclusion "<<result.maxInclusion
+      <<" max_contraction "<<result.maxContraction
+      <<" determinant "<<result.determinant<<" "
+      <<(result.success?"PASS":"INCONCLUSIVE")<<"\n";
+  }
+  for(int faceIndex=1;faceIndex<4;++faceIndex){
+    for(int direction=0;direction<2;++direction){
+      const int sourceIndex=direction?faceIndex:faceIndex-1;
+      const int targetIndex=direction?faceIndex-1:faceIndex;
+      const FaceContainmentResult result=mapFaceEnclosure(
+        cells[sourceIndex],cells[targetIndex],faces[faceIndex]);
+      success=success&&result.success;
+      std::cout<<"face "<<faces[faceIndex]<<" direction "
+        <<sourceIndex<<"->"<<targetIndex
+        <<" delta "<<result.mapped[0]
+        <<" graph_e "<<result.mapped[1]
+        <<" max_ratio "<<result.maxRatio
+        <<" worst "<<result.worstIndex<<" "
+        <<shootingCoordinateName(result.worstIndex)<<" "
+        <<(result.success?"PASS":"INCONCLUSIVE")<<"\n";
+      for(int node=0;node<kSegments;++node){
+        double nodeRatio=0.;
+        bool nodeSuccess=true;
+        for(int coordinate=0;coordinate<4;++coordinate){
+          const int index=2+4*node+coordinate;
+          nodeRatio=std::max(nodeRatio,
+            absUpper(result.mapped[index])/absUpper(cells[targetIndex].X[index]));
+          nodeSuccess=nodeSuccess
+            &&interior(result.mapped[index],cells[targetIndex].X[index]);
+        }
+        std::cout<<"face_node "<<faceIndex<<" direction "
+          <<sourceIndex<<"->"<<targetIndex<<" node "<<node
+          <<" max_ratio "<<nodeRatio<<" "
+          <<(nodeSuccess?"PASS":"INCONCLUSIVE")<<"\n";
+      }
+    }
+  }
+  std::cout<<(success?"PASS":"INCONCLUSIVE")
+    <<" common-face root identification\n";
   return success?0:20;
 }
 }
@@ -626,11 +769,21 @@ int main(int argc,char**argv){
    return runA2AffineCell(factor,interval(argv[3],argv[4]),
                           interval(argv[5],argv[5]));
  }
+ if(argc==7 && std::string(argv[1])=="a2-faces"){
+   const double factor=std::stod(argv[2]);
+   if(!std::isfinite(factor)||factor<=1.)
+     throw std::invalid_argument("radius_factor must be finite and greater than one");
+   std::array<interval,4> phaseCentres;
+   for(int i=0;i<4;++i)phaseCentres[i]=interval(argv[3+i],argv[3+i]);
+   stage="a2 common-face experiment";
+   return runA2CommonFaces(factor,phaseCentres);
+ }
  if(argc!=1 && argc!=6 && argc!=9)
    throw std::invalid_argument(
      "usage: [radius_factor r a2 epsilon phi0] or "
      "[radius_factor r_lo r_hi a2_lo a2_hi eps_lo eps_hi phi0] or "
-     "[a2-affine radius_factor a2_lo a2_hi phi0]");
+     "[a2-affine radius_factor a2_lo a2_hi phi0] or "
+     "[a2-faces radius_factor phi0_0 phi0_1 phi0_2 phi0_3]");
  const bool cellMode=argc==9;
  const double radiusFactor=argc==1?1.5:std::stod(argv[1]);
  if(!std::isfinite(radiusFactor) || radiusFactor<=1.)
