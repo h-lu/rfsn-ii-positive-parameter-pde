@@ -41,10 +41,10 @@ quantitative margins.
 - [ ] P3--P5 positive pole, outer channel, matching/finite parts, and V6 census
 - [ ] Independent replay on a genuinely distinct machine (currently 1/2)
 
-The clean certificates through P2bK have local integrity and mathematical
+The clean certificates through P2c have local integrity and mathematical
 `PASS`, but their aggregate status is `INCONCLUSIVE` and
 `claim_bearing=false` while independent replay and the later scoped
-obligations remain open.  The full strict P2c design run passes the
+obligations remain open.  The full strict P2c run passes the
 16,384-cell selected-branch cover, all 44,416 internal common faces, first
 hit, transversality, actual-root parameter two-jets, both infinite tails, and
 the fixed-\(\xi\) continuous \(C^2\) compact middle.  Their global composition
@@ -53,12 +53,19 @@ exclusion outside the validated parameter-following lifted tube is required.
 The local P2c summary certificate/checker parses the archived strict logs and
 replays the exact tail composition, so all five P2c atoms and their local
 parent now pass.  Its aggregate remains `INCONCLUSIVE` and non-claim-bearing;
-P2d--P5 and independent replay remain pending.  This work
-makes no claim of temporal stability, Turing selection, or canard
+P2d--P5 and independent replay remain pending.  The certificate was generated
+from clean source commit `15664b600316d97ddef8487a279367495f4f1ed9`; its
+SHA-256 is
+`38709fac54569f190f3663df95baedbdb6e0c646d3ec372385a1373dfaf34d34`.
+See
+[`P2C_CERTIFICATE_REPORT.md`](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/blob/main/validation/rigorous/P2C_CERTIFICATE_REPORT.md).
+This work makes no claim of temporal stability, Turing selection, or canard
 identification.
 
 ## Outcome
 
-Record `PASS`, `FAIL`, or `INCONCLUSIVE`.  This issue is deliberately deferred
-until the analytic theorem contract is stable; computation must not choose the
-theorem after seeing the output.
+P2c is locally `PASS` and aggregate `INCONCLUSIVE` under the independent-replay
+policy.  The active mathematical path is P2d `V2.EXACT_CHART`, then P2e
+`V2.EVENT_ATLAS`, followed by P3--P5.  Every new scope must freeze its theorem
+objects before its claim-bearing run; computation must not choose the theorem
+after seeing the output.
