@@ -113,6 +113,54 @@ presentation.  They neither construct the optional global marking T2G nor
 compare the bounded winding recodings on overlaps of the analytic finite
 marked atlas.
 
+## Temporal dynamics, Turing, and canard prescreen
+
+The follow-up screening run starts from the saved V7 profiles and keeps exact
+algebra separate from floating-point spectral evidence:
+
+```bash
+python3 numerics/run_vdp_dynamics_screening.py
+python3 numerics/check_vdp_dynamics_screening.py
+```
+
+The default pair is the official path: the runner refuses a dirty repository,
+binds every source/input hash to its start commit, verifies the three V1--V7
+NPZ inputs against the `vdp-v4-screening-baseline` Git blobs, and checks that
+the census is unchanged after computation and rendering.  A temporary
+development run must opt in with `--allow-dirty-source`; its result is marked
+`DEVELOPMENT_ALLOW_DIRTY_SOURCE` and the official checker rejects it unless
+`--allow-development-artifact` is also supplied explicitly.
+
+Its homogeneous Fourier symbol exactly excludes the **classical stationary
+Turing mechanism** for this van der Pol PDE.  A temporally stable homogeneous
+state requires \(f'(a)>0\), while a stationary zero eigenvalue at \(k>0\)
+requires \(f'(a)\leq-2r^2\sqrt{\epsilon}<0\).  This exact incompatibility does
+not exclude a finite-wavenumber unstable band when \(k=0\) is already unstable,
+nor does it construct or select a nonlinear patterned branch.
+
+The numerical part finds positive-growth candidates for each of the five
+saved periodic profiles in sampled Fourier--Bloch matrices and for each of the
+one- through four-pulse profiles in finite-window matrices.  These results are
+`COMPUTED/E1`, not a complete Bloch/Evans spectral theorem and not a nonlinear
+instability theorem.  Short-time residual-subtracted perturbation evolution
+checks the leading pulse modes but is not an unmodified full-PDE selection
+experiment.
+
+The same run records positive-fold passages and the FSN-II degeneracy of the
+singular reduced problem.  It does not compute an intersection of the relevant
+finite-parameter slow manifolds, so it does **not** identify a maximal canard.
+Its proposed Issue #7 box
+
+\[
+ (r,a_2,\epsilon)\in
+ [0.04,0.08]\times[-0.25,0.25]\times[0.8,1.2]
+\]
+
+is preselected but not yet frozen or interval validated.  Detailed numerical
+values, stopping rules, and figure semantics are in the
+[screening report](VDP_DYNAMICS_SCREENING_REPORT.md) and
+[dynamics figure contracts](VDP_DYNAMICS_FIGURE_CONTRACTS.md).
+
 ## Reproduce
 
 The current environment requires NumPy, SciPy, and Matplotlib.
@@ -122,6 +170,8 @@ python3 numerics/run_atlas.py
 python3 numerics/check_convergence.py
 python3 numerics/run_vdp_master.py
 python3 numerics/check_vdp_master.py
+python3 numerics/run_vdp_dynamics_screening.py
+python3 numerics/check_vdp_dynamics_screening.py
 python3 validation/check_candidate_contract.py numerics/results/vdp_v1_v7/v6_candidate_contract.json
 python3 -m unittest numerics/test_numerics.py
 python3 -m unittest discover -s numerics -p 'test_*.py'
@@ -158,9 +208,12 @@ their small diffusion prefactors can conceal a poor scaled solution.
   Theorem B; a plot does not prove the homoclinic branch.
 - The van der Pol period slope tests the leading coefficient in V7 after an
   unknown integer offset is absorbed into a family-dependent intercept.
-- A stationary profile may be temporally unstable.  Bloch/Evans analysis,
-  direct time evolution, and experimental parameter calibration remain
-  separate tasks.
-- The atlas does not select a Turing branch or prove temporal stability, and
-  it does not identify a computed orbit segment as a canard.  Saddle-focus
-  winding and canard-organized outer geometry remain distinct mechanisms.
+- The sampled Bloch and finite-window spectra supply non-rigorous positive
+  growth candidates for all five periodic and all four multipulse profiles;
+  they do not prove the complete spectrum or nonlinear instability.
+- Classical stationary Turing onset is exactly excluded for this PDE, but the
+  computation does not supply a nonlinear branch or an alternative dynamical
+  pattern-selection mechanism.
+- Fold passage and singular FSN-II degeneracy do not identify a canard.
+  Saddle-focus winding and canard-organized outer geometry remain distinct
+  mechanisms.

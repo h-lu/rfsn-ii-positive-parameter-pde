@@ -120,8 +120,39 @@ V6 cells and cross forms for all windings, and every outward-rounded interval
 obligation remain unresolved.  The computed V7 periodic and multipulse
 stationary profiles are not assigned proved theorem-edge itineraries and do
 not construct a bi-infinite aperiodic orbit.  These explicit numerical
-boundaries neither weaken the analytic V1--V7 theorems nor establish temporal
-stability, Turing-branch selection, or canard identification.
+boundaries neither weaken the analytic V1--V7 theorems nor establish their
+temporal stability.
+
+### Temporal-dynamics, Turing, and canard prescreen
+
+A separate [dynamics screening report](numerics/VDP_DYNAMICS_SCREENING_REPORT.md)
+now distinguishes one exact conclusion from two numerical diagnostics.  The
+homogeneous Fourier symbol gives an exact algebraic exclusion of the
+**classical stationary Turing mechanism** for this PDE: temporal stability of
+the homogeneous state requires \(f'(a)>0\), whereas a positive-wavenumber
+stationary zero eigenvalue requires
+\(f'(a)\leq-2r^2\sqrt{\epsilon}<0\).  This does not exclude finite-wavenumber
+growth when the homogeneous mode is already unstable, and it does not connect
+the V7 profiles to a nonlinear local bifurcation.
+
+At the current sample, all five saved periodic profiles and all four saved
+multipulse profiles have positive-growth **candidates** in the computed
+Bloch/finite-window spectra.  These remain `COMPUTED/E1`: they are evidence
+against prioritizing a stability proof at this parameter, not a complete
+spectral or nonlinear-instability theorem.  The saved profiles cross the
+positive fold and the singular reduction is FSN-II-degenerate there, but no
+finite-parameter slow-manifold intersection has been computed; no canard is
+identified.
+
+For Issue #7, the box
+
+\[
+ [0.04,0.08]\times[-0.25,0.25]\times[0.8,1.2]
+\]
+
+in \((r,a_2,\epsilon)\) has been **preselected but not yet frozen**.  It is an
+input candidate for the outward-rounded existence/coding validation, not a
+temporal-stability box and not an interval certificate.
 
 ## Repository map
 
@@ -137,6 +168,8 @@ stability, Turing-branch selection, or canard identification.
 - [Van der Pol V1--V7 numerical coverage](numerics/VAN_DER_POL_COVERAGE_MATRIX.md)
 - [Van der Pol V1--V7 numerical report](numerics/VAN_DER_POL_NUMERICAL_REPORT.md)
 - [Van der Pol V1--V7 figure contracts](numerics/VAN_DER_POL_FIGURE_CONTRACTS.md)
+- [Van der Pol dynamics screening report](numerics/VDP_DYNAMICS_SCREENING_REPORT.md)
+- [Van der Pol dynamics figure contracts](numerics/VDP_DYNAMICS_FIGURE_CONTRACTS.md)
 - [Issue #7 candidate-contract workspace](validation/README.md)
 
 ## Initial work queue
@@ -147,7 +180,7 @@ stability, Turing-branch selection, or canard identification.
 - [#4: central--outer matching theorem](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/4), the decisive mathematical go/no-go task
 - [#5: outer algebraic action finite part](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/5)
 - [#6: exhaustive two-end theorem](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/6)
-- [#7: rigorous validation](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/7), deliberately deferred until the analytic statements are frozen
+- [#7: rigorous validation](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/7), with a parameter box preselected and its final freeze plus outward-rounded run still pending
 
 The source theory remains in
 [`h-lu/reversible-rfsn-ii-waves`](https://github.com/h-lu/reversible-rfsn-ii-waves).

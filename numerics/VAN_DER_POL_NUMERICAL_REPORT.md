@@ -37,6 +37,13 @@ B1、A2 两条完整返回与增广长度/作用量。它们有真实研究价�
 数值检查通过，同时未显式对象仍保持未解析”，而不是“V1--V7 全部数值
 验证通过”。
 
+后续的[时间动力学、Turing 与 canard 预筛](VDP_DYNAMICS_SCREENING_REPORT.md)
+没有改变这一证据等级。它精确排除了本模型从时间稳定齐次态出发的经典静止
+Turing 机制；同时在五条周期剖面和一至四脉冲剖面的离散谱中都发现了
+`COMPUTED/E1` 正增长候选。后者不是完整谱定理或非线性不稳定性证明。折点
+passage 与奇异 FSN-II 退化已被诊断，但 canard 尚未识别。Issue #7 参数盒
+已经预选，仍待正式冻结和 outward-rounded 验证。
+
 | 阶段 | 论文状态 | 本次真正算到的对象 | 尚未数值解析的对象 | 主图 |
 |---|---|---|---|---|
 | V1 | Derived | 9 个精确恒等式；完整坐标/时钟/能量/作用量桥及独立积分加密 | 参数盒上的统一区间认证 | [图 1](results/vdp_v1_v7/figure_01_v1_structure.png) |
@@ -212,10 +219,11 @@ B1/A2 的总中心时间分别为 \(22.5528383\) 与 \(26.9967389\)，能量漂�
 V3、V4--V5、V5A 输入及理论文本逐项绑定到 SHA-256，并固定参数点和可观测量
 规范；配置、直接生成器源码、分支 NPZ 前缀/形状/端点也进入交叉检查。其状态
 故意保持 `DRAFT_CANDIDATE_ONLY`、`claim_bearing: false` 和
-`final_status: NOT_RUN`。当前工作树未提交，所以 checker 正确给出
-`PASS_WITH_DIRTY_SOURCE_WARNING`；可回放性依赖合同中的逐文件哈希，不能只靠
-基准提交号。这正是下一阶段 #7 区间回放的输入接口，而不是把浮点计算升级为
-严格证明。
+`final_status: NOT_RUN`。合同记录的源提交早于提交候选制品后的当前 HEAD；
+checker 因而明确给出 `PASS_WITH_ADVANCED_HEAD_WARNING`，并分别报告生成时和
+当前工作树的 dirty 状态，而不把当前 checkout 描述成源提交的 clean replay。
+可回放输入仍接受逐文件 SHA-256 的严格检查，不能只靠提交号。这正是下一阶段
+#7 区间回放的输入接口，而不是把浮点计算升级为严格证明。
 
 ## V7：真实周期与多脉冲定常 PDE 剖面
 
@@ -271,27 +279,46 @@ V1--V7 先令 PDE 的时间导数为零，把问题变成以物理空间 \(\math
 参数处存在不同空间周期的周期剖面；增加相对绕转会按约 \(0.7109\) 的尺度
 增长空间周期；一至四个宏观脉冲的局域剖面可以直接求出。
 
-这与 Turing 分岔仍是两个不同层次。Turing 分析考察齐次态在时间演化下对
-有限波数 Fourier 模式的线性失稳，并需要从中延拓定常分支；本仓库的 V7
-存在性证明和本次射击/配点计算都没有建立“这些高绕转剖面从某条 Turing
-中性曲线分岔”的连接。因而当前数据不能确定随控制参数变化时实际系统会
-选择哪种波长、何时在不同斑纹间跳转，或这些剖面是否可在时间模拟/实验中
-观察到。
+后续预筛把 Turing 问题进一步分清了。齐次时间线性化的 Fourier 符号满足
 
-canard 只应作为 V4--V5 外层慢几何的一个待检验解释。局部高绕转及周期增长
-来自原点附近的 saddle-focus 旋转和对数 passage，**不是 canard**。本次已
-得到 nonlinear-\(W^u\to\) central \(\to K_1\to\) finite-\(Q\) outer 的
-联立匹配候选，所以“V5 匹配完全没有数值实例”已不再成立；但代码没有沿慢
-流形计算吸引/排斥分支、定位折叠慢流形，也没有测量随小参数指数敏感的
-canard 区间。因此目前只能说 outer 退出几何已被显式化，不能把它命名为
-已识别或已验证的 canard。极点门和代数门本身也只是退出方向，不组成有界
-周期斑纹。
+\[
+ \operatorname{tr}L(k)=-f'(a)-(1+r^4)k^2,
+ \qquad
+ \det L(k)=r^4k^4+f'(a)k^2+\epsilon.
+\]
 
-最后，定常 PDE 残差只说明一个剖面近似满足“时间导数为零”的方程，不说明
-它在 PDE 时间流下稳定。要从“定理保证存在、数值画出剖面”走到“真实动力学
-选择这种斑纹”，至少还需要周期剖面的 Bloch/Floquet 或 Evans 谱计算、局域
-剖面的相应谱与非线性稳定性分析，以及直接时变 PDE 模拟。当前结论是空间
-存在与空间组织，不是时间稳定、时间混沌或 Turing 选择。
+齐次态时间稳定要求 \(f'(a)>0\)，而某个 \(k>0\) 出现静止零特征值要求
+\(f'(a)\leq-2r^2\sqrt{\epsilon}<0\)。所以对本 PDE，**从时间稳定齐次态
+产生的经典静止 Turing 机制被精确排除**。这是代数结论，不是扫描所得；它
+不排除齐次模已经不稳定时的有限波数增长，也不提供非线性分支或其他选波
+机制。V7 的高绕转斑纹来自全局空间动力学，不能再解释为尚未找到的经典
+Turing 分支。
+
+时间谱预筛则保持在数值层次。五条周期剖面的 Fourier--Bloch 样本都出现
+正增长候选，且共周期 Bloch 相位 \(\theta=0\) 已有正实部；一至四脉冲的
+有限窗矩阵也都出现约 \(2.14\times10^{-2}\) 的正实轴候选。网格、边界条件
+和短时主模增长检查支持这些信号不是明显的离散错误，但它们仍只是
+`COMPUTED/E1`。完整 Bloch/Evans 谱、整线极限和非线性不稳定性尚未证明，
+更不能由此断言时间演化会选择另一个具体斑纹。
+
+canard 仍是另一问题。局部高绕转及周期增长来自原点附近的 saddle-focus
+旋转和对数 passage，**不是 canard**。保存剖面穿过正折点，且 \(a=1\) 时
+奇异约化在该点呈 FSN-II 退化；但是尚未计算有限参数吸引/排斥慢流形的交，
+也未包络最大-canard 曲线的余项。因此报告明确停止在“折点 passage 与奇异
+退化”，没有识别 canard。V4--V5 的远端 outer leg 本身还与折点保持正距离。
+
+Issue #7 仍验证空间存在、两端、首事件、作用量与编码，而不是时间稳定性。
+当前预选盒为
+
+\[
+ (r,a_2,\epsilon)\in
+ [0.04,0.08]\times[-0.25,0.25]\times[0.8,1.2].
+\]
+
+它尚待正式冻结，也尚未接受 outward-rounded 检查；不能称为显式认证的论文
+参数盒或全盒时间稳定区。筛查的完整数据、停止规则和四幅 D 系列图见
+[动力学预筛报告](VDP_DYNAMICS_SCREENING_REPORT.md)及其
+[图合同](VDP_DYNAMICS_FIGURE_CONTRACTS.md)。
 
 ## 图与机器证据索引
 
@@ -332,16 +359,18 @@ SciPy 1.18.0 和 Matplotlib 3.11.1。
 ```bash
 python3 numerics/run_vdp_master.py
 python3 numerics/check_vdp_master.py
+python3 numerics/run_vdp_dynamics_screening.py
+python3 numerics/check_vdp_dynamics_screening.py
 python3 validation/check_candidate_contract.py numerics/results/vdp_v1_v7/v6_candidate_contract.json
 python3 -m unittest discover -s numerics -p 'test_*.py'
 python3 -m unittest discover -s validation -p 'test_*.py'
 ```
 
 第一条命令重新计算 V1--V7 数据并输出九幅 PDF/SVG/PNG；第二条检查必需
-文件、manifest 哈希、NPZ 类型和强制未解析状态；第三条验证候选合同的 schema
-和所有哈希，但会明确报告没有执行区间证明；最后两条分别运行 54 项数值回归
-测试与 10 项合同/验证脚手架测试，共 64 项。若只需从已保存数据重绘而不重跑
-求解器，可运行：
+文件、manifest 哈希、NPZ 类型和强制未解析状态；第三、四条生成并检查独立的
+时间动力学/Turing/canard 预筛；第五条验证候选合同的 schema 和所有哈希，
+但会明确报告没有执行区间证明；最后两条运行数值与验证回归测试。若只需从已
+保存数据重绘而不重跑求解器，可运行：
 
 ```bash
 python3 numerics/render_vdp_figures.py numerics/results/vdp_v1_v7

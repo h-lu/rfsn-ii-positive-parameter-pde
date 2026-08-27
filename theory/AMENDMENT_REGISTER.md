@@ -59,7 +59,7 @@ establish an analytic theorem.
 | V5A | Reference-normalized outer physical-length and action finite parts, including strict containment of the V5 arrival labels; [`OUTER_ALGEBRAIC_FINITE_PART.md`](../van-der-pol/OUTER_ALGEBRAIC_FINITE_PART.md) | `LOCAL-AMENDMENT / Proved` | V4--V5 and the fixed physical primitive; singular-core counterterms are not imported | None |
 | V6 | Exhaustive high-winding positive-parameter physical return/first-exit relation with compatible finite-atlas data and two finite parts; [`TWO_END_RETURN_EXIT_AND_PDE.md`](../van-der-pol/TWO_END_RETURN_EXIT_AND_PDE.md) | `LOCAL-AMENDMENT / Proved` | V1--V5A, T2, and only the abstract frozen modules in `RETURN_EXIT_CODING_IMPORT.md`; both concrete ends are local, and T2G is not assumed | None |
 | V7 | Periodic, multipulse, and aperiodic stationary spatial PDE patterns from bounded V6 itineraries; [`TWO_END_RETURN_EXIT_AND_PDE.md`](../van-der-pol/TWO_END_RETURN_EXIT_AND_PDE.md) | `LOCAL-AMENDMENT / Proved` | V6, frozen abstract coding module, and the exact inverse PDE scaling from V1 | None |
-| S1 | Temporal spectral or nonlinear stability of any B2 or V7 profile | `LOCAL-AMENDMENT / Deferred` | New Bloch/Evans spectral analysis and nonlinear stability theorem; no current analytic or numerical row supplies it | None |
+| S1 | Temporal spectral or nonlinear stability of any B2 or V7 profile | `LOCAL-AMENDMENT / Deferred` | A claim-bearing conclusion requires converged Bloch/Evans or equivalent spectral analysis and a separate nonlinear argument; N-VAN-DER-POL-TEMPORAL-SCREEN supplies only non-rigorous positive-growth candidates, not this theorem | None |
 | E1 | Calibrated experimental observation | `LOCAL-AMENDMENT / Deferred` | Dimensional calibration, preregistered observables, and experimental data | None |
 
 The van der Pol analytic dependency graph is
@@ -85,6 +85,22 @@ is an optional stronger globalization claim and is not an input to V6--V7.
 | ID | Local object and evidence | Relation / status | Analytic dependency | Claim boundary | Upstream impact |
 |---|---|---|---|---|---|
 | N-VAN-DER-POL-ATLAS | Reproducible V1--V7 numerical atlas, actual finite-time trajectories, periodic and finite-truncation multipulse profiles, and QA artifacts; [`numerics/README.md`](../numerics/README.md) | `LOCAL-AMENDMENT / Numerically observed` | Uses the local V1 equations and the V2--V7 theorem architecture for observable selection and interpretation | Does not certify the existential positive theorem box, replace any proof, prove temporal stability or Turing selection, or identify a canard on a computed global orbit | None |
+| D-VAN-DER-POL-TURING-EXCLUSION | Exact homogeneous Fourier symbol and incompatibility between temporal homogeneous stability, \(f'(a)>0\), and a stationary zero eigenvalue at positive wavenumber, \(f'(a)\leq-2r^2\sqrt{\epsilon}<0\); [`VDP_DYNAMICS_SCREENING_REPORT.md`](../numerics/VDP_DYNAMICS_SCREENING_REPORT.md) | `LOCAL-AMENDMENT / Derived` | V1 time PDE and its homogeneous equilibrium | Excludes only the classical stationary Turing mechanism from a stable homogeneous state; it does not exclude finite-wavenumber growth when the homogeneous mode is already unstable, construct a nonlinear branch, or prove pattern selection | None |
+| N-VAN-DER-POL-TEMPORAL-SCREEN | Positive-growth candidates in sampled Bloch matrices for all five saved periodic profiles and in finite-window matrices for all four saved multipulse profiles; [`VDP_DYNAMICS_SCREENING_REPORT.md`](../numerics/VDP_DYNAMICS_SCREENING_REPORT.md) | `LOCAL-AMENDMENT / Numerically observed` | N-VAN-DER-POL-ATLAS, the exact time linearization, and the declared Fourier/finite-window discretizations | Does not prove a complete Bloch/Evans spectrum, an infinite-domain pulse spectrum, nonlinear instability, temporal stability, or dynamical selection of any profile | None |
+| D-VAN-DER-POL-FOLD-DIAGNOSTIC | Exact critical manifold and fold calculation, including FSN-II degeneracy of the singular reduction at the positive fold when \(a=1\); [`VDP_DYNAMICS_SCREENING_REPORT.md`](../numerics/VDP_DYNAMICS_SCREENING_REPORT.md) | `LOCAL-AMENDMENT / Derived` | V1 stationary spatial equations and their singular reduction | A singular fold degeneracy is not a finite-parameter slow-manifold intersection and does not identify a maximal canard | None |
+| N-VAN-DER-POL-CANARD-SCREEN | Computed positive-fold passages of saved profiles and comparison with only the leading term of the published coincidence curve; [`VDP_DYNAMICS_SCREENING_REPORT.md`](../numerics/VDP_DYNAMICS_SCREENING_REPORT.md) | `LOCAL-AMENDMENT / Numerically observed` | N-VAN-DER-POL-ATLAS and D-VAN-DER-POL-FOLD-DIAGNOSTIC | No canard is identified: the relevant finite-parameter slow manifolds and the remainder in the coincidence curve have not been enclosed | None |
+
+The same screening configuration records
+
+\[
+ (r,a_2,\epsilon)\in
+ [0.04,0.08]\times[-0.25,0.25]\times[0.8,1.2]
+\]
+
+as the **preselected** Issue #7 box.  Its formal freeze and first
+outward-rounded run are still pending.  Preselection is not a proof that the
+box satisfies V2--V7, is not a temporal-stability claim, and is not registered
+here as `Computer-assisted` evidence.
 
 Numerical work can later become `Computer-assisted` only if every
 claim-bearing bound is interval rigorous, tied to immutable source and
