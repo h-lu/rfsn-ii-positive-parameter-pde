@@ -1,0 +1,164 @@
+{
+  "schema_version": "rfsn-vdp-p2-jets-config/1",
+  "configuration_id": "vdp-p2-jets-v1",
+  "status": "FROZEN_PRE_P2B_JETS_CERTIFICATE",
+  "frozen_before_outward_rounded_p2b_jets_run": true,
+  "selection_date": "2026-08-27",
+  "selection_basis": {
+    "repository_commit": "87bc585eaff12e7fb52147477218a7383d28908a",
+    "repository_tag": "vdp-issue7-p2b-jets-scout-v2",
+    "continuation_bridge": {
+      "path": "validation/rigorous/config/vdp_bridge_v1.json",
+      "sha256": "2b62e6fc5625d3f5634d986f7e9cbe8199abfc45c7b97ca29e5efd464b5b69c7"
+    },
+    "p2a_configuration": {
+      "path": "validation/rigorous/config/vdp_p2_local_graph_v1.json",
+      "sha256": "b11ecadb088e8fbd686ed4834335f96c460bee9a18b0d1edab4222da645e199b"
+    },
+    "p2a_certificate": {
+      "path": "validation/rigorous/results/vdp_bridge_v1_p2a_local_graph.json",
+      "sha256": "192b351c3f153080d82bc856fa3c667388dc16c7b4cf0cfa8568fa347bcaf6be"
+    },
+    "p2b0_configuration": {
+      "path": "validation/rigorous/config/vdp_p2_h10_c01_v1.json",
+      "sha256": "d09cf22c5ce382e31d2388a86b87a49301840cdd8698bf92135b9667d387ca96"
+    },
+    "p2b0_certificate": {
+      "path": "validation/rigorous/results/vdp_bridge_v1_p2b_h10_c01.json",
+      "sha256": "91c1762329a9e19e8db69052f9397532512d8031f361f0b6eeb43edbeda5d5ac"
+    },
+    "design_scout": {
+      "path": "validation/rigorous/design/p2b_jets_scout.cpp",
+      "sha256": "5cd2e92a370ebd45db37c4a973b7968da8907d695f03d4463119b97d5a7b03b2"
+    },
+    "scout_note": "The rational coefficient budgets, tensor radii, and weighted-jet gates were padded from a design-only outward-interval scout on the declared grid. The scout was committed before this configuration; it is not a certificate, and no formal P2b-jets probe or certificate had been run when these gates were frozen."
+  },
+  "coordinate_domain": {
+    "unstable_radius": {"numerator": "1", "denominator": "100"},
+    "true_graph_x_absolute_upper": {"numerator": "251", "denominator": "25000"},
+    "true_graph_first_derivative_upper": {"numerator": "111", "denominator": "20000"},
+    "state_block_norm": "max-of-two-euclidean-blocks",
+    "pure_graph_tensor_norm": "hilbert-schmidt",
+    "parameter_tensor_norm": "euclidean-induced-bounded-by-hilbert-schmidt"
+  },
+  "parameter_normalization": {
+    "ordered_original_parameters": ["r", "a2", "epsilon"],
+    "ordered_normalized_parameters": ["theta_r", "theta_a", "theta_epsilon"],
+    "formulas": [
+      "theta_r=25*r-1",
+      "theta_a=4*a2",
+      "theta_epsilon=5*(epsilon-1)"
+    ],
+    "normalized_box": {
+      "theta_r": {"lower": {"numerator": "-1", "denominator": "1"}, "upper": {"numerator": "1", "denominator": "1"}},
+      "theta_a": {"lower": {"numerator": "-1", "denominator": "1"}, "upper": {"numerator": "1", "denominator": "1"}},
+      "theta_epsilon": {"lower": {"numerator": "-1", "denominator": "1"}, "upper": {"numerator": "1", "denominator": "1"}}
+    },
+    "original_from_normalized_derivative_scale": {
+      "order_0": {"numerator": "1", "denominator": "1"},
+      "order_1_operator": {"numerator": "25", "denominator": "1"},
+      "order_2_operator": {"numerator": "625", "denominator": "1"}
+    }
+  },
+  "coefficient_grid": {
+    "ordered_axes": ["theta_r", "theta_a", "theta_epsilon", "x"],
+    "subdivisions": [16, 8, 4, 2],
+    "require_gap_free_exact_rational_cells": true,
+    "parameter_derivatives_taken_at_fixed_x": true,
+    "coefficient_derivative_norm": "component-parameter-hilbert-schmidt-upper-bound",
+    "van_der_pol_state_degree": 3,
+    "state_derivatives_above_degree_three_vanish_exactly": true
+  },
+  "lyapunov_perron_contract": {
+    "fixed_core_rate": "1/sqrt(2)",
+    "local_tail_weight": {"numerator": "1", "denominator": "4"},
+    "final_homoclinic_weight_reserved_for_p2c": {"numerator": "1", "denominator": "5"},
+    "green_operator_formula": "K_omega=(1/sqrt(2)-omega)^(-1)",
+    "linearized_operator_formula": "q_LP=K_omega*(B_0+2*ell_0)",
+    "resolvent_formula": "||(I-K*D_ZR)^(-1)||<=(1-q_LP)^(-1)",
+    "fixed_point_formula": "Z_theta,b=E*b+K*R_theta(Z_theta,b)",
+    "explicit_parameter_forcing_formula": "D_theta^j R_theta(0)=0 and ||D_theta^j R_theta(Z)||_omega<=L_1j*||Z||_omega by the fixed-Z mean-value formula",
+    "remainder_formula": "For each labelled derivative set, choose explicit theta labels, partition all remaining labels into one, two, or three nonempty Z-blocks, and remove exactly the unpartitioned D_ZR target term.",
+    "graph_trace_formula": "D_b^i D_theta^j H_theta is the stable component of D_b^i D_theta^j Z_theta,b at t=0",
+    "stable_half_orbit_formula": "The stable bounds are transported by the fixed isometric reverser.",
+    "full_rectangular_graph_orders": {"maximum_state_order": 3, "maximum_parameter_order": 2},
+    "weighted_half_orbit_orders": {"maximum_state_order": 3, "maximum_parameter_order": 2}
+  },
+  "state_tensor_contract": {
+    "sigma_2": {"numerator": "1", "denominator": "2"},
+    "sigma_3": {"numerator": "9", "denominator": "8"},
+    "normal_gap_formula": "kappa_bar=alpha-(1+D_star)*ell_0",
+    "second_forcing_formula": "M_2=m_0*(1+D_star)^3",
+    "third_forcing_formula": "M_3=(1+D_star)*(t_0*(1+D_star)^3+3*m_0*sigma_2*(1+D_star))+3*sigma_2*(m_0*(1+D_star)^2+ell_0*sigma_2)",
+    "second_no_first_exit_formula": "3*kappa_bar*sigma_2-M_2",
+    "third_no_first_exit_formula": "4*kappa_bar*sigma_3-M_3",
+    "origin_second_formula": "3*alpha*sigma_2-m_0",
+    "origin_third_formula": "4*alpha*sigma_3-(t_0+6*m_0*sigma_2)"
+  },
+  "coefficient_upper_gates": {
+    "B_0": {"numerator": "101", "denominator": "10000"},
+    "B_1": {"numerator": "3", "denominator": "250"},
+    "B_2": {"numerator": "3", "denominator": "400"},
+    "h_0": {"numerator": "51", "denominator": "1000000"},
+    "h_1": {"numerator": "3", "denominator": "5000000"},
+    "h_2": {"numerator": "2", "denominator": "5000000"},
+    "ell_0": {"numerator": "101", "denominator": "10000"},
+    "ell_1": {"numerator": "3", "denominator": "25000"},
+    "ell_2": {"numerator": "1", "denominator": "12500"},
+    "m_0": {"numerator": "101", "denominator": "100"},
+    "m_1": {"numerator": "23", "denominator": "2000"},
+    "m_2": {"numerator": "3", "denominator": "400"},
+    "t_0": {"numerator": "3", "denominator": "400"},
+    "t_1": {"numerator": "3", "denominator": "400"},
+    "t_2": {"numerator": "3", "denominator": "800"}
+  },
+  "acceptance_gates": {
+    "alpha_lower": {"numerator": "699", "denominator": "1000"},
+    "green_operator_upper": {"numerator": "219", "denominator": "100"},
+    "linearized_contraction_upper": {"numerator": "67", "denominator": "1000"},
+    "resolvent_upper": {"numerator": "43", "denominator": "40"},
+    "state_normal_gap_lower": {"numerator": "17", "denominator": "25"},
+    "state_second_no_first_exit_margin_lower": {"numerator": "1", "denominator": "2000"},
+    "state_third_no_first_exit_margin_lower": {"numerator": "1", "denominator": "100"},
+    "origin_second_margin_lower": {"numerator": "1", "denominator": "100"},
+    "origin_third_margin_lower": {"numerator": "1", "denominator": "20"}
+  },
+  "normalized_weighted_jet_upper_gates": {
+    "Z_0_0": {"numerator": "101", "denominator": "10000"},
+    "Z_0_1": {"numerator": "1", "denominator": "2000"},
+    "Z_0_2": {"numerator": "1", "denominator": "2500"},
+    "Z_1_0": {"numerator": "6", "denominator": "5"},
+    "Z_1_1": {"numerator": "1", "denominator": "20"},
+    "Z_1_2": {"numerator": "1", "denominator": "25"},
+    "Z_2_0": {"numerator": "12", "denominator": "1"},
+    "Z_2_1": {"numerator": "8", "denominator": "5"},
+    "Z_2_2": {"numerator": "3", "denominator": "2"},
+    "Z_3_0": {"numerator": "350", "denominator": "1"},
+    "Z_3_1": {"numerator": "80", "denominator": "1"},
+    "Z_3_2": {"numerator": "80", "denominator": "1"}
+  },
+  "proved_subobligations": [
+    "P2.JETS.COEFFICIENTS",
+    "V2.WU.STATE_C23",
+    "V2.WU.MIXED_JETS",
+    "V2.WU.WEIGHTED_HALF_ORBITS",
+    "V2.WU.JETS",
+    "V2.WU_GRAPH"
+  ],
+  "pending_interfaces": [
+    "V2.PHASE.KATO_INTERFACE",
+    "V2.HOM.BRANCH",
+    "V2.HOM.FIRST_HIT",
+    "V2.HOM.TRANSVERSE",
+    "V2.HOM.TAILS"
+  ],
+  "mutation_policy": "Never enlarge a coefficient or jet budget, reduce a required positive margin, change the norm or weight, shrink the bridge, or alter the labelled-partition recurrence after inspecting a formal outward-rounded P2b-jets result. A redesign requires a new versioned configuration and preserves this record.",
+  "nonclaims": [
+    "The state-C2/C3 balls bound the true graph itself; they do not assert C2/C3 closeness to H10.",
+    "The mixed bounds are in the P2a moving coordinates and normalized theta parameters; conversion to the original blown-up parameters uses the recorded exact diagonal scaling.",
+    "The local tail weight is distinct from the P2b0 C1 tube radius and from the smaller full-homoclinic weight reserved for P2c.",
+    "These are local stable and unstable half-orbits, not the selected full homoclinic orbit.",
+    "This configuration does not establish the normalized Kato absolute-phase convention.",
+    "It does not prove the selected homoclinic, exact saddle charts, event atlas, V3--V6, temporal stability, Turing selection, or canard identification."
+  ]
+}

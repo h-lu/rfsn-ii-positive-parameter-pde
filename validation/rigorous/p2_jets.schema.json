@@ -1,0 +1,198 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/h-lu/rfsn-ii-positive-parameter-pde/validation/rigorous/p2_jets.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "configuration_id",
+    "status",
+    "frozen_before_outward_rounded_p2b_jets_run",
+    "selection_date",
+    "selection_basis",
+    "coordinate_domain",
+    "parameter_normalization",
+    "coefficient_grid",
+    "lyapunov_perron_contract",
+    "state_tensor_contract",
+    "coefficient_upper_gates",
+    "acceptance_gates",
+    "normalized_weighted_jet_upper_gates",
+    "proved_subobligations",
+    "pending_interfaces",
+    "mutation_policy",
+    "nonclaims"
+  ],
+  "properties": {
+    "schema_version": {"const": "rfsn-vdp-p2-jets-config/1"},
+    "configuration_id": {"const": "vdp-p2-jets-v1"},
+    "status": {"const": "FROZEN_PRE_P2B_JETS_CERTIFICATE"},
+    "frozen_before_outward_rounded_p2b_jets_run": {"const": true},
+    "selection_date": {"type": "string", "format": "date"},
+    "selection_basis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repository_commit", "repository_tag", "continuation_bridge", "p2a_configuration", "p2a_certificate", "p2b0_configuration", "p2b0_certificate", "design_scout", "scout_note"],
+      "properties": {
+        "repository_commit": {"$ref": "#/$defs/sha1"},
+        "repository_tag": {"type": "string", "minLength": 1},
+        "continuation_bridge": {"$ref": "#/$defs/hashedFile"},
+        "p2a_configuration": {"$ref": "#/$defs/hashedFile"},
+        "p2a_certificate": {"$ref": "#/$defs/hashedFile"},
+        "p2b0_configuration": {"$ref": "#/$defs/hashedFile"},
+        "p2b0_certificate": {"$ref": "#/$defs/hashedFile"},
+        "design_scout": {"$ref": "#/$defs/hashedFile"},
+        "scout_note": {"type": "string", "minLength": 1}
+      }
+    },
+    "coordinate_domain": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["unstable_radius", "true_graph_x_absolute_upper", "true_graph_first_derivative_upper", "state_block_norm", "pure_graph_tensor_norm", "parameter_tensor_norm"],
+      "properties": {
+        "unstable_radius": {"$ref": "#/$defs/rational"},
+        "true_graph_x_absolute_upper": {"$ref": "#/$defs/rational"},
+        "true_graph_first_derivative_upper": {"$ref": "#/$defs/rational"},
+        "state_block_norm": {"const": "max-of-two-euclidean-blocks"},
+        "pure_graph_tensor_norm": {"const": "hilbert-schmidt"},
+        "parameter_tensor_norm": {"const": "euclidean-induced-bounded-by-hilbert-schmidt"}
+      }
+    },
+    "parameter_normalization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ordered_original_parameters", "ordered_normalized_parameters", "formulas", "normalized_box", "original_from_normalized_derivative_scale"],
+      "properties": {
+        "ordered_original_parameters": {"$ref": "#/$defs/threeStrings"},
+        "ordered_normalized_parameters": {"$ref": "#/$defs/threeStrings"},
+        "formulas": {"$ref": "#/$defs/threeStrings"},
+        "normalized_box": {
+          "type": "object",
+          "minProperties": 3,
+          "maxProperties": 3,
+          "additionalProperties": {"$ref": "#/$defs/rationalInterval"}
+        },
+        "original_from_normalized_derivative_scale": {"$ref": "#/$defs/rationalMap"}
+      }
+    },
+    "coefficient_grid": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ordered_axes", "subdivisions", "require_gap_free_exact_rational_cells", "parameter_derivatives_taken_at_fixed_x", "coefficient_derivative_norm", "van_der_pol_state_degree", "state_derivatives_above_degree_three_vanish_exactly"],
+      "properties": {
+        "ordered_axes": {
+          "type": "array",
+          "prefixItems": [{"const": "theta_r"}, {"const": "theta_a"}, {"const": "theta_epsilon"}, {"const": "x"}],
+          "items": false
+        },
+        "subdivisions": {
+          "type": "array",
+          "prefixItems": [{"const": 16}, {"const": 8}, {"const": 4}, {"const": 2}],
+          "items": false
+        },
+        "require_gap_free_exact_rational_cells": {"const": true},
+        "parameter_derivatives_taken_at_fixed_x": {"const": true},
+        "coefficient_derivative_norm": {"const": "component-parameter-hilbert-schmidt-upper-bound"},
+        "van_der_pol_state_degree": {"const": 3},
+        "state_derivatives_above_degree_three_vanish_exactly": {"const": true}
+      }
+    },
+    "lyapunov_perron_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fixed_core_rate", "local_tail_weight", "final_homoclinic_weight_reserved_for_p2c", "green_operator_formula", "linearized_operator_formula", "resolvent_formula", "fixed_point_formula", "explicit_parameter_forcing_formula", "remainder_formula", "graph_trace_formula", "stable_half_orbit_formula", "full_rectangular_graph_orders", "weighted_half_orbit_orders"],
+      "properties": {
+        "fixed_core_rate": {"const": "1/sqrt(2)"},
+        "local_tail_weight": {"$ref": "#/$defs/rational"},
+        "final_homoclinic_weight_reserved_for_p2c": {"$ref": "#/$defs/rational"},
+        "green_operator_formula": {"type": "string", "minLength": 1},
+        "linearized_operator_formula": {"type": "string", "minLength": 1},
+        "resolvent_formula": {"type": "string", "minLength": 1},
+        "fixed_point_formula": {"type": "string", "minLength": 1},
+        "explicit_parameter_forcing_formula": {"type": "string", "minLength": 1},
+        "remainder_formula": {"type": "string", "minLength": 1},
+        "graph_trace_formula": {"type": "string", "minLength": 1},
+        "stable_half_orbit_formula": {"type": "string", "minLength": 1},
+        "full_rectangular_graph_orders": {"$ref": "#/$defs/orderPair"},
+        "weighted_half_orbit_orders": {"$ref": "#/$defs/orderPair"}
+      }
+    },
+    "state_tensor_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sigma_2", "sigma_3", "normal_gap_formula", "second_forcing_formula", "third_forcing_formula", "second_no_first_exit_formula", "third_no_first_exit_formula", "origin_second_formula", "origin_third_formula"],
+      "properties": {
+        "sigma_2": {"$ref": "#/$defs/rational"},
+        "sigma_3": {"$ref": "#/$defs/rational"},
+        "normal_gap_formula": {"type": "string", "minLength": 1},
+        "second_forcing_formula": {"type": "string", "minLength": 1},
+        "third_forcing_formula": {"type": "string", "minLength": 1},
+        "second_no_first_exit_formula": {"type": "string", "minLength": 1},
+        "third_no_first_exit_formula": {"type": "string", "minLength": 1},
+        "origin_second_formula": {"type": "string", "minLength": 1},
+        "origin_third_formula": {"type": "string", "minLength": 1}
+      }
+    },
+    "coefficient_upper_gates": {"$ref": "#/$defs/rationalMap"},
+    "acceptance_gates": {"$ref": "#/$defs/rationalMap"},
+    "normalized_weighted_jet_upper_gates": {"$ref": "#/$defs/rationalMap"},
+    "proved_subobligations": {
+      "type": "array",
+      "prefixItems": [
+        {"const": "P2.JETS.COEFFICIENTS"},
+        {"const": "V2.WU.STATE_C23"},
+        {"const": "V2.WU.MIXED_JETS"},
+        {"const": "V2.WU.WEIGHTED_HALF_ORBITS"},
+        {"const": "V2.WU.JETS"},
+        {"const": "V2.WU_GRAPH"}
+      ],
+      "items": false
+    },
+    "pending_interfaces": {
+      "type": "array",
+      "minItems": 5,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "mutation_policy": {"type": "string", "minLength": 1},
+    "nonclaims": {
+      "type": "array",
+      "minItems": 5,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    }
+  },
+  "$defs": {
+    "sha1": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "relativePath": {"type": "string", "minLength": 1, "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$)).+$"},
+    "hashedFile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {"path": {"$ref": "#/$defs/relativePath"}, "sha256": {"$ref": "#/$defs/sha256"}}
+    },
+    "integerString": {"type": "string", "pattern": "^-?(?:0|[1-9][0-9]*)$"},
+    "positiveIntegerString": {"type": "string", "pattern": "^[1-9][0-9]*$"},
+    "rational": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["numerator", "denominator"],
+      "properties": {"numerator": {"$ref": "#/$defs/integerString"}, "denominator": {"$ref": "#/$defs/positiveIntegerString"}}
+    },
+    "rationalInterval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["lower", "upper"],
+      "properties": {"lower": {"$ref": "#/$defs/rational"}, "upper": {"$ref": "#/$defs/rational"}}
+    },
+    "rationalMap": {"type": "object", "minProperties": 1, "additionalProperties": {"$ref": "#/$defs/rational"}},
+    "threeStrings": {"type": "array", "minItems": 3, "maxItems": 3, "items": {"type": "string", "minLength": 1}},
+    "orderPair": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["maximum_state_order", "maximum_parameter_order"],
+      "properties": {"maximum_state_order": {"const": 3}, "maximum_parameter_order": {"const": 2}}
+    }
+  }
+}
