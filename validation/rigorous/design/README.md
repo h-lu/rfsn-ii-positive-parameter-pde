@@ -38,9 +38,14 @@ strict-source run, schema and semantic checking, and the repository's
 independent-replay policy.
 
 `p2b_kato_scout.cpp` evaluates the closed-form normalized-Kato phase on the
-same normalized (16\times8\times4) bridge grid.  It reports design bounds
-for the algebraic-to-Kato conformal change, physical orthonormal frame, phase
-shift, and parameter derivatives of the fixed-radius source circle.  Its
-output selects rational gates only; the later formal kernel must separately
-verify the exact Kato identities, the complete gap-free bridge, the frozen
-P2b prerequisite, and the anchor-face phase convention.
+same normalized \(16\times8\times4\) bridge grid.  It reports design bounds
+for the algebraic-to-Kato conformal change, the normalized first Kato vector
+and oriented \((k_1,\mathfrak J_\mu k_1)\) frame, phase shift, and parameter
+derivatives of the fixed-radius source circle.  The oriented physical frame
+is not asserted to be orthonormal.  The scout also combines the archived P2b
+physical half-orbit budgets with the Kato circle only for the total-order
+three source-jet triangle; a full phase-three/parameter-two rectangle would
+require unavailable fourth and fifth state derivatives of the true graph.
+Its output selects rational gates only; the later formal kernel must
+separately verify the exact Kato identities, the complete gap-free bridge,
+the frozen P2b prerequisite, and the anchor-face phase convention.

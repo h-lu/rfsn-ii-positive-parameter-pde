@@ -379,30 +379,38 @@ This proves item 1.
 ## 3. Reversible matching and weighted full-orbit tails
 
 Let \(S_0(\phi)\), \(\phi\in\mathbb R/2\pi\mathbb Z\), be the complete
-certified source circle in equation (7) of the import note.  By compactness of
-that circle and backward contraction on the core unstable manifold, there are
-\(\tau>0\) and a \(C^2\) circle
-\(b_0:\mathbb R/2\pi\mathbb Z\to E_0^u\), with image strictly inside
-\(|b|<b_*\), such that
+certified radius-\(R\), \(R=1/100\), source circle in equation (7) of the
+import note.  Use the algebraic unstable graph coordinates from the exact
+moving frame, and write the change from the normalized Kato frame to that
+algebraic frame as
 
 \[
- \Phi_0^{-\tau}S_0(\phi)=G_0^u(b_0(\phi)).
+ C_{\rm AK}(\mu)=\sigma(\mu)R_{\chi(\mu)},
+ \qquad \sigma(\mu)>0,\qquad R_{\chi(\mu)}\in SO(2).
 \tag{27}
 \]
 
-Define the true moving source curve
+The scalar factor in (27) changes radial normalization but not phase.  Define
 
 \[
- S_\mu(\phi)=
- \Phi_\mu^\tau\bigl(G_\mu^u(b_0(\phi))\bigr).
+ u_R(\mu,\phi)=R R_{\chi(\mu)}
+       \binom{\cos\phi}{\sin\phi},\qquad
+ S_\mu(\phi)=T_\mu\bigl(u_R(\mu,\phi),
+                         H_\mu(u_R(\mu,\phi))\bigr).
 \tag{28}
 \]
 
-The base flowout is compact.  Smooth finite-time dependence and Section 2
-make (28) a \(C^2\) family of embeddings on a common flow domain, with
-\(S_{(0,a_2,\epsilon)}=S_0\).  By definition of the common source phase,
-\(\theta_\mu(S_\mu(\phi))=\phi\).  Now choose a compact phase interval
-\(I\) about the selected homoclinic root and put
+The radius is exactly \(R\), and the phase map has degree \(+1\).  The true
+graph and exact moving frame make (28) a \(C^2\) family of embeddings.  On
+the complete \(r=0\) face, \(c=\chi=0\), the moving vector field is
+independent of the dummy parameters, and local unstable-graph uniqueness in
+the same coordinates identifies the selected graph with the imported core
+graph.  Hence (28) is pointwise the frozen circle \(S_0\).  This direct
+graph-boundary definition replaces an
+unquantified backward-flow source construction: the validated radius-\(R\)
+graph is already a common source domain.  By definition of the common Kato
+source phase, \(\theta_\mu(S_\mu(\phi))=\phi\).  Now choose a compact phase
+interval \(I\) about the selected homoclinic root and put
 
 \[
  M(\mu,\phi,T)
@@ -477,10 +485,9 @@ Define
 \]
 
 The negative half reaches \(S_\mu(\phi_{\rm h}(\mu))\) at
-\(-T_{\rm h}(\mu)\), and reaches
-\(G_\mu^u(b_0(\phi_{\rm h}(\mu)))\) a further time \(\tau\) backward.
-It therefore converges to the origin.  Reversibility and uniqueness make
-(35) a smooth full solution, and (26) puts its positive half in
+\(-T_{\rm h}(\mu)\).  That source lies on the true local unstable graph, so
+its negative orbit converges to the origin.  Reversibility and uniqueness
+make (35) a smooth full solution, and (26) puts its positive half in
 \(W^s_\mu(0)\).  Compact separation of (33) from the origin makes it
 nonconstant.
 
@@ -492,13 +499,14 @@ orbit and tends to \(\widehat H_\mu(0)=0\) at its infinite end.  This proves
 We now close the full weighted-tail statement.  Choose a fixed
 
 \[
- T_*>\sup_{\mu\in\mathcal P_{r_*}}\{T_{\rm h}(\mu)+\tau\}+1.
+ T_*>\sup_{\mu\in\mathcal P_{r_*}}T_{\rm h}(\mu)+1.
 \tag{36}
 \]
 
-Then \(z_\mu^-:=\Gamma_\mu(-T_*)\) lies strictly inside the local unstable
-graph domain.  Define its fixed-domain graph coordinate by the explicit
-inverse (25):
+The uniform backward contraction on the true graph makes
+\(z_\mu^-:=\Gamma_\mu(-T_*)\) lie strictly inside the local unstable graph
+domain.  Define its fixed-domain graph coordinate by the explicit inverse
+(25):
 
 \[
  b_-(\mu)=(J_\mu^u)^{-1}\Pi_\mu^u z_\mu^-.
