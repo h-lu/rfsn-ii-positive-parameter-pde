@@ -1,0 +1,512 @@
+mode mu-grid-middle-jets-slab
+scope selected_true_source_to_symmetry_event_continuous_C2
+grid 32 128 4 radius_factor 3
+r_index 0 r_cell [0, 0.0025000000000000001]
+capd_hessian_convention_self_check PASS
+cells 512/512 dense_steps 8192 explicit_initial_sections 5120
+half_time_hull [9.6330403251605592, 9.6418719060017821] return_time_hull [0.08304032516055973, 0.091871906001779802]
+centered_tube_xi_hull [-9.6418719060017821, 0.0075827262378833638]
+normalized_state_C0_euclidean 11.032233958328447 worst_a2_index 0 worst_epsilon_index 3
+normalized_fixed_t_L1_hilbert_schmidt 26.062793269932691 worst_a2_index 0 worst_epsilon_index 3
+normalized_fixed_t_L2_hilbert_schmidt 1059.5171884696895 worst_a2_index 0 worst_epsilon_index 3
+normalized_centered_xi_L1_hilbert_schmidt 45.700459286618923 worst_a2_index 0 worst_epsilon_index 3
+normalized_centered_xi_L2_hilbert_schmidt 2135.1133777099376 worst_a2_index 0 worst_epsilon_index 3
+physical_state_hull [-1.2426163556860841, 4.9526387743723932] [-0.44065801210436828, 5.979868505540499] [-7.9752111556948497, 0.14629120483714048] [-3.2957986451349948, 0.067861803743528001]
+minus_11_to_source_seam imported_exact_algebra_local_pre_source_bound original_parameter_common_upper 342685
+PASS mu-grid continuous compact-middle C2 jet slab
+mode mu-grid-middle-jets-slab
+scope selected_true_source_to_symmetry_event_continuous_C2
+grid 32 128 4 radius_factor 3
+r_index 1 r_cell [0.0024999999999999996, 0.0050000000000000001]
+capd_hessian_convention_self_check PASS
+cells 512/512 dense_steps 8192 explicit_initial_sections 5120
+half_time_hull [9.631762980995731, 9.6432535041235319] return_time_hull [0.081762980995731899, 0.093253504123530867]
+centered_tube_xi_hull [-9.6432535041235319, 0.0077409957338527846]
+normalized_state_C0_euclidean 11.033948486061586 worst_a2_index 0 worst_epsilon_index 3
+normalized_fixed_t_L1_hilbert_schmidt 26.163735702372261 worst_a2_index 0 worst_epsilon_index 3
+normalized_fixed_t_L2_hilbert_schmidt 1072.1140418782329 worst_a2_index 0 worst_epsilon_index 3
+normalized_centered_xi_L1_hilbert_schmidt 45.865684556031383 worst_a2_index 0 worst_epsilon_index 3
+normalized_centered_xi_L2_hilbert_schmidt 2162.3039588825363 worst_a2_index 0 worst_epsilon_index 3
+physical_state_hull [-1.2430838454832505, 4.9533654708449175] [-0.44084737054419731, 5.9883959303252032] [-7.9790892786627774, 0.14652382570199818] [-3.296482492490008, 0.067944323728267711]
+minus_11_to_source_seam imported_exact_algebra_local_pre_source_bound original_parameter_common_upper 342685
+PASS mu-grid continuous compact-middle C2 jet slab
+mode mu-grid-middle-jets-slab
+scope selected_true_source_to_symmetry_event_continuous_C2
+grid 32 128 4 radius_factor 3
+r_index 2 r_cell [0.0049999999999999992, 0.0075000000000000006]
+capd_hessian_convention_self_check PASS
+cells 512/512 dense_steps 8192 explicit_initial_sections 5120
+half_time_hull [9.6305075534106575, 9.6446712658693556] return_time_hull [0.080507553410657531, 0.094671265869353885]
+centered_tube_xi_hull [-9.6446712658693556, 0.0079045219114686205]
+normalized_state_C0_euclidean 11.035912750344508 worst_a2_index 0 worst_epsilon_index 3
+normalized_fixed_t_L1_hilbert_schmidt 26.268821661315293 worst_a2_index 0 worst_epsilon_index 3
+normalized_fixed_t_L2_hilbert_schmidt 1085.2134214272508 worst_a2_index 0 worst_epsilon_index 3
+normalized_centered_xi_L1_hilbert_schmidt 46.038597558815496 worst_a2_index 0 worst_epsilon_index 3
+normalized_centered_xi_L2_hilbert_schmidt 2190.5978182764875 worst_a2_index 0 worst_epsilon_index 3
+physical_state_hull [-1.2435910403789865, 4.9542573007558461] [-0.44104741134171088, 5.9972601192855892] [-7.9831787987066614, 0.14675538006843097] [-3.2972491022347716, 0.068026413579909503]
+minus_11_to_source_seam imported_exact_algebra_local_pre_source_bound original_parameter_common_upper 342685
+PASS mu-grid continuous compact-middle C2 jet slab
+mode mu-grid-middle-jets-slab
+scope selected_true_source_to_symmetry_event_continuous_C2
+grid 32 128 4 radius_factor 3
+r_index 3 r_cell [0.0074999999999999997, 0.01]
+capd_hessian_convention_self_check PASS
+cells 512/512 dense_steps 8192 explicit_initial_sections 5120
+half_time_hull [9.6292748018551872, 9.6461112702327849] return_time_hull [0.079274801855186719, 0.096111270232783208]
+centered_tube_xi_hull [-9.6461112702327849, 0.0080454732736505719]
+normalized_state_C0_euclidean 11.037888449887422 worst_a2_index 0 worst_epsilon_index 3
+normalized_fixed_t_L1_hilbert_schmidt 26.367769047484405 worst_a2_index 0 worst_epsilon_index 3
+normalized_fixed_t_L2_hilbert_schmidt 1097.7727992393334 worst_a2_index 0 worst_epsilon_index 3
+normalized_centered_xi_L1_hilbert_schmidt 46.199165703048521 worst_a2_index 0 worst_epsilon_index 3
+normalized_centered_xi_L2_hilbert_schmidt 2217.8185479790218 worst_a2_index 0 worst_epsilon_index 3
+physical_state_hull [-1.244122586920112, 4.9553186992791316] [-0.44125400859184094, 6.0062947996463496] [-7.9874888509298438, 0.14698565773962244] [-3.2981029662514256, 0.068108002886611035]
+minus_11_to_source_seam imported_exact_algebra_local_pre_source_bound original_parameter_common_upper 342685
+PASS mu-grid continuous compact-middle C2 jet slab
+mode mu-grid-middle-jets-slab
+scope selected_true_source_to_symmetry_event_continuous_C2
+grid 32 128 4 radius_factor 3
+r_index 4 r_cell [0.0099999999999999985, 0.012500000000000001]
+capd_hessian_convention_self_check PASS
+cells 512/512 dense_steps 8192 explicit_initial_sections 5120
+half_time_hull [9.6280687455355043, 9.6476015069914816] return_time_hull [0.078068745535504705, 0.097601506991480583]
+centered_tube_xi_hull [-9.6476015069914816, 0.0082198346500081954]
+normalized_state_C0_euclidean 11.037511695458972 worst_a2_index 0 worst_epsilon_index 3
+normalized_fixed_t_L1_hilbert_schmidt 26.505120990896796 worst_a2_index 0 worst_epsilon_index 3
+normalized_fixed_t_L2_hilbert_schmidt 1113.0064349654488 worst_a2_index 0 worst_epsilon_index 3
+normalized_centered_xi_L1_hilbert_schmidt 46.415458744899333 worst_a2_index 0 worst_epsilon_index 3
+normalized_centered_xi_L2_hilbert_schmidt 2250.1279772748135 worst_a2_index 0 worst_epsilon_index 3
+physical_state_hull [-1.2447085334340782, 4.9565493595970995] [-0.44147568493907591, 6.014727840082152] [-7.992020737515829, 0.14721512651221658] [-3.2990452785804103, 0.068189245878245472]
+minus_11_to_source_seam imported_exact_algebra_local_pre_source_bound original_parameter_common_upper 342685
+PASS mu-grid continuous compact-middle C2 jet slab
+mode mu-grid-middle-jets-slab
+scope selected_true_source_to_symmetry_event_continuous_C2
+grid 32 128 4 radius_factor 3
+r_index 5 r_cell [0.012499999999999999, 0.015000000000000001]
+capd_hessian_convention_self_check PASS
+cells 512/512 dense_steps 8192 explicit_initial_sections 5120
+half_time_hull [9.6268888681098659, 9.6491280304495692] return_time_hull [0.076888868109866823, 0.099128030449566931]
+centered_tube_xi_hull [-9.6491280304495692, 0.0083996999920916693]
+normalized_state_C0_euclidean 11.038479186688962 worst_a2_index 127 worst_epsilon_index 3
+normalized_fixed_t_L1_hilbert_schmidt 26.646578070802484 worst_a2_index 0 worst_epsilon_index 3
+normalized_fixed_t_L2_hilbert_schmidt 1128.8389429255406 worst_a2_index 0 worst_epsilon_index 3
+normalized_centered_xi_L1_hilbert_schmidt 46.639807943665424 worst_a2_index 0 worst_epsilon_index 3
+normalized_centered_xi_L2_hilbert_schmidt 2283.7427014850477 worst_a2_index 0 worst_epsilon_index 3
+physical_state_hull [-1.2453330580617208, 4.957948203735155] [-0.44170793326263558, 6.0234599524603532] [-7.9967748489900119, 0.14744353739289007] [-3.300076825721836, 0.068270059238640921]
+minus_11_to_source_seam imported_exact_algebra_local_pre_source_bound original_parameter_common_upper 342685
+PASS mu-grid continuous compact-middle C2 jet slab
+mode mu-grid-middle-jets-slab
+scope selected_true_source_to_symmetry_event_continuous_C2
+grid 32 128 4 radius_factor 3
+r_index 6 r_cell [0.014999999999999999, 0.017500000000000002]
+capd_hessian_convention_self_check PASS
+cells 512/512 dense_steps 8192 explicit_initial_sections 5120
+half_time_hull [9.625735113323632, 9.6506921266771979] return_time_hull [0.075735113323632627, 0.10069212667719654]
+centered_tube_xi_hull [-9.6506921266771979, 0.0085876170564791465]
+normalized_state_C0_euclidean 11.041055371736537 worst_a2_index 127 worst_epsilon_index 3
+normalized_fixed_t_L1_hilbert_schmidt 26.793054567174213 worst_a2_index 0 worst_epsilon_index 3
+normalized_fixed_t_L2_hilbert_schmidt 1145.3519179627847 worst_a2_index 0 worst_epsilon_index 3
+normalized_centered_xi_L1_hilbert_schmidt 46.873883483211621 worst_a2_index 0 worst_epsilon_index 3
+normalized_centered_xi_L2_hilbert_schmidt 2318.8339051249591 worst_a2_index 0 worst_epsilon_index 3
+physical_state_hull [-1.2459980957252068, 4.9595140920591074] [-0.44195132477888122, 6.0324799253556183] [-8.0017514404823373, 0.14767092318805972] [-3.3011983324723988, 0.068350453015813786]
+minus_11_to_source_seam imported_exact_algebra_local_pre_source_bound original_parameter_common_upper 342685
+PASS mu-grid continuous compact-middle C2 jet slab
+mode mu-grid-middle-jets-slab
+scope selected_true_source_to_symmetry_event_continuous_C2
+grid 32 128 4 radius_factor 3
+r_index 7 r_cell [0.017499999999999998, 0.02]
+capd_hessian_convention_self_check PASS
+cells 512/512 dense_steps 8192 explicit_initial_sections 5120
+half_time_hull [9.6246071179876562, 9.6522934137409369] return_time_hull [0.074607117987656804, 0.10229341374093519]
+centered_tube_xi_hull [-9.6522934137409369, 0.0087827843093339908]
+normalized_state_C0_euclidean 11.044056798410322 worst_a2_index 127 worst_epsilon_index 3
+normalized_fixed_t_L1_hilbert_schmidt 26.944502489795926 worst_a2_index 0 worst_epsilon_index 3
+normalized_fixed_t_L2_hilbert_schmidt 1162.5958913334123 worst_a2_index 0 worst_epsilon_index 3
+normalized_centered_xi_L1_hilbert_schmidt 47.117617943619308 worst_a2_index 0 worst_epsilon_index 3
+normalized_centered_xi_L2_hilbert_schmidt 2355.465713551047 worst_a2_index 0 worst_epsilon_index 3
+physical_state_hull [-1.2467025317033447, 4.9612474841655514] [-0.4422055570648567, 6.0417858810819691] [-8.0069534792010479, 0.14789726801826797] [-3.30241164569372, 0.068430421143320236]
+minus_11_to_source_seam imported_exact_algebra_local_pre_source_bound original_parameter_common_upper 342685
+PASS mu-grid continuous compact-middle C2 jet slab
+mode mu-grid-middle-jets-slab
+scope selected_true_source_to_symmetry_event_continuous_C2
+grid 32 128 4 radius_factor 3
+r_index 8 r_cell [0.019999999999999997, 0.022500000000000003]
+capd_hessian_convention_self_check PASS
+cells 512/512 dense_steps 8192 explicit_initial_sections 5120
+half_time_hull [9.6235051961951221, 9.6539333987205644] return_time_hull [0.073505196195121858, 0.10393339872056213]
+centered_tube_xi_hull [-9.6539333987205644, 0.0089881658999093617]
+normalized_state_C0_euclidean 11.047480537986784 worst_a2_index 127 worst_epsilon_index 3
+normalized_fixed_t_L1_hilbert_schmidt 27.102198445989487 worst_a2_index 0 worst_epsilon_index 3
+normalized_fixed_t_L2_hilbert_schmidt 1180.6948955418075 worst_a2_index 0 worst_epsilon_index 3
+normalized_centered_xi_L1_hilbert_schmidt 47.373559748916662 worst_a2_index 0 worst_epsilon_index 3
+normalized_centered_xi_L2_hilbert_schmidt 2393.9427283157802 worst_a2_index 0 worst_epsilon_index 3
+physical_state_hull [-1.2474476275934181, 4.9631461148047196] [-0.44247292873755389, 6.0513861265812876] [-8.0123790015147129, 0.1481225933330978] [-3.3037164752201615, 0.068509976903393277]
+minus_11_to_source_seam imported_exact_algebra_local_pre_source_bound original_parameter_common_upper 342685
+PASS mu-grid continuous compact-middle C2 jet slab
+mode mu-grid-middle-jets-slab
+scope selected_true_source_to_symmetry_event_continuous_C2
+grid 32 128 4 radius_factor 3
+r_index 9 r_cell [0.022499999999999999, 0.025000000000000001]
+capd_hessian_convention_self_check PASS
+cells 512/512 dense_steps 8192 explicit_initial_sections 5120
+half_time_hull [9.6224290822524612, 9.6556093506517424] return_time_hull [0.072429082252462237, 0.10560935065174161]
+centered_tube_xi_hull [-9.6556093506517424, 0.0091982366397189708]
+normalized_state_C0_euclidean 11.10294361351003 worst_a2_index 127 worst_epsilon_index 0
+normalized_fixed_t_L1_hilbert_schmidt 27.268942384850146 worst_a2_index 0 worst_epsilon_index 3
+normalized_fixed_t_L2_hilbert_schmidt 1199.8904163065206 worst_a2_index 0 worst_epsilon_index 3
+normalized_centered_xi_L1_hilbert_schmidt 47.645692996189126 worst_a2_index 0 worst_epsilon_index 3
+normalized_centered_xi_L2_hilbert_schmidt 2434.7621075882512 worst_a2_index 0 worst_epsilon_index 3
+physical_state_hull [-1.2482302912911896, 4.9652093188479327] [-0.4427529267496309, 6.0612468252015246] [-8.0180289263764806, 0.14834685175364298] [-3.305113742570891, 0.068589096821231085]
+minus_11_to_source_seam imported_exact_algebra_local_pre_source_bound original_parameter_common_upper 342685
+PASS mu-grid continuous compact-middle C2 jet slab
+mode mu-grid-middle-jets-slab
+scope selected_true_source_to_symmetry_event_continuous_C2
+grid 32 128 4 radius_factor 3
+r_index 10 r_cell [0.024999999999999998, 0.0275]
+capd_hessian_convention_self_check PASS
+cells 512/512 dense_steps 8192 explicit_initial_sections 5120
+half_time_hull [9.6213788782920062, 9.6573218029420502] return_time_hull [0.071378878292006148, 0.10732180294204879]
+centered_tube_xi_hull [-9.6573218029420502, 0.009413988192690681]
+normalized_state_C0_euclidean 11.109034099637455 worst_a2_index 127 worst_epsilon_index 3
+normalized_fixed_t_L1_hilbert_schmidt 27.435352515638474 worst_a2_index 0 worst_epsilon_index 3
+normalized_fixed_t_L2_hilbert_schmidt 1219.3701467789438 worst_a2_index 0 worst_epsilon_index 3
+normalized_centered_xi_L1_hilbert_schmidt 47.919031196596549 worst_a2_index 0 worst_epsilon_index 3
+normalized_centered_xi_L2_hilbert_schmidt 2476.375642762021 worst_a2_index 0 worst_epsilon_index 3
+physical_state_hull [-1.2490507133975381, 4.9674368646367499] [-0.4430433188621582, 6.0713669731364517] [-8.0239046855088638, 0.14857004799131798] [-3.306604588366135, 0.068667781615953202]
+minus_11_to_source_seam imported_exact_algebra_local_pre_source_bound original_parameter_common_upper 342685
+PASS mu-grid continuous compact-middle C2 jet slab
+mode mu-grid-middle-jets-slab
+scope selected_true_source_to_symmetry_event_continuous_C2
+grid 32 128 4 radius_factor 3
+r_index 11 r_cell [0.027499999999999997, 0.030000000000000002]
+capd_hessian_convention_self_check PASS
+cells 512/512 dense_steps 8192 explicit_initial_sections 5120
+half_time_hull [9.6203543549768771, 9.6590718820776313] return_time_hull [0.070354354976877587, 0.10907188207763063]
+centered_tube_xi_hull [-9.6590718820776313, 0.0096476805083121064]
+normalized_state_C0_euclidean 11.113482056422749 worst_a2_index 127 worst_epsilon_index 3
+normalized_fixed_t_L1_hilbert_schmidt 27.607450902187217 worst_a2_index 0 worst_epsilon_index 3
+normalized_fixed_t_L2_hilbert_schmidt 1239.6842287309048 worst_a2_index 0 worst_epsilon_index 3
+normalized_centered_xi_L1_hilbert_schmidt 48.20545372658777 worst_a2_index 0 worst_epsilon_index 0
+normalized_centered_xi_L2_hilbert_schmidt 2519.8212492595626 worst_a2_index 0 worst_epsilon_index 3
+physical_state_hull [-1.2499097916797972, 4.9698282964800207] [-0.44334437855403619, 6.0817505136766457] [-8.0300073446814917, 0.14879219753012687] [-3.3081899685464626, 0.068746035526169896]
+minus_11_to_source_seam imported_exact_algebra_local_pre_source_bound original_parameter_common_upper 342685
+PASS mu-grid continuous compact-middle C2 jet slab
+mode mu-grid-middle-jets-slab
+scope selected_true_source_to_symmetry_event_continuous_C2
+grid 32 128 4 radius_factor 3
+r_index 12 r_cell [0.029999999999999999, 0.032500000000000001]
+capd_hessian_convention_self_check PASS
+cells 512/512 dense_steps 8192 explicit_initial_sections 5120
+half_time_hull [9.6193554858796677, 9.6608599993485811] return_time_hull [0.069355485879667653, 0.11085999934858]
+centered_tube_xi_hull [-9.6608599993485811, 0.0098915024997090484]
+normalized_state_C0_euclidean 11.118376049867912 worst_a2_index 127 worst_epsilon_index 3
+normalized_fixed_t_L1_hilbert_schmidt 27.786030706717167 worst_a2_index 0 worst_epsilon_index 3
+normalized_fixed_t_L2_hilbert_schmidt 1261.2149786373811 worst_a2_index 0 worst_epsilon_index 0
+normalized_centered_xi_L1_hilbert_schmidt 48.510173197112678 worst_a2_index 0 worst_epsilon_index 0
+normalized_centered_xi_L2_hilbert_schmidt 2565.505533207313 worst_a2_index 0 worst_epsilon_index 0
+physical_state_hull [-1.2508076633317229, 4.972382981021819] [-0.44365616117984064, 6.092393910703624] [-8.0363375334332687, 0.1490133597520075] [-3.3098706056631011, 0.068823858716888162]
+minus_11_to_source_seam imported_exact_algebra_local_pre_source_bound original_parameter_common_upper 342685
+PASS mu-grid continuous compact-middle C2 jet slab
+mode mu-grid-middle-jets-slab
+scope selected_true_source_to_symmetry_event_continuous_C2
+grid 32 128 4 radius_factor 3
+r_index 13 r_cell [0.032499999999999994, 0.035000000000000003]
+capd_hessian_convention_self_check PASS
+cells 512/512 dense_steps 8192 explicit_initial_sections 5120
+half_time_hull [9.618382267686453, 9.6626862734208085] return_time_hull [0.068382267686452405, 0.11268627342080743]
+centered_tube_xi_hull [-9.6626862734208085, 0.0101455133592534]
+normalized_state_C0_euclidean 11.123718738706879 worst_a2_index 127 worst_epsilon_index 3
+normalized_fixed_t_L1_hilbert_schmidt 27.971685907445757 worst_a2_index 0 worst_epsilon_index 0
+normalized_fixed_t_L2_hilbert_schmidt 1283.9731341542654 worst_a2_index 0 worst_epsilon_index 0
+normalized_centered_xi_L1_hilbert_schmidt 48.828855729462816 worst_a2_index 0 worst_epsilon_index 0
+normalized_centered_xi_L2_hilbert_schmidt 2614.0843363554518 worst_a2_index 0 worst_epsilon_index 0
+physical_state_hull [-1.2517441304148276, 4.975100691252285] [-0.44397862497194018, 6.1032906364031891] [-8.0428965658544556, 0.14923387489210591] [-3.3116475186728569, 0.06890124954278537]
+minus_11_to_source_seam imported_exact_algebra_local_pre_source_bound original_parameter_common_upper 342685
+PASS mu-grid continuous compact-middle C2 jet slab
+mode mu-grid-middle-jets-slab
+scope selected_true_source_to_symmetry_event_continuous_C2
+grid 32 128 4 radius_factor 3
+r_index 14 r_cell [0.034999999999999996, 0.037500000000000006]
+capd_hessian_convention_self_check PASS
+cells 512/512 dense_steps 8192 explicit_initial_sections 5120
+half_time_hull [9.6174346063667908, 9.6645506515612691] return_time_hull [0.067434606366791106, 0.11455065156126715]
+centered_tube_xi_hull [-9.6645506515612691, 0.01041009819188865]
+normalized_state_C0_euclidean 11.129513938388616 worst_a2_index 127 worst_epsilon_index 3
+normalized_fixed_t_L1_hilbert_schmidt 28.168105600758043 worst_a2_index 0 worst_epsilon_index 0
+normalized_fixed_t_L2_hilbert_schmidt 1307.9870296134936 worst_a2_index 0 worst_epsilon_index 0
+normalized_centered_xi_L1_hilbert_schmidt 49.163051444849046 worst_a2_index 0 worst_epsilon_index 0
+normalized_centered_xi_L2_hilbert_schmidt 2665.5044504069956 worst_a2_index 0 worst_epsilon_index 0
+physical_state_hull [-1.2527187903788559, 4.9779815920643182] [-0.44431166939552164, 6.1144329088266858] [-8.0496864248893498, 0.14959874036823609] [-3.3135220198200197, 0.06897820522071943]
+minus_11_to_source_seam imported_exact_algebra_local_pre_source_bound original_parameter_common_upper 342685
+PASS mu-grid continuous compact-middle C2 jet slab
+mode mu-grid-middle-jets-slab
+scope selected_true_source_to_symmetry_event_continuous_C2
+grid 32 128 4 radius_factor 3
+r_index 15 r_cell [0.037499999999999999, 0.040000000000000001]
+capd_hessian_convention_self_check PASS
+cells 512/512 dense_steps 8192 explicit_initial_sections 5120
+half_time_hull [9.6165122958788807, 9.6664536639544831] return_time_hull [0.066512295878880814, 0.11645366395448102]
+centered_tube_xi_hull [-9.6664536639544831, 0.010685346696661213]
+normalized_state_C0_euclidean 11.135764908535565 worst_a2_index 127 worst_epsilon_index 3
+normalized_fixed_t_L1_hilbert_schmidt 28.37285586597638 worst_a2_index 0 worst_epsilon_index 0
+normalized_fixed_t_L2_hilbert_schmidt 1333.3901205966181 worst_a2_index 0 worst_epsilon_index 0
+normalized_centered_xi_L1_hilbert_schmidt 49.516170149148074 worst_a2_index 0 worst_epsilon_index 0
+normalized_centered_xi_L2_hilbert_schmidt 2720.4413261479835 worst_a2_index 0 worst_epsilon_index 0
+physical_state_hull [-1.2537318034127973, 4.9810257270410396] [-0.44465535370702602, 6.1258171801044359] [-8.0567087567294084, 0.14981829160592736] [-3.3154952309218544, 0.069054726067922276]
+minus_11_to_source_seam imported_exact_algebra_local_pre_source_bound original_parameter_common_upper 342685
+PASS mu-grid continuous compact-middle C2 jet slab
+mode mu-grid-middle-jets-slab
+scope selected_true_source_to_symmetry_event_continuous_C2
+grid 32 128 4 radius_factor 3
+r_index 16 r_cell [0.039999999999999994, 0.042500000000000003]
+capd_hessian_convention_self_check PASS
+cells 512/512 dense_steps 8192 explicit_initial_sections 5120
+half_time_hull [9.6156152282967113, 9.6683961614965259] return_time_hull [0.065615228296711972, 0.11839616149652499]
+centered_tube_xi_hull [-9.6683961614965259, 0.010972091108973459]
+normalized_state_C0_euclidean 11.142474638236513 worst_a2_index 127 worst_epsilon_index 3
+normalized_fixed_t_L1_hilbert_schmidt 28.585536816648517 worst_a2_index 0 worst_epsilon_index 0
+normalized_fixed_t_L2_hilbert_schmidt 1360.0757452495161 worst_a2_index 0 worst_epsilon_index 0
+normalized_centered_xi_L1_hilbert_schmidt 49.885598788062914 worst_a2_index 0 worst_epsilon_index 0
+normalized_centered_xi_L2_hilbert_schmidt 2778.2138873569238 worst_a2_index 0 worst_epsilon_index 0
+physical_state_hull [-1.2547885647940147, 4.984232378291491] [-0.44500989310586658, 6.1374445142125476] [-8.0639642054162088, 0.15003683387487907] [-3.3175678153092254, 0.069130814327933693]
+minus_11_to_source_seam imported_exact_algebra_local_pre_source_bound original_parameter_common_upper 342685
+PASS mu-grid continuous compact-middle C2 jet slab
+mode mu-grid-middle-jets-slab
+scope selected_true_source_to_symmetry_event_continuous_C2
+grid 32 128 4 radius_factor 3
+r_index 17 r_cell [0.042499999999999996, 0.045000000000000005]
+capd_hessian_convention_self_check PASS
+cells 512/512 dense_steps 8192 explicit_initial_sections 5120
+half_time_hull [9.614743237912613, 9.6703774380512737] return_time_hull [0.064743237912613841, 0.12037743805127253]
+centered_tube_xi_hull [-9.6703774380512737, 0.011271326355533517]
+normalized_state_C0_euclidean 11.149712951492576 worst_a2_index 127 worst_epsilon_index 3
+normalized_fixed_t_L1_hilbert_schmidt 28.807067698550416 worst_a2_index 0 worst_epsilon_index 0
+normalized_fixed_t_L2_hilbert_schmidt 1388.1890116450547 worst_a2_index 0 worst_epsilon_index 0
+normalized_centered_xi_L1_hilbert_schmidt 50.273003323392608 worst_a2_index 0 worst_epsilon_index 0
+normalized_centered_xi_L2_hilbert_schmidt 2839.1491631616409 worst_a2_index 0 worst_epsilon_index 0
+physical_state_hull [-1.2558946785635905, 4.9876021929520959] [-0.44537492741853407, 6.1493003390496002] [-8.0714550218726639, 0.15025435086398362] [-3.319741126352667, 0.06920646369343951]
+minus_11_to_source_seam imported_exact_algebra_local_pre_source_bound original_parameter_common_upper 342685
+PASS mu-grid continuous compact-middle C2 jet slab
+mode mu-grid-middle-jets-slab
+scope selected_true_source_to_symmetry_event_continuous_C2
+grid 32 128 4 radius_factor 3
+r_index 18 r_cell [0.044999999999999998, 0.047500000000000001]
+capd_hessian_convention_self_check PASS
+cells 512/512 dense_steps 8192 explicit_initial_sections 5120
+half_time_hull [9.6138952763954553, 9.6723987698975478] return_time_hull [0.063895276395454934, 0.12239876989754618]
+centered_tube_xi_hull [-9.6723987698975478, 0.011581720502435999]
+normalized_state_C0_euclidean 11.157443774144975 worst_a2_index 127 worst_epsilon_index 3
+normalized_fixed_t_L1_hilbert_schmidt 29.037106783149138 worst_a2_index 0 worst_epsilon_index 0
+normalized_fixed_t_L2_hilbert_schmidt 1417.7384004397888 worst_a2_index 0 worst_epsilon_index 0
+normalized_centered_xi_L1_hilbert_schmidt 50.677814139134689 worst_a2_index 0 worst_epsilon_index 0
+normalized_centered_xi_L2_hilbert_schmidt 2903.2813473992978 worst_a2_index 0 worst_epsilon_index 0
+physical_state_hull [-1.2570395568170321, 4.9911438575579785] [-0.44575079507016868, 6.161388366101745] [-8.0791973773175609, 0.15047085881127825] [-3.3220224962440565, 0.06928167845476102]
+minus_11_to_source_seam imported_exact_algebra_local_pre_source_bound original_parameter_common_upper 342685
+PASS mu-grid continuous compact-middle C2 jet slab
+mode mu-grid-middle-jets-slab
+scope selected_true_source_to_symmetry_event_continuous_C2
+grid 32 128 4 radius_factor 3
+r_index 19 r_cell [0.047499999999999994, 0.050000000000000003]
+capd_hessian_convention_self_check PASS
+cells 512/512 dense_steps 8192 explicit_initial_sections 5120
+half_time_hull [9.6130722283317791, 9.6744613507597617] return_time_hull [0.063072228331778737, 0.12446135075976081]
+centered_tube_xi_hull [-9.6744613507597617, 0.011905093326182836]
+normalized_state_C0_euclidean 11.16565368319735 worst_a2_index 127 worst_epsilon_index 3
+normalized_fixed_t_L1_hilbert_schmidt 29.276783214919231 worst_a2_index 0 worst_epsilon_index 0
+normalized_fixed_t_L2_hilbert_schmidt 1448.9457157626391 worst_a2_index 0 worst_epsilon_index 0
+normalized_centered_xi_L1_hilbert_schmidt 51.102423822227252 worst_a2_index 0 worst_epsilon_index 0
+normalized_centered_xi_L2_hilbert_schmidt 2971.0536807318272 worst_a2_index 0 worst_epsilon_index 0
+physical_state_hull [-1.2582240774131805, 4.9948524268002767] [-0.44613776377573827, 6.1737111242745462] [-8.0871840277775568, 0.15068637163800006] [-3.3244091081735987, 0.069356462108648501]
+minus_11_to_source_seam imported_exact_algebra_local_pre_source_bound original_parameter_common_upper 342685
+PASS mu-grid continuous compact-middle C2 jet slab
+mode mu-grid-middle-jets-slab
+scope selected_true_source_to_symmetry_event_continuous_C2
+grid 32 128 4 radius_factor 3
+r_index 20 r_cell [0.049999999999999996, 0.052500000000000005]
+capd_hessian_convention_self_check PASS
+cells 512/512 dense_steps 8192 explicit_initial_sections 5120
+half_time_hull [9.6122724726464295, 9.6765639245858601] return_time_hull [0.062272472646430467, 0.12656392458585813]
+centered_tube_xi_hull [-9.6765639245858601, 0.012243288386004636]
+normalized_state_C0_euclidean 11.174347090140486 worst_a2_index 127 worst_epsilon_index 3
+normalized_fixed_t_L1_hilbert_schmidt 29.527697139109325 worst_a2_index 0 worst_epsilon_index 0
+normalized_fixed_t_L2_hilbert_schmidt 1482.0403179092868 worst_a2_index 0 worst_epsilon_index 0
+normalized_centered_xi_L1_hilbert_schmidt 51.54976737280959 worst_a2_index 0 worst_epsilon_index 0
+normalized_centered_xi_L2_hilbert_schmidt 3042.9756728895613 worst_a2_index 0 worst_epsilon_index 0
+physical_state_hull [-1.259446547717634, 4.9987285718329515] [-0.44653535656441384, 6.1862484414493721] [-8.0954170668449184, 0.1509008629488699] [-3.3269020851751581, 0.069430805026559059]
+minus_11_to_source_seam imported_exact_algebra_local_pre_source_bound original_parameter_common_upper 342685
+PASS mu-grid continuous compact-middle C2 jet slab
+mode mu-grid-middle-jets-slab
+scope selected_true_source_to_symmetry_event_continuous_C2
+grid 32 128 4 radius_factor 3
+r_index 21 r_cell [0.052499999999999998, 0.055]
+capd_hessian_convention_self_check PASS
+cells 512/512 dense_steps 8192 explicit_initial_sections 5120
+half_time_hull [9.6114976444783071, 9.6787073110763178] return_time_hull [0.061497644478306503, 0.12870731107631686]
+centered_tube_xi_hull [-9.6787073110763178, 0.012597171975306409]
+normalized_state_C0_euclidean 11.183519870594646 worst_a2_index 127 worst_epsilon_index 3
+normalized_fixed_t_L1_hilbert_schmidt 29.790390460034221 worst_a2_index 0 worst_epsilon_index 0
+normalized_fixed_t_L2_hilbert_schmidt 1517.1866330564844 worst_a2_index 0 worst_epsilon_index 0
+normalized_centered_xi_L1_hilbert_schmidt 52.02117412185914 worst_a2_index 0 worst_epsilon_index 0
+normalized_centered_xi_L2_hilbert_schmidt 3119.4230617747858 worst_a2_index 0 worst_epsilon_index 0
+physical_state_hull [-1.2607074755176355, 5.0027703473517677] [-0.446943733129743, 6.1989990611851189] [-8.1038944846760952, 0.15111434064588594] [-3.3295009077045798, 0.069504708721316796]
+minus_11_to_source_seam imported_exact_algebra_local_pre_source_bound original_parameter_common_upper 342685
+PASS mu-grid continuous compact-middle C2 jet slab
+mode mu-grid-middle-jets-slab
+scope selected_true_source_to_symmetry_event_continuous_C2
+grid 32 128 4 radius_factor 3
+r_index 22 r_cell [0.054999999999999993, 0.057500000000000002]
+capd_hessian_convention_self_check PASS
+cells 512/512 dense_steps 8192 explicit_initial_sections 5120
+half_time_hull [9.6107476980487867, 9.6808920661569431] return_time_hull [0.060747698048786776, 0.13089206615694135]
+centered_tube_xi_hull [-9.6808920661569431, 0.012965387263633943]
+normalized_state_C0_euclidean 11.193176638753393 worst_a2_index 127 worst_epsilon_index 3
+normalized_fixed_t_L1_hilbert_schmidt 30.064653965343741 worst_a2_index 0 worst_epsilon_index 0
+normalized_fixed_t_L2_hilbert_schmidt 1554.4152911165747 worst_a2_index 0 worst_epsilon_index 0
+normalized_centered_xi_L1_hilbert_schmidt 52.516360538055949 worst_a2_index 0 worst_epsilon_index 0
+normalized_centered_xi_L2_hilbert_schmidt 3200.4744701093637 worst_a2_index 0 worst_epsilon_index 0
+physical_state_hull [-1.2620070845777278, 5.0069786023277656] [-0.44736297094992905, 6.2119594400828522] [-8.112618727706101, 0.1513268079906373] [-3.3322068781087992, 0.069578173173017774]
+minus_11_to_source_seam imported_exact_algebra_local_pre_source_bound original_parameter_common_upper 342685
+PASS mu-grid continuous compact-middle C2 jet slab
+mode mu-grid-middle-jets-slab
+scope selected_true_source_to_symmetry_event_continuous_C2
+grid 32 128 4 radius_factor 3
+r_index 23 r_cell [0.057499999999999996, 0.060000000000000005]
+capd_hessian_convention_self_check PASS
+cells 512/512 dense_steps 8192 explicit_initial_sections 5120
+half_time_hull [9.6100218314287673, 9.6831178152033974] return_time_hull [0.060021831428767762, 0.13311781520339586]
+centered_tube_xi_hull [-9.6831178152033974, 0.01334832858497137]
+normalized_state_C0_euclidean 11.203320651638476 worst_a2_index 127 worst_epsilon_index 3
+normalized_fixed_t_L1_hilbert_schmidt 30.351084940955257 worst_a2_index 0 worst_epsilon_index 0
+normalized_fixed_t_L2_hilbert_schmidt 1593.8907005352705 worst_a2_index 0 worst_epsilon_index 0
+normalized_centered_xi_L1_hilbert_schmidt 53.036606499947929 worst_a2_index 0 worst_epsilon_index 0
+normalized_centered_xi_L2_hilbert_schmidt 3286.4892668512284 worst_a2_index 0 worst_epsilon_index 0
+physical_state_hull [-1.2633445340938385, 5.0113538603582954] [-0.44779283834487915, 6.225117111582863] [-8.1215915548872371, 0.1515382514840235] [-3.3350209661225301, 0.069651192917529386]
+minus_11_to_source_seam imported_exact_algebra_local_pre_source_bound original_parameter_common_upper 342685
+PASS mu-grid continuous compact-middle C2 jet slab
+mode mu-grid-middle-jets-slab
+scope selected_true_source_to_symmetry_event_continuous_C2
+grid 32 128 4 radius_factor 3
+r_index 24 r_cell [0.059999999999999998, 0.0625]
+capd_hessian_convention_self_check PASS
+cells 512/512 dense_steps 8192 explicit_initial_sections 5120
+half_time_hull [9.6093205715854992, 9.6853847853192168] return_time_hull [0.059320571585499554, 0.13538478531921597]
+centered_tube_xi_hull [-9.6853847853192168, 0.013745895917802287]
+normalized_state_C0_euclidean 11.213956141285959 worst_a2_index 127 worst_epsilon_index 3
+normalized_fixed_t_L1_hilbert_schmidt 30.650207933302148 worst_a2_index 0 worst_epsilon_index 0
+normalized_fixed_t_L2_hilbert_schmidt 1635.7832396983615 worst_a2_index 0 worst_epsilon_index 0
+normalized_centered_xi_L1_hilbert_schmidt 53.583074009593801 worst_a2_index 0 worst_epsilon_index 0
+normalized_centered_xi_L2_hilbert_schmidt 3377.853561830374 worst_a2_index 0 worst_epsilon_index 0
+physical_state_hull [-1.2647195832324358, 5.0158970070229465] [-0.44823327707789057, 6.2384644400758571] [-8.1308152584774671, 0.15174866689201008] [-3.3376566632024733, 0.0697237654857253]
+minus_11_to_source_seam imported_exact_algebra_local_pre_source_bound original_parameter_common_upper 342685
+PASS mu-grid continuous compact-middle C2 jet slab
+mode mu-grid-middle-jets-slab
+scope selected_true_source_to_symmetry_event_continuous_C2
+grid 32 128 4 radius_factor 3
+r_index 25 r_cell [0.0625, 0.065000000000000002]
+capd_hessian_convention_self_check PASS
+cells 512/512 dense_steps 8192 explicit_initial_sections 5120
+half_time_hull [9.6086455227736316, 9.6876939802274737] return_time_hull [0.058645522773632573, 0.13769398022747209]
+centered_tube_xi_hull [-9.6876939802274737, 0.01415937607662876]
+normalized_state_C0_euclidean 11.225068795203674 worst_a2_index 127 worst_epsilon_index 3
+normalized_fixed_t_L1_hilbert_schmidt 30.964164527299278 worst_a2_index 0 worst_epsilon_index 0
+normalized_fixed_t_L2_hilbert_schmidt 1680.5022653179763 worst_a2_index 0 worst_epsilon_index 0
+normalized_centered_xi_L1_hilbert_schmidt 54.160072379192712 worst_a2_index 0 worst_epsilon_index 0
+normalized_centered_xi_L2_hilbert_schmidt 3475.5091121557934 worst_a2_index 0 worst_epsilon_index 0
+physical_state_hull [-1.266132957938457, 5.0206033149513116] [-0.44868450943958754, 6.2520010019134169] [-8.1402825468212843, 0.15195806493761724] [-3.3397986566764089, 0.070267442981115105]
+minus_11_to_source_seam imported_exact_algebra_local_pre_source_bound original_parameter_common_upper 342685
+PASS mu-grid continuous compact-middle C2 jet slab
+mode mu-grid-middle-jets-slab
+scope selected_true_source_to_symmetry_event_continuous_C2
+grid 32 128 4 radius_factor 3
+r_index 26 r_cell [0.064999999999999988, 0.067500000000000004]
+capd_hessian_convention_self_check PASS
+cells 512/512 dense_steps 8192 explicit_initial_sections 5120
+half_time_hull [9.6079929637039463, 9.6900467801367078] return_time_hull [0.057992963703947048, 0.14004678013670649]
+centered_tube_xi_hull [-9.6900467801367078, 0.014589649113945669]
+normalized_state_C0_euclidean 11.236707040381638 worst_a2_index 127 worst_epsilon_index 3
+normalized_fixed_t_L1_hilbert_schmidt 31.293098798841712 worst_a2_index 0 worst_epsilon_index 0
+normalized_fixed_t_L2_hilbert_schmidt 1728.1933707110725 worst_a2_index 0 worst_epsilon_index 0
+normalized_centered_xi_L1_hilbert_schmidt 54.768008262364837 worst_a2_index 0 worst_epsilon_index 0
+normalized_centered_xi_L2_hilbert_schmidt 3579.7415007795066 worst_a2_index 0 worst_epsilon_index 0
+physical_state_hull [-1.2675858177332151, 5.025487720457007] [-0.44914688415925502, 6.2657295562609354] [-8.1500189270273076, 0.15216646287683933] [-3.3420055819918097, 0.072430867262506263]
+minus_11_to_source_seam imported_exact_algebra_local_pre_source_bound original_parameter_common_upper 342685
+PASS mu-grid continuous compact-middle C2 jet slab
+mode mu-grid-middle-jets-slab
+scope selected_true_source_to_symmetry_event_continuous_C2
+grid 32 128 4 radius_factor 3
+r_index 27 r_cell [0.067499999999999991, 0.070000000000000007]
+capd_hessian_convention_self_check PASS
+cells 512/512 dense_steps 8192 explicit_initial_sections 5120
+half_time_hull [9.6073650625980775, 9.6924420905440201] return_time_hull [0.057365062598076839, 0.14244209054401824]
+centered_tube_xi_hull [-9.6924420905440201, 0.015037363648847446]
+normalized_state_C0_euclidean 11.248754718883449 worst_a2_index 127 worst_epsilon_index 3
+normalized_fixed_t_L1_hilbert_schmidt 31.638020686915198 worst_a2_index 0 worst_epsilon_index 0
+normalized_fixed_t_L2_hilbert_schmidt 1779.1389600347873 worst_a2_index 0 worst_epsilon_index 0
+normalized_centered_xi_L1_hilbert_schmidt 55.409050633308361 worst_a2_index 0 worst_epsilon_index 0
+normalized_centered_xi_L2_hilbert_schmidt 3691.1563111798623 worst_a2_index 0 worst_epsilon_index 0
+physical_state_hull [-1.2690764290157197, 5.0305153141163057] [-0.449619909294183, 6.2796310649779361] [-8.1599633399590452, 0.15237383267401333] [-3.3446267066426256, 0.074683776469156818]
+minus_11_to_source_seam imported_exact_algebra_local_pre_source_bound original_parameter_common_upper 342685
+PASS mu-grid continuous compact-middle C2 jet slab
+mode mu-grid-middle-jets-slab
+scope selected_true_source_to_symmetry_event_continuous_C2
+grid 32 128 4 radius_factor 3
+r_index 28 r_cell [0.069999999999999993, 0.072500000000000009]
+capd_hessian_convention_self_check PASS
+cells 512/512 dense_steps 8192 explicit_initial_sections 5120
+half_time_hull [9.6067708407598502, 9.6948804449178301] return_time_hull [0.056770840759851039, 0.1448804449178277]
+centered_tube_xi_hull [-9.6948804449178301, 0.015503282763981829]
+normalized_state_C0_euclidean 11.261384801637792 worst_a2_index 127 worst_epsilon_index 3
+normalized_fixed_t_L1_hilbert_schmidt 32.001919702278137 worst_a2_index 0 worst_epsilon_index 0
+normalized_fixed_t_L2_hilbert_schmidt 1833.9296293041689 worst_a2_index 0 worst_epsilon_index 0
+normalized_centered_xi_L1_hilbert_schmidt 56.089361461570711 worst_a2_index 0 worst_epsilon_index 0
+normalized_centered_xi_L2_hilbert_schmidt 3811.0444731924904 worst_a2_index 0 worst_epsilon_index 0
+physical_state_hull [-1.2706049121431355, 5.0357343913365336] [-0.45010363015024946, 6.293700317876981] [-8.1702126617956417, 0.1525801751194158] [-3.3473660852260161, 0.077029965512510748]
+minus_11_to_source_seam imported_exact_algebra_local_pre_source_bound original_parameter_common_upper 342685
+PASS mu-grid continuous compact-middle C2 jet slab
+mode mu-grid-middle-jets-slab
+scope selected_true_source_to_symmetry_event_continuous_C2
+grid 32 128 4 radius_factor 3
+r_index 29 r_cell [0.072499999999999995, 0.075000000000000011]
+capd_hessian_convention_self_check PASS
+cells 512/512 dense_steps 8192 explicit_initial_sections 5120
+half_time_hull [9.6061927911711074, 9.6973629090553395] return_time_hull [0.05619279117110796, 0.1473629090553385]
+centered_tube_xi_hull [-9.6973629090553395, 0.015987665163978093]
+normalized_state_C0_euclidean 11.274564382923565 worst_a2_index 127 worst_epsilon_index 3
+normalized_fixed_t_L1_hilbert_schmidt 32.38927664851655 worst_a2_index 0 worst_epsilon_index 0
+normalized_fixed_t_L2_hilbert_schmidt 1893.4699965158247 worst_a2_index 0 worst_epsilon_index 0
+normalized_centered_xi_L1_hilbert_schmidt 56.818835790377925 worst_a2_index 0 worst_epsilon_index 0
+normalized_centered_xi_L2_hilbert_schmidt 3941.3538622782648 worst_a2_index 0 worst_epsilon_index 0
+physical_state_hull [-1.2721719443321877, 5.0414651804560018] [-0.45059825462810255, 6.3079364236918041] [-8.1807389793693659, 0.15278549945004777] [-3.3501821578958952, 0.079470568248727572]
+minus_11_to_source_seam imported_exact_algebra_local_pre_source_bound original_parameter_common_upper 342685
+PASS mu-grid continuous compact-middle C2 jet slab
+mode mu-grid-middle-jets-slab
+scope selected_true_source_to_symmetry_event_continuous_C2
+grid 32 128 4 radius_factor 3
+r_index 30 r_cell [0.074999999999999997, 0.077500000000000013]
+capd_hessian_convention_self_check PASS
+cells 512/512 dense_steps 8192 explicit_initial_sections 5120
+half_time_hull [9.6056332340729504, 9.6998897363805643] return_time_hull [0.055633234072950406, 0.14988973638056213]
+centered_tube_xi_hull [-9.6998897363805643, 0.01650018486362903]
+normalized_state_C0_euclidean 11.288275419179376 worst_a2_index 127 worst_epsilon_index 3
+normalized_fixed_t_L1_hilbert_schmidt 32.801847792011586 worst_a2_index 0 worst_epsilon_index 0
+normalized_fixed_t_L2_hilbert_schmidt 1958.267783287291 worst_a2_index 0 worst_epsilon_index 0
+normalized_centered_xi_L1_hilbert_schmidt 57.601215271782372 worst_a2_index 0 worst_epsilon_index 0
+normalized_centered_xi_L2_hilbert_schmidt 4083.1808010070281 worst_a2_index 0 worst_epsilon_index 0
+physical_state_hull [-1.2737772787536439, 5.0483400067614275] [-0.4511037214152358, 6.3223306118167573] [-8.1915380947677949, 0.15298980043934535] [-3.3530889087184712, 0.082054385940608113]
+minus_11_to_source_seam imported_exact_algebra_local_pre_source_bound original_parameter_common_upper 342685
+PASS mu-grid continuous compact-middle C2 jet slab
+mode mu-grid-middle-jets-slab
+scope selected_true_source_to_symmetry_event_continuous_C2
+grid 32 128 4 radius_factor 3
+r_index 31 r_cell [0.077499999999999999, 0.080000000000000002]
+capd_hessian_convention_self_check PASS
+cells 512/512 dense_steps 8192 explicit_initial_sections 5120
+half_time_hull [9.6050962330163951, 9.7024614326336689] return_time_hull [0.055096233016395574, 0.15246143263366643]
+centered_tube_xi_hull [-9.7024614326336689, 0.017036600914542177]
+normalized_state_C0_euclidean 11.302546274485511 worst_a2_index 127 worst_epsilon_index 3
+normalized_fixed_t_L1_hilbert_schmidt 33.463536750434073 worst_a2_index 0 worst_epsilon_index 2
+normalized_fixed_t_L2_hilbert_schmidt 2028.4375325609799 worst_a2_index 0 worst_epsilon_index 0
+normalized_centered_xi_L1_hilbert_schmidt 58.518982724817405 worst_a2_index 0 worst_epsilon_index 2
+normalized_centered_xi_L2_hilbert_schmidt 4236.8355132009829 worst_a2_index 0 worst_epsilon_index 0
+physical_state_hull [-1.2754209644411874, 5.0555221504031378] [-0.45162005597156318, 6.3575562290451844] [-8.2026248332266718, 0.15319307702947269] [-3.356072534474043, 0.084760500832987931]
+minus_11_to_source_seam imported_exact_algebra_local_pre_source_bound original_parameter_common_upper 342685
+PASS mu-grid continuous compact-middle C2 jet slab

@@ -9,11 +9,11 @@ full three-parameter bridge.  Their three-segment composition gives one
 explicit weighted \(C^2\) constant on the entire real line.  This report
 nevertheless does not mark
 `V2.HOM.BRANCH`, `V2.HOM.FIRST_HIT`, `V2.HOM.TRANSVERSE`, `V2.HOM.TAILS`,
-or `V2.HOM.MIDDLE_C2` as claim-bearing passes: the P2c configuration,
-certificate, and checker have not yet been frozen, and the policy replay has
-not been performed.  The remaining formalization
-obligations and the claims that are outside the scope of this computation are
-separated explicitly at the end.
+or `V2.HOM.MIDDLE_C2` as claim-bearing passes.  The retrospective P2c
+configuration and local summary-certificate checker now freeze and parse the
+strict evidence, but the policy replay has not been performed.  The remaining
+release obligation and the claims that are outside the scope of this
+computation are separated explicitly at the end.
 
 ## Correct source and shooting problem
 
@@ -857,15 +857,15 @@ claim-bearing certificate or an independent replay.
 
 ## Proof boundary
 
-The following remain open and are not consequences of the results above:
+The following release obligation and out-of-scope claims are not consequences
+of the results above:
 
-- a frozen P2c configuration, machine-readable certificate and checker, and
-  eventually the policy-required independent replay.  The latter is a
-  release gate, not the current computational priority;
-- exclusion of any additional shooting zero whose lifted intermediate-node
-  record leaves the declared finite parameter-following tube.  The proved
-  uniqueness statement is uniqueness inside that lifted 38-dimensional
-  tube, not exterior or global direct-shooting uniqueness;
+- the policy-required independent replay.  This is a release gate, not the
+  current computational priority;
+- uniqueness outside the declared finite parameter-following tube is not a
+  P2c obligation and is not claimed.  The proved uniqueness statement is
+  uniqueness inside that lifted 38-dimensional tube, not exterior or global
+  direct-shooting uniqueness;
 - temporal stability of the resulting stationary PDE profile, a nonlinear
   Turing bifurcation or modal-selection theorem, and dynamical selection of a
   visible spatial pattern by time evolution.  The present result validates

@@ -10,10 +10,11 @@
     {
       "phase": "P0",
       "title": "Trust boundary and outward rounding",
-      "status": "IMPLEMENTED_THROUGH_P2BK",
+      "status": "IMPLEMENTED_THROUGH_P2C_LOCAL_CERTIFICATE",
       "obligations": [
         {"id": "ENV.SOURCE_BINDING", "theorem_clause": "Issue #7 trust boundary", "predicate": "Local and frozen external sources are hash-bound without using dirty flagship files."},
         {"id": "ENV.CAPD_BINDING", "theorem_clause": "Issue #7 validated backend", "predicate": "The CAPD commit, FILIB backend, compiler, flags, and linked archives match the declared lock."},
+        {"id": "ENV.P2C_HISTORICAL_RUN_RECORDS", "theorem_clause": "Issue #7 retrospective P2c local evidence provenance", "predicate": "The four archived P2c logs are hash-bound to historical source commits and source files together with recorded CAPD-commit and strict-binary digests; this narrow record check does not assert executable-byte archival, build-environment verification, or full-grid replay."},
         {"id": "ENV.EXACT_SYMBOLIC_BACKEND", "theorem_clause": "Issue #7 exact-algebra trust boundary", "predicate": "For the P2bK exact audit, the Python executable version and hash and the cache-free SymPy source-tree version, deterministic digest, and file count match the frozen dependency lock."},
         {"id": "ENV.ROUNDING", "theorem_clause": "Issue #7 outward rounding", "predicate": "Runtime directed rounding, rational division, square root, endpoint serialization, and floating-point environment tests pass."},
         {"id": "BOX.FROZEN", "theorem_clause": "Research contract V(9)", "predicate": "A positive-width exact rational box was selected and frozen before interval results were inspected."},
@@ -26,7 +27,9 @@
         {"id": "P2.JETS_CONFIG_FROZEN", "theorem_clause": "Issue #7 P2b mixed-jet preregistration", "predicate": "The parameter normalization, norms, true-orbit domain, exact coefficient grid, tensor radii, Lyapunov--Perron recurrence, rational gates, and nonclaims were frozen before the outward-rounded P2b mixed-jet certificate run."},
         {"id": "P2.P2B_JETS_PREREQUISITE", "theorem_clause": "Issue #7 P2bK dependency", "predicate": "The immutable P2b mixed-jet certificate is internally valid and records integrity and mathematical PASS for V2.WU_GRAPH on the same bridge."},
         {"id": "P2.KATO_CONFIG_FROZEN", "theorem_clause": "Issue #7 P2bK preregistration", "predicate": "The Kato formulas, sign and normalization conventions, parameter grid and norms, direct source circle, total-order-three source-jet triangle, rational gates, prerequisites, and nonclaims were frozen before the outward-rounded P2bK run."},
-        {"id": "P2.KATO.EXACT_ALGEBRA", "theorem_clause": "Theorem V2 phase convention; P2 validation contract Section 5.4", "predicate": "An independently replayed exact symbolic audit verifies the expanding Riesz projector, Kato transport and normalization bridge, complex structure on the expanding range, frame change, core face, and positive phase orientation identities without numerical sampling or tolerances."}
+        {"id": "P2.KATO.EXACT_ALGEBRA", "theorem_clause": "Theorem V2 phase convention; P2 validation contract Section 5.4", "predicate": "An independently replayed exact symbolic audit verifies the expanding Riesz projector, Kato transport and normalization bridge, complex structure on the expanding range, frame change, core face, and positive phase orientation identities without numerical sampling or tolerances."},
+        {"id": "P2.P2BK_PREREQUISITE", "theorem_clause": "Issue #7 P2c dependency", "predicate": "The historical P2bK certificate is schema-valid and hash-bound at its recorded source commit, its true-source atoms pass on the same bridge, and the local-graph/Kato source interface is byte-compatible with the current P2c theorem snapshot."},
+        {"id": "P2.HOMOCLINIC_CONFIG_FROZEN", "theorem_clause": "Issue #7 P2c retrospective evidence contract", "predicate": "The P2c bridge, lifted-tube uniqueness scope, strict-run bindings, exact grid, first-hit partition, derivative norms, tail composition, five mathematical atoms, and nonclaims were frozen after the completed design run but before local certificate assembly."}
       ]
     },
     {
@@ -44,7 +47,7 @@
     {
       "phase": "P2",
       "title": "Central continuation",
-      "status": "P2BK_IMPLEMENTED_P2C_PENDING",
+      "status": "P2C_LOCAL_CERTIFICATE_IMPLEMENTED_P2D_P2E_PENDING",
       "obligations": [
         {"id": "V2.WU.FRAME_BLOCK", "theorem_clause": "Theorem V2(1); P2 validation contract Sections 2--3", "predicate": "The closed-form moving eigenframe is nonsingular and its radius-1/100 block has strict unstable/stable face and difference-cone margins on the full continuation bridge."},
         {"id": "V2.WU.COARSE_GRAPH", "theorem_clause": "Theorem V2(1)--(2); P2 validation contract Section 3", "predicate": "The non-circular graph-transform bootstrap gives true reversible local graphs with Lipschitz constant at most one, quadratic value coefficient below one quarter, and backward coordinate decay above two thirds on the full continuation bridge."},
@@ -62,7 +65,12 @@
         {"id": "P2.KATO.SOURCE_PARAMETERIZATION", "theorem_clause": "Theorem V2 phase convention and item (2); P2 validation contract (K9)", "predicate": "The positive-orientation Kato phase defines the direct radius-1/100 boundary of the same algebraic true-graph disk, with exact radius, degree one, and pointwise recovery of the imported core source on the complete r=0 dummy face."},
         {"id": "V2.PHASE.TRUE_SOURCE", "theorem_clause": "Theorem V2 items (1)--(2); P2 validation contract (K9)--(K11)", "predicate": "The immutable P2b true graph and the Kato source-coordinate bounds combine to enclose exactly the declared total-order-three triangle of physical true-source jets, including exact conversion through parameter order two."},
         {"id": "V2.PHASE.KATO_INTERFACE", "theorem_clause": "Theorem V2 phase convention and items (2)--(5)", "predicate": "Normalized Kato transport fixes a C2 expanding phase frame, an orientation-preserving uniformly invertible change from the algebraic graph frame, and a degree-one true source circle agreeing with the frozen core phase on the complete anchor face."},
-        {"id": "V2.HOMOCLINIC", "theorem_clause": "Theorem V2(2)", "predicate": "A parametric interval Newton/Krawczyk proof encloses the selected symmetric homoclinic, first symmetry hit, uniqueness box, and transverse determinant."},
+        {"id": "V2.HOM.BRANCH", "theorem_clause": "Theorem V2(2)", "predicate": "A gap-free finite parameter cover from the complete core anchor face through the positive box identifies one selected C2 root section, unique in the finite parameter-following lifted 38-dimensional multiple-shooting tube, by strict Krawczyk and common-face gates."},
+        {"id": "V2.HOM.FIRST_HIT", "theorem_clause": "Theorem V2(2)", "predicate": "The true-graph pre-source exclusion, continuous strict sign tubes, and final U-positive flow box prove that the selected nonzero symmetry event is the first such hit."},
+        {"id": "V2.HOM.TRANSVERSE", "theorem_clause": "Theorem V2(2)", "predicate": "The selected endpoint is nonzero and regular, with uniformly nonzero phase/rank and shooting-determinant margins."},
+        {"id": "V2.HOM.TAILS", "theorem_clause": "Theorem V2(9)--(11)", "predicate": "Both infinite homoclinic tails have explicit weight, cutoff, and uniform external-parameter derivative bounds through order two."},
+        {"id": "V2.HOM.MIDDLE_C2", "theorem_clause": "Theorem V2(9)--(11)", "predicate": "Continuous fixed-xi C2 enclosures on the compact middle, including event-time centering, compose with the local pre-source pieces and infinite tails to give one explicit full-real-line weighted bound."},
+        {"id": "V2.HOMOCLINIC", "theorem_clause": "Theorem V2(2),(9)--(11)", "predicate": "All five P2c atoms pass: the selected C2 symmetric homoclinic branch is enclosed with first-hit and transversality control, uniqueness in the declared lifted tube, and an explicit global weighted parameter-two-jet bound."},
         {"id": "V2.EXACT_CHART", "theorem_clause": "Theorem V2(3)", "predicate": "The finite exact marked saddle charts, zero-energy fiber solve, transition maps, and weighted passage constants are validated."},
         {"id": "V2.EVENT_ATLAS", "theorem_clause": "Theorem V2(4)--(5)", "predicate": "The complete compact event arrangement, phase order, every incidence, and every strict margin are covered without gaps."}
       ]

@@ -230,10 +230,12 @@ the analytic constructions.
   enclosure on the compact middle and composes it with the local pre-source
   pieces and both infinite tails.  Thus the full P2c design result has
   \(T_*=11\), \(\eta=1/5\), and \(C_{\rm hom}=71496600\) for all
-  original-parameter derivatives through order two.  What remains for P2c is
-  the frozen formal certificate/checker; the formal P2c obligation, the
-  remaining V2 objects, and V3--V6 remain `PENDING` in
-  [`rigorous/obligations.json`](rigorous/obligations.json).
+  original-parameter derivatives through order two.  The retrospective local
+  P2c summary certificate now parses the four archived strict logs and replays
+  the exact tail algebra; all five P2c atoms and their local parent pass.  The
+  remaining V2 objects and V3--V6 remain `PENDING` in
+  [`rigorous/obligations.json`](rigorous/obligations.json), and P2c is still
+  non-claim-bearing until independent replay.
 - The policy requires an independent replay on a second machine before any
   aggregate certificate can become claim-bearing.  This repository currently
   records only the local-machine lane.

@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/h-lu/rfsn-ii-positive-parameter-pde/validation/rigorous/p2_homoclinic.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "configuration_id", "status",
+    "frozen_before_certificate_run", "retrospective_evidence_freeze",
+    "selection_date", "selection_basis", "parameter_grid",
+    "strict_run_bindings", "evidence_files", "common_external_bindings",
+    "acceptance_contract", "proved_subobligations", "parent_obligation",
+    "uniqueness_scope", "mutation_policy", "nonclaims"
+  ],
+  "properties": {
+    "schema_version": {"const": "rfsn-vdp-p2-homoclinic-config/1"},
+    "configuration_id": {"const": "vdp-p2-homoclinic-v1"},
+    "status": {"const": "FROZEN_POST_STRICT_DESIGN_PRE_CERTIFICATE"},
+    "frozen_before_certificate_run": {"const": true},
+    "retrospective_evidence_freeze": {"const": true},
+    "selection_date": {"const": "2026-08-28"},
+    "selection_basis": {"type": "object"},
+    "parameter_grid": {"type": "object"},
+    "strict_run_bindings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["branch", "first_hit", "root_jets", "compact_middle"],
+      "properties": {
+        "branch": {"$ref": "#/$defs/runBinding"},
+        "first_hit": {"$ref": "#/$defs/runBinding"},
+        "root_jets": {"$ref": "#/$defs/runBinding"},
+        "compact_middle": {"$ref": "#/$defs/runBinding"}
+      }
+    },
+    "evidence_files": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["root_jet_summary", "tail_composition_source", "tail_composition_output", "middle_summary"],
+      "properties": {
+        "root_jet_summary": {"$ref": "#/$defs/hashedFile"},
+        "tail_composition_source": {"$ref": "#/$defs/hashedFile"},
+        "tail_composition_output": {"$ref": "#/$defs/hashedFile"},
+        "middle_summary": {"$ref": "#/$defs/hashedFile"}
+      }
+    },
+    "common_external_bindings": {"type": "object"},
+    "acceptance_contract": {"type": "object"},
+    "proved_subobligations": {
+      "const": ["V2.HOM.BRANCH", "V2.HOM.FIRST_HIT", "V2.HOM.TRANSVERSE", "V2.HOM.TAILS", "V2.HOM.MIDDLE_C2"]
+    },
+    "parent_obligation": {"const": "V2.HOMOCLINIC"},
+    "uniqueness_scope": {"type": "string", "minLength": 80},
+    "mutation_policy": {"type": "string", "minLength": 80},
+    "nonclaims": {"type": "array", "minItems": 5, "items": {"type": "string"}, "uniqueItems": true}
+  },
+  "$defs": {
+    "sha1": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "relativePath": {"type": "string", "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$)).+$"},
+    "hashedFile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {"path": {"$ref": "#/$defs/relativePath"}, "sha256": {"$ref": "#/$defs/sha256"}}
+    },
+    "runBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["source_commit", "source_path", "source_sha256", "strict_binary_sha256", "log_path", "log_sha256"],
+      "properties": {
+        "source_commit": {"$ref": "#/$defs/sha1"},
+        "source_path": {"$ref": "#/$defs/relativePath"},
+        "source_sha256": {"$ref": "#/$defs/sha256"},
+        "strict_binary_sha256": {"$ref": "#/$defs/sha256"},
+        "log_path": {"$ref": "#/$defs/relativePath"},
+        "log_sha256": {"$ref": "#/$defs/sha256"}
+      }
+    }
+  }
+}

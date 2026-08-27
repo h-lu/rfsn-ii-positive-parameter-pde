@@ -1,0 +1,265 @@
+mode mu-grid-anchor
+grid_radius_factor 3 core_radius_factor 1.5
+anchor_cell_indices 0 63 1 parameter_cell [0, 0.0025000000000000001] [-0.00390625, 0] [0.89999999999999991, 1]
+anchor_point [0, 0] [0, 0] [1, 1]
+anchor_cell max_inclusion 0.5111040882061787 max_contraction 0.19387037158564738 determinant [110.90823969445198, 188.95073551766316] PASS
+core max_inclusion 0.72610060374710306 max_contraction 0.72610028520209313 determinant [140.93158586899557, 158.2031683898137] node_parameter_slope_max 0 PASS
+anchor_face direction core->cell max_ratio 0.33311715045154183 worst 1 graph-e PASS
+anchor_import phase [5.8615055856447809, 5.8615055856450491] graph_c0 [-1.0000000000000001e-20, 1.0000000000000001e-20] max_ratio 7.9563696840371253e-07 worst 35 node-8-coordinate-1 PASS
+PASS mu-grid frozen-core anchor
+mode mu-grid-slab
+grid 32 128 4 radius_factor 3
+r_index 0 r_cell [0, 0.0025000000000000001]
+cells 512 pass 512 max_inclusion 0.61714910438851445 worst_inclusion_a2_index 0 worst_inclusion_epsilon_index 3 max_contraction 0.29649883204438299 worst_contraction_a2_index 0 worst_contraction_epsilon_index 3 determinant_hull [81.052953963013223, 219.89640039019039] PASS
+a2_faces 508 pass 508 max_ratio 0.67227027028880615 worst_a2_index 0 worst_epsilon_index 3 worst_coordinate 0 delta PASS
+epsilon_faces 384 pass 384 max_ratio 0.61602429038462303 worst_a2_index 0 worst_epsilon_index 0 worst_coordinate 0 delta PASS
+r_faces 512 pass 512 max_ratio 0.66130474843398102 worst_a2_index 127 worst_epsilon_index 2 worst_coordinate 0 delta PASS
+PASS mu-grid slab root identification
+mode mu-grid-slab
+grid 32 128 4 radius_factor 3
+r_index 1 r_cell [0.0024999999999999996, 0.0050000000000000001]
+cells 512 pass 512 max_inclusion 0.62063119243117659 worst_inclusion_a2_index 0 worst_inclusion_epsilon_index 3 max_contraction 0.29977153587666494 worst_contraction_a2_index 0 worst_contraction_epsilon_index 3 determinant_hull [79.933093744737064, 221.24926536404516] PASS
+a2_faces 508 pass 508 max_ratio 0.6750719578297244 worst_a2_index 0 worst_epsilon_index 3 worst_coordinate 0 delta PASS
+epsilon_faces 384 pass 384 max_ratio 0.6201290300124872 worst_a2_index 0 worst_epsilon_index 0 worst_coordinate 0 delta PASS
+r_faces 512 pass 512 max_ratio 0.66417210795110537 worst_a2_index 127 worst_epsilon_index 2 worst_coordinate 0 delta PASS
+PASS mu-grid slab root identification
+mode mu-grid-slab
+grid 32 128 4 radius_factor 3
+r_index 2 r_cell [0.0049999999999999992, 0.0075000000000000006]
+cells 512 pass 512 max_inclusion 0.62422983266469378 worst_inclusion_a2_index 0 worst_inclusion_epsilon_index 3 max_contraction 0.30316672395795996 worst_contraction_a2_index 0 worst_contraction_epsilon_index 3 determinant_hull [78.810900330315178, 222.62361195407144] PASS
+a2_faces 508 pass 508 max_ratio 0.67929691274241044 worst_a2_index 1 worst_epsilon_index 3 worst_coordinate 0 delta PASS
+epsilon_faces 384 pass 384 max_ratio 0.62451942148090056 worst_a2_index 0 worst_epsilon_index 0 worst_coordinate 0 delta PASS
+r_faces 512 pass 512 max_ratio 0.66700108442878514 worst_a2_index 127 worst_epsilon_index 2 worst_coordinate 0 delta PASS
+PASS mu-grid slab root identification
+mode mu-grid-slab
+grid 32 128 4 radius_factor 3
+r_index 3 r_cell [0.0074999999999999997, 0.01]
+cells 512 pass 512 max_inclusion 0.62760054288167189 worst_inclusion_a2_index 0 worst_inclusion_epsilon_index 3 max_contraction 0.30640456167184893 worst_contraction_a2_index 0 worst_contraction_epsilon_index 3 determinant_hull [77.796422156501905, 224.03440004945045] PASS
+a2_faces 508 pass 508 max_ratio 0.68096510602438398 worst_a2_index 0 worst_epsilon_index 3 worst_coordinate 0 delta PASS
+epsilon_faces 384 pass 384 max_ratio 0.6287182371410347 worst_a2_index 127 worst_epsilon_index 0 worst_coordinate 0 delta PASS
+r_faces 512 pass 512 max_ratio 0.66981407441114627 worst_a2_index 127 worst_epsilon_index 2 worst_coordinate 0 delta PASS
+PASS mu-grid slab root identification
+mode mu-grid-slab
+grid 32 128 4 radius_factor 3
+r_index 4 r_cell [0.0099999999999999985, 0.012500000000000001]
+cells 512 pass 512 max_inclusion 0.63148298620857191 worst_inclusion_a2_index 0 worst_inclusion_epsilon_index 3 max_contraction 0.3100902182568086 worst_contraction_a2_index 0 worst_contraction_epsilon_index 3 determinant_hull [76.660251353964966, 225.48434978060649] PASS
+a2_faces 508 pass 508 max_ratio 0.68420281580369013 worst_a2_index 0 worst_epsilon_index 3 worst_coordinate 0 delta PASS
+epsilon_faces 384 pass 384 max_ratio 0.63323906495145621 worst_a2_index 0 worst_epsilon_index 0 worst_coordinate 0 delta PASS
+r_faces 512 pass 512 max_ratio 0.67279850208326986 worst_a2_index 127 worst_epsilon_index 3 worst_coordinate 0 delta PASS
+PASS mu-grid slab root identification
+mode mu-grid-slab
+grid 32 128 4 radius_factor 3
+r_index 5 r_cell [0.012499999999999999, 0.015000000000000001]
+cells 512 pass 512 max_inclusion 0.63530264715709395 worst_inclusion_a2_index 0 worst_inclusion_epsilon_index 0 max_contraction 0.31373325020996662 worst_contraction_a2_index 0 worst_contraction_epsilon_index 0 determinant_hull [75.49108226108946, 226.99786983676282] PASS
+a2_faces 508 pass 508 max_ratio 0.68741740372506055 worst_a2_index 0 worst_epsilon_index 0 worst_coordinate 0 delta PASS
+epsilon_faces 384 pass 384 max_ratio 0.63816708472907158 worst_a2_index 0 worst_epsilon_index 0 worst_coordinate 0 delta PASS
+r_faces 512 pass 512 max_ratio 0.67594498570927075 worst_a2_index 127 worst_epsilon_index 3 worst_coordinate 0 delta PASS
+PASS mu-grid slab root identification
+mode mu-grid-slab
+grid 32 128 4 radius_factor 3
+r_index 6 r_cell [0.014999999999999999, 0.017500000000000002]
+cells 512 pass 512 max_inclusion 0.63945039996704611 worst_inclusion_a2_index 0 worst_inclusion_epsilon_index 3 max_contraction 0.31766817346088344 worst_contraction_a2_index 0 worst_contraction_epsilon_index 3 determinant_hull [74.331102998362454, 228.56420766185147] PASS
+a2_faces 508 pass 508 max_ratio 0.69088270969963117 worst_a2_index 0 worst_epsilon_index 3 worst_coordinate 0 delta PASS
+epsilon_faces 384 pass 384 max_ratio 0.6424481397157279 worst_a2_index 0 worst_epsilon_index 0 worst_coordinate 0 delta PASS
+r_faces 512 pass 512 max_ratio 0.67915318826059501 worst_a2_index 127 worst_epsilon_index 3 worst_coordinate 0 delta PASS
+PASS mu-grid slab root identification
+mode mu-grid-slab
+grid 32 128 4 radius_factor 3
+r_index 7 r_cell [0.017499999999999998, 0.02]
+cells 512 pass 512 max_inclusion 0.64378991854634393 worst_inclusion_a2_index 0 worst_inclusion_epsilon_index 3 max_contraction 0.32181466755709959 worst_contraction_a2_index 0 worst_contraction_epsilon_index 3 determinant_hull [73.157790978096926, 230.17759226344617] PASS
+a2_faces 508 pass 508 max_ratio 0.69459319006906239 worst_a2_index 0 worst_epsilon_index 3 worst_coordinate 0 delta PASS
+epsilon_faces 384 pass 384 max_ratio 0.64737185723116353 worst_a2_index 0 worst_epsilon_index 0 worst_coordinate 0 delta PASS
+r_faces 512 pass 512 max_ratio 0.6825451160396675 worst_a2_index 127 worst_epsilon_index 3 worst_coordinate 0 delta PASS
+PASS mu-grid slab root identification
+mode mu-grid-slab
+grid 32 128 4 radius_factor 3
+r_index 8 r_cell [0.019999999999999997, 0.022500000000000003]
+cells 512 pass 512 max_inclusion 0.64832885681682395 worst_inclusion_a2_index 0 worst_inclusion_epsilon_index 3 max_contraction 0.32615741635304618 worst_contraction_a2_index 0 worst_contraction_epsilon_index 3 determinant_hull [71.935491545686901, 231.83627433945713] PASS
+a2_faces 508 pass 508 max_ratio 0.69847627647432109 worst_a2_index 0 worst_epsilon_index 2 worst_coordinate 0 delta PASS
+epsilon_faces 384 pass 384 max_ratio 0.65254441514577011 worst_a2_index 0 worst_epsilon_index 0 worst_coordinate 0 delta PASS
+r_faces 512 pass 512 max_ratio 0.68607444536823692 worst_a2_index 127 worst_epsilon_index 3 worst_coordinate 0 delta PASS
+PASS mu-grid slab root identification
+mode mu-grid-slab
+grid 32 128 4 radius_factor 3
+r_index 9 r_cell [0.022499999999999999, 0.025000000000000001]
+cells 512 pass 512 max_inclusion 0.6530412860598781 worst_inclusion_a2_index 0 worst_inclusion_epsilon_index 0 max_contraction 0.33063001734271902 worst_contraction_a2_index 0 worst_contraction_epsilon_index 0 determinant_hull [70.689147120996964, 233.54353248961922] PASS
+a2_faces 508 pass 508 max_ratio 0.70253148652050179 worst_a2_index 0 worst_epsilon_index 2 worst_coordinate 0 delta PASS
+epsilon_faces 384 pass 384 max_ratio 0.65785897139865424 worst_a2_index 0 worst_epsilon_index 0 worst_coordinate 0 delta PASS
+r_faces 512 pass 512 max_ratio 0.68972064799120969 worst_a2_index 127 worst_epsilon_index 3 worst_coordinate 0 delta PASS
+PASS mu-grid slab root identification
+mode mu-grid-slab
+grid 32 128 4 radius_factor 3
+r_index 10 r_cell [0.024999999999999998, 0.0275]
+cells 512 pass 512 max_inclusion 0.65801317775639923 worst_inclusion_a2_index 0 worst_inclusion_epsilon_index 0 max_contraction 0.33539865099066307 worst_contraction_a2_index 0 worst_contraction_epsilon_index 0 determinant_hull [69.434014875168586, 235.29945681052698] PASS
+a2_faces 508 pass 508 max_ratio 0.70671291254324375 worst_a2_index 0 worst_epsilon_index 2 worst_coordinate 0 delta PASS
+epsilon_faces 384 pass 384 max_ratio 0.66326588527551966 worst_a2_index 0 worst_epsilon_index 0 worst_coordinate 0 delta PASS
+r_faces 512 pass 512 max_ratio 0.6935015122554975 worst_a2_index 127 worst_epsilon_index 3 worst_coordinate 0 delta PASS
+PASS mu-grid slab root identification
+mode mu-grid-slab
+grid 32 128 4 radius_factor 3
+r_index 11 r_cell [0.027499999999999997, 0.030000000000000002]
+cells 512 pass 512 max_inclusion 0.66316968034448442 worst_inclusion_a2_index 0 worst_inclusion_epsilon_index 0 max_contraction 0.34035258706628574 worst_contraction_a2_index 0 worst_contraction_epsilon_index 0 determinant_hull [68.159044934860489, 237.10714334225685] PASS
+a2_faces 508 pass 508 max_ratio 0.71106448212234785 worst_a2_index 0 worst_epsilon_index 2 worst_coordinate 0 delta PASS
+epsilon_faces 384 pass 384 max_ratio 0.66884944494857723 worst_a2_index 0 worst_epsilon_index 0 worst_coordinate 0 delta PASS
+r_faces 512 pass 512 max_ratio 0.69743777188944567 worst_a2_index 127 worst_epsilon_index 3 worst_coordinate 0 delta PASS
+PASS mu-grid slab root identification
+mode mu-grid-slab
+grid 32 128 4 radius_factor 3
+r_index 12 r_cell [0.029999999999999999, 0.032500000000000001]
+cells 512 pass 512 max_inclusion 0.66851436739806092 worst_inclusion_a2_index 0 worst_inclusion_epsilon_index 0 max_contraction 0.34549563773268205 worst_contraction_a2_index 0 worst_contraction_epsilon_index 0 determinant_hull [66.863658142442915, 238.96790744162317] PASS
+a2_faces 508 pass 508 max_ratio 0.71558107945329785 worst_a2_index 0 worst_epsilon_index 0 worst_coordinate 0 delta PASS
+epsilon_faces 384 pass 384 max_ratio 0.67461043914537833 worst_a2_index 0 worst_epsilon_index 0 worst_coordinate 0 delta PASS
+r_faces 512 pass 512 max_ratio 0.7015113925673605 worst_a2_index 127 worst_epsilon_index 3 worst_coordinate 0 delta PASS
+PASS mu-grid slab root identification
+mode mu-grid-slab
+grid 32 128 4 radius_factor 3
+r_index 13 r_cell [0.032499999999999994, 0.035000000000000003]
+cells 512 pass 512 max_inclusion 0.67405546642005976 worst_inclusion_a2_index 0 worst_inclusion_epsilon_index 0 max_contraction 0.35083579907662121 worst_contraction_a2_index 0 worst_contraction_epsilon_index 0 determinant_hull [65.54531074921664, 240.88296517933125] PASS
+a2_faces 508 pass 508 max_ratio 0.72039698790850404 worst_a2_index 0 worst_epsilon_index 0 worst_coordinate 0 delta PASS
+epsilon_faces 384 pass 384 max_ratio 0.68053334809179722 worst_a2_index 0 worst_epsilon_index 0 worst_coordinate 0 delta PASS
+r_faces 512 pass 512 max_ratio 0.70570714236050514 worst_a2_index 127 worst_epsilon_index 3 worst_coordinate 0 delta PASS
+PASS mu-grid slab root identification
+mode mu-grid-slab
+grid 32 128 4 radius_factor 3
+r_index 14 r_cell [0.034999999999999996, 0.037500000000000006]
+cells 512 pass 512 max_inclusion 0.67975668312336202 worst_inclusion_a2_index 0 worst_inclusion_epsilon_index 0 max_contraction 0.35633593827095034 worst_contraction_a2_index 0 worst_contraction_epsilon_index 0 determinant_hull [64.205693444896909, 242.85448490877673] PASS
+a2_faces 508 pass 508 max_ratio 0.72536730593291987 worst_a2_index 0 worst_epsilon_index 0 worst_coordinate 0 delta PASS
+epsilon_faces 384 pass 384 max_ratio 0.68664429967661245 worst_a2_index 0 worst_epsilon_index 0 worst_coordinate 0 delta PASS
+r_faces 512 pass 512 max_ratio 0.71018792740773096 worst_a2_index 127 worst_epsilon_index 0 worst_coordinate 0 delta PASS
+PASS mu-grid slab root identification
+mode mu-grid-slab
+grid 32 128 4 radius_factor 3
+r_index 15 r_cell [0.037499999999999999, 0.040000000000000001]
+cells 512 pass 512 max_inclusion 0.68562347627524078 worst_inclusion_a2_index 0 worst_inclusion_epsilon_index 0 max_contraction 0.36200293121004939 worst_contraction_a2_index 0 worst_contraction_epsilon_index 0 determinant_hull [62.845230075796827, 244.88556751517254] PASS
+a2_faces 508 pass 508 max_ratio 0.73050456126787922 worst_a2_index 0 worst_epsilon_index 0 worst_coordinate 0 delta PASS
+epsilon_faces 384 pass 384 max_ratio 0.6929318243696736 worst_a2_index 0 worst_epsilon_index 0 worst_coordinate 0 delta PASS
+r_faces 512 pass 512 max_ratio 0.71490461706311204 worst_a2_index 127 worst_epsilon_index 0 worst_coordinate 0 delta PASS
+PASS mu-grid slab root identification
+mode mu-grid-slab
+grid 32 128 4 radius_factor 3
+r_index 16 r_cell [0.039999999999999994, 0.042500000000000003]
+cells 512 pass 512 max_inclusion 0.69172750212260159 worst_inclusion_a2_index 0 worst_inclusion_epsilon_index 0 max_contraction 0.36790914839354694 worst_contraction_a2_index 0 worst_contraction_epsilon_index 0 determinant_hull [61.458700933425689, 246.97847732437896] PASS
+a2_faces 508 pass 508 max_ratio 0.7358774584936717 worst_a2_index 0 worst_epsilon_index 0 worst_coordinate 0 delta PASS
+epsilon_faces 384 pass 384 max_ratio 0.69942860001179841 worst_a2_index 0 worst_epsilon_index 0 worst_coordinate 0 delta PASS
+r_faces 512 pass 512 max_ratio 0.71977489445107889 worst_a2_index 127 worst_epsilon_index 0 worst_coordinate 0 delta PASS
+PASS mu-grid slab root identification
+mode mu-grid-slab
+grid 32 128 4 radius_factor 3
+r_index 17 r_cell [0.042499999999999996, 0.045000000000000005]
+cells 512 pass 512 max_inclusion 0.69806154458735692 worst_inclusion_a2_index 0 worst_inclusion_epsilon_index 0 max_contraction 0.37404622110111924 worst_contraction_a2_index 0 worst_contraction_epsilon_index 0 determinant_hull [60.044380021945656, 249.13488316545727] PASS
+a2_faces 508 pass 508 max_ratio 0.74147727471380942 worst_a2_index 0 worst_epsilon_index 0 worst_coordinate 0 delta PASS
+epsilon_faces 384 pass 384 max_ratio 0.70626044839178492 worst_a2_index 0 worst_epsilon_index 0 worst_coordinate 0 delta PASS
+r_faces 512 pass 512 max_ratio 0.72457043119673958 worst_a2_index 127 worst_epsilon_index 0 worst_coordinate 0 delta PASS
+PASS mu-grid slab root identification
+mode mu-grid-slab
+grid 32 128 4 radius_factor 3
+r_index 18 r_cell [0.044999999999999998, 0.047500000000000001]
+cells 512 pass 512 max_inclusion 0.70455417353601335 worst_inclusion_a2_index 0 worst_inclusion_epsilon_index 0 max_contraction 0.38034359958089814 worst_contraction_a2_index 0 worst_contraction_epsilon_index 0 determinant_hull [58.608543487438816, 251.36427345854057] PASS
+a2_faces 508 pass 508 max_ratio 0.74723601479014734 worst_a2_index 0 worst_epsilon_index 0 worst_coordinate 0 delta PASS
+epsilon_faces 384 pass 384 max_ratio 0.71322422966357979 worst_a2_index 0 worst_epsilon_index 0 worst_coordinate 0 delta PASS
+r_faces 512 pass 512 max_ratio 0.73116907444859225 worst_a2_index 0 worst_epsilon_index 3 worst_coordinate 34 node-8-coordinate-0 PASS
+PASS mu-grid slab root identification
+mode mu-grid-slab
+grid 32 128 4 radius_factor 3
+r_index 19 r_cell [0.047499999999999994, 0.050000000000000003]
+cells 512 pass 512 max_inclusion 0.71128726137750431 worst_inclusion_a2_index 0 worst_inclusion_epsilon_index 0 max_contraction 0.38688149284145723 worst_contraction_a2_index 0 worst_contraction_epsilon_index 0 determinant_hull [57.144452364177269, 253.66225238838703] PASS
+a2_faces 508 pass 508 max_ratio 0.75322343904582656 worst_a2_index 0 worst_epsilon_index 0 worst_coordinate 0 delta PASS
+epsilon_faces 384 pass 384 max_ratio 0.72044673110350921 worst_a2_index 0 worst_epsilon_index 0 worst_coordinate 0 delta PASS
+r_faces 512 pass 512 max_ratio 0.73892481548031341 worst_a2_index 0 worst_epsilon_index 3 worst_coordinate 34 node-8-coordinate-0 PASS
+PASS mu-grid slab root identification
+mode mu-grid-slab
+grid 32 128 4 radius_factor 3
+r_index 20 r_cell [0.049999999999999996, 0.052500000000000005]
+cells 512 pass 512 max_inclusion 0.71826555587433505 worst_inclusion_a2_index 0 worst_inclusion_epsilon_index 0 max_contraction 0.39366332780990104 worst_contraction_a2_index 0 worst_contraction_epsilon_index 0 determinant_hull [55.640031417943838, 256.05427373512254] PASS
+a2_faces 508 pass 508 max_ratio 0.75963807681825013 worst_a2_index 0 worst_epsilon_index 0 worst_coordinate 0 delta PASS
+epsilon_faces 384 pass 384 max_ratio 0.72821143531999155 worst_a2_index 0 worst_epsilon_index 0 worst_coordinate 0 delta PASS
+r_faces 512 pass 512 max_ratio 0.7463645912510859 worst_a2_index 0 worst_epsilon_index 3 worst_coordinate 34 node-8-coordinate-0 PASS
+PASS mu-grid slab root identification
+mode mu-grid-slab
+grid 32 128 4 radius_factor 3
+r_index 21 r_cell [0.052499999999999998, 0.055]
+cells 512 pass 512 max_inclusion 0.72547357297623338 worst_inclusion_a2_index 0 worst_inclusion_epsilon_index 0 max_contraction 0.40067401847662065 worst_contraction_a2_index 0 worst_contraction_epsilon_index 0 determinant_hull [54.095877575588737, 258.51531831624146] PASS
+a2_faces 508 pass 508 max_ratio 0.76658201351787725 worst_a2_index 0 worst_epsilon_index 0 worst_coordinate 0 delta PASS
+epsilon_faces 384 pass 384 max_ratio 0.7364836178571611 worst_a2_index 0 worst_epsilon_index 0 worst_coordinate 0 delta PASS
+r_faces 512 pass 512 max_ratio 0.75405571121196646 worst_a2_index 0 worst_epsilon_index 3 worst_coordinate 34 node-8-coordinate-0 PASS
+PASS mu-grid slab root identification
+mode mu-grid-slab
+grid 32 128 4 radius_factor 3
+r_index 22 r_cell [0.054999999999999993, 0.057500000000000002]
+cells 512 pass 512 max_inclusion 0.73292768811304898 worst_inclusion_a2_index 0 worst_inclusion_epsilon_index 0 max_contraction 0.40793382106585063 worst_contraction_a2_index 0 worst_contraction_epsilon_index 0 determinant_hull [52.524067852036382, 261.0469391660198] PASS
+a2_faces 508 pass 508 max_ratio 0.77353835377274049 worst_a2_index 0 worst_epsilon_index 0 worst_coordinate 0 delta PASS
+epsilon_faces 384 pass 384 max_ratio 0.74488283987139681 worst_a2_index 0 worst_epsilon_index 0 worst_coordinate 0 delta PASS
+r_faces 512 pass 512 max_ratio 0.76215880955166726 worst_a2_index 0 worst_epsilon_index 3 worst_coordinate 34 node-8-coordinate-0 PASS
+PASS mu-grid slab root identification
+mode mu-grid-slab
+grid 32 128 4 radius_factor 3
+r_index 23 r_cell [0.057499999999999996, 0.060000000000000005]
+cells 512 pass 512 max_inclusion 0.74056721735985465 worst_inclusion_a2_index 0 worst_inclusion_epsilon_index 0 max_contraction 0.41538265105548988 worst_contraction_a2_index 0 worst_contraction_epsilon_index 0 determinant_hull [50.927457726294534, 263.66683752005895] PASS
+a2_faces 508 pass 508 max_ratio 0.78055072165229622 worst_a2_index 0 worst_epsilon_index 0 worst_coordinate 0 delta PASS
+epsilon_faces 384 pass 384 max_ratio 0.75346466771829801 worst_a2_index 0 worst_epsilon_index 0 worst_coordinate 0 delta PASS
+r_faces 512 pass 512 max_ratio 0.77056683654933056 worst_a2_index 0 worst_epsilon_index 3 worst_coordinate 34 node-8-coordinate-0 PASS
+PASS mu-grid slab root identification
+mode mu-grid-slab
+grid 32 128 4 radius_factor 3
+r_index 24 r_cell [0.059999999999999998, 0.0625]
+cells 512 pass 512 max_inclusion 0.74843900876868796 worst_inclusion_a2_index 0 worst_inclusion_epsilon_index 0 max_contraction 0.42306801785177217 worst_contraction_a2_index 0 worst_contraction_epsilon_index 0 determinant_hull [49.304883027294885, 266.36276806323161] PASS
+a2_faces 508 pass 508 max_ratio 0.78780277024381984 worst_a2_index 0 worst_epsilon_index 0 worst_coordinate 0 delta PASS
+epsilon_faces 384 pass 384 max_ratio 0.762173805318209 worst_a2_index 0 worst_epsilon_index 0 worst_coordinate 0 delta PASS
+r_faces 512 pass 512 max_ratio 0.77927033742413754 worst_a2_index 0 worst_epsilon_index 3 worst_coordinate 34 node-8-coordinate-0 PASS
+PASS mu-grid slab root identification
+mode mu-grid-slab
+grid 32 128 4 radius_factor 3
+r_index 25 r_cell [0.0625, 0.065000000000000002]
+cells 512 pass 512 max_inclusion 0.75659993262770509 worst_inclusion_a2_index 0 worst_inclusion_epsilon_index 0 max_contraction 0.43104669986354216 worst_contraction_a2_index 0 worst_contraction_epsilon_index 0 determinant_hull [47.650631245685915, 269.12411075460307] PASS
+a2_faces 508 pass 508 max_ratio 0.79529565390073875 worst_a2_index 0 worst_epsilon_index 0 worst_coordinate 0 delta PASS
+epsilon_faces 384 pass 384 max_ratio 0.77107172819939873 worst_a2_index 0 worst_epsilon_index 0 worst_coordinate 0 delta PASS
+r_faces 512 pass 512 max_ratio 0.78828128354055726 worst_a2_index 0 worst_epsilon_index 3 worst_coordinate 34 node-8-coordinate-0 PASS
+PASS mu-grid slab root identification
+mode mu-grid-slab
+grid 32 128 4 radius_factor 3
+r_index 26 r_cell [0.064999999999999988, 0.067500000000000004]
+cells 512 pass 512 max_inclusion 0.76501287763575954 worst_inclusion_a2_index 0 worst_inclusion_epsilon_index 0 max_contraction 0.43928104013250019 worst_contraction_a2_index 0 worst_contraction_epsilon_index 0 determinant_hull [45.781844521412268, 271.98097425160029] PASS
+a2_faces 508 pass 508 max_ratio 0.80302465453977323 worst_a2_index 0 worst_epsilon_index 0 worst_coordinate 0 delta PASS
+epsilon_faces 384 pass 384 max_ratio 0.7802156330539719 worst_a2_index 0 worst_epsilon_index 0 worst_coordinate 0 delta PASS
+r_faces 512 pass 512 max_ratio 0.79763888454803 worst_a2_index 0 worst_epsilon_index 3 worst_coordinate 34 node-8-coordinate-0 PASS
+PASS mu-grid slab root identification
+mode mu-grid-slab
+grid 32 128 4 radius_factor 3
+r_index 27 r_cell [0.067499999999999991, 0.070000000000000007]
+cells 512 pass 512 max_inclusion 0.7736753790737696 worst_inclusion_a2_index 0 worst_inclusion_epsilon_index 0 max_contraction 0.44776868817977711 worst_contraction_a2_index 0 worst_contraction_epsilon_index 0 determinant_hull [43.818336057492068, 274.9033066383119] PASS
+a2_faces 508 pass 508 max_ratio 0.8106648572429922 worst_a2_index 0 worst_epsilon_index 0 worst_coordinate 0 delta PASS
+epsilon_faces 384 pass 384 max_ratio 0.78962681645809885 worst_a2_index 0 worst_epsilon_index 0 worst_coordinate 0 delta PASS
+r_faces 512 pass 512 max_ratio 0.80733871593772388 worst_a2_index 0 worst_epsilon_index 3 worst_coordinate 34 node-8-coordinate-0 PASS
+PASS mu-grid slab root identification
+mode mu-grid-slab
+grid 32 128 4 radius_factor 3
+r_index 28 r_cell [0.069999999999999993, 0.072500000000000009]
+cells 512 pass 512 max_inclusion 0.78259221490520137 worst_inclusion_a2_index 0 worst_inclusion_epsilon_index 0 max_contraction 0.45651456299042648 worst_contraction_a2_index 0 worst_contraction_epsilon_index 0 determinant_hull [41.808382737578768, 277.84935511314058] PASS
+a2_faces 508 pass 508 max_ratio 0.81840514840476086 worst_a2_index 0 worst_epsilon_index 0 worst_coordinate 0 delta PASS
+epsilon_faces 384 pass 384 max_ratio 0.79916570232702389 worst_a2_index 0 worst_epsilon_index 0 worst_coordinate 0 delta PASS
+r_faces 512 pass 512 max_ratio 0.81740437673241639 worst_a2_index 0 worst_epsilon_index 3 worst_coordinate 34 node-8-coordinate-0 PASS
+PASS mu-grid slab root identification
+mode mu-grid-slab
+grid 32 128 4 radius_factor 3
+r_index 29 r_cell [0.072499999999999995, 0.075000000000000011]
+cells 512 pass 512 max_inclusion 0.79176785508946257 worst_inclusion_a2_index 0 worst_inclusion_epsilon_index 0 max_contraction 0.46552366186529914 worst_contraction_a2_index 0 worst_contraction_epsilon_index 0 determinant_hull [39.696467413562587, 280.88358503649368] PASS
+a2_faces 508 pass 508 max_ratio 0.82624909409094016 worst_a2_index 0 worst_epsilon_index 0 worst_coordinate 0 delta PASS
+epsilon_faces 384 pass 384 max_ratio 0.80884602896833957 worst_a2_index 0 worst_epsilon_index 0 worst_coordinate 0 delta PASS
+r_faces 512 pass 512 max_ratio 0.82670602736343568 worst_a2_index 0 worst_epsilon_index 3 worst_coordinate 34 node-8-coordinate-0 PASS
+PASS mu-grid slab root identification
+mode mu-grid-slab
+grid 32 128 4 radius_factor 3
+r_index 30 r_cell [0.074999999999999997, 0.077500000000000013]
+cells 512 pass 512 max_inclusion 0.80147924717847241 worst_inclusion_a2_index 0 worst_inclusion_epsilon_index 0 max_contraction 0.47506656871794001 worst_contraction_a2_index 0 worst_contraction_epsilon_index 0 determinant_hull [37.478764831819035, 284.13283263316578] PASS
+a2_faces 508 pass 508 max_ratio 0.83524124621784634 worst_a2_index 0 worst_epsilon_index 0 worst_coordinate 0 delta PASS
+epsilon_faces 384 pass 384 max_ratio 0.8196463240838211 worst_a2_index 0 worst_epsilon_index 0 worst_coordinate 0 delta PASS
+r_faces 512 pass 512 max_ratio 0.83572414542914675 worst_a2_index 0 worst_epsilon_index 3 worst_coordinate 34 node-8-coordinate-0 PASS
+PASS mu-grid slab root identification
+mode mu-grid-slab
+grid 32 128 4 radius_factor 3
+r_index 31 r_cell [0.077499999999999999, 0.080000000000000002]
+cells 512 pass 512 max_inclusion 0.81163070510064661 worst_inclusion_a2_index 0 worst_inclusion_epsilon_index 0 max_contraction 0.48505318768286615 worst_contraction_a2_index 0 worst_contraction_epsilon_index 0 determinant_hull [35.189379305083953, 287.48895667960522] PASS
+a2_faces 508 pass 508 max_ratio 0.84468357665770233 worst_a2_index 0 worst_epsilon_index 0 worst_coordinate 0 delta PASS
+epsilon_faces 384 pass 384 max_ratio 0.831086370582925 worst_a2_index 0 worst_epsilon_index 0 worst_coordinate 0 delta PASS
+r_faces 0 pass 0 max_ratio 0 worst_a2_index -1 worst_epsilon_index -1 worst_coordinate -1 none PASS
+PASS mu-grid slab root identification

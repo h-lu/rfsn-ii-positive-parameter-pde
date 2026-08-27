@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/h-lu/rfsn-ii-positive-parameter-pde/validation/rigorous/p2_homoclinic_certificate.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version", "certificate_id", "scope", "created_at",
+    "source_revision", "source_bindings", "configuration",
+    "parameter_box", "continuation_bridge", "prerequisites", "toolchain",
+    "raw_evidence", "obligations", "integrity_status",
+    "mathematical_status", "independent_replay", "final_status",
+    "claim_bearing", "release_eligible", "nonclaims"
+  ],
+  "properties": {
+    "schema_version": {"const": "rfsn-vdp-p2-homoclinic-certificate/1"},
+    "certificate_id": {"type": "string", "pattern": "^vdp-p2c-homoclinic-[0-9a-f]{12}$"},
+    "scope": {"const": "V2_P2C_HOMOCLINIC_KERNEL"},
+    "created_at": {"type": "string", "format": "date-time"},
+    "source_revision": {
+      "type": "object", "additionalProperties": false,
+      "required": ["repository", "commit", "repository_dirty", "working_tree_observation", "report_output_excluded_from_observation"],
+      "properties": {
+        "repository": {"const": "h-lu/rfsn-ii-positive-parameter-pde"},
+        "commit": {"$ref": "#/$defs/sha1"},
+        "repository_dirty": {"const": false},
+        "working_tree_observation": {"const": "BEFORE_REPORT_WRITE"},
+        "report_output_excluded_from_observation": {"const": true}
+      }
+    },
+    "source_bindings": {"type": "array", "minItems": 16, "uniqueItems": true, "items": {"$ref": "#/$defs/hashedFile"}},
+    "configuration": {
+      "type": "object", "additionalProperties": false,
+      "required": ["path", "sha256", "configuration_id", "status"],
+      "properties": {
+        "path": {"const": "validation/rigorous/config/vdp_p2_homoclinic_v1.json"},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "configuration_id": {"const": "vdp-p2-homoclinic-v1"},
+        "status": {"const": "FROZEN_POST_STRICT_DESIGN_PRE_CERTIFICATE"}
+      }
+    },
+    "parameter_box": {"type": "object"},
+    "continuation_bridge": {"type": "object"},
+    "prerequisites": {"type": "object"},
+    "toolchain": {"type": "object"},
+    "raw_evidence": {"type": "object"},
+    "obligations": {
+      "type": "array", "minItems": 13, "uniqueItems": true,
+      "items": {
+        "type": "object", "additionalProperties": false,
+        "required": ["id", "predicate", "status"],
+        "properties": {
+          "id": {"type": "string"}, "predicate": {"type": "string"},
+          "status": {"enum": ["PASS", "FAIL", "INCONCLUSIVE"]}
+        }
+      }
+    },
+    "integrity_status": {"const": "PASS"},
+    "mathematical_status": {"const": "PASS"},
+    "independent_replay": {
+      "const": {"required_distinct_machines": 2, "observed_distinct_machines": 1, "status": "PENDING_REQUIRED"}
+    },
+    "final_status": {"const": "INCONCLUSIVE"},
+    "claim_bearing": {"const": false},
+    "release_eligible": {"const": false},
+    "nonclaims": {"type": "array", "minItems": 7, "items": {"type": "string"}, "uniqueItems": true}
+  },
+  "$defs": {
+    "sha1": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "relativePath": {"type": "string", "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$)).+$"},
+    "hashedFile": {
+      "type": "object", "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {"path": {"$ref": "#/$defs/relativePath"}, "sha256": {"$ref": "#/$defs/sha256"}}
+    }
+  }
+}

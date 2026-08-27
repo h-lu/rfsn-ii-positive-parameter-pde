@@ -36,7 +36,8 @@ quantitative margins.
 - [x] Full strict P2c design run, including `V2.HOM.MIDDLE_C2` and global
       composition with \(T_*=11\), \(\eta=1/5\), and
       \(C_{\rm hom}=71496600\)
-- [ ] Formal P2c certificate/checker and P2d--P2e exact charts/event atlas
+- [x] Retrospective local P2c summary certificate/checker (non-claim-bearing)
+- [ ] P2d--P2e exact charts/event atlas
 - [ ] P3--P5 positive pole, outer channel, matching/finite parts, and V6 census
 - [ ] Independent replay on a genuinely distinct machine (currently 1/2)
 
@@ -49,8 +50,10 @@ hit, transversality, actual-root parameter two-jets, both infinite tails, and
 the fixed-\(\xi\) continuous \(C^2\) compact middle.  Their global composition
 has \(T_*=11\), \(\eta=1/5\), and \(C_{\rm hom}=71496600\).  No large-box
 exclusion outside the validated parameter-following lifted tube is required.
-The formal P2c certificate/checker remains open, so `obligations.json` is not
-marked `PASS`; P2d--P5 and independent replay also remain pending.  This work
+The local P2c summary certificate/checker parses the archived strict logs and
+replays the exact tail composition, so all five P2c atoms and their local
+parent now pass.  Its aggregate remains `INCONCLUSIVE` and non-claim-bearing;
+P2d--P5 and independent replay remain pending.  This work
 makes no claim of temporal stability, Turing selection, or canard
 identification.
 

@@ -54,11 +54,16 @@ including `V2.HOM.MIDDLE_C2`, on the full bridge and obtains
 
 The `V2.HOM.MIDDLE_C2` row is a retrospective proof-interface amendment: it
 was added after the proof audit identified that infinite-tail constants alone
-do not close Theorem V2(9)--(11).  It records the target and its design-level
-disposition, not a preregistered claim-bearing gate.  A formal P2c
-configuration must freeze this atom before its certificate run.  That
-certificate/checker has not yet been implemented, and neither this contract
-nor the design output changes `obligations.json`.
+do not close Theorem V2(9)--(11).  It was not a preregistered claim-bearing
+gate.  The narrow
+[`vdp_p2_homoclinic_v1.json`](config/vdp_p2_homoclinic_v1.json) contract now
+records that history explicitly as
+`FROZEN_POST_STRICT_DESIGN_PRE_CERTIFICATE`.  Its local summary-certificate
+checker parses the archived fixed-order strict logs and reruns only the exact
+Fraction tail composition; it does not pretend that this retrospective freeze
+is an independent full-grid replay.  The five atoms aggregate exactly to
+`V2.HOMOCLINIC`, while the certificate remains non-claim-bearing until the
+independent-machine policy is met.
 
 ## 2. Exact moving eigenframe for P2a
 

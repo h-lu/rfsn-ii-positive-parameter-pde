@@ -119,8 +119,10 @@ endpoint transversality, and the actual-root parameter two-jets.  Its new
 \(C^2\) compact middle and composes it with the local pre-source pieces and
 both infinite tails.  This gives the global design constants
 \(T_*=11\), \(\eta=1/5\), and \(C_{\rm hom}=71496600\) through original-
-parameter derivative order two.  The formal P2c certificate/checker, P2d--P5,
-and independent replay remain pending, and `obligations.json` is unchanged.
+parameter derivative order two.  A retrospective local P2c summary certificate
+now parses the archived strict logs and replays the exact tail composition;
+its five mathematical atoms and local parent pass.  Its aggregate remains
+non-claim-bearing because independent replay is 1/2.  P2d--P5 remain pending.
 None of these local results proves V3--V7, makes a temporal-stability or
 Turing-selection claim, identifies a canard, or qualifies here as
 `Computer-assisted` evidence before independent replay.

@@ -194,9 +194,12 @@ design constants are
  T_*=11,\qquad \eta=1/5,\qquad C_{\rm hom}=71496600
 \]
 
-for all original-parameter derivatives through order two.  The formal P2c
-certificate/checker, P2d--P5, and independent replay remain pending; no
-`obligations.json` entry is promoted by this design result.
+for all original-parameter derivatives through order two.  A narrow
+retrospective local P2c certificate now parses the archived strict logs and
+replays the exact tail algebra without rerunning the full grid.  Its five P2c
+atoms and local `V2.HOMOCLINIC` parent pass, but the aggregate remains
+`INCONCLUSIVE` and non-claim-bearing while independent replay is 1/2.
+P2d--P5 remain pending.
 
 ## Repository map
 
@@ -231,7 +234,7 @@ certificate/checker, P2d--P5, and independent replay remain pending; no
 - [#4: central--outer matching theorem](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/4), the decisive mathematical go/no-go task
 - [#5: outer algebraic action finite part](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/5)
 - [#6: exhaustive two-end theorem](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/6)
-- [#7: rigorous validation](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/7), with phase 1, P2a, P2b0, P2b mixed jets, and the P2bK normalized Kato/true-source interface passing locally; the full strict P2c design run now validates the selected branch on all 16,384 cells and 44,416 internal faces, first-hit and transversality, actual-root parameter two-jets, the fixed-\(\xi\) continuous \(C^2\) middle, and the global composition with \(T_*=11\), \(\eta=1/5\), and \(C_{\rm hom}=71496600\), while the formal P2c certificate/checker, P2d--P5, and independent replay remain pending
+- [#7: rigorous validation](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/7), with phase 1 through P2bK passing locally and a retrospective local P2c summary certificate covering the selected branch on all 16,384 cells and 44,416 internal faces, first-hit and transversality, actual-root parameter two-jets, the fixed-\(\xi\) continuous \(C^2\) middle, and the global composition with \(T_*=11\), \(\eta=1/5\), and \(C_{\rm hom}=71496600\); P2d--P5 and independent replay remain pending
 
 The source theory remains in
 [`h-lu/reversible-rfsn-ii-waves`](https://github.com/h-lu/reversible-rfsn-ii-waves).

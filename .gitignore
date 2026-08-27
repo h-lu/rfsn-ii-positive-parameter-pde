@@ -14,6 +14,8 @@ dist/
 *.fdb_latexmk
 *.fls
 *.log
+!validation/rigorous/design/logs/
+!validation/rigorous/design/logs/*.log
 *.out
 *.run.xml
 *.synctex.gz

@@ -111,10 +111,12 @@ pieces, and both infinite tails compose to
 \]
 
 for all original-parameter derivatives through order two on the full real
-line.  This completes the strict P2c design run.  It does not produce the
-frozen formal P2c certificate/checker, change `obligations.json`, provide
-independent replay, or address temporal stability, Turing selection, or
-canard identification.
+line.  This completes the strict P2c design run.  The separate retrospective
+local certificate lane archives and parses the four fixed-order log snapshots
+in [`logs/`](logs/) and reruns the exact tail algebra; it does not rerun this
+full grid.  Neither the design modes nor that local certificate provide
+independent replay or address temporal stability, Turing selection, or canard
+identification.
 The exact binary endpoints, worst-cell indices, run bindings, and rational
 global composition are recorded in
 [`p2c_middle_jet_summary_v1.json`](p2c_middle_jet_summary_v1.json).

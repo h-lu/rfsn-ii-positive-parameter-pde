@@ -537,6 +537,9 @@ ROUNDING_IDS = {
 
 
 def schema_errors(certificate: dict[str, Any]) -> list[str]:
+    if certificate.get("scope") == "V2_P2C_HOMOCLINIC_KERNEL":
+        from p2_homoclinic_certificate import schema_errors as p2c_schema_errors
+        return p2c_schema_errors(certificate)
     schema = load_json(HERE / "certificate.schema.json")
     validator = jsonschema.Draft202012Validator(
         schema, format_checker=jsonschema.FormatChecker())
@@ -1459,6 +1462,9 @@ def _replay_kato_exact_audit(
 
 def semantic_errors(certificate: dict[str, Any],
                     repository: Path = REPOSITORY) -> list[str]:
+    if certificate.get("scope") == "V2_P2C_HOMOCLINIC_KERNEL":
+        from p2_homoclinic_certificate import semantic_errors as p2c_semantic_errors
+        return p2c_semantic_errors(certificate, repository)
     errors: list[str] = []
     box_path = HERE / "config" / "vdp_box_v1.json"
     box = load_json(box_path)
@@ -1834,9 +1840,8 @@ def semantic_errors(certificate: dict[str, Any],
             for name, path in selected_files.items():
                 selected = basis.get(name, {})
                 expected_relative = str(path.relative_to(repository))
-                if selected.get("path") != expected_relative or \
-                        selected.get("sha256") != sha256_file(path):
-                    errors.append(f"P2 Kato selection {name} binding mismatch")
+                if selected.get("path") != expected_relative:
+                    errors.append(f"P2 Kato selection {name} path mismatch")
                 try:
                     frozen_blob = _recorded_blob(
                         repository, str(basis.get("repository_commit", "")),

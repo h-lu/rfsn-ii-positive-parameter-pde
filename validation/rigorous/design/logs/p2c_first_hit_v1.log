@@ -1,0 +1,704 @@
+mode mu-grid-first-hit-slab
+scope selected_source_to_symmetry_event
+time_partition P_positive 0 1.55 Q_positive 1.55 1.90 P_negative 1.90 7.35 Q_negative 7.35 9.55
+final_flow_box U_positive relative_duration [0.19999999999999998, 0.20000000000000001]
+pre_source_local_graph_exclusion imported_prerequisite_not_evaluated
+grid 32 128 4 radius_factor 3
+r_index 0 r_cell [0, 0.0025000000000000001]
+cells 512 pass 512 dense_steps 9353
+P_positive_hull [0.0025679246194170494, 0.015638398566391872]
+Q_positive_hull [0.029608426131027221, 0.037747219955219416]
+P_negative_hull [-0.44065801210436811, -0.0057297340761766806]
+Q_negative_hull [-3.2957986451349948, -0.40160910920756138]
+U_final_hull [4.7556515453286297, 5.1044399385657115]
+return_time_hull [0.083040327008250633, 0.091871904005736124]
+half_time_hull [9.633040327008251, 9.6418719040057379]
+physical_state_hull [-1.2426163556860841, 5.1044399385657115] [-1.8152501087024642, 5.9872068768754749] [-8.021863440959077, 0.14629120483714048] [-3.2957986451349948, 0.56679939890493036]
+signed_margin P_positive 0.0025679246194170494 worst_a2_index 127 worst_epsilon_index 3
+signed_margin Q_positive 0.029608426131027221 worst_a2_index 0 worst_epsilon_index 3
+signed_margin P_negative 0.0057297340761766806 worst_a2_index 0 worst_epsilon_index 3
+signed_margin Q_negative 0.40160910920756138 worst_a2_index 127 worst_epsilon_index 3
+signed_margin U_final 4.7556515453286297 worst_a2_index 13 worst_epsilon_index 0
+PASS mu-grid selected-source first symmetry-hit slab
+mode mu-grid-first-hit-slab
+scope selected_source_to_symmetry_event
+time_partition P_positive 0 1.55 Q_positive 1.55 1.90 P_negative 1.90 7.35 Q_negative 7.35 9.55
+final_flow_box U_positive relative_duration [0.19999999999999998, 0.20000000000000001]
+pre_source_local_graph_exclusion imported_prerequisite_not_evaluated
+grid 32 128 4 radius_factor 3
+r_index 1 r_cell [0.0024999999999999996, 0.0050000000000000001]
+cells 512 pass 512 dense_steps 9349
+P_positive_hull [0.002496710186358908, 0.015683529093126702]
+Q_positive_hull [0.029587709828733898, 0.037747377071032207]
+P_negative_hull [-0.44084737054419731, -0.0056393973816428432]
+Q_negative_hull [-3.296482492490008, -0.39558452501681268]
+U_final_hull [4.7547734624702658, 5.1055121002832919]
+return_time_hull [0.081762982820157787, 0.093253501841402076]
+half_time_hull [9.6317629828201579, 9.6432535018414036]
+physical_state_hull [-1.2430838454832505, 5.1055121002832919] [-1.82462303667113, 5.9965228775861137] [-8.0252183547923988, 0.14652382570199818] [-3.296482492490008, 0.57317811944436858]
+signed_margin P_positive 0.002496710186358908 worst_a2_index 127 worst_epsilon_index 3
+signed_margin Q_positive 0.029587709828733898 worst_a2_index 0 worst_epsilon_index 3
+signed_margin P_negative 0.0056393973816428432 worst_a2_index 0 worst_epsilon_index 3
+signed_margin Q_negative 0.39558452501681268 worst_a2_index 127 worst_epsilon_index 3
+signed_margin U_final 4.7547734624702658 worst_a2_index 8 worst_epsilon_index 3
+PASS mu-grid selected-source first symmetry-hit slab
+mode mu-grid-first-hit-slab
+scope selected_source_to_symmetry_event
+time_partition P_positive 0 1.55 Q_positive 1.55 1.90 P_negative 1.90 7.35 Q_negative 7.35 9.55
+final_flow_box U_positive relative_duration [0.19999999999999998, 0.20000000000000001]
+pre_source_local_graph_exclusion imported_prerequisite_not_evaluated
+grid 32 128 4 radius_factor 3
+r_index 2 r_cell [0.0049999999999999992, 0.0075000000000000006]
+cells 512 pass 512 dense_steps 9351
+P_positive_hull [0.0024255464992991521, 0.015728632165582394]
+Q_positive_hull [0.029566708030175744, 0.037747219769842084]
+P_negative_hull [-0.44104741134171088, -0.0055489213840176597]
+Q_negative_hull [-3.2972491022347716, -0.38966024971544994]
+U_final_hull [4.7540767762292848, 5.1066814610153042]
+return_time_hull [0.080507555136210565, 0.094671263260021177]
+half_time_hull [9.6305075551362105, 9.6446712632600224]
+physical_state_hull [-1.2435910403789865, 5.1066814610153042] [-1.8443510835834651, 6.0060254392428662] [-8.0286957219516708, 0.14675538006843097] [-3.2972491022347716, 0.57945451847124307]
+signed_margin P_positive 0.0024255464992991521 worst_a2_index 127 worst_epsilon_index 0
+signed_margin Q_positive 0.029566708030175744 worst_a2_index 0 worst_epsilon_index 3
+signed_margin P_negative 0.0055489213840176597 worst_a2_index 0 worst_epsilon_index 3
+signed_margin Q_negative 0.38966024971544994 worst_a2_index 127 worst_epsilon_index 0
+signed_margin U_final 4.7540767762292848 worst_a2_index 2 worst_epsilon_index 3
+PASS mu-grid selected-source first symmetry-hit slab
+mode mu-grid-first-hit-slab
+scope selected_source_to_symmetry_event
+time_partition P_positive 0 1.55 Q_positive 1.55 1.90 P_negative 1.90 7.35 Q_negative 7.35 9.55
+final_flow_box U_positive relative_duration [0.19999999999999998, 0.20000000000000001]
+pre_source_local_graph_exclusion imported_prerequisite_not_evaluated
+grid 32 128 4 radius_factor 3
+r_index 3 r_cell [0.0074999999999999997, 0.01]
+cells 512 pass 512 dense_steps 9362
+P_positive_hull [0.002354404559956183, 0.015773677617303684]
+Q_positive_hull [0.02954542625000808, 0.037746750189257113]
+P_negative_hull [-0.44125400859184094, -0.0054583687376299475]
+Q_negative_hull [-3.2981029662514256, -0.38384021524998174]
+U_final_hull [4.753841050823377, 5.1075766222142009]
+return_time_hull [0.079274803577708455, 0.096111267243710066]
+half_time_hull [9.629274803577708, 9.646111267243711]
+physical_state_hull [-1.244122586920112, 5.1075766222142009] [-1.8640276840588732, 6.0158144943326093] [-8.0323518353332837, 0.14698565773962244] [-3.2981029662514256, 0.58564476816084665]
+signed_margin P_positive 0.002354404559956183 worst_a2_index 127 worst_epsilon_index 0
+signed_margin Q_positive 0.02954542625000808 worst_a2_index 0 worst_epsilon_index 3
+signed_margin P_negative 0.0054583687376299475 worst_a2_index 0 worst_epsilon_index 3
+signed_margin Q_negative 0.38384021524998174 worst_a2_index 127 worst_epsilon_index 0
+signed_margin U_final 4.753841050823377 worst_a2_index 0 worst_epsilon_index 0
+PASS mu-grid selected-source first symmetry-hit slab
+mode mu-grid-first-hit-slab
+scope selected_source_to_symmetry_event
+time_partition P_positive 0 1.55 Q_positive 1.55 1.90 P_negative 1.90 7.35 Q_negative 7.35 9.55
+final_flow_box U_positive relative_duration [0.19999999999999998, 0.20000000000000001]
+pre_source_local_graph_exclusion imported_prerequisite_not_evaluated
+grid 32 128 4 radius_factor 3
+r_index 4 r_cell [0.0099999999999999985, 0.012500000000000001]
+cells 512 pass 512 dense_steps 9383
+P_positive_hull [0.0022833123497106628, 0.015818732918912479]
+Q_positive_hull [0.02952384877795463, 0.037745969583731415]
+P_negative_hull [-0.44147568493907591, -0.0053675949767566771]
+Q_negative_hull [-3.2990452785804103, -0.37814618609549705]
+U_final_hull [4.7541545790941671, 5.1082108691305921]
+return_time_hull [0.078068747255588905, 0.097601503473043028]
+half_time_hull [9.6280687472555879, 9.6476015034730445]
+physical_state_hull [-1.2447085334340782, 5.1082108691305921] [-1.8833436550264635, 6.0035114658661399] [-8.0361885925721115, 0.14721512651221658] [-3.2990452785804103, 0.59172167744957294]
+signed_margin P_positive 0.0022833123497106628 worst_a2_index 127 worst_epsilon_index 0
+signed_margin Q_positive 0.02952384877795463 worst_a2_index 0 worst_epsilon_index 3
+signed_margin P_negative 0.0053675949767566771 worst_a2_index 0 worst_epsilon_index 3
+signed_margin Q_negative 0.37814618609549705 worst_a2_index 127 worst_epsilon_index 0
+signed_margin U_final 4.7541545790941671 worst_a2_index 0 worst_epsilon_index 0
+PASS mu-grid selected-source first symmetry-hit slab
+mode mu-grid-first-hit-slab
+scope selected_source_to_symmetry_event
+time_partition P_positive 0 1.55 Q_positive 1.55 1.90 P_negative 1.90 7.35 Q_negative 7.35 9.55
+final_flow_box U_positive relative_duration [0.19999999999999998, 0.20000000000000001]
+pre_source_local_graph_exclusion imported_prerequisite_not_evaluated
+grid 32 128 4 radius_factor 3
+r_index 5 r_cell [0.012499999999999999, 0.015000000000000001]
+cells 512 pass 512 dense_steps 9404
+P_positive_hull [0.0022122667171692758, 0.015863762363560907]
+Q_positive_hull [0.029501982051677981, 0.037744944174054468]
+P_negative_hull [-0.44170793326263558, -0.0052766742203768776]
+Q_negative_hull [-3.300076825721836, -0.37257546360779709]
+U_final_hull [4.7545451582101803, 5.1089675221223789]
+return_time_hull [0.076888869827961975, 0.099128026376159403]
+half_time_hull [9.6268888698279618, 9.649128026376161]
+physical_state_hull [-1.2453330580617208, 5.1089675221223789] [-1.9023076683566433, 6.0135148702251522] [-8.0402111373677059, 0.14744353739289007] [-3.300076825721836, 0.59768807331748997]
+signed_margin P_positive 0.0022122667171692758 worst_a2_index 127 worst_epsilon_index 0
+signed_margin Q_positive 0.029501982051677981 worst_a2_index 0 worst_epsilon_index 3
+signed_margin P_negative 0.0052766742203768776 worst_a2_index 0 worst_epsilon_index 3
+signed_margin Q_negative 0.37257546360779709 worst_a2_index 127 worst_epsilon_index 0
+signed_margin U_final 4.7545451582101803 worst_a2_index 0 worst_epsilon_index 0
+PASS mu-grid selected-source first symmetry-hit slab
+mode mu-grid-first-hit-slab
+scope selected_source_to_symmetry_event
+time_partition P_positive 0 1.55 Q_positive 1.55 1.90 P_negative 1.90 7.35 Q_negative 7.35 9.55
+final_flow_box U_positive relative_duration [0.19999999999999998, 0.20000000000000001]
+pre_source_local_graph_exclusion imported_prerequisite_not_evaluated
+grid 32 128 4 radius_factor 3
+r_index 6 r_cell [0.014999999999999999, 0.017500000000000002]
+cells 512 pass 512 dense_steps 9425
+P_positive_hull [0.0021412667447530251, 0.015908770954831824]
+Q_positive_hull [0.02947982381401908, 0.037744323479760679]
+P_negative_hull [-0.44195132477888122, -0.0051855944366275769]
+Q_negative_hull [-3.3023552612160043, -0.3671277342595049]
+U_final_hull [4.7550354947423505, 5.1098483969369619]
+return_time_hull [0.075735115039971004, 0.10069212204353747]
+half_time_hull [9.625735115039971, 9.6506921220435391]
+physical_state_hull [-1.2459980957252068, 5.1098483969369619] [-1.92092240941683, 6.0239551747378464] [-8.0444809566008022, 0.14767092318805972] [-3.3023552612160043, 0.60354455712294852]
+signed_margin P_positive 0.0021412667447530251 worst_a2_index 127 worst_epsilon_index 0
+signed_margin Q_positive 0.02947982381401908 worst_a2_index 0 worst_epsilon_index 3
+signed_margin P_negative 0.0051855944366275769 worst_a2_index 0 worst_epsilon_index 3
+signed_margin Q_negative 0.3671277342595049 worst_a2_index 127 worst_epsilon_index 0
+signed_margin U_final 4.7550354947423505 worst_a2_index 0 worst_epsilon_index 0
+PASS mu-grid selected-source first symmetry-hit slab
+mode mu-grid-first-hit-slab
+scope selected_source_to_symmetry_event
+time_partition P_positive 0 1.55 Q_positive 1.55 1.90 P_negative 1.90 7.35 Q_negative 7.35 9.55
+final_flow_box U_positive relative_duration [0.19999999999999998, 0.20000000000000001]
+pre_source_local_graph_exclusion imported_prerequisite_not_evaluated
+grid 32 128 4 radius_factor 3
+r_index 7 r_cell [0.017499999999999998, 0.02]
+cells 512 pass 512 dense_steps 9444
+P_positive_hull [0.0020703103411460373, 0.015953756514692875]
+Q_positive_hull [0.029457373299966231, 0.037744026805990878]
+P_negative_hull [-0.4422055570648567, -0.0050943586842355911]
+Q_negative_hull [-3.3026815396777685, -0.3618009843273135]
+U_final_hull [4.7555944160788988, 5.1108492829283056]
+return_time_hull [0.074607119702367067, 0.10229340866845633]
+half_time_hull [9.6246071197023664, 9.6522934086684575]
+physical_state_hull [-1.2467025317033447, 5.1108492829283056] [-1.939193846229184, 6.0347348787195587] [-8.0489764930560295, 0.14789726801826797] [-3.3026815396777685, 0.60929320755976513]
+signed_margin P_positive 0.0020703103411460373 worst_a2_index 127 worst_epsilon_index 0
+signed_margin Q_positive 0.029457373299966231 worst_a2_index 0 worst_epsilon_index 3
+signed_margin P_negative 0.0050943586842355911 worst_a2_index 0 worst_epsilon_index 3
+signed_margin Q_negative 0.3618009843273135 worst_a2_index 127 worst_epsilon_index 0
+signed_margin U_final 4.7555944160788988 worst_a2_index 0 worst_epsilon_index 0
+PASS mu-grid selected-source first symmetry-hit slab
+mode mu-grid-first-hit-slab
+scope selected_source_to_symmetry_event
+time_partition P_positive 0 1.55 Q_positive 1.55 1.90 P_negative 1.90 7.35 Q_negative 7.35 9.55
+final_flow_box U_positive relative_duration [0.19999999999999998, 0.20000000000000001]
+pre_source_local_graph_exclusion imported_prerequisite_not_evaluated
+grid 32 128 4 radius_factor 3
+r_index 8 r_cell [0.019999999999999997, 0.022500000000000003]
+cells 512 pass 512 dense_steps 9464
+P_positive_hull [0.0019993976841945712, 0.015998722333948202]
+Q_positive_hull [0.0294346284634333, 0.037743900117773753]
+P_negative_hull [-0.44247292873755389, -0.0050029583657049126]
+Q_negative_hull [-3.3037164752201615, -0.35659696888972486]
+U_final_hull [4.7562249086163249, 5.1119723774965005]
+return_time_hull [0.07350519790818788, 0.10393339302717879]
+half_time_hull [9.6235051979081874, 9.6539333930271809]
+physical_state_hull [-1.2474476275934181, 5.1119723774965005] [-1.9571205055516971, 6.045912651958008] [-8.0536884995511659, 0.1481225933330978] [-3.3037164752201615, 0.61493279849574922]
+signed_margin P_positive 0.0019993976841945712 worst_a2_index 127 worst_epsilon_index 0
+signed_margin Q_positive 0.0294346284634333 worst_a2_index 0 worst_epsilon_index 3
+signed_margin P_negative 0.0050029583657049126 worst_a2_index 0 worst_epsilon_index 3
+signed_margin Q_negative 0.35659696888972486 worst_a2_index 127 worst_epsilon_index 0
+signed_margin U_final 4.7562249086163249 worst_a2_index 0 worst_epsilon_index 0
+PASS mu-grid selected-source first symmetry-hit slab
+mode mu-grid-first-hit-slab
+scope selected_source_to_symmetry_event
+time_partition P_positive 0 1.55 Q_positive 1.55 1.90 P_negative 1.90 7.35 Q_negative 7.35 9.55
+final_flow_box U_positive relative_duration [0.19999999999999998, 0.20000000000000001]
+pre_source_local_graph_exclusion imported_prerequisite_not_evaluated
+grid 32 128 4 radius_factor 3
+r_index 9 r_cell [0.022499999999999999, 0.025000000000000001]
+cells 512 pass 512 dense_steps 9482
+P_positive_hull [0.0019285271730176711, 0.016043661700534378]
+Q_positive_hull [0.029411589682203473, 0.037743895235986452]
+P_negative_hull [-0.4427529267496309, -0.0049114063032070091]
+Q_negative_hull [-3.305113742570891, -0.35151422126115245]
+U_final_hull [4.7569352282596267, 5.1132052138210566]
+return_time_hull [0.072429083963854266, 0.10560934407891585]
+half_time_hull [9.6224290839638549, 9.6556093440789166]
+physical_state_hull [-1.2482302912911896, 5.1132052138210566] [-1.9747074579974371, 6.057462635278263] [-8.058619824491565, 0.14834685175364298] [-3.305113742570891, 0.62046494285007703]
+signed_margin P_positive 0.0019285271730176711 worst_a2_index 127 worst_epsilon_index 0
+signed_margin Q_positive 0.029411589682203473 worst_a2_index 0 worst_epsilon_index 3
+signed_margin P_negative 0.0049114063032070091 worst_a2_index 0 worst_epsilon_index 3
+signed_margin Q_negative 0.35151422126115245 worst_a2_index 127 worst_epsilon_index 0
+signed_margin U_final 4.7569352282596267 worst_a2_index 0 worst_epsilon_index 0
+PASS mu-grid selected-source first symmetry-hit slab
+mode mu-grid-first-hit-slab
+scope selected_source_to_symmetry_event
+time_partition P_positive 0 1.55 Q_positive 1.55 1.90 P_negative 1.90 7.35 Q_negative 7.35 9.55
+final_flow_box U_positive relative_duration [0.19999999999999998, 0.20000000000000001]
+pre_source_local_graph_exclusion imported_prerequisite_not_evaluated
+grid 32 128 4 radius_factor 3
+r_index 10 r_cell [0.024999999999999998, 0.0275]
+cells 512 pass 512 dense_steps 9501
+P_positive_hull [0.0018576985838558921, 0.016088575463171762]
+Q_positive_hull [0.029388255522134105, 0.037743969545269561]
+P_negative_hull [-0.4430433188621582, -0.0048196991355510654]
+Q_negative_hull [-3.306604588366135, -0.34655329803643126]
+U_final_hull [4.7577250335554933, 5.1145465578321438]
+return_time_hull [0.071378880001825823, 0.10732179521636188]
+half_time_hull [9.6213788800018261, 9.6573217952163635]
+physical_state_hull [-1.2490507133975381, 5.1145465578321438] [-1.9919556203203226, 6.0693877184571452] [-8.0637736894389942, 0.14857004799131798] [-3.306604588366135, 0.62588946102516885]
+signed_margin P_positive 0.0018576985838558921 worst_a2_index 127 worst_epsilon_index 0
+signed_margin Q_positive 0.029388255522134105 worst_a2_index 0 worst_epsilon_index 3
+signed_margin P_negative 0.0048196991355510654 worst_a2_index 0 worst_epsilon_index 3
+signed_margin Q_negative 0.34655329803643126 worst_a2_index 127 worst_epsilon_index 0
+signed_margin U_final 4.7577250335554933 worst_a2_index 0 worst_epsilon_index 0
+PASS mu-grid selected-source first symmetry-hit slab
+mode mu-grid-first-hit-slab
+scope selected_source_to_symmetry_event
+time_partition P_positive 0 1.55 Q_positive 1.55 1.90 P_negative 1.90 7.35 Q_negative 7.35 9.55
+final_flow_box U_positive relative_duration [0.19999999999999998, 0.20000000000000001]
+pre_source_local_graph_exclusion imported_prerequisite_not_evaluated
+grid 32 128 4 radius_factor 3
+r_index 11 r_cell [0.027499999999999997, 0.030000000000000002]
+cells 512 pass 512 dense_steps 9518
+P_positive_hull [0.0017869101822510171, 0.016133466053378284]
+Q_positive_hull [0.029364624091736402, 0.037744105085536814]
+P_negative_hull [-0.44334437855403619, -0.004727830045609816]
+Q_negative_hull [-3.3081899685464626, -0.34171292472259446]
+U_final_hull [4.7585863825420835, 5.1159974132906649]
+return_time_hull [0.070354356685361316, 0.10907187322483648]
+half_time_hull [9.6203543566853611, 9.6590718732248373]
+physical_state_hull [-1.2499097916797972, 5.1159974132906649] [-2.0088696586180905, 6.0816951354901123] [-8.0691528001926418, 0.14879219753012687] [-3.3081899685464626, 0.63120776078246077]
+signed_margin P_positive 0.0017869101822510171 worst_a2_index 127 worst_epsilon_index 0
+signed_margin Q_positive 0.029364624091736402 worst_a2_index 0 worst_epsilon_index 3
+signed_margin P_negative 0.004727830045609816 worst_a2_index 0 worst_epsilon_index 3
+signed_margin Q_negative 0.34171292472259446 worst_a2_index 127 worst_epsilon_index 0
+signed_margin U_final 4.7585863825420835 worst_a2_index 0 worst_epsilon_index 0
+PASS mu-grid selected-source first symmetry-hit slab
+mode mu-grid-first-hit-slab
+scope selected_source_to_symmetry_event
+time_partition P_positive 0 1.55 Q_positive 1.55 1.90 P_negative 1.90 7.35 Q_negative 7.35 9.55
+final_flow_box U_positive relative_duration [0.19999999999999998, 0.20000000000000001]
+pre_source_local_graph_exclusion imported_prerequisite_not_evaluated
+grid 32 128 4 radius_factor 3
+r_index 12 r_cell [0.029999999999999999, 0.032500000000000001]
+cells 512 pass 512 dense_steps 9536
+P_positive_hull [0.001716161127461356, 0.016178334120213727]
+Q_positive_hull [0.029340693902238195, 0.037744288955622707]
+P_negative_hull [-0.44365616117984064, -0.0046357959948843223]
+Q_negative_hull [-3.3098706056631011, -0.33699294976794431]
+U_final_hull [4.7595172385682485, 5.117555954087095]
+return_time_hull [0.069355487586915357, 0.11085998530848569]
+half_time_hull [9.6193554875869154, 9.6608599853084876]
+physical_state_hull [-1.2508076633317229, 5.117555954087095] [-2.0254519417519008, 6.092393910703624] [-8.0747592752978115, 0.1490133597520075] [-3.3098706056631011, 0.63642026797130669]
+signed_margin P_positive 0.001716161127461356 worst_a2_index 127 worst_epsilon_index 0
+signed_margin Q_positive 0.029340693902238195 worst_a2_index 0 worst_epsilon_index 3
+signed_margin P_negative 0.0046357959948843223 worst_a2_index 0 worst_epsilon_index 3
+signed_margin Q_negative 0.33699294976794431 worst_a2_index 127 worst_epsilon_index 0
+signed_margin U_final 4.7595172385682485 worst_a2_index 0 worst_epsilon_index 0
+PASS mu-grid selected-source first symmetry-hit slab
+mode mu-grid-first-hit-slab
+scope selected_source_to_symmetry_event
+time_partition P_positive 0 1.55 Q_positive 1.55 1.90 P_negative 1.90 7.35 Q_negative 7.35 9.55
+final_flow_box U_positive relative_duration [0.19999999999999998, 0.20000000000000001]
+pre_source_local_graph_exclusion imported_prerequisite_not_evaluated
+grid 32 128 4 radius_factor 3
+r_index 13 r_cell [0.032499999999999994, 0.035000000000000003]
+cells 512 pass 512 dense_steps 9554
+P_positive_hull [0.0016454506295218087, 0.016223179521997172]
+Q_positive_hull [0.029316463648357233, 0.037744511838118285]
+P_negative_hull [-0.44397862497194018, -0.0045435956244172428]
+Q_negative_hull [-3.3116475186728569, -0.33239336214817655]
+U_final_hull [4.760515079626531, 5.1192193723026787]
+return_time_hull [0.068382269392637016, 0.11268622909955779]
+half_time_hull [9.6183822693926366, 9.6626862290995597]
+physical_state_hull [-1.2517441304148276, 5.1192193723026787] [-2.041704627947734, 6.1032906364031891] [-8.0805957821612786, 0.14923387489210591] [-3.3116475186728569, 0.64152728751544064]
+signed_margin P_positive 0.0016454506295218087 worst_a2_index 127 worst_epsilon_index 0
+signed_margin Q_positive 0.029316463648357233 worst_a2_index 0 worst_epsilon_index 3
+signed_margin P_negative 0.0045435956244172428 worst_a2_index 0 worst_epsilon_index 3
+signed_margin Q_negative 0.33239336214817655 worst_a2_index 127 worst_epsilon_index 0
+signed_margin U_final 4.760515079626531 worst_a2_index 0 worst_epsilon_index 0
+PASS mu-grid selected-source first symmetry-hit slab
+mode mu-grid-first-hit-slab
+scope selected_source_to_symmetry_event
+time_partition P_positive 0 1.55 Q_positive 1.55 1.90 P_negative 1.90 7.35 Q_negative 7.35 9.55
+final_flow_box U_positive relative_duration [0.19999999999999998, 0.20000000000000001]
+pre_source_local_graph_exclusion imported_prerequisite_not_evaluated
+grid 32 128 4 radius_factor 3
+r_index 14 r_cell [0.034999999999999996, 0.037500000000000006]
+cells 512 pass 512 dense_steps 9570
+P_positive_hull [0.001574777469495311, 0.016268001595233179]
+Q_positive_hull [0.029291932140948808, 0.037744771297579867]
+P_negative_hull [-0.44431166939552164, -0.0044512286713784596]
+Q_negative_hull [-3.3135220198200197, -0.32791363700667803]
+U_final_hull [4.7584382547370039, 5.1209840000792513]
+return_time_hull [0.067434608072185126, 0.11455069716956427]
+half_time_hull [9.6174346080721858, 9.6645506971695667]
+physical_state_hull [-1.2527187903788559, 5.1209840000792513] [-2.0576308245135109, 6.1144329088266858] [-8.0866655217550747, 0.14945389362524608] [-3.3135220198200197, 0.64652955284486058]
+signed_margin P_positive 0.001574777469495311 worst_a2_index 127 worst_epsilon_index 0
+signed_margin Q_positive 0.029291932140948808 worst_a2_index 0 worst_epsilon_index 3
+signed_margin P_negative 0.0044512286713784596 worst_a2_index 0 worst_epsilon_index 3
+signed_margin Q_negative 0.32791363700667803 worst_a2_index 127 worst_epsilon_index 0
+signed_margin U_final 4.7584382547370039 worst_a2_index 0 worst_epsilon_index 0
+PASS mu-grid selected-source first symmetry-hit slab
+mode mu-grid-first-hit-slab
+scope selected_source_to_symmetry_event
+time_partition P_positive 0 1.55 Q_positive 1.55 1.90 P_negative 1.90 7.35 Q_negative 7.35 9.55
+final_flow_box U_positive relative_duration [0.19999999999999998, 0.20000000000000001]
+pre_source_local_graph_exclusion imported_prerequisite_not_evaluated
+grid 32 128 4 radius_factor 3
+r_index 15 r_cell [0.037499999999999999, 0.040000000000000001]
+cells 512 pass 512 dense_steps 9586
+P_positive_hull [0.0015041399343221488, 0.016312801110457225]
+Q_positive_hull [0.02926709779723562, 0.037745059439296284]
+P_negative_hull [-0.44465535370702602, -0.004358691772630938]
+Q_negative_hull [-3.3154952309218544, -0.32355264524037436]
+U_final_hull [4.7546488792281822, 5.1228480965560417]
+return_time_hull [0.066512297583877278, 0.11645369242175956]
+half_time_hull [9.6165122975838777, 9.6664536924217614]
+physical_state_hull [-1.2537318034127973, 5.1228480965560417] [-2.0732349911860952, 6.1258171801044359] [-8.0929712136101664, 0.14981829160592736] [-3.3154952309218544, 0.65142835244397335]
+signed_margin P_positive 0.0015041399343221488 worst_a2_index 127 worst_epsilon_index 0
+signed_margin Q_positive 0.02926709779723562 worst_a2_index 0 worst_epsilon_index 3
+signed_margin P_negative 0.004358691772630938 worst_a2_index 0 worst_epsilon_index 3
+signed_margin Q_negative 0.32355264524037436 worst_a2_index 127 worst_epsilon_index 0
+signed_margin U_final 4.7546488792281822 worst_a2_index 0 worst_epsilon_index 0
+PASS mu-grid selected-source first symmetry-hit slab
+mode mu-grid-first-hit-slab
+scope selected_source_to_symmetry_event
+time_partition P_positive 0 1.55 Q_positive 1.55 1.90 P_negative 1.90 7.35 Q_negative 7.35 9.55
+final_flow_box U_positive relative_duration [0.19999999999999998, 0.20000000000000001]
+pre_source_local_graph_exclusion imported_prerequisite_not_evaluated
+grid 32 128 4 radius_factor 3
+r_index 16 r_cell [0.039999999999999994, 0.042500000000000003]
+cells 512 pass 512 dense_steps 9602
+P_positive_hull [0.0014335367118062715, 0.016357579730691997]
+Q_positive_hull [0.029241958734795515, 0.037745374056050572]
+P_negative_hull [-0.44500989310586658, -0.0042659795757323486]
+Q_negative_hull [-3.3175678153092254, -0.31930979285022459]
+U_final_hull [4.7508481520858075, 5.1248111295602641]
+return_time_hull [0.065615230001825273, 0.11839619672497634]
+half_time_hull [9.6156152300018256, 9.6683961967249772]
+physical_state_hull [-1.2547885647940147, 5.1248111295602641] [-2.0885212790011476, 6.1374445142125476] [-8.0995144337851563, 0.15003683387487907] [-3.3175678153092254, 0.6562245643331337]
+signed_margin P_positive 0.0014335367118062715 worst_a2_index 127 worst_epsilon_index 0
+signed_margin Q_positive 0.029241958734795515 worst_a2_index 0 worst_epsilon_index 3
+signed_margin P_negative 0.0042659795757323486 worst_a2_index 0 worst_epsilon_index 3
+signed_margin Q_negative 0.31930979285022459 worst_a2_index 127 worst_epsilon_index 0
+signed_margin U_final 4.7508481520858075 worst_a2_index 0 worst_epsilon_index 0
+PASS mu-grid selected-source first symmetry-hit slab
+mode mu-grid-first-hit-slab
+scope selected_source_to_symmetry_event
+time_partition P_positive 0 1.55 Q_positive 1.55 1.90 P_negative 1.90 7.35 Q_negative 7.35 9.55
+final_flow_box U_positive relative_duration [0.19999999999999998, 0.20000000000000001]
+pre_source_local_graph_exclusion imported_prerequisite_not_evaluated
+grid 32 128 4 radius_factor 3
+r_index 17 r_cell [0.042499999999999996, 0.045000000000000005]
+cells 512 pass 512 dense_steps 9617
+P_positive_hull [0.0013629661663967212, 0.016402335218718464]
+Q_positive_hull [0.029216514136922729, 0.037745711640304727]
+P_negative_hull [-0.44537492741853407, -0.0041730951516100899]
+Q_negative_hull [-3.319741126352667, -0.31518415610608169]
+U_final_hull [4.7470339081770998, 5.1271154119992204]
+return_time_hull [0.064743239618487769, 0.12037748160942698]
+half_time_hull [9.6147432396184875, 9.6703774816094281]
+physical_state_hull [-1.2558946785635905, 5.1271154119992204] [-2.1034928467808389, 6.1493003390496002] [-8.1062982372456389, 0.15025435086398362] [-3.319741126352667, 0.66091917979555781]
+signed_margin P_positive 0.0013629661663967212 worst_a2_index 127 worst_epsilon_index 0
+signed_margin Q_positive 0.029216514136922729 worst_a2_index 0 worst_epsilon_index 3
+signed_margin P_negative 0.0041730951516100899 worst_a2_index 0 worst_epsilon_index 3
+signed_margin Q_negative 0.31518415610608169 worst_a2_index 127 worst_epsilon_index 0
+signed_margin U_final 4.7470339081770998 worst_a2_index 0 worst_epsilon_index 0
+PASS mu-grid selected-source first symmetry-hit slab
+mode mu-grid-first-hit-slab
+scope selected_source_to_symmetry_event
+time_partition P_positive 0 1.55 Q_positive 1.55 1.90 P_negative 1.90 7.35 Q_negative 7.35 9.55
+final_flow_box U_positive relative_duration [0.19999999999999998, 0.20000000000000001]
+pre_source_local_graph_exclusion imported_prerequisite_not_evaluated
+grid 32 128 4 radius_factor 3
+r_index 18 r_cell [0.044999999999999998, 0.047500000000000001]
+cells 512 pass 512 dense_steps 9632
+P_positive_hull [0.0012924223111863548, 0.016447070151379441]
+Q_positive_hull [0.029190761757065215, 0.037746078565834736]
+P_negative_hull [-0.44575079507016868, -0.0040800310397750179]
+Q_negative_hull [-3.3220224962440565, -0.31116990295948094]
+U_final_hull [4.7432048565611424, 5.1296156776952468]
+return_time_hull [0.063895278102919104, 0.1223988239113968]
+half_time_hull [9.6138952781029197, 9.6723988239113989]
+physical_state_hull [-1.2570395568170321, 5.1296156776952468] [-2.1181632932483168, 6.161388366101745] [-8.1133395923174181, 0.15047085881127825] [-3.3220224962440565, 0.66551750657605657]
+signed_margin P_positive 0.0012924223111863548 worst_a2_index 127 worst_epsilon_index 0
+signed_margin Q_positive 0.029190761757065215 worst_a2_index 0 worst_epsilon_index 3
+signed_margin P_negative 0.0040800310397750179 worst_a2_index 0 worst_epsilon_index 3
+signed_margin Q_negative 0.31116990295948094 worst_a2_index 127 worst_epsilon_index 0
+signed_margin U_final 4.7432048565611424 worst_a2_index 0 worst_epsilon_index 0
+PASS mu-grid selected-source first symmetry-hit slab
+mode mu-grid-first-hit-slab
+scope selected_source_to_symmetry_event
+time_partition P_positive 0 1.55 Q_positive 1.55 1.90 P_negative 1.90 7.35 Q_negative 7.35 9.55
+final_flow_box U_positive relative_duration [0.19999999999999998, 0.20000000000000001]
+pre_source_local_graph_exclusion imported_prerequisite_not_evaluated
+grid 32 128 4 radius_factor 3
+r_index 19 r_cell [0.047499999999999994, 0.050000000000000003]
+cells 512 pass 512 dense_steps 9646
+P_positive_hull [0.0012219087285257808, 0.016491786779031251]
+Q_positive_hull [0.029164699359296869, 0.037746463749709587]
+P_negative_hull [-0.44613776377573827, -0.0039867804103525199]
+Q_negative_hull [-3.3244091081735987, -0.30727193403115821]
+U_final_hull [4.7393572856202253, 5.1320695846736211]
+return_time_hull [0.063072230041747168, 0.12446141675774987]
+half_time_hull [9.6130722300417464, 9.674461416757751]
+physical_state_hull [-1.2582240774131805, 5.1320695846736211] [-2.1325254497533943, 6.1737111242745462] [-8.120631692997506, 0.15068637163800006] [-3.3244091081735987, 0.67001558277927409]
+signed_margin P_positive 0.0012219087285257808 worst_a2_index 127 worst_epsilon_index 0
+signed_margin Q_positive 0.029164699359296869 worst_a2_index 0 worst_epsilon_index 3
+signed_margin P_negative 0.0039867804103525199 worst_a2_index 0 worst_epsilon_index 3
+signed_margin Q_negative 0.30727193403115821 worst_a2_index 127 worst_epsilon_index 0
+signed_margin U_final 4.7393572856202253 worst_a2_index 0 worst_epsilon_index 0
+PASS mu-grid selected-source first symmetry-hit slab
+mode mu-grid-first-hit-slab
+scope selected_source_to_symmetry_event
+time_partition P_positive 0 1.55 Q_positive 1.55 1.90 P_negative 1.90 7.35 Q_negative 7.35 9.55
+final_flow_box U_positive relative_duration [0.19999999999999998, 0.20000000000000001]
+pre_source_local_graph_exclusion imported_prerequisite_not_evaluated
+grid 32 128 4 radius_factor 3
+r_index 20 r_cell [0.049999999999999996, 0.052500000000000005]
+cells 512 pass 512 dense_steps 9659
+P_positive_hull [0.0011514171189937318, 0.016536481495875395]
+Q_positive_hull [0.029138326559639809, 0.037746873714614937]
+P_negative_hull [-0.44653535656441384, -0.0038933493783728456]
+Q_negative_hull [-3.3269020851751581, -0.30348134651341457]
+U_final_hull [4.7354893187555129, 5.1345200312612249]
+return_time_hull [0.062272474360151465, 0.12656400453326805]
+half_time_hull [9.612272474360152, 9.6765640045332688]
+physical_state_hull [-1.259446547717634, 5.1345200312612249] [-2.1466016126762018, 6.1862484414493721] [-8.1281770361914329, 0.1509008629488699] [-3.3269020851751581, 0.6744216173159403]
+signed_margin P_positive 0.0011514171189937318 worst_a2_index 127 worst_epsilon_index 0
+signed_margin Q_positive 0.029138326559639809 worst_a2_index 0 worst_epsilon_index 3
+signed_margin P_negative 0.0038933493783728456 worst_a2_index 0 worst_epsilon_index 3
+signed_margin Q_negative 0.30348134651341457 worst_a2_index 127 worst_epsilon_index 0
+signed_margin U_final 4.7354893187555129 worst_a2_index 0 worst_epsilon_index 0
+PASS mu-grid selected-source first symmetry-hit slab
+mode mu-grid-first-hit-slab
+scope selected_source_to_symmetry_event
+time_partition P_positive 0 1.55 Q_positive 1.55 1.90 P_negative 1.90 7.35 Q_negative 7.35 9.55
+final_flow_box U_positive relative_duration [0.19999999999999998, 0.20000000000000001]
+pre_source_local_graph_exclusion imported_prerequisite_not_evaluated
+grid 32 128 4 radius_factor 3
+r_index 21 r_cell [0.052499999999999998, 0.055]
+cells 512 pass 512 dense_steps 9674
+P_positive_hull [0.0010809541019035239, 0.016581155702371064]
+Q_positive_hull [0.029111641372605055, 0.037747300715028652]
+P_negative_hull [-0.446943733129743, -0.0037997329557133224]
+Q_negative_hull [-3.3295009077045798, -0.29980708027702302]
+U_final_hull [4.731599129201145, 5.1368129495966377]
+return_time_hull [0.061497646197360478, 0.12870740708873396]
+half_time_hull [9.6114976461973605, 9.6787074070887353]
+physical_state_hull [-1.2607074755176355, 5.1368129495966377] [-2.1603738291451307, 6.1989990611851189] [-8.1359738726556134, 0.15111434064588594] [-3.3295009077045798, 0.67872785869499519]
+signed_margin P_positive 0.0010809541019035239 worst_a2_index 127 worst_epsilon_index 0
+signed_margin Q_positive 0.029111641372605055 worst_a2_index 0 worst_epsilon_index 3
+signed_margin P_negative 0.0037997329557133224 worst_a2_index 0 worst_epsilon_index 3
+signed_margin Q_negative 0.29980708027702302 worst_a2_index 127 worst_epsilon_index 0
+signed_margin U_final 4.731599129201145 worst_a2_index 0 worst_epsilon_index 0
+PASS mu-grid selected-source first symmetry-hit slab
+mode mu-grid-first-hit-slab
+scope selected_source_to_symmetry_event
+time_partition P_positive 0 1.55 Q_positive 1.55 1.90 P_negative 1.90 7.35 Q_negative 7.35 9.55
+final_flow_box U_positive relative_duration [0.19999999999999998, 0.20000000000000001]
+pre_source_local_graph_exclusion imported_prerequisite_not_evaluated
+grid 32 128 4 radius_factor 3
+r_index 22 r_cell [0.054999999999999993, 0.057500000000000002]
+cells 512 pass 512 dense_steps 9687
+P_positive_hull [0.0010105185706264018, 0.016625810111246999]
+Q_positive_hull [0.029084641969337462, 0.037747755571951182]
+P_negative_hull [-0.44736297094992905, -0.0037059276141346198]
+Q_negative_hull [-3.3322068781087992, -0.29624888044138237]
+U_final_hull [4.7276848828859173, 5.1390991769670809]
+return_time_hull [0.060747699775152139, 0.1308921805007284]
+half_time_hull [9.6107476997751515, 9.6808921805007309]
+physical_state_hull [-1.2620070845777278, 5.1390991769670809] [-2.1738447264147744, 6.2119594400828522] [-8.14402482699386, 0.1513268079906373] [-3.3322068781087992, 0.68293476489538218]
+signed_margin P_positive 0.0010105185706264018 worst_a2_index 127 worst_epsilon_index 0
+signed_margin Q_positive 0.029084641969337462 worst_a2_index 0 worst_epsilon_index 3
+signed_margin P_negative 0.0037059276141346198 worst_a2_index 0 worst_epsilon_index 3
+signed_margin Q_negative 0.29624888044138237 worst_a2_index 127 worst_epsilon_index 0
+signed_margin U_final 4.7276848828859173 worst_a2_index 0 worst_epsilon_index 0
+PASS mu-grid selected-source first symmetry-hit slab
+mode mu-grid-first-hit-slab
+scope selected_source_to_symmetry_event
+time_partition P_positive 0 1.55 Q_positive 1.55 1.90 P_negative 1.90 7.35 Q_negative 7.35 9.55
+final_flow_box U_positive relative_duration [0.19999999999999998, 0.20000000000000001]
+pre_source_local_graph_exclusion imported_prerequisite_not_evaluated
+grid 32 128 4 radius_factor 3
+r_index 23 r_cell [0.057499999999999996, 0.060000000000000005]
+cells 512 pass 512 dense_steps 9700
+P_positive_hull [0.00094010662903561593, 0.016670442950727182]
+Q_positive_hull [0.029057327315595693, 0.037748226185961166]
+P_negative_hull [-0.44779283834487915, -0.0036119353101116834]
+Q_negative_hull [-3.3350209661225301, -0.29280222198475708]
+U_final_hull [4.7237457337530495, 5.1412041746840202]
+return_time_hull [0.060021833164120728, 0.13311795025712977]
+half_time_hull [9.6100218331641205, 9.683117950257131]
+physical_state_hull [-1.2633445340938385, 5.1412041746840202] [-2.1870268917916982, 6.225117111582863] [-8.1523317179204984, 0.1515382514840235] [-3.3350209661225301, 0.68704657627484078]
+signed_margin P_positive 0.00094010662903561593 worst_a2_index 127 worst_epsilon_index 0
+signed_margin Q_positive 0.029057327315595693 worst_a2_index 0 worst_epsilon_index 3
+signed_margin P_negative 0.0036119353101116834 worst_a2_index 0 worst_epsilon_index 3
+signed_margin Q_negative 0.29280222198475708 worst_a2_index 127 worst_epsilon_index 0
+signed_margin U_final 4.7237457337530495 worst_a2_index 0 worst_epsilon_index 0
+PASS mu-grid selected-source first symmetry-hit slab
+mode mu-grid-first-hit-slab
+scope selected_source_to_symmetry_event
+time_partition P_positive 0 1.55 Q_positive 1.55 1.90 P_negative 1.90 7.35 Q_negative 7.35 9.55
+final_flow_box U_positive relative_duration [0.19999999999999998, 0.20000000000000001]
+pre_source_local_graph_exclusion imported_prerequisite_not_evaluated
+grid 32 128 4 radius_factor 3
+r_index 24 r_cell [0.059999999999999998, 0.0625]
+cells 512 pass 512 dense_steps 9710
+P_positive_hull [0.00086971913591001471, 0.016715053827833688]
+Q_positive_hull [0.029029695924626588, 0.037748715059581418]
+P_negative_hull [-0.44823327707789057, -0.0035177549370517098]
+Q_negative_hull [-3.3379443482514803, -0.28947007549537856]
+U_final_hull [4.7197796718715361, 5.1425053931721436]
+return_time_hull [0.059320573329524666, 0.13538494451802432]
+half_time_hull [9.6093205733295246, 9.6853849445180256]
+physical_state_hull [-1.2647195832324358, 5.1425053931721436] [-2.1999154305141251, 6.2384644400758571] [-8.1608967913910337, 0.15174866689201008] [-3.3379443482514803, 0.69106086806852574]
+signed_margin P_positive 0.00086971913591001471 worst_a2_index 127 worst_epsilon_index 0
+signed_margin Q_positive 0.029029695924626588 worst_a2_index 0 worst_epsilon_index 3
+signed_margin P_negative 0.0035177549370517098 worst_a2_index 0 worst_epsilon_index 3
+signed_margin Q_negative 0.28947007549537856 worst_a2_index 127 worst_epsilon_index 0
+signed_margin U_final 4.7197796718715361 worst_a2_index 0 worst_epsilon_index 0
+PASS mu-grid selected-source first symmetry-hit slab
+mode mu-grid-first-hit-slab
+scope selected_source_to_symmetry_event
+time_partition P_positive 0 1.55 Q_positive 1.55 1.90 P_negative 1.90 7.35 Q_negative 7.35 9.55
+final_flow_box U_positive relative_duration [0.19999999999999998, 0.20000000000000001]
+pre_source_local_graph_exclusion imported_prerequisite_not_evaluated
+grid 32 128 4 radius_factor 3
+r_index 25 r_cell [0.0625, 0.065000000000000002]
+cells 512 pass 512 dense_steps 9717
+P_positive_hull [0.0007993621545564286, 0.016759644643331184]
+Q_positive_hull [0.029001745527125578, 0.037749231714277819]
+P_negative_hull [-0.44868450943958754, -0.0034233802946878281]
+Q_negative_hull [-3.3409742251874976, -0.28626128016730096]
+U_final_hull [4.7157845369542075, 5.1439429504103309]
+return_time_hull [0.058645524527662932, 0.13769416723494077]
+half_time_hull [9.6086455245276632, 9.6876941672349428]
+physical_state_hull [-1.266132957938457, 5.1439429504103309] [-2.212491658030348, 6.2520010019134169] [-8.1697125799358652, 0.15195806493761724] [-3.3409742251874976, 0.69496988033258222]
+signed_margin P_positive 0.0007993621545564286 worst_a2_index 127 worst_epsilon_index 0
+signed_margin Q_positive 0.029001745527125578 worst_a2_index 0 worst_epsilon_index 3
+signed_margin P_negative 0.0034233802946878281 worst_a2_index 0 worst_epsilon_index 3
+signed_margin Q_negative 0.28626128016730096 worst_a2_index 127 worst_epsilon_index 0
+signed_margin U_final 4.7157845369542075 worst_a2_index 0 worst_epsilon_index 0
+PASS mu-grid selected-source first symmetry-hit slab
+mode mu-grid-first-hit-slab
+scope selected_source_to_symmetry_event
+time_partition P_positive 0 1.55 Q_positive 1.55 1.90 P_negative 1.90 7.35 Q_negative 7.35 9.55
+final_flow_box U_positive relative_duration [0.19999999999999998, 0.20000000000000001]
+pre_source_local_graph_exclusion imported_prerequisite_not_evaluated
+grid 32 128 4 radius_factor 3
+r_index 26 r_cell [0.064999999999999988, 0.067500000000000004]
+cells 512 pass 512 dense_steps 9723
+P_positive_hull [0.00072901830272370017, 0.016804218309868602]
+Q_positive_hull [0.028973473426479358, 0.037749765455748457]
+P_negative_hull [-0.44914688415925502, -0.003328802853679503]
+Q_negative_hull [-3.3441213634972602, -0.28315529183622185]
+U_final_hull [4.7117581734479463, 5.1454211253614854]
+return_time_hull [0.057992965469932142, 0.14004699827990205]
+half_time_hull [9.6079929654699328, 9.6900469982799038]
+physical_state_hull [-1.2675858177332151, 5.1454211253614854] [-2.2248053094415026, 6.2657295562609354] [-8.1788043907396482, 0.15216646287683933] [-3.3441213634972602, 0.69879227230375096]
+signed_margin P_positive 0.00072901830272370017 worst_a2_index 127 worst_epsilon_index 0
+signed_margin Q_positive 0.028973473426479358 worst_a2_index 0 worst_epsilon_index 3
+signed_margin P_negative 0.003328802853679503 worst_a2_index 0 worst_epsilon_index 3
+signed_margin Q_negative 0.28315529183622185 worst_a2_index 127 worst_epsilon_index 0
+signed_margin U_final 4.7117581734479463 worst_a2_index 0 worst_epsilon_index 0
+PASS mu-grid selected-source first symmetry-hit slab
+mode mu-grid-first-hit-slab
+scope selected_source_to_symmetry_event
+time_partition P_positive 0 1.55 Q_positive 1.55 1.90 P_negative 1.90 7.35 Q_negative 7.35 9.55
+final_flow_box U_positive relative_duration [0.19999999999999998, 0.20000000000000001]
+pre_source_local_graph_exclusion imported_prerequisite_not_evaluated
+grid 32 128 4 radius_factor 3
+r_index 27 r_cell [0.067499999999999991, 0.070000000000000007]
+cells 512 pass 512 dense_steps 9726
+P_positive_hull [0.00065869569584989934, 0.016848770782426768]
+Q_positive_hull [0.028944879222200515, 0.037750316376662089]
+P_negative_hull [-0.449619909294183, -0.0032340294271674458]
+Q_negative_hull [-3.3470683842263864, -0.28016416865046762]
+U_final_hull [4.7076985481847018, 5.1464254037906754]
+return_time_hull [0.057365064378032335, 0.14244234323900049]
+half_time_hull [9.6073650643780315, 9.6924423432390014]
+physical_state_hull [-1.2690764290157197, 5.1464254037906754] [-2.2368309416907444, 6.2796310649779361] [-8.1881107447693271, 0.15237383267401333] [-3.3470683842263864, 0.70251747653440222]
+signed_margin P_positive 0.00065869569584989934 worst_a2_index 127 worst_epsilon_index 0
+signed_margin Q_positive 0.028944879222200515 worst_a2_index 0 worst_epsilon_index 3
+signed_margin P_negative 0.0032340294271674458 worst_a2_index 0 worst_epsilon_index 3
+signed_margin Q_negative 0.28016416865046762 worst_a2_index 127 worst_epsilon_index 0
+signed_margin U_final 4.7076985481847018 worst_a2_index 0 worst_epsilon_index 0
+PASS mu-grid selected-source first symmetry-hit slab
+mode mu-grid-first-hit-slab
+scope selected_source_to_symmetry_event
+time_partition P_positive 0 1.55 Q_positive 1.55 1.90 P_negative 1.90 7.35 Q_negative 7.35 9.55
+final_flow_box U_positive relative_duration [0.19999999999999998, 0.20000000000000001]
+pre_source_local_graph_exclusion imported_prerequisite_not_evaluated
+grid 32 128 4 radius_factor 3
+r_index 28 r_cell [0.069999999999999993, 0.072500000000000009]
+cells 512 pass 512 dense_steps 9728
+P_positive_hull [0.0005884277069751299, 0.016893302452365574]
+Q_positive_hull [0.028915961034348903, 0.037750884713471683]
+P_negative_hull [-0.45010363015024946, -0.0031390570211016744]
+Q_negative_hull [-3.3494481798885491, -0.277339125976864]
+U_final_hull [4.7036036293728154, 5.1480067822076778]
+return_time_hull [0.05677084255572714, 0.14488073576193569]
+half_time_hull [9.6067708425557274, 9.694880735761938]
+physical_state_hull [-1.2706049121431355, 5.1480067822076778] [-2.2484517941763698, 6.293700317876981] [-8.1977283492768596, 0.1525801751194158] [-3.3494481798885491, 0.70610034495147544]
+signed_margin P_positive 0.0005884277069751299 worst_a2_index 127 worst_epsilon_index 0
+signed_margin Q_positive 0.028915961034348903 worst_a2_index 0 worst_epsilon_index 3
+signed_margin P_negative 0.0031390570211016744 worst_a2_index 0 worst_epsilon_index 3
+signed_margin Q_negative 0.277339125976864 worst_a2_index 127 worst_epsilon_index 0
+signed_margin U_final 4.7036036293728154 worst_a2_index 0 worst_epsilon_index 0
+PASS mu-grid selected-source first symmetry-hit slab
+mode mu-grid-first-hit-slab
+scope selected_source_to_symmetry_event
+time_partition P_positive 0 1.55 Q_positive 1.55 1.90 P_negative 1.90 7.35 Q_negative 7.35 9.55
+final_flow_box U_positive relative_duration [0.19999999999999998, 0.20000000000000001]
+pre_source_local_graph_exclusion imported_prerequisite_not_evaluated
+grid 32 128 4 radius_factor 3
+r_index 29 r_cell [0.072499999999999995, 0.075000000000000011]
+cells 512 pass 512 dense_steps 9728
+P_positive_hull [0.00051814582057819266, 0.016937814990188128]
+Q_positive_hull [0.02888671646177686, 0.037751478390767618]
+P_negative_hull [-0.45059825462810255, -0.0030438797067280482]
+Q_negative_hull [-3.3520117966516518, -0.27457872365545327]
+U_final_hull [4.6994715254846939, 5.1489862155217958]
+return_time_hull [0.056192792985254023, 0.1473632418712541]
+half_time_hull [9.6061927929852544, 9.6973632418712565]
+physical_state_hull [-1.2721719443321877, 5.1489862155217958] [-2.2598926208051089, 6.3079364236918041] [-8.2076283122986471, 0.15278549945004777] [-3.3520117966516518, 0.70962829317595288]
+signed_margin P_positive 0.00051814582057819266 worst_a2_index 127 worst_epsilon_index 0
+signed_margin Q_positive 0.02888671646177686 worst_a2_index 0 worst_epsilon_index 3
+signed_margin P_negative 0.0030438797067280482 worst_a2_index 0 worst_epsilon_index 3
+signed_margin Q_negative 0.27457872365545327 worst_a2_index 127 worst_epsilon_index 0
+signed_margin U_final 4.6994715254846939 worst_a2_index 0 worst_epsilon_index 0
+PASS mu-grid selected-source first symmetry-hit slab
+mode mu-grid-first-hit-slab
+scope selected_source_to_symmetry_event
+time_partition P_positive 0 1.55 Q_positive 1.55 1.90 P_negative 1.90 7.35 Q_negative 7.35 9.55
+final_flow_box U_positive relative_duration [0.19999999999999998, 0.20000000000000001]
+pre_source_local_graph_exclusion imported_prerequisite_not_evaluated
+grid 32 128 4 radius_factor 3
+r_index 30 r_cell [0.074999999999999997, 0.077500000000000013]
+cells 512 pass 512 dense_steps 9728
+P_positive_hull [0.00044785712333890188, 0.016982307920013238]
+Q_positive_hull [0.028857143861297355, 0.03775209419339054]
+P_negative_hull [-0.4511037214152358, -0.0029484963626512438]
+Q_negative_hull [-3.3549622449106069, -0.27189001938671592]
+U_final_hull [4.6952977904356601, 5.1499000420995369]
+return_time_hull [0.055633235908571159, 0.14989011515439823]
+half_time_hull [9.6056332359085701, 9.6998901151543997]
+physical_state_hull [-1.2737772787536439, 5.1499000420995369] [-2.2711401645963067, 6.3223306118167573] [-8.217805918713486, 0.15298980043934535] [-3.3549622449106069, 0.71309116933921768]
+signed_margin P_positive 0.00044785712333890188 worst_a2_index 127 worst_epsilon_index 0
+signed_margin Q_positive 0.028857143861297355 worst_a2_index 0 worst_epsilon_index 3
+signed_margin P_negative 0.0029484963626512438 worst_a2_index 0 worst_epsilon_index 3
+signed_margin Q_negative 0.27189001938671592 worst_a2_index 127 worst_epsilon_index 0
+signed_margin U_final 4.6952977904356601 worst_a2_index 0 worst_epsilon_index 0
+PASS mu-grid selected-source first symmetry-hit slab
+mode mu-grid-first-hit-slab
+scope selected_source_to_symmetry_event
+time_partition P_positive 0 1.55 Q_positive 1.55 1.90 P_negative 1.90 7.35 Q_negative 7.35 9.55
+final_flow_box U_positive relative_duration [0.19999999999999998, 0.20000000000000001]
+pre_source_local_graph_exclusion imported_prerequisite_not_evaluated
+grid 32 128 4 radius_factor 3
+r_index 31 r_cell [0.077499999999999999, 0.080000000000000002]
+cells 512 pass 512 dense_steps 9728
+P_positive_hull [0.0003775768276043477, 0.01702678138346261]
+Q_positive_hull [0.028827241320954836, 0.03775272909037046]
+P_negative_hull [-0.45162005597156318, -0.0028529044239452655]
+Q_negative_hull [-3.3579979633164085, -0.26930389071300026]
+U_final_hull [4.6910804196918061, 5.1507399310104942]
+return_time_hull [0.05509623487633783, 0.15246186152197719]
+half_time_hull [9.6050962348763385, 9.7024618615219786]
+physical_state_hull [-1.2754209644411874, 5.1507399310104942] [-2.2821367541046569, 6.3575562290451844] [-8.2282751545401851, 0.15319307702947269] [-3.3579979633164085, 0.71646821916526104]
+signed_margin P_positive 0.0003775768276043477 worst_a2_index 127 worst_epsilon_index 0
+signed_margin Q_positive 0.028827241320954836 worst_a2_index 0 worst_epsilon_index 3
+signed_margin P_negative 0.0028529044239452655 worst_a2_index 0 worst_epsilon_index 3
+signed_margin Q_negative 0.26930389071300026 worst_a2_index 127 worst_epsilon_index 0
+signed_margin U_final 4.6910804196918061 worst_a2_index 0 worst_epsilon_index 0
+PASS mu-grid selected-source first symmetry-hit slab

@@ -1,0 +1,168 @@
+{
+  "schema_version": "rfsn-vdp-p2-homoclinic-config/1",
+  "configuration_id": "vdp-p2-homoclinic-v1",
+  "status": "FROZEN_POST_STRICT_DESIGN_PRE_CERTIFICATE",
+  "frozen_before_certificate_run": true,
+  "retrospective_evidence_freeze": true,
+  "selection_date": "2026-08-28",
+  "selection_basis": {
+    "evidence_snapshot_commit": "33a830298df9c58f4dee5530e30d3bdf6b9874f4",
+    "continuation_bridge": {
+      "path": "validation/rigorous/config/vdp_bridge_v1.json",
+      "sha256": "2b62e6fc5625d3f5634d986f7e9cbe8199abfc45c7b97ca29e5efd464b5b69c7"
+    },
+    "current_v2_theorem": {
+      "path": "van-der-pol/CENTRAL_CONTINUATION.md",
+      "sha256": "51dbc0dbeb9ac232fc41f21af83930b3b3c9e98385f0b7ed9963ca6dc10f0aa3"
+    },
+    "p2a_certificate": {
+      "path": "validation/rigorous/results/vdp_bridge_v1_p2a_local_graph.json",
+      "sha256": "192b351c3f153080d82bc856fa3c667388dc16c7b4cf0cfa8568fa347bcaf6be",
+      "required_scope": "V2_LOCAL_GRAPH_KERNEL",
+      "required_atoms": ["V2.WU.FRAME_BLOCK", "V2.WU.COARSE_GRAPH"]
+    },
+    "p2b_certificate": {
+      "path": "validation/rigorous/results/vdp_bridge_v1_p2b_jets.json",
+      "sha256": "07b0949a3d403c0c0a85a4a157b86d7b32cce3ff0348aeffa1db474d441fca07",
+      "required_scope": "V2_P2_JETS_KERNEL",
+      "required_atoms": ["V2.WU.JETS", "V2.WU_GRAPH"]
+    },
+    "p2bk_configuration": {
+      "path": "validation/rigorous/config/vdp_p2_kato_v1.json",
+      "sha256": "676de23609a66b9a6fa35d2cc476878018bc84b4615460719f9c2f87eb1823e3"
+    },
+    "p2bk_certificate": {
+      "path": "validation/rigorous/results/vdp_bridge_v1_p2b_kato.json",
+      "sha256": "c67cce575caa396eba5b4388e8ba9a0c9d73fd702f69911d64c878f57f27bff3",
+      "required_scope": "V2_P2_KATO_KERNEL",
+      "required_atoms": ["V2.PHASE.TRUE_SOURCE", "V2.PHASE.KATO_INTERFACE"]
+    },
+    "historical_p2bk_source_compatibility": {
+      "historical_commit": "91007a88395290a594ba88047ff6ae45b9cebb80",
+      "current_commit": "33a830298df9c58f4dee5530e30d3bdf6b9874f4",
+      "path": "van-der-pol/CENTRAL_CONTINUATION.md",
+      "start_marker": "## 2. Uniform \\(C^2\\) stable and unstable manifolds",
+      "end_marker": "By definition of the common Kato\nsource phase, \\(\\theta_\\mu(S_\\mu(\\phi))=\\phi\\).",
+      "common_extract_sha256": "490bc36b38d3bb65a937e0b2a363c38c5ef687d7316e7019fbc3928266717682",
+      "meaning": "The local-graph and Kato true-source interface is byte-identical; later edits only refine the P2c lifted-homoclinic argument."
+    },
+    "dependency_lock": {
+      "path": "validation/rigorous/dependency.lock.json",
+      "sha256": "4d486a63cddf0902cc9fc4dedacc5a172527f6e167e2d311afa680c077a45b68"
+    },
+    "flagship_import_lock": {
+      "path": "validation/rigorous/flagship_import.lock.json",
+      "sha256": "6c1752d6ee78d4b670c74ecb85e776eddcb4459e0b0e7f7ae14cae2325e0476e"
+    }
+  },
+  "parameter_grid": {
+    "bridge": {
+      "r": ["0", "2/25"],
+      "a2": ["-1/4", "1/4"],
+      "epsilon": ["4/5", "6/5"]
+    },
+    "ordered_axes": ["r", "a2", "epsilon"],
+    "subdivisions": [32, 128, 4],
+    "cells": 16384,
+    "shooting_radius_factor": 3,
+    "require_gap_free_exact_rational_cells": true
+  },
+  "strict_run_bindings": {
+    "branch": {
+      "source_commit": "2c60e4930bb585a24d7a8945c1b5b3e7469a1cf8",
+      "source_path": "validation/rigorous/design/p2c_homoclinic_multishoot_scout.cpp",
+      "source_sha256": "76d4ca6e953c0446c981b89b51b1f569cb1626a15f9fc2898aae2d106acf60ec",
+      "strict_binary_sha256": "46cc65468a7082f5adaa5902d76c962ead8a123653f3bfd39959769650ee63dc",
+      "log_path": "validation/rigorous/design/logs/p2c_branch_v1.log",
+      "log_sha256": "73afc5b9a365ea7ab505095feb7098154a0ab5f83cfe7c6dbd0e8788a275e364"
+    },
+    "first_hit": {
+      "source_commit": "25ff53a7f4fa2457a09767d2cad992aff245bcea",
+      "source_path": "validation/rigorous/design/p2c_homoclinic_multishoot_scout.cpp",
+      "source_sha256": "3aa6368471ced8afc37e73128149548e7756caa04505ebcb615a3451bf6beabd",
+      "strict_binary_sha256": "b6d27a618146ea90db1310c1f0b510190a573b35bd8d5d669f5e354d6f6f0fd0",
+      "log_path": "validation/rigorous/design/logs/p2c_first_hit_v1.log",
+      "log_sha256": "09f3e809b4651a3ed8dfc5482b9900aadf35367b08202dbc17a3a79af5f6b5f3"
+    },
+    "root_jets": {
+      "source_commit": "0f35363264d29a8b4b3b39ab10317273aff35fab",
+      "source_path": "validation/rigorous/design/p2c_homoclinic_multishoot_scout.cpp",
+      "source_sha256": "d3fe590fd64da02e18941d32e8d43a3b50e018f37d59513e37a41d1d32cf7a2f",
+      "strict_binary_sha256": "b7235063abff295b0d0e51a0587e5c8dd871af35a1c5d4af7a060e3e6cde0f04",
+      "log_path": "validation/rigorous/design/logs/p2c_root_jets_v1.log",
+      "log_sha256": "b503e777183e6a5f759978b081828b70119bbfb95f48e643649857a89cace969"
+    },
+    "compact_middle": {
+      "source_commit": "c1b8c815a1ffd0b690c46d1631b383f16b11fce4",
+      "source_path": "validation/rigorous/design/p2c_homoclinic_multishoot_scout.cpp",
+      "source_sha256": "7f1947f4d8ca7eaa74194a5060911a167982e6e5038c585be7609e5e36a98493",
+      "strict_binary_sha256": "1d5b8092148d2a9cf1892e0880c01bd122edf03421f168142585818a5f3e9c7e",
+      "log_path": "validation/rigorous/design/logs/p2c_middle_c2_v1.log",
+      "log_sha256": "9027b0d8e5247bc81df05ef680346133a0ffc0bb63354d5ae8e35c19255a4300"
+    }
+  },
+  "evidence_files": {
+    "root_jet_summary": {
+      "path": "validation/rigorous/design/p2c_root_jet_summary_v1.json",
+      "sha256": "13e5c345a8c762c707ae19455ca67510e587a97c526f718f175e59da2657d2fd"
+    },
+    "tail_composition_source": {
+      "path": "validation/rigorous/design/p2c_tail_composition_scout.py",
+      "sha256": "f52c42792347f4428cca7667bf09b62bc2a3b81e11f45872e8bd82f298a0ba68"
+    },
+    "tail_composition_output": {
+      "path": "validation/rigorous/design/p2c_tail_composition_v1.json",
+      "sha256": "0999f97a65fd5c58258a7aeec0ec820e272306a5e89acacafe09ea0183350eef"
+    },
+    "middle_summary": {
+      "path": "validation/rigorous/design/p2c_middle_jet_summary_v1.json",
+      "sha256": "2bd9a929603c2fa9a3a2e666bec05466dbba6cc0571a041d365eda7d27d45725"
+    }
+  },
+  "common_external_bindings": {
+    "capd_commit": "731079217a9254ea2948d742df2b170895effe7f",
+    "flagship_commit": "d54add098545063d5efe8f1d6f062d4cfc116a0d",
+    "frozen_h10_header_sha256": "d617587ea1b9037c1c7575ccdde5029529ec5b736dee259baff9a2a162001e96"
+  },
+  "acceptance_contract": {
+    "branch_cells_passed": 16384,
+    "branch_faces": {"a2": 16256, "epsilon": 12288, "r": 15872, "total": 44416},
+    "frozen_core_anchor_required": true,
+    "first_hit_cells_passed": 16384,
+    "first_hit_dense_steps": 306287,
+    "root_jet_cells_passed": 16384,
+    "middle_slabs_passed": 32,
+    "middle_cells_passed": 16384,
+    "middle_dense_steps": 262144,
+    "middle_explicit_initial_sections": 163840,
+    "tail_cut_T_star": 11,
+    "tail_weight_eta": {"numerator": "1", "denominator": "5"},
+    "strict_exponential_upper": 27,
+    "original_parameter_first_factor": 25,
+    "original_parameter_second_factor": 625,
+    "tail_common_integer_original_mu": 95434,
+    "local_pre_source_and_tail_common_integer_original_mu": 342685,
+    "global_common_integer_normalized_theta": 114395,
+    "global_common_integer_original_mu": 71496600,
+    "global_original_mu_C2": {"numerator": "78611342260591861875", "denominator": "1099511627776"},
+    "require_full_real_line_coverage": true
+  },
+  "proved_subobligations": [
+    "V2.HOM.BRANCH",
+    "V2.HOM.FIRST_HIT",
+    "V2.HOM.TRANSVERSE",
+    "V2.HOM.TAILS",
+    "V2.HOM.MIDDLE_C2"
+  ],
+  "parent_obligation": "V2.HOMOCLINIC",
+  "uniqueness_scope": "Exactly one selected physical zero record in each fiber of the finite parameter-following lifted 38-dimensional multiple-shooting tube; no tube-exterior or global direct-shooting uniqueness is asserted.",
+  "mutation_policy": "Any change to the bridge, source family, lifted shooting tube, grid, first-hit partition, derivative norm, tail composition, evidence log, or acceptance constant requires a new versioned configuration and certificate.",
+  "nonclaims": [
+    "The certificate does not assert uniqueness outside the finite parameter-following lifted multiple-shooting tube.",
+    "It does not validate the P2d exact saddle charts, the P2e event atlas, or P3--P5.",
+    "It does not prove temporal stability or dynamic Turing-pattern selection.",
+    "It does not identify a finite-parameter canard.",
+    "The strict executable bytes are not archived; their SHA-256 values are provenance records, while this certificate parses archived logs and does not rebuild or rerun the full grid.",
+    "The evidence freeze is retrospective and the independent-machine replay remains pending; therefore this local certificate is not claim-bearing."
+  ]
+}

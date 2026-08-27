@@ -5,7 +5,7 @@ van der Pol application.  It does not upgrade the floating candidate contract
 in `validation/`, and it does not modify or silently import the read-only
 flagship repository.
 
-The runner has six executable scopes:
+The compiled runner has six executable scopes:
 
 1. `preflight` verifies the pinned source/toolchain bindings and executes a
    CAPD/FILIB rounding self-test;
@@ -71,8 +71,7 @@ exact-algebra audit passes all 56 identities; the Riesz/Kato transport,
 physical frame change, complete \(C^2\) parameter lift, radius-`.01` true
 source circle, and nine-jet total-order-three source triangle all pass on the
 complete bridge.  Its aggregate remains `INCONCLUSIVE` and non-claim-bearing
-solely because independent replay remains 1/2.  The formal P2c
-certificate/checker is the next unimplemented scope.
+solely because independent replay remains 1/2.
 
 The design-only P2c multiple-shooting scout is documented in
 [`P2C_SCOUT_REPORT.md`](P2C_SCOUT_REPORT.md).  Its three-parameter affine
@@ -97,12 +96,35 @@ therefore gives
  T_*=11,\qquad \eta=1/5,\qquad C_{\rm hom}=71496600
 \]
 
-as one global original-parameter bound through derivative order two.  This is
-a full P2c design-level `PASS`, not a frozen formal P2c certificate: the
-certificate/checker, the corresponding `obligations.json` transition, and
-independent replay remain pending.
+as one global original-parameter bound through derivative order two.
+
+The four fixed-order strict summary logs are now archived under
+[`design/logs/`](design/logs/).  The deliberately narrow retrospective
+configuration
+[`config/vdp_p2_homoclinic_v1.json`](config/vdp_p2_homoclinic_v1.json) and
+[`p2_homoclinic_certificate.py`](p2_homoclinic_certificate.py) parse those
+logs, verify the historical source/certificate bindings at their recorded Git
+commits, and rerun the exact-Fraction tail composition.  This closes a local
+P2c mathematical certificate without compiling or rerunning the full grid.
+Its aggregate remains `INCONCLUSIVE` and non-claim-bearing because independent
+replay is still 1/2.  The freeze is explicitly post-design and therefore is
+not represented as preregistration.
+
 The full-grid binary endpoints and exact rational composition are archived in
 [`design/p2c_middle_jet_summary_v1.json`](design/p2c_middle_jet_summary_v1.json).
+
+Build and check the lightweight local P2c certificate from a clean source
+snapshot with
+
+```bash
+python3 validation/rigorous/p2_homoclinic_certificate.py build \
+  validation/rigorous/results/vdp_bridge_v1_p2c_homoclinic.json
+python3 validation/rigorous/check_certificate.py \
+  validation/rigorous/results/vdp_bridge_v1_p2c_homoclinic.json
+```
+
+The builder does not rerun the 16,384-cell CAPD grid.  It verifies the four
+archived log concatenations and performs the inexpensive exact tail audit.
 
 ## Frozen phase-1 box
 

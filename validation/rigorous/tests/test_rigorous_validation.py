@@ -247,8 +247,12 @@ class FrozenP2KatoTests(unittest.TestCase):
                 "core_source_import", "v2_source_definition",
                 "design_scout"):
             item = basis[name]
-            observed = hashlib.sha256(
-                (REPOSITORY / item["path"]).read_bytes()).hexdigest()
+            frozen = subprocess.run(
+                ["git", "-C", str(REPOSITORY), "show",
+                 f"{basis['repository_commit']}:{item['path']}"],
+                check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+            ).stdout
+            observed = hashlib.sha256(frozen).hexdigest()
             self.assertEqual(item["sha256"], observed)
         resolved = subprocess.run(
             ["git", "-C", str(REPOSITORY), "rev-parse",

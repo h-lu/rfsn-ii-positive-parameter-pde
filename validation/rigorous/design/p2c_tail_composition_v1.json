@@ -1,0 +1,364 @@
+{
+  "bminus_normalized_parameter_bounds": {
+    "Bminus0": {
+      "decimal_approx": "0.0080000000000000036",
+      "denominator": "720575940379279360",
+      "numerator": "5764607523034237"
+    },
+    "Bminus1": {
+      "decimal_approx": "0.024528988560626318",
+      "denominator": "1298074214633706907132624082305024000000",
+      "numerator": "31840447561594186224070376325559177893"
+    },
+    "Bminus2": {
+      "decimal_approx": "1.310288060741019",
+      "denominator": "9353610478917778676503582929384211325797968275046400000000000",
+      "numerator": "12255924135348049254281344877722439485464098000589764816197767"
+    }
+  },
+  "compact_local_pre_source_segment": {
+    "chain_rule_bounds": {
+      "C0": "P00",
+      "C1": "P01+P10*s1+|F|*t1",
+      "C2": "P02+2*P11*s1+P20*s1^2+P10*s2+2*(|Dtheta F|+|DzF|*P01+|DzF|*P10*s1)*t1+|DzF|*|F|*t1^2+|F|*t2"
+    },
+    "domain": "fixed xi in [-11,-T_h], plus its reversible reflection",
+    "field_bound_contract": {
+      "DthetaDzF_usage": "validated as part of the physical field C1 contract; the displayed fixed-xi C2 chain needs only F, DzF, and DthetaF",
+      "DzF_norm_proof": "sqrt(||DzF||_1*||DzF||_infinity) <= 1+|c-2*a*U+3*b*U^2|",
+      "coefficient_bounds": {
+        "Dtheta_a_l1": {
+          "decimal_approx": "0.000368",
+          "denominator": "62500",
+          "numerator": "23"
+        },
+        "Dtheta_b_l1": {
+          "decimal_approx": "0.0026133333333333334",
+          "denominator": "18750",
+          "numerator": "49"
+        },
+        "Dtheta_c_l1": {
+          "decimal_approx": "0.060011584",
+          "denominator": "15625000",
+          "numerator": "937681"
+        },
+        "absolute_a": {
+          "decimal_approx": "1.0001408000000001",
+          "denominator": "78125",
+          "numerator": "78136"
+        },
+        "absolute_b": {
+          "decimal_approx": "0.0023466666666666666",
+          "denominator": "9375",
+          "numerator": "22"
+        },
+        "absolute_c": {
+          "decimal_approx": "0.040002815999999997",
+          "denominator": "3906250",
+          "numerator": "156261"
+        }
+      },
+      "field_bound_formulas": {
+        "DthetaDzF": "|Dtheta c|_l1+2*|Dtheta a|_l1*X+3*|Dtheta b|_l1*X^2",
+        "DthetaF": "|Dtheta c|_l1*X+|Dtheta a|_l1*X^2+|Dtheta b|_l1*X^3",
+        "DzF": "1+|c|+2*|a|*X+3*|b|*X^2",
+        "F": "4*X+|c|*X+|a|*X^2+|b|*X^3"
+      },
+      "field_bounds": {
+        "DthetaDzF_operator_upper": {
+          "decimal_approx": "0.060053649727685655",
+          "denominator": "20282409603651670423947251286016000000000",
+          "numerator": "1218032721971145096463332910500505738969"
+        },
+        "DthetaF_operator_upper": {
+          "decimal_approx": "0.0024048185560452237",
+          "denominator": "4384504911992708754611054498148849058967797628928000000000",
+          "numerator": "10543938771431496825265240849570812910753381604699983373"
+        },
+        "DzF_operator_upper": {
+          "decimal_approx": "1.120145258983211",
+          "denominator": "5070602400912917605986812821504000000000",
+          "numerator": "5679811239571491421629669660106105900739"
+        },
+        "F_euclidean_upper": {
+          "decimal_approx": "0.16344741373306815",
+          "denominator": "1096126227998177188652763624537212264741949407232000000000",
+          "numerator": "179158997091285458853951297828126430493452302070313948863"
+        }
+      },
+      "parameter_norm": "entrywise-l1 coefficient bounds dominating Euclidean operator norms",
+      "state_ball_radius": {
+        "decimal_approx": "0.04005993216361621",
+        "denominator": "72057594037927936",
+        "numerator": "2886622329032789"
+      },
+      "state_norm": "euclidean-on-R4"
+    },
+    "finite_time_ode_integration": false,
+    "fixed_xi_normalized_parameter_bounds": {
+      "C0": {
+        "decimal_approx": "0.04005993216361621",
+        "denominator": "72057594037927936",
+        "numerator": "2886622329032789"
+      },
+      "C1": {
+        "decimal_approx": "0.3247321696019782",
+        "denominator": "68507889249886074290797726533575766546371837952000000000000",
+        "numerator": "22246715510967545754949700616340660372715566343368416732889"
+      },
+      "C2": {
+        "decimal_approx": "20.30725008906678",
+        "denominator": "21711016731996786641919559689128982722488122124807605757398297001483711807488000000000000000000000000",
+        "numerator": "440891046464572091678971686415837847858189169545262064337940635773885638330335907617284260043162612013"
+      }
+    },
+    "formula": "Y(theta,xi)=physical_Z(theta,b_s(theta),xi+T_h(theta))",
+    "weight_one_fifth_compact_constants": {
+      "negative_and_reflected_positive_segments_use_same_constants": true,
+      "normalized_parameters": {
+        "C0": {
+          "decimal_approx": "1.0816181684176376",
+          "denominator": "72057594037927936",
+          "numerator": "77938802883885303"
+        },
+        "C1": {
+          "decimal_approx": "8.7677685792534117",
+          "denominator": "22835963083295358096932575511191922182123945984000000000000",
+          "numerator": "200220439598707911794547305547065943354440097090315750596001"
+        },
+        "C2": {
+          "decimal_approx": "548.29575240480301",
+          "denominator": "7237005577332262213973186563042994240829374041602535252466099000494570602496000000000000000000000000",
+          "numerator": "3968019418181148825110745177742540630723702525907358579041465721964970744973023168555558340388463508117"
+        },
+        "common_C": {
+          "decimal_approx": "548.29575240480301",
+          "denominator": "7237005577332262213973186563042994240829374041602535252466099000494570602496000000000000000000000000",
+          "numerator": "3968019418181148825110745177742540630723702525907358579041465721964970744973023168555558340388463508117"
+        }
+      },
+      "original_parameters_coarse_25_625": {
+        "C0": {
+          "decimal_approx": "1.0816181684176376",
+          "denominator": "72057594037927936",
+          "numerator": "77938802883885303"
+        },
+        "C1": {
+          "decimal_approx": "219.19421448133531",
+          "denominator": "913438523331814323877303020447676887284957839360000000000",
+          "numerator": "200220439598707911794547305547065943354440097090315750596001"
+        },
+        "C2": {
+          "decimal_approx": "342684.8452530019",
+          "denominator": "11579208923731619542357098500868790785326998466564056403945758400791312963993600000000000000000000",
+          "numerator": "3968019418181148825110745177742540630723702525907358579041465721964970744973023168555558340388463508117"
+        },
+        "common_C": {
+          "decimal_approx": "342684.8452530019",
+          "denominator": "11579208923731619542357098500868790785326998466564056403945758400791312963993600000000000000000000",
+          "numerator": "3968019418181148825110745177742540630723702525907358579041465721964970744973023168555558340388463508117"
+        }
+      }
+    }
+  },
+  "covered_local_and_infinite_common_C": {
+    "normalized_parameters": {
+      "decimal_approx": "548.29575240480301",
+      "denominator": "7237005577332262213973186563042994240829374041602535252466099000494570602496000000000000000000000000",
+      "numerator": "3968019418181148825110745177742540630723702525907358579041465721964970744973023168555558340388463508117"
+    },
+    "original_parameters_coarse_25_625": {
+      "decimal_approx": "342684.8452530019",
+      "denominator": "11579208923731619542357098500868790785326998466564056403945758400791312963993600000000000000000000",
+      "numerator": "3968019418181148825110745177742540630723702525907358579041465721964970744973023168555558340388463508117"
+    },
+    "scope_boundary": "covers the two infinite tails and local pre-source segments only; it does not yet cover the source-to-symmetry compact core"
+  },
+  "gates": {
+    "bminus_strictly_inside_source_disk": true,
+    "decay_exponential_comparison": true,
+    "half_time_plus_one_below_tail_cut": true,
+    "phase_first_euclidean_bound": true,
+    "phase_second_frobenius_bound": true,
+    "shift_exponential_comparison": true,
+    "tail_weight_below_local_weight": true,
+    "time_first_euclidean_bound": true,
+    "time_second_frobenius_bound": true
+  },
+  "margins": {
+    "local_weight_minus_tail_weight": {
+      "decimal_approx": "0.050000000000000003",
+      "denominator": "20",
+      "numerator": "1"
+    },
+    "phase_first_squared_norm_margin": {
+      "decimal_approx": "0.00044729547880547862",
+      "denominator": "1267650600228229401496703205376000000",
+      "numerator": "567014382187138201478996298827189"
+    },
+    "phase_second_squared_norm_margin": {
+      "decimal_approx": "0.035651642172465178",
+      "denominator": "2475880078570760549798248448000000",
+      "numerator": "88269190623139726062988333309113"
+    },
+    "source_radius_minus_bminus0": {
+      "decimal_approx": "0.001999999999999997",
+      "denominator": "3602879701896396800",
+      "numerator": "7205759403792783"
+    },
+    "tail_cut_minus_one_minus_half_time_upper": {
+      "decimal_approx": "0.29753856736633111",
+      "denominator": "35184372088832",
+      "numerator": "10468707664995"
+    },
+    "time_first_squared_norm_margin": {
+      "decimal_approx": "0.00055118259008997081",
+      "denominator": "633825300114114700748351602688000000",
+      "numerator": "349353470581450842809706900734327"
+    },
+    "time_second_squared_norm_margin": {
+      "decimal_approx": "0.063217696639881443",
+      "denominator": "19342813113834066795298816000000",
+      "numerator": "1222808091592282514983486439429"
+    }
+  },
+  "method": {
+    "decay_exponential_proof": "exp(1/4)>1+1/4=5/4, hence exp(-1/4)<4/5",
+    "decay_factor_upper": {
+      "decimal_approx": "0.80000000000000004",
+      "denominator": "5",
+      "numerator": "4"
+    },
+    "finite_time_ode_integration": false,
+    "local_weight": {
+      "decimal_approx": "0.25",
+      "denominator": "4",
+      "numerator": "1"
+    },
+    "shift_exponential_proof": "exp(1/5)<1/(1-1/5)=5/4 and 5^11<27*4^11, hence exp(11/5)<27",
+    "shift_exponential_reason": "exp(11/5)<exp(3)<3^3=27",
+    "shift_exponential_upper": {
+      "decimal_approx": "27",
+      "denominator": "1",
+      "numerator": "27"
+    },
+    "tail_cut": {
+      "decimal_approx": "11",
+      "denominator": "1",
+      "numerator": "11"
+    },
+    "tail_weight": {
+      "decimal_approx": "0.20000000000000001",
+      "denominator": "5",
+      "numerator": "1"
+    }
+  },
+  "norm_contract": {
+    "moving_state": "max-of-two-euclidean-blocks",
+    "parameter_derivatives": "Euclidean/Frobenius bounds dominating labelled operator norms",
+    "physical_state": "euclidean",
+    "root_first_aggregation": "exact rational Euclidean upper bound, checked after squaring",
+    "root_second_aggregation": "exact rational full-3x3 Frobenius upper bound, checked after squaring with off-diagonal symmetric entries counted twice"
+  },
+  "root_jet_aggregates": {
+    "phase_first_euclidean": {
+      "decimal_approx": "1.242",
+      "denominator": "500",
+      "numerator": "621"
+    },
+    "phase_second_frobenius": {
+      "decimal_approx": "39.058999999999997",
+      "denominator": "1000",
+      "numerator": "39059"
+    },
+    "time_first_euclidean": {
+      "decimal_approx": "1.6479999999999999",
+      "denominator": "125",
+      "numerator": "206"
+    },
+    "time_second_frobenius": {
+      "decimal_approx": "109.163",
+      "denominator": "1000",
+      "numerator": "109163"
+    }
+  },
+  "schema_version": "rfsn-vdp-p2c-tail-composition-scout/1",
+  "scope": "design-only algebraic tail composition; not a certificate",
+  "source_coordinate_aggregates": {
+    "B1": {
+      "decimal_approx": "0.012533208175693464",
+      "denominator": "230584300921369395200000",
+      "numerator": "2889961045494268822759"
+    },
+    "B2": {
+      "decimal_approx": "0.40636934152075266",
+      "denominator": "57646075230342348800000000",
+      "numerator": "23425597632609990440975857"
+    }
+  },
+  "status": "PASS",
+  "tail_fixed_shift_bounds": {
+    "K0": {
+      "decimal_approx": "0.04005993216361621",
+      "denominator": "72057594037927936",
+      "numerator": "2886622329032789"
+    },
+    "K1": {
+      "decimal_approx": "0.10681540584900336",
+      "denominator": "365375409332725729550921208179070754913983135744000000",
+      "numerator": "39027722635120826098346696957815949059072018347048821"
+    },
+    "K2": {
+      "decimal_approx": "5.6553292525474346",
+      "denominator": "118571099379011784113736688648896417641748464297615937576404566024103044751294464000000000000",
+      "numerator": "670558606824834348903594998169979099256901356827942229348022221444328592378771496431486424077"
+    }
+  },
+  "tail_weight_one_fifth_constants": {
+    "negative_and_positive_tails_use_same_constants": true,
+    "normalized_parameters": {
+      "C0": {
+        "decimal_approx": "1.0816181684176376",
+        "denominator": "72057594037927936",
+        "numerator": "77938802883885303"
+      },
+      "C1": {
+        "decimal_approx": "2.8840159579230904",
+        "denominator": "365375409332725729550921208179070754913983135744000000",
+        "numerator": "1053748511148262304655360817861030624594944495370318167"
+      },
+      "C2": {
+        "decimal_approx": "152.69388981878075",
+        "denominator": "118571099379011784113736688648896417641748464297615937576404566024103044751294464000000000000",
+        "numerator": "18105082384270527420397064950589435679936336634354440192396599978996871994226830403650133450079"
+      },
+      "common_C": {
+        "decimal_approx": "152.69388981878075",
+        "denominator": "118571099379011784113736688648896417641748464297615937576404566024103044751294464000000000000",
+        "numerator": "18105082384270527420397064950589435679936336634354440192396599978996871994226830403650133450079"
+      }
+    },
+    "original_parameters_coarse_25_625": {
+      "C0": {
+        "decimal_approx": "1.0816181684176376",
+        "denominator": "72057594037927936",
+        "numerator": "77938802883885303"
+      },
+      "C1": {
+        "decimal_approx": "72.100398948077256",
+        "denominator": "14615016373309029182036848327162830196559325429760000",
+        "numerator": "1053748511148262304655360817861030624594944495370318167"
+      },
+      "C2": {
+        "decimal_approx": "95433.681136737971",
+        "denominator": "189713759006418854581978701838234268226797542876185500122247305638564871602071142400000000",
+        "numerator": "18105082384270527420397064950589435679936336634354440192396599978996871994226830403650133450079"
+      },
+      "common_C": {
+        "decimal_approx": "95433.681136737971",
+        "denominator": "189713759006418854581978701838234268226797542876185500122247305638564871602071142400000000",
+        "numerator": "18105082384270527420397064950589435679936336634354440192396599978996871994226830403650133450079"
+      }
+    }
+  }
+}
