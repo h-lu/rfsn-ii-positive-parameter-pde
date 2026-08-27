@@ -1,0 +1,731 @@
+{
+  "certificate_id": "vdp-phase1-kernel-20260827t075500z-5ec37bb2deed",
+  "claim_bearing": false,
+  "created_at": "2026-08-27T07:55:00.600794+00:00",
+  "final_status": "INCONCLUSIVE",
+  "independent_replay": {
+    "observed_distinct_machines": 1,
+    "required_distinct_machines": 2,
+    "status": "PENDING_REQUIRED"
+  },
+  "integrity_status": "PASS",
+  "logs": {
+    "compile_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "compile_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "probe_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "probe_stdout_sha256": "201aed3ac64f7751cf8fab458187ce53d9f7944e198da3f90cb9a417c6b92c30"
+  },
+  "mathematical_status": "PASS",
+  "nonclaims": [
+    "A local mathematical PASS is not an aggregate theorem certificate.",
+    "Independent-machine replay is pending and this certificate is not claim-bearing.",
+    "Phase 1 does not validate V2 continuation beyond item (1), V3--V6, temporal stability, Turing selection, or canard identification."
+  ],
+  "obligations": [
+    {
+      "id": "ENV.SOURCE_BINDING",
+      "predicate": "Local and frozen external sources are hash-bound without using dirty flagship files.",
+      "status": "PASS"
+    },
+    {
+      "id": "ENV.CAPD_BINDING",
+      "predicate": "The CAPD commit, FILIB backend, compiler, flags, and linked archives match the declared lock.",
+      "status": "PASS"
+    },
+    {
+      "id": "ENV.ROUNDING",
+      "predicate": "Runtime directed rounding, rational division, square root, endpoint serialization, and floating-point environment tests pass.",
+      "status": "PASS"
+    },
+    {
+      "diagnostics": [],
+      "id": "BOX.FROZEN",
+      "predicate": "A positive-width exact rational box was selected and frozen before interval results were inspected.",
+      "status": "PASS"
+    },
+    {
+      "id": "V1.REVERSIBILITY",
+      "predicate": "The exact polynomial field satisfies DR X = -X o R and the primitive pulls back to its negative.",
+      "status": "PASS"
+    },
+    {
+      "id": "V1.HAMILTONIAN",
+      "predicate": "Exact Laurent-polynomial arithmetic verifies i_X d lambda = dH and dG/dy=0.",
+      "status": "PASS"
+    },
+    {
+      "enclosures": {
+        "one_half_minus_sqrtE_A_r3": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.ffdb3e32b7878p-2",
+          "upper_hex": "0x1p-1"
+        },
+        "one_minus_2Ar_minus_sqrtE_A2_r4": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.eb84c09f3a27bp-1",
+          "upper_hex": "0x1p+0"
+        }
+      },
+      "id": "V2.1.WEDGE",
+      "predicate": "Both explicit wedge inequalities hold uniformly on the frozen box.",
+      "status": "PASS"
+    },
+    {
+      "enclosures": {
+        "a": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.ffed9f195bc3cp-1",
+          "upper_hex": "0x1.00093073521e2p+0"
+        },
+        "d": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.5798ee2308c3p-19",
+          "upper_hex": "0x1.5798ee2308c45p-15"
+        },
+        "delta": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.a36e2eb1c4327p-10",
+          "upper_hex": "0x1.a36e2eb1c4333p-8"
+        },
+        "epsilon": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.9999999999997p-1",
+          "upper_hex": "0x1.3333333333335p+0"
+        },
+        "r": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.47ae147ae1479p-5",
+          "upper_hex": "0x1.47ae147ae147dp-4"
+        }
+      },
+      "id": "V2.1.POSITIVITY",
+      "predicate": "r, d, delta, epsilon, and a are strictly positive uniformly on the frozen box.",
+      "status": "PASS"
+    },
+    {
+      "enclosures": {
+        "alpha_minus_one_half": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.9999999999998p-3",
+          "upper_hex": "0x1.b690c7b795ed4p-3"
+        },
+        "beta_minus_one_half": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.9999566319558p-3",
+          "upper_hex": "0x1.b69085d5da5ccp-3"
+        },
+        "two_minus_c": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.f5c2604f9d13dp+0",
+          "upper_hex": "0x1.051eb851eb852p+1"
+        },
+        "two_plus_c": {
+          "endpoint_format": "IEEE754_BINARY64_HEX",
+          "lower_hex": "0x1.f5c28f5c28f5cp+0",
+          "upper_hex": "0x1.051ecfd831762p+1"
+        }
+      },
+      "id": "V2.1.SADDLE_FOCUS",
+      "predicate": "2 plus or minus c are positive and alpha,beta are at least one half uniformly on the frozen box.",
+      "status": "PASS"
+    }
+  ],
+  "parameter_box": {
+    "box_id": "vdp-positive-box-v1",
+    "path": "validation/rigorous/config/vdp_box_v1.json",
+    "sha256": "ce84e84e4e2e53563125497df4ad2df98a533437b04b35bee042e9b04ea1c735",
+    "variables": {
+      "a2": {
+        "lower": {
+          "denominator": "4",
+          "numerator": "-1"
+        },
+        "upper": {
+          "denominator": "4",
+          "numerator": "1"
+        }
+      },
+      "epsilon": {
+        "lower": {
+          "denominator": "5",
+          "numerator": "4"
+        },
+        "upper": {
+          "denominator": "5",
+          "numerator": "6"
+        }
+      },
+      "r": {
+        "lower": {
+          "denominator": "25",
+          "numerator": "1"
+        },
+        "upper": {
+          "denominator": "25",
+          "numerator": "2"
+        }
+      }
+    }
+  },
+  "raw_probe": {
+    "exact_characteristic_polynomial": true,
+    "mathematical_status": "PASS",
+    "obligations": [
+      {
+        "id": "V1.REVERSIBILITY",
+        "predicate": "Exact Laurent-polynomial identities DR X = -X o R and R*lambda = -lambda",
+        "status": "PASS"
+      },
+      {
+        "id": "V1.HAMILTONIAN",
+        "predicate": "Exact Laurent-polynomial identities i_X d lambda = dH and dG/dy = 0",
+        "status": "PASS"
+      },
+      {
+        "enclosures": {
+          "one_half_minus_sqrtE_A_r3": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.ffdb3e32b7878p-2",
+            "upper_hex": "0x1p-1"
+          },
+          "one_minus_2Ar_minus_sqrtE_A2_r4": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.eb84c09f3a27bp-1",
+            "upper_hex": "0x1p+0"
+          }
+        },
+        "id": "V2.1.WEDGE",
+        "predicate": "The explicit wedge inequalities have strictly positive slack",
+        "status": "PASS"
+      },
+      {
+        "enclosures": {
+          "a": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.ffed9f195bc3cp-1",
+            "upper_hex": "0x1.00093073521e2p+0"
+          },
+          "d": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.5798ee2308c3p-19",
+            "upper_hex": "0x1.5798ee2308c45p-15"
+          },
+          "delta": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.a36e2eb1c4327p-10",
+            "upper_hex": "0x1.a36e2eb1c4333p-8"
+          },
+          "epsilon": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.9999999999997p-1",
+            "upper_hex": "0x1.3333333333335p+0"
+          },
+          "r": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.47ae147ae1479p-5",
+            "upper_hex": "0x1.47ae147ae147dp-4"
+          }
+        },
+        "id": "V2.1.POSITIVITY",
+        "predicate": "r, d, delta, epsilon, and a are uniformly strictly positive",
+        "status": "PASS"
+      },
+      {
+        "enclosures": {
+          "alpha_minus_one_half": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.9999999999998p-3",
+            "upper_hex": "0x1.b690c7b795ed4p-3"
+          },
+          "beta_minus_one_half": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.9999566319558p-3",
+            "upper_hex": "0x1.b69085d5da5ccp-3"
+          },
+          "two_minus_c": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.f5c2604f9d13dp+0",
+            "upper_hex": "0x1.051eb851eb852p+1"
+          },
+          "two_plus_c": {
+            "endpoint_format": "IEEE754_BINARY64_HEX",
+            "lower_hex": "0x1.f5c28f5c28f5cp+0",
+            "upper_hex": "0x1.051ecfd831762p+1"
+          }
+        },
+        "id": "V2.1.SADDLE_FOCUS",
+        "predicate": "Exact det(mu I-A)=mu^4-c mu^2+1 and the interval saddle-focus radicals are real with alpha,beta exceeding one half",
+        "status": "PASS"
+      }
+    ],
+    "parameter_enclosures": {
+      "a": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.ffed9f195bc3cp-1",
+        "upper_hex": "0x1.00093073521e2p+0"
+      },
+      "a2": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "-0x1.0000000000002p-2",
+        "upper_hex": "0x1.0000000000002p-2"
+      },
+      "alpha": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.6666666666666p-1",
+        "upper_hex": "0x1.6da431ede57b5p-1"
+      },
+      "beta": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.66665598c6556p-1",
+        "upper_hex": "0x1.6da4217576973p-1"
+      },
+      "c": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "-0x1.47ae147ae148p-5",
+        "upper_hex": "0x1.47b3f60c5d844p-5"
+      },
+      "d": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.5798ee2308c3p-19",
+        "upper_hex": "0x1.5798ee2308c45p-15"
+      },
+      "delta": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.a36e2eb1c4327p-10",
+        "upper_hex": "0x1.a36e2eb1c4333p-8"
+      },
+      "epsilon": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.9999999999997p-1",
+        "upper_hex": "0x1.3333333333335p+0"
+      },
+      "r": {
+        "endpoint_format": "IEEE754_BINARY64_HEX",
+        "lower_hex": "0x1.47ae147ae1479p-5",
+        "upper_hex": "0x1.47ae147ae147dp-4"
+      }
+    },
+    "rounding_self_test": {
+      "legacy_capd_is_working": true,
+      "mxcsr_available": true,
+      "mxcsr_pre_restore_hex": "0x5fa0",
+      "status": "PASS",
+      "tests": [
+        {
+          "detail": "IEC 60559 binary64, radix 2, 53 significand bits, FLT_EVAL_METHOD=0",
+          "id": "ROUND.IEEE754_BINARY64",
+          "status": "PASS"
+        },
+        {
+          "detail": "__FAST_MATH__ is not defined",
+          "id": "ROUND.NO_FAST_MATH",
+          "status": "PASS"
+        },
+        {
+          "detail": "observed up/down/cut/nearest=2/1/3/0, expected=2/1/3/0; legacy isWorking()=true",
+          "id": "ROUND.CAPD_MODES",
+          "status": "PASS"
+        },
+        {
+          "detail": "CAPD DoubleRounding::isWorking() returned true",
+          "id": "ROUND.CAPD_LEGACY_SELF_TEST",
+          "status": "PASS"
+        },
+        {
+          "detail": "down=0x1p+0, up=0x1.0000000000001p+0",
+          "id": "ROUND.DIRECTED_ADDITION",
+          "status": "PASS"
+        },
+        {
+          "detail": "{\"lower_hex\":\"0x1.9999999999997p-4\",\"upper_hex\":\"0x1.999999999999dp-4\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}",
+          "id": "ROUND.RATIONAL_DIVISION",
+          "status": "PASS"
+        },
+        {
+          "detail": "{\"lower_hex\":\"-0x1.999999999999dp-4\",\"upper_hex\":\"-0x1.9999999999997p-4\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}",
+          "id": "ROUND.NEGATIVE_RATIONAL_DIVISION",
+          "status": "PASS"
+        },
+        {
+          "detail": "{\"lower_hex\":\"0x1.6a09e667f3bccp+0\",\"upper_hex\":\"0x1.6a09e667f3bcep+0\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}",
+          "id": "ROUND.SQRT",
+          "status": "PASS"
+        },
+        {
+          "detail": "{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1p+0\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}",
+          "id": "ROUND.DEPENDENCY_SQUARE",
+          "status": "PASS"
+        },
+        {
+          "detail": "3*(1/3)^2-2*(1/3)+1 contains exact 2/3: {\"lower_hex\":\"0x1.555555555555p-1\",\"upper_hex\":\"0x1.555555555555bp-1\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}",
+          "id": "ROUND.POLYNOMIAL_CONTAINMENT",
+          "status": "PASS"
+        },
+        {
+          "detail": "hexfloat endpoints round-trip bit-for-bit through strtod",
+          "id": "ROUND.HEX_SERIALIZATION",
+          "status": "PASS"
+        },
+        {
+          "detail": "MXCSR=0x5fa0, FTZ=0, DAZ=0 required",
+          "id": "ROUND.SUBNORMAL_MODE",
+          "status": "PASS"
+        },
+        {
+          "detail": "round-to-nearest restored before returning",
+          "id": "ROUND.RESTORE_NEAREST",
+          "status": "PASS"
+        }
+      ]
+    },
+    "schema_version": "rfsn-vdp-phase1-probe/1",
+    "status": "PASS"
+  },
+  "release_eligible": false,
+  "rounding_self_test": {
+    "legacy_capd_is_working": true,
+    "mxcsr_available": true,
+    "mxcsr_pre_restore_hex": "0x5fa0",
+    "status": "PASS",
+    "tests": [
+      {
+        "detail": "IEC 60559 binary64, radix 2, 53 significand bits, FLT_EVAL_METHOD=0",
+        "id": "ROUND.IEEE754_BINARY64",
+        "status": "PASS"
+      },
+      {
+        "detail": "__FAST_MATH__ is not defined",
+        "id": "ROUND.NO_FAST_MATH",
+        "status": "PASS"
+      },
+      {
+        "detail": "observed up/down/cut/nearest=2/1/3/0, expected=2/1/3/0; legacy isWorking()=true",
+        "id": "ROUND.CAPD_MODES",
+        "status": "PASS"
+      },
+      {
+        "detail": "CAPD DoubleRounding::isWorking() returned true",
+        "id": "ROUND.CAPD_LEGACY_SELF_TEST",
+        "status": "PASS"
+      },
+      {
+        "detail": "down=0x1p+0, up=0x1.0000000000001p+0",
+        "id": "ROUND.DIRECTED_ADDITION",
+        "status": "PASS"
+      },
+      {
+        "detail": "{\"lower_hex\":\"0x1.9999999999997p-4\",\"upper_hex\":\"0x1.999999999999dp-4\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}",
+        "id": "ROUND.RATIONAL_DIVISION",
+        "status": "PASS"
+      },
+      {
+        "detail": "{\"lower_hex\":\"-0x1.999999999999dp-4\",\"upper_hex\":\"-0x1.9999999999997p-4\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}",
+        "id": "ROUND.NEGATIVE_RATIONAL_DIVISION",
+        "status": "PASS"
+      },
+      {
+        "detail": "{\"lower_hex\":\"0x1.6a09e667f3bccp+0\",\"upper_hex\":\"0x1.6a09e667f3bcep+0\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}",
+        "id": "ROUND.SQRT",
+        "status": "PASS"
+      },
+      {
+        "detail": "{\"lower_hex\":\"0x0p+0\",\"upper_hex\":\"0x1p+0\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}",
+        "id": "ROUND.DEPENDENCY_SQUARE",
+        "status": "PASS"
+      },
+      {
+        "detail": "3*(1/3)^2-2*(1/3)+1 contains exact 2/3: {\"lower_hex\":\"0x1.555555555555p-1\",\"upper_hex\":\"0x1.555555555555bp-1\",\"endpoint_format\":\"IEEE754_BINARY64_HEX\"}",
+        "id": "ROUND.POLYNOMIAL_CONTAINMENT",
+        "status": "PASS"
+      },
+      {
+        "detail": "hexfloat endpoints round-trip bit-for-bit through strtod",
+        "id": "ROUND.HEX_SERIALIZATION",
+        "status": "PASS"
+      },
+      {
+        "detail": "MXCSR=0x5fa0, FTZ=0, DAZ=0 required",
+        "id": "ROUND.SUBNORMAL_MODE",
+        "status": "PASS"
+      },
+      {
+        "detail": "round-to-nearest restored before returning",
+        "id": "ROUND.RESTORE_NEAREST",
+        "status": "PASS"
+      }
+    ]
+  },
+  "schema_version": "rfsn-rigorous-run-certificate/1",
+  "scope": "V1_V2_1_KERNEL",
+  "source_bindings": [
+    {
+      "path": "RESEARCH_CONTRACT.md",
+      "role": "phase-1-input",
+      "sha256": "2170e0d6095c2f8b2e5b35343f8f491e0831a9ff33b5d966d08dbed1ab098387"
+    },
+    {
+      "path": "theory/BASELINE.md",
+      "role": "phase-1-input",
+      "sha256": "b033f6cb6b52dcfeb09bfe1e983d6a544203db9e3be697cc39ccd84a9748588a"
+    },
+    {
+      "path": "van-der-pol/HAMILTONIAN_CHECK.md",
+      "role": "phase-1-input",
+      "sha256": "4b44187482164dae25a7dcc9061e672c00efcab70e7085d9209d8da24d7e2bc6"
+    },
+    {
+      "path": "van-der-pol/MODEL_AND_CENTRAL_CHART.md",
+      "role": "phase-1-input",
+      "sha256": "be07da0264a8dbfb90ff712e92b6dd8dccb99e1058b4c7d754f39891b68f97e3"
+    },
+    {
+      "path": "van-der-pol/CENTRAL_CONTINUATION.md",
+      "role": "phase-1-input",
+      "sha256": "99aeea571f19a298ec5b763a811cfb20ac8d371ee2cd245c53b13481eedf7d4a"
+    },
+    {
+      "path": "validation/rigorous/README.md",
+      "role": "phase-1-input",
+      "sha256": "ef991374da4830fb891292813f4fc9bdd22dbb4e3ea515ad9efe1e8722a52d8e"
+    },
+    {
+      "path": "validation/rigorous/certificate.schema.json",
+      "role": "phase-1-input",
+      "sha256": "bb76311f31afd02a1f51a996dbba32836fdcdd2a85682e889ea9e3708d4fc403"
+    },
+    {
+      "path": "validation/rigorous/parameter_box.schema.json",
+      "role": "phase-1-input",
+      "sha256": "26a8b95a8756aed6ccef085bb867b6f372dc922f0471e359a61a1aefec1d2fc6"
+    },
+    {
+      "path": "validation/rigorous/config/vdp_box_v1.json",
+      "role": "phase-1-input",
+      "sha256": "ce84e84e4e2e53563125497df4ad2df98a533437b04b35bee042e9b04ea1c735"
+    },
+    {
+      "path": "validation/rigorous/dependency.lock.json",
+      "role": "phase-1-input",
+      "sha256": "45d26fdfd2b580d7910140179eb5c6e7ff522443db0bdef358c0e885ec183d76"
+    },
+    {
+      "path": "validation/rigorous/flagship_import.lock.json",
+      "role": "phase-1-input",
+      "sha256": "88da8c60280aab708399543f790179dc67f63f4075c7aa33c40d04b3976b215a"
+    },
+    {
+      "path": "validation/rigorous/obligations.json",
+      "role": "phase-1-input",
+      "sha256": "2380514d4832609cfa0a95070965e34dd7703666656a208892ca9ed0f9cbe3f4"
+    },
+    {
+      "path": "validation/rigorous/include/verdict.hpp",
+      "role": "phase-1-input",
+      "sha256": "b9b308155408e0d1a8a6b2127fd0d111ac546a3cf54ee124b4c249af47b974fa"
+    },
+    {
+      "path": "validation/rigorous/include/interval_io.hpp",
+      "role": "phase-1-input",
+      "sha256": "56a01ecc5492111eded6170b6690c85990e80e86afa59f4342ee8db98b59395a"
+    },
+    {
+      "path": "validation/rigorous/include/rounding_self_test.hpp",
+      "role": "phase-1-input",
+      "sha256": "6f648c417c9458b32332fef8cbb780ce0255c66e7646c6c48a7ca6414cd9ccc4"
+    },
+    {
+      "path": "validation/rigorous/include/exact_polynomial.hpp",
+      "role": "phase-1-input",
+      "sha256": "9ccccf2739d7e550f2c0f63d8e3ead91ac2060e046fd540c38c7b42f4dec0331"
+    },
+    {
+      "path": "validation/rigorous/src/rounding_self_test.cpp",
+      "role": "phase-1-input",
+      "sha256": "7866b17edc3f5ee5f1682e52a442df21cc0336e57d499e4d77a9a0938b0628cd"
+    },
+    {
+      "path": "validation/rigorous/src/vdp_parameter_box_probe.cpp",
+      "role": "phase-1-input",
+      "sha256": "5653cb6ea86de08a78a33fad8e89e3239a32e2c56ea1246359328a0e2c9d1ce5"
+    },
+    {
+      "path": "validation/rigorous/rigorous_common.py",
+      "role": "phase-1-input",
+      "sha256": "f8ded90f23e553227d039b3c835568dc80519d93afd851c53be604682a384da8"
+    },
+    {
+      "path": "validation/rigorous/run_validation.py",
+      "role": "phase-1-input",
+      "sha256": "28e479704b238da91c02e2d8ce11ab08a04f5de6eabf4922f629119d3f994e4d"
+    },
+    {
+      "path": "validation/rigorous/check_certificate.py",
+      "role": "phase-1-input",
+      "sha256": "4c93ef66e80ed421e1a51a1832207b07865f09b38f3dd4e4ebda9ddbe847beff"
+    }
+  ],
+  "source_revision": {
+    "allow_dirty_development": false,
+    "commit": "5ec37bb2deed8103bd4b0f7f4556babfb96c2641",
+    "report_output_excluded_from_observation": true,
+    "repository": "h-lu/rfsn-ii-positive-parameter-pde",
+    "repository_dirty": false,
+    "working_tree_observation": "BEFORE_REPORT_WRITE"
+  },
+  "toolchain": {
+    "build_programs": {
+      "cmake": {
+        "path": "/tmp/cmake-4.2.3-clean/bin/cmake",
+        "sha256": "eab793b7f3bf89867ec9127c130f9ab7693edefe6d45ddee6880edce05a3070d",
+        "version_first_line": "cmake version 4.2.3"
+      },
+      "make": {
+        "path": "/usr/bin/make",
+        "sha256": "27c9f6d806aee15882b01c2c61848f7aa75caa14bc7b6f608ba422f9e46a7d49"
+      }
+    },
+    "capd": {
+      "cflags": [
+        "-I/tmp/rfsn-vdp-capd-strict-7310792/capdDynSys/include",
+        "-I/tmp/rfsn-vdp-capd-strict-7310792/capdAlg/include",
+        "-I/tmp/rfsn-vdp-capd-strict-7310792/capdAux/include",
+        "-I/tmp/rfsn-vdp-capd-strict-7310792/capdExt/include",
+        "-I/tmp/rfsn-vdp-capd-strict-7310792/capdExt/filibsrc",
+        "-std=c++17",
+        "-O2",
+        "-frounding-math",
+        "-D__USE_FILIB__",
+        "-O2",
+        "-frounding-math",
+        "-DFILIB_EXTENDED",
+        "-DFILIB_HAVE_SSE"
+      ],
+      "cmake_cache_sha256": "f504b9bee1879444e3d9e5cb798a3dfa19fbb1f58dc7079b296cdcb4d8b59e66",
+      "cmake_configuration": {
+        "CAPD_BUILD_EXAMPLES": "OFF",
+        "CAPD_BUILD_TESTS": "OFF",
+        "CAPD_ENABLE_MULTIPRECISION": "OFF",
+        "CAPD_INTERVAL_TYPE": "FILIB",
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_CXX_COMPILER": "/usr/bin/c++",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+      },
+      "cmake_release_flags": [
+        "-O2",
+        "-DNDEBUG",
+        "-fno-fast-math",
+        "-frounding-math",
+        "-ffp-contract=off",
+        "-fno-tree-vectorize",
+        "-fno-ipa-pure-const"
+      ],
+      "compile_commands_scan": {
+        "compiler_paths": [
+          "/usr/bin/x86_64-linux-gnu-g++-15"
+        ],
+        "entries_with_all_strict_flags": 90,
+        "entries_with_filib_selector": 82,
+        "entry_count": 90
+      },
+      "compile_commands_sha256": "2c312a1f6a05f27c7742467e2ae6ea17bd481668ee29156426636b8d833a6d9d",
+      "config_path": "/tmp/rfsn-vdp-capd-strict-7310792/build-strict/bin/capd-config",
+      "config_version": "2.5.1",
+      "libs": [
+        "-L/tmp/rfsn-vdp-capd-strict-7310792/build-strict",
+        "-L/tmp/rfsn-vdp-capd-strict-7310792/build-strict/capdExt/filibsrc",
+        "-lcapd",
+        "-lfilib"
+      ],
+      "linked_archives": {
+        "libcapd.a": {
+          "path": "/tmp/rfsn-vdp-capd-strict-7310792/build-strict/libcapd.a",
+          "sha256": "bf888737d3aab53e66c3bf5ee0199b6eb9f6747b2b567f3c5aa9c7ac0ae1267a"
+        },
+        "libfilib.a": {
+          "path": "/tmp/rfsn-vdp-capd-strict-7310792/build-strict/capdExt/filibsrc/libfilib.a",
+          "sha256": "f0105bda942524bc7a1c3c9ad39a0f34e031e26afdc15017704cdd3878fc3d5c"
+        }
+      },
+      "source_commit": "731079217a9254ea2948d742df2b170895effe7f",
+      "source_dirty": false,
+      "source_path": "/tmp/rfsn-vdp-capd-strict-7310792",
+      "source_tree": "f83b177786fa322240b24f21173eaf9b32496d48"
+    },
+    "compiler": {
+      "path": "/usr/bin/g++",
+      "sha256": "e6718f7e0c7d057c3ff77b550c603da9bc4030e3ede3c053705acce1293dbe4d",
+      "version_first_line": "g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0"
+    },
+    "dependency_lock_sha256": "45d26fdfd2b580d7910140179eb5c6e7ff522443db0bdef358c0e885ec183d76",
+    "fatal_errors": [],
+    "flagship_import": {
+      "access": "git-object-read-only",
+      "commit": "d54add098545063d5efe8f1d6f062d4cfc116a0d",
+      "errors": [],
+      "lock_sha256": "88da8c60280aab708399543f790179dc67f63f4075c7aa33c40d04b3976b215a",
+      "repository_path": "/home/hblu/Documents/Codex/2026-08-22/reversible-rfsn-ii-waves",
+      "tree": "b9cd34b1bae1c29bdd722d9ed3c33402c4b3ee89"
+    },
+    "incomplete_checks": [],
+    "probe_build": {
+      "binary_sha256": "6712ba8006466a18ccaaba4e9ed910c510f1e0940862f6bf54075b05ed62d3c4",
+      "compile_argv": [
+        "/usr/bin/g++",
+        "-std=c++17",
+        "-I/home/hblu/Documents/Codex/2026-08-27/rfsn-ii-positive-parameter-pde/validation/rigorous/include",
+        "-I/tmp/rfsn-vdp-capd-strict-7310792/capdDynSys/include",
+        "-I/tmp/rfsn-vdp-capd-strict-7310792/capdAlg/include",
+        "-I/tmp/rfsn-vdp-capd-strict-7310792/capdAux/include",
+        "-I/tmp/rfsn-vdp-capd-strict-7310792/capdExt/include",
+        "-I/tmp/rfsn-vdp-capd-strict-7310792/capdExt/filibsrc",
+        "-std=c++17",
+        "-O2",
+        "-frounding-math",
+        "-D__USE_FILIB__",
+        "-O2",
+        "-frounding-math",
+        "-DFILIB_EXTENDED",
+        "-DFILIB_HAVE_SSE",
+        "-O2",
+        "-DNDEBUG",
+        "-fno-fast-math",
+        "-frounding-math",
+        "-ffp-contract=off",
+        "-fno-tree-vectorize",
+        "-fno-ipa-pure-const",
+        "/home/hblu/Documents/Codex/2026-08-27/rfsn-ii-positive-parameter-pde/validation/rigorous/src/vdp_parameter_box_probe.cpp",
+        "-o",
+        "/tmp/rfsn-rigorous-30j6y4vh/probe",
+        "-L/tmp/rfsn-vdp-capd-strict-7310792/build-strict",
+        "-L/tmp/rfsn-vdp-capd-strict-7310792/build-strict/capdExt/filibsrc",
+        "-lcapd",
+        "-lfilib"
+      ],
+      "compile_argv_sha256": "e29faae5eaf305784dc0b6f8ac063ceaf0c5f2181f647e23ee8fee1bde38d1a8",
+      "probe_argv": [
+        "/tmp/rfsn-rigorous-30j6y4vh/probe",
+        "1",
+        "25",
+        "2",
+        "25",
+        "-1",
+        "4",
+        "1",
+        "4",
+        "4",
+        "5",
+        "6",
+        "5"
+      ],
+      "probe_exit_code": 0,
+      "source_sha256": "5653cb6ea86de08a78a33fad8e89e3239a32e2c56ea1246359328a0e2c9d1ce5"
+    },
+    "report_output": {
+      "excluded_from_prewrite_source_observation": true,
+      "inside_repository": true,
+      "path": "validation/rigorous/results/vdp_box_v1_phase1.json"
+    },
+    "status": "PASS",
+    "strict_library_build_status": "PASS"
+  }
+}

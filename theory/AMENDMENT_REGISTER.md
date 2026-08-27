@@ -97,10 +97,12 @@ The same screening configuration records
  [0.04,0.08]\times[-0.25,0.25]\times[0.8,1.2]
 \]
 
-as the formally frozen `vdp-positive-box-v1` Issue #7 box.  Its first
-outward-rounded run is still pending.  Freezing is not a proof that the
-box satisfies V2--V7, is not a temporal-stability claim, and is not registered
-here as `Computer-assisted` evidence.
+as the formally frozen `vdp-positive-box-v1` Issue #7 box.  The first local
+phase-1 outward-rounded kernel passes its implemented V1 and V2(1)
+obligations.  The aggregate certificate remains `INCONCLUSIVE` and
+non-claim-bearing because independent replay and V2 continuation through V6
+are pending.  Neither freezing nor the phase-1 result proves V2--V7, makes a
+temporal-stability claim, or qualifies here as `Computer-assisted` evidence.
 
 Numerical work can later become `Computer-assisted` only if every
 claim-bearing bound is interval rigorous, tied to immutable source and

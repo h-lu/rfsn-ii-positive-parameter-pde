@@ -5,8 +5,9 @@ validation in [Issue #7](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/
 Nothing currently stored here is a claim-bearing computer-assisted proof.
 The floating candidate-contract remains deliberately non-claim-bearing, while
 [`rigorous/`](rigorous/README.md) now contains the separate phase-1
-outward-rounded source lane and the formally frozen parameter box.  Its first
-clean archived run is the next step.
+outward-rounded source lane and the formally frozen parameter box.  The first
+clean local phase-1 kernel is now archived with mathematical and integrity
+status `PASS`, but aggregate status `INCONCLUSIVE` and `claim_bearing: false`.
 
 ## Two evidence lanes
 
@@ -205,9 +206,9 @@ the analytic constructions.
 
 ## Current blockers beyond phase 1
 
-- The frozen box is now an exact rational prevalidation object, but the first
-  clean archived phase-1 kernel certificate is still pending at this source
-  checkpoint.
+- The frozen box is an exact rational prevalidation object.  The archived
+  local phase-1 certificate passes the implemented obligations, but the
+  independent second-machine replay required by policy is pending.
 - The existing finite event faces are proxies rather than the complete V6
   physical arrangement and finite marked atlas; B1/A2 do not prove a component
   census, cross form, bounded overlap recoding, or every \(n\ge N\).
@@ -226,5 +227,6 @@ the analytic constructions.
 These blockers do not make the floating repository a toy.  Its deterministic
 raw outputs and complete B1/A2 return records provide candidate centers,
 scales, event ordering, interfaces, and observable checks for the rigorous
-implementation.  At this source checkpoint the correct Issue #7 status is
-`PHASE1_SOURCE_FROZEN_RUN_PENDING`, not `PASS`.
+implementation.  The correct aggregate Issue #7 status is
+`PHASE1_LOCAL_PASS_AGGREGATE_INCONCLUSIVE`, not a claim-bearing `PASS`; see the
+[`phase-1 report`](rigorous/PHASE1_REPORT.md).

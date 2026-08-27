@@ -19,6 +19,11 @@ independent-machine replay required by the repository policy is pending.
 Consequently a phase-1 local certificate has `claim_bearing: false`, even when
 its mathematical obligations all pass.
 
+The first clean local kernel certificate is archived at
+[`results/vdp_box_v1_phase1.json`](results/vdp_box_v1_phase1.json) and explained
+in [`PHASE1_REPORT.md`](PHASE1_REPORT.md).  It records integrity `PASS`,
+mathematical `PASS`, aggregate `INCONCLUSIVE`, and `claim_bearing: false`.
+
 ## Frozen phase-1 box
 
 [`config/vdp_box_v1.json`](config/vdp_box_v1.json) freezes
