@@ -1,0 +1,61 @@
+{
+  "schema_version": "rfsn-vdp-p2-local-graph-config/1",
+  "configuration_id": "vdp-p2-local-graph-v1",
+  "status": "FROZEN_PREVALIDATION",
+  "frozen_before_interval_run": true,
+  "selection_date": "2026-08-27",
+  "selection_basis": {
+    "repository_commit": "43e10a82326475853c7c0584dcf0a061fa43a9c0",
+    "repository_tag": "vdp-issue7-phase1-v1",
+    "continuation_bridge": {
+      "path": "validation/rigorous/config/vdp_bridge_v1.json",
+      "sha256": "2b62e6fc5625d3f5634d986f7e9cbe8199abfc45c7b97ca29e5efd464b5b69c7"
+    },
+    "note": "The radius 1/100 is the frozen core source radius already used by the read-only core graph certificate and by the local analytic continuation. The acceptance predicates were fixed before evaluating their outward-rounded margins on the P2 bridge."
+  },
+  "coordinate_block": {
+    "unstable_radius": {"numerator": "1", "denominator": "100"},
+    "stable_radius": {"numerator": "1", "denominator": "100"},
+    "norm": "euclidean",
+    "source_circle_radius": {"numerator": "1", "denominator": "100"}
+  },
+  "closed_form_frame": {
+    "coordinate_order": ["u1", "u2", "s1", "s2"],
+    "physical_order": ["U", "P", "V", "Q"],
+    "formulas": [
+      "alpha=sqrt(2+c)/2",
+      "beta=sqrt(2-c)/2",
+      "h=2*alpha*beta",
+      "U=u1+s1",
+      "P=alpha*u1-beta*u2-alpha*s1+beta*s2",
+      "V=(c/2)*u1+h*u2+(c/2)*s1+h*s2",
+      "Q=alpha*u1+beta*u2-alpha*s1-beta*s2",
+      "N_u=(1/(4*alpha),-1/(4*beta))*n(U)",
+      "N_s=-N_u",
+      "n(U)=-a*U^2+(sqrt(epsilon)*r^2/3)*U^3"
+    ],
+    "phase_scope": "local-graph-only-not-V2-transported-absolute-phase"
+  },
+  "acceptance_gates": {
+    "frame_determinant_absolute_lower": "0",
+    "unstable_face_outward_margin_lower": "0",
+    "stable_face_inward_margin_lower": "0",
+    "difference_cone_margin_lower": "0",
+    "first_quadratic_coefficient_upper": "1",
+    "refined_quadratic_coefficient_upper": "1/4",
+    "backward_decay_rate_lower": "2/3"
+  },
+  "proved_subobligations": [
+    "V2.WU.FRAME_BLOCK",
+    "V2.WU.COARSE_GRAPH"
+  ],
+  "pending_parent_obligation": "V2.WU_GRAPH",
+  "mutation_policy": "Never relax these gates or shrink the bridge after inspecting a local-graph interval result. A different block, frame, or target requires a new versioned configuration with an explicit mathematical reason.",
+  "nonclaims": [
+    "Passing this kernel does not enclose the parameter derivatives or third state derivatives required by the parent V2.WU_GRAPH obligation.",
+    "The closed-form frame is used for a local invariant-graph proof and is not asserted to be the transported absolute phase convention of Theorem V2.",
+    "A local graph certificate does not prove the selected homoclinic, first symmetry hit, exact saddle chart, or event atlas.",
+    "No finite trajectory or floating-point candidate is upgraded by this configuration.",
+    "No temporal-stability, Turing-selection, or canard conclusion is in scope."
+  ]
+}

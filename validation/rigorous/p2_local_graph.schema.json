@@ -1,0 +1,145 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/h-lu/rfsn-ii-positive-parameter-pde/validation/rigorous/p2_local_graph.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "configuration_id",
+    "status",
+    "frozen_before_interval_run",
+    "selection_date",
+    "selection_basis",
+    "coordinate_block",
+    "closed_form_frame",
+    "acceptance_gates",
+    "proved_subobligations",
+    "pending_parent_obligation",
+    "mutation_policy",
+    "nonclaims"
+  ],
+  "properties": {
+    "schema_version": {"const": "rfsn-vdp-p2-local-graph-config/1"},
+    "configuration_id": {"const": "vdp-p2-local-graph-v1"},
+    "status": {"const": "FROZEN_PREVALIDATION"},
+    "frozen_before_interval_run": {"const": true},
+    "selection_date": {"type": "string", "format": "date"},
+    "selection_basis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repository_commit", "repository_tag", "continuation_bridge", "note"],
+      "properties": {
+        "repository_commit": {"$ref": "#/$defs/sha1"},
+        "repository_tag": {"type": "string", "minLength": 1},
+        "continuation_bridge": {"$ref": "#/$defs/hashedFile"},
+        "note": {"type": "string", "minLength": 1}
+      }
+    },
+    "coordinate_block": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["unstable_radius", "stable_radius", "norm", "source_circle_radius"],
+      "properties": {
+        "unstable_radius": {"$ref": "#/$defs/rational"},
+        "stable_radius": {"$ref": "#/$defs/rational"},
+        "norm": {"const": "euclidean"},
+        "source_circle_radius": {"$ref": "#/$defs/rational"}
+      }
+    },
+    "closed_form_frame": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["coordinate_order", "physical_order", "formulas", "phase_scope"],
+      "properties": {
+        "coordinate_order": {
+          "type": "array",
+          "prefixItems": [
+            {"const": "u1"}, {"const": "u2"}, {"const": "s1"}, {"const": "s2"}
+          ],
+          "items": false
+        },
+        "physical_order": {
+          "type": "array",
+          "prefixItems": [
+            {"const": "U"}, {"const": "P"}, {"const": "V"}, {"const": "Q"}
+          ],
+          "items": false
+        },
+        "formulas": {
+          "type": "array",
+          "minItems": 8,
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "phase_scope": {"const": "local-graph-only-not-V2-transported-absolute-phase"}
+      }
+    },
+    "acceptance_gates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "frame_determinant_absolute_lower",
+        "unstable_face_outward_margin_lower",
+        "stable_face_inward_margin_lower",
+        "difference_cone_margin_lower",
+        "first_quadratic_coefficient_upper",
+        "refined_quadratic_coefficient_upper",
+        "backward_decay_rate_lower"
+      ],
+      "properties": {
+        "frame_determinant_absolute_lower": {"const": "0"},
+        "unstable_face_outward_margin_lower": {"const": "0"},
+        "stable_face_inward_margin_lower": {"const": "0"},
+        "difference_cone_margin_lower": {"const": "0"},
+        "first_quadratic_coefficient_upper": {"const": "1"},
+        "refined_quadratic_coefficient_upper": {"const": "1/4"},
+        "backward_decay_rate_lower": {"const": "2/3"}
+      }
+    },
+    "proved_subobligations": {
+      "type": "array",
+      "prefixItems": [
+        {"const": "V2.WU.FRAME_BLOCK"},
+        {"const": "V2.WU.COARSE_GRAPH"}
+      ],
+      "items": false
+    },
+    "pending_parent_obligation": {"const": "V2.WU_GRAPH"},
+    "mutation_policy": {"type": "string", "minLength": 1},
+    "nonclaims": {
+      "type": "array",
+      "minItems": 4,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    }
+  },
+  "$defs": {
+    "sha1": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "relativePath": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$)).+$"
+    },
+    "hashedFile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"$ref": "#/$defs/relativePath"},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "integerString": {"type": "string", "pattern": "^-?(?:0|[1-9][0-9]*)$"},
+    "positiveIntegerString": {"type": "string", "pattern": "^[1-9][0-9]*$"},
+    "rational": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["numerator", "denominator"],
+      "properties": {
+        "numerator": {"$ref": "#/$defs/integerString"},
+        "denominator": {"$ref": "#/$defs/positiveIntegerString"}
+      }
+    }
+  }
+}

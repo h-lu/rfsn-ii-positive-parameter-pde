@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Compile, run, and certify the phase-1 CAPD/FILIB validation probes."""
+"""Compile, run, and certify staged CAPD/FILIB validation probes."""
 
 from __future__ import annotations
 
@@ -27,12 +27,16 @@ from rigorous_common import (
     safe_repository_path,
     sha256_bytes,
     sha256_file,
+    validate_exact_bridge,
     validate_exact_box,
+    validate_local_graph_configuration,
 )
 
 HERE = Path(__file__).resolve().parent
 REPOSITORY = HERE.parents[1]
 BOX_PATH = HERE / "config" / "vdp_box_v1.json"
+BRIDGE_PATH = HERE / "config" / "vdp_bridge_v1.json"
+LOCAL_GRAPH_CONFIG_PATH = HERE / "config" / "vdp_p2_local_graph_v1.json"
 DEPENDENCY_LOCK_PATH = HERE / "dependency.lock.json"
 FLAGSHIP_LOCK_PATH = HERE / "flagship_import.lock.json"
 
@@ -43,9 +47,14 @@ BOUND_SOURCES = (
     "van-der-pol/MODEL_AND_CENTRAL_CHART.md",
     "van-der-pol/CENTRAL_CONTINUATION.md",
     "validation/rigorous/README.md",
+    "validation/rigorous/P2_VALIDATION_CONTRACT.md",
     "validation/rigorous/certificate.schema.json",
+    "validation/rigorous/continuation_bridge.schema.json",
     "validation/rigorous/parameter_box.schema.json",
+    "validation/rigorous/p2_local_graph.schema.json",
+    "validation/rigorous/config/vdp_bridge_v1.json",
     "validation/rigorous/config/vdp_box_v1.json",
+    "validation/rigorous/config/vdp_p2_local_graph_v1.json",
     "validation/rigorous/dependency.lock.json",
     "validation/rigorous/flagship_import.lock.json",
     "validation/rigorous/obligations.json",
@@ -54,6 +63,7 @@ BOUND_SOURCES = (
     "validation/rigorous/include/rounding_self_test.hpp",
     "validation/rigorous/include/exact_polynomial.hpp",
     "validation/rigorous/src/rounding_self_test.cpp",
+    "validation/rigorous/src/vdp_local_graph_probe.cpp",
     "validation/rigorous/src/vdp_parameter_box_probe.cpp",
     "validation/rigorous/rigorous_common.py",
     "validation/rigorous/run_validation.py",
@@ -98,6 +108,72 @@ def verify_box(box: dict[str, Any]) -> tuple[str, list[str]]:
             errors.append("frozen selection-commit blob hash mismatch")
     except (KeyError, OSError, subprocess.SubprocessError) as error:
         errors.append(f"selection-basis verification failed: {error}")
+    return ("PASS" if not errors else "FAIL", errors)
+
+
+def verify_bridge(bridge: dict[str, Any], box: dict[str, Any]) -> tuple[str, list[str]]:
+    errors = validate_exact_bridge(bridge)
+    try:
+        jsonschema.validate(
+            bridge,
+            load_json(HERE / "continuation_bridge.schema.json"),
+            format_checker=jsonschema.FormatChecker(),
+        )
+    except jsonschema.ValidationError as error:
+        errors.append(f"schema: {error.message}")
+    try:
+        basis = bridge["selection_basis"]
+        target = basis["target_box"]
+        target_path = safe_repository_path(REPOSITORY, target["path"])
+        if target_path != BOX_PATH.resolve():
+            errors.append("bridge target is not the canonical positive box")
+        if target["sha256"] != sha256_file(BOX_PATH):
+            errors.append("bridge target-box hash mismatch")
+        if target["box_id"] != box["box_id"]:
+            errors.append("bridge target-box identifier mismatch")
+        tag_commit = git_output(
+            REPOSITORY, "rev-parse", f"{basis['repository_tag']}^{{commit}}")
+        if tag_commit != basis["repository_commit"]:
+            errors.append("bridge selection tag does not resolve to its frozen commit")
+        frozen_target = subprocess.run(
+            ["git", "-C", str(REPOSITORY), "show",
+             f"{basis['repository_commit']}:{target['path']}"],
+            check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE).stdout
+        if sha256_bytes(frozen_target) != target["sha256"]:
+            errors.append("bridge selection-commit target-box blob hash mismatch")
+    except (KeyError, OSError, subprocess.SubprocessError) as error:
+        errors.append(f"bridge selection-basis verification failed: {error}")
+    return ("PASS" if not errors else "FAIL", errors)
+
+
+def verify_local_graph_configuration(
+        configuration: dict[str, Any], bridge: dict[str, Any]) -> tuple[str, list[str]]:
+    errors = validate_local_graph_configuration(configuration)
+    try:
+        jsonschema.validate(
+            configuration,
+            load_json(HERE / "p2_local_graph.schema.json"),
+            format_checker=jsonschema.FormatChecker(),
+        )
+    except jsonschema.ValidationError as error:
+        errors.append(f"schema: {error.message}")
+    try:
+        basis = configuration["selection_basis"]
+        selected_bridge = basis["continuation_bridge"]
+        bridge_path = safe_repository_path(REPOSITORY, selected_bridge["path"])
+        if bridge_path != BRIDGE_PATH.resolve():
+            errors.append("local-graph configuration does not use the canonical bridge")
+        if selected_bridge["sha256"] != sha256_file(BRIDGE_PATH):
+            errors.append("local-graph configuration bridge hash mismatch")
+        tag_commit = git_output(
+            REPOSITORY, "rev-parse", f"{basis['repository_tag']}^{{commit}}")
+        if tag_commit != basis["repository_commit"]:
+            errors.append(
+                "local-graph selection tag does not resolve to its frozen commit")
+        if bridge.get("bridge_id") != "vdp-core-to-positive-bridge-v1":
+            errors.append("unexpected continuation bridge identifier")
+    except (KeyError, OSError, subprocess.SubprocessError) as error:
+        errors.append(f"local-graph configuration verification failed: {error}")
     return ("PASS" if not errors else "FAIL", errors)
 
 
@@ -372,11 +448,18 @@ def verify_toolchain(capd_source: Path, capd_config: Path,
     return overall, detail, cflags, libs
 
 
-def compile_and_run(scope: str, cflags: list[str], libs: list[str],
-                    dependency: dict[str, Any], box: dict[str, Any]) -> tuple[dict[str, Any], dict[str, str], dict[str, Any]]:
-    source = HERE / "src" / (
-        "rounding_self_test.cpp" if scope == "preflight" else
-        "vdp_parameter_box_probe.cpp")
+def compile_and_run(
+        scope: str, cflags: list[str], libs: list[str],
+        dependency: dict[str, Any], box: dict[str, Any],
+        bridge: dict[str, Any] | None = None,
+        local_graph_configuration: dict[str, Any] | None = None,
+        ) -> tuple[dict[str, Any], dict[str, str], dict[str, Any]]:
+    source_names = {
+        "preflight": "rounding_self_test.cpp",
+        "kernel": "vdp_parameter_box_probe.cpp",
+        "local-graph": "vdp_local_graph_probe.cpp",
+    }
+    source = HERE / "src" / source_names[scope]
     compiler = dependency["compiler"]["executable"]
     strict_flags = dependency["compiler"]["required_probe_flags"]
     environment = os.environ.copy()
@@ -403,6 +486,13 @@ def compile_and_run(scope: str, cflags: list[str], libs: list[str],
         run_command = [str(binary)]
         if scope == "kernel":
             run_command.extend(box_arguments(box))
+        elif scope == "local-graph":
+            if bridge is None or local_graph_configuration is None:
+                raise RuntimeError("local-graph scope lacks its frozen inputs")
+            run_command.extend(box_arguments(bridge))
+            radius = local_graph_configuration["coordinate_block"][
+                "unstable_radius"]
+            run_command.extend([radius["numerator"], radius["denominator"]])
         executed = subprocess.run(
             run_command, text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
             env=environment, timeout=120)
@@ -438,7 +528,7 @@ def source_bindings() -> list[dict[str, str]]:
         path = safe_repository_path(REPOSITORY, relative)
         if not path.is_file():
             raise FileNotFoundError(f"bound source is missing: {relative}")
-        bindings.append({"path": relative, "sha256": sha256_file(path), "role": "phase-1-input"})
+        bindings.append({"path": relative, "sha256": sha256_file(path), "role": "rigorous-input"})
     return bindings
 
 
@@ -455,7 +545,8 @@ def make_obligation(identifier: str, status: str,
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("scope", choices=("preflight", "kernel"))
+    parser.add_argument(
+        "scope", choices=("preflight", "kernel", "local-graph"))
     parser.add_argument("--capd-source", type=Path, required=True)
     parser.add_argument("--capd-config", type=Path, required=True)
     parser.add_argument("--flagship-repository", type=Path)
@@ -468,6 +559,20 @@ def main() -> int:
         dependency = load_json(DEPENDENCY_LOCK_PATH)
         box = load_json(BOX_PATH)
         box_status, box_errors = verify_box(box)
+        bridge: dict[str, Any] | None = None
+        local_graph_configuration: dict[str, Any] | None = None
+        bridge_status = "PASS"
+        bridge_errors: list[str] = []
+        local_graph_configuration_status = "PASS"
+        local_graph_configuration_errors: list[str] = []
+        if arguments.scope == "local-graph":
+            bridge = load_json(BRIDGE_PATH)
+            local_graph_configuration = load_json(LOCAL_GRAPH_CONFIG_PATH)
+            bridge_status, bridge_errors = verify_bridge(bridge, box)
+            local_graph_configuration_status, \
+                local_graph_configuration_errors = \
+                verify_local_graph_configuration(
+                    local_graph_configuration, bridge)
         head = git_output(REPOSITORY, "rev-parse", "HEAD")
         dirty = bool(git_output(REPOSITORY, "status", "--porcelain"))
         if dirty and not arguments.allow_dirty:
@@ -478,7 +583,8 @@ def main() -> int:
             arguments.capd_source.resolve(), arguments.capd_config.resolve(), dependency)
         toolchain["flagship_import"] = flagship
         raw, logs, build = compile_and_run(
-            arguments.scope, cflags, libs, dependency, box)
+            arguments.scope, cflags, libs, dependency, box,
+            bridge, local_graph_configuration)
         toolchain["probe_build"] = build
         report_resolved = arguments.report.resolve()
         try:
@@ -503,8 +609,18 @@ def main() -> int:
             make_obligation("BOX.FROZEN", box_status, predicates,
                             diagnostics=box_errors),
         ]
+        if arguments.scope == "local-graph":
+            p0.extend([
+                make_obligation(
+                    "BRIDGE.FROZEN", bridge_status, predicates,
+                    diagnostics=bridge_errors),
+                make_obligation(
+                    "P2.LOCAL_GRAPH_CONFIG_FROZEN",
+                    local_graph_configuration_status, predicates,
+                    diagnostics=local_graph_configuration_errors),
+            ])
         mathematical: list[dict[str, Any]] = []
-        if arguments.scope == "kernel":
+        if arguments.scope != "preflight":
             for item in raw["obligations"]:
                 identifier = item["id"]
                 mathematical.append(make_obligation(
@@ -517,11 +633,15 @@ def main() -> int:
         final_status = "FAIL" if "FAIL" in (integrity_status, mathematical_status) \
             else "INCONCLUSIVE"
         now = dt.datetime.now(dt.timezone.utc)
-        scope_name = "PREFLIGHT" if arguments.scope == "preflight" else "V1_V2_1_KERNEL"
+        scope_name = {
+            "preflight": "PREFLIGHT",
+            "kernel": "V1_V2_1_KERNEL",
+            "local-graph": "V2_LOCAL_GRAPH_KERNEL",
+        }[arguments.scope]
         certificate = {
             "schema_version": "rfsn-rigorous-run-certificate/1",
             "certificate_id": (
-                f"vdp-phase1-{arguments.scope}-{now.strftime('%Y%m%dt%H%M%Sz').lower()}-"
+                f"vdp-{arguments.scope}-{now.strftime('%Y%m%dt%H%M%Sz').lower()}-"
                 f"{head[:12]}"),
             "scope": scope_name,
             "created_at": now.isoformat(),
@@ -558,9 +678,32 @@ def main() -> int:
             "nonclaims": [
                 "A local mathematical PASS is not an aggregate theorem certificate.",
                 "Independent-machine replay is pending and this certificate is not claim-bearing.",
-                "Phase 1 does not validate V2 continuation beyond item (1), V3--V6, temporal stability, Turing selection, or canard identification.",
+                (
+                    "The local-graph kernel proves only its two P2a subobligations; "
+                    "V2.WU_GRAPH mixed jets, the homoclinic, exact charts, event "
+                    "atlas, V3--V6, temporal stability, Turing selection, and "
+                    "canard identification remain outside its scope."
+                    if arguments.scope == "local-graph" else
+                    "Phase 1 does not validate V2 continuation beyond item (1), "
+                    "V3--V6, temporal stability, Turing selection, or canard identification."
+                ),
             ],
         }
+        if arguments.scope == "local-graph":
+            assert bridge is not None
+            assert local_graph_configuration is not None
+            certificate["continuation_bridge"] = {
+                "path": "validation/rigorous/config/vdp_bridge_v1.json",
+                "sha256": sha256_file(BRIDGE_PATH),
+                "bridge_id": bridge["bridge_id"],
+                "variables": bridge["variables"],
+            }
+            certificate["validation_configuration"] = {
+                "path": "validation/rigorous/config/vdp_p2_local_graph_v1.json",
+                "sha256": sha256_file(LOCAL_GRAPH_CONFIG_PATH),
+                "configuration_id": local_graph_configuration[
+                    "configuration_id"],
+            }
         errors = schema_errors(certificate) + semantic_errors(certificate, REPOSITORY)
         if errors:
             raise RuntimeError("generated certificate failed self-check:\n" + "\n".join(errors))

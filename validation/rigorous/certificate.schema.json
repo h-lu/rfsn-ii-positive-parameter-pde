@@ -28,7 +28,10 @@
       "type": "string",
       "pattern": "^[a-z0-9][a-z0-9._-]{2,127}$"
     },
-    "scope": {"type": "string", "enum": ["PREFLIGHT", "V1_V2_1_KERNEL"]},
+    "scope": {
+      "type": "string",
+      "enum": ["PREFLIGHT", "V1_V2_1_KERNEL", "V2_LOCAL_GRAPH_KERNEL"]
+    },
     "created_at": {"type": "string", "format": "date-time"},
     "source_revision": {
       "type": "object",
@@ -67,6 +70,36 @@
             "epsilon": {"$ref": "#/$defs/exactInterval"}
           }
         }
+      }
+    },
+    "continuation_bridge": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256", "bridge_id", "variables"],
+      "properties": {
+        "path": {"$ref": "#/$defs/relativePath"},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "bridge_id": {"const": "vdp-core-to-positive-bridge-v1"},
+        "variables": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["r", "a2", "epsilon"],
+          "properties": {
+            "r": {"$ref": "#/$defs/exactInterval"},
+            "a2": {"$ref": "#/$defs/exactInterval"},
+            "epsilon": {"$ref": "#/$defs/exactInterval"}
+          }
+        }
+      }
+    },
+    "validation_configuration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256", "configuration_id"],
+      "properties": {
+        "path": {"$ref": "#/$defs/relativePath"},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "configuration_id": {"const": "vdp-p2-local-graph-v1"}
       }
     },
     "toolchain": {

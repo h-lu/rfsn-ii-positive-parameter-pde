@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/h-lu/rfsn-ii-positive-parameter-pde/validation/rigorous/continuation_bridge.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "bridge_id",
+    "status",
+    "selected_before_p2_interval_validation",
+    "selection_date",
+    "selection_basis",
+    "variables",
+    "anchor_face",
+    "target_relation",
+    "coverage_requirement",
+    "mutation_policy",
+    "nonclaims"
+  ],
+  "properties": {
+    "schema_version": {"const": "rfsn-vdp-rigorous-continuation-bridge/1"},
+    "bridge_id": {"const": "vdp-core-to-positive-bridge-v1"},
+    "status": {"const": "FROZEN_PRE_P2_VALIDATION"},
+    "selected_before_p2_interval_validation": {"const": true},
+    "selection_date": {"type": "string", "format": "date"},
+    "selection_basis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repository_commit", "repository_tag", "target_box", "note"],
+      "properties": {
+        "repository_commit": {"$ref": "#/$defs/sha1"},
+        "repository_tag": {"type": "string", "minLength": 1},
+        "target_box": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["path", "sha256", "box_id"],
+          "properties": {
+            "path": {"$ref": "#/$defs/relativePath"},
+            "sha256": {"$ref": "#/$defs/sha256"},
+            "box_id": {"const": "vdp-positive-box-v1"}
+          }
+        },
+        "note": {"type": "string", "minLength": 1}
+      }
+    },
+    "variables": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["r", "a2", "epsilon"],
+      "properties": {
+        "r": {"$ref": "#/$defs/exactInterval"},
+        "a2": {"$ref": "#/$defs/exactInterval"},
+        "epsilon": {"$ref": "#/$defs/exactInterval"}
+      }
+    },
+    "anchor_face": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["equation", "role", "dummy_parameters"],
+      "properties": {
+        "equation": {"const": "r=0"},
+        "role": {"const": "frozen-selected-core-branch"},
+        "dummy_parameters": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "enum": ["a2", "epsilon"]},
+          "minItems": 2,
+          "maxItems": 2
+        }
+      }
+    },
+    "target_relation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["positive_box_is_subset", "shared_upper_r_face"],
+      "properties": {
+        "positive_box_is_subset": {"const": true},
+        "shared_upper_r_face": {"const": "r=2/25"}
+      }
+    },
+    "coverage_requirement": {"type": "string", "minLength": 1},
+    "mutation_policy": {"type": "string", "minLength": 1},
+    "nonclaims": {
+      "type": "array",
+      "minItems": 3,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    }
+  },
+  "$defs": {
+    "sha1": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "relativePath": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$)).+$"
+    },
+    "integerString": {"type": "string", "pattern": "^-?(?:0|[1-9][0-9]*)$"},
+    "positiveIntegerString": {"type": "string", "pattern": "^[1-9][0-9]*$"},
+    "rational": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["numerator", "denominator"],
+      "properties": {
+        "numerator": {"$ref": "#/$defs/integerString"},
+        "denominator": {"$ref": "#/$defs/positiveIntegerString"}
+      }
+    },
+    "exactInterval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["lower", "upper"],
+      "properties": {
+        "lower": {"$ref": "#/$defs/rational"},
+        "upper": {"$ref": "#/$defs/rational"}
+      }
+    }
+  }
+}

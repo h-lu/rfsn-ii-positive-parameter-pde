@@ -58,11 +58,15 @@ inline Interval exactRational(const std::string& numerator,
   if (denominator.empty() || denominator[0] == '-') {
     throw std::invalid_argument("rational denominator must be positive");
   }
-  const Interval top(numerator, numerator);
   const Interval bottom(denominator, denominator);
   if (bottom.leftBound() <= 0.) {
     throw std::invalid_argument("rational denominator must be strictly positive");
   }
+  // FILIB's directed division may widen the mathematically exact quotient
+  // 0/q to one subnormal ulp below zero.  Preserve the exact anchor face
+  // r=0 instead of silently turning the bridge into a negative-r interval.
+  if (numerator == "0" || numerator == "-0") return Interval(0.0);
+  const Interval top(numerator, numerator);
   return top / bottom;
 }
 

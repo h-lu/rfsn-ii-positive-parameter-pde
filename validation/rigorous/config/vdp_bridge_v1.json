@@ -1,0 +1,48 @@
+{
+  "schema_version": "rfsn-vdp-rigorous-continuation-bridge/1",
+  "bridge_id": "vdp-core-to-positive-bridge-v1",
+  "status": "FROZEN_PRE_P2_VALIDATION",
+  "selected_before_p2_interval_validation": true,
+  "selection_date": "2026-08-27",
+  "selection_basis": {
+    "repository_commit": "43e10a82326475853c7c0584dcf0a061fa43a9c0",
+    "repository_tag": "vdp-issue7-phase1-v1",
+    "target_box": {
+      "path": "validation/rigorous/config/vdp_box_v1.json",
+      "sha256": "ce84e84e4e2e53563125497df4ad2df98a533437b04b35bee042e9b04ea1c735",
+      "box_id": "vdp-positive-box-v1"
+    },
+    "note": "The bridge is the smallest rectangular closure joining the frozen r=0 selected core family to the already frozen positive target box while retaining exactly the target a2 and epsilon intervals. It was frozen before any P2 outward-rounded continuation result was run."
+  },
+  "variables": {
+    "r": {
+      "lower": {"numerator": "0", "denominator": "1"},
+      "upper": {"numerator": "2", "denominator": "25"}
+    },
+    "a2": {
+      "lower": {"numerator": "-1", "denominator": "4"},
+      "upper": {"numerator": "1", "denominator": "4"}
+    },
+    "epsilon": {
+      "lower": {"numerator": "4", "denominator": "5"},
+      "upper": {"numerator": "6", "denominator": "5"}
+    }
+  },
+  "anchor_face": {
+    "equation": "r=0",
+    "role": "frozen-selected-core-branch",
+    "dummy_parameters": ["a2", "epsilon"]
+  },
+  "target_relation": {
+    "positive_box_is_subset": true,
+    "shared_upper_r_face": "r=2/25"
+  },
+  "coverage_requirement": "A P2 selected-continuation certificate must form a gap-free connected parameter cover from the complete r=0 anchor face through the complete frozen positive target box; isolated roots found only on r>=1/25 do not discharge this requirement.",
+  "mutation_policy": "Never shrink or overwrite this bridge after inspecting a P2 rigorous result. A redesign requires a new versioned bridge that retains this record and explains the mathematical change.",
+  "nonclaims": [
+    "Freezing the bridge does not prove that a homoclinic branch crosses it.",
+    "The zero-r face is a desingularized central-system anchor, not a positive PDE parameter value.",
+    "The phase-1 certificate on the positive target box is not an interval certificate on this larger bridge.",
+    "No temporal-stability, Turing-selection, or canard conclusion follows from this bridge."
+  ]
+}

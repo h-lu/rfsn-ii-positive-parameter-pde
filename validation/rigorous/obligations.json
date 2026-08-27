@@ -15,7 +15,9 @@
         {"id": "ENV.SOURCE_BINDING", "theorem_clause": "Issue #7 trust boundary", "predicate": "Local and frozen external sources are hash-bound without using dirty flagship files."},
         {"id": "ENV.CAPD_BINDING", "theorem_clause": "Issue #7 validated backend", "predicate": "The CAPD commit, FILIB backend, compiler, flags, and linked archives match the declared lock."},
         {"id": "ENV.ROUNDING", "theorem_clause": "Issue #7 outward rounding", "predicate": "Runtime directed rounding, rational division, square root, endpoint serialization, and floating-point environment tests pass."},
-        {"id": "BOX.FROZEN", "theorem_clause": "Research contract V(9)", "predicate": "A positive-width exact rational box was selected and frozen before interval results were inspected."}
+        {"id": "BOX.FROZEN", "theorem_clause": "Research contract V(9)", "predicate": "A positive-width exact rational box was selected and frozen before interval results were inspected."},
+        {"id": "BRIDGE.FROZEN", "theorem_clause": "Theorem V2 selected continuation", "predicate": "The exact rational comparison bridge from the complete r=0 core anchor face through the positive target box was frozen before P2 interval results were inspected."},
+        {"id": "P2.LOCAL_GRAPH_CONFIG_FROZEN", "theorem_clause": "Issue #7 P2a preregistration", "predicate": "The local graph block, moving frame, proof gates, and claim boundary were frozen before their outward-rounded margins were evaluated."}
       ]
     },
     {
@@ -35,6 +37,9 @@
       "title": "Central continuation",
       "status": "PENDING",
       "obligations": [
+        {"id": "V2.WU.FRAME_BLOCK", "theorem_clause": "Theorem V2(1); P2 validation contract Sections 2--3", "predicate": "The closed-form moving eigenframe is nonsingular and its radius-1/100 block has strict unstable/stable face and difference-cone margins on the full continuation bridge."},
+        {"id": "V2.WU.COARSE_GRAPH", "theorem_clause": "Theorem V2(1)--(2); P2 validation contract Section 3", "predicate": "The non-circular graph-transform bootstrap gives true reversible local graphs with Lipschitz constant at most one, quadratic value coefficient below one quarter, and backward coordinate decay above two thirds on the full continuation bridge."},
+        {"id": "V2.WU.JETS", "theorem_clause": "Theorem V2(1)--(2); P2 validation contract P2b", "predicate": "State derivatives through order three, parameter derivatives through order two, all required mixed graph bounds, and the weighted half-orbit constants are rigorously enclosed."},
         {"id": "V2.WU_GRAPH", "theorem_clause": "Theorem V2(1)--(2)", "predicate": "Parameter-dependent true local stable/unstable graphs and their required mixed jets are enclosed."},
         {"id": "V2.HOMOCLINIC", "theorem_clause": "Theorem V2(2)", "predicate": "A parametric interval Newton/Krawczyk proof encloses the selected symmetric homoclinic, first symmetry hit, uniqueness box, and transverse determinant."},
         {"id": "V2.EXACT_CHART", "theorem_clause": "Theorem V2(3)", "predicate": "The finite exact marked saddle charts, zero-energy fiber solve, transition maps, and weighted passage constants are validated."},
@@ -78,4 +83,3 @@
     }
   ]
 }
-
