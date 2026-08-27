@@ -79,9 +79,27 @@ overlapping sign tubes.  On all 16,384 cells they prove, in order,
 \(P>0\), \(Q>0\), \(P<0\), \(Q<0\), and a final outward \(U>0\)
 event, with selected return time below \(1/5\).  Together with the P2a
 true-graph exclusion before the source face, this is the complete first-hit
-argument at design level.  Parameter two-jets of the true root, weighted
-homoclinic tails, a frozen certificate, and independent replay are not yet
-discharged.
+argument at design level.  The `mu-grid-root-jets` and
+`mu-grid-root-jets-slab` modes then differentiate the actual 37-dimensional
+true-source residual, rather than the fitted phase predictor.  On the same
+16,384 cells they validate first and second normalized-parameter derivatives
+of the selected root, phase, and half time through CAPD C2 flow/Poincare maps
+and strict weighted Neumann solves.
+
+`p2c_root_jet_summary_v1.json` records the binary64 upper endpoints and exact
+run bindings consumed by the small `p2c_tail_composition_scout.py` algebraic
+combiner.  The latter imports the archived P2b/P2bK half-orbit bounds, proves
+the exact exponential comparison gates, and supplies
+
+\[
+ T_*=11,\qquad \eta=1/5,\qquad C_{\rm tail}=95434
+\]
+
+for all original-parameter derivatives through order two on both infinite
+tails.  It uses exact rational arithmetic and performs no further ODE
+integration.  These results close the infinite-tail atom at design level.
+They do not yet give a continuous-time C2 bound on the compact middle
+\([-11,11]\), a frozen P2c certificate, or independent replay.
 Results and the proof boundary are recorded in
 [`../P2C_SCOUT_REPORT.md`](../P2C_SCOUT_REPORT.md).  The H10 header supplied
 at compile time must be extracted from the Git object named by

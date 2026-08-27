@@ -112,9 +112,13 @@ The subsequent clean P2b run, documented in
 [`P2B_JETS_REPORT.md`](../validation/rigorous/P2B_JETS_REPORT.md), supplies
 true-graph \(C^2/C^3\), the complete parameter/mixed jets, and weighted
 half-orbit constants, so the local parent `V2.WU_GRAPH` now passes.  The Kato
-source phase and remaining V2 validation objects remain pending.  None of
-these local certificates proves V3--V7, makes a temporal-stability claim, or
-qualifies here as `Computer-assisted` evidence before independent replay.
+source certificate now also passes.  The strict P2c design lane covers the
+selected lifted branch, all common faces, the first symmetry hit, the actual
+root parameter two-jets, and explicit weight-\(1/5\) constants on both
+infinite tails.  The compact-middle continuous C2 bound and formal P2c
+certificate remain pending.  None of these local certificates proves V3--V7,
+makes a temporal-stability claim, or qualifies here as `Computer-assisted`
+evidence before independent replay.
 
 Numerical work can later become `Computer-assisted` only if every
 claim-bearing bound is interval rigorous, tied to immutable source and

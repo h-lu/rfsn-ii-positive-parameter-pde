@@ -2,12 +2,16 @@
 
 **Evidence status: strict design-scout results plus floating candidate data.**
 The strict computations below complete, at design level, the selected root
-branch, endpoint transversality, and selected-source-to-symmetry-event
-first-hit gates on the full three-parameter bridge.  This report nevertheless
-does not mark `V2.HOM.BRANCH`, `V2.HOM.FIRST_HIT`, `V2.HOM.TRANSVERSE`, or
-`V2.HOM.TAILS` as claim-bearing passes: the P2c configuration, certificate,
-checker, and policy replay have not yet been frozen.  The remaining analytic
-and certification obligations are separated explicitly at the end.
+branch, endpoint transversality, selected-source-to-symmetry-event first-hit
+gates, actual-root parameter two-jets, and both infinite weighted tails on the
+full three-parameter bridge.  This report nevertheless does not mark
+`V2.HOM.BRANCH`, `V2.HOM.FIRST_HIT`, `V2.HOM.TRANSVERSE`, or `V2.HOM.TAILS`
+as claim-bearing passes: the P2c configuration, certificate, checker, and
+policy replay have not yet been frozen.  In addition, one explicit
+continuous-time (C^2) bound on the compact middle segment is still needed
+to turn the tail constants into a single numerical constant for the global
+(X_\eta) estimate in Theorem V2(9)--(11).  The remaining obligations are
+separated explicitly at the end.
 
 ## Correct source and shooting problem
 
@@ -500,16 +504,217 @@ the fixed numeric-order concatenation of slab logs 0 through 31 had SHA-256
 These hashes bind the completed strict design run, but do not promote it to a
 frozen machine-readable certificate or policy replay.
 
+## Actual selected-root parameter two-jets
+
+The root-jet mode differentiates the actual 37-dimensional residual whose
+unknowns are the absolute P2bK source phase and the nine physical shooting
+nodes.  It does not differentiate the quadratic phase predictor used to
+centre the boxes.  The three external variables are
+
+\[
+ \theta_r=25r-1,\qquad \theta_a=4a_2,\qquad
+ \theta_\epsilon=5(\epsilon-1).
+\]
+
+The field is augmented by these three constant variables.  CAPD (C^2)
+flow and Poincare maps enclose the complete first and second residual jets.
+CAPD stores normalized Taylor coefficients, so the implementation multiplies
+only diagonal Hessian coefficients by two; mixed coefficients are already
+the actual mixed derivatives.  For each parameter direction and symmetric
+pair, the implicit first- and second-derivative equations are solved with the
+same interval inverse gate.  Positive diagonal weights choose the norm, but
+the final weighted contraction and every componentwise strict solve
+inclusion are recomputed with interval arithmetic.
+
+With shooting radius factor (3), all (16{,}384/16{,}384) cells pass.  The
+global strict hulls are
+
+\[
+ \phi_h\in[5.7499112495191298,5.9687447739269208],
+\]
+
+\[
+ T_h\in[9.6050962330163951,9.7024614326336689],\qquad
+ T_{\rm return}\in[0.055096233016395574,0.15246143263366643].
+\]
+
+The worst weighted inverse contraction is
+`0.23585865367990907` at cell ((31,0,0)).  The unweighted diagnostic can be
+as large as `2.305500383584993`; it is not the proof norm.  The worst strict
+componentwise solve inclusion is `0.99868362757418572` at ((31,127,0)),
+still below one.  The event has the uniform lower bound
+(U\ge4.8357887375448962), so the same (Q=0) event remains transverse.
+
+Uniform componentwise absolute bounds for the derivatives of
+((\phi_h,T_h)) are:
+
+| derivative | (\theta_r) | (\theta_a) | (\theta_\epsilon) |
+|---|---:|---:|---:|
+| (D\phi_h) | 0.716655010 | 0.774508400 | 0.654720583 |
+| (DT_h) | 0.962690243 | 0.980647712 | 0.909346129 |
+
+| second derivative | (rr) | (ra) | (r\epsilon) | (aa) | (a\epsilon) | (\epsilon\epsilon) |
+|---|---:|---:|---:|---:|---:|---:|
+| (D^2\phi_h) | 13.013242 | 13.817020 | 12.193663 | 14.631550 | 12.946996 | 11.300571 |
+| (D^2T_h) | 36.415307 | 37.992701 | 34.857794 | 39.532881 | 36.394716 | 32.579159 |
+
+Exact squared comparisons of the binary64 upper endpoints give the short
+rational bounds
+
+\[
+ \|D\phi_h\|_2\le\frac{621}{500},\quad
+ \|DT_h\|_2\le\frac{206}{125},\quad
+ \|D^2\phi_h\|_F\le\frac{39059}{1000},\quad
+ \|D^2T_h\|_F\le\frac{109163}{1000}.
+\]
+
+The full-grid run is bound to source commit
+`0f35363264d29a8b4b3b39ab10317273aff35fab`, source SHA-256
+`d3fe590fd64da02e18941d32e8d43a3b50e018f37d59513e37a41d1d32cf7a2f`,
+strict executable SHA-256
+`b7235063abff295b0d0e51a0587e5c8dd871af35a1c5d4af7a060e3e6cde0f04`,
+CAPD commit `731079217a9254ea2948d742df2b170895effe7f`, and the frozen H10 header
+listed below.  The fixed numeric-order concatenation of slab logs 0 through
+31 has SHA-256
+`b503e777183e6a5f759978b081828b70119bbfb95f48e643649857a89cace969`.
+The exact binary endpoint summary consumed downstream is
+[`design/p2c_root_jet_summary_v1.json`](design/p2c_root_jet_summary_v1.json).
+
+## Explicit weight-one-fifth infinite tails
+
+Write (p=\phi_h), (T=T_h),
+
+\[
+ b_s(\theta)=R R_{\chi(\theta)}(\cos p(\theta),\sin p(\theta)),
+ \qquad \tau(\theta)=T(\theta)-11,
+\]
+
+and let (Z(\theta,b,t)) be the already certified P2b moving-coordinate
+unstable half-orbit.  Since (T^+<10), one has (\tau<-1).  The P2b weight
+is (\omega=1/4), and
+
+\[
+ e^{-1/4}<\frac45
+\]
+
+follows strictly from (e^{1/4}>1+1/4).  Hence, with (Z_{ij}) denoting
+the archived P2b weighted jets,
+
+\[
+ A_{ij}:=\frac45Z_{ij},\qquad
+ b_-(\theta)=\pi_u Z(\theta,b_s(\theta),\tau(\theta))
+\]
+
+satisfies (|b_-\|\le0.008000000000000004<R=0.01).  Thus it lies strictly
+inside the same certified local disk.
+
+Let (p_1,p_2,t_1,t_2) be the four rational root-jet bounds above, and let
+(B_1,B_2) be the P2bK fixed-phase source-coordinate bounds.  The phase
+composition gives
+
+\[
+ s_1\le B_1+Rp_1,\qquad
+ s_2\le B_2+2B_1p_1+R(p_1^2+p_2).
+\]
+
+If (L=1+L_{10}), then
+
+\[
+ f_0=LA_{00},\quad
+ w_\theta=L_{11}A_{00}+LA_{01},\quad
+ w_b=LA_{10},\quad
+ w_t=Lf_0.
+\]
+
+The full second-order chain rule is bounded by
+
+\[
+\begin{aligned}
+ B^-_0={}&A_{00},\\
+ B^-_1={}&A_{01}+A_{10}s_1+f_0t_1,\\
+ B^-_2={}&A_{02}+2A_{11}s_1+A_{20}s_1^2+A_{10}s_2\\
+ &+2(w_\theta+w_bs_1)t_1+w_tt_1^2+f_0t_2.
+\end{aligned}
+\]
+
+The exact-fraction scout obtains
+
+\[
+ (B^-_0,B^-_1,B^-_2)
+ \le(0.00800001,0.0245290,1.310289).
+\]
+
+Composing with the archived physical half-orbit bounds (P_{ij}) gives
+
+\[
+ K_0=P_{00},\quad
+ K_1=P_{01}+P_{10}B^-_1,
+\]
+
+\[
+ K_2=P_{02}+2P_{11}B^-_1+P_{20}(B^-_1)^2+P_{10}B^-_2,
+\]
+
+with
+
+\[
+ (K_0,K_1,K_2)
+ \le(0.0400600,0.106816,5.655330).
+\]
+
+Choose (T_*=11) and (eta=1/5<1/4).  The exact integer comparison
+(5^{11}<27\,4^{11}), together with
+(e^{1/5}<1/(1-1/5)=5/4), proves (e^{11/5}<27).  Therefore both tails
+satisfy
+
+\[
+ \sup_{|\xi|\ge11}e^{|\xi|/5}
+   |D_\theta^j\Gamma_\theta(\xi)|
+ \le C_j^{(\theta)},\qquad |j|=0,1,2,
+\]
+
+where
+
+\[
+ (C_0^{(\theta)},C_1^{(\theta)},C_2^{(\theta)})
+ \le(1.081619,2.884016,152.693890).
+\]
+
+Since (D_\mu=(25,4,5)D_\theta) componentwise, the coarse operator
+conversion gives
+
+\[
+ (C_0^{(\mu)},C_1^{(\mu)},C_2^{(\mu)})
+ \le(1.081619,72.100399,95433.681137).
+\]
+
+Thus the single integer (C_{\rm tail}=95434) is valid for all derivatives
+through order two on both infinite tails.  The positive tail has the same
+constants because the reverser is a fixed Euclidean isometry.  This closes
+the design-level `V2.HOM.TAILS` atom as it is scoped in
+[`P2_VALIDATION_CONTRACT.md`](P2_VALIDATION_CONTRACT.md); it is not yet the
+single global constant in Theorem V2(11).
+
+The algebraic computation is
+[`design/p2c_tail_composition_scout.py`](design/p2c_tail_composition_scout.py)
+at commit `53292dd93a26b901d3395400389cd37faa6b7826`.  It uses exact nonnegative
+`Fraction` arithmetic and no additional ODE integration.  The script,
+root-summary input, and canonical JSON output have SHA-256 values
+`e6a9a7ea6373939d010dcd67466587268f3410571534829f976d342fbb2d040c`,
+`13e5c345a8c762c707ae19455ca67510e587a97c526f718f175e59da2657d2fd`,
+and `f14cae57be56a668a87097c59fd2ced85347720fb28d6e840b3d75d8786f6af1`,
+respectively.
+
 ## Proof boundary
 
 The following remain open and are not consequences of the results above:
 
-- explicit validated first and second parameter bounds (the true root jets)
-  for \((\phi_h,T_h)\);
-- composition of those true root jets with the already certified P2b
-  weighted half-orbits into explicit \(\eta,C,T_*\) and parameter-derivative
-  bounds through order two on both infinite tails, including the required
-  weight \(1/5\);
+- a continuous-time parameter-(C^2) enclosure on the finite middle
+  \([-11,11]\).  The true-root calculation encloses the phase, time, and
+  shooting-node jets, while the tail calculation encloses both infinite
+  tails.  It does not yet provide one numerical bound for every intermediate
+  time in the compact middle, so Theorem V2(9)--(11) must not yet be reported
+  as a fully explicit global weighted bound;
 - a frozen P2c configuration, machine-readable certificate and checker, and
   eventually the policy-required independent replay.  The latter is a
   release gate, not the current computational priority.

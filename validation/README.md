@@ -224,9 +224,12 @@ the analytic constructions.
   parameter/mixed derivatives through order two, and weighted half-orbit
   constants, and P2bK covers the normalized Kato source phase.  The P2c
   design scout covers one selected lifted root branch on the full bridge and
-  its strict source-to-symmetry-event first-hit tubes.  What remains for P2c
-  is the true-root parameter two-jet, weighted full tails, and a frozen formal
-  certificate/checker; the remaining V2 objects and V3--V6 remain `PENDING` in
+  its strict source-to-symmetry-event first-hit tubes.  The actual-root
+  parameter two-jet now also passes on all 16,384 cells, and exact rational
+  composition gives explicit weight-(1/5) constants on both infinite tails.
+  What remains for P2c is a continuous-time C2 enclosure on the compact
+  middle, followed by a frozen formal certificate/checker; the remaining V2
+  objects and V3--V6 remain `PENDING` in
   [`rigorous/obligations.json`](rigorous/obligations.json).
 - The policy requires an independent replay on a second machine before any
   aggregate certificate can become claim-bearing.  This repository currently

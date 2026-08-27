@@ -184,8 +184,11 @@ total-order-three source triangle.  Its aggregate likewise remains
 1/2.  The P2c design kernel now covers one selected lifted root branch on the
 full three-parameter bridge, including every common-face identification and
 the frozen core anchor, and proves the selected source-to-symmetry-event
-first-hit sign tubes on every cell.  Formal P2c root-jet/tail certification
-and P2d--P5 remain unimplemented.
+first-hit sign tubes on every cell.  Its actual-root parameter two-jets also
+pass on every cell, and exact composition with P2b/P2bK gives explicit
+weight-(1/5) constants on both infinite tails.  A continuous-time C2 bound
+on the compact middle, formal P2c certification, and P2d--P5 remain
+unimplemented.
 
 ## Repository map
 
@@ -220,7 +223,7 @@ and P2d--P5 remain unimplemented.
 - [#4: central--outer matching theorem](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/4), the decisive mathematical go/no-go task
 - [#5: outer algebraic action finite part](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/5)
 - [#6: exhaustive two-end theorem](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/6)
-- [#7: rigorous validation](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/7), with phase 1, P2a, P2b0, P2b mixed jets, and the P2bK normalized Kato/true-source interface passing locally; the P2c design scout now validates one selected lifted branch on all 16,384 cells and 44,416 internal faces of the full bridge and strict first-hit sign tubes on every cell, while formal P2c root jets/tails/certificate, P2d--P5, and independent replay remain pending
+- [#7: rigorous validation](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/7), with phase 1, P2a, P2b0, P2b mixed jets, and the P2bK normalized Kato/true-source interface passing locally; the P2c design scout now validates one selected lifted branch on all 16,384 cells and 44,416 internal faces, strict first-hit tubes, actual-root parameter two-jets, and explicit weight-(1/5) constants on both infinite tails, while the compact-middle C2 bound, formal P2c certificate, P2d--P5, and independent replay remain pending
 
 The source theory remains in
 [`h-lu/reversible-rfsn-ii-waves`](https://github.com/h-lu/reversible-rfsn-ii-waves).

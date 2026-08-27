@@ -85,9 +85,14 @@ true source face to the selected symmetry event on all 16,384 cells; combined
 with the already certified P2a local-graph exclusion, this closes the P2c
 first-hit design argument.  The uniqueness statement is deliberately limited
 to the finite parameter-following lifted multiple-shooting tube: no direct
-shooting zero outside that tube is excluded.  This is not yet a frozen P2c
-certificate and does not discharge the true-root parameter jets or weighted
-tails.
+shooting zero outside that tube is excluded.  The actual-root C2 mode now also
+passes on all 16,384 cells and validates the phase/half-time parameter
+two-jets.  Exact rational composition with the archived P2b/P2bK half-orbits
+gives (T_*=11), (eta=1/5), and the common original-parameter constant
+(C_{\rm tail}=95434) on both infinite tails.  This is not yet a frozen P2c
+certificate.  A continuous-time C2 enclosure on the compact middle
+\([-11,11]\) remains before the tail constant can be promoted to one explicit
+global Theorem V2(11) bound.
 
 ## Frozen phase-1 box
 
