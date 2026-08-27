@@ -34,8 +34,8 @@ interface.  Their executable refinements are:
 | P2b0 | `V2.WU.H10_C1_TUBE` | A uniform state-\(C^1\) tube around the same graph, using a transformed tangent Riccati cone. |
 | P2b | `V2.WU.JETS` | Validated \(D_b^{\le3}D_\mu^{\le2}\) graph bounds and the weighted half-orbit/tail constants actually consumed downstream. |
 | P2bK | `V2.PHASE.KATO_INTERFACE` | A normalized Kato expanding phase, an orientation-preserving change from the algebraic graph frame, and a degree-one true source circle on the same graph disk. |
-| P2c | `V2.HOM.BRANCH` | A gap-free parameter cover from the complete \(r=0\) anchor face through \(B_+\), with interval Newton/Krawczyk inclusion for the same selected \((\phi,T)\) branch. |
-| P2c | `V2.HOM.FIRST_HIT` | No earlier nonzero hit of \(\operatorname{Fix}\mathcal R=\{P=Q=0\}\), proved by sign tubes and a final flow-box argument. |
+| P2c | `V2.HOM.BRANCH` | A gap-free finite parameter cover from the complete \(r=0\) anchor face through \(B_+\), with 38-dimensional interval Newton/Krawczyk uniqueness in parameter-following lifted multiple-shooting boxes and common-face identification of the same physical selected record.  No uniqueness outside the resulting lifted tube is required or asserted. |
+| P2c | `V2.HOM.FIRST_HIT` | No earlier nonzero hit of \(\operatorname{Fix}\mathcal R=\{P=Q=0\}\): P2a excludes such a hit before the true source face, and dense outward-rounded sign tubes plus a final flow-box argument exclude one from that face to the selected event. |
 | P2c | `V2.HOM.TRANSVERSE` | Nonzero endpoint, regular zero-energy level, sign/rank control of the phase column, and \(0\notin\det D_{(\phi,T)}M\). |
 | P2c | `V2.HOM.TAILS` | Explicit \(\eta,C,T_*\) and all external derivatives through order two on both infinite tails. |
 | P2d | `V2.CHART.*` | A finite exact marked saddle-chart cover, zero-energy fiber solve, exact action, overlap compatibility, and weighted-log passage bounds at a declared log-derivative order \(m\). |

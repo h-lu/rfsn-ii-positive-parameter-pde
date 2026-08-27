@@ -181,9 +181,11 @@ normalized Riesz/Kato transport, physical frame change, complete \(C^2\)
 parameter lift, degree-one radius-`.01` true source circle, and the nine-jet
 total-order-three source triangle.  Its aggregate likewise remains
 `INCONCLUSIVE` and non-claim-bearing solely because independent replay is
-1/2.  The P2c design kernel now covers one selected root branch on the full
-three-parameter bridge, including every common-face identification and the
-frozen core anchor.  Formal P2c--P5 certificates remain unimplemented.
+1/2.  The P2c design kernel now covers one selected lifted root branch on the
+full three-parameter bridge, including every common-face identification and
+the frozen core anchor, and proves the selected source-to-symmetry-event
+first-hit sign tubes on every cell.  Formal P2c root-jet/tail certification
+and P2d--P5 remain unimplemented.
 
 ## Repository map
 
@@ -218,7 +220,7 @@ frozen core anchor.  Formal P2c--P5 certificates remain unimplemented.
 - [#4: central--outer matching theorem](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/4), the decisive mathematical go/no-go task
 - [#5: outer algebraic action finite part](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/5)
 - [#6: exhaustive two-end theorem](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/6)
-- [#7: rigorous validation](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/7), with phase 1, P2a, P2b0, P2b mixed jets, and the P2bK normalized Kato/true-source interface passing locally; the P2c design scout now validates one selected branch on all 16,384 cells and 44,416 internal faces of the full bridge, while formal P2c exclusion/first-hit/jets/tails, P2d--P5, and independent replay remain pending
+- [#7: rigorous validation](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/7), with phase 1, P2a, P2b0, P2b mixed jets, and the P2bK normalized Kato/true-source interface passing locally; the P2c design scout now validates one selected lifted branch on all 16,384 cells and 44,416 internal faces of the full bridge and strict first-hit sign tubes on every cell, while formal P2c root jets/tails/certificate, P2d--P5, and independent replay remain pending
 
 The source theory remains in
 [`h-lu/reversible-rfsn-ii-waves`](https://github.com/h-lu/reversible-rfsn-ii-waves).

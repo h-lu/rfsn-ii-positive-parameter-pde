@@ -70,9 +70,18 @@ is now supplemented by a gap-free exact-rational \(32\times128\times4\)
 cover of the full bridge.  All 16,384 cells, all 44,416 internal common-face
 identifications, and the strict frozen-core anchor pass.  The result therefore
 identifies one locally unique selected root branch over the whole bridge.
-This remains a design result: large-shooting-box exclusion, first hit,
-parameter jets, homoclinic tails, a frozen certificate, and independent
-replay are not discharged.
+The root is unique as a physical record represented in the resulting finite
+parameter-following lifted 38-dimensional multiple-shooting tube; the scout
+does not claim uniqueness for a direct trajectory whose intermediate nodes
+leave that tube.  The `mu-grid-first-hit` and
+`mu-grid-first-hit-slab` modes continue each Krawczyk root set through dense,
+overlapping sign tubes.  On all 16,384 cells they prove, in order,
+\(P>0\), \(Q>0\), \(P<0\), \(Q<0\), and a final outward \(U>0\)
+event, with selected return time below \(1/5\).  Together with the P2a
+true-graph exclusion before the source face, this is the complete first-hit
+argument at design level.  Parameter two-jets of the true root, weighted
+homoclinic tails, a frozen certificate, and independent replay are not yet
+discharged.
 Results and the proof boundary are recorded in
 [`../P2C_SCOUT_REPORT.md`](../P2C_SCOUT_REPORT.md).  The H10 header supplied
 at compile time must be extracted from the Git object named by

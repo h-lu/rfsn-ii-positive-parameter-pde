@@ -80,8 +80,14 @@ engine now validates all 16,384 exact rational cells covering
 `[0,2/25] x [-1/4,1/4] x [4/5,6/5]`, all 44,416 internal common faces, and
 the frozen selected-core anchor through 38-dimensional Krawczyk problems.
 This is strict feasibility evidence for one selected `V2.HOM.BRANCH` over
-the full bridge.  It is not a frozen P2c certificate and does not discharge
-large-shooting-box exclusion, the first-hit tubes, parameter jets, or tails.
+the full bridge.  The same scout also proves strict dense sign tubes from the
+true source face to the selected symmetry event on all 16,384 cells; combined
+with the already certified P2a local-graph exclusion, this closes the P2c
+first-hit design argument.  The uniqueness statement is deliberately limited
+to the finite parameter-following lifted multiple-shooting tube: no direct
+shooting zero outside that tube is excluded.  This is not yet a frozen P2c
+certificate and does not discharge the true-root parameter jets or weighted
+tails.
 
 ## Frozen phase-1 box
 

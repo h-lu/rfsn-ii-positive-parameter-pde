@@ -162,8 +162,13 @@ following statements hold on (3).
    \tag{12}
    \]
 
-   It is the unique symmetric orbit in one fixed continued sub-box of the
-   frozen shooting box; no global uniqueness is asserted.
+   Relative to the common source-phase lift, \(\Gamma_\mu\) has a lifted zero
+   record \(\mathbf r_{\rm h}(\mu)\) in the finite parameter-following
+   multiple-shooting tube \(\mathscr T_{\rm ms}(\mu)\) constructed below, and
+   the lifted zero set in that fiber is the singleton
+   \(\{\mathbf r_{\rm h}(\mu)\}\).  Consequently \(\Gamma_\mu\) is the only
+   symmetric homoclinic represented there.  No uniqueness is asserted for
+   lifted records outside this tube or for all symmetric homoclinics.
 
 3. **Local exact passage with two external derivatives.**  A finite
    parameter cover carries \(C^2\) families of reversible exact symplectic
@@ -409,8 +414,11 @@ graph.  Hence (28) is pointwise the frozen circle \(S_0\).  This direct
 graph-boundary definition replaces an
 unquantified backward-flow source construction: the validated radius-\(R\)
 graph is already a common source domain.  By definition of the common Kato
-source phase, \(\theta_\mu(S_\mu(\phi))=\phi\).  Now choose a compact phase
-interval \(I\) about the selected homoclinic root and put
+source phase, \(\theta_\mu(S_\mu(\phi))=\phi\).
+
+Let \(\mathscr D\) be the open set of triples \((\mu,\phi,T)\), with
+\(T>0\), for which \(\Phi_\mu^t(S_\mu(\phi))\) exists for every
+\(0\le t\le T\).  On \(\mathscr D\), put
 
 \[
  M(\mu,\phi,T)
@@ -419,32 +427,99 @@ interval \(I\) about the selected homoclinic root and put
 \]
 
 At \(r=0\), (29) is independent of \(a_2,\epsilon\) and is exactly the
-frozen matching map.  Choose a closed sub-box \(B_{\rm sh}\) of the
-validated shooting box with the core zero in its interior.  Choose a smaller
-root neighborhood \(B_{\rm root}\Subset B_{\rm sh}\).  Frozen local
-uniqueness and compactness give
+frozen matching map.  Write its selected zero as \(x_0\).  By (9) of the
+import note, \(D_{(\phi,T)}M(0,x_0)\) is nonsingular.  The uniform parametric
+implicit-function theorem on the complete dummy face, followed by a decrease
+of \(r_*\), therefore gives a \(C^2\) map
+\(\mu\mapsto x_{\rm h}(\mu)\) on \(\mathcal P_{r_*}\), equal to \(x_0\) on
+the complete \(r=0\) face, such that \(M(\mu,x_{\rm h}(\mu))=0\).  For every
+\(\mu\), this is the only zero of \(M(\mu,\cdot)\) in a neighborhood of
+\(x_{\rm h}(\mu)\).
+
+Choose a common finite subdivision of the compact family of selected orbit
+segments and let \(\mathscr Y\) be the corresponding physical record space,
+containing the source phase, the intermediate physical nodes, the endpoint
+time, and the endpoint.  Compactness gives a finite closed parameter cover
+\(\{C_\alpha\}_{\alpha\in\mathcal A}\), with the shooting constructions
+defined on open neighborhoods \(U_\alpha\supset C_\alpha\).  On each
+\(U_\alpha\), introduce an exact multiple-shooting residual and its physical
+reconstruction,
 
 \[
- \inf_{B_{\rm sh}\setminus B_{\rm root}}|M(0,\phi,T)|>0.
+ \mathcal F_\alpha:U_\alpha\times\mathcal X_\alpha
+       \longrightarrow\mathbb R^{N_\alpha},
+ \qquad
+ \Theta_\alpha:U_\alpha\times\mathcal X_\alpha
+       \longrightarrow\mathscr Y.
+\]
+
+Here \(\mathcal X_\alpha\subset\mathbb R^{N_\alpha}\) is open, and
+``exact'' means that zeros of
+\(\mathcal F_\alpha(\mu,\cdot)\) are in one-to-one correspondence with zeros
+of (29) whose lifted orbit segments remain in the declared local flow
+domains, and \(\Theta_\alpha\) sends corresponding zeros to their physical
+lifted records.  At the lift of \(x_{\rm h}(\mu)\), elimination of the
+intermediate-node matching equations reduces the linearized
+multiple-shooting equation to
+\(D_{(\phi,T)}M(\mu,x_{\rm h}(\mu))\), up to invertible shooting-chart and
+section factors.  Hence \(D_y\mathcal F_\alpha\) is nonsingular there.  After
+refining the finite cover if necessary, choose fixed closed boxes
+\(X_\alpha\Subset\mathcal X_\alpha\) around the lifted root sections.  The
+uniform parametric implicit-function theorem then makes
+\(y_\alpha(\mu)\) the unique zero in \(X_\alpha\) for every
+\(\mu\in C_\alpha\).
+
+On an overlap, the coordinate representatives \(y_\alpha\) and \(y_\beta\)
+need not be equal, but exact reconstruction gives
+
+\[
+ \Theta_\alpha(\mu,y_\alpha(\mu))
+  =\Theta_\beta(\mu,y_\beta(\mu)).
+\]
+
+Indeed, both sides are the lift of the same locally unique direct-shooting
+root \(x_{\rm h}(\mu)\).  On the complete \(r=0\) face this common record is
+the exact lift of the frozen selected zero.  Denote this common record by
+\(\mathbf r_{\rm h}(\mu)\), and define
+
+\[
+\begin{aligned}
+ \mathscr T_{\rm ms}(\mu)
+   &=\bigcup_{\alpha:\,\mu\in C_\alpha}
+       \Theta_\alpha(\mu,X_\alpha),\\
+ \mathscr Z_{\rm ms}(\mu)
+   &=\bigcup_{\alpha:\,\mu\in C_\alpha}
+       \left\{\Theta_\alpha(\mu,y):
+         y\in X_\alpha,\
+         \mathcal F_\alpha(\mu,y)=0\right\}\\
+   &=\{\mathbf r_{\rm h}(\mu)\}.
+\end{aligned}
 \tag{30}
 \]
 
-The derivative in \((\phi,T)\) at the root has determinant in the interval
-(9) of the import note.  The uniform \(C^2\) implicit-function theorem over
-the compact dummy base gives a unique \(C^2\) pair
+Writing the source phase and endpoint time of this record as
 
 \[
- \phi_{\rm h}(\mu),\qquad T_{\rm h}(\mu)
+ x_{\rm h}(\mu)
+   =(\phi_{\rm h}(\mu),T_{\rm h}(\mu)),
+ \qquad
+ M(\mu,\phi_{\rm h}(\mu),T_{\rm h}(\mu))=0
 \tag{31}
 \]
 
-inside \(B_{\rm root}\).  Uniform \(C^0\) closeness and (30) exclude another
-zero in \(B_{\rm sh}\).  After decreasing \(r_*\),
+gives the required \(C^2\) pair.  The singleton assertion in (30) does not
+exclude a direct-shooting zero whose lifted intermediate-node record leaves
+\(\mathscr T_{\rm ms}(\mu)\), even if its \((\phi,T)\)-coordinates lie in a
+two-dimensional projection of one of the correction boxes.  Since
+\(D_{(\phi,T)}M(\mu,x_{\rm h}(\mu))\) remains nonsingular along the compact
+continued branch, continuity gives a constant
+\(\underline\Delta_{\rm hom}>0\) such that
 
 \[
  \left|\det D_{(\phi,T)}M
        (\mu,\phi_{\rm h}(\mu),T_{\rm h}(\mu))\right|
- \ge\frac{149.56393055300413}{2}.
+ \ge\underline\Delta_{\rm hom},
+ \qquad \mu\in\mathcal P_{r_*}.
 \tag{32}
 \]
 
@@ -471,7 +546,8 @@ remains positive.  Near the endpoint,
 is nonzero at the core endpoint and remains uniformly nonzero.  A fixed
 one-dimensional flow-box coordinate then shows that \((P,Q)\) has no second
 zero in the final time interval.  Thus (33) is still the first symmetry hit
-after the selected source face inside the continued tube.
+after the selected source face along the reconstructed source-to-endpoint
+orbit segment.
 
 Define
 

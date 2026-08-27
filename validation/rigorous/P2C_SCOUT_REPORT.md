@@ -1,11 +1,13 @@
 # Issue #7 P2c selected-homoclinic scout report
 
 **Evidence status: strict design-scout results plus floating candidate data.**
-This report does not mark `V2.HOM.BRANCH`, `V2.HOM.FIRST_HIT`,
-`V2.HOM.TRANSVERSE`, or `V2.HOM.TAILS` as passed.  It records strict
-design-scout feasibility for one selected root branch on the full
-three-parameter bridge, identifies that branch with the frozen core root,
-and separates this result from the remaining P2c obligations.
+The strict computations below complete, at design level, the selected root
+branch, endpoint transversality, and selected-source-to-symmetry-event
+first-hit gates on the full three-parameter bridge.  This report nevertheless
+does not mark `V2.HOM.BRANCH`, `V2.HOM.FIRST_HIT`, `V2.HOM.TRANSVERSE`, or
+`V2.HOM.TAILS` as claim-bearing passes: the P2c configuration, certificate,
+checker, and policy replay have not yet been frozen.  The remaining analytic
+and certification obligations are separated explicitly at the end.
 
 ## Correct source and shooting problem
 
@@ -364,8 +366,14 @@ in the source Krawczyk image; the face-coordinate transform of that image
 lies in the neighboring uniqueness box; and the neighboring box has exactly
 one root.  Hence the two local root sections agree pointwise on the shared
 face.  Connectivity of the grid identifies all cellwise roots as one branch.
-This uniqueness is local to the continued root boxes; it does not yet exclude
-another zero elsewhere in the fixed larger shooting sub-box.
+More precisely, the cell boxes and their chart reconstructions form a finite
+parameter-following lifted 38-dimensional multiple-shooting tube.  For every
+fixed parameter and every actual P2bK true-graph error function satisfying the
+certified budgets, the Krawczyk argument gives exactly one physical zero
+record represented in this tube.  No tube-exterior uniqueness is claimed: a
+direct-shooting zero whose intermediate-node record leaves the lifted tube is
+not excluded, even if its \((\phi,T)\)-projection lies in a larger shooting
+box.
 
 The corner \((r,a_2,\epsilon)=(0,0,1)\) is anchored separately.  The frozen
 selected core enclosure maps into a point-core uniqueness box with ratio
@@ -393,18 +401,122 @@ These bindings make the design result locally auditable and reproducibly
 bound, but they are not a frozen machine-readable P2c certificate or an
 independent replay.
 
+## Full selected source-to-symmetry-event first-hit cover
+
+At source commit `25ff53a7f4fa2457a09767d2cad992aff245bcea`, the strict
+first-hit mode was run on the same exact \(32\times128\times4\) grid with
+shooting-box radius factor `3`.  For every cell it first reconstructs an
+affine nine-dimensional CAPD set from the root-bearing Krawczyk enclosure
+\(K\), retaining the same three parameter coordinates, phase correction, and
+true-graph scalar error.  It then checks the outward continuous-time
+enclosure returned after every internal CAPD step, rather than checking only
+sampled endpoints.  All 16,384 out of 16,384 cells pass, comprising 306,287
+dense internal steps; each of the 32 fixed-\(r\) slabs reports 512 out of 512
+passing cells.
+
+The source-to-final-node sign partition and the global strict hulls are:
+
+| nominal time interval | required sign | global strict hull | signed margin | worst grid cell \((i,j,k)\) |
+|---|---:|---:|---:|---:|
+| \([0,1.55]\) | \(P>0\) | \([0.0003775768276043477,0.01702678138346261]\) | 0.0003775768276043477 | \((31,127,0)\) |
+| \([1.55,1.90]\) | \(Q>0\) | \([0.028827241320954836,0.03775272909037046]\) | 0.028827241320954836 | \((31,0,3)\) |
+| \([1.90,7.35]\) | \(P<0\) | \([-0.45162005597156318,-0.0028529044239452655]\) | 0.0028529044239452655 | \((31,0,3)\) |
+| \([7.35,9.55]\) | \(Q<0\) | \([-3.3579979633164085,-0.26930389071300026]\) | 0.26930389071300026 | \((31,127,0)\) |
+| \([9.55,9.55+1/5]\) | \(U>0\) | \([4.6910804196918061,5.1507399310104942]\) | 4.6910804196918061 | \((31,0,0)\) |
+
+At both switching times the implementation continues the same CAPD set: the
+set used to verify \(Q>0\) through time 1.90 is then used to verify
+\(P<0\), and the set used to verify \(P<0\) through time 7.35 is then used
+to verify \(Q<0\).  Thus the displayed endpoints conceal no unchecked time
+seam.
+
+Here \((i,j,k)\) denotes the \((r,a_2,\epsilon)\)-cell indices from the
+exact grid above.  Thus the two recurring worst cells are
+
+\[
+ \begin{aligned}
+ (31,127,0)&:\quad [31/400,2/25]\times[63/256,1/4]
+                    \times[4/5,9/10],\\
+ (31,0,3)&:\quad [31/400,2/25]\times[-1/4,-63/256]
+                    \times[11/10,6/5],
+ \end{aligned}
+\]
+
+while the worst final-flow-box margin occurs on
+\([31/400,2/25]\times[-1/4,-63/256]\times[4/5,9/10]\).
+The complete physical-state hull accumulated over all five tubes is
+
+\[
+ \begin{aligned}
+ U&\in[-1.2754209644411874,5.1507399310104942],\\
+ P&\in[-2.2821367541046569,6.3575562290451844],\\
+ V&\in[-8.2282751545401851,0.15319307702947269],\\
+ Q&\in[-3.3579979633164085,0.71646821916526104].
+ \end{aligned}
+\]
+
+Starting from the final node at time 9.55, the outward final duration is
+\([0.19999999999999998,0.20000000000000001]\).  The selected \(Q=0\)
+Poincare return-time hull is
+
+\[
+ [0.05509623487633783,0.15246186152197719],
+\]
+
+strictly below the left endpoint of that duration, and the corresponding
+half-time hull is
+
+\[
+ [9.6050962348763385,9.7024618615219786].
+\]
+
+The four consecutive sign tubes prevent \(P=Q=0\) from the selected source
+through time 9.55.  In the final tube, \(Q'=U>0\), the initial \(Q\) is
+strictly negative, and the selected root has \(Q=0\) and \(P=0\) at its
+Poincare event.  The return-time bound places that event strictly inside the
+\(U>0\) tube, where strict monotonicity of \(Q\) makes its zero unique.  This
+is a one-dimensional final flow-box argument for the already selected root;
+it does not replace the codimension-two symmetry condition by a scalar
+section.  Before the source face, the imported P2a/P2bK true-graph estimate
+and backward decay exclude a nonzero symmetry hit: on the radius-\(1/100\)
+graph disk, the physical frame gives
+\(P=Q=0\Rightarrow u=s=H_\mu(u)\), whereas
+\(\|H_\mu(u)\|<\frac14\|u\|^2\) excludes this equality for
+\(0<\|u\|\le1/100\).  This imported local gate was not reevaluated by the
+first-hit CLI.  Together, the imported pre-source gate and the full-grid
+dense tubes complete the no-earlier-symmetry-hit argument at strict design
+level.
+
+The first-hit run is bound to source commit
+`25ff53a7f4fa2457a09767d2cad992aff245bcea`; the SHA-256 of
+`p2c_homoclinic_multishoot_scout.cpp` at that commit is
+`3aa6368471ced8afc37e73128149548e7756caa04505ebcb615a3451bf6beabd`.
+It used CAPD commit `731079217a9254ea2948d742df2b170895effe7f` and the same
+strict compiler flags listed above, together with the frozen H10 input bound
+below; the flagship working tree was not an input.  The executable SHA-256 was
+`b6d27a618146ea90db1310c1f0b510190a573b35bd8d5d669f5e354d6f6f0fd0`;
+the fixed numeric-order concatenation of slab logs 0 through 31 had SHA-256
+`09f3e809b4651a3ed8dfc5482b9900aadf35367b08202dbc17a3a79af5f6b5f3`.
+These hashes bind the completed strict design run, but do not promote it to a
+frozen machine-readable certificate or policy replay.
+
 ## Proof boundary
 
 The following remain open and are not consequences of the results above:
 
-- exclusion of any other zero in the fixed larger shooting sub-box;
-- the no-earlier-symmetry-hit sign tubes and final flow box;
-- explicit first and second parameter bounds for \((\phi_h,T_h)\);
-- composition of those root jets with the already certified P2b weighted
-  half-orbits into explicit \(\eta,C,T_*\) and two-parameter-derivative bounds
-  on both infinite tails, including the required weight \(1/5\);
+- explicit validated first and second parameter bounds (the true root jets)
+  for \((\phi_h,T_h)\);
+- composition of those true root jets with the already certified P2b
+  weighted half-orbits into explicit \(\eta,C,T_*\) and parameter-derivative
+  bounds through order two on both infinite tails, including the required
+  weight \(1/5\);
 - a frozen P2c configuration, machine-readable certificate and checker, and
-  the policy-required independent replay.
+  eventually the policy-required independent replay.  The latter is a
+  release gate, not the current computational priority.
+
+In particular, the selected-source first-hit design is no longer an open
+item, and exclusion of zeros outside the declared lifted multiple-shooting
+tube is not part of the proved uniqueness statement.
 
 The H10 table used in the strict rerun was materialized with `git archive`
 from the frozen flagship commit
