@@ -1,0 +1,63 @@
+{
+  "schema_version": "rfsn-vdp-p2c-root-jet-summary/1",
+  "status": "PASS",
+  "claim_bearing": false,
+  "bound_semantics": "componentwise-absolute-upper-binary64-hex",
+  "scope": "design-level full-grid selected true-source root C2 summary; not a certificate",
+  "grid": {
+    "subdivisions": [32, 128, 4],
+    "radius_factor": 3,
+    "passed_cells": 16384,
+    "total_cells": 16384
+  },
+  "provenance": {
+    "repository_commit": "0f35363264d29a8b4b3b39ab10317273aff35fab",
+    "source_path": "validation/rigorous/design/p2c_homoclinic_multishoot_scout.cpp",
+    "source_sha256": "d3fe590fd64da02e18941d32e8d43a3b50e018f37d59513e37a41d1d32cf7a2f",
+    "strict_binary_sha256": "b7235063abff295b0d0e51a0587e5c8dd871af35a1c5d4af7a060e3e6cde0f04",
+    "flagship_commit": "d54add098545063d5efe8f1d6f062d4cfc116a0d",
+    "frozen_h10_header_sha256": "d617587ea1b9037c1c7575ccdde5029529ec5b736dee259baff9a2a162001e96",
+    "capd_commit": "731079217a9254ea2948d742df2b170895effe7f",
+    "fixed_numeric_order_log_concatenation_sha256": "b503e777183e6a5f759978b081828b70119bbfb95f48e643649857a89cace969"
+  },
+  "ordered_normalized_parameters": [
+    "theta_r",
+    "theta_a",
+    "theta_epsilon"
+  ],
+  "ordered_symmetric_pairs": [
+    ["theta_r", "theta_r"],
+    ["theta_r", "theta_a"],
+    ["theta_r", "theta_epsilon"],
+    ["theta_a", "theta_a"],
+    ["theta_a", "theta_epsilon"],
+    ["theta_epsilon", "theta_epsilon"]
+  ],
+  "half_time_upper_hex": "0x1.367a9065fb9d0p+3",
+  "phase_first_abs_upper_hex": [
+    "0x1.6eed67c5c8b1dp-1",
+    "0x1.8c8c5d6d62c07p-1",
+    "0x1.4f378944e2fabp-1"
+  ],
+  "time_first_abs_upper_hex": [
+    "0x1.ece5bc43ac911p-1",
+    "0x1.f61774f3a7f51p-1",
+    "0x1.d195d0d4157f8p-1"
+  ],
+  "phase_second_abs_upper_hex": [
+    "0x1.a06c7a1e6ff79p+3",
+    "0x1.ba2505d8f642ep+3",
+    "0x1.86327aa7f2d43p+3",
+    "0x1.d435a81b986bfp+3",
+    "0x1.9e4dc973979d1p+3",
+    "0x1.699e462bb0da4p+3"
+  ],
+  "time_second_abs_upper_hex": [
+    "0x1.23528c0a7cebep+5",
+    "0x1.2ff10ccaa72dbp+5",
+    "0x1.16dcc2b34a624p+5",
+    "0x1.3c4356f3ba22dp+5",
+    "0x1.2328605eca792p+5",
+    "0x1.04a21dde9ecd3p+5"
+  ]
+}
