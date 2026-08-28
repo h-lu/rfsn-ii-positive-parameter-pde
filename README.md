@@ -220,6 +220,7 @@ experimental realization.
 - [#6: exhaustive two-end theorem](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/6) — V6--V7 construction complete under the pinned modular imports.
 - [#7: rigorous explicit-box validation](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/7) — open; aggregate status remains non-claim-bearing and inconclusive.
 - [#8: explanatory numerical atlas and dynamics prescreen](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/8) — open; numerical evidence remains separate from theorem status.
+- [#9: independent expert cold read](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/9) — open; the neutral review packet is public, but no human report is claimed before one is returned.
 
 The source theory was developed in the historical repository
 `h-lu/reversible-rfsn-ii-waves`.  This application repository leaves that

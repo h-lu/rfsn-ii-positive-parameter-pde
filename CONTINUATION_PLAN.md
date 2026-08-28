@@ -34,7 +34,7 @@ remain authoritative.
   separated into a supplement.
 - Issue #7 interval validation, temporal stability, Turing selection, and
   canard identification remain deferred.  An independent human expert report
-  is requested separately and is not claimed before it is returned.
+  is requested in Issue #9 and is not claimed before it is returned.
 
 ## 1. Decision
 

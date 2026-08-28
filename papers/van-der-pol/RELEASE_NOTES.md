@@ -19,6 +19,9 @@ The principal theorem is conditional on the frozen Hypothesis H stated in the
 paper. This release does not claim an independent second-machine replay,
 certification of the proposed Issue #7 box, temporal stability, Turing
 selection, canard identification, or experimental realization.
+An independent human expert cold read is requested in
+[Issue #9](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/9);
+no human report is claimed before one is returned.
 
 SHA-256:
 
