@@ -5,6 +5,21 @@ research and publication plan, not a theorem, certificate, or change to the
 statuses in `CLAIM_REGISTER.md`.  The claim register and research contract
 remain authoritative.
 
+## Execution status on 2026-08-28
+
+- Phase 0 is complete: the snapshot, remote synchronization, candidate
+  contract refresh, issue reconciliation, and 181-test pass are recorded on
+  `main`.
+- Phase 1 is complete as a conditional publication draft: the primary-source
+  novelty audit, frozen-core crosswalk, independent proof-interface audit,
+  companion-paper source, clean independent build, and page-by-page PDF review
+  are present in this repository.
+- The remaining Phase 1 publication blocker is external accessibility of the
+  imported Core Lemma's complete evidence closure. It does not invalidate the
+  local analytic implication proved in the paper.
+- The next active task is Phase 2, the clause-by-clause flagship-import audit
+  required before the van der Pol proof audit and manuscript.
+
 ## 1. Decision
 
 Continue the application programme in this repository.  Do not create a
@@ -459,6 +474,10 @@ application sound more physical.
 
 ## 12. Immediate next task
 
-The next task is Phase 0, not new mathematics.  Once synchronization and the
-test repair are complete, open the Brusselator literature audit.  Only after
-that audit should the first manuscript file be created.
+Phases 0 and 1 are complete at the repository level, subject to the explicit
+Core-evidence accessibility blocker stated above. The next task is Phase 2:
+audit every flagship clause imported by the van der Pol track against the
+frozen baseline and the compressed read-only theory manuscript, then classify
+it as directly applicable, adapted locally, or not applicable. Do not begin
+the polished van der Pol paper until that audit and the local replacement
+obligations it exposes are closed.

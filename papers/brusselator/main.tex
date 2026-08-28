@@ -1,0 +1,719 @@
+\documentclass[11pt,reqno]{amsart}
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{xcolor}
+\usepackage{microtype}
+\usepackage[colorlinks=true,linkcolor=blue!55!black,citecolor=blue!55!black,urlcolor=blue!55!black]{hyperref}
+\hypersetup{
+  pdftitle={Localized Stationary Profiles in a Singular Diffusion Limit of the Brusselator},
+  pdfauthor={Haibo Lu},
+  pdfkeywords={Brusselator, localized stationary pattern, reversible spatial dynamics, singular diffusion, homoclinic orbit}
+}
+
+\numberwithin{equation}{section}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\R}{\mathbb R}
+\newcommand{\Fix}{\operatorname{Fix}}
+\newcommand{\cR}{\mathcal R}
+\newcommand{\cM}{\mathcal M}
+\newcommand{\cO}{\mathcal O}
+\newcommand{\norm}[1]{\left\lVert #1\right\rVert}
+
+\title[Localized Brusselator profiles]{Localized Stationary Profiles in a Singular Diffusion Limit of the Brusselator}
+\author{Haibo Lu}
+\address{Haibo Lu}
+\email{luhaibo1985@gmail.com}
+\date{August 28, 2026}
+
+\subjclass[2020]{35B36, 35K57, 34C37, 34E15, 37C29}
+\keywords{Brusselator, localized stationary pattern, reversible spatial dynamics, singular diffusion, homoclinic orbit}
+
+\begin{document}
+
+\begin{abstract}
+We consider the classical one-dimensional Brusselator at fixed feed parameters
+$A=B=1$, with activator diffusivity $d>0$ and inhibitor diffusivity one.
+Assuming the computer-assisted Core Lemma stated below, we prove that for every
+sufficiently small $d>0$ the homogeneous state $(1,1)$ possesses a nonconstant
+even localized stationary profile with positive concentrations.  The proof
+rescales the joint limit $d\to0^+$ to a fixed reversible saddle-focus core,
+continues one transverse intersection of its unstable manifold with the
+reverser fixed set, and reflects the resulting half-orbit.  The continued
+profiles are uniformly exponentially localized and satisfy
+\[
+ \begin{gathered}
+ \norm{u_d-1}_{\infty}=\Theta(d^{1/2}),\qquad
+ \norm{v_d-1}_{\infty}=\Theta(d),\\
+ W_u(d),W_v(d)=\Theta(d^{1/4}),
+ \end{gathered}
+\]
+where $W_u,W_v$ are central connected half-height widths.  The result is a
+stationary existence theorem; it does not assert temporal stability, dynamical
+selection from the Turing instability, or a canard interpretation of the
+localized orbit.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}
+
+The Brusselator is a standard activator--inhibitor model for diffusion-driven
+pattern formation.  We study the one-dimensional system
+\begin{equation}\label{eq:pde}
+ \begin{aligned}
+ u_t&=d u_{xx}-2u+1+u^2v,\\
+ v_t&=v_{xx}+u-u^2v,
+ \end{aligned}
+ \qquad x\in\R,
+\end{equation}
+whose homogeneous state is $(u,v)=(1,1)$.  Our parameter is the activator
+diffusivity $d$, and the inhibitor diffusivity has been normalized to one.
+The question is whether a particular homoclinic geometry at the singular
+limit persists for all sufficiently small positive $d$ and yields a genuine
+positive-concentration stationary profile of \eqref{eq:pde}.
+
+Localized Brusselator states are not new.  Reversible $1{:}1$ resonance gives
+small homoclinic solutions near an ordinary Turing point
+\cite{IoossPeroueme1993,GlebskyLerman1997}; spike, mesa, snaking, and
+two-dimensional localized regimes have also been studied analytically and
+numerically
+\cite{TzouEtAl2011,TzouNecWard2013,KolokolnikovErneuxWei2006,AlSaadiEtAl2021,VillarChampneys2023,KostetEtAl2018}.
+On a bounded domain, computer-assisted branches of stationary and periodic
+Brusselator solutions and Hopf bifurcations have been proved in
+\cite{Arioli2022}.
+The singular pulses in \cite{TzouEtAl2011} instead use a finite interval,
+boundary inhibitor feed, global activator feed, and simultaneously small feed
+parameters; their strong activator spikes and $\cO(1)$ inhibitor scale do not
+give the fixed-$A=B=1$ whole-line branch studied here.
+The regime here has an additional singular quantifier.  If
+$\varepsilon=\sqrt d$, the Turing value for the general Brusselator at
+$A=1$ is
+\begin{equation}\label{eq:turing-path}
+ B_T=(1+\varepsilon)^2,
+ \qquad B-B_T=-2\varepsilon-\varepsilon^2
+ \quad\text{when }B=1.
+\end{equation}
+Thus $d\to0^+$ follows a prescribed path that approaches the Turing curve.
+The physical critical wave number $k_T=d^{-1/4}$ diverges; equivalently, the
+wave number $\varepsilon k_T=d^{1/4}$ in the fast variable $y=x/\varepsilon$
+tends to zero.  The normal-form coefficients also become singular.
+
+For each fixed sufficiently small $\varepsilon>0$, Proposition~2.1 of
+\cite{JencksEtAl2026} supplies local reversible-Turing homoclinics for $B<B_T$
+and $B$ close enough to $B_T$, in the appropriate subcriticality interval.
+That statement has the quantifier pattern
+\[
+ \text{$\varepsilon$ fixed}\quad\Longrightarrow\quad
+ \text{there is a neighborhood $\delta(\varepsilon)>0$ of $B_T$}.
+\]
+It does not state a lower bound
+$\delta(\varepsilon)>2\varepsilon+\varepsilon^2$, which would be needed to
+substitute the path \eqref{eq:turing-path}.  The contribution of this paper
+is to close precisely this joint-limit gap for one selected orbit and to
+translate the continuation into uniform physical scale laws.
+
+Set
+\begin{equation}\label{eq:r-def}
+ r=d^{1/4}=\sqrt\varepsilon.
+\end{equation}
+An exact weighted scaling transforms the stationary equation into a smooth
+polynomial family whose $r=0$ member is a fixed reversible Hamiltonian
+saddle-focus system.  A computer-assisted calculation in a separate frozen
+source provides one symmetric homoclinic of that core and, crucially, a
+nonzero two-dimensional shooting determinant.  We state this input as the
+Core Lemma in Section~\ref{sec:core}.  Everything after that lemma---positive
+parameter invariant manifolds, reversible matching, full-line tails,
+positivity, and physical scale estimates---is proved analytically here.
+
+The proof has five steps.  Section~\ref{sec:scaling} derives the exact
+positive-$r$ spatial system.  Section~\ref{sec:core} states the sole
+model-specific imported input and explains its transversality content.
+Section~\ref{sec:manifolds} proves parameter-uniform local stable and unstable
+manifolds on fixed weighted spaces.  Section~\ref{sec:matching} continues the
+core intersection and constructs a global symmetric homoclinic without using
+a positive-$r$ first integral.  Section~\ref{sec:pde-conclusions} returns to
+the PDE and proves positivity, amplitudes, exponential localization, and
+widths.  Section~\ref{sec:scope} separates these conclusions from stability,
+Turing selection, and canard questions.
+
+\section{Exact central scaling and the main result}\label{sec:scaling}
+
+The stationary equation associated with the general Brusselator is
+\begin{equation}\label{eq:general-stationary}
+ \begin{aligned}
+ 0&=d u_{xx}-(B+1)u+A+u^2v,\\
+ 0&=v_{xx}+Bu-u^2v.
+ \end{aligned}
+\end{equation}
+Put $\varepsilon=\sqrt d$, $p=\varepsilon u_x$, $q=v_x$, and
+$y=x/\varepsilon$.  Then \eqref{eq:general-stationary} is equivalent to
+\begin{equation}\label{eq:fast-system}
+ \begin{aligned}
+ u_y&=p,& p_y&=-A+(B+1)u-u^2v,\\
+ v_y&=\varepsilon q,& q_y&=\varepsilon(-Bu+u^2v).
+ \end{aligned}
+\end{equation}
+Both the physical-$x$ and fast-$y$ systems are reversed by
+\begin{equation}\label{eq:physical-reverser}
+ \cR(u,p,v,q)=(u,-p,v,-q).
+\end{equation}
+
+We now fix $A=B=1$, use \eqref{eq:r-def}, introduce
+$\xi=ry=x/r$, and set
+\begin{equation}\label{eq:central-scaling}
+ u=1+r^2U,\qquad p=r^3P,\qquad
+ v=1+r^4V,\qquad q=r^3Q.
+\end{equation}
+A direct expansion, with no remainder, gives the polynomial family
+\begin{equation}\label{eq:Fr}
+ \begin{aligned}
+ U'&=P,\\
+ P'&=-U^2-V-2r^2UV-r^4U^2V,\\
+ V'&=Q,\\
+ Q'&=U+r^2(U^2+V)+2r^4UV+r^6U^2V,
+ \end{aligned}
+\end{equation}
+where the prime denotes $d/d\xi$.  We write its vector field as $F_r$.
+It is reversible under
+\begin{equation}\label{eq:central-reverser}
+ \cR(U,P,V,Q)=(U,-P,V,-Q),
+ \qquad \Fix\cR=\{P=Q=0\}.
+\end{equation}
+At $r=0$, \eqref{eq:Fr} reduces exactly to
+\begin{equation}\label{eq:core-system}
+ U'=P,\qquad P'=-U^2-V,\qquad V'=Q,\qquad Q'=U.
+\end{equation}
+The limiting system has primitive and Hamiltonian
+\begin{equation}\label{eq:core-hamiltonian}
+ \lambda_0=P\,dU-Q\,dV,
+ \qquad
+ H_0=\frac12(Q^2-P^2)-\frac13U^3-UV,
+\end{equation}
+with $\iota_{F_0}d\lambda_0=dH_0$.  We use
+\eqref{eq:core-hamiltonian} only to identify the imported core orbit; no
+Hamiltonian structure is asserted for $r>0$.
+
+The linearization $A_r=DF_r(0)$ has characteristic polynomial
+\begin{equation}\label{eq:charpoly}
+ \mu^4-r^2\mu^2+1
+\end{equation}
+and, for $0\le r<\sqrt2$, the saddle-focus quartet
+\begin{equation}\label{eq:eigenvalues}
+ \pm\alpha(r)\pm i\beta(r),
+ \qquad
+ \alpha(r)=\frac12\sqrt{2+r^2},\quad
+ \beta(r)=\frac12\sqrt{2-r^2}.
+\end{equation}
+In particular, stable and unstable dimensions are both two and the spectral
+gap is uniform near $r=0$.
+
+For $0<\eta<2^{-1/2}$, define
+\begin{equation}\label{eq:Xeta}
+ X_\eta=\left\{Z\in C^0(\R,\R^4):
+ \norm{Z}_\eta:=\sup_{\xi\in\R}e^{\eta|\xi|}|Z(\xi)|<\infty\right\}.
+\end{equation}
+For an even stationary profile, define its central connected half-height
+widths by
+\begin{equation}\label{eq:width-def}
+ \begin{aligned}
+ W_u(d)&=\operatorname{length}\,\mathcal C_0
+ \left\{x:|u_d(x)-1|\ge\frac12|u_d(0)-1|\right\},\\
+ W_v(d)&=\operatorname{length}\,\mathcal C_0
+ \left\{x:|v_d(x)-1|\ge\frac12|v_d(0)-1|\right\},
+ \end{aligned}
+\end{equation}
+where $\mathcal C_0$ denotes the connected component containing zero.
+
+\begin{theorem}[Localized positive Brusselator profiles]\label{thm:main}
+Assume the computer-assisted Core Lemma~\ref{lem:core}.  There exist
+$r_0>0$, $C>0$, and $0<\eta<2^{-1/2}$, together with a $C^1$ map
+\[
+ [0,r_0]\longrightarrow X_\eta,\qquad r\longmapsto Z_r,
+\]
+where differentiability is with respect to $r=d^{1/4}$, such that:
+\begin{enumerate}
+\item $Z_0$ is the selected core orbit from Lemma~\ref{lem:core}.  For
+every $0<r\le r_0$, $Z_r$ is a nonconstant $\cR$-symmetric homoclinic
+orbit of \eqref{eq:Fr}, centered at the locally continued intersection
+$c_r=Z_r(0)\in\Fix\cR$, and $c_r\to c_0$ as $r\to0^+$.
+\item The tails are uniform:
+\begin{equation}\label{eq:uniform-tail}
+ |Z_r(\xi)|\le Ce^{-\eta|\xi|}
+ \quad(0\le r\le r_0,\ \xi\in\R),
+ \qquad \norm{Z_r-Z_0}_\eta\longrightarrow0
+ \quad\text{as }r\to0^+.
+\end{equation}
+\item If $d=r^4$, then
+\begin{equation}\label{eq:inverse-scaling}
+ u_d(x)=1+r^2U_r(x/r),\qquad
+ v_d(x)=1+r^4V_r(x/r)
+\end{equation}
+is a smooth, nonconstant, even stationary solution of \eqref{eq:pde}, with
+$u_d(x)>0$, $v_d(x)>0$, and $(u_d(x),v_d(x))\to(1,1)$ as
+$|x|\to\infty$.
+\item The amplitudes satisfy
+\begin{equation}\label{eq:amplitude-limits}
+ \begin{aligned}
+ d^{-1/2}\norm{u_d-1}_\infty&\longrightarrow\norm{U_0}_\infty>0,\\
+ d^{-1}\norm{v_d-1}_\infty&\longrightarrow\norm{V_0}_\infty>0.
+ \end{aligned}
+ \qquad(d\to0^+)
+\end{equation}
+\item There are $0<c<C_w<\infty$, independent of $d$, such that
+\begin{equation}\label{eq:physical-localization}
+ d^{-1/2}|u_d(x)-1|+d^{-1}|v_d(x)-1|
+ \le Ce^{-\eta|x|/d^{1/4}}
+ \qquad(x\in\R,\ 0<d\le r_0^4)
+\end{equation}
+and
+\begin{equation}\label{eq:width-law}
+ c d^{1/4}\le W_u(d),W_v(d)\le C_wd^{1/4}
+ \qquad(0<d\le r_0^4).
+\end{equation}
+\end{enumerate}
+The threshold $d_0=r_0^4$ is existential; it is not an explicitly certified
+diffusion interval.
+\end{theorem}
+
+\section{The computer-assisted core input}\label{sec:core}
+
+We isolate the sole model-specific imported statement.  This formulation is
+deliberately smaller than the return--exit and coding results available in the
+source: those additional conclusions are not used here.
+
+\begin{lemma}[Computer-assisted Core Lemma]\label{lem:core}
+The core system \eqref{eq:core-system} has a selected nonconstant
+$\cR$-symmetric homoclinic orbit $\Gamma_0$ to the origin.  Its center
+$c_0=\Gamma_0(0)$ lies in $\Fix\cR$ and satisfies
+\begin{equation}\label{eq:center-enclosures}
+ \begin{aligned}
+ U_0(0)&\in[4.8785234574459304,4.8785234988116768],\\
+ V_0(0)&\in[-7.9333304994224827,-7.933330385013492].
+ \end{aligned}
+\end{equation}
+Moreover,
+\begin{equation}\label{eq:core-transversality}
+ W^u_0(0)\pitchfork\Fix\cR
+ \quad\text{at }c_0.
+\end{equation}
+More precisely, for the source phase $\phi$ and finite flight time $T$, the
+normal shooting map
+\[
+ \cM_0(\phi,T)=(P,Q)\bigl(\Phi_0^T(S_0(\phi))\bigr)
+\]
+has a locally unique zero $(\phi_0,T_0)$ in the reported shooting box and
+\begin{equation}\label{eq:det-enclosure}
+ \det D_{(\phi,T)}\cM_0(\phi_0,T_0)
+ \in[149.56393055300413,149.56404227745782].
+\end{equation}
+The corresponding hit is the first positive nontrivial hit of $\Fix\cR$.
+\end{lemma}
+
+The lemma is imported from Proposition~8.6 together with the frozen
+certificate and validation README
+described in Appendix~\ref{app:evidence}.  The manuscript's equations
+(8.36)--(8.40) give the phase, flight time, determinant, tangent rows, and
+first-hit identification.  The center enclosures, local uniqueness in the
+shooting box, and detailed sign checks excluding an earlier hit are recorded
+in the certificate and README.  The determinant has the following direct
+geometric meaning.  Let
+\[
+ G(\phi,T)=\Phi_0^T(S_0(\phi)),
+ \qquad N(U,P,V,Q)=(P,Q).
+\]
+Then $\cM_0=N\circ G$, $\ker DN=T\Fix\cR$, and the image of $DG$ is the
+tangent space of the flowed two-dimensional unstable patch.  Invertibility
+of $D(N\circ G)$ implies that this tangent space intersects $T\Fix\cR$
+trivially, which is exactly \eqref{eq:core-transversality}.  This is
+transversality to the reverser fixed set, not ambient transversality of
+$W^u$ and $W^s$ in four dimensions.
+
+\begin{remark}\label{rem:evidence-status}
+Lemma~\ref{lem:core} is a computer-assisted imported input, not a floating
+point observation.  Its frozen source records outward-rounded flow and first
+variation bounds, a two-dimensional Krawczyk inclusion, a rigorous local
+unstable graph, and first-hit sign checks.  At the date of this manuscript,
+the immutable source revision and hashes are recorded, but the complete
+evidence closure is not anonymously accessible at a stable public archive.
+Thus Theorem~\ref{thm:main} is mathematically conditional on the precisely
+stated Core Lemma, and a publication release must also make that lemma's
+evidence package externally auditable.
+\end{remark}
+
+\section{Uniform local invariant manifolds}\label{sec:manifolds}
+
+We prove the parameter-uniform local result needed both for continuation and
+for full-line tails.  Write
+\begin{equation}\label{eq:linear-nonlinear}
+ F_r(Z)=A_rZ+N_r(Z),
+ \qquad N_r(0)=DN_r(0)=0.
+\end{equation}
+Although the physical problem has $r\ge0$, the polynomial family extends to
+negative $r$, which permits an ordinary $C^1$ parameter argument at zero.
+
+\begin{lemma}[Uniform local manifolds]\label{lem:uniform-manifolds}
+After decreasing $r_0>0$, the origin of $F_r$ has two-dimensional local
+stable and unstable manifolds $W^s_{\mathrm{loc}}(r)$ and
+$W^u_{\mathrm{loc}}(r)$ for $|r|\le r_0$.  They admit graph and half-orbit
+parameterizations over fixed two-dimensional spaces which are $C^1$ in the
+graph parameter and in $r$.  The half-orbits and their first $r$-derivatives
+obey exponential estimates with constants independent of $r$.  A compact
+patch may be flowed for every bounded time for which its $r=0$ flowout lies
+in a compact subset of the flow domain, and the continued flowout retains
+this $C^1$ dependence.
+\end{lemma}
+
+\begin{proof}
+Choose $r_0<1$.  By \eqref{eq:eigenvalues}, the stable and unstable Riesz
+projections $\Pi_r^s,\Pi_r^u$ vary smoothly.  Fix
+\begin{equation}\label{eq:rates}
+ 0<\eta<\eta_1<a_0<\inf_{|r|\le r_0}\alpha(r).
+\end{equation}
+After decreasing $r_0$, the restrictions
+\begin{equation}\label{eq:fixed-spaces}
+ J_r^u=\Pi_r^u|_{E_0^u}:E_0^u\to E_r^u,
+ \qquad
+ J_r^s=\Pi_r^s|_{E_0^s}:E_0^s\to E_r^s
+\end{equation}
+are smooth isomorphisms, and their inverses are uniformly bounded.  Spectral
+calculus in finite dimension and the Duhamel formula give $K_j$ such that,
+for $j=0,1$,
+\begin{equation}\label{eq:semigroup-estimates}
+ \begin{aligned}
+ \norm{\partial_r^j(e^{A_rt}\Pi_r^s)}
+ &\le K_j(1+t)^je^{-a_0t} &&(t\ge0),\\
+ \norm{\partial_r^j(e^{A_rt}\Pi_r^u)}
+ &\le K_j(1+|t|)^je^{a_0t} &&(t\le0).
+ \end{aligned}
+\end{equation}
+
+For the unstable manifold use the fixed space
+\begin{equation}\label{eq:minus-space}
+ X^-_{\eta_1}=\left\{Z\in C^0(({-}\infty,0],\R^4):
+ \norm{Z}_{\eta_1,-}=\sup_{t\le0}e^{-\eta_1t}|Z(t)|<\infty\right\}.
+\end{equation}
+Apply an $\cR$-invariant radial cutoff at radius $2\delta$ to $N_r$, equal
+to $N_r$ on the ball of radius $\delta$, and call the result
+$\widetilde N_r$.  Its uniform Lipschitz constant $L_\delta$ tends to zero
+with $\delta$.  For $b\in E_0^u$ define
+\begin{equation}\label{eq:LP-map}
+ \begin{aligned}
+ (\mathcal T_{r,b}Z)(t)={}&e^{A_rt}J_r^ub
+ +\int_0^t e^{A_r(t-s)}\Pi_r^u\widetilde N_r(Z(s))\,ds\\
+ &+\int_{-\infty}^t e^{A_r(t-s)}\Pi_r^s
+       \widetilde N_r(Z(s))\,ds.
+ \end{aligned}
+\end{equation}
+With
+\[
+ D_0=(a_0-\eta_1)^{-1}+(a_0+\eta_1)^{-1},
+ \qquad K=\max\{K_0,1\},
+\]
+the estimates above imply
+\begin{equation}\label{eq:contraction-estimates}
+ \begin{aligned}
+ \norm{\mathcal T_{r,b}Z}_{\eta_1,-}
+ &\le K\norm{J_r^u}|b|+KL_\delta D_0\delta,\\
+ \norm{\mathcal T_{r,b}Z-\mathcal T_{r,b}\widetilde Z}_{\eta_1,-}
+ &\le KL_\delta D_0\norm{Z-\widetilde Z}_{\eta_1,-}.
+ \end{aligned}
+\end{equation}
+Choose $\delta$ so that $KL_\delta D_0\le1/2$, and then choose $b_*>0$
+so that
+\[
+ K\sup_{|r|\le r_0}\norm{J_r^u}b_*\le\delta/2.
+\]
+Thus \eqref{eq:LP-map} is a uniform strict contraction of one fixed closed
+ball for all $|r|\le r_0$ and $|b|\le b_*$.  Denote its fixed point by
+$z^u(r,b)$.
+
+The strict gaps in \eqref{eq:rates} also control the differentiated kernels:
+the factor $(1+|t-s|)e^{-a_0|t-s|}$ remains integrable in the
+$\eta_1$-weighted norm, and $\partial_r\widetilde N_r(Z)=\cO(|Z|^2)$
+uniformly in the cutoff ball.  The parameterized contraction theorem gives
+\begin{equation}\label{eq:C1-half-orbit}
+ (r,b)\longmapsto z^u(r,b)\in X^-_{\eta_1}
+ \quad\text{of class }C^1.
+\end{equation}
+The endpoint
+\begin{equation}\label{eq:Gu}
+ G^u(r,b)=z^u(r,b)(0)
+\end{equation}
+parameterizes $W^u_{\mathrm{loc}}(r)$.  The fixed point lies in the region
+where the cutoff agrees with the original field.  The stable construction is
+the forward-time analogue, and reversibility plus local uniqueness gives
+\begin{equation}\label{eq:stable-reversibility}
+ W^s_{\mathrm{loc}}(r)=\cR W^u_{\mathrm{loc}}(r).
+\end{equation}
+The final assertion follows from the common-flow-domain theorem and smooth
+finite-time dependence for ODEs on compact subsets of the flow domain.
+\end{proof}
+
+\section{Reversible matching and the full homoclinic}\label{sec:matching}
+
+Let $S_0(\phi)$ be the source curve used in Lemma~\ref{lem:core}, with
+matching map $\cM_0$.  Choose a compact phase interval $I$ containing
+$\phi_0$ in its interior.  Since $S_0(I)$ is a compact curve in
+$W^u_0(0)$, after shrinking $I$ there is a common $\tau>0$ for which
+\begin{equation}\label{eq:pull-source-back}
+ \widehat S_0(\phi)=\Phi_0^{-\tau}(S_0(\phi))
+ =G^u(0,b_0(\phi)),
+ \qquad |b_0(\phi)|<b_*,
+\end{equation}
+for a $C^1$ map $b_0:I\to E_0^u$.  Define the genuine
+parameter-dependent unstable source curve by
+\begin{equation}\label{eq:continued-source}
+ \widehat S(r,\phi)=G^u(r,b_0(\phi)),
+ \qquad
+ S(r,\phi)=\Phi_r^\tau(\widehat S(r,\phi)).
+\end{equation}
+Then $S(r,\phi)\in W^u_r(0)$, $S(0,\phi)=S_0(\phi)$, and the family is
+$C^1$.
+
+Choose a compact time interval $J\Subset(0,\infty)$ containing $T_0$.
+After shrinking $I,J$, all base trajectories
+$\Phi_0^T(S_0(\phi))$, $(\phi,T)\in I\times J$, lie in a common compact
+flow tube.  Therefore
+\begin{equation}\label{eq:matching-map}
+ \cM(r,\phi,T)=(P,Q)\bigl(\Phi_r^T(S(r,\phi))\bigr)
+\end{equation}
+is $C^1$ near $(0,\phi_0,T_0)$.  Lemma~\ref{lem:core} and the
+finite-dimensional implicit-function theorem give $C^1$ functions
+$\phi(r),T(r)$ with
+\begin{equation}\label{eq:implicit-branch}
+ \cM(r,\phi(r),T(r))=0,
+ \qquad \phi(0)=\phi_0,\quad T(0)=T_0.
+\end{equation}
+After decreasing $r_0$, continuity of the determinant, together with the
+base enclosure, gives, for example,
+\begin{equation}\label{eq:continued-det-bound}
+ \left|\det D_{(\phi,T)}\cM(r,\phi(r),T(r))\right|\ge70
+ \qquad(|r|\le r_0).
+\end{equation}
+This numerical constant is not a certified positive-$r$ interval statement;
+it is a convenient consequence of continuity on a sufficiently small
+existential neighborhood.
+
+Put
+\begin{equation}\label{eq:center-cr}
+ c_r=\Phi_r^{T(r)}(S(r,\phi(r))).
+\end{equation}
+Then $c_r\in\Fix\cR$, $c_r\in W^u_r(0)$, and $c_r\ne0$ for small $|r|$.
+The negative half-orbit exists for all negative time and converges to zero.
+Define the positive half by reflection:
+\begin{equation}\label{eq:reflected-orbit}
+ Z_r(\xi)=
+ \begin{cases}
+  \Phi_r^\xi(c_r),&\xi\le0,\\
+  \cR\Phi_r^{-\xi}(c_r),&\xi\ge0.
+ \end{cases}
+\end{equation}
+Because $c_r\in\Fix\cR$ and $D\cR F_r=-F_r\circ\cR$, the values and
+first derivatives agree at zero.  ODE uniqueness makes
+\eqref{eq:reflected-orbit} a smooth, nonconstant, symmetric global
+homoclinic.  Notice that forward global existence was constructed by
+reflection rather than inferred from a nonexistent positive-$r$ energy
+integral.
+
+We next record the full-line weighted dependence.  The entry-to-center time
+$\sigma(r)=\tau+T(r)$ is bounded.  Choose a fixed
+$T_*>\sup_{|r|\le r_0}\sigma(r)$ large enough that
+\begin{equation}\label{eq:ar-definition}
+ \begin{aligned}
+ a_r&:=z^u\!\left(r,b_0(\phi(r))\right)
+       \left(-(T_*-\sigma(r))\right)\\
+    &=Z_r(-T_*)
+ \end{aligned}
+\end{equation}
+lies strictly in the uniform graph disk.  Formula
+\eqref{eq:ar-definition} and \eqref{eq:C1-half-orbit} show directly that
+$r\mapsto a_r$ is $C^1$; no full-line Banach-space regularity has been used.
+Set
+\begin{equation}\label{eq:br-definition}
+ b_r=(J_r^u)^{-1}\Pi_r^u a_r.
+\end{equation}
+Then $b_r$ is $C^1$ and $|b_r|<b_*$.  Evaluating
+\eqref{eq:LP-map} at $t=0$ gives
+\begin{equation}\label{eq:LP-coordinate}
+ \Pi_r^uG^u(r,b)=J_r^ub.
+\end{equation}
+Since $a_r$ lies on the local unstable graph,
+\eqref{eq:br-definition}--\eqref{eq:LP-coordinate} and uniqueness of the
+graph parameter imply $a_r=G^u(r,b_r)$.  Orbit uniqueness now gives the
+fixed-shift representation
+\begin{equation}\label{eq:fixed-shift-tail}
+ Z_r(\xi)=z^u(r,b_r)(\xi+T_*)
+ \qquad(\xi\le-T_*).
+\end{equation}
+Equations \eqref{eq:C1-half-orbit}, \eqref{eq:fixed-shift-tail}, and
+$\eta<\eta_1$ yield
+\begin{equation}\label{eq:negative-tail-C1}
+ \sup_{|r|\le r_0}\sup_{\xi\le-T_*}e^{-\eta\xi}
+ \bigl(|Z_r(\xi)|+|\partial_rZ_r(\xi)|\bigr)<\infty.
+\end{equation}
+Common finite-time dependence controls $[-T_*,0]$, and reflection controls
+the positive half-line.  Hence
+\begin{equation}\label{eq:full-C1}
+ r\longmapsto Z_r\in X_\eta\quad\text{is }C^1,
+ \qquad
+ \sup_{|r|\le r_0}\sup_{\xi\in\R}e^{\eta|\xi|}
+ \bigl(|Z_r(\xi)|+|\partial_rZ_r(\xi)|\bigr)<\infty.
+\end{equation}
+This proves the first two assertions of Theorem~\ref{thm:main}.
+
+\section{Return to the PDE: positivity and scale laws}\label{sec:pde-conclusions}
+
+The inverse change of variables \eqref{eq:inverse-scaling} is exact for every
+$r>0$, so $Z_r$ gives a stationary solution of \eqref{eq:pde}.  Symmetry of
+$Z_r$ gives
+\[
+ U_r(-\xi)=U_r(\xi),\qquad V_r(-\xi)=V_r(\xi),
+\]
+and hence the physical profiles are even.
+
+From \eqref{eq:full-C1}, there is $M>0$ such that
+\begin{equation}\label{eq:uniform-components}
+ \sup_{0\le r\le r_0}
+ \bigl(\norm{U_r}_\infty+\norm{V_r}_\infty\bigr)\le M.
+\end{equation}
+Decrease $r_0$ so that $r_0^2M<1/2$ and $r_0^4M<1/2$.  Then
+\begin{equation}\label{eq:positive}
+ u_d(x)\ge\frac12,
+ \qquad v_d(x)\ge\frac12
+\end{equation}
+for every $x\in\R$ and $0<r\le r_0$.  Exponential convergence to the
+homogeneous state follows directly from \eqref{eq:uniform-tail}.
+
+Uniform convergence $Z_r\to Z_0$ and the exact identities
+\begin{equation}\label{eq:exact-amplitudes}
+ d^{-1/2}\norm{u_d-1}_\infty=\norm{U_r}_\infty,
+ \qquad
+ d^{-1}\norm{v_d-1}_\infty=\norm{V_r}_\infty
+\end{equation}
+prove \eqref{eq:amplitude-limits}.  Both limits are nonzero by
+\eqref{eq:center-enclosures}.  Replacing $\xi$ by $x/r$ in
+\eqref{eq:uniform-tail}, and using $r=d^{1/4}$, proves
+\eqref{eq:physical-localization}.
+
+It remains to prove the width statement for the explicit observable
+\eqref{eq:width-def}.  By \eqref{eq:center-enclosures} and uniform
+convergence there is $m>0$ with
+\begin{equation}\label{eq:center-lower}
+ |U_r(0)|\ge m,
+ \qquad |V_r(0)|\ge m
+ \qquad(0\le r\le r_0).
+\end{equation}
+The weighted bound on $P_r=U_r'$ and $Q_r=V_r'$ gives a uniform derivative
+bound $M_1\ge1$.  With $\ell=m/(4M_1)$, the mean-value theorem gives
+\begin{equation}\label{eq:inner-width}
+ |U_r(\xi)|\ge\frac12|U_r(0)|,
+ \qquad |V_r(\xi)|\ge\frac12|V_r(0)|
+ \qquad(|\xi|\le\ell).
+\end{equation}
+Choose $L>0$, independent of $r$, so that $Ce^{-\eta L}<m/2$.
+The two scaled half-height inequalities fail for $|\xi|\ge L$, while
+\eqref{eq:inner-width} shows that their central components contain
+$[-\ell,\ell]$.  Their lengths in $\xi$ lie between $2\ell$ and $2L$.
+Multiplication by $x=r\xi$ proves \eqref{eq:width-law}, and completes the
+proof of Theorem~\ref{thm:main}.
+
+\section{Scope and relation to Turing patterns and canards}\label{sec:scope}
+
+Theorem~\ref{thm:main} proves the existence of a spatially localized
+stationary solution.  It also determines how its amplitude and one precise
+width observable scale along the singular path.  These are physical-variable
+consequences of the homoclinic continuation, but they do not by themselves
+describe what the time-dependent PDE selects from generic initial data.
+
+Three nearby questions require additional arguments.
+
+First, temporal stability is a spectral problem for the linearization of
+\eqref{eq:pde} about $(u_d,v_d)$.  The instability theorem in
+\cite{GlebskyLerman1997} concerns specified branches in a fixed-diffusion
+reversible-Hopf setting; its hypotheses and singular uniformity would have to
+be checked before either stability or instability could be transferred to
+the branch constructed here.
+
+Second, \eqref{eq:turing-path} locates the parameter path relative to the
+Turing curve, but the present proof starts from a selected RFSN-II core and
+continues its spatial homoclinic.  It does not prove that a branch selected by
+time evolution or numerical continuation from the Turing bifurcation is the
+same global branch for every small $d$.
+
+Third, spatially periodic canards organize important Brusselator dynamics in
+the same singular regime \cite{JencksEtAl2026}.  The local oscillations of the
+core used here arise from its saddle-focus eigenvalues, whereas a canard
+designation requires a verified orbit segment that tracks attracting and
+repelling slow manifolds through the relevant charts.  No such identification
+is needed for Theorem~\ref{thm:main}, and none is claimed.
+
+These distinctions leave a useful hierarchy.  The present theorem supplies
+a rigorously organized stationary branch, scale laws, and a canonical profile
+on which later numerical and spectral studies can be based.  Explicit
+positive-$d$ validation, temporal stability, Turing-branch identification,
+and canard geometry are subsequent problems rather than omitted consequences
+of the theorem proved here.
+
+\appendix
+
+\section{Frozen evidence provenance}\label{app:evidence}
+
+The Core Lemma is imported from H.~Lu, \emph{First returns, singular exits,
+and action finite parts near a reversible Hamiltonian saddle-focus}, at the
+frozen revision of
+\url{https://github.com/h-lu/reversible-rfsn-ii-waves},
+\begin{center}
+\texttt{d54add098545063d5efe8f1d6f062d4cfc116a0d}.
+\end{center}
+The cited manuscript location is Proposition~8.6, specifically its
+verification of the transverse homoclinic tube.  Equations (8.36)--(8.40)
+record the phase, flight time, determinant, tangent rows, and first-hit
+identification, including
+\begin{equation}\label{eq:phase-time-enclosures}
+ \begin{aligned}
+ \phi_0&\in[5.8615055856447817,5.8615055856450482],\\
+ T_0&\in[9.6374420678958099,9.6374420678971511].
+ \end{aligned}
+\end{equation}
+The endpoint enclosures \eqref{eq:center-enclosures}, local uniqueness in the
+shooting box, and detailed early-hit sign exclusions are recorded in the
+frozen certificate and its README rather than in those displayed manuscript
+equations.
+The frozen SHA-256 identities are as follows:
+\begin{center}
+\small
+source manuscript\\[-2pt]
+\texttt{0baf6335aad72d5893479d8876d2613671ecb8ac2ccd73664405dea4381e6a20}\\[3pt]
+validation README\\[-2pt]
+\texttt{34f3e15f475d22be939020bde2b8480ae33ba60a9c043f577088ab5d70253610}\\[3pt]
+certificate JSON\\[-2pt]
+\texttt{ed0f9f58f8ba5f1d5c36dc7c3a72bb725599c4172a3cd610d890b88699fecfbd}\\[3pt]
+interval source\\[-2pt]
+\texttt{655cfe16e2cdb24185f11cbb314e7c0b2f029705d4588fdcbaf5a9f0993298f3}.
+\end{center}
+The interval calculation used outward-rounded CAPD/FILIB flow and
+first-variation enclosures, a two-dimensional Krawczyk inclusion, and
+interval sign checks for the first symmetry hit.  Its rigorous local unstable
+graph is a required dependency of the shooting certificate, so the
+certificate JSON alone is not a complete evidence archive.
+
+The source URL and historical hashes preserve provenance.  A submission
+release must additionally provide anonymous stable access either to the
+frozen source and its complete evidence closure or to an equivalent archived
+bundle with replay metadata.  This packaging obligation affects external
+auditability, not the analytic implication from Lemma~\ref{lem:core} to
+Theorem~\ref{thm:main}.
+
+\bibliographystyle{abbrv}
+\bibliography{references}
+
+\end{document}

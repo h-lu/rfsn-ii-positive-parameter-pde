@@ -18,6 +18,13 @@ theorems, but they do not edit or alter the claims of the flagship paper.
 The Brusselator localized-profile theorem is **Proved** in
 [Theorem B](brusselator/LOCALIZED_PROFILE_PROOF.md), using the
 [frozen imported transverse core result](brusselator/CORE_HOMOCLINIC_IMPORT.md).
+Its independently buildable companion manuscript is under
+[`papers/brusselator/`](papers/brusselator/README.md), with the current
+[rendered PDF](output/pdf/brusselator-localized-stationary-profiles.pdf).
+The analytic continuation is proved relative to the stated computer-assisted
+Core Lemma; a stable public archive of that lemma's complete evidence closure
+is still required before the manuscript is externally auditable as a
+submission package.
 For the van der Pol track, the exact model bridge is **Derived** and the
 compact central continuation theorem V2 is **Proved** in
 [CENTRAL_CONTINUATION.md](van-der-pol/CENTRAL_CONTINUATION.md), using the
@@ -161,6 +168,7 @@ Turing selection, canard identification, or experimental realization.
 
 - [Frozen theory baseline and local amendments](theory/README.md)
 - [Brusselator programme](brusselator/README.md)
+- [Brusselator companion paper](papers/brusselator/README.md)
 - [van der Pol programme](van-der-pol/README.md)
 - [Research contract](RESEARCH_CONTRACT.md)
 - [Continuation and publication plan](CONTINUATION_PLAN.md)
