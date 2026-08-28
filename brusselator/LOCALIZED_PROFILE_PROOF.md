@@ -1,11 +1,14 @@
 # A positive-diffusion localized Brusselator profile
 
-**Evidence status: Proved.**  The only external mathematical input is the
-frozen core result in
+**Evidence status: Proved relative to the imported computer-assisted Core
+Lemma.** The only model-specific imported input is the frozen core result in
 [CORE_HOMOCLINIC_IMPORT.md](CORE_HOMOCLINIC_IMPORT.md); every
 positive-parameter continuation, tail, positivity, and scaling conclusion is
-proved analytically below.  The dependency and quantifier audit in Section 6
-is complete.
+proved analytically below. Standard finite-dimensional ODE, spectral
+projection, contraction-mapping, and implicit-function results are used in
+the local proof. The dependency and quantifier audit in Section 6 is complete.
+The public-access status of the imported evidence is recorded separately in
+[CORE_IMPORT_AUDIT.md](CORE_IMPORT_AUDIT.md).
 
 ## 1. Statement in scaled and PDE variables
 
@@ -42,13 +45,15 @@ There are \(r_0>0\), \(C>0\), and
 \tag{3}
 \]
 
-with the following properties.
+with the following properties. Here \(C^1\) refers to the parameter
+\(r=d^{1/4}\), not to \(d\).
 
 1. \(Z_0\) is the selected transverse symmetric core homoclinic imported in
    [CORE_HOMOCLINIC_IMPORT.md](CORE_HOMOCLINIC_IMPORT.md).  For every
    \(0<r\le r_0\), \(Z_r\) is a nonconstant
-   \(\mathcal R\)-symmetric homoclinic orbit of (1), normalized by
-   \(Z_r(0)\in\operatorname{Fix}\mathcal R\).
+   \(\mathcal R\)-symmetric homoclinic orbit of (1), centered at the locally
+   continued intersection
+   \(c_r=Z_r(0)\in\operatorname{Fix}\mathcal R\), with \(c_r\to c_0\).
 
 2. The tails are uniform:
 
@@ -130,8 +135,10 @@ with the following properties.
    \tag{11}
    \]
 
-No uniqueness outside the continued local branch, temporal stability,
-exact-action identity, or multipulse conclusion is part of the theorem.
+The threshold \(d_0=r_0^4\) is existential, not a certified explicit
+diffusion interval. No global uniqueness of the orbit, uniqueness outside
+the continued local branch, temporal stability, exact-action identity, or
+multipulse conclusion is part of the theorem.
 
 ## 2. Uniform hyperbolic manifolds
 
@@ -369,9 +376,7 @@ Denote the flow of \(F_r\) by \(\Phi_r\).  Choose a compact interval
 \(I\) and \(J\), the base trajectories
 \(\Phi_0^T(S_0(\phi))\), \((\phi,T)\in I\times J\), exist in a common
 compact tube.  The common-flow-domain theorem gives the same conclusion for
-all sufficiently small \(|r|\).  Thus
-
-The map
+all sufficiently small \(|r|\). Thus the map
 
 \[
  M(r,\phi,T)
@@ -619,5 +624,9 @@ The completed audit confirms:
   and
 - preservation of the nonclaims in the research contract.
 
-Accordingly B1 and B2 are Proved.  B3 is not a consequence of Theorem B and
-remains Proposed.
+Accordingly B1 and B2 are proved relative to the imported computer-assisted
+Core Lemma. The current publication package is not yet externally auditable;
+that requires a stable archive of the frozen proof and evidence closure, as
+explained in
+[CORE_IMPORT_AUDIT.md](CORE_IMPORT_AUDIT.md). B3 is not a consequence of
+Theorem B and remains Proposed.

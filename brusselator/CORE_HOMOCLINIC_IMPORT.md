@@ -6,6 +6,11 @@ not import a positive-parameter theorem.  The source certificate reports a
 successful interval proof; this repository has checked the frozen source and
 hashes but has not claimed an independent-machine replay.
 
+The 2026-08-28 read-only crosswalk to the compressed flagship paper, static
+hash audit, and current public-access limitation are recorded in
+[CORE_IMPORT_AUDIT.md](CORE_IMPORT_AUDIT.md). The frozen baseline below remains
+normative until an explicit baseline-update commit says otherwise.
+
 ## 1. Frozen source
 
 The source is H. Lu, *First returns, singular exits, and action finite parts

@@ -151,6 +151,33 @@ Proposition 2.1 of the source paper is not used: its neighborhood of the
 reversible \(1{:}1\) resonance is not stated uniformly as
 \(\varepsilon=\sqrt d\to0\) along \(A=B=1\).
 
+The submission-level novelty comparison, including the precise quantifier
+gap between fixed-\(d\) reversible-Turing theory and the joint singular path,
+is recorded in
+[the Brusselator literature audit](../brusselator/LITERATURE_AND_CONTRIBUTION_AUDIT.md).
+The closest general homoclinic and Brusselator references are:
+
+- G. Iooss and M.-C. Pérouème, *Perturbed homoclinic solutions in reversible
+  1:1 resonance vector fields*, Journal of Differential Equations **102**
+  (1993), 62--88, DOI <https://doi.org/10.1006/jdeq.1993.1022>;
+- L. Yu. Glebsky and L. M. Lerman, *Instability of small stationary localized
+  solutions to a class of reversible 1+1 PDEs*, Nonlinearity **10** (1997),
+  389--407, DOI <https://doi.org/10.1088/0951-7715/10/2/005>;
+- E. Villar-Sepúlveda and A. R. Champneys, *Degenerate Turing Bifurcation
+  and the Birth of Localized Patterns in Activator-Inhibitor Systems*, SIAM
+  Journal on Applied Dynamical Systems **22** (2023), 1673--1709, DOI
+  <https://doi.org/10.1137/22M1509734>;
+- F. S. H. Al Saadi, A. R. Champneys, and N. Verschueren, *Localized patterns
+  and semi-strong interaction, a unifying framework for reaction--diffusion
+  systems*, IMA Journal of Applied Mathematics **86** (2021), 1031--1065,
+  DOI <https://doi.org/10.1093/imamat/hxab036>.
+
+Those sources establish substantial prior localized-pattern theory. None of
+the inspected statements supplies the all-small-\(d\), fixed-\(A=B=1\),
+positive-profile theorem and scale laws proved here relative to the frozen
+Core Lemma. This is a narrow strengthening claim, not a claim of first
+Brusselator localization.
+
 Two apparent typesetting errors in the published version are not imported.
 Equation (5.6) writes the \(K_1\) scaling of \(V\) with \(P_1\) where the
 subsequent equations require \(V_1\).  More importantly, the signs printed
