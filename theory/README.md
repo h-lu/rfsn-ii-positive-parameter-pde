@@ -61,6 +61,11 @@ When records differ, use the following order.
 - [AMENDMENT_REGISTER.md](AMENDMENT_REGISTER.md) records local companion
   results and numerical work, their evidence status, and their complete
   dependency chain.
+- [EXPLICIT_GLOBAL_MOSER_MAJORANT.md](EXPLICIT_GLOBAL_MOSER_MAJORANT.md)
+  records the proposed van-der-Pol-specific global Moser majorant, including
+  the exact \(q=1,2\) Lie prefix, explicit inverse/gauge domains, and the
+  remaining parameter-\(C^2\) proof obligations.  It does not close
+  `V2.CHART.ANALYTIC_NORMAL_FORM`.
 - [RELATIVE_OVERFLOWING_NHIM.md](RELATIVE_OVERFLOWING_NHIM.md) proves the
   relative doubling and parameter bridge needed for the auxiliary saddle-type
   center graph at the resolved \(K_1\) corner, using the precisely restated

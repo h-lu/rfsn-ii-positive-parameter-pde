@@ -152,9 +152,53 @@ Independent replay remains `PENDING_REQUIRED` at 1 of 2 distinct machines.
 The other six `V2.CHART.*` atoms and the parent `V2.EXACT_CHART` remain `OPEN`;
 in particular, the frame result supplies no nonlinear analytic normal form,
 nonlinear zero-energy branch, exact nonlinear sections, weighted passage,
-physical slides, or finite-cover overlaps.  The next mathematical gate is
+physical slides, or finite-cover overlaps.  The next mathematical gate remains
 `V2.CHART.ANALYTIC_NORMAL_FORM` on an explicit complex domain.  See
 [`P2D_FRAME_REPORT.md`](P2D_FRAME_REPORT.md) for the formal claim boundary.
+
+The next P2d design layer consists of two deliberately non-claim-bearing
+artifacts.  [`audit_p2d_normal_form_exact.py`](audit_p2d_normal_form_exact.py)
+passes 26 exact symbolic checks for the \(q=1,2\) Lie prefix.  At the core it
+finds
+
+\[
+ Z_4=\frac{(I_2^{\rm K})^2-I_1^2}{120},
+\]
+
+and therefore only the conditional formal coefficient consequence
+\(I_1=-\nu+c_2\nu^2+\cdots\Rightarrow c_2=0\), if a formal zero-energy graph
+is continued.  It constructs neither that full formal graph nor an analytic
+zero-energy branch.
+
+[`design/p2d_normal_form_scout.py`](design/p2d_normal_form_scout.py)
+authenticates the archived frame certificate and evaluates the proposed
+majorant with exact rational arithmetic.  Its candidate bounds
+
+\[
+ E=3.265104260366031<4,\qquad
+ h_{\rm in}=0.009256962067152971<1/64,\qquad
+ \kappa_J=1.488562126122909<5/3
+\]
+
+pass, as do the fixed-schedule domain checks with
+\(\overline B=2^{20}\), \(\varepsilon_{\rm nf}=2^{-22}\),
+\(B_z=37/691200<1/16384\), and the required forward Lipschitz
+amplification.  These are design evaluations of the Proposed theorem, not a
+certificate and not a closed atom.  The all-orders Banach-algebra recurrence
+and every map, inverse, primitive, and parameter-\(C^2\) tail still require
+proof and source-bound validation.  Hence `V2.CHART.ANALYTIC_NORMAL_FORM` and
+`V2.EXACT_CHART` remain `OPEN`.  See
+[`P2D_NORMAL_FORM_DESIGN_REPORT.md`](P2D_NORMAL_FORM_DESIGN_REPORT.md).
+
+Run the two design checks with
+
+```bash
+python3 -B validation/rigorous/audit_p2d_normal_form_exact.py
+python3 -B validation/rigorous/design/p2d_normal_form_scout.py --pretty
+python3 -m unittest \
+  validation.rigorous.tests.test_p2d_normal_form_exact_audit \
+  validation.rigorous.tests.test_p2d_normal_form_scout
+```
 
 Check the archived certificate with
 

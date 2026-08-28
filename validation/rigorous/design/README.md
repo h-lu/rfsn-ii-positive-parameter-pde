@@ -73,6 +73,45 @@ checks, and repository-level provenance/replay work.  The conditioning
 estimates derived from \(L-L_0\) use the elementary \(c=0\) orthogonality
 identity for \(L_0\), now included in that exact audit.
 
+`p2d_normal_form_scout.py` authenticates the archived P2d frame certificate
+by its byte hash, certificate id, clean source commit, and local mathematical
+`PASS` for `V2.CHART.SYMPLECTIC_FRAME`.  From its normalized component
+intervals the script extracts conservative value and parameter-two-jet
+bounds for \(\alpha,\beta\) and for \(p=L_{00}\), \(q=-L_{01}\).  Following
+equations (5) and (11) of
+[`EXPLICIT_GLOBAL_MOSER_MAJORANT.md`](../../../theory/EXPLICIT_GLOBAL_MOSER_MAJORANT.md),
+it bounds the four complex coefficients of \(U\) by exact dyadic rational
+upper enclosures of
+
+\[
+ 4\sqrt{(p^2+q^2)/2}
+\]
+
+separately for the value and every normalized first and second parameter
+derivative.  It then evaluates the theorem note's \(J^2\) bounds
+\(E=\gamma_JU_J^3/3\),
+\(h_{\rm in}=D_JU_J^4/E\), and the divisor factor \(\kappa_J\) term by term
+from equation (17).  The only reported input gates are
+\(E\le4\), \(h_{\rm in}\le1/64\), and \(\kappa_J\le5/3\).  The subsequent
+schedule is fixed to \(\overline B=2^{20}\),
+\(\varepsilon_{\rm nf}=2^{-22}\), \(\vartheta=1/4\).  In addition to the
+domain checks of equations (38)--(39), the scout evaluates the forward
+Lipschitz sum in (39a)--(39c), obtaining
+\(B_z=37/691200<1/16384\) and \(A_z=(1-B_z)^{-1}\), and checks the amplified
+forward displacement \(A_zS_0<\varepsilon_{\rm nf}/8\) from (40b).  For the
+reported \(q=2\) coordinate tail, the inverse bound remains the raw (47)
+sum while the forward bound is multiplied by \(A_z\), as required by
+(47a).  It also checks (44a), so the physical inverse image lies inside the
+fixed source domain on which the proposed primitive is asserted.  The script
+does not introduce a competing recurrence or schedule.
+Hexadecimal interval endpoints are combined as exact rational numbers, but
+this remains a numerical design evaluation of a proposed theorem, not its
+proof or an outward-rounded formal run.  In the complex-coordinate
+metadata, \(z\) comes from \(x\), \(w\) comes from \(y\), and
+\(\{z_j,w_k\}=-\delta_{jk}\).  The output is always non-claim-bearing,
+leaves `V2.CHART.ANALYTIC_NORMAL_FORM` and `V2.EXACT_CHART` open, and creates
+no certificate or replay layer.
+
 `p2c_homoclinic_multishoot_scout.cpp` tests the selected symmetric
 homoclinic shooting core using nine short segments and an event-reduced
 Krawczyk map.  It preserves the zero-energy correlation between the two

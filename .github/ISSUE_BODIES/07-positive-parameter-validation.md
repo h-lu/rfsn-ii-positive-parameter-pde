@@ -43,6 +43,14 @@ quantitative margins.
 - [x] P2d formal local `V2.CHART.SYMPLECTIC_FRAME` certificate: archived P2bK
       prerequisite, 59 exact checks, and all 20 strict frame/parameter-\(C^2\)
       gates on the exact-rational \(16\times8\times4\) bridge cover
+- [x] P2d exact \(q=1,2\) normal-form audit: 26 symbolic checks, including
+      \(Z_4=((I_2^{\rm K})^2-I_1^2)/120\) at \(r=0\) and the conditional
+      formal coefficient \(c_2=0\) for an ansatz
+      \(I_1=-\nu+c_2\nu^2+\cdots\); no formal branch is constructed
+- [x] P2d Proposed global-Moser design evaluation: authenticated frame input,
+      candidate \(E,h_{\rm in},\kappa_J\) gates, fixed nested domains, and
+      forward Lipschitz-amplified tail gates all pass; non-claim-bearing and
+      no atom closed
 - [ ] Remaining six P2d chart atoms and the P2e event atlas
 - [ ] P3--P5 positive pole, outer channel, matching/finite parts, and V6 census
 - [ ] Independent replay on a genuinely distinct machine (currently 1/2)
@@ -80,6 +88,12 @@ bindings are recorded inside it.  Its final status remains `INCONCLUSIVE`,
 1 of 2 distinct machines.  See
 [`P2D_FRAME_REPORT.md`](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/blob/main/validation/rigorous/P2D_FRAME_REPORT.md).
 
+The exact finite-prefix audit now passes 26 checks, and the design-only global
+Moser scout passes the candidate input and domain inequalities recorded in
+[`P2D_NORMAL_FORM_DESIGN_REPORT.md`](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/blob/main/validation/rigorous/P2D_NORMAL_FORM_DESIGN_REPORT.md).
+Neither artifact is a certificate or closes an obligation.  In particular,
+the all-orders parameter-\(C^2\) convergence and tail estimates remain open.
+
 The other six `V2.CHART.*` atoms and `V2.EXACT_CHART` remain `OPEN`.  The
 current result proves no nonlinear Moser chart, nonlinear zero-energy branch,
 exact nonlinear sections, weighted passage constants, physical slides, or
@@ -93,7 +107,9 @@ form on an explicit complex domain.
 
 P2c and the P2d symplectic-frame child atom are locally `PASS`; their aggregate
 status remains `INCONCLUSIVE` under the provenance and independent-replay
-policy.  The active mathematical path is the six remaining children of P2d
+policy.  The exact \(q=1,2\) prefix and the Proposed normal-form design gates
+are complete, but they do not change any claim status.  The active mathematical
+path is the six remaining children of P2d
 `V2.EXACT_CHART`, beginning with `V2.CHART.ANALYTIC_NORMAL_FORM`, then P2e
 `V2.EVENT_ATLAS`, followed by P3--P5.  Every new scope must freeze its theorem
 objects before its claim-bearing run; computation must not choose the theorem
