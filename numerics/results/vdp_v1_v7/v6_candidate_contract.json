@@ -163,14 +163,14 @@
   ],
   "schema_version": "rfsn-candidate-validation-contract/2",
   "source_revision": {
-    "commit": "262d12dd61bc9fd3a4f44017fdfc5f14cc571259",
+    "commit": "c31007c71af5e61f31b866adb93dc9f7d349040d",
     "ignored_paths": [
       "numerics/results/vdp_v1_v7/v6_candidate_contract.json"
     ],
-    "note": "Dirty status excludes only the generated contract path and was sampled before writing it.  A dirty base commit is not a complete source snapshot; only the listed hash-bound inputs are replayable.",
+    "note": "Dirty status excludes only the generated contract path and was sampled before writing it; it is historical metadata and need not equal the status of a later checkout.  A dirty source commit is not a complete snapshot of generation-time changes; only the listed hash-bound inputs are replayable.",
     "repository": "h-lu/rfsn-ii-positive-parameter-pde",
-    "repository_dirty": true,
-    "reproducibility_status": "DIRTY_BASE_COMMIT_WITH_HASH_BOUND_REPLAY_INPUTS_ONLY"
+    "repository_dirty": false,
+    "reproducibility_status": "CLEAN_BASE_COMMIT"
   },
   "status": "DRAFT_CANDIDATE_ONLY",
   "theorem_target": "V6",
@@ -178,7 +178,7 @@
     {
       "path": "van-der-pol/CENTRAL_CONTINUATION.md",
       "role": "V2 theorem",
-      "sha256": "99aeea571f19a298ec5b763a811cfb20ac8d371ee2cd245c53b13481eedf7d4a"
+      "sha256": "da99c043e6b45c8533cbfdbe73d21968ff6f27285da74530324437c9106e97f0"
     },
     {
       "path": "van-der-pol/POSITIVE_POLE_FINITE_PART.md",
@@ -203,7 +203,7 @@
     {
       "path": "van-der-pol/TWO_END_RETURN_EXIT_AND_PDE.md",
       "role": "V6 theorem",
-      "sha256": "ea08e14285fc8c22eef16b60050d835093244f5d2b7bab199d4e300e3ed96b1d"
+      "sha256": "385d1c8631232d57325b56fcf97f88c6a083866cd6be7fe9829492e5e191d1d5"
     }
   ]
 }
