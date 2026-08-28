@@ -41,6 +41,7 @@ EXPECTED_CHECKS = {
     "half_angle_diagonalizes_cross_pairing",
     "actual_half_angle_branch_diagonalizes_physical_cross_pairing",
     "actual_completion_L_is_exact_symplectic",
+    "c_zero_anchor_actual_completion_is_euclidean_orthogonal",
     "actual_completion_intertwines_physical_and_standard_reversers",
     "actual_completion_inverse_conjugates_physical_linearization_to_kato_blocks",
     "quadratic_hamiltonian_uses_I2K",
@@ -75,6 +76,16 @@ EXPECTED_CHECKS = {
 }
 
 EXPECTED_EXACT_FORMULAS = {
+    "c_zero_anchor_L0": [
+        ["A", "-B", "A", "B"],
+        ["-A", "-B", "A", "-B"],
+        ["-B", "-A", "-B", "A"],
+        ["-B", "A", "B", "A"],
+    ],
+    "c_zero_anchor_L0_entries": {
+        "A": "sqrt(4+2*sqrt(2))/4",
+        "B": "sqrt(4-2*sqrt(2))/4",
+    },
     "kato_euclidean_gram": [
         [
             "1",

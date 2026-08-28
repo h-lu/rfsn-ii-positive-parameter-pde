@@ -118,7 +118,7 @@ The full-grid binary endpoints and exact rational composition are archived in
 [`design/p2c_middle_jet_summary_v1.json`](design/p2c_middle_jet_summary_v1.json).
 
 P2d now has a deliberately narrow exact-algebra scout:
-[`audit_p2d_exact_chart.py`](audit_p2d_exact_chart.py).  It performs 58
+[`audit_p2d_exact_chart.py`](audit_p2d_exact_chart.py).  It performs 59
 deterministic symbolic checks of the physical Hamiltonian convention, the
 positive-Kato physical reversible symplectic completion, the frozen-to-Kato action
 dictionary, the linear zero-energy branch, both radial section forms and

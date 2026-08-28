@@ -37,7 +37,7 @@ quantitative margins.
       composition with \(T_*=11\), \(\eta=1/5\), and
       \(C_{\rm hom}=71496600\)
 - [x] Retrospective local P2c summary certificate/checker (non-claim-bearing)
-- [x] P2d exact-interface scout: 58 symbolic checks for the positive-Kato
+- [x] P2d exact-interface scout: 59 symbolic checks for the positive-Kato
       reversible symplectic completion, action dictionary, radial section
       forms/gauges, and linear logarithmic time/phase slopes
 - [ ] P2d--P2e exact charts/event atlas

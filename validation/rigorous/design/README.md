@@ -50,6 +50,29 @@ Its output selects rational gates only; the later formal kernel must
 separately verify the exact Kato identities, the complete gap-free bridge,
 the frozen P2b prerequisite, and the anchor-face phase convention.
 
+`p2d_symplectic_frame_scout.cpp` reuses the small interval `Jet2` algebra
+from `p2b_kato_scout.cpp` without modifying that historical scout.  On the
+same exact-rational \(16\times8\times4\) normalized bridge grid it evaluates
+the closed forms for \(d,e,\kappa\), the selected positive half-angle branch,
+its phase origin, and the physical blocks \(Y,X,L,L^{-1}\).  The JSON output
+contains component hulls and complete normalized- and original-parameter
+first/second jet summaries, together with deliberately broad rational gate
+suggestions.  Original derivatives are converted componentwise using
+\(D_{(r,a_2,\epsilon)}=\operatorname{diag}(25,4,5)D_\theta\), with the
+corresponding product of scales on every Hessian entry.
+
+The inverse is evaluated from the exact symplectic formula
+\(L^{-1}=-\Omega_0L^T\Omega\), not by interval Gaussian elimination.
+Reported symplectic, inverse, diagonalization, and reverser residuals are
+dependency-prone interval diagnostics only, not identity evidence; the exact
+evidence is `../audit_p2d_exact_chart.py`.  This scout does not construct the
+nonlinear normal-form chart and cannot discharge
+`V2.CHART.SYMPLECTIC_FRAME` or any other obligation.  Formal use still
+requires a separately frozen configuration, strict probe, schema, semantic
+checks, and repository-level provenance/replay work.  The conditioning
+estimates derived from \(L-L_0\) use the elementary \(c=0\) orthogonality
+identity for \(L_0\), now included in that exact audit.
+
 `p2c_homoclinic_multishoot_scout.cpp` tests the selected symmetric
 homoclinic shooting core using nine short segments and an event-reduced
 Krawczyk map.  It preserves the zero-energy correlation between the two

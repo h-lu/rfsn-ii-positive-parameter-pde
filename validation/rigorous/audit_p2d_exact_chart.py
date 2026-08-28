@@ -49,6 +49,16 @@ INPUT_POLICY: dict[str, object] = {
     "sampling": False,
 }
 EXACT_FORMULAS: dict[str, object] = {
+    "c_zero_anchor_L0": [
+        ["A", "-B", "A", "B"],
+        ["-A", "-B", "A", "-B"],
+        ["-B", "-A", "-B", "A"],
+        ["-B", "A", "B", "A"],
+    ],
+    "c_zero_anchor_L0_entries": {
+        "A": "sqrt(4+2*sqrt(2))/4",
+        "B": "sqrt(4-2*sqrt(2))/4",
+    },
     "kato_euclidean_gram": [
         [
             "1",
@@ -569,6 +579,29 @@ def main() -> int:
                 actual_completion.T * omega * actual_completion - omega_zero,
                 beta,
                 beta_relation,
+            ),
+        )
+        anchor_substitution = {
+            alpha: 1 / sqrt_two,
+            beta: 1 / sqrt_two,
+            normalizer: sqrt_two,
+        }
+        anchor_completion = actual_completion.subs(anchor_substitution)
+        anchor_a = sp.sqrt(4 + 2 * sqrt_two) / 4
+        anchor_b = sp.sqrt(4 - 2 * sqrt_two) / 4
+        anchor_completion_closed = sp.Matrix([
+            [anchor_a, -anchor_b, anchor_a, anchor_b],
+            [-anchor_a, -anchor_b, anchor_a, -anchor_b],
+            [-anchor_b, -anchor_a, -anchor_b, anchor_a],
+            [-anchor_b, anchor_a, anchor_b, anchor_a],
+        ])
+        require(
+            "c_zero_anchor_actual_completion_is_euclidean_orthogonal",
+            exact_matrix_zero(
+                anchor_completion - anchor_completion_closed
+            )
+            and exact_matrix_zero(
+                anchor_completion.T * anchor_completion - identity4
             ),
         )
         standard_reverser = block2(zero2, c_zero, c_zero, zero2)
