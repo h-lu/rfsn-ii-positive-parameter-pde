@@ -73,7 +73,7 @@ is an independent full-grid replay.  The five atoms aggregate exactly to
 `V2.HOMOCLINIC`, while the certificate remains non-claim-bearing until the
 independent-machine policy is met.
 
-The first P2d child atom now has an archived formal local certificate.  The
+The first P2d child atom has an archived formal local certificate.  The
 archived P2bK result supplies the normalized expanding Kato frame; the
 deterministic audit proves all 59 exact linear, symplectic, reverser,
 action-sign, section, and anchor identities; and the separate formal interval
@@ -85,8 +85,14 @@ certificate
 has integrity and mathematical status `PASS`; its final status remains
 `INCONCLUSIVE`, `claim_bearing=false`, and `release_eligible=false` because
 independent replay is still 1 of 2.  Separately, the other six P2d child atoms
-and `V2.EXACT_CHART` remain `OPEN`.  See
-[`P2D_FRAME_REPORT.md`](P2D_FRAME_REPORT.md).
+were initially `OPEN`.  The second child,
+`V2.CHART.ANALYTIC_NORMAL_FORM`, now has a local mathematical `PASS` from the
+proved contract in
+[`EXPLICIT_GLOBAL_MOSER_MAJORANT.md`](../../theory/EXPLICIT_GLOBAL_MOSER_MAJORANT.md),
+the exact 26-check prefix, and the bound 38-check source run documented in
+[`P2D_NORMAL_FORM_REPORT.md`](P2D_NORMAL_FORM_REPORT.md).  Its aggregate is
+also `INCONCLUSIVE` and non-claim-bearing at replay 1/2.  The remaining five
+P2d child atoms and `V2.EXACT_CHART` remain `OPEN`.
 
 ## 2. Exact moving eigenframe for P2a
 
@@ -1093,9 +1099,12 @@ This result is archived in the clean-source certificate
 [`results/vdp_bridge_v1_p2d_symplectic_frame.json`](results/vdp_bridge_v1_p2d_symplectic_frame.json).
 Its integrity and mathematical status are `PASS`, but its final status is
 `INCONCLUSIVE`, `claim_bearing=false`, and `release_eligible=false` while the
-second-machine replay is open.  The remaining six child atoms are separate
-mathematical obligations, so the parent `V2.EXACT_CHART` remains `OPEN`; see
-[`P2D_FRAME_REPORT.md`](P2D_FRAME_REPORT.md) for the precise boundary.
+second-machine replay is open.  The separately version-bound analytic
+majorant and source checker now also establish local mathematical `PASS` for
+`V2.CHART.ANALYTIC_NORMAL_FORM`; see
+[`P2D_NORMAL_FORM_REPORT.md`](P2D_NORMAL_FORM_REPORT.md).  The remaining five
+child atoms are separate mathematical obligations, so the parent
+`V2.EXACT_CHART` remains `OPEN`.
 
 There is a mandatory sign dictionary.  With the positive Kato orientation,
 
@@ -1176,6 +1185,13 @@ parameter two-jets, exact primitive gauge, image containment, and
 
 as an identity.  A small numerical symplectic defect or a finite normal-form
 truncation is not a substitute for (D10).
+
+These analytic conditions are now satisfied by proof contract
+`rfsn-vdp-p2d-explicit-global-moser-majorant/1` and the authenticated
+source-bound checker.  In particular, the pass uses an infinite majorant and
+joint \(C^2\) tails; it is not inferred from the audited degree-four prefix.
+The exact domains, rational envelopes, and claim boundary are recorded in
+[`P2D_NORMAL_FORM_REPORT.md`](P2D_NORMAL_FORM_REPORT.md).
 
 Here and below \(\nu=I_2^{\rm K}\).  The zero-energy atom applies to the
 nonlinear normal form in (D10), not to

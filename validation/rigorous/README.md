@@ -149,12 +149,13 @@ its source revision and all byte bindings are recorded inside the certificate.
 The certificate has integrity and mathematical status `PASS`, while its final
 status is `INCONCLUSIVE`, `claim_bearing=false`, and `release_eligible=false`.
 Independent replay remains `PENDING_REQUIRED` at 1 of 2 distinct machines.
-The other six `V2.CHART.*` atoms and the parent `V2.EXACT_CHART` remain `OPEN`;
-in particular, the frame result supplies no nonlinear analytic normal form,
-nonlinear zero-energy branch, exact nonlinear sections, weighted passage,
-physical slides, or finite-cover overlaps.  The next mathematical gate remains
-`V2.CHART.ANALYTIC_NORMAL_FORM` on an explicit complex domain.  See
-[`P2D_FRAME_REPORT.md`](P2D_FRAME_REPORT.md) for the formal claim boundary.
+At the scope frozen by this frame certificate, the other six `V2.CHART.*`
+atoms and the parent `V2.EXACT_CHART` were `OPEN`; in particular, the frame
+result by itself supplied no nonlinear analytic normal form, nonlinear
+zero-energy branch, exact nonlinear sections, weighted passage, physical
+slides, or finite-cover overlaps.  See
+[`P2D_FRAME_REPORT.md`](P2D_FRAME_REPORT.md) for that certificate's formal
+claim boundary.
 
 The next P2d design layer consists of two deliberately non-claim-bearing
 artifacts.  [`audit_p2d_normal_form_exact.py`](audit_p2d_normal_form_exact.py)
@@ -183,12 +184,24 @@ majorant with exact rational arithmetic.  Its candidate bounds
 pass, as do the fixed-schedule domain checks with
 \(\overline B=2^{20}\), \(\varepsilon_{\rm nf}=2^{-22}\),
 \(B_z=37/691200<1/16384\), and the required forward Lipschitz
-amplification.  These are design evaluations of the Proposed theorem, not a
-certificate and not a closed atom.  The all-orders Banach-algebra recurrence
-and every map, inverse, primitive, and parameter-\(C^2\) tail still require
-proof and source-bound validation.  Hence `V2.CHART.ANALYTIC_NORMAL_FORM` and
-`V2.EXACT_CHART` remain `OPEN`.  See
+amplification.  These are design evaluations of the then-Proposed theorem,
+not a certificate and not, by themselves, a closed atom.  See the historical
 [`P2D_NORMAL_FORM_DESIGN_REPORT.md`](P2D_NORMAL_FORM_DESIGN_REPORT.md).
+
+The required all-orders result is now proved in
+[`EXPLICIT_GLOBAL_MOSER_MAJORANT.md`](../../theory/EXPLICIT_GLOBAL_MOSER_MAJORANT.md).
+Its second-Taylor-jet Banach-algebra recurrence gives explicit common domains,
+two-sided analytic maps, an exact primitive with fixed gauge, and joint
+state--parameter \(C^2\) tails.  The lightweight
+[`check_p2d_normal_form_source_bounds.py`](check_p2d_normal_form_source_bounds.py)
+authenticates the archived frame bytes and exact prefix, propagates the
+outward-rounded source endpoints by exact rational arithmetic, and passes all
+38 source-bound checks.  Together these give local mathematical `PASS` for
+`V2.CHART.ANALYTIC_NORMAL_FORM`.  The aggregate remains `INCONCLUSIVE` and
+`claim_bearing=false` because independent replay is 1/2; the other five chart
+atoms and `V2.EXACT_CHART` remain `OPEN`.  The next mathematical gate is
+`V2.CHART.ZERO_ENERGY`.  See
+[`P2D_NORMAL_FORM_REPORT.md`](P2D_NORMAL_FORM_REPORT.md).
 
 Run the two design checks with
 
@@ -198,6 +211,14 @@ python3 -B validation/rigorous/design/p2d_normal_form_scout.py --pretty
 python3 -m unittest \
   validation.rigorous.tests.test_p2d_normal_form_exact_audit \
   validation.rigorous.tests.test_p2d_normal_form_scout
+```
+
+Run the formal source-bound normal-form check with
+
+```bash
+python3 -B validation/rigorous/check_p2d_normal_form_source_bounds.py
+python3 -B -m unittest \
+  validation.rigorous.tests.test_p2d_normal_form_source_bounds -v
 ```
 
 Check the archived certificate with

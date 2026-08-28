@@ -201,7 +201,14 @@ atoms and local `V2.HOMOCLINIC` parent pass, but the aggregate remains
 `INCONCLUSIVE` and non-claim-bearing while independent replay is 1/2.
 The exact verdict is recorded in
 [`validation/rigorous/P2C_CERTIFICATE_REPORT.md`](validation/rigorous/P2C_CERTIFICATE_REPORT.md).
-P2d--P5 remain pending.
+P2d now has local mathematical `PASS` for its symplectic-frame and
+analytic-normal-form child atoms.  The latter is supported by the proved
+all-orders majorant and an authenticated exact-rational source-bound checker;
+it is not inferred from the earlier finite prefix or design scout.  Its five
+remaining chart atoms and parent `V2.EXACT_CHART` stay `OPEN`.  Every aggregate
+status remains `INCONCLUSIVE` and `claim_bearing=false` because independent
+replay is 1/2; P2e--P5 also remain pending.  See the
+[`P2d normal-form report`](validation/rigorous/P2D_NORMAL_FORM_REPORT.md).
 
 ## Repository map
 
@@ -227,6 +234,8 @@ P2d--P5 remain pending.
 - [Issue #7 P2b mixed-jet report](validation/rigorous/P2B_JETS_REPORT.md)
 - [Issue #7 P2bK normalized Kato phase report](validation/rigorous/P2B_KATO_REPORT.md)
 - [Issue #7 P2c selected-homoclinic scout report](validation/rigorous/P2C_SCOUT_REPORT.md)
+- [Issue #7 P2d symplectic-frame report](validation/rigorous/P2D_FRAME_REPORT.md)
+- [Issue #7 P2d analytic-normal-form report](validation/rigorous/P2D_NORMAL_FORM_REPORT.md)
 
 ## Initial work queue
 
@@ -236,7 +245,7 @@ P2d--P5 remain pending.
 - [#4: central--outer matching theorem](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/4), the decisive mathematical go/no-go task
 - [#5: outer algebraic action finite part](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/5)
 - [#6: exhaustive two-end theorem](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/6)
-- [#7: rigorous validation](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/7), with phase 1 through P2bK passing locally and a retrospective local P2c summary certificate covering the selected branch on all 16,384 cells and 44,416 internal faces, first-hit and transversality, actual-root parameter two-jets, the fixed-\(\xi\) continuous \(C^2\) middle, and the global composition with \(T_*=11\), \(\eta=1/5\), and \(C_{\rm hom}=71496600\); P2d--P5 and independent replay remain pending
+- [#7: rigorous validation](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/7), with phase 1 through P2c passing locally, followed by local P2d passes for `V2.CHART.SYMPLECTIC_FRAME` and `V2.CHART.ANALYTIC_NORMAL_FORM`; the other five chart atoms, parent `V2.EXACT_CHART`, P2e--P5, and independent replay remain pending
 
 The source theory remains in
 [`h-lu/reversible-rfsn-ii-waves`](https://github.com/h-lu/reversible-rfsn-ii-waves).

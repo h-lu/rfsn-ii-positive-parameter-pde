@@ -5,12 +5,13 @@ validation in [Issue #7](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/
 Nothing currently stored here is a claim-bearing computer-assisted proof.
 The floating candidate-contract remains deliberately non-claim-bearing, while
 [`rigorous/`](rigorous/README.md) contains the separate outward-rounded source
-lane and the formally frozen parameter box.  Clean local certificates are now
-archived through P2b: phase 1, P2a, exact H10 regeneration, the true-graph
-\(C^0/C^1\) tubes, state-\(C^2/C^3\), the complete parameter/mixed jets, and
-weighted half-orbits have mathematical and integrity status `PASS`.  Their
-aggregate status remains `INCONCLUSIVE` and `claim_bearing: false` while the
-required independent replay is 1/2.
+lane and the formally frozen parameter box.  Formal local passes now cover
+phase 1, P2a, P2b/P2bK, the retrospective P2c homoclinic scope, and the P2d
+symplectic-frame atom.  The proved all-orders majorant plus its source-bound
+checker also gives local mathematical `PASS` for the P2d analytic-normal-form
+atom.  Every aggregate status remains `INCONCLUSIVE` and
+`claim_bearing: false` while the required independent replay is 1/2 and the
+parent scopes remain incomplete.
 
 ## Two evidence lanes
 
@@ -207,11 +208,11 @@ compact finite-flow clauses.  The V3/V5A infinite-end remainders and the
 all-winding reduction still require model-specific interval estimates around
 the analytic constructions.
 
-## Current blockers after the full P2c design run
+## Current blockers after the P2d analytic-normal-form gate
 
-- The frozen box is an exact rational prevalidation object.  The archived
-  clean certificates through P2b pass their implemented obligations, but the
-  independent second-machine replay required by policy is pending.
+- The frozen box is an exact rational prevalidation object.  Every current
+  local pass through the first two P2d chart children is non-claim-bearing;
+  the independent second-machine replay required by policy is pending.
 - The existing finite event faces are proxies rather than the complete V6
   physical arrangement and finite marked atlas; B1/A2 do not prove a component
   census, cross form, bounded overlap recoding, or every \(n\ge N\).
@@ -233,9 +234,14 @@ the analytic constructions.
   original-parameter derivatives through order two.  The retrospective local
   P2c summary certificate now parses the four archived strict logs and replays
   the exact tail algebra; all five P2c atoms and their local parent pass.  The
-  remaining V2 objects and V3--V6 remain `PENDING` in
-  [`rigorous/obligations.json`](rigorous/obligations.json), and P2c is still
-  non-claim-bearing until independent replay.
+  subsequent P2d frame certificate and the proved all-orders
+  normal-form/source-bound gate give local mathematical `PASS` for
+  `V2.CHART.SYMPLECTIC_FRAME` and `V2.CHART.ANALYTIC_NORMAL_FORM`.  The next
+  child, `V2.CHART.ZERO_ENERGY`, the other four chart children, the parent
+  `V2.EXACT_CHART`, and V3--V6 remain `PENDING` in
+  [`rigorous/obligations.json`](rigorous/obligations.json).  All aggregate
+  results remain non-claim-bearing until independent replay and their parent
+  scopes are complete.
 - The policy requires an independent replay on a second machine before any
   aggregate certificate can become claim-bearing.  This repository currently
   records only the local-machine lane.
@@ -243,9 +249,11 @@ the analytic constructions.
 These blockers do not make the floating repository a toy.  Its deterministic
 raw outputs and complete B1/A2 return records provide candidate centers,
 scales, event ordering, interfaces, and observable checks for the rigorous
-implementation.  The latest archived formal scope has local mathematical
-`PASS` through P2bK, while its aggregate remains `INCONCLUSIVE` and
-non-claim-bearing because the independent replay is pending; see the
-[`P2bK report`](rigorous/P2B_KATO_REPORT.md).  The full strict P2c result
-remains a design-level pass rather than an archived formal scope.  It makes no
-claim of temporal stability, Turing selection, or canard identification.
+implementation.  The current exact-chart frontier has local mathematical
+`PASS` for its symplectic-frame and analytic-normal-form children.  The latter
+comes from a complete proof plus an authenticated source-bound checker, not
+from the earlier exact prefix or design scout alone; see the
+[`normal-form report`](rigorous/P2D_NORMAL_FORM_REPORT.md).  The parent exact
+chart remains open, and the aggregate remains `INCONCLUSIVE` and
+non-claim-bearing.  This work makes no claim of temporal stability, Turing
+selection, or canard identification.
