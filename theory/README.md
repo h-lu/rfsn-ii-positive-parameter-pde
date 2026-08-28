@@ -72,6 +72,20 @@ When records differ, use the following order.
   with the bound source checker, it gives
   `V2.CHART.ANALYTIC_NORMAL_FORM` a local mathematical `PASS`; the aggregate
   remains non-claim-bearing and `V2.EXACT_CHART` remains open.
+- [EXPLICIT_ZERO_ENERGY_FIBER.md](EXPLICIT_ZERO_ENERGY_FIBER.md) transfers
+  the resonant state majorant to the action variables, proves a strict common
+  Krawczyk enclosure for the nonlinear zero-energy fiber, and supplies the
+  mixed parameter-two-jet and all-finite-\(\nu\)-order Cauchy bounds.  Together
+  with its exact-rational checker, it gives `V2.CHART.ZERO_ENERGY` a local
+  mathematical `PASS`; the downstream chart children and
+  `V2.EXACT_CHART` remain open.
+- [EXPLICIT_EXACT_RADIAL_SECTIONS.md](EXPLICIT_EXACT_RADIAL_SECTIONS.md)
+  combines that nonlinear fiber with the authenticated arbitrary-\(q\)
+  radial-section identities, freezes a strict source-domain radius, fixes the
+  incoming/outgoing primitive gauges, and proves exact preservation of the
+  same signed Kato action.  Its exact-rational checker gives
+  `V2.CHART.EXACT_SECTIONS` a local mathematical `PASS`; weighted passage,
+  physical slides, overlaps, and `V2.EXACT_CHART` remain open.
 - [COMPACT_FAMILY_FIRST_HIT_THEOREM.md](COMPACT_FAMILY_FIRST_HIT_THEOREM.md)
   proves compact-family persistence and transfer of the already supplied
   passage, selector, cross forms, and physical event arrangement.  It is

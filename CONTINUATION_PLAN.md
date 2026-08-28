@@ -418,14 +418,21 @@ Issue #7 is a separate strengthening project.  It is not a prerequisite for
 an existential analytic theorem unless the paper advertises the explicit
 candidate box.
 
+The active post-companion dependency map is GitHub Issue #10.  It keeps the
+agreed execution order #7 (explicit box), #11 (spectral instability), #12
+(classical stationary Turing exclusion), and #13 (finite-parameter canard
+connection or separation) distinct from their actual mathematical
+dependencies.  No downstream issue is a completion condition for #7.
+
 Continue the interval lane only under the existing fail-closed policy:
 
 - first refactor the Issue #7 obligation map around the hypotheses of the
   publication-facing analytic propositions, preserving every archived
   certificate and its evidence status;
-- treat the zero-energy graph, exact sections, and weighted passage as one
-  uniform-passage validation target, with physical slides and finite overlaps
-  attached only where the common block and marked atlas consume them;
+- use the now locally passed zero-energy graph and exact radial sections as
+  the input to the next `V2.CHART.WEIGHTED_PASSAGE` gate; attach physical
+  slides and finite overlaps only where the common block and marked atlas
+  consume them;
 - validate the model-specific finite inputs that determine the explicit box:
   the selected homoclinic and its transversality, positive-pole entry and
   terminal bounds, outer graph cone and bunching, exchange coefficient and

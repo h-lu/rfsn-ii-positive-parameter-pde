@@ -73,7 +73,7 @@ claim crosswalk to the supplement.
 | Workstream | First rigorous target | Structure retained | Main obstruction |
 |---|---|---|---|
 | [Brusselator](brusselator/README.md) | A positive-concentration, symmetric, localized stationary solution for all sufficiently small positive diffusion | Reversibility and the transverse core homoclinic | Localized-branch tail continuation and positivity are discharged in Theorem B; exact Hamiltonian action is unavailable, and temporal stability and multipulses remain separate questions |
-| [van der Pol](van-der-pol/README.md) | A positive-parameter exhaustive high-winding return/first-exit theorem with two action finite parts | Exact Hamiltonian structure, selected transverse homoclinic, clean whole-cell first-event stratification, two genuine positive-parameter end finite parts, and stationary spatial coding | Analytic obligations are discharged in V6--V7; outward-rounded validation of a preselected explicit numerical box remains the separate deferred task #7 |
+| [van der Pol](van-der-pol/README.md) | A positive-parameter exhaustive high-winding return/first-exit theorem with two action finite parts | Exact Hamiltonian structure, selected transverse homoclinic, clean whole-cell first-event stratification, two genuine positive-parameter end finite parts, and stationary spatial coding | Analytic obligations are discharged in V6--V7; outward-rounded validation of a preselected explicit numerical box is the active separate task #7 |
 
 The precise scientific boundary, proof order, fallback results, and stopping
 conditions are fixed in [RESEARCH_CONTRACT.md](RESEARCH_CONTRACT.md).
@@ -170,7 +170,7 @@ identified.
 |---|---|---|
 | Analytic applications | B1--B2 are **Proved**; V1 is **Derived**; V2--V7 are **Proved**, relative to the frozen inputs named in the claim register | These are existential positive-parameter results, not certification of the displayed numerical box.  The publication-facing import crosswalk, conditional compact-family/pole-interface audit, and exact frozen evidence snapshot are versioned with the companion release. |
 | Floating atlas | `COMPUTED/E1` and `COMPUTED/QA` | Finite explanatory samples only; they do not prove a uniform census, temporal stability, Turing-branch selection, or canard identification.  See the [numerical report](numerics/VAN_DER_POL_NUMERICAL_REPORT.md). |
-| Explicit-box validation (#7) | `INCONCLUSIVE`, `claim_bearing=false` | The frozen box is \([0.04,0.08]\times[-0.25,0.25]\times[0.8,1.2]\).  P1--P2c and the P2d symplectic-frame and analytic-normal-form children pass locally; the remaining theorem inputs, aggregate certification, and distinct-machine replay are pending.  See the [rigorous-validation record](validation/rigorous/README.md). |
+| Explicit-box validation (#7) | `INCONCLUSIVE`, `claim_bearing=false` | The frozen box is \([0.04,0.08]\times[-0.25,0.25]\times[0.8,1.2]\).  P1--P2c and the first four P2d children through exact radial sections pass locally; the remaining theorem inputs, aggregate certification, and distinct-machine replay are pending.  See the [rigorous-validation record](validation/rigorous/README.md). |
 
 Closing an analytic construction issue records completion under the current
 frozen-import repository contract.  Public availability of that contract does
@@ -209,6 +209,8 @@ experimental realization.
 - [Issue #7 P2c selected-homoclinic scout report](validation/rigorous/P2C_SCOUT_REPORT.md)
 - [Issue #7 P2d symplectic-frame report](validation/rigorous/P2D_FRAME_REPORT.md)
 - [Issue #7 P2d analytic-normal-form report](validation/rigorous/P2D_NORMAL_FORM_REPORT.md)
+- [Issue #7 P2d zero-energy-fiber report](validation/rigorous/P2D_ZERO_ENERGY_REPORT.md)
+- [Issue #7 P2d exact-radial-sections report](validation/rigorous/P2D_EXACT_SECTIONS_REPORT.md)
 
 ## Issue map
 
@@ -221,6 +223,10 @@ experimental realization.
 - [#7: rigorous explicit-box validation](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/7) — open; aggregate status remains non-claim-bearing and inconclusive.
 - [#8: explanatory numerical atlas and dynamics prescreen](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/8) — open; numerical evidence remains separate from theorem status.
 - [#9: independent expert cold read](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/9) — open; the neutral review packet is public, but no human report is claimed before one is returned.
+- [#10: explicit-box and post-existence research roadmap](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/10) — open; records execution order, mathematical dependencies, and stop rules.
+- [#11: rigorous temporal spectral instability](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/11) — planned after the explicit-box stage for the frozen `A2` and `pulse_1` targets.
+- [#12: classical stationary Turing exclusion](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/12) — exact theorem task, mathematically independent of #7.
+- [#13: finite-parameter maximal-canard curve and high-winding connection](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/13) — staged local curve and global same-orbit connection or separation problem.
 
 The source theory was developed in the historical repository
 `h-lu/reversible-rfsn-ii-waves`.  This application repository leaves that

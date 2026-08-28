@@ -91,8 +91,15 @@ proved contract in
 [`EXPLICIT_GLOBAL_MOSER_MAJORANT.md`](../../theory/EXPLICIT_GLOBAL_MOSER_MAJORANT.md),
 the exact 26-check prefix, and the bound 38-check source run documented in
 [`P2D_NORMAL_FORM_REPORT.md`](P2D_NORMAL_FORM_REPORT.md).  Its aggregate is
-also `INCONCLUSIVE` and non-claim-bearing at replay 1/2.  The remaining five
-P2d child atoms and `V2.EXACT_CHART` remain `OPEN`.
+also `INCONCLUSIVE` and non-claim-bearing at replay 1/2.  The third child,
+`V2.CHART.ZERO_ENERGY`, now has a local mathematical `PASS` from
+[`EXPLICIT_ZERO_ENERGY_FIBER.md`](../../theory/EXPLICIT_ZERO_ENERGY_FIBER.md)
+and [`P2D_ZERO_ENERGY_REPORT.md`](P2D_ZERO_ENERGY_REPORT.md).  The fourth
+child, `V2.CHART.EXACT_SECTIONS`, now also has a local mathematical
+`PASS` from
+[`EXPLICIT_EXACT_RADIAL_SECTIONS.md`](../../theory/EXPLICIT_EXACT_RADIAL_SECTIONS.md)
+and [`P2D_EXACT_SECTIONS_REPORT.md`](P2D_EXACT_SECTIONS_REPORT.md).  The
+remaining three P2d child atoms and `V2.EXACT_CHART` remain `OPEN`.
 
 ## 2. Exact moving eigenframe for P2a
 
@@ -1102,8 +1109,15 @@ Its integrity and mathematical status are `PASS`, but its final status is
 second-machine replay is open.  The separately version-bound analytic
 majorant and source checker now also establish local mathematical `PASS` for
 `V2.CHART.ANALYTIC_NORMAL_FORM`; see
-[`P2D_NORMAL_FORM_REPORT.md`](P2D_NORMAL_FORM_REPORT.md).  The remaining five
-child atoms are separate mathematical obligations, so the parent
+[`P2D_NORMAL_FORM_REPORT.md`](P2D_NORMAL_FORM_REPORT.md).  The transferred
+action majorant and strict rational Krawczyk/implicit-jet check also establish
+local mathematical `PASS` for `V2.CHART.ZERO_ENERGY`; see
+[`P2D_ZERO_ENERGY_REPORT.md`](P2D_ZERO_ENERGY_REPORT.md).  The frozen radial
+section radius, exact arbitrary-\(q\) identities, and physical primitive
+gauges also establish local mathematical `PASS` for
+`V2.CHART.EXACT_SECTIONS`; see
+[`P2D_EXACT_SECTIONS_REPORT.md`](P2D_EXACT_SECTIONS_REPORT.md).  The remaining
+three child atoms are separate mathematical obligations, so the parent
 `V2.EXACT_CHART` remains `OPEN`.
 
 There is a mandatory sign dictionary.  With the positive Kato orientation,

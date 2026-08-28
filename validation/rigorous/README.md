@@ -197,11 +197,26 @@ state--parameter \(C^2\) tails.  The lightweight
 authenticates the archived frame bytes and exact prefix, propagates the
 outward-rounded source endpoints by exact rational arithmetic, and passes all
 38 source-bound checks.  Together these give local mathematical `PASS` for
-`V2.CHART.ANALYTIC_NORMAL_FORM`.  The aggregate remains `INCONCLUSIVE` and
-`claim_bearing=false` because independent replay is 1/2; the other five chart
-atoms and `V2.EXACT_CHART` remain `OPEN`.  The next mathematical gate is
-`V2.CHART.ZERO_ENERGY`.  See
-[`P2D_NORMAL_FORM_REPORT.md`](P2D_NORMAL_FORM_REPORT.md).
+`V2.CHART.ANALYTIC_NORMAL_FORM`.  The proof contract
+[`EXPLICIT_ZERO_ENERGY_FIBER.md`](../../theory/EXPLICIT_ZERO_ENERGY_FIBER.md)
+and exact-rational checker
+[`check_p2d_zero_energy.py`](check_p2d_zero_energy.py) now also give local
+mathematical `PASS` for `V2.CHART.ZERO_ENERGY`, with the common interval
+\(|\nu|\le25/2^{54}\), strict Krawczyk inclusion, orientation bound
+\(\partial_{I_1}h>2/3\), and an all-finite-order Cauchy generator.  The proof
+contract
+[`EXPLICIT_EXACT_RADIAL_SECTIONS.md`](../../theory/EXPLICIT_EXACT_RADIAL_SECTIONS.md)
+and checker [`check_p2d_exact_sections.py`](check_p2d_exact_sections.py)
+then freeze \(\rho=5/2^{26}\), verify strict inclusion of both nonlinear
+sections, fix their primitive gauges, and prove exact preservation of the
+same signed \(I_2^{\rm K}=\nu\).  They give local mathematical `PASS` for
+`V2.CHART.EXACT_SECTIONS`.  The
+aggregate remains `INCONCLUSIVE` and `claim_bearing=false` because independent
+replay is 1/2; the other three chart atoms and `V2.EXACT_CHART` remain `OPEN`.
+The next mathematical gate is `V2.CHART.WEIGHTED_PASSAGE`.  See
+[`P2D_NORMAL_FORM_REPORT.md`](P2D_NORMAL_FORM_REPORT.md) and
+[`P2D_ZERO_ENERGY_REPORT.md`](P2D_ZERO_ENERGY_REPORT.md), and
+[`P2D_EXACT_SECTIONS_REPORT.md`](P2D_EXACT_SECTIONS_REPORT.md).
 
 Run the two design checks with
 
@@ -219,6 +234,22 @@ Run the formal source-bound normal-form check with
 python3 -B validation/rigorous/check_p2d_normal_form_source_bounds.py
 python3 -B -m unittest \
   validation.rigorous.tests.test_p2d_normal_form_source_bounds -v
+```
+
+Run the zero-energy-fiber check with
+
+```bash
+python3 -B validation/rigorous/check_p2d_zero_energy.py
+python3 -B -m unittest \
+  validation.rigorous.tests.test_p2d_zero_energy -v
+```
+
+Run the exact-radial-sections check with
+
+```bash
+python3 -B validation/rigorous/check_p2d_exact_sections.py
+python3 -B -m unittest \
+  validation.rigorous.tests.test_p2d_exact_sections -v
 ```
 
 Check the archived certificate with

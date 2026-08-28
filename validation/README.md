@@ -1,6 +1,6 @@
 # Issue #7 validation workspace
 
-This directory is the local staging area for the deferred outward-rounded
+This directory is the local staging area for the active outward-rounded
 validation in [Issue #7](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/7).
 Nothing currently stored here is a claim-bearing computer-assisted proof.
 The floating candidate-contract remains deliberately non-claim-bearing, while
@@ -9,7 +9,10 @@ lane and the formally frozen parameter box.  Formal local passes now cover
 phase 1, P2a, P2b/P2bK, the retrospective P2c homoclinic scope, and the P2d
 symplectic-frame atom.  The proved all-orders majorant plus its source-bound
 checker also gives local mathematical `PASS` for the P2d analytic-normal-form
-atom.  Every aggregate status remains `INCONCLUSIVE` and
+atom.  The explicit rational zero-energy-fiber checker now also gives local
+mathematical `PASS` for `V2.CHART.ZERO_ENERGY`.  The frozen nonlinear radial
+sections and their exact gauges likewise pass locally for
+`V2.CHART.EXACT_SECTIONS`.  Every aggregate status remains `INCONCLUSIVE` and
 `claim_bearing: false` while the required independent replay is 1/2 and the
 parent scopes remain incomplete.
 
@@ -208,10 +211,10 @@ compact finite-flow clauses.  The V3/V5A infinite-end remainders and the
 all-winding reduction still require model-specific interval estimates around
 the analytic constructions.
 
-## Current blockers after the P2d analytic-normal-form gate
+## Current blockers after the P2d exact-sections gate
 
 - The frozen box is an exact rational prevalidation object.  Every current
-  local pass through the first two P2d chart children is non-claim-bearing;
+  local pass through the first four P2d chart children is non-claim-bearing;
   the independent second-machine replay required by policy is pending.
 - The existing finite event faces are proxies rather than the complete V6
   physical arrangement and finite marked atlas; B1/A2 do not prove a component
@@ -235,9 +238,12 @@ the analytic constructions.
   P2c summary certificate now parses the four archived strict logs and replays
   the exact tail algebra; all five P2c atoms and their local parent pass.  The
   subsequent P2d frame certificate and the proved all-orders
-  normal-form/source-bound gate give local mathematical `PASS` for
-  `V2.CHART.SYMPLECTIC_FRAME` and `V2.CHART.ANALYTIC_NORMAL_FORM`.  The next
-  child, `V2.CHART.ZERO_ENERGY`, the other four chart children, the parent
+  normal-form/source-bound gate, the exact-rational zero-energy checker, and
+  the exact radial-section checker
+  give local mathematical `PASS` for `V2.CHART.SYMPLECTIC_FRAME`,
+  `V2.CHART.ANALYTIC_NORMAL_FORM`, `V2.CHART.ZERO_ENERGY`, and
+  `V2.CHART.EXACT_SECTIONS`.  The next child,
+  `V2.CHART.WEIGHTED_PASSAGE`, the other two chart children, the parent
   `V2.EXACT_CHART`, and V3--V6 remain `PENDING` in
   [`rigorous/obligations.json`](rigorous/obligations.json).  All aggregate
   results remain non-claim-bearing until independent replay and their parent
