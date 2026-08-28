@@ -117,7 +117,7 @@ machine-readable certificate in
 The full-grid binary endpoints and exact rational composition are archived in
 [`design/p2c_middle_jet_summary_v1.json`](design/p2c_middle_jet_summary_v1.json).
 
-P2d now has a deliberately narrow exact-algebra scout:
+P2d has a deliberately narrow exact-algebra audit:
 [`audit_p2d_exact_chart.py`](audit_p2d_exact_chart.py).  It performs 59
 deterministic symbolic checks of the physical Hamiltonian convention, the
 positive-Kato physical reversible symplectic completion, the frozen-to-Kato action
@@ -129,12 +129,28 @@ python3 validation/rigorous/audit_p2d_exact_chart.py
 python3 -m unittest validation.rigorous.tests.test_p2d_exact_chart_audit
 ```
 
-Its local audit status is `PASS`, but it is non-claim-bearing and keeps every
-`V2.CHART.*` atom and the parent `V2.EXACT_CHART` open.  In particular it does
-not certify the nonlinear analytic normal form, nonlinear zero-energy fiber,
-weighted passage, physical slides, finite-cover overlaps, frozen-box branch
-margins, or parameter two-jets.  Those are the next P2d construction gates;
-the exact scout only prevents convention and sign errors from entering them.
+The exact audit is now paired with the separately implemented interval
+frame layer frozen in
+[`config/vdp_p2d_symplectic_frame_v1.json`](config/vdp_p2d_symplectic_frame_v1.json),
+with source
+[`src/vdp_p2d_symplectic_frame_probe.cpp`](src/vdp_p2d_symplectic_frame_probe.cpp)
+and separate configuration/raw schemas.  On the same exact-rational
+\(16\times8\times4\) bridge cover, the strict reference-toolchain run passes
+all 20 frozen branch, conditioning, and normalized/original parameter-\(C^2\)
+gates for every component of \(L\) and \(L^{-1}\).  Combining this interval
+result with the archived local P2bK mathematical pass and all 59 exact checks
+gives a local mathematical `PASS` for
+`V2.CHART.SYMPLECTIC_FRAME`.
+
+This is not yet an archived formal repository certificate: it was run from a
+dirty development tree, and a source-bound clean-commit build remains to be
+generated.  Its development aggregate remains `INCONCLUSIVE` and
+`claim_bearing=false`.  The other six `V2.CHART.*` atoms and the parent
+`V2.EXACT_CHART` remain `OPEN`; in particular, the frame result supplies no
+nonlinear analytic normal form, nonlinear zero-energy branch, exact nonlinear
+sections, weighted passage, physical slides, or finite-cover overlaps.  The
+next mathematical gate is `V2.CHART.ANALYTIC_NORMAL_FORM` on an explicit
+complex domain.
 
 Build and check the lightweight local P2c certificate from a clean source
 snapshot with

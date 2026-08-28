@@ -1,0 +1,285 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/h-lu/rfsn-ii-positive-parameter-pde/validation/rigorous/p2d_symplectic_frame_config.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "configuration_id",
+    "status",
+    "frozen_before_formal_run",
+    "selection_date",
+    "selection_basis",
+    "parameter_domain",
+    "frame_contract",
+    "jet_contract",
+    "acceptance_gates",
+    "raw_probe_contract",
+    "external_prerequisites",
+    "claim_boundary",
+    "mutation_policy",
+    "nonclaims"
+  ],
+  "properties": {
+    "schema_version": {"const": "rfsn-vdp-p2d-symplectic-frame-config/1"},
+    "configuration_id": {"const": "vdp-p2d-symplectic-frame-v1"},
+    "status": {"const": "FROZEN_PRE_P2D_SYMPLECTIC_FRAME_FORMAL_RUN"},
+    "frozen_before_formal_run": {"const": true},
+    "selection_date": {"const": "2026-08-28"},
+    "selection_basis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repository_commit",
+        "continuation_bridge",
+        "p2bK_configuration",
+        "p2bK_archived_certificate",
+        "exact_audit",
+        "design_scout",
+        "formal_probe",
+        "selection_note"
+      ],
+      "properties": {
+        "repository_commit": {"const": "426f032afb1096e50b5754dadf71b27cb6cc74b6"},
+        "continuation_bridge": {
+          "allOf": [
+            {"$ref": "#/$defs/hashedFile"},
+            {"const": {"path": "validation/rigorous/config/vdp_bridge_v1.json", "sha256": "2b62e6fc5625d3f5634d986f7e9cbe8199abfc45c7b97ca29e5efd464b5b69c7"}}
+          ]
+        },
+        "p2bK_configuration": {
+          "allOf": [
+            {"$ref": "#/$defs/hashedFile"},
+            {"const": {"path": "validation/rigorous/config/vdp_p2_kato_v1.json", "sha256": "676de23609a66b9a6fa35d2cc476878018bc84b4615460719f9c2f87eb1823e3"}}
+          ]
+        },
+        "p2bK_archived_certificate": {
+          "allOf": [
+            {"$ref": "#/$defs/hashedFile"},
+            {"const": {"path": "validation/rigorous/results/vdp_bridge_v1_p2b_kato.json", "sha256": "c67cce575caa396eba5b4388e8ba9a0c9d73fd702f69911d64c878f57f27bff3"}}
+          ]
+        },
+        "exact_audit": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["path", "sha256", "schema_version"],
+          "properties": {
+            "path": {"const": "validation/rigorous/audit_p2d_exact_chart.py"},
+            "sha256": {"const": "050cfd00d49412e9404c17b0eed680bf17e88798bfce48d0e1ec0920770c52d1"},
+            "schema_version": {"const": "rfsn-vdp-p2d-exact-chart-audit/2"}
+          }
+        },
+        "design_scout": {
+          "allOf": [
+            {"$ref": "#/$defs/hashedFile"},
+            {"const": {"path": "validation/rigorous/design/p2d_symplectic_frame_scout.cpp", "sha256": "bdb4d3612e3d4535863fee32fac85f2a297dc4448545adb6950ca7d08cea2154"}}
+          ]
+        },
+        "formal_probe": {
+          "allOf": [
+            {"$ref": "#/$defs/hashedFile"},
+            {"const": {"path": "validation/rigorous/src/vdp_p2d_symplectic_frame_probe.cpp", "sha256": "e547caf30563590cdc48120dc4b4f3c43121ad7bab36aa3d9cd4b36b51093a1a"}}
+          ]
+        },
+        "selection_note": {"type": "string", "minLength": 1}
+      }
+    },
+    "parameter_domain": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ordered_original_parameters",
+        "ordered_normalized_parameters",
+        "normalization_formulas",
+        "bridge_box",
+        "normalized_box",
+        "parameter_grid",
+        "original_from_normalized_scales"
+      ],
+      "properties": {
+        "ordered_original_parameters": {"const": ["r", "a2", "epsilon"]},
+        "ordered_normalized_parameters": {"const": ["theta_r", "theta_a", "theta_epsilon"]},
+        "normalization_formulas": {"const": ["theta_r=25*r-1", "theta_a=4*a2", "theta_epsilon=5*(epsilon-1)"]},
+        "bridge_box": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["r", "a2", "epsilon"],
+          "properties": {
+            "r": {"const": {"lower": {"numerator": "0", "denominator": "1"}, "upper": {"numerator": "2", "denominator": "25"}}},
+            "a2": {"const": {"lower": {"numerator": "-1", "denominator": "4"}, "upper": {"numerator": "1", "denominator": "4"}}},
+            "epsilon": {"const": {"lower": {"numerator": "4", "denominator": "5"}, "upper": {"numerator": "6", "denominator": "5"}}}
+          }
+        },
+        "normalized_box": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["theta_r", "theta_a", "theta_epsilon"],
+          "properties": {
+            "theta_r": {"$ref": "#/$defs/unitBoxAxis"},
+            "theta_a": {"$ref": "#/$defs/unitBoxAxis"},
+            "theta_epsilon": {"$ref": "#/$defs/unitBoxAxis"}
+          }
+        },
+        "parameter_grid": {
+          "const": {
+            "ordered_axes": ["theta_r", "theta_a", "theta_epsilon"],
+            "subdivisions": [16, 8, 4],
+            "cell_count": 512,
+            "require_gap_free_exact_rational_cells": true
+          }
+        },
+        "original_from_normalized_scales": {
+          "const": {
+            "D1": [
+              {"numerator": "25", "denominator": "1"},
+              {"numerator": "4", "denominator": "1"},
+              {"numerator": "5", "denominator": "1"}
+            ],
+            "D2_symmetric": [
+              {"numerator": "625", "denominator": "1"},
+              {"numerator": "100", "denominator": "1"},
+              {"numerator": "125", "denominator": "1"},
+              {"numerator": "16", "denominator": "1"},
+              {"numerator": "20", "denominator": "1"},
+              {"numerator": "25", "denominator": "1"}
+            ]
+          }
+        }
+      }
+    },
+    "frame_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["physical_state_order", "formulas", "positive_branch_requirements", "inverse_construction", "exact_identity_evidence_is_external"],
+      "properties": {
+        "physical_state_order": {"const": ["U", "P", "V", "Q"]},
+        "formulas": {
+          "const": [
+            "c=2*r*a2+sqrt(epsilon)*r^4*a2^2",
+            "alpha=sqrt(2+c)/2",
+            "beta=sqrt(2-c)/2",
+            "N_squared=6*alpha^2-4*sqrt(2)*alpha+3",
+            "y=(1/sqrt(2)-alpha)/beta",
+            "K=E*[[1,-y],[y,1]]/sqrt(N_squared)",
+            "d=2*alpha/N_squared",
+            "e=2*alpha*(3*alpha-2*sqrt(2))/(N_squared*beta)",
+            "kappa=4*alpha*beta*(1+y^2)/N_squared",
+            "D_theta=sqrt(2*kappa*(kappa+d))",
+            "cos_theta=(kappa+d)/D_theta",
+            "sin_theta=e/D_theta",
+            "theta=atan(sin_theta/cos_theta)",
+            "A_theta=[[cos_theta,-sin_theta],[sin_theta,cos_theta]]",
+            "Y=kappa^(-1/2)*K*A_theta",
+            "X=R*Y*C0",
+            "L=(X,Y)",
+            "L_inverse=-Omega0*L^T*Omega"
+          ]
+        },
+        "positive_branch_requirements": {"const": ["kappa>0", "kappa+d>0", "D_theta>0", "cos_theta>0"]},
+        "inverse_construction": {"const": "exact-symplectic-formula-no-interval-Gaussian-elimination"},
+        "exact_identity_evidence_is_external": {"const": true}
+      }
+    },
+    "jet_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["scalar_names", "matrix_names", "normalized_D1_order", "normalized_D2_symmetric_order", "original_D1_order", "original_D2_symmetric_order", "require_componentwise_value_D1_D2_enclosures", "require_bit_symmetric_interval_ad_hessians", "matrix_D1_gate_norm", "matrix_D2_gate_norm", "second_parameter_off_diagonals_counted_twice_in_gate_norm"],
+      "properties": {
+        "scalar_names": {"const": ["c", "alpha", "beta", "N_squared", "y", "d", "e", "kappa", "kappa_plus_d", "half_denominator", "cos_theta", "sin_theta", "theta", "kappa_inverse_sqrt"]},
+        "matrix_names": {"const": ["L", "L_inverse"]},
+        "normalized_D1_order": {"const": ["theta_r", "theta_a", "theta_epsilon"]},
+        "normalized_D2_symmetric_order": {"const": ["theta_r,theta_r", "theta_r,theta_a", "theta_r,theta_epsilon", "theta_a,theta_a", "theta_a,theta_epsilon", "theta_epsilon,theta_epsilon"]},
+        "original_D1_order": {"const": ["r", "a2", "epsilon"]},
+        "original_D2_symmetric_order": {"const": ["r,r", "r,a2", "r,epsilon", "a2,a2", "a2,epsilon", "epsilon,epsilon"]},
+        "require_componentwise_value_D1_D2_enclosures": {"const": true},
+        "require_bit_symmetric_interval_ad_hessians": {"const": true},
+        "matrix_D1_gate_norm": {"const": "output-parameter-hilbert-schmidt"},
+        "matrix_D2_gate_norm": {"const": "output-full-ordered-parameter-hilbert-schmidt"},
+        "second_parameter_off_diagonals_counted_twice_in_gate_norm": {"const": true}
+      }
+    },
+    "acceptance_gates": {"$ref": "#/$defs/frozenGates"},
+    "raw_probe_contract": {
+      "const": {
+        "schema_version": "rfsn-vdp-p2d-symplectic-frame-probe/1",
+        "argv_count_excluding_program": 55,
+        "argv_sections": [
+          "12 bridge rational endpoint strings",
+          "3 subdivision integers",
+          "20 acceptance gates as numerator-denominator pairs in acceptance_gates order"
+        ],
+        "status_formula": "combine(rounding_self_test,structure_status,mathematical_status)",
+        "raw_pass_scope": "interval_frame_predicate_only",
+        "all_numeric_enclosures_use_IEEE754_binary64_hex_endpoints": true
+      }
+    },
+    "external_prerequisites": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["exact_audit_required", "exact_audit_included_in_raw_status", "P2bK_local_mathematical_pass_required", "P2bK_prerequisite_included_in_raw_status", "composite_atom_rule"],
+      "properties": {
+        "exact_audit_required": {"const": true},
+        "exact_audit_included_in_raw_status": {"const": false},
+        "P2bK_local_mathematical_pass_required": {"const": true},
+        "P2bK_prerequisite_included_in_raw_status": {"const": false},
+        "composite_atom_rule": {"type": "string", "minLength": 1}
+      }
+    },
+    "claim_boundary": {
+      "const": {
+        "raw_probe_claim_bearing": false,
+        "raw_probe_alone_closes_V2_CHART_SYMPLECTIC_FRAME": false,
+        "raw_probe_alone_closes_V2_EXACT_CHART": false,
+        "nonlinear_normal_form_included": false
+      }
+    },
+    "mutation_policy": {"type": "string", "minLength": 1},
+    "nonclaims": {"type": "array", "minItems": 5, "items": {"type": "string", "minLength": 1}}
+  },
+  "$defs": {
+    "hashedFile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "unitBoxAxis": {
+      "const": {
+        "lower": {"numerator": "-1", "denominator": "1"},
+        "upper": {"numerator": "1", "denominator": "1"}
+      }
+    },
+    "frozenGates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "d_positive_lower", "minus_e_positive_lower", "kappa_lower", "kappa_upper", "kappa_plus_d_lower", "half_denominator_lower", "cos_theta_lower", "abs_sin_theta_upper", "radial_scale_lower", "radial_scale_upper", "abs_theta_upper", "anchor_deviation_upper", "normalized_L_D1_upper", "normalized_L_D2_upper", "normalized_L_inverse_D1_upper", "normalized_L_inverse_D2_upper", "original_L_D1_upper", "original_L_D2_upper", "original_L_inverse_D1_upper", "original_L_inverse_D2_upper"
+      ],
+      "properties": {
+        "d_positive_lower": {"const": {"numerator": "2", "denominator": "3"}},
+        "minus_e_positive_lower": {"const": {"numerator": "3", "denominator": "5"}},
+        "kappa_lower": {"const": {"numerator": "19", "denominator": "20"}},
+        "kappa_upper": {"const": {"numerator": "21", "denominator": "20"}},
+        "kappa_plus_d_lower": {"const": {"numerator": "8", "denominator": "5"}},
+        "half_denominator_lower": {"const": {"numerator": "17", "denominator": "10"}},
+        "cos_theta_lower": {"const": {"numerator": "7", "denominator": "8"}},
+        "abs_sin_theta_upper": {"const": {"numerator": "5", "denominator": "12"}},
+        "radial_scale_lower": {"const": {"numerator": "19", "denominator": "20"}},
+        "radial_scale_upper": {"const": {"numerator": "21", "denominator": "20"}},
+        "abs_theta_upper": {"const": {"numerator": "1", "denominator": "2"}},
+        "anchor_deviation_upper": {"const": {"numerator": "1", "denominator": "8"}},
+        "normalized_L_D1_upper": {"const": {"numerator": "1", "denominator": "10"}},
+        "normalized_L_D2_upper": {"const": {"numerator": "1", "denominator": "10"}},
+        "normalized_L_inverse_D1_upper": {"const": {"numerator": "1", "denominator": "10"}},
+        "normalized_L_inverse_D2_upper": {"const": {"numerator": "1", "denominator": "10"}},
+        "original_L_D1_upper": {"const": {"numerator": "2", "denominator": "1"}},
+        "original_L_D2_upper": {"const": {"numerator": "20", "denominator": "1"}},
+        "original_L_inverse_D1_upper": {"const": {"numerator": "2", "denominator": "1"}},
+        "original_L_inverse_D2_upper": {"const": {"numerator": "20", "denominator": "1"}}
+      }
+    }
+  }
+}

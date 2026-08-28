@@ -73,6 +73,19 @@ is an independent full-grid replay.  The five atoms aggregate exactly to
 `V2.HOMOCLINIC`, while the certificate remains non-claim-bearing until the
 independent-machine policy is met.
 
+The first P2d child atom is now closed at the local mathematical-development
+level.  The archived P2bK result supplies the normalized expanding Kato
+frame; the deterministic audit proves all 59 exact linear, symplectic,
+reverser, action-sign, section, and anchor identities; and the separate
+formal interval probe verifies the 20 frozen branch, conditioning, and
+parameter-\(C^2\) gates on the complete \(16\times8\times4\) bridge cover.
+Together these give local mathematical `PASS` for
+`V2.CHART.SYMPLECTIC_FRAME`.  The reference CAPD run has raw, integrity, and
+mathematical status `PASS`, but it is a dirty-tree development run.  A formal
+source-bound repository certificate must therefore wait for a clean commit;
+the current aggregate remains `INCONCLUSIVE` and non-claim-bearing.  The
+other six P2d child atoms and `V2.EXACT_CHART` remain `OPEN`.
+
 ## 2. Exact moving eigenframe for P2a
 
 Write
@@ -1058,6 +1071,19 @@ exact symbolic audit verifies these identities and the branch formula; a
 separate outward-rounded interval layer must supply uniform positive branch
 margins and the complete first and second parameter bounds on the frozen box.
 The rotation in (D4) changes the Kato phase origin but has degree \(+1\).
+
+That interval layer is frozen by
+[`vdp_p2d_symplectic_frame_v1.json`](config/vdp_p2d_symplectic_frame_v1.json)
+and implemented independently of the design scout in
+[`vdp_p2d_symplectic_frame_probe.cpp`](src/vdp_p2d_symplectic_frame_probe.cpp).
+Its reference strict run covers all 512 exact-rational cells and places the
+value, three first derivatives, and six symmetric second derivatives of every
+listed scalar and every entry of \(L,L^{-1}\) inside the frozen gates, in both
+normalized and original parameters.  The inverse is evaluated from
+\(L^{-1}=-\Omega_0L^T\Omega\), not by interval Gaussian elimination.  With
+the P2bK prerequisite and the 59-check audit, this establishes the local
+mathematical `PASS` stated above.  Exact identities are supplied by the audit,
+not inferred from small interval residuals.
 
 There is a mandatory sign dictionary.  With the positive Kato orientation,
 

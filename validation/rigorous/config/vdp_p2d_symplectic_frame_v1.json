@@ -1,0 +1,204 @@
+{
+  "schema_version": "rfsn-vdp-p2d-symplectic-frame-config/1",
+  "configuration_id": "vdp-p2d-symplectic-frame-v1",
+  "status": "FROZEN_PRE_P2D_SYMPLECTIC_FRAME_FORMAL_RUN",
+  "frozen_before_formal_run": true,
+  "selection_date": "2026-08-28",
+  "selection_basis": {
+    "repository_commit": "426f032afb1096e50b5754dadf71b27cb6cc74b6",
+    "continuation_bridge": {
+      "path": "validation/rigorous/config/vdp_bridge_v1.json",
+      "sha256": "2b62e6fc5625d3f5634d986f7e9cbe8199abfc45c7b97ca29e5efd464b5b69c7"
+    },
+    "p2bK_configuration": {
+      "path": "validation/rigorous/config/vdp_p2_kato_v1.json",
+      "sha256": "676de23609a66b9a6fa35d2cc476878018bc84b4615460719f9c2f87eb1823e3"
+    },
+    "p2bK_archived_certificate": {
+      "path": "validation/rigorous/results/vdp_bridge_v1_p2b_kato.json",
+      "sha256": "c67cce575caa396eba5b4388e8ba9a0c9d73fd702f69911d64c878f57f27bff3"
+    },
+    "exact_audit": {
+      "path": "validation/rigorous/audit_p2d_exact_chart.py",
+      "sha256": "050cfd00d49412e9404c17b0eed680bf17e88798bfce48d0e1ec0920770c52d1",
+      "schema_version": "rfsn-vdp-p2d-exact-chart-audit/2"
+    },
+    "design_scout": {
+      "path": "validation/rigorous/design/p2d_symplectic_frame_scout.cpp",
+      "sha256": "bdb4d3612e3d4535863fee32fac85f2a297dc4448545adb6950ca7d08cea2154"
+    },
+    "formal_probe": {
+      "path": "validation/rigorous/src/vdp_p2d_symplectic_frame_probe.cpp",
+      "sha256": "e547caf30563590cdc48120dc4b4f3c43121ad7bab36aa3d9cd4b36b51093a1a"
+    },
+    "selection_note": "The design scout selected the rational gates on the exact 16x8x4 grid. Its output is not certificate evidence; the formal probe independently implements interval Jet2 arithmetic."
+  },
+  "parameter_domain": {
+    "ordered_original_parameters": ["r", "a2", "epsilon"],
+    "ordered_normalized_parameters": ["theta_r", "theta_a", "theta_epsilon"],
+    "normalization_formulas": [
+      "theta_r=25*r-1",
+      "theta_a=4*a2",
+      "theta_epsilon=5*(epsilon-1)"
+    ],
+    "bridge_box": {
+      "r": {
+        "lower": {"numerator": "0", "denominator": "1"},
+        "upper": {"numerator": "2", "denominator": "25"}
+      },
+      "a2": {
+        "lower": {"numerator": "-1", "denominator": "4"},
+        "upper": {"numerator": "1", "denominator": "4"}
+      },
+      "epsilon": {
+        "lower": {"numerator": "4", "denominator": "5"},
+        "upper": {"numerator": "6", "denominator": "5"}
+      }
+    },
+    "normalized_box": {
+      "theta_r": {
+        "lower": {"numerator": "-1", "denominator": "1"},
+        "upper": {"numerator": "1", "denominator": "1"}
+      },
+      "theta_a": {
+        "lower": {"numerator": "-1", "denominator": "1"},
+        "upper": {"numerator": "1", "denominator": "1"}
+      },
+      "theta_epsilon": {
+        "lower": {"numerator": "-1", "denominator": "1"},
+        "upper": {"numerator": "1", "denominator": "1"}
+      }
+    },
+    "parameter_grid": {
+      "ordered_axes": ["theta_r", "theta_a", "theta_epsilon"],
+      "subdivisions": [16, 8, 4],
+      "cell_count": 512,
+      "require_gap_free_exact_rational_cells": true
+    },
+    "original_from_normalized_scales": {
+      "D1": [
+        {"numerator": "25", "denominator": "1"},
+        {"numerator": "4", "denominator": "1"},
+        {"numerator": "5", "denominator": "1"}
+      ],
+      "D2_symmetric": [
+        {"numerator": "625", "denominator": "1"},
+        {"numerator": "100", "denominator": "1"},
+        {"numerator": "125", "denominator": "1"},
+        {"numerator": "16", "denominator": "1"},
+        {"numerator": "20", "denominator": "1"},
+        {"numerator": "25", "denominator": "1"}
+      ]
+    }
+  },
+  "frame_contract": {
+    "physical_state_order": ["U", "P", "V", "Q"],
+    "formulas": [
+      "c=2*r*a2+sqrt(epsilon)*r^4*a2^2",
+      "alpha=sqrt(2+c)/2",
+      "beta=sqrt(2-c)/2",
+      "N_squared=6*alpha^2-4*sqrt(2)*alpha+3",
+      "y=(1/sqrt(2)-alpha)/beta",
+      "K=E*[[1,-y],[y,1]]/sqrt(N_squared)",
+      "d=2*alpha/N_squared",
+      "e=2*alpha*(3*alpha-2*sqrt(2))/(N_squared*beta)",
+      "kappa=4*alpha*beta*(1+y^2)/N_squared",
+      "D_theta=sqrt(2*kappa*(kappa+d))",
+      "cos_theta=(kappa+d)/D_theta",
+      "sin_theta=e/D_theta",
+      "theta=atan(sin_theta/cos_theta)",
+      "A_theta=[[cos_theta,-sin_theta],[sin_theta,cos_theta]]",
+      "Y=kappa^(-1/2)*K*A_theta",
+      "X=R*Y*C0",
+      "L=(X,Y)",
+      "L_inverse=-Omega0*L^T*Omega"
+    ],
+    "positive_branch_requirements": [
+      "kappa>0",
+      "kappa+d>0",
+      "D_theta>0",
+      "cos_theta>0"
+    ],
+    "inverse_construction": "exact-symplectic-formula-no-interval-Gaussian-elimination",
+    "exact_identity_evidence_is_external": true
+  },
+  "jet_contract": {
+    "scalar_names": [
+      "c", "alpha", "beta", "N_squared", "y", "d", "e", "kappa",
+      "kappa_plus_d", "half_denominator", "cos_theta", "sin_theta",
+      "theta", "kappa_inverse_sqrt"
+    ],
+    "matrix_names": ["L", "L_inverse"],
+    "normalized_D1_order": ["theta_r", "theta_a", "theta_epsilon"],
+    "normalized_D2_symmetric_order": [
+      "theta_r,theta_r", "theta_r,theta_a", "theta_r,theta_epsilon",
+      "theta_a,theta_a", "theta_a,theta_epsilon",
+      "theta_epsilon,theta_epsilon"
+    ],
+    "original_D1_order": ["r", "a2", "epsilon"],
+    "original_D2_symmetric_order": [
+      "r,r", "r,a2", "r,epsilon", "a2,a2", "a2,epsilon",
+      "epsilon,epsilon"
+    ],
+    "require_componentwise_value_D1_D2_enclosures": true,
+    "require_bit_symmetric_interval_ad_hessians": true,
+    "matrix_D1_gate_norm": "output-parameter-hilbert-schmidt",
+    "matrix_D2_gate_norm": "output-full-ordered-parameter-hilbert-schmidt",
+    "second_parameter_off_diagonals_counted_twice_in_gate_norm": true
+  },
+  "acceptance_gates": {
+    "d_positive_lower": {"numerator": "2", "denominator": "3"},
+    "minus_e_positive_lower": {"numerator": "3", "denominator": "5"},
+    "kappa_lower": {"numerator": "19", "denominator": "20"},
+    "kappa_upper": {"numerator": "21", "denominator": "20"},
+    "kappa_plus_d_lower": {"numerator": "8", "denominator": "5"},
+    "half_denominator_lower": {"numerator": "17", "denominator": "10"},
+    "cos_theta_lower": {"numerator": "7", "denominator": "8"},
+    "abs_sin_theta_upper": {"numerator": "5", "denominator": "12"},
+    "radial_scale_lower": {"numerator": "19", "denominator": "20"},
+    "radial_scale_upper": {"numerator": "21", "denominator": "20"},
+    "abs_theta_upper": {"numerator": "1", "denominator": "2"},
+    "anchor_deviation_upper": {"numerator": "1", "denominator": "8"},
+    "normalized_L_D1_upper": {"numerator": "1", "denominator": "10"},
+    "normalized_L_D2_upper": {"numerator": "1", "denominator": "10"},
+    "normalized_L_inverse_D1_upper": {"numerator": "1", "denominator": "10"},
+    "normalized_L_inverse_D2_upper": {"numerator": "1", "denominator": "10"},
+    "original_L_D1_upper": {"numerator": "2", "denominator": "1"},
+    "original_L_D2_upper": {"numerator": "20", "denominator": "1"},
+    "original_L_inverse_D1_upper": {"numerator": "2", "denominator": "1"},
+    "original_L_inverse_D2_upper": {"numerator": "20", "denominator": "1"}
+  },
+  "raw_probe_contract": {
+    "schema_version": "rfsn-vdp-p2d-symplectic-frame-probe/1",
+    "argv_count_excluding_program": 55,
+    "argv_sections": [
+      "12 bridge rational endpoint strings",
+      "3 subdivision integers",
+      "20 acceptance gates as numerator-denominator pairs in acceptance_gates order"
+    ],
+    "status_formula": "combine(rounding_self_test,structure_status,mathematical_status)",
+    "raw_pass_scope": "interval_frame_predicate_only",
+    "all_numeric_enclosures_use_IEEE754_binary64_hex_endpoints": true
+  },
+  "external_prerequisites": {
+    "exact_audit_required": true,
+    "exact_audit_included_in_raw_status": false,
+    "P2bK_local_mathematical_pass_required": true,
+    "P2bK_prerequisite_included_in_raw_status": false,
+    "composite_atom_rule": "raw interval component PASS plus bound exact-audit PASS plus authenticated P2bK local mathematical PASS"
+  },
+  "claim_boundary": {
+    "raw_probe_claim_bearing": false,
+    "raw_probe_alone_closes_V2_CHART_SYMPLECTIC_FRAME": false,
+    "raw_probe_alone_closes_V2_EXACT_CHART": false,
+    "nonlinear_normal_form_included": false
+  },
+  "mutation_policy": "Any formula, bridge, grid, normalization, gate, source binding, jet ordering, norm, or claim-boundary change requires a new versioned configuration and a clean strict run; an inconclusive run must not tune this file.",
+  "nonclaims": [
+    "This configuration does not make the design scout certificate evidence.",
+    "The raw probe does not replay or authenticate the exact symbolic audit or archived P2bK certificate.",
+    "It does not construct the nonlinear analytic normal-form chart, zero-energy branch, exact sections, weighted passage, physical slides, or overlaps.",
+    "It does not close V2.EXACT_CHART or any V3--V6 obligation.",
+    "It does not address PDE temporal stability, dynamic Turing selection, or finite-parameter canard identification."
+  ]
+}

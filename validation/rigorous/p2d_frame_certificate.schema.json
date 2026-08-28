@@ -1,0 +1,371 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/h-lu/rfsn-ii-positive-parameter-pde/validation/rigorous/p2d_frame_certificate.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "certificate_id",
+    "scope",
+    "created_at",
+    "source_revision",
+    "source_bindings",
+    "configuration",
+    "continuation_bridge",
+    "p2bk_prerequisite",
+    "exact_audit",
+    "toolchain",
+    "raw_probe",
+    "obligations",
+    "chart_status",
+    "integrity_status",
+    "mathematical_status",
+    "independent_replay",
+    "final_status",
+    "claim_bearing",
+    "release_eligible",
+    "nonclaims"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "rfsn-vdp-p2d-frame-certificate/1"
+    },
+    "certificate_id": {
+      "type": "string",
+      "pattern": "^vdp-p2d-frame-[0-9a-f]{12}$"
+    },
+    "scope": {
+      "const": "V2_P2D_SYMPLECTIC_FRAME_KERNEL"
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "source_revision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repository",
+        "commit",
+        "repository_dirty",
+        "allow_dirty_development",
+        "working_tree_observation",
+        "report_output_excluded_from_observation"
+      ],
+      "properties": {
+        "repository": {
+          "const": "h-lu/rfsn-ii-positive-parameter-pde"
+        },
+        "commit": {
+          "$ref": "#/$defs/sha1"
+        },
+        "repository_dirty": {
+          "type": "boolean"
+        },
+        "allow_dirty_development": {
+          "type": "boolean"
+        },
+        "working_tree_observation": {
+          "const": "BEFORE_REPORT_WRITE"
+        },
+        "report_output_excluded_from_observation": {
+          "const": true
+        }
+      }
+    },
+    "source_bindings": {
+      "type": "array",
+      "minItems": 12,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/hashedFile"
+      }
+    },
+    "configuration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256", "configuration_id"],
+      "properties": {
+        "path": {
+          "const": "validation/rigorous/config/vdp_p2d_symplectic_frame_v1.json"
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "configuration_id": {
+          "const": "vdp-p2d-symplectic-frame-v1"
+        }
+      }
+    },
+    "continuation_bridge": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256", "bridge_id", "variables"],
+      "properties": {
+        "path": {
+          "const": "validation/rigorous/config/vdp_bridge_v1.json"
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "bridge_id": {
+          "const": "vdp-core-to-positive-bridge-v1"
+        },
+        "variables": {
+          "type": "object"
+        }
+      }
+    },
+    "p2bk_prerequisite": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "sha256",
+        "scope",
+        "source_commit",
+        "integrity_status",
+        "mathematical_status",
+        "final_status",
+        "claim_bearing",
+        "required_atoms"
+      ],
+      "properties": {
+        "path": {
+          "const": "validation/rigorous/results/vdp_bridge_v1_p2b_kato.json"
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "scope": {
+          "const": "V2_P2_KATO_KERNEL"
+        },
+        "source_commit": {
+          "$ref": "#/$defs/sha1"
+        },
+        "integrity_status": {
+          "const": "PASS"
+        },
+        "mathematical_status": {
+          "const": "PASS"
+        },
+        "final_status": {
+          "const": "INCONCLUSIVE"
+        },
+        "claim_bearing": {
+          "const": false
+        },
+        "required_atoms": {
+          "const": {
+            "V2.PHASE.TRUE_SOURCE": "PASS",
+            "V2.PHASE.KATO_INTERFACE": "PASS"
+          }
+        }
+      }
+    },
+    "exact_audit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256", "report", "execution"],
+      "properties": {
+        "path": {
+          "const": "validation/rigorous/audit_p2d_exact_chart.py"
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "report": {
+          "type": "object"
+        },
+        "execution": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "python_executable",
+            "argv",
+            "argv_sha256",
+            "exit_code",
+            "stdout",
+            "stdout_sha256",
+            "stderr_sha256"
+          ],
+          "properties": {
+            "python_executable": {
+              "type": "string",
+              "pattern": "^/"
+            },
+            "argv": {
+              "type": "array",
+              "minItems": 3,
+              "maxItems": 3,
+              "items": {
+                "type": "string"
+              }
+            },
+            "argv_sha256": {
+              "$ref": "#/$defs/sha256"
+            },
+            "exit_code": {
+              "enum": [0, 1]
+            },
+            "stdout": {
+              "type": "string"
+            },
+            "stdout_sha256": {
+              "$ref": "#/$defs/sha256"
+            },
+            "stderr_sha256": {
+              "$ref": "#/$defs/sha256"
+            }
+          }
+        }
+      }
+    },
+    "toolchain": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "status",
+        "strict_library_build_status",
+        "dependency_lock_sha256",
+        "compiler",
+        "capd",
+        "exact_symbolic_backend",
+        "probe_build"
+      ]
+    },
+    "raw_probe": {
+      "type": "object"
+    },
+    "obligations": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "predicate", "status", "components"],
+        "properties": {
+          "id": {
+            "enum": [
+              "P2.P2BK_PREREQUISITE",
+              "V2.CHART.SYMPLECTIC_FRAME"
+            ]
+          },
+          "predicate": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "const": "PASS"
+          },
+          "components": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "chart_status": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "V2.CHART.SYMPLECTIC_FRAME",
+        "V2.CHART.ANALYTIC_NORMAL_FORM",
+        "V2.CHART.ZERO_ENERGY",
+        "V2.CHART.EXACT_SECTIONS",
+        "V2.CHART.WEIGHTED_PASSAGE",
+        "V2.CHART.PHYSICAL_SLIDES",
+        "V2.CHART.OVERLAPS",
+        "V2.EXACT_CHART"
+      ],
+      "properties": {
+        "V2.CHART.SYMPLECTIC_FRAME": {
+          "const": "PASS"
+        },
+        "V2.CHART.ANALYTIC_NORMAL_FORM": {
+          "const": "OPEN"
+        },
+        "V2.CHART.ZERO_ENERGY": {
+          "const": "OPEN"
+        },
+        "V2.CHART.EXACT_SECTIONS": {
+          "const": "OPEN"
+        },
+        "V2.CHART.WEIGHTED_PASSAGE": {
+          "const": "OPEN"
+        },
+        "V2.CHART.PHYSICAL_SLIDES": {
+          "const": "OPEN"
+        },
+        "V2.CHART.OVERLAPS": {
+          "const": "OPEN"
+        },
+        "V2.EXACT_CHART": {
+          "const": "OPEN"
+        }
+      }
+    },
+    "integrity_status": {
+      "const": "PASS"
+    },
+    "mathematical_status": {
+      "const": "PASS"
+    },
+    "independent_replay": {
+      "const": {
+        "status": "PENDING_REQUIRED",
+        "required_distinct_machines": 2,
+        "observed_distinct_machines": 1
+      }
+    },
+    "final_status": {
+      "const": "INCONCLUSIVE"
+    },
+    "claim_bearing": {
+      "const": false
+    },
+    "release_eligible": {
+      "const": false
+    },
+    "nonclaims": {
+      "type": "array",
+      "minItems": 5,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "$defs": {
+    "sha1": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "relativePath": {
+      "type": "string",
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$)).+$"
+    },
+    "hashedFile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256", "role"],
+      "properties": {
+        "path": {
+          "$ref": "#/$defs/relativePath"
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "role": {
+          "const": "p2d-frame-input"
+        }
+      }
+    }
+  }
+}

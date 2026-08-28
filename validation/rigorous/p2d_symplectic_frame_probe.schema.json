@@ -1,0 +1,390 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/h-lu/rfsn-ii-positive-parameter-pde/validation/rigorous/p2d_symplectic_frame_probe.schema.json",
+  "oneOf": [
+    {"$ref": "#/$defs/fullProbe"},
+    {"$ref": "#/$defs/errorProbe"}
+  ],
+  "$defs": {
+    "verdict": {"enum": ["PASS", "FAIL", "INCONCLUSIVE"]},
+    "interval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["lower_hex", "upper_hex", "endpoint_format"],
+      "properties": {
+        "lower_hex": {"type": "string", "pattern": "^-?0x[0-9a-f]+(?:\\.[0-9a-f]+)?p[+-][0-9]+$"},
+        "upper_hex": {"type": "string", "pattern": "^-?0x[0-9a-f]+(?:\\.[0-9a-f]+)?p[+-][0-9]+$"},
+        "endpoint_format": {"const": "IEEE754_BINARY64_HEX"}
+      }
+    },
+    "rationalBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["numerator", "denominator", "interval"],
+      "properties": {
+        "numerator": {"type": "string", "pattern": "^-?[0-9]+$"},
+        "denominator": {"type": "string", "pattern": "^[1-9][0-9]*$"},
+        "interval": {"$ref": "#/$defs/interval"}
+      }
+    },
+    "jet": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "D1", "D2_symmetric"],
+      "properties": {
+        "value": {"$ref": "#/$defs/interval"},
+        "D1": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {"$ref": "#/$defs/interval"}
+        },
+        "D2_symmetric": {
+          "type": "array",
+          "minItems": 6,
+          "maxItems": 6,
+          "items": {"$ref": "#/$defs/interval"}
+        }
+      }
+    },
+    "completeJet": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["normalized", "original"],
+      "properties": {
+        "normalized": {"$ref": "#/$defs/jet"},
+        "original": {"$ref": "#/$defs/jet"}
+      }
+    },
+    "matrixRow": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": {"$ref": "#/$defs/completeJet"}
+    },
+    "matrix": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["rows", "columns", "entries"],
+      "properties": {
+        "rows": {"const": 4},
+        "columns": {"const": 4},
+        "entries": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "items": {"$ref": "#/$defs/matrixRow"}
+        }
+      }
+    },
+    "scalarJets": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "c", "alpha", "beta", "N_squared", "y", "d", "e", "kappa",
+        "kappa_plus_d", "half_denominator", "cos_theta", "sin_theta",
+        "theta", "kappa_inverse_sqrt"
+      ],
+      "properties": {
+        "c": {"$ref": "#/$defs/completeJet"},
+        "alpha": {"$ref": "#/$defs/completeJet"},
+        "beta": {"$ref": "#/$defs/completeJet"},
+        "N_squared": {"$ref": "#/$defs/completeJet"},
+        "y": {"$ref": "#/$defs/completeJet"},
+        "d": {"$ref": "#/$defs/completeJet"},
+        "e": {"$ref": "#/$defs/completeJet"},
+        "kappa": {"$ref": "#/$defs/completeJet"},
+        "kappa_plus_d": {"$ref": "#/$defs/completeJet"},
+        "half_denominator": {"$ref": "#/$defs/completeJet"},
+        "cos_theta": {"$ref": "#/$defs/completeJet"},
+        "sin_theta": {"$ref": "#/$defs/completeJet"},
+        "theta": {"$ref": "#/$defs/completeJet"},
+        "kappa_inverse_sqrt": {"$ref": "#/$defs/completeJet"}
+      }
+    },
+    "gateIntervals": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "d_positive_lower", "minus_e_positive_lower", "kappa_lower",
+        "kappa_upper", "kappa_plus_d_lower", "half_denominator_lower",
+        "cos_theta_lower", "abs_sin_theta_upper", "radial_scale_lower",
+        "radial_scale_upper", "abs_theta_upper", "anchor_deviation_upper",
+        "normalized_L_D1_upper", "normalized_L_D2_upper",
+        "normalized_L_inverse_D1_upper", "normalized_L_inverse_D2_upper",
+        "original_L_D1_upper", "original_L_D2_upper",
+        "original_L_inverse_D1_upper", "original_L_inverse_D2_upper"
+      ],
+      "properties": {
+        "d_positive_lower": {"$ref": "#/$defs/interval"},
+        "minus_e_positive_lower": {"$ref": "#/$defs/interval"},
+        "kappa_lower": {"$ref": "#/$defs/interval"},
+        "kappa_upper": {"$ref": "#/$defs/interval"},
+        "kappa_plus_d_lower": {"$ref": "#/$defs/interval"},
+        "half_denominator_lower": {"$ref": "#/$defs/interval"},
+        "cos_theta_lower": {"$ref": "#/$defs/interval"},
+        "abs_sin_theta_upper": {"$ref": "#/$defs/interval"},
+        "radial_scale_lower": {"$ref": "#/$defs/interval"},
+        "radial_scale_upper": {"$ref": "#/$defs/interval"},
+        "abs_theta_upper": {"$ref": "#/$defs/interval"},
+        "anchor_deviation_upper": {"$ref": "#/$defs/interval"},
+        "normalized_L_D1_upper": {"$ref": "#/$defs/interval"},
+        "normalized_L_D2_upper": {"$ref": "#/$defs/interval"},
+        "normalized_L_inverse_D1_upper": {"$ref": "#/$defs/interval"},
+        "normalized_L_inverse_D2_upper": {"$ref": "#/$defs/interval"},
+        "original_L_D1_upper": {"$ref": "#/$defs/interval"},
+        "original_L_D2_upper": {"$ref": "#/$defs/interval"},
+        "original_L_inverse_D1_upper": {"$ref": "#/$defs/interval"},
+        "original_L_inverse_D2_upper": {"$ref": "#/$defs/interval"}
+      }
+    },
+    "gateBindings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "d_positive_lower", "minus_e_positive_lower", "kappa_lower",
+        "kappa_upper", "kappa_plus_d_lower", "half_denominator_lower",
+        "cos_theta_lower", "abs_sin_theta_upper", "radial_scale_lower",
+        "radial_scale_upper", "abs_theta_upper", "anchor_deviation_upper",
+        "normalized_L_D1_upper", "normalized_L_D2_upper",
+        "normalized_L_inverse_D1_upper", "normalized_L_inverse_D2_upper",
+        "original_L_D1_upper", "original_L_D2_upper",
+        "original_L_inverse_D1_upper", "original_L_inverse_D2_upper"
+      ],
+      "properties": {
+        "d_positive_lower": {"$ref": "#/$defs/rationalBinding"},
+        "minus_e_positive_lower": {"$ref": "#/$defs/rationalBinding"},
+        "kappa_lower": {"$ref": "#/$defs/rationalBinding"},
+        "kappa_upper": {"$ref": "#/$defs/rationalBinding"},
+        "kappa_plus_d_lower": {"$ref": "#/$defs/rationalBinding"},
+        "half_denominator_lower": {"$ref": "#/$defs/rationalBinding"},
+        "cos_theta_lower": {"$ref": "#/$defs/rationalBinding"},
+        "abs_sin_theta_upper": {"$ref": "#/$defs/rationalBinding"},
+        "radial_scale_lower": {"$ref": "#/$defs/rationalBinding"},
+        "radial_scale_upper": {"$ref": "#/$defs/rationalBinding"},
+        "abs_theta_upper": {"$ref": "#/$defs/rationalBinding"},
+        "anchor_deviation_upper": {"$ref": "#/$defs/rationalBinding"},
+        "normalized_L_D1_upper": {"$ref": "#/$defs/rationalBinding"},
+        "normalized_L_D2_upper": {"$ref": "#/$defs/rationalBinding"},
+        "normalized_L_inverse_D1_upper": {"$ref": "#/$defs/rationalBinding"},
+        "normalized_L_inverse_D2_upper": {"$ref": "#/$defs/rationalBinding"},
+        "original_L_D1_upper": {"$ref": "#/$defs/rationalBinding"},
+        "original_L_D2_upper": {"$ref": "#/$defs/rationalBinding"},
+        "original_L_inverse_D1_upper": {"$ref": "#/$defs/rationalBinding"},
+        "original_L_inverse_D2_upper": {"$ref": "#/$defs/rationalBinding"}
+      }
+    },
+    "worstCell": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["cell_indices", "observed_metric"],
+      "properties": {
+        "cell_indices": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {"type": "integer", "minimum": 0}
+        },
+        "observed_metric": {"$ref": "#/$defs/interval"}
+      }
+    },
+    "worstCells": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "d_positive_lower", "minus_e_positive_lower", "kappa_lower",
+        "kappa_upper", "kappa_plus_d_lower", "half_denominator_lower",
+        "cos_theta_lower", "abs_sin_theta_upper", "radial_scale_lower",
+        "radial_scale_upper", "abs_theta_upper", "anchor_deviation_upper",
+        "normalized_L_D1_upper", "normalized_L_D2_upper",
+        "normalized_L_inverse_D1_upper", "normalized_L_inverse_D2_upper",
+        "original_L_D1_upper", "original_L_D2_upper",
+        "original_L_inverse_D1_upper", "original_L_inverse_D2_upper"
+      ],
+      "properties": {
+        "d_positive_lower": {"$ref": "#/$defs/worstCell"},
+        "minus_e_positive_lower": {"$ref": "#/$defs/worstCell"},
+        "kappa_lower": {"$ref": "#/$defs/worstCell"},
+        "kappa_upper": {"$ref": "#/$defs/worstCell"},
+        "kappa_plus_d_lower": {"$ref": "#/$defs/worstCell"},
+        "half_denominator_lower": {"$ref": "#/$defs/worstCell"},
+        "cos_theta_lower": {"$ref": "#/$defs/worstCell"},
+        "abs_sin_theta_upper": {"$ref": "#/$defs/worstCell"},
+        "radial_scale_lower": {"$ref": "#/$defs/worstCell"},
+        "radial_scale_upper": {"$ref": "#/$defs/worstCell"},
+        "abs_theta_upper": {"$ref": "#/$defs/worstCell"},
+        "anchor_deviation_upper": {"$ref": "#/$defs/worstCell"},
+        "normalized_L_D1_upper": {"$ref": "#/$defs/worstCell"},
+        "normalized_L_D2_upper": {"$ref": "#/$defs/worstCell"},
+        "normalized_L_inverse_D1_upper": {"$ref": "#/$defs/worstCell"},
+        "normalized_L_inverse_D2_upper": {"$ref": "#/$defs/worstCell"},
+        "original_L_D1_upper": {"$ref": "#/$defs/worstCell"},
+        "original_L_D2_upper": {"$ref": "#/$defs/worstCell"},
+        "original_L_inverse_D1_upper": {"$ref": "#/$defs/worstCell"},
+        "original_L_inverse_D2_upper": {"$ref": "#/$defs/worstCell"}
+      }
+    },
+    "rounding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "tests", "mxcsr_available", "legacy_capd_is_working"],
+      "properties": {
+        "status": {"$ref": "#/$defs/verdict"},
+        "tests": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "status", "detail"],
+            "properties": {
+              "id": {"type": "string", "minLength": 1},
+              "status": {"$ref": "#/$defs/verdict"},
+              "detail": {"type": "string"}
+            }
+          }
+        },
+        "mxcsr_available": {"type": "boolean"},
+        "legacy_capd_is_working": {"type": "boolean"},
+        "mxcsr_pre_restore_hex": {"type": "string", "pattern": "^0x[0-9a-f]+$"}
+      }
+    },
+    "fullProbe": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version", "status", "mathematical_status", "structure_status",
+        "input_binding", "rounding_self_test", "grid", "structure_checks",
+        "scalar_jets", "L_jets", "L_inverse_jets", "conditioning",
+        "gate_margins", "worst_cells", "obligations", "claim_boundary"
+      ],
+      "properties": {
+        "schema_version": {"const": "rfsn-vdp-p2d-symplectic-frame-probe/1"},
+        "status": {"$ref": "#/$defs/verdict"},
+        "mathematical_status": {"$ref": "#/$defs/verdict"},
+        "structure_status": {"$ref": "#/$defs/verdict"},
+        "input_binding": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["bridge", "acceptance_gates", "normalized_D1_order", "normalized_D2_symmetric_order", "original_D1_order", "original_D2_symmetric_order"],
+          "properties": {
+            "bridge": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["r", "a2", "epsilon"],
+              "properties": {
+                "r": {"$ref": "#/$defs/interval"},
+                "a2": {"$ref": "#/$defs/interval"},
+                "epsilon": {"$ref": "#/$defs/interval"}
+              }
+            },
+            "acceptance_gates": {"$ref": "#/$defs/gateBindings"},
+            "normalized_D1_order": {"const": ["theta_r", "theta_a", "theta_epsilon"]},
+            "normalized_D2_symmetric_order": {"const": ["theta_r,theta_r", "theta_r,theta_a", "theta_r,theta_epsilon", "theta_a,theta_a", "theta_a,theta_epsilon", "theta_epsilon,theta_epsilon"]},
+            "original_D1_order": {"const": ["r", "a2", "epsilon"]},
+            "original_D2_symmetric_order": {"const": ["r,r", "r,a2", "r,epsilon", "a2,a2", "a2,epsilon", "epsilon,epsilon"]}
+          }
+        },
+        "rounding_self_test": {"$ref": "#/$defs/rounding"},
+        "grid": {
+          "const": {
+            "ordered_axes": ["theta_r", "theta_a", "theta_epsilon"],
+            "subdivisions": [16, 8, 4],
+            "cell_count": 512
+          }
+        },
+        "structure_checks": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "bridge_matches_frozen_contract",
+            "subdivisions_match_frozen_contract",
+            "gates_match_frozen_contract",
+            "all_gate_rationals_strictly_positive",
+            "gap_free_exact_rational_grid",
+            "cell_count_matches_frozen_contract",
+            "complete_scalar_set",
+            "complete_L_and_L_inverse_entries",
+            "complete_first_and_symmetric_second_multiindices",
+            "parameter_ad_hessians_bit_symmetric",
+            "all_sqrt_and_reciprocal_domains_valid",
+            "L_inverse_constructed_by_symplectic_formula",
+            "raw_scope_excludes_exact_audit_and_P2bK_authentication"
+          ],
+          "properties": {
+            "bridge_matches_frozen_contract": {"type": "boolean"},
+            "subdivisions_match_frozen_contract": {"type": "boolean"},
+            "gates_match_frozen_contract": {"type": "boolean"},
+            "all_gate_rationals_strictly_positive": {"type": "boolean"},
+            "gap_free_exact_rational_grid": {"type": "boolean"},
+            "cell_count_matches_frozen_contract": {"type": "boolean"},
+            "complete_scalar_set": {"type": "boolean"},
+            "complete_L_and_L_inverse_entries": {"type": "boolean"},
+            "complete_first_and_symmetric_second_multiindices": {"type": "boolean"},
+            "parameter_ad_hessians_bit_symmetric": {"type": "boolean"},
+            "all_sqrt_and_reciprocal_domains_valid": {"type": "boolean"},
+            "L_inverse_constructed_by_symplectic_formula": {"type": "boolean"},
+            "raw_scope_excludes_exact_audit_and_P2bK_authentication": {"type": "boolean"}
+          }
+        },
+        "scalar_jets": {"$ref": "#/$defs/scalarJets"},
+        "L_jets": {"$ref": "#/$defs/matrix"},
+        "L_inverse_jets": {"$ref": "#/$defs/matrix"},
+        "conditioning": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["conditional_on_external_exact_L0_orthogonality", "L_minus_L0_frobenius_upper", "L_operator_upper_from_anchor", "L_smallest_singular_lower_from_anchor", "L_inverse_operator_upper_from_anchor"],
+          "properties": {
+            "conditional_on_external_exact_L0_orthogonality": {"const": true},
+            "L_minus_L0_frobenius_upper": {"$ref": "#/$defs/interval"},
+            "L_operator_upper_from_anchor": {"$ref": "#/$defs/interval"},
+            "L_smallest_singular_lower_from_anchor": {"$ref": "#/$defs/interval"},
+            "L_inverse_operator_upper_from_anchor": {"$ref": "#/$defs/interval"}
+          }
+        },
+        "gate_margins": {"$ref": "#/$defs/gateIntervals"},
+        "worst_cells": {"$ref": "#/$defs/worstCells"},
+        "obligations": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["id", "component", "status", "predicate", "gate_margins"],
+            "properties": {
+              "id": {"const": "V2.CHART.SYMPLECTIC_FRAME"},
+              "component": {"const": "interval_component_only"},
+              "status": {"$ref": "#/$defs/verdict"},
+              "predicate": {"type": "string", "minLength": 1},
+              "gate_margins": {"$ref": "#/$defs/gateIntervals"}
+            }
+          }
+        },
+        "claim_boundary": {
+          "const": {
+            "raw_pass_scope": "interval_frame_predicate_only",
+            "claim_bearing": false,
+            "exact_audit_included_in_raw_status": false,
+            "P2bK_prerequisite_included_in_raw_status": false,
+            "nonlinear_normal_form_included": false,
+            "V2_CHART_SYMPLECTIC_FRAME_closed_by_raw_probe": false,
+            "V2_EXACT_CHART_closed": false
+          }
+        }
+      }
+    },
+    "errorProbe": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schema_version", "status", "mathematical_status", "structure_status", "error"],
+      "properties": {
+        "schema_version": {"const": "rfsn-vdp-p2d-symplectic-frame-probe/1"},
+        "status": {"const": "FAIL"},
+        "mathematical_status": {"const": "FAIL"},
+        "structure_status": {"const": "FAIL"},
+        "error": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}

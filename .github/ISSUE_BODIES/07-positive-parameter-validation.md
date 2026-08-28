@@ -40,7 +40,10 @@ quantitative margins.
 - [x] P2d exact-interface scout: 59 symbolic checks for the positive-Kato
       reversible symplectic completion, action dictionary, radial section
       forms/gauges, and linear logarithmic time/phase slopes
-- [ ] P2d--P2e exact charts/event atlas
+- [x] P2d local `V2.CHART.SYMPLECTIC_FRAME`: archived P2bK prerequisite,
+      59 exact checks, and all 20 strict frame/parameter-\(C^2\) gates on the
+      exact-rational \(16\times8\times4\) bridge cover
+- [ ] Remaining six P2d chart atoms and the P2e event atlas
 - [ ] P3--P5 positive pole, outer channel, matching/finite parts, and V6 census
 - [ ] Independent replay on a genuinely distinct machine (currently 1/2)
 
@@ -65,21 +68,30 @@ See
 This work makes no claim of temporal stability, Turing selection, or canard
 identification.
 
-The P2d exact-interface scout has local audit status `PASS`, but all seven
-`V2.CHART.*` atoms remain `OPEN`: it intentionally proves no nonlinear Moser
-chart, nonlinear zero-energy fiber, weighted passage constants, physical
-slides, or overlap atlas.  Its purpose is to freeze the correct Kato action
-and phase convention before those claim-relevant constructions.  In
-particular the full four-dimensional frozen-to-Kato conjugation preserves the
-action value and its sign, while direct Kato-section quadrature gives the
-negative logarithmic phase coefficient.  The next active gate is the
-constructive analytic normal form on an explicit complex domain.
+P2d now has one locally closed child atom.  The archived P2bK mathematical
+pass, all 59 deterministic exact checks, and the separately implemented
+strict interval frame run together give local mathematical `PASS` for
+`V2.CHART.SYMPLECTIC_FRAME`.  The reference-toolchain development run passes
+its raw, integrity, and mathematical checks, but it was made from a dirty
+tree; the formal source-bound repository certificate must be generated after
+a clean commit.  Its aggregate therefore remains `INCONCLUSIVE` and
+`claim_bearing=false`.
+
+The other six `V2.CHART.*` atoms and `V2.EXACT_CHART` remain `OPEN`.  The
+current result proves no nonlinear Moser chart, nonlinear zero-energy branch,
+exact nonlinear sections, weighted passage constants, physical slides, or
+overlap atlas.  It does fix the Kato action and phase conventions: the full
+four-dimensional frozen-to-Kato conjugation preserves the action value and
+its sign, while direct Kato-section quadrature gives the negative logarithmic
+phase coefficient.  The next active gate is the constructive analytic normal
+form on an explicit complex domain.
 
 ## Outcome
 
-P2c is locally `PASS` and aggregate `INCONCLUSIVE` under the independent-replay
-policy.  The active mathematical path is the nonlinear part of P2d
-`V2.EXACT_CHART`, then P2e
+P2c and the P2d symplectic-frame child atom are locally `PASS`; their aggregate
+status remains `INCONCLUSIVE` under the provenance and independent-replay
+policy.  The active mathematical path is the six remaining children of P2d
+`V2.EXACT_CHART`, beginning with `V2.CHART.ANALYTIC_NORMAL_FORM`, then P2e
 `V2.EVENT_ATLAS`, followed by P3--P5.  Every new scope must freeze its theorem
 objects before its claim-bearing run; computation must not choose the theorem
 after seeing the output.
