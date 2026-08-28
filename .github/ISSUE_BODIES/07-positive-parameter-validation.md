@@ -55,72 +55,40 @@ quantitative margins.
       second-jet majorant, explicit domains and two-sided maps, exact primitive,
       joint state--parameter \(C^2\) tails, and 38 authenticated source-bound
       checks
-- [ ] Remaining five P2d chart atoms and the P2e event atlas
+- [x] P2d `V2.CHART.ZERO_ENERGY` local mathematical pass: one uniform analytic
+      nonlinear zero-energy fiber with strict rational Krawczyk inclusion
+- [x] P2d `V2.CHART.EXACT_SECTIONS` local mathematical pass: frozen nonlinear
+      radial sections, exact gauges, and signed action preservation
+- [x] P2d `V2.CHART.WEIGHTED_PASSAGE` local mathematical pass: signed
+      logarithmic time/phase laws, absolute Kato deck, all-finite-order
+      generator, clock inversion, and local radial winding/time comparison
+- [ ] Remaining two P2d chart atoms (`PHYSICAL_SLIDES`, `OVERLAPS`) and the
+      P2e event atlas
 - [ ] P3--P5 positive pole, outer channel, matching/finite parts, and V6 census
 - [ ] Independent replay on a genuinely distinct machine (currently 1/2)
 
-The clean certificates through P2c, together with the P2d frame-child
-certificate, have local integrity and mathematical `PASS`, but their aggregate
-status is `INCONCLUSIVE` and
-`claim_bearing=false` while independent replay remains open.  Separately, the
-later scoped obligations remain open.  The full strict P2c run passes the
-16,384-cell selected-branch cover, all 44,416 internal common faces, first
-hit, transversality, actual-root parameter two-jets, both infinite tails, and
-the fixed-\(\xi\) continuous \(C^2\) compact middle.  Their global composition
-has \(T_*=11\), \(\eta=1/5\), and \(C_{\rm hom}=71496600\).  No large-box
-exclusion outside the validated parameter-following lifted tube is required.
-The local P2c summary certificate/checker parses the archived strict logs and
-replays the exact tail composition, so all five P2c atoms and their local
-parent now pass.  Its aggregate remains `INCONCLUSIVE` and non-claim-bearing;
-the five remaining P2d chart atoms, P2e--P5, and independent replay remain
-pending.  The certificate was generated
-from clean source commit `15664b600316d97ddef8487a279367495f4f1ed9`; its
-SHA-256 is
-`38709fac54569f190f3663df95baedbdb6e0c646d3ec372385a1373dfaf34d34`.
-See
-[`P2C_CERTIFICATE_REPORT.md`](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/blob/main/validation/rigorous/P2C_CERTIFICATE_REPORT.md).
-This work makes no claim of temporal stability, Turing selection, or canard
-identification.
-
-P2d first obtained one formally archived local child certificate.  The
-archived P2bK mathematical pass, all 59 deterministic exact checks, and the
-separately implemented strict interval frame run together give local
-mathematical `PASS` for `V2.CHART.SYMPLECTIC_FRAME`.  The clean-source certificate
-[`vdp_bridge_v1_p2d_symplectic_frame.json`](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/blob/main/validation/rigorous/results/vdp_bridge_v1_p2d_symplectic_frame.json)
-has integrity and mathematical status `PASS`; its source revision and byte
-bindings are recorded inside it.  Its final status remains `INCONCLUSIVE`,
-`claim_bearing=false`, and `release_eligible=false`, with independent replay at
-1 of 2 distinct machines.  See
-[`P2D_FRAME_REPORT.md`](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/blob/main/validation/rigorous/P2D_FRAME_REPORT.md).
-
-The exact finite-prefix audit passes 26 checks, and the design-only global
-Moser scout passes the candidate input and domain inequalities recorded in
-[`P2D_NORMAL_FORM_DESIGN_REPORT.md`](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/blob/main/validation/rigorous/P2D_NORMAL_FORM_DESIGN_REPORT.md).
-Neither historical artifact is a certificate or closes an obligation by
-itself.
-
-The all-orders recurrence, maps, inverse, primitive, and joint
-state--parameter \(C^2\) tails are now proved in
-[`EXPLICIT_GLOBAL_MOSER_MAJORANT.md`](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/blob/main/theory/EXPLICIT_GLOBAL_MOSER_MAJORANT.md).
-The authenticated exact-rational source-bound checker passes all 38 gates, so
-`V2.CHART.ANALYTIC_NORMAL_FORM` now has local mathematical `PASS`; see
-[`P2D_NORMAL_FORM_REPORT.md`](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/blob/main/validation/rigorous/P2D_NORMAL_FORM_REPORT.md).
-This is the second locally closed P2d child.  Its aggregate remains
-`INCONCLUSIVE`, `claim_bearing=false`, and independent replay remains 1/2.
-The other five `V2.CHART.*` atoms and `V2.EXACT_CHART` remain `OPEN`.  In
-particular, the current result proves no nonlinear zero-energy branch, exact
-nonlinear sections, weighted passage constants, physical slides, or overlap
-atlas.  The next active gate is `V2.CHART.ZERO_ENERGY`.
+P2c and the first five P2d children now have scoped local mathematical
+`PASS`.  The P2d chain is documented in the
+[`frame`](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/blob/main/validation/rigorous/P2D_FRAME_REPORT.md),
+[`normal-form`](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/blob/main/validation/rigorous/P2D_NORMAL_FORM_REPORT.md),
+[`zero-energy`](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/blob/main/validation/rigorous/P2D_ZERO_ENERGY_REPORT.md),
+[`exact-sections`](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/blob/main/validation/rigorous/P2D_EXACT_SECTIONS_REPORT.md),
+and [`weighted-passage`](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/blob/main/validation/rigorous/P2D_WEIGHTED_PASSAGE_REPORT.md)
+reports.  Every aggregate remains `INCONCLUSIVE`, `claim_bearing=false`, and
+`release_eligible=false`; independent replay remains 1/2.  The local radial
+winding/time comparison does not close the physical comparison, which still
+requires bounded incoming/outgoing slide times.  The next active gate is
+`V2.CHART.PHYSICAL_SLIDES`, followed by `V2.CHART.OVERLAPS`; the parent
+`V2.EXACT_CHART` remains `OPEN`.  This work makes no claim of temporal
+stability, Turing selection, or canard identification.
 
 ## Outcome
 
-P2c and the first two P2d child atoms are locally `PASS`; their aggregate
+P2c and the first five P2d child atoms are locally `PASS`; their aggregate
 status remains `INCONCLUSIVE` under the provenance and independent-replay
-policy.  The exact \(q=1,2\) prefix and the former Proposed normal-form design
-gates are historical inputs; the complete proof and source-bound checker close
-the analytic-normal-form child locally.  The active mathematical path is the
-five remaining children of P2d `V2.EXACT_CHART`, beginning with
-`V2.CHART.ZERO_ENERGY`, then P2e
+policy.  The active mathematical path is the two remaining children of P2d
+`V2.EXACT_CHART`, beginning with `V2.CHART.PHYSICAL_SLIDES` and then
+`V2.CHART.OVERLAPS`, followed by P2e
 `V2.EVENT_ATLAS`, followed by P3--P5.  Every new scope must freeze its theorem
 objects before its claim-bearing run; computation must not choose the theorem
 after seeing the output.

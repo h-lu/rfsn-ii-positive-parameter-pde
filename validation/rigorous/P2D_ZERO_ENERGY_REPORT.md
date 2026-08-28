@@ -133,29 +133,31 @@ derivatives use the exact factor
 ## Current repository chart status
 
 The zero-energy checker itself is deliberately scoped and therefore reports
-downstream children as `OPEN`.  The separately bound exact-sections artifact
-has since supplied the fourth local child pass recorded here.
+downstream children as `OPEN`.  The separately bound exact-sections and
+weighted-passage artifacts have since supplied the fourth and fifth local
+child passes recorded here.
 
 ```text
 V2.CHART.SYMPLECTIC_FRAME       PASS
 V2.CHART.ANALYTIC_NORMAL_FORM   PASS
 V2.CHART.ZERO_ENERGY            PASS
 V2.CHART.EXACT_SECTIONS         PASS
-V2.CHART.WEIGHTED_PASSAGE       OPEN
+V2.CHART.WEIGHTED_PASSAGE       PASS
 V2.CHART.PHYSICAL_SLIDES        OPEN
 V2.CHART.OVERLAPS               OPEN
 V2.EXACT_CHART                  OPEN
 ```
 
-The next mathematical gate is `V2.CHART.WEIGHTED_PASSAGE`; see
-[`P2D_EXACT_SECTIONS_REPORT.md`](P2D_EXACT_SECTIONS_REPORT.md) for the
-intervening local pass.
+The next mathematical gate is `V2.CHART.PHYSICAL_SLIDES`; see
+[`P2D_EXACT_SECTIONS_REPORT.md`](P2D_EXACT_SECTIONS_REPORT.md) and
+[`P2D_WEIGHTED_PASSAGE_REPORT.md`](P2D_WEIGHTED_PASSAGE_REPORT.md) for the
+intervening local passes.
 
 ## Claim boundary
 
 This local child pass alone does not prove the exact nonlinear radial
-sections; that is supplied by the separately bound artifact just cited.  It
-does not prove the weighted time/phase law, physical slides, overlap atlas,
+sections or weighted passage; those are supplied by the separately bound
+artifacts just cited.  It does not prove physical slides, overlap atlas,
 compact event atlas, positive ends, exhaustive V6 census, temporal stability,
 Turing selection, or canard identification.  It does not alter any historical
 frame certificate.  Repository-level claim-bearing status remains unavailable

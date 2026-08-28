@@ -87,20 +87,24 @@ V2.CHART.SYMPLECTIC_FRAME       PASS
 V2.CHART.ANALYTIC_NORMAL_FORM   PASS
 V2.CHART.ZERO_ENERGY            PASS
 V2.CHART.EXACT_SECTIONS         PASS
-V2.CHART.WEIGHTED_PASSAGE       OPEN
+V2.CHART.WEIGHTED_PASSAGE       PASS
 V2.CHART.PHYSICAL_SLIDES        OPEN
 V2.CHART.OVERLAPS               OPEN
 V2.EXACT_CHART                  OPEN
 ```
 
-The next mathematical gate is `V2.CHART.WEIGHTED_PASSAGE`.
+The separately proof-bound weighted-passage artifact has since supplied the
+fifth local child pass.  The next mathematical gate is
+`V2.CHART.PHYSICAL_SLIDES`; see
+[`P2D_WEIGHTED_PASSAGE_REPORT.md`](P2D_WEIGHTED_PASSAGE_REPORT.md).
 
 ## Claim boundary
 
-This local child pass does not prove weighted-log time or Kato-phase
-remainders, the all-order weighted generator, physical slides, overlap
-transitions, the compact event atlas, positive ends, the exhaustive V6
-census, temporal stability, Turing selection, or canard identification.
+This exact-sections child alone does not prove the weighted-passage result;
+that is supplied by the separately bound artifact just cited.  Neither child
+proves physical slides, overlap transitions, the compact event atlas,
+positive ends, the exhaustive V6 census, temporal stability, Turing
+selection, or canard identification.
 
 ## Reproduction
 

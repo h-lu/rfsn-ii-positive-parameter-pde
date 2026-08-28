@@ -98,8 +98,12 @@ and [`P2D_ZERO_ENERGY_REPORT.md`](P2D_ZERO_ENERGY_REPORT.md).  The fourth
 child, `V2.CHART.EXACT_SECTIONS`, now also has a local mathematical
 `PASS` from
 [`EXPLICIT_EXACT_RADIAL_SECTIONS.md`](../../theory/EXPLICIT_EXACT_RADIAL_SECTIONS.md)
-and [`P2D_EXACT_SECTIONS_REPORT.md`](P2D_EXACT_SECTIONS_REPORT.md).  The
-remaining three P2d child atoms and `V2.EXACT_CHART` remain `OPEN`.
+and [`P2D_EXACT_SECTIONS_REPORT.md`](P2D_EXACT_SECTIONS_REPORT.md).  The fifth
+child, `V2.CHART.WEIGHTED_PASSAGE`, now has a local mathematical `PASS` from
+[`EXPLICIT_WEIGHTED_KATO_PASSAGE.md`](../../theory/EXPLICIT_WEIGHTED_KATO_PASSAGE.md)
+and [`P2D_WEIGHTED_PASSAGE_REPORT.md`](P2D_WEIGHTED_PASSAGE_REPORT.md).  The
+remaining two P2d child atoms, `V2.CHART.PHYSICAL_SLIDES` and
+`V2.CHART.OVERLAPS`, and the parent `V2.EXACT_CHART` remain `OPEN`.
 
 ## 2. Exact moving eigenframe for P2a
 
@@ -1116,8 +1120,11 @@ local mathematical `PASS` for `V2.CHART.ZERO_ENERGY`; see
 section radius, exact arbitrary-\(q\) identities, and physical primitive
 gauges also establish local mathematical `PASS` for
 `V2.CHART.EXACT_SECTIONS`; see
-[`P2D_EXACT_SECTIONS_REPORT.md`](P2D_EXACT_SECTIONS_REPORT.md).  The remaining
-three child atoms are separate mathematical obligations, so the parent
+[`P2D_EXACT_SECTIONS_REPORT.md`](P2D_EXACT_SECTIONS_REPORT.md).  The signed
+weighted passage, all-finite-order generator, and clock inversion likewise
+establish local mathematical `PASS` for `V2.CHART.WEIGHTED_PASSAGE`; see
+[`P2D_WEIGHTED_PASSAGE_REPORT.md`](P2D_WEIGHTED_PASSAGE_REPORT.md).  The
+remaining two child atoms are separate mathematical obligations, so the parent
 `V2.EXACT_CHART` remains `OPEN`.
 
 There is a mandatory sign dictionary.  With the positive Kato orientation,
@@ -1235,13 +1242,29 @@ single explicit uniform lower bound
 \(e^{\alpha_\mu t_{\mu,\sigma}}\ge c_*>0\), the Kato-oriented sign in (D9), and the
 explicit \(D_\mu^{\le2}D_{\log\nu}^{\le3}\) bounds.  The analytic majorant
 must also expose the rule producing both \(\nu_{*,m}>0\) and \(C_m<\infty\)
-for every fixed \(m\ge0\).  It must imply the bounded Kato winding/residence comparison
+for every fixed \(m\ge0\).  At the auxiliary radial sections it must imply
+the bounded comparison
+
+\[
+ \left|n^{\rm K}-\frac{\beta_\mu}{2\pi}T^{\rm K}_\mu\right|
+ \le C_{\rm rad}.
+\]
+
+This is the weighted-passage child obligation.  The full physical
+winding/residence statement is
 
 \[
  \left|n^{\rm K}-\frac{\beta_\mu}{2\pi}
  \mathcal T_{{\rm sf},\mu}\right|\le C.
 \tag{D12}
 \]
+
+It additionally uses
+\(\mathcal T_{{\rm sf},\mu}=T^{\rm K}_\mu+T^{\rm in}_{\rm slide}
++T^{\rm out}_{\rm slide}\).  Therefore (D12) closes only after the
+physical-slide atom supplies uniform bounds for both finite slide times.  A
+local pass for the radial comparison must not be reported as a pass for
+(D12).
 
 For the positive clock lift \(\beta_\mu T=2\pi n+\theta\), it must also
 export the convention-dependent but downstream-essential combinations
@@ -1266,7 +1289,8 @@ collar.  It then verifies face transversality, block containment, flow-domain
 buffers, event-free slides, first-hit uniqueness and speed, and the required
 state-\(C^3\)/parameter-\(C^2\) bounds.  The complete connected event-cell
 census remains P2e; only the local collar exclusion needed by P2d is frozen
-here.
+here.  Its bounded slide times combine with the radial comparison above to
+close (D12).
 
 Finally, the overlap atom must validate a finite cover
 \(V_i\Subset U_i\), not silently replace it by one global nonlinear chart.

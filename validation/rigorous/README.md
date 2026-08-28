@@ -210,13 +210,19 @@ and checker [`check_p2d_exact_sections.py`](check_p2d_exact_sections.py)
 then freeze \(\rho=5/2^{26}\), verify strict inclusion of both nonlinear
 sections, fix their primitive gauges, and prove exact preservation of the
 same signed \(I_2^{\rm K}=\nu\).  They give local mathematical `PASS` for
-`V2.CHART.EXACT_SECTIONS`.  The
+`V2.CHART.EXACT_SECTIONS`.  Finally,
+[`EXPLICIT_WEIGHTED_KATO_PASSAGE.md`](../../theory/EXPLICIT_WEIGHTED_KATO_PASSAGE.md)
+and [`check_p2d_weighted_passage.py`](check_p2d_weighted_passage.py) prove and
+check the signed logarithmic time/phase law, absolute Kato deck, complete
+parameter-two-jet bounds, all-finite-log-order generator, and clock inversion.
+They give local mathematical `PASS` for `V2.CHART.WEIGHTED_PASSAGE`.  The
 aggregate remains `INCONCLUSIVE` and `claim_bearing=false` because independent
-replay is 1/2; the other three chart atoms and `V2.EXACT_CHART` remain `OPEN`.
-The next mathematical gate is `V2.CHART.WEIGHTED_PASSAGE`.  See
+replay is 1/2; physical slides, overlaps, and `V2.EXACT_CHART` remain `OPEN`.
+The next mathematical gate is `V2.CHART.PHYSICAL_SLIDES`.  See
 [`P2D_NORMAL_FORM_REPORT.md`](P2D_NORMAL_FORM_REPORT.md) and
 [`P2D_ZERO_ENERGY_REPORT.md`](P2D_ZERO_ENERGY_REPORT.md), and
-[`P2D_EXACT_SECTIONS_REPORT.md`](P2D_EXACT_SECTIONS_REPORT.md).
+[`P2D_EXACT_SECTIONS_REPORT.md`](P2D_EXACT_SECTIONS_REPORT.md), and
+[`P2D_WEIGHTED_PASSAGE_REPORT.md`](P2D_WEIGHTED_PASSAGE_REPORT.md).
 
 Run the two design checks with
 
@@ -250,6 +256,14 @@ Run the exact-radial-sections check with
 python3 -B validation/rigorous/check_p2d_exact_sections.py
 python3 -B -m unittest \
   validation.rigorous.tests.test_p2d_exact_sections -v
+```
+
+Run the weighted-passage check with
+
+```bash
+python3 -B validation/rigorous/check_p2d_weighted_passage.py
+python3 -B -m unittest \
+  validation.rigorous.tests.test_p2d_weighted_passage -v
 ```
 
 Check the archived certificate with

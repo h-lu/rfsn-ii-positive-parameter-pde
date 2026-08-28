@@ -32,8 +32,10 @@ remain authoritative.
   stated in the original PDE variables, V1--V7 are compressed into one proof
   spine, one schematic geometry figure is included, and hashes/provenance are
   separated into a supplement.
-- Issue #7 interval validation, temporal stability, Turing selection, and
-  canard identification remain deferred.  An independent human expert report
+- Issue #7 interval validation has resumed under Phase 5 and now has five
+  locally passed P2d chart children; the aggregate remains non-claim-bearing.
+  Temporal stability, Turing selection, and canard identification remain
+  deferred.  An independent human expert report
   is requested in Issue #9 and is not claimed before it is returned.
 
 ## 1. Decision
@@ -429,10 +431,9 @@ Continue the interval lane only under the existing fail-closed policy:
 - first refactor the Issue #7 obligation map around the hypotheses of the
   publication-facing analytic propositions, preserving every archived
   certificate and its evidence status;
-- use the now locally passed zero-energy graph and exact radial sections as
-  the input to the next `V2.CHART.WEIGHTED_PASSAGE` gate; attach physical
-  slides and finite overlaps only where the common block and marked atlas
-  consume them;
+- use the now locally passed weighted Kato passage as the input to the next
+  `V2.CHART.PHYSICAL_SLIDES` gate; attach finite overlaps only where the common
+  block and marked atlas consume them;
 - validate the model-specific finite inputs that determine the explicit box:
   the selected homoclinic and its transversality, positive-pole entry and
   terminal bounds, outer graph cone and bunching, exchange coefficient and

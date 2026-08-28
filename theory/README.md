@@ -84,8 +84,15 @@ When records differ, use the following order.
   radial-section identities, freezes a strict source-domain radius, fixes the
   incoming/outgoing primitive gauges, and proves exact preservation of the
   same signed Kato action.  Its exact-rational checker gives
-  `V2.CHART.EXACT_SECTIONS` a local mathematical `PASS`; weighted passage,
-  physical slides, overlaps, and `V2.EXACT_CHART` remain open.
+  `V2.CHART.EXACT_SECTIONS` a local mathematical `PASS` and supplies the
+  input to the weighted-passage result below.
+- [EXPLICIT_WEIGHTED_KATO_PASSAGE.md](EXPLICIT_WEIGHTED_KATO_PASSAGE.md)
+  proves the signed Kato time/phase laws on an explicit punctured action
+  collar, freezes the absolute lifted-argument deck, supplies parameter-two-jet
+  and all-finite-log-order bounds, and inverts the positive clock.  Its
+  proof-bound exact-rational checker gives `V2.CHART.WEIGHTED_PASSAGE` a local
+  mathematical `PASS`; physical slides, overlaps, and `V2.EXACT_CHART` remain
+  open.
 - [COMPACT_FAMILY_FIRST_HIT_THEOREM.md](COMPACT_FAMILY_FIRST_HIT_THEOREM.md)
   proves compact-family persistence and transfer of the already supplied
   passage, selector, cross forms, and physical event arrangement.  It is
