@@ -221,15 +221,24 @@ proof contract
 checker [`check_p2d_physical_slides.py`](check_p2d_physical_slides.py) then
 give local mathematical `PASS` for `V2.CHART.PHYSICAL_SLIDES`, including the
 inherited radius-\(1/100\) faces, finite first-hit slides, the complete
-regularity rectangle, and (D12) with \(C_{\rm phys}=7\).  The aggregate remains
-`INCONCLUSIVE` and `claim_bearing=false` because independent replay is 1/2;
-overlaps and `V2.EXACT_CHART` remain `OPEN`.  The next mathematical gate is
-`V2.CHART.OVERLAPS`.  See
+regularity rectangle, and (D12) with \(C_{\rm phys}=7\).  The final P2d proof
+contract
+[`EXPLICIT_FINITE_CHART_OVERLAPS.md`](../../theory/EXPLICIT_FINITE_CHART_OVERLAPS.md)
+and checker [`check_p2d_chart_overlaps.py`](check_p2d_chart_overlaps.py) give
+local mathematical `PASS` for `V2.CHART.OVERLAPS`: the two-member cover has
+common chart and inverse domains, identity exact-symplectic transitions and
+gauge differences, signed-axis preservation, regular oriented-blow-up
+extensions, and degree \(+1\) physical source markings.  All seven P2d chart
+children therefore give the local parent `V2.EXACT_CHART` mathematical
+`PASS`.  The aggregate remains `INCONCLUSIVE` and `claim_bearing=false`
+because P2e and later obligations remain open and independent replay is 1/2.
+See
 [`P2D_NORMAL_FORM_REPORT.md`](P2D_NORMAL_FORM_REPORT.md),
 [`P2D_ZERO_ENERGY_REPORT.md`](P2D_ZERO_ENERGY_REPORT.md),
 [`P2D_EXACT_SECTIONS_REPORT.md`](P2D_EXACT_SECTIONS_REPORT.md),
-[`P2D_WEIGHTED_PASSAGE_REPORT.md`](P2D_WEIGHTED_PASSAGE_REPORT.md), and
-[`P2D_PHYSICAL_SLIDES_REPORT.md`](P2D_PHYSICAL_SLIDES_REPORT.md).
+[`P2D_WEIGHTED_PASSAGE_REPORT.md`](P2D_WEIGHTED_PASSAGE_REPORT.md),
+[`P2D_PHYSICAL_SLIDES_REPORT.md`](P2D_PHYSICAL_SLIDES_REPORT.md), and
+[`P2D_CHART_OVERLAPS_REPORT.md`](P2D_CHART_OVERLAPS_REPORT.md).
 
 Run the two design checks with
 
@@ -279,6 +288,14 @@ Run the physical-slide check with
 python3 -B validation/rigorous/check_p2d_physical_slides.py
 python3 -B -m unittest \
   validation.rigorous.tests.test_p2d_physical_slides -v
+```
+
+Run the finite chart-overlap check with
+
+```bash
+python3 -B validation/rigorous/check_p2d_chart_overlaps.py
+python3 -B -m unittest \
+  validation.rigorous.tests.test_p2d_chart_overlaps -v
 ```
 
 Check the archived certificate with

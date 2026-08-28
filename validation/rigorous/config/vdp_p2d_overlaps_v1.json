@@ -1,0 +1,143 @@
+{
+  "schema_version": "rfsn-vdp-p2d-overlaps-config/1",
+  "configuration_id": "vdp-p2d-overlaps-v1",
+  "status": "FROZEN_PROOF_BOUND",
+  "normalized_parameter_cover": {
+    "coordinates": ["theta_r", "theta_a", "theta_epsilon"],
+    "ambient_box": {
+      "lower": {"numerator": "-1", "denominator": "1"},
+      "upper": {"numerator": "1", "denominator": "1"}
+    },
+    "relative_topology": true,
+    "relative_compact_containment_buffer": {
+      "numerator": "1",
+      "denominator": "4"
+    },
+    "original_r_compact_containment_buffer": {
+      "numerator": "1",
+      "denominator": "100"
+    },
+    "members": [
+      {
+        "id": "anchor",
+        "V_theta_r": {
+          "lower": {"numerator": "-1", "denominator": "1"},
+          "upper": {"numerator": "1", "denominator": "4"},
+          "upper_closed": true
+        },
+        "U_theta_r": {
+          "lower": {"numerator": "-1", "denominator": "1"},
+          "upper": {"numerator": "1", "denominator": "2"},
+          "upper_closed": false
+        }
+      },
+      {
+        "id": "positive",
+        "V_theta_r": {
+          "lower": {"numerator": "0", "denominator": "1"},
+          "upper": {"numerator": "1", "denominator": "1"},
+          "lower_closed": true
+        },
+        "U_theta_r": {
+          "lower": {"numerator": "-1", "denominator": "4"},
+          "upper": {"numerator": "1", "denominator": "1"},
+          "lower_closed": false
+        }
+      }
+    ]
+  },
+  "common_chart": {
+    "family_formula": "Phi_mu_K=L_mu composed with Theta_mu_R",
+    "inverse_formula": "Psi_mu_R composed with inverse(L_mu)",
+    "all_cover_members_are_restrictions_of_one_normalized_family": true,
+    "epsilon_nf": {"numerator": "1", "denominator": "4194304"},
+    "source_polydisc_radius": {
+      "numerator": "3",
+      "denominator": "33554432"
+    },
+    "inverse_polydisc_radius": {
+      "numerator": "1",
+      "denominator": "8388608"
+    },
+    "physical_target_polydisc_radius": {
+      "numerator": "1",
+      "denominator": "33554432"
+    },
+    "primitive_gauge": "f_mu with f_mu(0)=0",
+    "cover_overlap_transition": "identity",
+    "cover_overlap_inverse": "identity"
+  },
+  "section_markings": {
+    "auxiliary_radius": {
+      "numerator": "5",
+      "denominator": "67108864"
+    },
+    "physical_radius": {"numerator": "1", "denominator": "100"},
+    "action_collar": {
+      "numerator": "25",
+      "denominator": "288230376151711744"
+    },
+    "transported_slide_coordinate_transition": "(phase,nu)->(phase,nu)",
+    "transported_slide_coordinate_inverse": "(phase,nu)->(phase,nu)",
+    "physical_source_seam": "exp(i*kappa_mu(psi))=R_{-chi(mu)}*pi_u(T_mu^-1*iota_out_phys_mu(psi,0))/R",
+    "physical_source_seam_inverse": "lambda_mu=kappa_mu^(-1)",
+    "seam_is_not_assumed_to_be_a_constant_phase_translation": true
+  },
+  "physical_source_seam_gates": {
+    "mixed_total_order": 3,
+    "maximum_parameter_order": 2,
+    "full_rectangular_claim": false,
+    "endpoint_first_state_derivative_exponent": 9443,
+    "terminal_frame_operator_exponent": 3,
+    "unstable_graph_first_derivative_upper": {
+      "numerator": "1",
+      "denominator": "1"
+    },
+    "phase_derivative_strict_lower_exponent": -9441,
+    "algebraic_endpoint_full_rectangle_exponent": 46518425,
+    "unit_vector_full_rectangle_exponent": 46518440,
+    "forward_phase_recurrence": {
+      "k1_offset": 1,
+      "higher_partition_offset": 7,
+      "lift_displacement_offset": 4,
+      "maximum_total_order": 3
+    },
+    "inverse_phase_recurrence": {
+      "ell1_denominator_offset": 9442,
+      "higher_denominator_and_partition_offset": 9450,
+      "lift_displacement_offset": 4,
+      "maximum_total_order": 3
+    },
+    "boundary_degree": 1,
+    "seam_scope": "source phase boundary only; mixed derivatives of total order at most three"
+  },
+  "regularity_contract": {
+    "maximum_state_order": 3,
+    "maximum_external_parameter_order": 2,
+    "full_rectangular_claim": true,
+    "full_rectangular_scope": "identity chart, oriented-blow-up, and transported-slide transitions only",
+    "identity_transition_first_state_derivative_norm": {
+      "numerator": "1",
+      "denominator": "1"
+    },
+    "identity_transition_higher_state_derivatives": 0,
+    "positive_mixed_derivatives_of_transition_displacement": 0
+  },
+  "source_bindings": {
+    "theory/EXPLICIT_GLOBAL_MOSER_MAJORANT.md": "069d109a22fa502c2e6970de7e3ef4c60234e327138b9052df764b6f36cf8245",
+    "theory/EXPLICIT_PHYSICAL_SLIDES.md": "7fa2fc45827f7c8b41a0dabb3a2bd872f66088e61d3c26ed55d8c78bc80e187b",
+    "validation/rigorous/config/vdp_p2_jets_v1.json": "b8123dff51f7444277f71b1b8a5b0cdbbc94df46a848af05e8288751bb6681e0",
+    "validation/rigorous/config/vdp_p2d_physical_slides_v1.json": "fa7daa1273b508951e081378d938342f985271722bf4871669a30f4ab44a8f16",
+    "validation/rigorous/config/vdp_p2_kato_v1.json": "676de23609a66b9a6fa35d2cc476878018bc84b4615460719f9c2f87eb1823e3",
+    "validation/rigorous/results/vdp_bridge_v1_p2b_jets.json": "07b0949a3d403c0c0a85a4a157b86d7b32cce3ff0348aeffa1db474d441fca07",
+    "validation/rigorous/results/vdp_bridge_v1_p2b_kato.json": "c67cce575caa396eba5b4388e8ba9a0c9d73fd702f69911d64c878f57f27bff3"
+  },
+  "claim_boundary": {
+    "V2.CHART.OVERLAPS": "LOCAL_PASS_IF_PROOF_BINDING_MATCHES",
+    "V2.EXACT_CHART": "LOCAL_PASS_IF_ALL_SEVEN_CHILDREN_PASS",
+    "V2.EVENT_ATLAS": "OPEN",
+    "independent_replay": "1/2",
+    "claim_bearing": false,
+    "release_eligible": false
+  }
+}

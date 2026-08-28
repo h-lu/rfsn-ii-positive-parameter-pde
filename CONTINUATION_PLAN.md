@@ -5,7 +5,7 @@ research and publication plan, not a theorem, certificate, or change to the
 statuses in `CLAIM_REGISTER.md`.  The claim register and research contract
 remain authoritative.
 
-## Execution status on 2026-08-28
+## Execution status on 2026-08-29
 
 - Phase 0 is complete: the snapshot, remote synchronization, candidate
   contract refresh, issue reconciliation, and 181-test pass are recorded on
@@ -32,11 +32,13 @@ remain authoritative.
   stated in the original PDE variables, V1--V7 are compressed into one proof
   spine, one schematic geometry figure is included, and hashes/provenance are
   separated into a supplement.
-- Issue #7 interval validation has resumed under Phase 5 and now has five
-  locally passed P2d chart children; the aggregate remains non-claim-bearing.
-  Temporal stability, Turing selection, and canard identification remain
-  deferred.  An independent human expert report
-  is requested in Issue #9 and is not claimed before it is returned.
+- Issue #7 interval validation has resumed under Phase 5.  All seven P2d
+  chart children and the local parent `V2.EXACT_CHART` now pass mathematically
+  on their declared domains; P2e and later obligations remain open, and the
+  aggregate remains non-claim-bearing at independent replay 1/2.  Temporal
+  stability, Turing selection, and canard identification remain deferred.  An
+  independent human expert report is requested in Issue #9 and is not claimed
+  before it is returned.
 
 ## 1. Decision
 
@@ -431,9 +433,9 @@ Continue the interval lane only under the existing fail-closed policy:
 - first refactor the Issue #7 obligation map around the hypotheses of the
   publication-facing analytic propositions, preserving every archived
   certificate and its evidence status;
-- use the now locally passed weighted Kato passage and physical-slide gate as
-  the input to the remaining `V2.CHART.OVERLAPS` gate; attach only the finite
-  overlaps actually consumed by the common block and marked atlas;
+- use the locally passed P2d exact-chart package as the saddle input to the P2e
+  finite event atlas, retaining only the event faces and incidences required by
+  the common block and marked atlas;
 - validate the model-specific finite inputs that determine the explicit box:
   the selected homoclinic and its transversality, positive-pole entry and
   terminal bounds, outer graph cone and bunching, exchange coefficient and

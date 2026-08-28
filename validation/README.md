@@ -6,22 +6,12 @@ Nothing currently stored here is a claim-bearing computer-assisted proof.
 The floating candidate-contract remains deliberately non-claim-bearing, while
 [`rigorous/`](rigorous/README.md) contains the separate outward-rounded source
 lane and the formally frozen parameter box.  Formal local passes now cover
-phase 1, P2a, P2b/P2bK, the retrospective P2c homoclinic scope, and the P2d
-symplectic-frame atom.  The proved all-orders majorant plus its source-bound
-checker also gives local mathematical `PASS` for the P2d analytic-normal-form
-atom.  The explicit rational zero-energy-fiber checker now also gives local
-mathematical `PASS` for `V2.CHART.ZERO_ENERGY`.  The frozen nonlinear radial
-sections and their exact gauges likewise pass locally for
-`V2.CHART.EXACT_SECTIONS`.  The proof-bound weighted Kato passage now also
-passes locally for `V2.CHART.WEIGHTED_PASSAGE`, including the signed
-time/phase law, all-finite-log-order generator, clock inversion, and local
-radial winding/time comparison.
-`V2.CHART.PHYSICAL_SLIDES` now also passes locally: the inherited physical
-faces, event-free finite slides, unique first hits, complete regularity
-rectangle, and physical comparison (D12) with \(C_{\rm phys}=7\) are
-proof-bound.  Every aggregate status remains `INCONCLUSIVE` and
-`claim_bearing: false` while the required independent replay is 1/2 and the
-parent scopes remain incomplete.
+phase 1, P2a, P2b/P2bK, the retrospective P2c homoclinic scope, and all seven
+P2d chart atoms.  The finite-overlap proof and its bound checker complete the
+last P2d atom, so the local parent `V2.EXACT_CHART` also has mathematical
+`PASS` on its declared domain.  Every aggregate status remains `INCONCLUSIVE`
+and `claim_bearing: false`: P2e and later obligations remain open, and the
+required independent replay is still 1/2.
 
 ## Two evidence lanes
 
@@ -218,11 +208,12 @@ compact finite-flow clauses.  The V3/V5A infinite-end remainders and the
 all-winding reduction still require model-specific interval estimates around
 the analytic constructions.
 
-## Current blockers after the P2d physical-slide gate
+## Current blockers after the P2d exact-chart gate
 
 - The frozen box is an exact rational prevalidation object.  Every current
-  local pass through the first six P2d chart children is non-claim-bearing;
-  the independent second-machine replay required by policy is pending.
+  local pass through all seven P2d chart children and their parent
+  `V2.EXACT_CHART` is non-claim-bearing; the independent second-machine replay
+  required by policy is pending.
 - The existing finite event faces are proxies rather than the complete V6
   physical arrangement and finite marked atlas; B1/A2 do not prove a component
   census, cross form, bounded overlap recoding, or every \(n\ge N\).
@@ -246,12 +237,13 @@ the analytic constructions.
   the exact tail algebra; all five P2c atoms and their local parent pass.  The
   subsequent P2d frame certificate and the proved all-orders
   normal-form/source-bound gate, the exact-rational zero-energy checker, the
-  exact radial-section, weighted-passage, and physical-slide checkers
+  exact radial-section, weighted-passage, physical-slide, and finite-overlap
+  checkers
   give local mathematical `PASS` for `V2.CHART.SYMPLECTIC_FRAME`,
   `V2.CHART.ANALYTIC_NORMAL_FORM`, `V2.CHART.ZERO_ENERGY`,
   `V2.CHART.EXACT_SECTIONS`, `V2.CHART.WEIGHTED_PASSAGE`, and
-  `V2.CHART.PHYSICAL_SLIDES`.  The remaining overlap child, the parent
-  `V2.EXACT_CHART`, and V3--V6 remain `PENDING` in
+  `V2.CHART.PHYSICAL_SLIDES`, and `V2.CHART.OVERLAPS`.  Thus the local parent
+  `V2.EXACT_CHART` also passes.  P2e and V3--V6 remain `PENDING` in
   [`rigorous/obligations.json`](rigorous/obligations.json).  All aggregate
   results remain non-claim-bearing until independent replay and their parent
   scopes are complete.
@@ -263,8 +255,8 @@ These blockers do not make the floating repository a toy.  Its deterministic
 raw outputs and complete B1/A2 return records provide candidate centers,
 scales, event ordering, interfaces, and observable checks for the rigorous
 implementation.  The current exact-chart frontier has local mathematical
-`PASS` through its sixth child, the physical slides; see the
-[`physical-slide report`](rigorous/P2D_PHYSICAL_SLIDES_REPORT.md).  The parent exact
-chart remains open, and the aggregate remains `INCONCLUSIVE` and
-non-claim-bearing.  This work makes no claim of temporal stability, Turing
-selection, or canard identification.
+`PASS` for all seven children and for the parent `V2.EXACT_CHART`; see the
+[`chart-overlap report`](rigorous/P2D_CHART_OVERLAPS_REPORT.md).  The aggregate
+remains `INCONCLUSIVE` and non-claim-bearing at independent replay 1/2.  This
+work makes no claim of temporal stability, Turing selection, or canard
+identification.

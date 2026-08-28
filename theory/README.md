@@ -70,15 +70,15 @@ When records differ, use the following order.
   \(q=1,2\) Lie prefix, the all-orders parameter-two-jet recurrence, explicit
   map/inverse domains and tails, and the fixed primitive gauge.  Combined
   with the bound source checker, it gives
-  `V2.CHART.ANALYTIC_NORMAL_FORM` a local mathematical `PASS`; the aggregate
-  remains non-claim-bearing and `V2.EXACT_CHART` remains open.
+  `V2.CHART.ANALYTIC_NORMAL_FORM` a local mathematical `PASS` and supplies the
+  common normalized family used by the later P2d results.  The repository
+  aggregate remains non-claim-bearing.
 - [EXPLICIT_ZERO_ENERGY_FIBER.md](EXPLICIT_ZERO_ENERGY_FIBER.md) transfers
   the resonant state majorant to the action variables, proves a strict common
   Krawczyk enclosure for the nonlinear zero-energy fiber, and supplies the
   mixed parameter-two-jet and all-finite-\(\nu\)-order Cauchy bounds.  Together
   with its exact-rational checker, it gives `V2.CHART.ZERO_ENERGY` a local
-  mathematical `PASS`; the downstream chart children and
-  `V2.EXACT_CHART` remain open.
+  mathematical `PASS` and supplies the nonlinear fiber used downstream.
 - [EXPLICIT_EXACT_RADIAL_SECTIONS.md](EXPLICIT_EXACT_RADIAL_SECTIONS.md)
   combines that nonlinear fiber with the authenticated arbitrary-\(q\)
   radial-section identities, freezes a strict source-domain radius, fixes the
@@ -97,8 +97,20 @@ When records differ, use the following order.
   proves event-free unique first hits with slide times below \(19\), supplies
   the complete state-\(C^3\)/parameter-\(C^2\) rectangle, and closes (D12) with
   \(C_{\rm phys}=7\).  Its proof-bound checker gives
-  `V2.CHART.PHYSICAL_SLIDES` a local mathematical `PASS`; overlaps and the
-  parent `V2.EXACT_CHART` remain open.
+  `V2.CHART.PHYSICAL_SLIDES` a local mathematical `PASS` and supplies the
+  physical markings used in the overlap result below.
+- [EXPLICIT_FINITE_CHART_OVERLAPS.md](EXPLICIT_FINITE_CHART_OVERLAPS.md)
+  constructs a two-member finite parameter cover with common chart and inverse
+  domains, proves that its nonlinear exact-chart cocycle and primitive-gauge
+  differences are identities, and compares the transported and direct physical
+  source markings with degree \(+1\) and mixed derivative bounds through total
+  order three (parameter order at most two).  Its
+  proof-bound checker
+  [`check_p2d_chart_overlaps.py`](../validation/rigorous/check_p2d_chart_overlaps.py)
+  gives `V2.CHART.OVERLAPS` a local mathematical `PASS`.  All seven P2d chart
+  children therefore give the local parent `V2.EXACT_CHART` a mathematical
+  `PASS`.  The aggregate remains `INCONCLUSIVE` and non-claim-bearing because
+  P2e and later obligations remain open and independent replay is 1/2.
 - [COMPACT_FAMILY_FIRST_HIT_THEOREM.md](COMPACT_FAMILY_FIRST_HIT_THEOREM.md)
   proves compact-family persistence and transfer of the already supplied
   passage, selector, cross forms, and physical event arrangement.  It is

@@ -96,7 +96,8 @@ core source circle is continued using this frame and the true unstable graph;
 its transported label \(\phi\) is declared to be the common source phase.
 Every local exact saddle chart is tangent-normalized to the same frame, and
 its oriented-blow-up boundary phase is compared with \(\phi\) by its
-\(C^3\)-in-phase, \(C^2\)-in-parameter, degree-one transition map.  This
+degree-one transition map, whose mixed derivatives through total order three
+(with parameter order at most two) are uniformly bounded.  This
 fixes the lift in which numerical
 phase gaps are compared; it is not an invariant claim about Euclidean angular
 distance under arbitrary phase reparametrizations.
@@ -843,19 +844,20 @@ degree \(+1\) for Kato-to-Kato overlap maps.  Thus the construction does not
 change the exact transverse action or weighted-log estimates after the
 Kato-section calculation above.
 
-On an overlap, the transition is the composition of one analytic exact
-symplectic saddle chart with the inverse of the other.  It preserves the
-stable and unstable axes, and tangent normalization gives a uniformly
-invertible axis derivative.  Taylor division by the corresponding radial
-variables therefore lifts the transition and its inverse to the oriented real
-blow-up.  The analytic state norm and its two parameter derivatives are
-uniform on a smaller common ball, so the lifted maps have the state-\(C^3\),
-parameter-\(C^2\) mixed bounds required by the admissible-marking change.
-Their boundary circle maps have degree one.  Separately, each transition from
-a normalized local boundary phase to the transported source phase is a
-\(C^2\) degree-one circle diffeomorphism, equal to the frozen transition at
-\(r=0\).  All source-phase comparisons below are made after this transition;
-no local angle gauge is silently identified with another.
+The explicit overlap construction uses restrictions of one normalized exact
+symplectic chart family.  Consequently the chart transition, its inverse,
+the primitive-gauge comparison, and the corresponding oriented-blow-up and
+transported-slide transitions are identities.  They therefore satisfy the
+full state-\(C^3\), parameter-\(C^2\) rectangular bounds required by the
+admissible-marking change, and their boundary circle maps have degree one.
+Separately, the transition from the normalized local boundary phase to the
+transported source phase is a degree-one circle diffeomorphism.  Its mixed
+derivatives are bounded through total order three, with parameter order at
+most two; no full rectangular regularity claim is made for this boundary-only
+seam.  All source-phase comparisons below are made after this transition, so
+no local angle gauge is silently identified with another.  The common
+domains, gauges, inverse bounds, and seam estimates are recorded in
+`theory/EXPLICIT_FINITE_CHART_OVERLAPS.md`.
 
 Compactness of (3) gives a finite parameter cover.  Taking the minimum section
 width and maximum constant on that finite cover, for each fixed \(m\), gives

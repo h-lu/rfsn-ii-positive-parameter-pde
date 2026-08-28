@@ -60,9 +60,11 @@ There are two mathematically different ways to justify such notation.
 
 The frozen flagship baseline proves the second route and explicitly does not
 assume or conclude a global eigenframe, angle lift, or winding label for a
-general intrinsic family. The van der Pol family has more global structure
-than that general setting, but the current V2 proof does not carry out the
-additional normalized analytic construction needed for the first route.
+general intrinsic family. The original V2 proof used here did not carry out
+the additional normalized analytic construction needed for the first route.
+Later local amendments now supply one globally normalized van der Pol Moser
+chart and its finite saddle-overlap cocycle. They do not yet supply the one
+global event cut and zero deck recoding required by the stronger route.
 
 This note therefore proves the finite-atlas bridge, records the exact extra
 hypothesis under which the global notation would become valid, and checks
@@ -358,26 +360,19 @@ The current repository proves the following relevant facts.
 | Finite \(C^2\) exact-chart cover with common weighted estimates | Theorem V2(3) | Verified |
 | Physical overlap agreement of sections, event faces, and first-hit maps | Theorem V2(3)--(4) | Verified |
 | Admissible degree-one oriented-blow-up transitions with bounded jets | V2 saddle-passage proof and frozen local theorem | Verified |
-| One globally normalized analytic Moser chart on a common domain | not stated or proved in V2 | **Open interface** |
-| Exact trivialization of the nonlinear chart cocycle, with zero deck recoding | not stated or proved in V2 | **Open interface** |
+| One globally normalized analytic Moser chart on a common domain | [EXPLICIT_GLOBAL_MOSER_MAJORANT.md](EXPLICIT_GLOBAL_MOSER_MAJORANT.md) | Verified |
+| Exact trivialization of the saddle-chart cocycle and comparison with the physical source marking | [EXPLICIT_FINITE_CHART_OVERLAPS.md](EXPLICIT_FINITE_CHART_OVERLAPS.md) | Verified |
+| One global cut avoiding every represented residual/event image, with zero deck recoding for the full alphabet | not supplied by the saddle overlap result; requires the complete marked event arrangement | **Open T2G interface** |
 
-There is no evident topological obstruction to the two open items. A
-plausible proof route would rerun the frozen normalized analytic Moser scheme
-over the entire box using the global Kato frame, a fixed homological
-projection, and a fixed normalized inverse, then prove common-radius
-convergence and uniqueness on every old overlap. It would next transport the
-resulting exact section coordinates through the V2 physical slides and align
-the single angular cut. That argument is not present in the current files,
-so it is not supplied here by assertion.
+Thus the later amendments settle the analytic and saddle-gauge part that was
+open when this note was written. The remaining stronger globalization is a
+cut/event statement: it must align one half-open lift with the complete
+physical event atlas and prove zero deck recoding for every retained branch.
+That is not a consequence of a global Moser formula or of a degree-one source
+seam.
 
-The **minimal unresolved step** is therefore analytic/gauge compatibility,
-not the topology of the parameter box or of the phase circle bundle:
-
-> Prove that the locally normalized exact saddle charts form a trivial
-> \(C^2\) cocycle in a normalization which preserves the exact passage,
-> physical section slides, and the chosen residual-phase cut.
-
-Until that step is proved, Proposition 1 is the supported formulation.
+Proposition 1 remains the supported formulation used by V6--V7. Proposition
+2 remains only a criterion until the final cut/event interface is proved.
 
 ## 7. Required wording of V6--V7 under the supported formulation
 

@@ -106,8 +106,15 @@ sixth child, `V2.CHART.PHYSICAL_SLIDES`, now has a local mathematical `PASS`
 from
 [`EXPLICIT_PHYSICAL_SLIDES.md`](../../theory/EXPLICIT_PHYSICAL_SLIDES.md) and
 [`P2D_PHYSICAL_SLIDES_REPORT.md`](P2D_PHYSICAL_SLIDES_REPORT.md), including
-(D12) with \(C_{\rm phys}=7\).  `V2.CHART.OVERLAPS` and the parent
-`V2.EXACT_CHART` remain `OPEN`.
+(D12) with \(C_{\rm phys}=7\).  The seventh child,
+`V2.CHART.OVERLAPS`, now has a local mathematical `PASS` from
+[`EXPLICIT_FINITE_CHART_OVERLAPS.md`](../../theory/EXPLICIT_FINITE_CHART_OVERLAPS.md),
+its proof-bound checker, and
+[`P2D_CHART_OVERLAPS_REPORT.md`](P2D_CHART_OVERLAPS_REPORT.md).  Since all seven
+children pass locally, the parent `V2.EXACT_CHART` also has a local
+mathematical `PASS`.  The repository aggregate remains `INCONCLUSIVE` and
+non-claim-bearing: P2e and later obligations remain open, and independent
+replay is still 1 of 2.
 
 ## 2. Exact moving eigenframe for P2a
 
@@ -1130,9 +1137,13 @@ establish local mathematical `PASS` for `V2.CHART.WEIGHTED_PASSAGE`; see
 [`P2D_WEIGHTED_PASSAGE_REPORT.md`](P2D_WEIGHTED_PASSAGE_REPORT.md).  The
 proof-bound physical slides likewise establish local mathematical `PASS` for
 `V2.CHART.PHYSICAL_SLIDES`; see
-[`P2D_PHYSICAL_SLIDES_REPORT.md`](P2D_PHYSICAL_SLIDES_REPORT.md).  The remaining
-overlap atom is a separate mathematical obligation, so the parent
-`V2.EXACT_CHART` remains `OPEN`.
+[`P2D_PHYSICAL_SLIDES_REPORT.md`](P2D_PHYSICAL_SLIDES_REPORT.md).  The
+finite-overlap proof and checker now also establish local mathematical `PASS`
+for `V2.CHART.OVERLAPS`; see
+[`P2D_CHART_OVERLAPS_REPORT.md`](P2D_CHART_OVERLAPS_REPORT.md).  Thus all seven
+chart atoms and their local parent `V2.EXACT_CHART` pass mathematically on the
+declared common domain.  P2e, the later validation obligations, and the second-
+machine replay remain open.
 
 There is a mandatory sign dictionary.  With the positive Kato orientation,
 
@@ -1309,6 +1320,14 @@ the signed axes, oriented-blow-up extensions of transitions and inverses,
 state-\(C^3\)/parameter-\(C^2\) mixed bounds, and degree \(+1\) on the Kato
 phase boundary.  Only after all seven P2d atoms pass may
 `V2.EXACT_CHART` pass.
+
+The proof in
+[`EXPLICIT_FINITE_CHART_OVERLAPS.md`](../../theory/EXPLICIT_FINITE_CHART_OVERLAPS.md)
+and the bound checker
+[`check_p2d_chart_overlaps.py`](check_p2d_chart_overlaps.py) now discharge these
+requirements locally.  Together with the six preceding child results, they
+give `V2.EXACT_CHART` a local mathematical `PASS`; this does not discharge P2e
+or the repository replay policy.
 
 ## 6. What P2a and P2b0 do and do not settle
 

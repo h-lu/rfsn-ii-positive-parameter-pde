@@ -23,7 +23,7 @@ quantitative margins.
 - [ ] Hash binding among source, report, manuscript, and certificates
 - [ ] Independent-machine replay before publication
 
-## Local staged progress (2026-08-28)
+## Local staged progress (2026-08-29)
 
 - [x] Freeze `vdp-positive-box-v1` and the gap-free `r=0` comparison bridge
 - [x] P1 exact identities and explicit V2(1) interval inequalities
@@ -65,31 +65,35 @@ quantitative margins.
 - [x] P2d `V2.CHART.PHYSICAL_SLIDES` local mathematical pass: inherited
       radius-1/100 faces, event-free unique first-hit slides, complete
       state-C3/parameter-C2 bounds, and (D12) with `C_phys=7`
-- [ ] Remaining P2d chart atom (`OVERLAPS`) and the P2e event atlas
+- [x] P2d `V2.CHART.OVERLAPS` local mathematical pass: a two-member finite
+      cover with common domains, identity exact-symplectic overlap cocycle and
+      gauges, signed-axis and blow-up compatibility, bounded marking changes,
+      and phase-boundary degree `+1`; all seven children give the local parent
+      `V2.EXACT_CHART` mathematical pass
+- [ ] P2e event atlas
 - [ ] P3--P5 positive pole, outer channel, matching/finite parts, and V6 census
 - [ ] Independent replay on a genuinely distinct machine (currently 1/2)
 
-P2c and the first six P2d children now have scoped local mathematical
-`PASS`.  The P2d chain is documented in the
+P2c, all seven P2d children, and the local parent `V2.EXACT_CHART` now have
+scoped local mathematical `PASS`.  The P2d chain is documented in the
 [`frame`](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/blob/main/validation/rigorous/P2D_FRAME_REPORT.md),
 [`normal-form`](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/blob/main/validation/rigorous/P2D_NORMAL_FORM_REPORT.md),
 [`zero-energy`](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/blob/main/validation/rigorous/P2D_ZERO_ENERGY_REPORT.md),
 [`exact-sections`](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/blob/main/validation/rigorous/P2D_EXACT_SECTIONS_REPORT.md),
 [`weighted-passage`](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/blob/main/validation/rigorous/P2D_WEIGHTED_PASSAGE_REPORT.md),
-and [`physical-slide`](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/blob/main/validation/rigorous/P2D_PHYSICAL_SLIDES_REPORT.md)
+[`physical-slide`](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/blob/main/validation/rigorous/P2D_PHYSICAL_SLIDES_REPORT.md),
+and [`chart-overlap`](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/blob/main/validation/rigorous/P2D_CHART_OVERLAPS_REPORT.md)
 reports.  Every aggregate remains `INCONCLUSIVE`, `claim_bearing=false`, and
 `release_eligible=false`; independent replay remains 1/2.  The bounded
 incoming/outgoing slides now close the physical comparison with `C_phys=7`.
-The next active gate is `V2.CHART.OVERLAPS`; the parent
-`V2.EXACT_CHART` remains `OPEN`.  This work makes no claim of temporal
-stability, Turing selection, or canard identification.
+The next active gate is the P2e event atlas.  This work makes no claim of
+temporal stability, Turing selection, or canard identification.
 
 ## Outcome
 
-P2c and the first six P2d child atoms are locally `PASS`; their aggregate
-status remains `INCONCLUSIVE` under the provenance and independent-replay
-policy.  The active mathematical path is the remaining P2d child
-`V2.CHART.OVERLAPS`, followed by P2e
-`V2.EVENT_ATLAS`, followed by P3--P5.  Every new scope must freeze its theorem
+P2c, all seven P2d child atoms, and the local parent `V2.EXACT_CHART` are
+locally `PASS`; their aggregate status remains `INCONCLUSIVE` under the
+provenance and independent-replay policy.  The active mathematical path is
+P2e `V2.EVENT_ATLAS`, followed by P3--P5.  Every new scope must freeze its theorem
 objects before its claim-bearing run; computation must not choose the theorem
 after seeing the output.

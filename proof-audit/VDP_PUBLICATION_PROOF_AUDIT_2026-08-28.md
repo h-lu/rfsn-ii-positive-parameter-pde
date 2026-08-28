@@ -157,11 +157,11 @@ interval-validation children, and the aggregate candidate contract remains
 release replay policy pass.
 
 > **Later status note.**  This paragraph records the audit-date frontier.
-> Subsequent atom-specific proofs locally passed the zero-energy,
-> exact-sections, and weighted-passage children; only physical slides and
-> overlaps now remain open inside `V2.EXACT_CHART`.  The candidate box and
-> aggregate status are still non-claim-bearing; see
-> [`P2D_WEIGHTED_PASSAGE_REPORT.md`](../validation/rigorous/P2D_WEIGHTED_PASSAGE_REPORT.md).
+> Subsequent atom-specific proofs now give all seven P2d children and the local
+> parent `V2.EXACT_CHART` mathematical `PASS` on their declared domains.  P2e
+> and later obligations remain open, and the aggregate remains `INCONCLUSIVE`
+> and non-claim-bearing at independent replay 1/2; see
+> [`P2D_CHART_OVERLAPS_REPORT.md`](../validation/rigorous/P2D_CHART_OVERLAPS_REPORT.md).
 
 The frozen core homoclinic, singular comparison/Jost data, and fixed-system
 matching/coding modules are bound to an immutable local revision with exact
