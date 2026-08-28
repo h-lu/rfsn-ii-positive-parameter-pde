@@ -135,22 +135,33 @@ frame layer frozen in
 with source
 [`src/vdp_p2d_symplectic_frame_probe.cpp`](src/vdp_p2d_symplectic_frame_probe.cpp)
 and separate configuration/raw schemas.  On the same exact-rational
-\(16\times8\times4\) bridge cover, the strict reference-toolchain run passes
-all 20 frozen branch, conditioning, and normalized/original parameter-\(C^2\)
-gates for every component of \(L\) and \(L^{-1}\).  Combining this interval
+\(16\times8\times4\) bridge cover, the strict reference-toolchain run archives
+componentwise normalized/original parameter-\(C^2\) enclosures for \(L\) and
+\(L^{-1}\), and passes all 20 frozen scalar-branch, conditioning, and
+matrix-jet-norm gates.  Combining this interval
 result with the archived local P2bK mathematical pass and all 59 exact checks
 gives a local mathematical `PASS` for
 `V2.CHART.SYMPLECTIC_FRAME`.
 
-This is not yet an archived formal repository certificate: it was run from a
-dirty development tree, and a source-bound clean-commit build remains to be
-generated.  Its development aggregate remains `INCONCLUSIVE` and
-`claim_bearing=false`.  The other six `V2.CHART.*` atoms and the parent
-`V2.EXACT_CHART` remain `OPEN`; in particular, the frame result supplies no
-nonlinear analytic normal form, nonlinear zero-energy branch, exact nonlinear
-sections, weighted passage, physical slides, or finite-cover overlaps.  The
-next mathematical gate is `V2.CHART.ANALYTIC_NORMAL_FORM` on an explicit
-complex domain.
+The formal clean-source certificate is archived at
+[`results/vdp_bridge_v1_p2d_symplectic_frame.json`](results/vdp_bridge_v1_p2d_symplectic_frame.json);
+its source revision and all byte bindings are recorded inside the certificate.
+The certificate has integrity and mathematical status `PASS`, while its final
+status is `INCONCLUSIVE`, `claim_bearing=false`, and `release_eligible=false`.
+Independent replay remains `PENDING_REQUIRED` at 1 of 2 distinct machines.
+The other six `V2.CHART.*` atoms and the parent `V2.EXACT_CHART` remain `OPEN`;
+in particular, the frame result supplies no nonlinear analytic normal form,
+nonlinear zero-energy branch, exact nonlinear sections, weighted passage,
+physical slides, or finite-cover overlaps.  The next mathematical gate is
+`V2.CHART.ANALYTIC_NORMAL_FORM` on an explicit complex domain.  See
+[`P2D_FRAME_REPORT.md`](P2D_FRAME_REPORT.md) for the formal claim boundary.
+
+Check the archived certificate with
+
+```bash
+python3 -B validation/rigorous/p2d_frame_certificate.py check \
+  validation/rigorous/results/vdp_bridge_v1_p2d_symplectic_frame.json
+```
 
 Build and check the lightweight local P2c certificate from a clean source
 snapshot with

@@ -73,18 +73,20 @@ is an independent full-grid replay.  The five atoms aggregate exactly to
 `V2.HOMOCLINIC`, while the certificate remains non-claim-bearing until the
 independent-machine policy is met.
 
-The first P2d child atom is now closed at the local mathematical-development
-level.  The archived P2bK result supplies the normalized expanding Kato
-frame; the deterministic audit proves all 59 exact linear, symplectic,
-reverser, action-sign, section, and anchor identities; and the separate
-formal interval probe verifies the 20 frozen branch, conditioning, and
-parameter-\(C^2\) gates on the complete \(16\times8\times4\) bridge cover.
-Together these give local mathematical `PASS` for
-`V2.CHART.SYMPLECTIC_FRAME`.  The reference CAPD run has raw, integrity, and
-mathematical status `PASS`, but it is a dirty-tree development run.  A formal
-source-bound repository certificate must therefore wait for a clean commit;
-the current aggregate remains `INCONCLUSIVE` and non-claim-bearing.  The
-other six P2d child atoms and `V2.EXACT_CHART` remain `OPEN`.
+The first P2d child atom now has an archived formal local certificate.  The
+archived P2bK result supplies the normalized expanding Kato frame; the
+deterministic audit proves all 59 exact linear, symplectic, reverser,
+action-sign, section, and anchor identities; and the separate formal interval
+probe verifies the 20 frozen branch, conditioning, and parameter-\(C^2\)
+gates on the complete \(16\times8\times4\) bridge cover.  Together these give
+local mathematical `PASS` for `V2.CHART.SYMPLECTIC_FRAME`.  The clean-source
+certificate
+[`results/vdp_bridge_v1_p2d_symplectic_frame.json`](results/vdp_bridge_v1_p2d_symplectic_frame.json)
+has integrity and mathematical status `PASS`; its final status remains
+`INCONCLUSIVE`, `claim_bearing=false`, and `release_eligible=false` because
+independent replay is still 1 of 2.  Separately, the other six P2d child atoms
+and `V2.EXACT_CHART` remain `OPEN`.  See
+[`P2D_FRAME_REPORT.md`](P2D_FRAME_REPORT.md).
 
 ## 2. Exact moving eigenframe for P2a
 
@@ -1078,12 +1080,22 @@ and implemented independently of the design scout in
 [`vdp_p2d_symplectic_frame_probe.cpp`](src/vdp_p2d_symplectic_frame_probe.cpp).
 Its reference strict run covers all 512 exact-rational cells and places the
 value, three first derivatives, and six symmetric second derivatives of every
-listed scalar and every entry of \(L,L^{-1}\) inside the frozen gates, in both
-normalized and original parameters.  The inverse is evaluated from
+listed scalar and every entry of \(L,L^{-1}\) in explicit enclosures, in both
+normalized and original parameters.  The frozen gates separately bound the
+scalar branches, anchor conditioning, and prescribed matrix-jet norms.  The
+inverse is evaluated from
 \(L^{-1}=-\Omega_0L^T\Omega\), not by interval Gaussian elimination.  With
 the P2bK prerequisite and the 59-check audit, this establishes the local
 mathematical `PASS` stated above.  Exact identities are supplied by the audit,
 not inferred from small interval residuals.
+
+This result is archived in the clean-source certificate
+[`results/vdp_bridge_v1_p2d_symplectic_frame.json`](results/vdp_bridge_v1_p2d_symplectic_frame.json).
+Its integrity and mathematical status are `PASS`, but its final status is
+`INCONCLUSIVE`, `claim_bearing=false`, and `release_eligible=false` while the
+second-machine replay is open.  The remaining six child atoms are separate
+mathematical obligations, so the parent `V2.EXACT_CHART` remains `OPEN`; see
+[`P2D_FRAME_REPORT.md`](P2D_FRAME_REPORT.md) for the precise boundary.
 
 There is a mandatory sign dictionary.  With the positive Kato orientation,
 

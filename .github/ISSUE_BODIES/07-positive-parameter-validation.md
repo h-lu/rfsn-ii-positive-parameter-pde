@@ -40,17 +40,18 @@ quantitative margins.
 - [x] P2d exact-interface scout: 59 symbolic checks for the positive-Kato
       reversible symplectic completion, action dictionary, radial section
       forms/gauges, and linear logarithmic time/phase slopes
-- [x] P2d local `V2.CHART.SYMPLECTIC_FRAME`: archived P2bK prerequisite,
-      59 exact checks, and all 20 strict frame/parameter-\(C^2\) gates on the
-      exact-rational \(16\times8\times4\) bridge cover
+- [x] P2d formal local `V2.CHART.SYMPLECTIC_FRAME` certificate: archived P2bK
+      prerequisite, 59 exact checks, and all 20 strict frame/parameter-\(C^2\)
+      gates on the exact-rational \(16\times8\times4\) bridge cover
 - [ ] Remaining six P2d chart atoms and the P2e event atlas
 - [ ] P3--P5 positive pole, outer channel, matching/finite parts, and V6 census
 - [ ] Independent replay on a genuinely distinct machine (currently 1/2)
 
-The clean certificates through P2c have local integrity and mathematical
-`PASS`, but their aggregate status is `INCONCLUSIVE` and
-`claim_bearing=false` while independent replay and the later scoped
-obligations remain open.  The full strict P2c run passes the
+The clean certificates through P2c, together with the P2d frame-child
+certificate, have local integrity and mathematical `PASS`, but their aggregate
+status is `INCONCLUSIVE` and
+`claim_bearing=false` while independent replay remains open.  Separately, the
+later scoped obligations remain open.  The full strict P2c run passes the
 16,384-cell selected-branch cover, all 44,416 internal common faces, first
 hit, transversality, actual-root parameter two-jets, both infinite tails, and
 the fixed-\(\xi\) continuous \(C^2\) compact middle.  Their global composition
@@ -68,14 +69,16 @@ See
 This work makes no claim of temporal stability, Turing selection, or canard
 identification.
 
-P2d now has one locally closed child atom.  The archived P2bK mathematical
-pass, all 59 deterministic exact checks, and the separately implemented
-strict interval frame run together give local mathematical `PASS` for
-`V2.CHART.SYMPLECTIC_FRAME`.  The reference-toolchain development run passes
-its raw, integrity, and mathematical checks, but it was made from a dirty
-tree; the formal source-bound repository certificate must be generated after
-a clean commit.  Its aggregate therefore remains `INCONCLUSIVE` and
-`claim_bearing=false`.
+P2d now has one formally archived local child certificate.  The archived P2bK
+mathematical pass, all 59 deterministic exact checks, and the separately
+implemented strict interval frame run together give local mathematical `PASS`
+for `V2.CHART.SYMPLECTIC_FRAME`.  The clean-source certificate
+[`vdp_bridge_v1_p2d_symplectic_frame.json`](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/blob/main/validation/rigorous/results/vdp_bridge_v1_p2d_symplectic_frame.json)
+has integrity and mathematical status `PASS`; its source revision and byte
+bindings are recorded inside it.  Its final status remains `INCONCLUSIVE`,
+`claim_bearing=false`, and `release_eligible=false`, with independent replay at
+1 of 2 distinct machines.  See
+[`P2D_FRAME_REPORT.md`](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/blob/main/validation/rigorous/P2D_FRAME_REPORT.md).
 
 The other six `V2.CHART.*` atoms and `V2.EXACT_CHART` remain `OPEN`.  The
 current result proves no nonlinear Moser chart, nonlinear zero-energy branch,
