@@ -92,7 +92,7 @@ After the choice above, the following statements hold.
    \(\sigma_{\rm ref}=1\) in those units.
 
 3. **Normalized resonant expansion.**  Every orbit in that local basin has
-   unique labels \((Z_0,W_0,\kappa)\), and its compact variables have the
+   unique labels \((Z_0,W_0,c_4)\), and its compact variables have the
    mixed-parameter \(C^2\) expansion (36)--(39).  The raw center logarithm,
    the induced \(\sigma\log \sigma\) term, the order-four resonance, and
    the resulting \(\sigma^4(\log \sigma)^2\) term are all included
@@ -525,9 +525,9 @@ Eliminating \(Y\) gives the exact scalar regular-singular equation
 
 Uniform entry and the finite NHIM atlas from Section 4 put the source-tail
 intersections in a compact stable-fiber block.  Fix a finite
-stable-coordinate bound \(K_\kappa>0\) containing that block and work on
-\(\mathcal P_{\rm p}\times\mathcal B\times[-K_\kappa,K_\kappa]\).  The fixed-section
-argument below identifies this stable coordinate with \(\kappa\); the common
+stable-coordinate bound \(K_{c_4}>0\) containing that block and work on
+\(\mathcal P_{\rm p}\times\mathcal B\times[-K_{c_4},K_{c_4}]\).  The fixed-section
+argument below identifies this stable coordinate with \(c_4\); the common
 small \(\sigma_0\) is chosen for this compact set.
 
 Thus the scalar indicial roots are \(-1,4\).  The order-two and order-three
@@ -545,7 +545,7 @@ explicit logarithmic forcing lie at the root \(4\).  Put
 \tag{34}
 \]
 
-For \(g(L)=m_2L^2+m_1L+\kappa\),
+For \(g(L)=m_2L^2+m_1L+c_4\),
 
 \[
  \mathcal L(\sigma^4g(L))
@@ -568,7 +568,7 @@ The resulting unique normalized jet on \(\mathcal W^s_\mu\) is
 
 \[
  X=1+x_2\sigma^2+x_3\sigma^3
-   +\sigma^4\{m_2L^2+m_1L+\kappa\}
+   +\sigma^4\{m_2L^2+m_1L+c_4\}
    +O_{C^2}\!\left(\sigma^5(1+|L|)^2\right),
 \tag{36}
 \]
@@ -599,7 +599,7 @@ The resulting unique normalized jet on \(\mathcal W^s_\mu\) is
 
 Here \(O_{C^2}\) means that the same bound holds after every mixed
 derivative of total order at most two in
-\((\mu,Z_0,W_0,\kappa)\), with \(\sigma\) held fixed.
+\((\mu,Z_0,W_0,c_4)\), with \(\sigma\) held fixed.
 
 For completeness, these are all nontrivial resonances activated by the exact
 field through the pole normalization:
@@ -612,7 +612,7 @@ field through the pole normalization:
 3. The positive roots satisfy the integer relation \(4=4\cdot1\).  The
    constant order-four forcing produces \(\sigma^4\log \sigma\), while the exact
    \(\sigma^4\log \sigma\) forcing in (33) produces
-   \(\sigma^4(\log \sigma)^2\).  The coefficient \(\kappa \sigma^4\) is the free stable
+   \(\sigma^4(\log \sigma)^2\).  The coefficient \(c_4 \sigma^4\) is the free stable
    root-four mode.
 
 Relations involving a zero root merely make the displayed coefficients
@@ -641,7 +641,7 @@ On the weighted space with norm
 the inverse of
 \((D_\sigma-4)(D_\sigma+1)\), with the growing
 \(\sigma^{-1}\) mode removed and the \(\sigma^4\) coefficient fixed by
-\(\kappa\), is bounded.  Indeed, for a residual \(f\) that inverse is the
+\(c_4\), is bounded.  Indeed, for a residual \(f\) that inverse is the
 explicit Green operator
 
 \[
@@ -656,7 +656,7 @@ the same bound.  Equations (32) are Volterra operators on this conormal
 space.  Their nonlinear composition has Lipschitz constant
 \(O(\sigma_0)\); choosing \(\sigma_0\) uniformly small gives a contraction.
 Differentiate that fixed-point equation up to twice in
-\((\mu,Z_0,W_0,\kappa)\).  The differentiated equations have the same
+\((\mu,Z_0,W_0,c_4)\).  The differentiated equations have the same
 bounded Green inverse and a contraction term with norm less than one, so
 every mixed derivative of total external order at most two satisfies (40).
 In particular \(D_\sigma R\), which enters \(Y=X-D_\sigma X\), has the
@@ -674,25 +674,25 @@ logarithmic terms in (36) leaves \(\widetilde h\) satisfying
 
 \[
  \widetilde h(\sigma)
- =\kappa\sigma^4+(\mathscr Kf_{\widetilde h})(\sigma),
+ =c_4\sigma^4+(\mathscr Kf_{\widetilde h})(\sigma),
  \qquad
  f_{\widetilde h}
  =O\!\left(\sigma^5(1+|\log\sigma|)^2\right).
 \]
 
 The Green estimate following (40) shows that
-\(\sigma^{-4}\widetilde h\to\kappa\) and that the remainder obeys (40).
-This proves existence and uniqueness of \(\kappa\) for every local stable
+\(\sigma^{-4}\widetilde h\to c_4\) and that the remainder obeys (40).
+This proves existence and uniqueness of \(c_4\) for every local stable
 orbit; fixed-point uniqueness then identifies that orbit with the Fuchsian
-solution carrying \((Z_0,W_0,\kappa)\).
+solution carrying \((Z_0,W_0,c_4)\).
 
 This exhaustion is nondegenerate on a fixed positive section, not at the
 boundary where the root-four mode vanishes.  For every sufficiently small
 fixed \(\sigma_*>0\), the map
-\((Z_0,W_0,\kappa)\mapsto(X,Y,Z,W)|_{\sigma_*}\) has
+\((Z_0,W_0,c_4)\mapsto(X,Y,Z,W)|_{\sigma_*}\) has
 
 \[
- \partial_\kappa(X,Y,Z,W)
+ \partial_{c_4}(X,Y,Z,W)
  =\sigma_*^4(1,-3,0,-\ell\epsilon/4)+
    O\!\left(\sigma_*^5(1+|\log\sigma_*|)^2\right),
 \]
@@ -702,10 +702,10 @@ rank three and is therefore a local coordinate chart on the
 three-dimensional section
 \(\mathcal W^s_\mu\cap\{\sigma=\sigma_*\}\).  Flow saturation proves that
 the Fuchsian family exhausts the required branch of \(\mathcal W^s_\mu\).
-The same Green representation at \(\sigma_*\) shows that \(\kappa\) is
+The same Green representation at \(\sigma_*\) shows that \(c_4\) is
 \(C^2\) in the stable-manifold point and in \(\mu\).
 
-In the full four-dimensional pole basin, \(\kappa\) is a free stable-fiber
+In the full four-dimensional pole basin, \(c_4\) is a free stable-fiber
 coordinate.  Substitution of (36)--(39) into the physical conserved quantity
 \(\mathcal G\) cancels every power and logarithmic divergence and gives the
 finite identity
@@ -713,28 +713,28 @@ finite identity
 \[
  \mathcal G
  ={7\epsilon\over12}-{186\over25}\epsilon^2\delta^2
-  -30\epsilon\delta^4\kappa-\epsilon aZ_0
+  -30\epsilon\delta^4c_4-\epsilon aZ_0
   -{6\over5}\ell\epsilon W_0-{1\over2}W_0^2.
 \]
 
 In particular,
 
 \[
- {\partial\mathcal G\over\partial\kappa}
+ {\partial\mathcal G\over\partial c_4}
    =-30\epsilon\delta^4\ne0.
 \tag{41}
 \]
 
 The two contributions are \(-18\epsilon\delta^4\) from
 \(\epsilon p^2/2\) and \(-12\epsilon\delta^4\) from
-\(-\epsilon u^4/12\); all other \(\kappa\)-terms vanish in the limit.
+\(-\epsilon u^4/12\); all other \(c_4\)-terms vanish in the limit.
 Thus on the fixed source energy
-\(\mathcal G=\mathcal G(O)=-\epsilon F(a)\), \(\kappa\) is a unique
+\(\mathcal G=\mathcal G(O)=-\epsilon F(a)\), \(c_4\) is a unique
 \(C^2\) function of
 \((\mu,Z_0,W_0)\).  The action subtraction below is unchanged by this
 constraint.
 
-The parameters \((\sigma,Z_0,W_0,\kappa)\) are genuine physical-state
+The parameters \((\sigma,Z_0,W_0,c_4)\) are genuine physical-state
 coordinates.  Indeed, the inverse of (25), restricted to (36)--(39), is
 
 \[
@@ -746,7 +746,7 @@ coordinates.  Indeed, the inverse of (25), restricted to (36)--(39), is
 \]
 
 The leading determinant of its \((u,p)\) derivatives with respect to
-\((\sigma,\kappa)\) is
+\((\sigma,c_4)\) is
 
 \[
  \det
@@ -760,7 +760,7 @@ The leading determinant of its \((u,p)\) derivatives with respect to
 
 The cross blocks must also be controlled because \(q_\sigma\) is singular.
 With rows ordered as \((u,p;v,q)\) and columns as
-\((\sigma,\kappa;Z_0,W_0)\), write the full Jacobian in blocks
+\((\sigma,c_4;Z_0,W_0)\), write the full Jacobian in blocks
 \(\bigl(\begin{smallmatrix}\mathsf A&\mathsf B\\
 \mathsf C&\mathsf D\end{smallmatrix}\bigr)\).  Equations (36)--(39) give
 
@@ -786,7 +786,7 @@ displayed orders imply
 uniformly on the positive compact parameter box,
 
 \[
- \det D_{(\sigma,\kappa,Z_0,W_0)}(u,p,v,q)
+ \det D_{(\sigma,c_4,Z_0,W_0)}(u,p,v,q)
  =\det\mathsf A\,
    \det(\mathsf D-\mathsf C\mathsf A^{-1}\mathsf B)
  =5\ell^2\delta+o(1)\ne0.
@@ -811,7 +811,7 @@ labels are unique; hence they glue to a single \(C^2\) map
 
 \[
  (\mu,\phi)\longmapsto
- (\sigma_M,Z_0,W_0,\kappa).
+ (\sigma_M,Z_0,W_0,c_4).
 \tag{44}
 \]
 
@@ -857,7 +857,7 @@ Using \(x_2=1/(6\delta^2)\),
 \(x_3=Z_0/(4\ell\delta^2)\), and \(\ell=\sqrt6\delta\) in
 (45)--(46) proves the density expansion in (7).  The \(q^2\) term is only
 \(O_{C^2}((1+|\log \sigma|)^2)\), which is integrable at \(\sigma=0\).  In
-particular, \(W_0\) and \(\kappa\) first enter the integrable remainder;
+particular, \(W_0\) and \(c_4\) first enter the integrable remainder;
 \(Z_0\) is the only end label in a nonintegrable subleading term.
 
 Let \(C\) be any compact transverse cut before the pole, oriented toward
@@ -927,7 +927,7 @@ and
 are physical limits.  The free root-four coordinate is fixed by
 
 \[
- \kappa=\lim_{\sigma\downarrow0}\sigma^{-4}
+ c_4=\lim_{\sigma\downarrow0}\sigma^{-4}
  \left[X-1-x_2\sigma^2-x_3\sigma^3
        -\sigma^4(m_2(\log \sigma)^2+m_1\log \sigma)\right].
 \tag{52}

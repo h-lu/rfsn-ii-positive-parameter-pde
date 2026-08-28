@@ -68,6 +68,12 @@ genuine positive-parameter pole.  It proves:
 - the finite Laurent--log action subtraction in fixed physical remaining
   distance, including coordinate uniqueness and exact moving-cut additivity.
 
+V6, Section 3.2 and Lemma V6.1 record the two extra interfaces actually
+needed later: the source-trace identity from the V3 one-dimensional window
+to the V6 two-dimensional aperture, and one spare entry derivative for
+terminal composition.  Both come from the full positive-parameter equations,
+not an isolated boundary-sink theorem.
+
 [Theorem V4](OUTER_FUTURE_STAYING.md) independently constructs that outer
 end from the full positive-parameter physical system.  In the exact
 compactification \(z=1/u\), its maximal forward-staying set is a unique
@@ -103,15 +109,26 @@ template; verify clean/neat incidences, first-hit margins, and a component
 census with no residual cell; attach both finite parts to the exact branch
 cocycle; and translate the recurrent and finite-word codes to stationary PDE
 patterns.  The
+[compact-family first-hit theorem](../theory/COMPACT_FAMILY_FIRST_HIT_THEOREM.md)
+supplies the coverwise rate and relative whole-cell persistence used in this
+step, conditional on the fixed finite V2 event arrangement and its complete
+event-time-difference list.  V6 keeps that physical block, subdivides the
+algebraic carrier, and replaces the protected pole gate by the partitioned
+V3 \(x=10\) carrier.  The
 [finite-atlas descent theorem](../theory/FINITE_MARKED_ATLAS_DESCENT.md)
 identifies the physical first-event relation, trapped system, periods, and
-closed actions on overlaps.  V6 proves every chartwise local module before
-invoking that descent theorem, and its final coding truncation lies inside the
-common physical residence-time domain.  Raw winding labels remain local and
-may undergo a bounded recoding.  The high-winding, action-gluing, and coding
+closed actions on overlaps.  Conditional on the frozen modules, V6 constructs
+every chartwise presentation required for that descent, and its final coding
+truncation lies inside the common physical residence-time domain.  Raw
+winding labels remain local and may undergo a bounded recoding.  The
+high-winding, action-gluing, and coding
 inputs
 used in that proof are frozen, with their model-specific exclusions, in
 [RETURN_EXIT_CODING_IMPORT.md](RETURN_EXIT_CODING_IMPORT.md).
+
+The arrow-by-arrow publication audit, including the remaining external
+evidence-accessibility blocker, is
+[`VDP_PUBLICATION_PROOF_AUDIT_2026-08-28.md`](../proof-audit/VDP_PUBLICATION_PROOF_AUDIT_2026-08-28.md).
 
 ## Completed principal theorem
 

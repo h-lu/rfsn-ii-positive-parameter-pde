@@ -222,7 +222,7 @@ variation near the saddle-focus is not a canard.
 window on a finite-horizon nonlinear-\(W^u\) source approximation crosses the
 physical pole gate with positive sampled cone margins.  One representative
 source is continued on the same physical IVP through increasing \(u\)-levels,
-used to fit \((Z_0,W_0,\kappa)\), and compared with the exact local pole chart.
+used to fit \((Z_0,W_0,c_4)\), and compared with the exact local pole chart.
 The action is augmented from that source cut and receives the V3 Laurent--log
 subtraction on the same orbit.  This is a connected `COMPUTED/E1` candidate,
 not a certified open source window, pole basin, or improper limit.

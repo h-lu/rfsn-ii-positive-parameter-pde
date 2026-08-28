@@ -18,8 +18,11 @@ the flagship's concrete end compactifications are not used here.
 The radius is selected in the following noncircular order.  First, at the
 closed V2/V5 comparison face \(r=0\), fix the algebraic, homoclinic, and
 return pullback cells and their positive clean-arrangement margins.  Next,
-use the \(O(r)\) V2/V5 comparison to choose \(r_{\rm V}>0\) once.  Then
-freeze the positive box below and rerun V3--V5A on it.  Only after that box
+collect the finitely many V3--V5A upper-radius thresholds which do not
+depend on the thickness of the final pole aperture.  Use their minimum,
+together with the \(O(r)\) V2/V5 controlled-isotopy threshold, to choose
+\(r_{\rm V}>0\) once.  Then freeze the positive box below and apply V3--V5A
+on it.  Only after that box
 is fixed do we thicken the pole window by V3 compactness and take its
 positive margins.  The radius is not decreased again.  Retain the notation
 
@@ -122,6 +125,20 @@ where
 \tag{8}
 \]
 
+By continuity and compactness, refine (6) so that every cover member admits
+a number \(\varkappa_i^+\) with
+
+\[
+ \varkappa<\varkappa_i^+
+ <{2\pi\inf_{\mu\in U_i}\alpha_\mu
+       \over \sup_{\mu\in U_i}\beta_\mu}.
+\tag{8a}
+\]
+
+The quotient of the separate infimum and supremum is deliberate: it is the
+common rate supplied by the mixed-passage estimate on \(U_i\).  The weaker
+pointwise bound in (7) alone would not fix that common contraction rate.
+
 ## 2. Theorems V6 and V7
 
 ### Theorem V6: exhaustive two-end return--first-exit relation
@@ -153,8 +170,20 @@ Poincaré system, closed periods, and closed actions descend to
    in \(\mu\), clean and
    neat at the boundary.  Every active conormal least singular value, empty
    incidence gap, event speed, inactive sign, earlier-event exclusion,
-   strict event-order gap, flow-domain buffer, and anchor-to-boundary
-   distance is at least \(m_{\rm ev}\) after fixed normalization.  Their
+   flow-domain buffer, and anchor-to-boundary distance is at least
+   \(m_{\rm ev}\) after fixed normalization.  The finite V2 competition
+   sets \(\mathfrak Q_{\rm out}^{\rm V2}\) and
+   \(\mathfrak Q_{\rm ret}^{\rm V2}\) retain exactly their imported time
+   differences \(q_{ef}=t_e-t_f\): an empty tie class satisfies
+   \(|q_{ef}|\ge m_{\rm ev}\), while a nonempty tie class has conormal at
+   least \(m_{\rm ev}\) and its two signs give the adjacent strict orders.
+   No positive lower bound for \(|q_{ef}|\) is asserted near a nonempty tie.
+   The algebraic label refines its existing transverse carrier.  Inside the
+   old pole outcome, the V3 event-free slide replaces the old pole gate by
+   \(x=10\); its strict earlier-event and flow-buffer margins keep this
+   replacement away from every other outcome.  The aperture and its
+   complement then refine the same \(x=10\) carrier.  These operations
+   introduce no new competing hit time and no new \(q_{ef}\).  Their
    labelled connected sign strata exhaust (9) in that marking.  Common faces
    and corners are separate lower-dimensional strata with one fixed priority.
 
@@ -626,7 +655,35 @@ Choose a closed phase subarc
 \tag{33}
 \]
 
-containing the V3 anchor.  V3 proves on the whole compact family
+containing the V3 anchor.
+
+Let \(\mathfrak h_\mu^u\) be the designated event-free V2 first-hit map
+from a neighborhood of the true-unstable source trace to the outgoing band
+\(B_\mu^u\).  Choose a product chart with transported source phase and
+transverse action,
+
+\[
+ \chi_\mu^u:
+ I_{\rm p}'\times(-\eta_0,\eta_0)\longrightarrow B_\mu^u,
+\]
+
+normalized on the zero-action line by
+
+\[
+ \boxed{\quad
+ \chi_\mu^u(\phi,0)
+   =\mathfrak h_\mu^u\bigl(S_\mu(\phi)\bigr).
+ \quad}
+\tag{P-trace}
+\]
+
+The chart, its inverse, and \(\mathfrak h_\mu^u\) are state-\(C^3\),
+parameter-\(C^2\), with uniform mixed bounds.  Thus the one-dimensional V3
+source window below and the zero-action trace of the two-dimensional V6
+aperture are the same physical finite flight; no separate pole persistence
+claim is being inserted.
+
+V3 proves on the whole compact family
 \(S_\mu(I_{\rm p}')\) a unique first hit of \(x=10\), strict absence of an
 earlier pole, strict entry into its invariant cone, and then entry into the
 open local pole basin.  All of these inequalities have positive uniform
@@ -639,8 +696,9 @@ the cone and local basin and compactness of
 
 \[
  \mathcal P^u_\mu
- =\{(\phi,\nu_u):\phi\in\operatorname{int}I_{\rm p}',
-                         |\nu_u|<\eta_{\rm p}\}
+ =\chi_\mu^u\bigl(\{(\phi,\nu_u):
+       \phi\in\operatorname{int}I_{\rm p}',
+       |\nu_u|<\eta_{\rm p}\}\bigr)
  \Subset B^u_\mu
 \tag{34}
 \]
@@ -649,12 +707,36 @@ has the same unique first-hit, cone-entry, and basin-entry conclusions on
 its closure after replacing the strict inequalities in (34) by a slightly
 smaller closed product.  This is the required open pole aperture.  The
 local stable projection of V3 is mixed-\(C^2\) on this compact thickening,
-so its end labels \((Z_0,W_0,\kappa)\), finite remaining distance, and pole
+so its end labels \((Z_0,W_0,c_4)\), finite remaining distance, and pole
 finite part are mixed-\(C^2\) on every pole component.
 
-One spare label derivative, needed below for a quantitative mixed-\(C^2\)
-composition estimate, follows from the same regular-singular equation.  At
-fixed \(s\), the V3 Green operator
+#### Lemma V6.1 (pole terminal potentials with one spare entry derivative)
+
+Fix a finite compatible atlas of entry coordinates
+\(\mathbf e_{\rm p}\) on the closure of (34), and fix a common transverse
+lower cut inside the V3 pole basin.  Let \(L_{\rm p}\) be the remaining
+physical distance from that cut to the pole and let
+\(\mathscr A_{\rm p}^{\rm ren}\) be the V3 Laurent--log finite part based at
+the same cut.  In each member of the finite atlas fix a compact convex
+coordinate set \(K_{\rm p}\) whose interior contains the images of all
+arrival maps to be compared.  Then these two terminal functions obey (36)
+below.  More precisely, for every fixed \(M<\infty\) there is
+\(C=C(K_{\rm p},M)<\infty\) such that, whenever two arrival maps
+\(A_0,A_1\) have image in \(K_{\rm p}\) and
+
+\[
+ \|A_0\|_{C^2_{z,\mu}}+\|A_1\|_{C^2_{z,\mu}}\le M,
+ \qquad
+ \|A_1-A_0\|_{C^2_{z,\mu}}\le\varepsilon,
+\tag{34a}
+\]
+
+composition with either terminal function is mixed-\(C^2\)-close with norm
+at most \(C\varepsilon\).  The compact set and \(M\) are fixed before the
+winding threshold is chosen.
+
+**Proof.**  The spare derivative follows from the same regular-singular
+equation.  At fixed \(s\), the V3 Green operator
 
 \[
  (\mathscr K f)(s)
@@ -665,7 +747,7 @@ fixed \(s\), the V3 Green operator
 
 is bounded on the V3 conormal remainder space.  Differentiate its
 fixed-point equation once more in the finite entry labels, allowing all
-mixed derivatives \(D_\zeta^iD_\mu^j\) with
+mixed derivatives \(D_{\mathbf e_{\rm p}}^iD_\mu^j\) with
 \(i+j\le3\), \(j\le2\).  The contraction part is unchanged; the only
 limited-smoothness coefficient \(s^4\log s\) is independent of the entry
 labels, and every differentiated **state-equation forcing** retains the
@@ -680,8 +762,9 @@ majorant therefore gives
 \[
  \sup_{i+j\le3,\ j\le2}
  \left(
-  \|D_\zeta^iD_\mu^jL_{\rm p}\|
-  +\|D_\zeta^iD_\mu^j\mathscr A_{\rm p}^{\rm ren}\|
+  \|D_{\mathbf e_{\rm p}}^iD_\mu^jL_{\rm p}\|
+  +\|D_{\mathbf e_{\rm p}}^iD_\mu^j
+       \mathscr A_{\rm p}^{\rm ren}\|
  \right)<\infty
 \tag{36}
 \]
@@ -690,13 +773,23 @@ on the compact thickened entry window.  No extra derivative in the
 singular variable \(s\) is asserted.  This is precisely the spare state
 derivative required to compose the pole potential with two \(C^2\)-close
 arrival maps while retaining their exponential rate in a mixed-\(C^2\)
-norm.
+norm.  On the fixed compact set \(K_{\rm p}\), (36) bounds the required
+third entry derivatives uniformly.  The ordinary \(C^2\) chain rule,
+together with the uniform bound \(M\) in (34a), therefore gives the stated
+constant \(C(K_{\rm p},M)\); its second derivative uses exactly the one
+spare entry derivative just proved.  This is the terminal-composition
+interface extracted from the V3 regular-singular proof.
+\(\square\)
 
-Use fixed product-coordinate faces for the boundary of (34).  Relabel the
-remainder of the old V2 pole-gate flowbox by named finite lateral exits.  A
-small transverse lateral face placed before the uncertified continuation
-makes this a first exit of the prescribed physical tube; no global fate is
-claimed for a point after that lateral exit.
+Use fixed product-coordinate faces for the boundary of (34).  The unique V3
+event-free finite slide replaces the old V2 pole gate by the transverse
+\(x=10\) carrier inside the protected old pole outcome.  Its strict
+earlier-event and flow-buffer margins prevent a new competition with any
+other V2 outcome.  On \(x=10\), the aperture interior is labelled `pole`, its
+boundary receives the transported old corner priority, and the carrier
+complement is labelled `out`.  Only these pieces share one carrier hit time;
+they introduce no new \(q_{ef}\).  No global fate is claimed after an `out`
+event.
 
 ### 3.3 One finite actual arrangement
 
@@ -720,7 +813,8 @@ The selection order is the one fixed in Section 1.  At the comparison face
 homoclinic, and return faces described below.  It gives a number
 \(m_{\rm core}>0\), the minimum of the normalized source-pullback ranks,
 empty-incidence gaps, phase separations, containment margins, hit speeds,
-inactive signs, event-order gaps, flow-domain buffers, and anchor distances
+inactive signs, empty-tie gaps, nonempty-tie conormals, flow-domain buffers,
+and anchor distances
 for this finite core family.  Equations (32) and (A-pb), together with the
 V2 continuation estimates, then determine \(r_{\rm V}\) so that the moving
 core family remains within the corresponding controlled-isotopy
@@ -736,6 +830,66 @@ the remaining geometric pole margins directly.  These pole margins are not
 obtained from an \(r\to0\) pole thickening.  The radius is not decreased
 again.  Section 4 takes the final finite minimum \(m_{\rm ev}>0\) and proves
 the limiting source arrangement and its exact-winding continuation.
+
+### 3.4 Refinement of the existing V2 first-hit block
+
+No new flowbox or lateral wall is introduced.  Let
+\(\mathfrak E_{\rm out}^{\rm V2}\) and
+\(\mathfrak E_{\rm ret}^{\rm V2}\) be the finite outgoing and return event
+lists of the already exhaustive V2 physical block.  Let
+
+\[
+ \mathfrak Q_{\rm out}^{\rm V2}
+   \subset(\mathfrak E_{\rm out}^{\rm V2})^2,
+ \qquad
+ \mathfrak Q_{\rm ret}^{\rm V2}
+   \subset(\mathfrak E_{\rm ret}^{\rm V2})^2
+\tag{B1}
+\]
+
+be its finite imported lists of genuinely competing hit-time pairs.  For
+those pairs, and only those pairs, retain
+\(q_{ef}^{\rm V2}=t_e^{\rm V2}-t_f^{\rm V2}\) with the clean/neat ranks,
+empty-tie gaps, nonempty-tie conormals, and priorities proved in V2.  These
+physical lists are fixed before they are written in any saddle marking and
+therefore agree on chart overlaps.
+
+The two old gate outcomes are now refined.  For the algebraic carrier
+\(h_{\rm c}=0\), whose speed satisfies
+\(|dh_{\rm c}(F_\mu)|\ge s_*>0\), use the V5 label
+\(g_{{\rm a},\mu}\) on the compact patch (31).  Its zero set is the actual
+algebraic face; the two relatively open sets
+
+\[
+ \{g_{{\rm a},\mu}>0\},\qquad
+ \{g_{{\rm a},\mu}<0\}
+\tag{B2}
+\]
+
+inside the same patch receive two named `out` labels, and the patch
+complement retains its old V2 label.  The tangential patch faces receive the
+fixed old priority.  Thus the carrier is partitioned exactly.  The carrier
+speed belongs to \(h_{\rm c}\), while (A-pb) is the conormal estimate for the
+internal label \(g_{{\rm a},\mu}=0\); invariance of the matched sheet is not
+used as a speed claim.  Since all three labels share the same carrier hit
+time, (B2) introduces no event-time difference.
+
+For the pole outcome, use the V3 event-free slide just described to replace
+the old gate by \(x=10\).  The strict earlier-event and flow-buffer margins
+keep this replacement inside the protected old outcome.  Label the interior
+of (34) `pole`, retain the transported priority on its product boundary, and
+label the \(x=10\) carrier complement `out`.  Only these pieces share the new
+carrier hit time, so the replacement introduces no new member of (B1).  The
+homoclinic aperture, its outgoing complement, and the complete return block
+are unchanged from V2.
+
+Consequently the refined physical block remains exhaustive before the
+winding parameter is introduced: the algebraic carrier is partitioned, and
+the protected pole outcome is carried event-free to a partition of
+\(x=10\); every point outside those two old outcomes retains its V2
+first-event assignment.  Section 4 verifies the clean/neat source pullbacks
+of the new labels; no general block-production or parameter-transversality
+assertion is used.
 
 ## 4. Pullback to one source cell and high-winding stratification
 
@@ -805,8 +959,39 @@ the following table.
 | homoclinic aperture and outgoing laterals | their V2 functions composed with \(\Pi_{\mu,\sigma,\infty}\) | V2 |
 | re-entry, target signs, stable cut, return laterals | return-band functions composed first with the compact homoclinic flight and then with \(\Pi_{\mu,\sigma,\infty}\) | V2 |
 
+The following is the finite model audit of the carrier refinement in Section
+3.4.  Write \(b_{\rm a}^{\pm}\) for the two algebraic tangential patch
+faces and \(p_\phi^{\pm},p_\nu^{\pm}\) for the four pole product faces.
+The only event-time differences are the already imported rows
+
+\[
+ \mathfrak Q^{\rm V2}
+  :=\mathfrak Q_{\rm out}^{\rm V2}
+      \sqcup\mathfrak Q_{\rm ret}^{\rm V2}.
+\tag{38a}
+\]
+
+All functions in the table are normalized once before margins are compared.
+
+| ID | physical carrier / outcome | ambient domain and pullback | defining functions and coorientation | allowed active sets / priority | forbidden sets and positive gap | event-order row | protected data / source |
+|---|---|---|---|---|---|---|---|
+| Z | source-cell boundary | \(Z_{\rm exit}=I_s\times\overline J_0\) | \(r_1^Z,\ldots,r_4^Z\), inward positive | adjacent edges meet at their corner | opposite edges are empty; every unlisted face/corner incidence has gap | none | end anchors and the matching graph avoid \(\partial Z_{\rm exit}\) |
+| H-u | homoclinic opening and old outgoing outcomes | \(B_\mu^u\), then \(h_j^u\circ\Pi_\infty\) | the complete unchanged V2 outgoing list | exactly the V2 incidence complex and priorities | all other active sets retain the V2 empty gap | \((e,f)\in\mathfrak Q_{\rm out}^{\rm V2}\) only | homoclinic trace and the exhaustive V2 block |
+| A | algebraic carrier refinement | first hit of \(h_{\rm c}=0\), then source pullback | carrier speed \(dh_{\rm c}(F_\mu)\); label \(a=g_{{\rm a},\mu}\circ\Pi_\infty\); faces \(b_{\rm a}^{\pm}\) | \(a=0\) is the algebraic face; \(a>0\) and \(a<0\) are named `out` cells; \(a=0\) may meet one patch end | it cannot meet both patch ends; its closure is disjoint from H-u and P | no new row; all pieces have the same carrier time | selected V5 connection; (A-inc)--(A-pb) |
+| P | protected pole-carrier replacement and refinement | V3 event-free slide inside the old pole outcome, first hit of \(x=10\), product chart (P-trace), then source pullback | \(p_\phi^{\pm},p_\nu^{\pm}\); carrier speed, strict earlier-event buffer, and cone/basin inequalities from V3 | product interior is `pole`; boundary has transported priority; the \(x=10\) complement is `out` | opposite product faces are empty; P is disjoint from A and H-u; the limiting template has \(\nu_u=0\) | no new row; only the aperture pieces share the \(x=10\) hit time | V3 anchor, event-free slide, and compact product aperture |
+| H-r | unchanged homoclinic return family | fixed nested homoclinic cell \(K_{\rm h}\), through the compact flight | V2 re-entry, target signs, stable cut, and return-lateral functions \(h_j^r\) | stable cut is the common boundary of the two target signs; V2 corners retained | all unlisted return incidences retain the V2 gap | \((e,f)\in\mathfrak Q_{\rm ret}^{\rm V2}\) only | H1 target interval and both endpoint collars |
+| Q-V2 | imported competing finite hit times | the fixed V2 common pre-event domains and their pullbacks | \(q_{ef}^{\rm V2}=t_e^{\rm V2}-t_f^{\rm V2}\), \((e,f)\in\mathfrak Q^{\rm V2}\) | precisely the V2 pairwise ties and priorities | every imported empty tie retains its positive gap; every forbidden incidence remains empty | the sign of the imported \(q_{ef}^{\rm V2}\) gives the strict order | no new time-difference row is added |
+
+The table is exhaustive because the original V2 table is exhaustive, the A
+row partitions its existing carrier, and V3 carries the protected old pole
+outcome event-free to the partitioned \(x=10\) carrier.  No orbit outside
+those two old outcomes changes label.  It also fixes the actual
+ambient domain of every active tuple: return rows are constructed on
+\(K_{\rm h}\), not silently on all of \(Z_{\rm exit}\).
+
 Here is the source-level H2 verification.  For each \(\sigma\), enumerate
-the rows of the table and all of their patch and lateral boundary functions
+the unchanged V2 rows, the new algebraic and pole label faces, their patch
+boundaries, and the imported differences indexed by \(\mathfrak Q^{\rm V2}\)
 as
 
 \[
@@ -826,18 +1011,16 @@ the fixed product-coordinate reference faces inserted only after the
 positive box and \(\eta_{\rm p}\) have been fixed.  No limiting pole basin
 at \(r=0\) is asserted.
 
-The new algebraic patch-boundary and outgoing-lateral levels in (H2-ref) are
-chosen on \(Z_{\rm exit}\), not merely in their target flowboxes.  Starting
-with the main algebraic face, whose pullback conormal has the bound (A-pb),
-apply Sard's theorem successively to the restrictions of each candidate
-level function to every compact old face and to every active boundary
-tangent stratum.  Because only finitely many restrictions occur, the levels
-can be chosen simultaneously regular and away from every old
-reference-empty incidence.  Perform the same finite construction, relative
-to the homoclinic-cell boundary, for the pulled-back return, cut, and return
-lateral levels.  The pre-existing rows in this step are exactly the frozen
-V2 clean, neat H2 family.  Thus the procedure neither assumes nor obtains
-neatness merely from a target-space flowbox.
+The algebraic tangential patch levels in (H2-ref) are chosen on
+\(Z_{\rm exit}\), not merely on the target carrier.  Starting with the main
+algebraic face, whose pullback conormal has the bound (A-pb), apply Sard's
+theorem successively to the restrictions of each candidate tangential level
+to every compact old V2 face and active boundary stratum.  Finiteness gives
+simultaneously regular levels away from every old reference-empty
+incidence.  All outgoing, homoclinic, return, cut, and lateral levels remain
+the frozen V2 levels.  The pole faces are the separated product-coordinate
+levels fixed after the positive box is frozen.  Thus no target-flowbox
+genericity or new parameter-dependent perturbation is assumed.
 
 For every face set \(S\) and closed boundary face \(B\) whose reference
 incidence is nonempty, let \(A^0_{S,B}(Z)\) be the matrix consisting of the
@@ -874,30 +1057,44 @@ coordinate.
 The limiting template has \(\nu_u=0\), so the two product-normal faces
 \(\nu_u=\pm\eta_{\rm p}\) are reference-empty and have gap
 \(\eta_{\rm p}\).  Equation (37) makes the closures of the algebraic,
-homoclinic, and pole apertures pairwise disjoint.  Their complementary
-relative interiors are covered by finitely many compact pre-event tubes;
-the part outside those tubes ends on the named outgoing or return laterals.
-The frozen V2 first-hit package supplies the old and return-tube speeds and
-order gaps, (A-inc)--(A-pb) supply the algebraic incidence, and V3 supplies
-the pole hit, cone-entry, basin-entry, and earlier-event margins on the
-already frozen positive box.  Compactness therefore gives a further
-positive finite minimum
+homoclinic, and pole apertures pairwise disjoint.  The frozen V2 first-hit
+package supplies the exhaustive old outgoing and return assignments, all
+old carrier and return-tube speeds, and precisely the time-order rows indexed
+by \(\mathfrak Q^{\rm V2}\).  Equations (A-inc)--(A-pb) supply the new
+algebraic label incidence, while its carrier speed remains
+\(dh_{\rm c}(F_\mu)\).  V3 supplies the pole carrier hit, cone entry, basin
+entry, and earlier-event margins on the frozen positive box.  The A label
+partitions its old carrier, while the protected V3 slide replaces the pole
+carrier inside one old outcome before the P labels partition \(x=10\).
+Neither operation creates an additional competition domain.  Compactness
+therefore gives
+the two positive finite minima
 
 \[
  a_{\rm dyn}:=\min\{\hbox{inactive-sign, first-hit speed,
- earlier-event, event-order, flow-buffer, and containment margins}\}>0.
+ earlier-event, flow-buffer, and containment margins}\}>0,
+ \qquad
+ a_{q,\varnothing}:=
+ \min_{\substack{(e,f)\in\mathfrak Q^{\rm V2}:\\
+                  (q_{ef}^{\rm V2})^{-1}(0)=\varnothing}}
+       \inf|q_{ef}^{\rm V2}|>0.
 \tag{H2-dyn}
 \]
 
-Choose one interior algebraic anchor and one interior pole anchor before
-forming connected sign strata.  Their current-sign and connected-component
-labels are retained, their distances from all inactive and boundary faces
-are positive, and they define the pairs in (11).  This is label uniqueness
-inside the chosen finite arrangement, not uniqueness of all physical end
-connections.  The labelled sign cells, their common faces, and their
-corners exhaust \(Z_{\rm exit}\): every relative interior belongs to one
-of the compact pre-event tubes or to a named lateral cell, and the fixed
-priority assigns every simultaneous lower-dimensional stratum once.
+Set \(a_{q,\varnothing}=+\infty\) if the imported empty-tie list is absent.
+For an imported nonempty tie no lower bound on \(|q_{ef}^{\rm V2}|\) is
+taken; its conormal is already included in \(\gamma_0\), and its two signs
+record the adjacent strict orders.
+
+Choose one relative-interior algebraic-face anchor and one interior pole
+anchor before forming connected sign strata.  Their current-sign and
+connected-component labels are retained, their distances from all inactive
+and boundary faces are positive, and they define the pairs in (11).  This is
+label uniqueness inside the chosen finite arrangement, not uniqueness of all
+physical end connections.  The labelled sign cells, their common faces, and
+their corners exhaust \(Z_{\rm exit}\) because they are finite partitions of
+the already exhaustive V2 cells; the fixed priority assigns every
+lower-dimensional stratum once.
 
 Now move the core rows from their reference values to the already selected
 positive box.  The choice of \(r_{\rm V}\) in Section 3.3 keeps the
@@ -912,7 +1109,7 @@ distances have one lower bound.  Fix
 
 \[
  m_{\rm ev}:={1\over4}\min
-  \{\gamma_0,a_{\rm emp},a_{\rm dyn},
+  \{\gamma_0,a_{\rm emp},a_{\rm dyn},a_{q,\varnothing},
        \hbox{all retained positive moving margins}\}>0.
 \tag{H2-margin}
 \]
@@ -926,22 +1123,24 @@ the one spare mixed derivative
 \tag{H2-reg}
 \]
 
-For the old rows this is part of the state-\(C^5\), parameter-\(C^2\)
-V2 finite-flow package; for the algebraic row it follows from the resolved
-V5 graph and its compact flowbox, and for the pole rows it is immediate in
-the product chart followed by the V3 finite first-hit map.  In particular,
-all rows refer to the same physical flow, are state-\(C^3\), and have the
+For the old rows and every \(q_{ef}^{\rm V2}\), the required bound is the
+state-\(C^3\), parameter-\(C^2\) finite-flow estimate proved in V2, Section
+5.  For the algebraic label and its tangential faces it follows from the
+resolved V5 graph and its compact carrier map.  For the pole product faces it
+follows from the state-\(C^3\), parameter-\(C^2\) chart (P-trace).  The pole
+terminal potentials are not event rows; their separate spare bound is Lemma
+V6.1.  In particular, all rows refer to the same physical flow and have the
 mixed regularity needed below; (H2-reg), rather than the phrase
 ``mixed-\(C^2\)'' alone, is what preserves the quantitative \(C^2\) rate
 under composition.
 
 Let \(\Pi_{\mu,\sigma,n}\) be the exact normalized exit map on the complete
-\(n\)-th winding cell.  Choose a rate
+\(n\)-th winding cell.  On \(V_i\), use the coverwise rate fixed in (8a):
 
 \[
- \varkappa<\varkappa_+<
- \inf_{\mu\in\mathcal P_{\rm V}}
- {2\pi\alpha_\mu\over\beta_\mu}.
+ \varkappa<\varkappa_i^+<
+ {2\pi\inf_{\mu\in U_i}\alpha_\mu
+       \over\sup_{\mu\in U_i}\beta_\mu}.
 \tag{39}
 \]
 
@@ -951,7 +1150,7 @@ lemma, and the compact finite flights give the whole-cell estimate
 \[
  \|\Pi_{\mu,\sigma,n}-
       \Pi_{\mu,\sigma,\infty}\|_{C^2_{Z,\mu}}
- \le C(1+n)^3e^{-\varkappa_+n}.
+ \le C_i(1+n)^3e^{-\varkappa_i^+n}.
 \tag{40}
 \]
 
@@ -963,20 +1162,60 @@ the same estimate by the chain rule and the uniform spare mixed derivative
 (H2-reg); bounded mixed two-jets alone would give qualitative convergence
 but would not justify retaining this quantitative \(C^2\) rate.
 
+For the pole terminal functions, let \(\mathcal E_{{\rm p},\mu}\) be the
+fixed compact V3 arrival map from the outgoing band to the common lower pole
+cut and put, on every represented pole cell,
+
+\[
+ A_{\mu,\sigma,n}
+   =\mathcal E_{{\rm p},\mu}\circ\Pi_{\mu,\sigma,n},
+ \qquad
+ A_{\mu,\sigma,\infty}
+   =\mathcal E_{{\rm p},\mu}\circ\Pi_{\mu,\sigma,\infty}.
+\tag{40p}
+\]
+
+Choose the compact coordinate sets \(K_{\rm p}\) of Lemma V6.1 with the
+compact limiting images in their interiors.  Equation (40) and the
+finite-flight bounds let us increase the initial threshold once so that all
+exact images lie in the same \(K_{\rm p}\).  They also give one finite-cover
+bound
+
+\[
+ \|A_{\mu,\sigma,n}\|_{C^2_{Z,\mu}}
+ +\|A_{\mu,\sigma,\infty}\|_{C^2_{Z,\mu}}
+ \le M_{\rm p}<\infty.
+\tag{40q}
+\]
+
+With this fixed compact image set and \(M_{\rm p}\), Lemma V6.1 transfers
+the rate in (40) to the remaining pole length and renormalized pole action.
+
 On each \(V_i\), increase an initial threshold \(N_i^0\) until the right side
 of (40), after composition with every finite defining function, is smaller
 than the controlled-isotopy threshold set by \(m_{\rm ev}\).  Apply the
 isotopy first to the whole outgoing cell
-and then, relative to its homoclinic-cell boundary, to the pulled-back
-return faces.  Compact first-hit stability preserves every strict ordering
-inequality.  This gives a componentwise bijection between every limiting
+and then construct the return isotopy on the fixed nested homoclinic cell
+\(K_{\rm h}\), tangent to every already induced face.  Extend its
+boundary-tangent generating field to \(Z_{\rm exit}\) with support in the
+homoclinic product collar.  Thus the second isotopy fixes the outgoing
+arrangement off that collar and is relative to its boundary.  Compact
+first-hit stability preserves all strict inequalities.  For an imported
+nonempty tie, the perturbed \(q_{ef}^{\rm V2}=0\) remains a neat simultaneous
+stratum and its two signs preserve the adjacent orders.  This gives a
+componentwise
+bijection between every limiting
 sign cell and every exact \(n\)-cell, including all faces and corners.
 
 The transverse homoclinic in V2 verifies the limiting matching hypothesis
 by the frozen Proposition 2.11.  The selector therefore gives both target
 signs for every source sign and winding, while \(\bar\nu=0\) gives their
-common stable cut.  Applying the frozen complete local decomposition now
-proves (10)--(11).  This proof is whole-cell: it does not extrapolate a
+common stable cut.  The exhaustive V2 block, the algebraic-carrier
+refinement, the protected pole-outcome replacement, and the relative
+whole-cell isotopies above prove the exhaustive identity (10)
+and preserve the selected anchor labels (11).  The imported selector is used
+for the two return signs and the completed cross form, not to manufacture
+the first-exit census.  This proof is whole-cell: it does not extrapolate a
 component census from the two selected end orbits.
 
 The same clock inversion and finite-dimensional matching equations give

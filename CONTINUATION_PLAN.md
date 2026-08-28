@@ -20,12 +20,18 @@ remain authoritative.
 - Phase 2 is complete: every imported flagship clause has been mapped to the
   frozen long draft and compressed focused paper in
   `theory/FLAGSHIP_IMPORT_AUDIT_2026-08-28.md`. The frozen baseline was not
-  repinned. The audit exposes two Phase 3 theorem interfaces: compact-family
-  passage/whole-cell uniformity and the genuine positive NHIM-pole terminal
-  module.
-- The next active task is Phase 3, beginning with those two interfaces and the
-  finite whole-cell event census. The polished van der Pol manuscript remains
-  deferred until the seam audit closes.
+  repinned.
+- Phase 3 is complete at the deliberately minimal, conditional interface
+  level.  The compact-family note proves only persistence/transfer of the
+  frozen endpoint, matching, cross-form, and finite physical-event data.  V6
+  keeps the exhaustive V2 block, refines the algebraic carrier, replaces the
+  protected pole gate by the V3 \(x=10\) carrier, and proves the one spare
+  pole-composition derivative.  It does not introduce a general block-
+  production theorem.
+- This execution stops after deterministic candidate-contract refresh,
+  tests, commit, and push.  The van der Pol manuscript, Issue #7 interval
+  validation, temporal stability, Turing selection, and canard identification
+  remain deferred.
 
 ## 1. Decision
 
@@ -279,6 +285,11 @@ the dependent application theorem remains conditional in publication prose.
 Do not begin a polished van der Pol manuscript until this audit is closed.
 The current proof dossiers are valuable source material, not yet a paper.
 
+**Current disposition.**  The conditional audit is recorded in
+`proof-audit/VDP_PUBLICATION_PROOF_AUDIT_2026-08-28.md`.  It preserves the
+frozen-input boundary: the compact-family result is a transfer proposition,
+not an independent reconstruction of the fixed-system block.
+
 ### Principal mathematical unit
 
 The reader-facing conclusion is V7: bounded spatial itineraries produce
@@ -289,21 +300,15 @@ two positive-parameter singular ends and compatible action finite parts.
 
 ### Required seam audits
 
-1. **Compact-family saddle passage:** assemble the completed frame and
-   analytic normal form together with the zero-energy graph, exact sections,
-   and weighted passage into one publication-facing proposition on the common
-   compact parameter box.  It must state the uniform domains and constants,
-   one uniform high-winding threshold, and exactly the state/parameter
-   derivatives later consumed by the selector, whole-cell geometry, action,
-   and coding arguments.  The existing P2d atoms are supporting evidence, not
-   the theorem architecture.
-2. **Positive-pole terminal interface:** state and prove, or identify an
-   accessible exact source for, the modular terminal result actually used for
-   the V3 two-dimensional equilibrium NHIM.  It must cover the open pole
-   aperture, terminal labels, regular-singular finite part, every
-   label/parameter derivative consumed downstream, and compatibility with
-   finite first-event and exact-action composition.  Do not identify this
-   result with the focused paper's isolated-sink H3.
+1. **Compact-family transfer:** state the frozen endpoint, matching,
+   selector, cross-form, finite-event, and overlap data as hypotheses; then
+   prove only the coverwise rate, controlled persistence, and finite-atlas
+   transfer on the compact parameter box.
+2. **Positive-pole terminal interface:** use V3 for the two-dimensional
+   equilibrium NHIM and Laurent--log finite part, and record in V6 only the
+   source-trace identity and spare entry derivative consumed by terminal
+   composition.  Do not identify this result with the focused paper's
+   isolated-sink H3.
 3. **V2 to V3:** verify that the finite central pole gate is connected to the
    genuine positive-parameter pole on a uniform nonempty source window, with
    the stated parameter derivatives and no use of a singular-core pole
@@ -312,17 +317,12 @@ two positive-parameter singular ends and compatible action finite parts.
    `K2 -> K1 -> outer` matching, the imported base comparison data, the
    exchange coefficient, uniform inverse, moving-cut covariance, and the
    same-physical-orbit finite-part construction.
-5. **V5 to V6 whole-cell geometry:** prove a compact-family block-production
-   and structural-stability proposition.  It must hold the three physical
-   channel cores fixed, construct only the auxiliary lateral faces, and use
-   relative transversality, whole-cell convergence, and strict event-speed and
-   event-order margins to obtain a disjoint exhaustive first-event
-   decomposition with uniform margins.  After this proposition is stated, a
-   finite audit table must list the model's defining functions, ambient
-   domains, allowed incidences, empty-incidence gaps, event order, physical
-   anchors, and inputs used to construct the auxiliary faces.  The table
-   records hypotheses; it does not prove neatness, exhaustiveness, or
-   first-event exclusion.
+5. **V5 to V6 whole-cell geometry:** retain the already exhaustive finite V2
+   block and its imported competing-time rows.  Partition the algebraic
+   carrier by the V5 label; replace the protected pole gate by the V3
+   event-free slide to \(x=10\), then partition that carrier by the pole
+   aperture.  Verify the new source pullbacks and introduce no artificial
+   side face or event-time difference.
 6. **Finite-atlas descent:** verify that all local return, terminal,
    exact-action, and coding modules are constructed before descent; do not
    assert one global chart, raw winding alphabet, or unmodified local symbol.
@@ -361,11 +361,10 @@ has an explicit input, output, decisive estimate or transversality statement,
 and source location.  An outline, analogy with the flagship, or successful
 floating computation does not close an arrow.
 
-In addition, the compact-family passage/whole-cell result and the NHIM-pole
-terminal result must either be proved locally with all clauses used above or
-bound to stable directly applicable sources.  Until then, V6--V7 remain
-conditional on the frozen modular imports in publication prose even if their
-repository statuses are unchanged.
+The current audit discharges the two local interfaces in this minimal form.
+V6--V7 nevertheless remain conditional in publication prose on the frozen
+endpoint, matching, event-arrangement, and coding inputs; the audit does not
+upgrade those imports to local independent proofs.
 
 ## 8. Phase 4: van der Pol companion paper
 
@@ -422,9 +421,9 @@ Continue the interval lane only under the existing fail-closed policy:
   the selected homoclinic and its transversality, positive-pole entry and
   terminal bounds, outer graph cone and bunching, exchange coefficient and
   matching inverse, and the strict physical-channel arrangement margins;
-- derive cross forms, auxiliary lateral faces, the component census, and
-  coding from the proved analytic propositions rather than independently
-  recreating every conclusion as a separate interval subsystem;
+- derive cross forms, the retained finite-event census, and coding from the
+  proved analytic propositions rather than independently recreating every
+  conclusion as a separate interval subsystem;
 - perform the required independent-machine replay;
 - bind source, configuration, environment, certificate, and report hashes in
   one immutable release.
@@ -481,10 +480,7 @@ application sound more physical.
 
 ## 12. Immediate next task
 
-Phases 0--2 are complete at the repository level, subject to the explicit
-external-evidence accessibility blocker stated above. The next task is Phase
-3: assemble and audit the compact-family passage/whole-cell proposition and
-the genuine positive NHIM-pole terminal proposition, then close the remaining
-V2--V7 seams listed in Section 7. Do not begin the polished van der Pol paper
-until those local theorem interfaces and the finite whole-cell event census
-are closed.
+No further research phase is active under the narrowed scope.  Finish only
+the deterministic evidence-binding refresh, full local tests, commit, and
+GitHub push for the Phase 3 interface repair, then pause.  Phase 4 and Phase 5
+require a later explicit instruction.

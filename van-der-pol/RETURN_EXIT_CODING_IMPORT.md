@@ -248,8 +248,12 @@ clean, neat arrangement.  Its labelled connected sign strata must be
 literally exhaustive.  Every active pullback conormal family, together with
 the active boundary conormals of \(Z_{\rm exit}\), has a positive least
 singular value; every reference-empty incidence, inactive sign,
-earlier-event exclusion, event order, hit speed, flow-domain buffer, and
-selected-anchor distance has a positive compact margin.  The closures of
+earlier-event exclusion, hit speed, flow-domain buffer, and selected-anchor
+distance has a positive compact margin.  Every competing event-time
+difference is retained: an empty tie class has a positive absolute gap,
+whereas a nonempty pairwise tie has a nonzero conormal and its two signs
+record the adjacent strict orders.  No positive order gap is asserted near a
+nonempty tie.  The closures of
 the algebraic, homoclinic, and pole apertures are pairwise disjoint.  Compact
 pre-event tubes cover every assigned relative interior; their complement is
 partitioned by named lateral faces, rather than left as an implicit residual
@@ -281,6 +285,22 @@ Fix a compact family satisfying Section 2 and choose
  0<\kappa<\inf_\mu {2\pi\alpha_\mu\over\beta_\mu}.
 \tag{5}
 \]
+
+Refine the finite marked cover \(V_i\Subset U_i\) so that, on every member,
+one can choose
+
+\[
+ \kappa<\kappa_i^+
+ <{2\pi\inf_{\mu\in U_i}\alpha_\mu
+       \over\sup_{\mu\in U_i}\beta_\mu}.
+\tag{5a}
+\]
+
+All mixed-passage estimates are first obtained at the coverwise rate
+\(\kappa_i^+\) and only then weakened to the displayed requested rate
+\(\kappa\).  This is the quantifier used in the frozen mixed-passage proof;
+the pointwise infimum in (5) alone is not substituted for its common
+contraction rate.
 
 The mixed-passage and selector modules give one integer \(N\), a section
 width \(\nu_N>0\), and, for every

@@ -3,6 +3,8 @@
 This record separates the logical proof audit from the floating-point
 numerical atlas.  It does not change a claim status by itself.  The
 authoritative statuses remain in [`CLAIM_REGISTER.md`](../CLAIM_REGISTER.md).
+Its V5--V6 assessment is superseded by the later publication audit in
+[`VDP_PUBLICATION_PROOF_AUDIT_2026-08-28.md`](VDP_PUBLICATION_PROOF_AUDIT_2026-08-28.md).
 
 ## V2 to V3
 
@@ -72,10 +74,15 @@ admissible-marking theorem.  A second threshold choice places every local V7
 branch retained in the final alphabets inside the common physical
 residence-time domain, while allowing bounded recoding on overlaps.
 
-The H2 construction should retain its explicit finite census of every event,
-boundary, empty incidence, first-hit margin, and corner priority.  The present
-text contains the needed construction; its role is to verify exhaustiveness,
-not merely local transversality.
+The H2 construction must retain a finite imported census of every physical
+event, boundary, competing event-time difference, empty incidence,
+first-hit margin, and corner priority.  The 2026-08-28 audit clarified that
+the application does not need a second, newly produced block: V6 now keeps
+the frozen V2 block and its order rows.  It subdivides the algebraic carrier,
+then uses the protected V3 event-free slide to replace the old pole gate by
+the partitioned \(x=10\) carrier.  The compact-family note proves the
+conditional uniform transfer of that fixed finite arrangement; it does not
+claim a general block-production theorem.
 
 ## Consequence for computation
 

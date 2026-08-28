@@ -98,7 +98,7 @@ positive-parameter end, matching theorem, or action finite part.
 | Stable/unstable half-tail action gluing | `lem:action-gluing` | `lem:action-gluing` | retained | Fixed-system identity is **directly applicable** after a local exact chart exists; the uniform mixed-family estimate is **adapted locally**. |
 | Uniform winding selector and completed cross forms | `prop:selector` and the simultaneous section-shear equations | `prop:winding-selector` | retained, renamed | **Adapted locally** to the Kato convention, compact parameter box, finite marked atlas, and one physical residence-time threshold. |
 | Whole normalized-cell convergence | completed cross-form and scaled-seam estimates used by `prop:first-exit-family` | `prop:whole-cell-exit-convergence` | retained and made explicit | **Adapted locally** for parameter uniformity and composition with the concrete V3/V5 face functions. |
-| Persistence of the complete labelled first-event census | `prop:first-exit-family` | `prop:neat-arrangement-stability`, `lem:first-hit`, `prop:complete-census`, items (i)--(ii) of `thm:focused-main` | retained and reorganized | **Adapted locally.** V6 must construct the physical end apertures and every auxiliary lateral face before applying the abstract persistence mechanism. |
+| Persistence of the complete labelled first-event census | `prop:first-exit-family` | `prop:neat-arrangement-stability`, `lem:first-hit`, `prop:complete-census`, items (i)--(ii) of `thm:focused-main` | retained and reorganized | **Adapted locally.** V6 must identify the physical end apertures and verify that their carrier refinements preserve the already exhaustive finite physical block before applying the abstract persistence mechanism. |
 | Exact finite-branch action, gluing, singular-end composition, and section/gauge covariance | `prop:section-gauge-covariance`, `cor:physical-covariance`, finite-composition clauses | `prop:finite-flight-action`, `prop:return-time-action-limits`, `prop:renormalized-action-composition`, `prop:end-covariance` | retained and expanded | Finite exact identities are **directly applicable**. Terminal counterterms are **not imported**; V3 and V5A supply them, with the spare derivative needed for a quantitative mixed-$C^2$ rate. |
 | Countable coding, stable plaques, finite terminal words, and periodic-orbit composition | `thm:terminal-extension`, `cor:period-action-asymptotics` | `cor:focused-coding`, `cor:terminal-itinerary-action` | retained in fixed-system form | **Adapted locally** to a finite compatible atlas and a compact parameter family. T2 supplies physical descent after all chartwise modules are constructed. |
 | Descent from finitely many compatible marked charts to one physical first-event relation and invariant closed observables | `cor:physical-covariance` and the long-draft chart-production/covariance architecture | no standalone finite-atlas theorem in the focused paper | not retained as a focused theorem | **Adapted locally.** Proposition T2 in [`FINITE_MARKED_ATLAS_DESCENT.md`](FINITE_MARKED_ATLAS_DESCENT.md) supplies only descent of already constructed local modules; it cannot create a missing passage, event census, terminal map, or coding branch. |
@@ -159,8 +159,21 @@ conditional on the cited frozen RFSN-II inputs.
 
 ## 5. Local theorem obligations exposed by the audit
 
-Only two theorem-sized interfaces must be closed before a polished van der
-Pol paper is justified.
+**Post-audit disposition.**  The pole composition obligation below was
+subsequently stated and proved locally in V6, Section 3.2 and Lemma V6.1,
+using the V3 regular-singular proof.  The compact-family note
+[`COMPACT_FAMILY_FIRST_HIT_THEOREM.md`](COMPACT_FAMILY_FIRST_HIT_THEOREM.md)
+now states and proves the parameter-uniform transfer conditional on the
+frozen fixed-system matching maps and finite physical event arrangement;
+it does not reconstruct those imported inputs.  V6 integrates this transfer
+with the model-specific algebraic and pole carrier subdivisions.  The
+resulting conditional application interface is audited in
+[`VDP_PUBLICATION_PROOF_AUDIT_2026-08-28.md`](../proof-audit/VDP_PUBLICATION_PROOF_AUDIT_2026-08-28.md).
+The external-accessibility finding in Section 4 is unchanged.
+
+At the time of this audit, the following were the two theorem-sized
+interfaces requiring an explicit disposition before a polished van der Pol
+paper could be justified.
 
 1. **Compact-family passage and whole-cell theorem.** Assemble the existing
    local exact frame and analytic normal form with the zero-energy graph,
@@ -184,7 +197,7 @@ treated as consequences of similarly named focused clauses.
 - Do not change B1--B2 or V1--V7 claim statuses in this audit.
 - Keep both application papers conditional on frozen inputs until external
   accessibility is repaired.
-- Proceed to the Phase 3 seam audit, beginning with the two local theorem
-  obligations in Section 5.
+- Treat the post-audit disposition in Section 5 as the current interface
+  record; it does not remove the frozen-input or accessibility conditions.
 - Do not begin explicit-box interval validation merely to compensate for a
   missing analytic interface; Issue #7 remains the later strengthening lane.

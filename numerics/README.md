@@ -87,7 +87,7 @@ principal artifacts are
 [`v6_candidate_contract.json`](results/vdp_v1_v7/v6_candidate_contract.json).
 
 At the frozen point, the connected V3 fit gives
-\((Z_0,W_0,\kappa)\approx(-0.6664297671,-0.06889853233,
+\((Z_0,W_0,c_4)\approx(-0.6664297671,-0.06889853233,
 1.6524678712\times10^7)\), with global/local overlap about
 \(6.4\times10^{-8}\).  Its source-anchored finite-cut subtraction is about
 \(-7.45692005\), while the last-three-cut spread is still about

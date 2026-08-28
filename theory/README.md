@@ -72,6 +72,13 @@ When records differ, use the following order.
   with the bound source checker, it gives
   `V2.CHART.ANALYTIC_NORMAL_FORM` a local mathematical `PASS`; the aggregate
   remains non-claim-bearing and `V2.EXACT_CHART` remains open.
+- [COMPACT_FAMILY_FIRST_HIT_THEOREM.md](COMPACT_FAMILY_FIRST_HIT_THEOREM.md)
+  proves compact-family persistence and transfer of the already supplied
+  passage, selector, cross forms, and physical event arrangement.  It is
+  conditional on the frozen fixed-system endpoint/matching maps and finite
+  physical rows.  It transports every imported competing event-time
+  difference on a finite marked cover; it neither produces a new global
+  block nor asserts a global winding label.
 - [RELATIVE_OVERFLOWING_NHIM.md](RELATIVE_OVERFLOWING_NHIM.md) proves the
   relative doubling and parameter bridge needed for the auxiliary saddle-type
   center graph at the resolved \(K_1\) corner, using the precisely restated

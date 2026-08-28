@@ -44,15 +44,19 @@ finite-branch composition, are **Proved** in
 theorem-sized claim retains the status in the
 [claim register](CLAIM_REGISTER.md).
 
-The analytic van der Pol track is now closed on a nonempty compact positive
-annular parameter box.  [Theorems V6--V7](van-der-pol/TWO_END_RETURN_EXIT_AND_PDE.md)
+Conditional on the named frozen inputs, the analytic van der Pol track is
+closed on a nonempty compact positive annular parameter box.
+[Theorems V6--V7](van-der-pol/TWO_END_RETURN_EXIT_AND_PDE.md)
 prove the exhaustive physical high-winding return--first-exit relation, both
 compatible finite parts, exact branch composition, and the resulting
 periodic, multipulse, and aperiodic stationary spatial PDE patterns.  The
 relative \(K_1\) NHIM interface and finite marked-atlas descent are proved
 locally in [theory/](theory/README.md).  Raw winding labels remain chartwise;
 the physical relation, profiles, periods, and closed actions agree on
-overlaps.  Their reusable
+overlaps.  The compact-family step is a conditional transfer of the frozen
+fixed-system endpoint, matching, cross-form, and finite-event data, as stated
+in the [publication proof audit](proof-audit/VDP_PUBLICATION_PROOF_AUDIT_2026-08-28.md).
+Their reusable
 high-winding and coding inputs are isolated in a strictly bounded
 [frozen modular import](van-der-pol/RETURN_EXIT_CODING_IMPORT.md); neither
 positive end is imported from the flagship model.
@@ -155,14 +159,15 @@ identified.
 
 | Layer | Current status | Boundary and detailed record |
 |---|---|---|
-| Analytic applications | B1--B2 are **Proved**; V1 is **Derived**; V2--V7 are **Proved**, relative to the frozen inputs named in the claim register | These are existential positive-parameter results, not certification of the displayed numerical box.  The publication-facing import crosswalk and compact-family/NHIM-pole audit remain scheduled in the [continuation plan](CONTINUATION_PLAN.md). |
+| Analytic applications | B1--B2 are **Proved**; V1 is **Derived**; V2--V7 are **Proved**, relative to the frozen inputs named in the claim register | These are existential positive-parameter results, not certification of the displayed numerical box.  The publication-facing import crosswalk and conditional compact-family/pole-interface audit are recorded; external accessibility of the frozen evidence closure remains a publication blocker. |
 | Floating atlas | `COMPUTED/E1` and `COMPUTED/QA` | Finite explanatory samples only; they do not prove a uniform census, temporal stability, Turing-branch selection, or canard identification.  See the [numerical report](numerics/VAN_DER_POL_NUMERICAL_REPORT.md). |
 | Explicit-box validation (#7) | `INCONCLUSIVE`, `claim_bearing=false` | The frozen box is \([0.04,0.08]\times[-0.25,0.25]\times[0.8,1.2]\).  P1--P2c and the P2d symplectic-frame and analytic-normal-form children pass locally; the remaining theorem inputs, aggregate certification, and distinct-machine replay are pending.  See the [rigorous-validation record](validation/rigorous/README.md). |
 
 Closing an analytic construction issue records completion under the current
-frozen-import repository contract.  It does not close the publication-facing
-dependency audit, certify the explicit box, or establish temporal stability,
-Turing selection, canard identification, or experimental realization.
+frozen-import repository contract.  It does not make the imported evidence
+externally accessible, certify the explicit box, or establish temporal
+stability, Turing selection, canard identification, or experimental
+realization.
 
 ## Repository map
 
@@ -174,6 +179,7 @@ Turing selection, canard identification, or experimental realization.
 - [Continuation and publication plan](CONTINUATION_PLAN.md)
 - [Claim register](CLAIM_REGISTER.md)
 - [Proof-seam audit](proof-audit/SEAM_AUDIT_2026-08-27.md)
+- [Van der Pol publication proof audit](proof-audit/VDP_PUBLICATION_PROOF_AUDIT_2026-08-28.md)
 - [Primary sources](references/PRIMARY_SOURCES.md)
 - [Numerical atlas and reproduction instructions](numerics/README.md)
 - [Numerical results and interpretation](numerics/NUMERICAL_REPORT.md)
