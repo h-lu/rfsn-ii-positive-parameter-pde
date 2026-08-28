@@ -180,7 +180,13 @@ following statements hold on (3).
    mixed bounds; it preserves the signed axis faces and has degree one on the
    phase boundary.  For
    \(\sigma\in\{+,-\}\), the zero-energy passage preserves the transverse
-   action \(\nu\) exactly and has universal-clock time and phase
+   action \(\nu\) exactly.  Here the section phase has the positive Kato
+   orientation fixed above, so its complex structure sends
+   \(k_1\) to \(k_2=\mathfrak J_\mu k_1\).  The Darboux angle left implicit
+   in the frozen abstract proposition is not identified with this phase.
+   The exact Kato-oriented radial sections and their normal-form flow are
+   written out in the proof below; they give the universal-clock time and
+   phase
 
    \[
    \begin{aligned}
@@ -188,7 +194,7 @@ following statements hold on (3).
        &=-\alpha_\mu^{-1}\log|\nu|+t_{\mu,\sigma}
           +\tau_{\mu,\sigma}(\nu),\\
     \Delta_{\mu,\sigma}(\nu)
-       &=\frac{\beta_\mu}{\alpha_\mu}\log|\nu|
+       &=-\frac{\beta_\mu}{\alpha_\mu}\log|\nu|
           +b_{\mu,\sigma}+\rho_{\mu,\sigma}(\nu).
    \end{aligned}
    \tag{13}
@@ -652,12 +658,190 @@ explicit:
   on one common complex state ball with \(C^2\) analytic-norm dependence; and
 - (8) supplies the uniform saddle-focus gap.
 
+We also make the formerly implicit reversible symplectic completion of the
+Kato frame explicit.  In the physical coordinate order \((U,P,V,Q)\), let
+
+\[
+ \Omega=
+ \begin{pmatrix}
+  0&-1&0&0\\ 1&0&0&0\\ 0&0&0&1\\ 0&0&-1&0
+ \end{pmatrix},
+ \qquad C_0=\operatorname{diag}(1,-1),
+\]
+
+so that \(d\lambda(v,w)=v^T\Omega w\).  Write the normalized expanding
+Kato frame as \(K=(k_1,k_2)\), with
+\(k_2=\mathfrak J_\mu k_1\), and put
+
+\[
+ B=K^T\Omega\mathcal RK
+   =\begin{pmatrix}d&e\\e&-d\end{pmatrix},
+ \qquad
+ d=\frac{2\alpha}{N^2},
+ \qquad
+ e=\frac{2\alpha(3\alpha-2\sqrt2)}{N^2\beta},
+\]
+
+where
+
+\[
+ N^2=6\alpha^2-4\sqrt2\alpha+3,
+ \qquad y=\frac{2^{-1/2}-\alpha}{\beta}.
+\]
+
+The exact spectral identities give
+
+\[
+ \kappa=\sqrt{d^2+e^2}
+   =4\alpha\beta\frac{1+y^2}{N^2}>0.
+\]
+
+On the selected positive branch, define
+
+\[
+ c_\vartheta=\sqrt{\frac{\kappa+d}{2\kappa}},
+ \qquad
+ s_\vartheta=\frac{e}{\sqrt{2\kappa(\kappa+d)}},
+ \qquad
+ A_\vartheta=
+ \begin{pmatrix}c_\vartheta&-s_\vartheta\\
+                 s_\vartheta&c_\vartheta\end{pmatrix}.
+\]
+
+Thus \(A_\vartheta\in SO(2)\) and
+\(A_\vartheta^TBA_\vartheta=\kappa C_0\).  The stable and expanding
+blocks
+
+\[
+ Y=\kappa^{-1/2}KA_\vartheta,
+ \qquad X=\mathcal RYC_0,
+ \qquad L=(X,Y)
+\]
+
+satisfy the exact identities
+
+\[
+ L^T\Omega L=
+ \begin{pmatrix}0&-I\\I&0\end{pmatrix},
+ \qquad
+ \mathcal RL(x,y)=L(C_0y,C_0x).
+\]
+
+The positive factor and the rotation preserve the Kato boundary orientation;
+they only add the explicit parameter-dependent phase origin
+\(\vartheta(\mu)\).  In these coordinates the quadratic Hamiltonian is
+
+\[
+ \widehat H_{\mu,2}\circ L
+   =\alpha I_1+\beta I_2^{\rm K},
+ \qquad
+ I_1=x_1y_1+x_2y_2,
+ \qquad
+ I_2^{\rm K}=x_2y_1-x_1y_2.
+\]
+
+The frozen abstract convention writes
+\(I_2^{\rm F}=x_1y_2-x_2y_1\).  It is transported to the Kato convention by
+the full four-dimensional linear map
+
+\[
+ \mathcal T=\operatorname{diag}(C_0,C_0),
+ \qquad
+ \mathcal T^T\Omega_0\mathcal T=\Omega_0,
+ \qquad
+ \mathcal T\mathcal R_0=\mathcal R_0\mathcal T,
+\]
+
+where \(\Omega_0=\left(\begin{smallmatrix}0&-I\\I&0\end{smallmatrix}\right)\).
+For \(z=(x,y)\),
+
+\[
+ I_1(\mathcal Tz)=I_1(z),
+ \qquad I_2^{\rm F}(\mathcal Tz)=I_2^{\rm K}(z).
+\]
+
+Thus this conjugation is symplectic, preserves the reverser, and does
+**not** reverse the transverse action or interchange its two sign
+components.  It transports the convergent normal form and its exact gauge
+to the Kato-tangent chart.
+
+The sign in (13) follows instead from the exact Kato radial sections.  Put
+\(J=\left(\begin{smallmatrix}0&-1\\1&0\end{smallmatrix}\right)\),
+\(e_\phi=(\cos\phi,\sin\phi)\), and solve
+\(h_\mu(q_\mu(\nu),\nu)=0\).  For a fixed sufficiently small \(\rho>0\),
+use
+
+\[
+ \begin{aligned}
+ \Sigma^{\rm in}_\mu(\phi,\nu)
+  &=\left(\rho e_\phi,
+      \rho^{-1}\{q_\mu(\nu)e_\phi-\nu Je_\phi\}\right),\\
+ \Sigma^{\rm out}_\mu(\psi,\nu)
+  &=\left(\rho^{-1}\{q_\mu(\nu)e_\psi+\nu Je_\psi\},
+      \rho e_\psi\right).
+ \end{aligned}
+\]
+
+Both pull back \(\omega_0\) to \(d\phi\wedge d\nu\), and on both sections
+\(I_1=q_\mu(\nu)\), \(I_2^{\rm K}=\nu\).  Along the normal-form orbit put
+
+\[
+ a_\mu(\nu)=\partial_1h_\mu(q_\mu(\nu),\nu),
+ \qquad
+ \omega_\mu(\nu)=\partial_2h_\mu(q_\mu(\nu),\nu).
+\]
+
+Then
+
+\[
+ \dot x=-a_\mu x+\omega_\mu Jx,
+ \qquad
+ \dot y=a_\mu y+\omega_\mu Jy,
+\]
+
+and direct quadrature gives
+
+\[
+ \begin{aligned}
+ T_\mu(\nu)
+   &=a_\mu(\nu)^{-1}
+      \log\!\frac{\rho^2}{\sqrt{q_\mu(\nu)^2+\nu^2}},\\
+ \Delta_\mu(\nu)
+   &=\omega_\mu(\nu)T_\mu(\nu)
+      +\arg_\sigma\!\left(q_\mu(\nu)-i\nu\right).
+ \end{aligned}
+\]
+
+Here \(\arg_\sigma\) is the smooth branch on the component
+\(\sigma\nu>0\).  Since
+\(q_\mu(\nu)=-(\beta_\mu/\alpha_\mu)\nu+O(\nu^2)\), the two displays give
+the leading terms in (13), including its negative phase sign.  Analyticity
+on each signed component gives the same all-finite-order weighted-log
+remainder class and the two parameter derivatives.  This direct calculation
+replaces, rather than reinterprets, the opposite displayed phase convention
+in the frozen proposition.
+
 Proposition 2.7 of the frozen source, with regularity order two, gives
-parameter-local reversible exact symplectic saddle charts.  Postcomposition
-with the unique linear symplectic phase rotation and radial normalization
-makes every chart tangent-normalized to the Kato frame fixed in Section 1.
-This normalization does not change the normal form, exact transverse action,
-or weighted-log estimates.
+parameter-local reversible exact symplectic saddle charts.  To fix the
+composition direction, choose its Darboux embedding \(\Psi^{\rm F}_\mu\)
+with tangent frame
+\(L^{\rm F}_\mu=L_\mu\mathcal T\), let
+\(\Xi^{\rm F}_\mu\) denote the resulting composite normal-form embedding,
+and define
+
+\[
+ \Xi^{\rm K}_\mu=\Xi^{\rm F}_\mu\circ\mathcal T.
+\]
+
+Then \(D\Xi^{\rm K}_\mu(0)=L_\mu\), and the displayed identities for
+\(\mathcal T\) give
+\(\widehat H_\mu\circ\Xi^{\rm K}_\mu
+=h^{\rm F}_\mu(I_1,I_2^{\rm K})\).  Precomposition by the fixed symplectic
+map \(\mathcal T\) also transports the reverser and the normalized exact
+primitive gauge.  Conjugating every local chart in this same way preserves
+degree \(+1\) for Kato-to-Kato overlap maps.  Thus the construction does not
+change the exact transverse action or weighted-log estimates after the
+Kato-section calculation above.
 
 On an overlap, the transition is the composition of one analytic exact
 symplectic saddle chart with the inverse of the other.  It preserves the

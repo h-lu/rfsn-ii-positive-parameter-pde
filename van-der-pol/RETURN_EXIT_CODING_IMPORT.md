@@ -87,6 +87,124 @@ where the transverse action \(\nu\) is preserved exactly and the remainders,
 including mixed state/parameter derivatives through total order two, are
 \(O(|\nu|(1+|\log|\nu||))\) in the weighted logarithmic derivatives
 \(D_{\log\nu}=\nu\partial_\nu\).
+Equation (3) retains the frozen manuscript's local Darboux phase convention.
+It is retained here only to identify the frozen input; it is not inserted
+verbatim into the V2 phase normalization.  The full coordinate conjugation
+used in V2 is
+
+\[
+ \mathcal T=\operatorname{diag}(C_0,C_0),
+ \qquad I_1(\mathcal Tz)=I_1(z),
+ \qquad I_2^{\rm F}(\mathcal Tz)=I_2^{\rm K}(z).
+\]
+
+It is symplectic and commutes with the standard reverser.  In particular,
+the transverse action and its sign \(\sigma\) are unchanged.  Direct
+quadrature on the explicit Kato-oriented radial sections in V2 gives the
+chartwise data used by the present application:
+
+\[
+ \begin{aligned}
+ T^{\rm K}_{\mu,\sigma}(\nu)
+   &=-\alpha_\mu^{-1}\log|\nu|+t^{\rm K}_{\mu,\sigma}
+      +\tau^{\rm K}_{\mu,\sigma}(\nu),\\
+ \Delta^{\rm K}_{\mu,\sigma}(\nu)
+   &=-\frac{\beta_\mu}{\alpha_\mu}\log|\nu|
+      +b^{\rm K}_{\mu,\sigma}
+      +\rho^{\rm K}_{\mu,\sigma}(\nu).
+ \end{aligned}
+\tag{3K}
+\]
+
+The same weighted-log bounds hold.  The opposite leading sign in (3K) is
+proved from the Kato normal-form flow; it is not obtained from a
+two-dimensional phase--action reversal of (3).
+
+The return and first-exit modules must also be conjugated consistently.  Use
+the positive clock lift
+
+\[
+ \beta_\mu T^{\rm K}_{\mu,\sigma}(\nu)=2\pi n+\theta
+\]
+
+and set
+
+\[
+ c^{\rm K}_{\mu,\sigma}
+   =e^{\alpha_\mu t^{\rm K}_{\mu,\sigma}}\ge c_*>0,
+ \qquad
+ \widetilde b^{\rm K}_{\mu,\sigma}
+   =b^{\rm K}_{\mu,\sigma}
+      -\beta_\mu t^{\rm K}_{\mu,\sigma}.
+\tag{3K-a}
+\]
+
+Clock inversion is unchanged:
+
+\[
+ \nu_{\mu,\sigma,n}(\theta)
+ =\sigma c^{\rm K}_{\mu,\sigma}
+   e^{-\alpha_\mu(2\pi n+\theta)/\beta_\mu}
+   \exp\!\left\{\alpha_\mu
+       \tau^{\rm K}_{\mu,\sigma}
+          (\nu_{\mu,\sigma,n}(\theta))\right\}.
+\tag{3K-b}
+\]
+
+Substitution into the phase law gives
+
+\[
+ \Delta^{\rm K}_{\mu,\sigma}
+       (\nu_{\mu,\sigma,n}(\theta))
+ =2\pi n+\theta+\widetilde b^{\rm K}_{\mu,\sigma}
+   +\varrho^{\rm K}_{\mu,\sigma,n}(\theta),
+\quad
+ \varrho^{\rm K}_{\mu,\sigma,n}
+ =\rho^{\rm K}_{\mu,\sigma}(\nu_{\mu,\sigma,n})
+  -\beta_\mu\tau^{\rm K}_{\mu,\sigma}
+       (\nu_{\mu,\sigma,n}).
+\tag{3K-c}
+\]
+
+Consequently the Kato limiting local exit template and the lifted finite
+matching row are
+
+\[
+ \pi^{{\rm loc},{\rm K}}_{\mu,\sigma,\infty}(\phi,\theta)
+  =\bigl(\phi+\theta+\widetilde b^{\rm K}_{\mu,\sigma},0\bigr),
+\tag{3K-d}
+\]
+
+\[
+ \psi-\phi-\theta-\widetilde b^{\rm K}_{\mu,\sigma}
+       -\varrho^{\rm K}_{\mu,\sigma,n}(\theta)=0.
+\tag{3K-e}
+\]
+
+At the limiting cut the last residual is omitted.  Thus the limiting
+matching relation has second row
+\(\psi-\phi-\theta-\widetilde b^{\rm K}_{\mu,\sigma}\).  Equations
+(3K-a)--(3K-e) are the convention used whenever V6 invokes a signed limiting
+template, selector, or first-exit module.  The proof is transported as
+follows.  Reflect the compact residual-angle coordinate only inside the
+frozen proof charts, conjugate both section phase charts and the finite
+homoclinic map by the induced phase reflections and constant translations,
+and then rewrite the exact clock and matching equations as (3K-b)--(3K-e).
+If reflection crosses the chosen half-open endpoint, translate the residual
+angle by \(2\pi\) and change the local deck integer by at most one.  This is
+the bounded winding recoding already allowed on a finite marked atlas; the
+physical positive clock integer is still defined by
+\(\beta_\mu T=2\pi n+\theta\), not by a reflected clock equation.
+
+These finite coordinate conjugacies may change individual conormal signs but
+not ranks, least singular values, strict gaps, contraction norms, or
+connected incidences.  Repeating the clock contraction and matching
+calculation with (3K) therefore gives the same estimates and coding
+conclusions with the displayed Kato signs.  The actual clean event
+arrangement is still an input to be checked for the Kato template in P2e; it
+is not inferred to be literally the frozen raw arrangement.  This is a local
+covariant restatement of the module, not an equality of raw templates.  The
+source and target action signs are not relabelled.
 
 The finite homoclinic transition must be transverse in the regular energy
 surface.  After choosing compact source and target intervals, Proposition

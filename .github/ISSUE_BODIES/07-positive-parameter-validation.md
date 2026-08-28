@@ -37,6 +37,9 @@ quantitative margins.
       composition with \(T_*=11\), \(\eta=1/5\), and
       \(C_{\rm hom}=71496600\)
 - [x] Retrospective local P2c summary certificate/checker (non-claim-bearing)
+- [x] P2d exact-interface scout: 58 symbolic checks for the positive-Kato
+      reversible symplectic completion, action dictionary, radial section
+      forms/gauges, and linear logarithmic time/phase slopes
 - [ ] P2d--P2e exact charts/event atlas
 - [ ] P3--P5 positive pole, outer channel, matching/finite parts, and V6 census
 - [ ] Independent replay on a genuinely distinct machine (currently 1/2)
@@ -62,10 +65,21 @@ See
 This work makes no claim of temporal stability, Turing selection, or canard
 identification.
 
+The P2d exact-interface scout has local audit status `PASS`, but all seven
+`V2.CHART.*` atoms remain `OPEN`: it intentionally proves no nonlinear Moser
+chart, nonlinear zero-energy fiber, weighted passage constants, physical
+slides, or overlap atlas.  Its purpose is to freeze the correct Kato action
+and phase convention before those claim-relevant constructions.  In
+particular the full four-dimensional frozen-to-Kato conjugation preserves the
+action value and its sign, while direct Kato-section quadrature gives the
+negative logarithmic phase coefficient.  The next active gate is the
+constructive analytic normal form on an explicit complex domain.
+
 ## Outcome
 
 P2c is locally `PASS` and aggregate `INCONCLUSIVE` under the independent-replay
-policy.  The active mathematical path is P2d `V2.EXACT_CHART`, then P2e
+policy.  The active mathematical path is the nonlinear part of P2d
+`V2.EXACT_CHART`, then P2e
 `V2.EVENT_ATLAS`, followed by P3--P5.  Every new scope must freeze its theorem
 objects before its claim-bearing run; computation must not choose the theorem
 after seeing the output.

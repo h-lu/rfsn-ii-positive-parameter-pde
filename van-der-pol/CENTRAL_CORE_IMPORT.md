@@ -281,7 +281,8 @@ for a fixed anti-symplectic involution, and have
 \(\inf\min\{\alpha,\beta\}>0\), Proposition 2.7 gives parameter-local
 reversible exact symplectic coordinates.  On zero energy the local passage
 preserves the transverse action \(\nu\) exactly and its time and phase have
-the form
+the form below in the frozen manuscript's local Darboux convention
+\((\phi^{\rm F},\nu^{\rm F})\):
 
 \[
  T_{\mu,\sigma}(\nu)=-\alpha_\mu^{-1}\log|\nu|
@@ -302,7 +303,16 @@ For \(0\le\ell\le r\) and fixed \(j\), the remainder after
 \(D_\mu^\ell D_{\log\nu}^j\), where
 \(D_{\log\nu}=\nu\partial_\nu\), is bounded by the same weighted-log order.
 The theorem does not assert ordinary \(C^2\) extension in \(\nu\) through
-\(\nu=0\).
+\(\nu=0\).  The Darboux angle in this frozen statement is not silently
+identified with the positive Kato phase used by V2.  The latter is obtained
+by the full symplectic conjugation
+\(\mathcal T=\operatorname{diag}(C_0,C_0)\), which satisfies
+\(I_2^{\rm F}(\mathcal Tz)=I_2^{\rm K}(z)\); hence it does not reverse the
+action value or exchange its sign components.  V2 then freezes explicit
+Kato-oriented incoming and outgoing radial sections and recomputes their
+normal-form quadrature.  That calculation gives the opposite logarithmic
+phase sign, while the time law and all absolute weighted-log bounds are
+unchanged.  No phase-only dictionary is used to infer this sign.
 
 **Compact first hits.**  Lemma 5.3 applies to a compact pre-event tube when
 each \(z\) already has a first-event time

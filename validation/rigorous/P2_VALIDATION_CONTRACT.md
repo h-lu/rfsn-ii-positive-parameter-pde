@@ -39,11 +39,19 @@ interface.  Their executable refinements are:
 | P2c | `V2.HOM.TRANSVERSE` | Nonzero endpoint, regular zero-energy level, sign/rank control of the phase column, and \(0\notin\det D_{(\phi,T)}M\). |
 | P2c | `V2.HOM.TAILS` | Explicit \(\eta,C,T_*\) and all external derivatives through order two on both infinite tails. |
 | P2c | `V2.HOM.MIDDLE_C2` | A fixed-\(\xi\), continuous-time \(C^2\) enclosure on the compact middle \([-T_*,T_*]\), including the event-time centering terms, composed with the local pre-source pieces and both infinite tails to give one explicit global weighted bound for all external derivatives through order two. |
-| P2d | `V2.CHART.*` | A finite exact marked saddle-chart cover, zero-energy fiber solve, exact action, overlap compatibility, and weighted-log passage bounds at a declared log-derivative order \(m\). |
+| P2d | `V2.CHART.SYMPLECTIC_FRAME` | The normalized Kato expanding phase has an exact positive-radial reversible symplectic completion, with its sign branch and parameter two-jets fixed. |
+| P2d | `V2.CHART.ANALYTIC_NORMAL_FORM` | On every member of a finite parameter cover, a convergent reversible Moser construction gives an exact symplectic chart and inverse, an exact primitive gauge, and \(\widehat H_\mu\circ\Phi_\mu^{\rm K}=h_\mu^{\rm K}(I_1,I_2^{\rm K})\) on one certified complex domain. |
+| P2d | `V2.CHART.ZERO_ENERGY` | The normal-form equation \(h_\mu^{\rm K}(I_1,\nu)=0\), \(\nu=I_2^{\rm K}\), has one certified two-sided solution \(I_1=q_\mu(\nu)\) on a common nonzero action interval, with the origin branch and its first jet fixed and \(\partial_{I_1}h_\mu^{\rm K}\) uniformly positive. |
+| P2d | `V2.CHART.EXACT_SECTIONS` | Incoming/outgoing section forms are exactly \(d\phi\wedge d\nu\), the primitive gauges are fixed, and the passage preserves the same transverse action \(\nu\) exactly. |
+| P2d | `V2.CHART.WEIGHTED_PASSAGE` | The time and Kato-oriented phase laws, including \(\widetilde b^{\rm K}=b^{\rm K}-\beta t^{\rm K}\) and the residual \(\rho^{\rm K}-\beta\tau^{\rm K}\), have an analytic all-finite-\(m\) Cauchy-bound generator and explicit machine-usable constants through \(D_{\log\nu}^3D_\mu^{\le2}\). |
+| P2d | `V2.CHART.PHYSICAL_SLIDES` | Exact auxiliary and physical faces, event-free slides, first-hit speed/uniqueness, residence-time correction, and state-\(C^3\)/parameter-\(C^2\) bounds are certified. |
+| P2d | `V2.CHART.OVERLAPS` | A finite cover has common chart/inverse domains, exact-symplectic overlap gauges, signed-axis preservation, oriented-blow-up extensions, state-\(C^3\)/parameter-\(C^2\) mixed bounds, and phase-boundary degree \(+1\). |
 | P2e | `V2.ATLAS.*` | Machine-readable physical event faces, incidences, priority, margins, connected box complex, complete first-event census, transported traces, and the three phase gaps. |
 
 The parent `V2.WU_GRAPH` may pass only after both P2a and P2b pass.  Likewise,
-partial success in P2c, P2d, or P2e does not pass its parent obligation.
+partial success in P2c, P2d, or P2e does not pass its parent obligation.  In
+particular, a finite-order almost-symplectic normal form or a certificate only
+through one fixed log order cannot pass the full `V2.EXACT_CHART` parent.
 
 The current strict design implementation passes every scoped P2c atom,
 including `V2.HOM.MIDDLE_C2`, on the full bridge and obtains
@@ -947,6 +955,258 @@ in P2d; the event atlas in P2e; V3--V6 or either noncompact end.  It also makes
 no claim of temporal stability, dynamical Turing-pattern selection, or a
 finite-parameter canard.  Every claim-bearing status remains false until the
 repository's independent-machine replay policy is met.
+
+### 5.5 P2d reversible exact saddle-chart interface
+
+P2d applies Definition 2.1(I1), Lemmas 2.4--2.6, and Proposition 2.7 of the
+frozen flagship manuscript at commit
+`d54add098545063d5efe8f1d6f062d4cfc116a0d`.  The imported manuscript blob is
+`papers/paper-a/manuscript/main.tex`, SHA-256
+`0baf6335aad72d5893479d8876d2613671ecb8ac2ccd73664405dea4381e6a20`.
+Those results provide a qualitative analytic existence theorem.  A P2d
+machine certificate must additionally expose the radii, cover, overlap
+domains, action width, and downstream derivative constants that it consumes.
+The two evidence layers must not be conflated:
+
+1. exact verification of the I1 hypotheses invokes the frozen theorem and
+   proves existence for every fixed finite log-derivative order;
+2. a constructive analytic certificate supplies explicit machine-usable
+   constants, initially through log order three and parameter order two.
+
+There are correspondingly three distinct status fields.  `PASS` from an
+auxiliary exact-identity audit means only that its enumerated identities hold;
+an atom remains `OPEN` until its full mathematical predicate is discharged;
+and `claim_bearing` remains false until the repository-level replay and
+provenance policy is satisfied.  None of these statuses substitutes for
+another.
+
+Log order three is the first constructive target because the frozen marked
+class has state regularity at least five and its passage interface consumes
+orders through \(k-2\).  It does not replace the all-finite-order analytic
+quantifier in Theorem V2(3).  The latter must be supplied by one Cauchy-bound
+generator valid for arbitrary finite \(m\).
+
+#### Exact Kato-oriented symplectic completion
+
+In the physical order \((U,P,V,Q)\), freeze
+
+\[
+ \Omega=
+ \begin{pmatrix}
+  0&-1&0&0\\1&0&0&0\\0&0&0&1\\0&0&-1&0
+ \end{pmatrix},
+ \qquad C_0=\operatorname{diag}(1,-1).
+\tag{D1}
+\]
+
+For the P2bK expanding frame \(K=(k_1,k_2)\),
+\(k_2=\mathfrak J_uk_1\), exact algebra gives
+
+\[
+ B:=K^T\Omega\mathcal RK
+   =\begin{pmatrix}d&e\\e&-d\end{pmatrix},
+ \quad
+ d=\frac{2\alpha}{N^2},
+ \quad
+ e=\frac{2\alpha(3\alpha-2\sqrt2)}{N^2\beta},
+\tag{D2}
+\]
+
+and
+
+\[
+ \kappa=\sqrt{-\det B}=\sqrt{d^2+e^2}
+ =4\alpha\beta\frac{1+y^2}{N^2}>0,
+ \qquad y=\frac{2^{-1/2}-\alpha}{\beta}.
+\tag{D3}
+\]
+
+The branch is fixed by
+
+\[
+ c_\vartheta=\sqrt{\frac{\kappa+d}{2\kappa}}>0,
+ \qquad
+ s_\vartheta=\frac{e}{\sqrt{2\kappa(\kappa+d)}},
+ \qquad
+ A_\vartheta=
+ \begin{pmatrix}c_\vartheta&-s_\vartheta\\
+                 s_\vartheta&c_\vartheta\end{pmatrix}.
+\tag{D4}
+\]
+
+Then \(A_\vartheta^TBA_\vartheta=\kappa C_0\).  Define
+
+\[
+ Y=\kappa^{-1/2}KA_\vartheta,
+ \qquad X=\mathcal RYC_0,
+ \qquad L=(X,Y).
+\tag{D5}
+\]
+
+The combined P2d evidence must prove
+
+\[
+ L^T\Omega L=
+ \begin{pmatrix}0&-I\\I&0\end{pmatrix},
+ \qquad
+ \mathcal RL(x,y)=L(C_0y,C_0x),
+\tag{D6}
+\]
+
+together with the stable/expanding spectral blocks and invertibility.  The
+exact symbolic audit verifies these identities and the branch formula; a
+separate outward-rounded interval layer must supply uniform positive branch
+margins and the complete first and second parameter bounds on the frozen box.
+The rotation in (D4) changes the Kato phase origin but has degree \(+1\).
+
+There is a mandatory sign dictionary.  With the positive Kato orientation,
+
+\[
+ \widehat H_{2,\mu}\circ L
+ =\alpha I_1+\beta I_2^{\rm K},
+ \quad I_1=x\mathbin\cdot y,
+ \quad I_2^{\rm K}=x_2y_1-x_1y_2.
+\tag{D7}
+\]
+
+The frozen flagship notation uses
+\(I_2^{\rm F}=x_1y_2-x_2y_1\).  Its exact transport to the Kato-tangent
+chart is the four-dimensional conjugation
+
+\[
+ \mathcal T=\operatorname{diag}(C_0,C_0),
+ \qquad
+ \mathcal T^T\Omega_0\mathcal T=\Omega_0,
+ \qquad
+ \mathcal T\mathcal R_0=\mathcal R_0\mathcal T,
+ \qquad
+ I_2^{\rm F}(\mathcal Tz)=I_2^{\rm K}(z).
+\tag{D8}
+\]
+
+It also preserves \(I_1\).  Hence the action value and its sign component
+are unchanged; the formal two-dimensional map
+\((\phi,\nu)\mapsto(-\phi,-\nu)\) is symplectic but is **not** the chart
+dictionary used here.
+
+The Kato phase sign is fixed directly.  With
+\(J=\left(\begin{smallmatrix}0&-1\\1&0\end{smallmatrix}\right)\), the exact
+incoming and outgoing radial sections are
+
+\[
+ \begin{aligned}
+ (x,y)_{\rm in}
+  &=\left(\rho e_\phi,
+      \rho^{-1}\{q_\mu(\nu)e_\phi-\nu Je_\phi\}\right),\\
+ (x,y)_{\rm out}
+  &=\left(\rho^{-1}\{q_\mu(\nu)e_\psi+\nu Je_\psi\},
+      \rho e_\psi\right).
+ \end{aligned}
+\]
+
+Each has \(I_1=q_\mu(\nu)\), \(I_2^{\rm K}=\nu\), and pullback
+\(d\phi\wedge d\nu\).  The normal-form equations rotate both the stable and
+expanding factors with positive Kato angular speed
+\(\partial_2h_\mu(q_\mu(\nu),\nu)\).  Since
+\(q_\mu(\nu)=-(\beta_\mu/\alpha_\mu)\nu+O(\nu^2)\), their direct quadrature,
+not a phase-only coordinate reversal, gives
+
+\[
+ \Delta_{\mu,\sigma}(\nu)
+ =-\frac{\beta_\mu}{\alpha_\mu}\log|\nu|
+  +b_{\mu,\sigma}+\rho_{\mu,\sigma}(\nu).
+\tag{D9}
+\]
+
+The time law retains its usual negative logarithm.  Any probe or figure using the opposite sign must
+label itself as using the frozen local Darboux convention rather than the
+common Kato phase.
+
+#### Constructive analytic gates
+
+`V2.CHART.ANALYTIC_NORMAL_FORM` may pass only if a finite Lie/Moser prefix and
+a strict scalar majorant prove convergence of the infinite sequence on an
+explicit complex polydisc.  Every finite step must be Hamiltonian, reversible,
+and exact symplectic; the summable tail must give the limit chart, inverse,
+parameter two-jets, exact primitive gauge, image containment, and
+
+\[
+ \widehat H_\mu\circ\Phi_\mu^{\rm K}
+   =h_\mu^{\rm K}(I_1,I_2^{\rm K})
+\tag{D10}
+\]
+
+as an identity.  A small numerical symplectic defect or a finite normal-form
+truncation is not a substitute for (D10).
+
+Here and below \(\nu=I_2^{\rm K}\).  The zero-energy atom applies to the
+nonlinear normal form in (D10), not to
+the raw polynomial Hamiltonian in the linear tangent frame.  On both signs of
+\(\nu\), a frozen interval Newton/Krawczyk gate must prove
+
+\[
+ h_\mu^{\rm K}(q_\mu(\nu),\nu)=0,
+ \qquad q_\mu(0)=0,
+ \qquad q_\mu'(0)=-\frac{\beta_\mu}{\alpha_\mu},
+ \qquad
+ \partial_{I_1}h_\mu^{\rm K}(q_\mu(\nu),\nu)\ge a_*>0,
+\tag{D11}
+\]
+
+with one common action width, an explicit bound for
+\(D_\mu^{\le2}D_\nu^{\le3}q_\mu\), and a Cauchy-bound rule for every fixed
+finite \(\nu\)-derivative order.  These conditions lock
+the interval solve to the equilibrium zero-energy branch and fix the forward
+time orientation used in the passage law; merely excluding zero from
+\(\partial_{I_1}h_\mu^{\rm K}\) would not suffice.  The section pullback
+must be exactly \(d\phi\wedge d\nu\), with a fixed primitive gauge, so that
+the equality of incoming and outgoing \(\nu\) is exact action preservation.
+
+The weighted-passage atom must provide the time and phase constants, a
+single explicit uniform lower bound
+\(e^{\alpha_\mu t_{\mu,\sigma}}\ge c_*>0\), the Kato-oriented sign in (D9), and the
+explicit \(D_\mu^{\le2}D_{\log\nu}^{\le3}\) bounds.  The analytic majorant
+must also expose the rule producing both \(\nu_{*,m}>0\) and \(C_m<\infty\)
+for every fixed \(m\ge0\).  It must imply the bounded Kato winding/residence comparison
+
+\[
+ \left|n^{\rm K}-\frac{\beta_\mu}{2\pi}
+ \mathcal T_{{\rm sf},\mu}\right|\le C.
+\tag{D12}
+\]
+
+For the positive clock lift \(\beta_\mu T=2\pi n+\theta\), it must also
+export the convention-dependent but downstream-essential combinations
+
+\[
+ \widetilde b^{\rm K}_{\mu,\sigma}
+  =b^{\rm K}_{\mu,\sigma}-\beta_\mu t^{\rm K}_{\mu,\sigma},
+ \qquad
+ \varrho^{\rm K}_{\mu,\sigma,n}
+  =\rho^{\rm K}_{\mu,\sigma}(\nu_{\mu,\sigma,n})
+    -\beta_\mu\tau^{\rm K}_{\mu,\sigma}(\nu_{\mu,\sigma,n}),
+\]
+
+so that the limiting phase is
+\(\phi+\theta+\widetilde b^{\rm K}_{\mu,\sigma}\) and the finite matching
+row has the signs frozen in equations (3K-d)--(3K-e) of the return/coding
+import note.
+
+The physical-slide atom begins by freezing the exact physical incoming and
+outgoing faces and the local event germs excluded from the punctured saddle
+collar.  It then verifies face transversality, block containment, flow-domain
+buffers, event-free slides, first-hit uniqueness and speed, and the required
+state-\(C^3\)/parameter-\(C^2\) bounds.  The complete connected event-cell
+census remains P2e; only the local collar exclusion needed by P2d is frozen
+here.
+
+Finally, the overlap atom must validate a finite cover
+\(V_i\Subset U_i\), not silently replace it by one global nonlinear chart.
+It checks chart and inverse domains, exact primitive gauges, preservation of
+the signed axes, oriented-blow-up extensions of transitions and inverses,
+state-\(C^3\)/parameter-\(C^2\) mixed bounds, and degree \(+1\) on the Kato
+phase boundary.  Only after all seven P2d atoms pass may
+`V2.EXACT_CHART` pass.
 
 ## 6. What P2a and P2b0 do and do not settle
 

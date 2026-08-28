@@ -117,6 +117,25 @@ machine-readable certificate in
 The full-grid binary endpoints and exact rational composition are archived in
 [`design/p2c_middle_jet_summary_v1.json`](design/p2c_middle_jet_summary_v1.json).
 
+P2d now has a deliberately narrow exact-algebra scout:
+[`audit_p2d_exact_chart.py`](audit_p2d_exact_chart.py).  It performs 58
+deterministic symbolic checks of the physical Hamiltonian convention, the
+positive-Kato physical reversible symplectic completion, the frozen-to-Kato action
+dictionary, the linear zero-energy branch, both radial section forms and
+primitive gauges, and the linear time/phase logarithmic slopes.  Run it with
+
+```bash
+python3 validation/rigorous/audit_p2d_exact_chart.py
+python3 -m unittest validation.rigorous.tests.test_p2d_exact_chart_audit
+```
+
+Its local audit status is `PASS`, but it is non-claim-bearing and keeps every
+`V2.CHART.*` atom and the parent `V2.EXACT_CHART` open.  In particular it does
+not certify the nonlinear analytic normal form, nonlinear zero-energy fiber,
+weighted passage, physical slides, finite-cover overlaps, frozen-box branch
+margins, or parameter two-jets.  Those are the next P2d construction gates;
+the exact scout only prevents convention and sign errors from entering them.
+
 Build and check the lightweight local P2c certificate from a clean source
 snapshot with
 

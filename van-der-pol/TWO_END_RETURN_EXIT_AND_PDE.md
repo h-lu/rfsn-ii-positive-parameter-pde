@@ -772,6 +772,22 @@ transition and these constants are mixed-\(C^2\) in \(\mu\).  Thus
 \(J_\psi,I_s,\nu_*,d_*\) are fixed before \(n\).  This H1 operator is the
 homoclinic return selector; it is not the V5 outer matching operator.
 
+All phase data in this section use the positive Kato convention (3K) of
+[RETURN_EXIT_CODING_IMPORT.md](RETURN_EXIT_CODING_IMPORT.md).  Thus
+\(\beta_\mu T=2\pi n+\theta\),
+\(\widetilde b^{\rm K}_{\mu,\sigma}
+=b^{\rm K}_{\mu,\sigma}-\beta_\mu t^{\rm K}_{\mu,\sigma}\), and the local
+limiting phase is
+\(\phi+\theta+\widetilde b^{\rm K}_{\mu,\sigma}\).  Equivalently, the
+lifted matching equation has second row
+\(\psi-\phi-\theta-\widetilde b^{\rm K}_{\mu,\sigma}\) at the limit and
+includes the residual
+\(-\varrho^{\rm K}_{\mu,\sigma,n}(\theta)\) at finite winding.  These signs
+are part of the definition of the template below; the opposite signs in the
+frozen Darboux display are not mixed into the present coordinates.  The
+action value, source sign, and target sign are unchanged by the full
+four-dimensional conjugation.
+
 Let
 
 \[
