@@ -8,7 +8,7 @@
 \usepackage{microtype}
 \usepackage[colorlinks=true,linkcolor=blue!55!black,citecolor=blue!55!black,urlcolor=blue!55!black]{hyperref}
 \hypersetup{
-  pdftitle={Positive-Parameter Two-End Spatial Dynamics in the Van der Pol Reaction-Diffusion System},
+  pdftitle={High-Winding Stationary Solutions and Singular Exits in the Van der Pol Reaction-Diffusion System},
   pdfauthor={Haibo Lu},
   pdfkeywords={van der Pol reaction-diffusion system, reversible Hamiltonian spatial dynamics, saddle-focus homoclinic, singular exits, action finite parts, stationary patterns}
 }
@@ -38,7 +38,7 @@
 \newcommand{\norm}[1]{\left\lVert #1\right\rVert}
 \newcommand{\dd}{\,d}
 
-\title[Two-end spatial dynamics in van der Pol]{Positive-Parameter Two-End Spatial Dynamics in the Van der Pol Reaction--Diffusion System}
+\title[High-winding stationary solutions]{High-Winding Stationary Solutions and Singular Exits in the Van der Pol Reaction--Diffusion System}
 \author{Haibo Lu}
 \date{August 28, 2026}
 
@@ -48,27 +48,34 @@
 \begin{document}
 
 \begin{abstract}
-We study stationary solutions of the one-dimensional van der Pol
-reaction--diffusion system in a singular positive-diffusion cusp.  Assuming a
-frozen, publicly archived RFSN-II core and return--exit package, we prove on a
-nonempty compact positive parameter annulus that the stationary spatial system
-has an exhaustive high-winding first-return/first-exit relation.  The two
-noncompact exits must be rebuilt from the full positive-parameter equations:
-one is a finite-spatial-distance pole with a Laurent--logarithmic action finite
-part, while the other is an infinite-distance algebraic end carried by a
-normally expanding future-staying hypersurface.  We resolve the
-$K_2\to K_1\to$ outer matching corner, prove reference-subtracted length and
-action finite parts at the algebraic end, and attach both terminal potentials
-to the exact branch cocycle.  The trapped return system is coded by a
-two-vertex countable shift and yields spatially periodic, localized
-multipulse, and bounded aperiodic stationary PDE profiles.  The result concerns
-stationary spatial dynamics; it does not assert temporal stability, selection
-from a Turing bifurcation, or canard identification.
+We consider stationary solutions of the one-dimensional van der Pol
+reaction--diffusion system in the positive-diffusion cusp
+\[
+ d=r^4,\qquad a=1+\sqrt\epsilon\,r^3a_2,\qquad r>0.
+\]
+The singular reversible folded saddle-node of type II (RFSN-II) reduction
+provides a reversible Hamiltonian saddle-focus core, but it does not determine
+the positive-diffusion future of the two exit gates leaving that compact core.
+Under Hypothesis~H, we
+construct both continuations in the full stationary equations.  One reaches a
+pole at finite spatial distance and has a Laurent--logarithmic action finite
+part.  The other lies on a normally expanding future-staying hypersurface,
+reaches infinity only at infinite spatial distance, and has renormalized
+length and action.  A resolved central--outer matching argument identifies the
+algebraic-directed gate with this hypersurface.  Combining these constructions
+with the publicly archived fixed-system theorem and the compact-family clauses
+in Hypothesis~H gives, uniformly on an existential compact positive annulus,
+an exhaustive return--exit partition and a countable symbolic coding of the
+trapped set.  Periodic and nonperiodic
+bi-infinite return itineraries, and finite return words with the selected
+homoclinic endpoints, yield spatially periodic, localized multipulse, and
+bounded aperiodic stationary PDE profiles.  No temporal stability, Turing
+selection, or canard identification is asserted.
 \end{abstract}
 
 \maketitle
 
-\section{Problem, geometry, and conditional main result}\label{sec:intro}
+\section{Introduction and main result}\label{sec:intro}
 
 \subsection{The physical stationary Hamiltonian}
 
@@ -116,15 +123,6 @@ is anti-symplectic.  Thus the zero-energy stationary spatial problem is a
 reversible exact Hamiltonian system.  The sign and clock in
 \eqref{eq:physical-Hamiltonian} matter for every action formula below.
 
-The model and the singular Turing-canard regime were analyzed in
-\cite{VoDoelmanKaper2025}.  We use its physical equations and blow-up charts,
-but not a positive-parameter noncompact-end theorem: neither end used here is
-obtained by ordinary persistence from the singular core.  The saddle-focus
-homoclinic mechanism behind the return geometry is classical
-\cite{Devaney1976,Lerman1991}; the issue addressed here is the full
-positive-parameter attachment of that compact mechanism to two inequivalent
-singular exits of \eqref{eq:physical-spatial}.
-
 \subsection{The cusp and the two terminal geometries}
 
 Fix
@@ -148,7 +146,21 @@ remaining distance $s=\mathsf x_{\rm b}-\mathsf x$ is the natural boundary
 variable and the action requires a Laurent--logarithmic subtraction.  At the
 algebraic end, $z=u^{-1}$ is the boundary defining function, physical length
 diverges, and both length and action are normalized against a complete
-reference tail.  The geometric relation is summarized in Figure~\ref{fig:geometry}.
+reference tail.
+
+Classical results of Devaney, Lerman, and H\"arterich describe recurrence,
+symbolic dynamics, and multipulse homoclinics near transverse saddle-focus
+homoclinic orbits \cite{Devaney1976,Lerman1991,Harterich1998Cascades}.
+Vo, Doelman, and Kaper identified the singular RFSN-II geometry and the
+Turing--canard regime for \eqref{eq:pde} \cite{VoDoelmanKaper2025}.  The
+abstract first-hit theorem of \cite{LuHighWinding2026} gives an exhaustive
+high-winding return--exit relation and singular action finite parts when a
+compact saddle-focus block and its terminal geometries meet specified
+hypotheses.  None of these results determines the positive-diffusion future
+of the two van der Pol gates.  At $d>0$ the pole has a new dominant balance,
+while the algebraic branch must cross a degenerating central--outer
+transition.  We construct both continuations and return the abstract relation
+to the original PDE.  Figure~\ref{fig:geometry} summarizes the geometry.
 
 \begin{figure}[t]
  \centering
@@ -156,21 +168,44 @@ reference tail.  The geometric relation is summarized in Figure~\ref{fig:geometr
  \caption{Schematic stationary spatial geometry.  A point in the physical
  source collar makes a high-winding saddle-focus passage and then returns,
  reaches the finite-distance pole, reaches the infinite-distance algebraic
- end, or meets a named finite boundary.  The inset identifies the
- $K_2\to K_1\to$ outer bridge needed to attach the algebraic event.  Curve
+ end, or meets a named finite boundary.  The inset identifies the central
+ $K_2$ gate, resolved $K_1$ bridge, and outer future-staying sheet used to
+ attach the algebraic event.  Curve
  placement and distances are qualitative.  The figure does not represent
  temporal stability, Turing selection, or canard tracking.}
  \label{fig:geometry}
 \end{figure}
 
-\subsection{Frozen input}
+\subsection{Publicly archived theory and standing input}
 
-The application theorem is conditional on a precisely delimited source
-package.  This is preferable to hiding a computer-assisted core and a
-fixed-system return theorem behind the phrase ``standard theory.''  The
-immutable source, certificates, environment, and replay manifest are included
-in the public release cited in \cite{LuRFSNII2026}; hashes and replay commands
-are placed in the accompanying provenance supplement.
+Three logically distinct layers enter the argument.  The fixed-system
+high-winding theorem, the validated core homoclinic and event block, and the
+fixed-system action and coding modules are publicly archived in
+\cite[Theorems~2.9 and~6.3 and
+Corollaries~7.1--7.2]{LuHighWinding2026}.  The state-$C^4$ comparison sheet
+with its fourth rate gap, the exact Jost row and exchange coefficient, and the
+compact-parameter and mixed-family clauses absent from that focused preprint
+are imported from the exact frozen source snapshot
+\cite{LuRFSNIIFrozen2026}.  The two positive-diffusion terminal geometries are
+not imported: the pole, the outer future-staying hypersurface, their
+central--outer matching, and both terminal finite parts are proved below.  The
+supplement identifies the two source layers by DOI, commit, and hash, and
+gives the certificate and replay locations.
+
+Here is the geometric dictionary needed to read the formal hypothesis.  A
+small punctured source section carries a signed transverse action $\nu$; its
+sign is $\sigma=\operatorname{sign}\nu$, and $n$ records the number of local
+saddle-focus rotations.  The central event block is a compact flow region
+whose first-hit faces represent a return, the local stable cut, named lateral
+boundaries, and two finite terminal gates.  An anchor is a certified interior
+source phase whose first hit lies in a specified gate; a carrier is the
+cooriented event face containing that hit.  At reader level,
+${\rm(H_{ret})}$ says the following: if this compact geometry persists and
+the two gates are connected to genuine terminal potentials, then every
+sufficiently high winding has all four source/target sign returns, an
+exhaustive first-event partition, and the countable-shift coding stated in
+Theorem~\ref{thm:main}.  The detailed conditions below are the quantitative
+version of that implication.
 
 Throughout the paper, a mixed $C^k$ estimate is taken on the displayed fixed
 state domains and means a uniform bound for all state/parameter derivatives
@@ -178,7 +213,7 @@ $D_Z^iD_\mu^j$ with $i+j\le k$ and $j\le2$.  Weighted saddle estimates may
 also contain any fixed number of logarithmic derivatives
 $D_{\log\nu}=\nu\partial_\nu$.
 
-\begin{hypothesis}[Frozen RFSN-II package]\label{hyp:H}
+\begin{hypothesis}[RFSN-II core and first-hit hypotheses]\label{hyp:H}
 The following data and analytic implication hold at the singular core and in
 the associated fixed-system construction.
 \begin{enumerate}
@@ -203,9 +238,15 @@ the associated fixed-system construction.
  Every frozen source orbit in $I_{\rm p}$ has a strict first hit of $x=10$
  in $\{y>0,D>0,K>0\}$, with uniform positive hit-speed, cone-entry, and
  earlier-event margins.
+ The terms clean, neat, sign stratum, and corner priority have exactly the
+ meaning of the adapted first-hit block in
+ \cite[Definition~2.5 and Proposition~2.8]{LuHighWinding2026}; their
+ fixed-core realization is part of
+ \cite[Theorem~6.3]{LuHighWinding2026}.
  \item[${\rm(H_{Jost})}$]
- On a fixed central section $h_{\rm c}=0$, the singular comparison sheet has
- a defining function $g_{\rm a}$.  If
+ On a fixed central section $h_{\rm c}=0$, the singular comparison sheet is
+ state-$C^4$, with the fourth rate gap required by the Jost construction, and
+ has parameter regularity $C^2$ and a defining function $g_{\rm a}$.  If
  $y_0(\phi,t)=\Phi_0^t(S_0(\phi))$ is the source flight to its selected
  intersection, then
  \begin{equation}\label{eq:source-incidence-core}
@@ -236,8 +277,8 @@ the associated fixed-system construction.
  competing physical event and every pairwise event-time difference: an empty
  tie class has a positive gap, while a nonempty tie has nonzero conormal and
  a fixed priority.  Under these inputs the frozen results produce one uniform
- winding selector, completed contracting cross forms, the literal clean
- first-event census, exact section/gauge covariance, and the two-vertex
+ winding selector, completed contracting cross forms, an exhaustive
+ stratified first-event decomposition, exact section/gauge covariance, and the two-vertex
  countable terminal coding theorem with mixed two-jet estimates.
 \end{enumerate}
 \end{hypothesis}
@@ -245,14 +286,14 @@ the associated fixed-system construction.
 Hypothesis~\ref{hyp:H} imports neither positive-parameter end.  The pole,
 outer future-staying hypersurface, their matching, and both terminal finite
 parts are all constructed below from \eqref{eq:physical-spatial}.  The
-relative invariant-manifold statement used at the resolved $K_1$ corner and
-the finite marked-atlas descent are proved in the companion proof archive,
-using the classical compact invariant-manifold theory of
-\cite{Fenichel1972,HirschPughShub1977} as boundaryless input.
+invariant-manifold arguments use the classical compact theories of
+\cite{Fenichel1972,HirschPughShub1977}; the relative-with-corners and
+finite-atlas specializations needed here are given explicitly in the proofs
+below.
 
 \subsection{Main theorem}
 
-\begin{theorem}[Conditional positive-parameter two-end theorem]\label{thm:main}
+\begin{theorem}[Positive-diffusion return--exit theorem]\label{thm:main}
 Assume Hypothesis~\ref{hyp:H}.  For the constants in
 \eqref{eq:fixed-epsilon-A}, there exists $r_{\rm V}>0$ such that all of the
 following statements hold uniformly on the nonempty compact positive annulus
@@ -270,20 +311,23 @@ with physical parameters given by \eqref{eq:cusp}.
  its exact local passage, and the compact central first-event block continue
  with two derivatives in $\mu$ in the blown-up parameter coordinates.
 
- \item There is a physical source collar $\Sigma_{T_*}$ and a finite
- compatible marked cover on which every sufficiently high-winding point has
+ \item There are a physical source collar $\Sigma_{T_*}$, a finite
+ compatible marked cover, and an integer $N$ such that every point with local
+ winding $n\ge N$ has
  exactly one compact first event: return, stable cut, a named finite lateral
- event, or a terminal carrier labelled by the pole or algebraic outcome.
- Every point on either labelled terminal carrier has the stated subsequent
- noncompact future.  The connected strata form a literal
- disjoint census with no unnamed residual component.  For every sufficiently
- large local winding, both return target signs occur and the anchored pole
- and algebraic components are nonempty.  No nonemptiness is asserted for
- every other source sign or component label.  On chart overlaps, the physical
+ event, or a terminal stratum labelled by the pole or algebraic outcome.
+ Every point in either labelled terminal stratum has the stated subsequent
+ noncompact future.  The connected strata form an exhaustive stratified
+ decomposition with no unnamed residual component.  For each current sign
+ $\sigma$ and every $n\ge N$, both return target signs $\sigma'$ occur.  For
+ every $n\ge N$, the selected anchored pole component and the selected
+ anchored algebraic component are nonempty, with their fixed source-sign and
+ component labels.  No assertion is made that every terminal or lateral
+ component label is nonempty for both source signs.  On chart overlaps, the physical
  first event agrees, while raw winding integers may differ by a bounded
  recoding.
 
- \item The pole occurs at a finite physical position
+ \item Every pole-labelled terminal orbit reaches a finite physical position
  $\mathsf x_{\rm b}$ and has a mixed-$C^2$ renormalized action
  \begin{equation}\label{eq:pole-main-fp}
  \cA^{\rm ren}_{\rm p}
@@ -291,14 +335,15 @@ with physical parameters given by \eqref{eq:cusp}.
    \int_{\mathsf x_0}^{\mathsf x_{\rm b}-s}\lambda_\delta
    -2\epsilon\delta^3s^{-3}
    +2\epsilon\delta s^{-1}
-   -\sqrt6\,\epsilon Z_0\log s\right].
+   -\sqrt6\,\epsilon Z_0\log s\right]
  \end{equation}
- where $\mathsf x_0$ is the fixed source cut in the chosen marking; moving it
+ where $Z_0$ is the finite boundary label of the pole orbit and
+ $\mathsf x_0$ is the fixed source cut in the chosen marking; moving it
  changes the terminal potential by exactly the intervening finite branch
  action.
- The algebraic branch reaches $u=+\infty$ only at infinite physical distance.
- In the coordinate $Q=z^{-2}$ it has mixed-$C^2$ renormalized length and
- action
+ Every algebraic-labelled terminal orbit reaches $u=+\infty$ only at infinite
+ physical distance.  In the coordinate $Q=z^{-2}$ it has mixed-$C^2$
+ renormalized length and action
  \begin{equation}\label{eq:alg-main-fp}
   \begin{aligned}
    L^{\rm ren}_{\rm a}
@@ -324,25 +369,33 @@ with physical parameters given by \eqref{eq:cusp}.
  first-hit composition; closed actions are independent of admissible cuts,
  exact gauges, event-free section slides, and the local marking.
 
- \item In every marking, the trapped return set is conjugate to the
- two-vertex countable edge shift with edges
+ \item Fix $\mu\in\cP_{\rm V}$ and a marked chart containing it.  The
+ represented local trapped return set is conjugate to the two-vertex
+ countable edge shift with edges
  \begin{equation}\label{eq:edges}
   (\sigma,n,\sigma'),\qquad \sigma,\sigma'\in\{+,-\},
   \qquad n\ge N.
  \end{equation}
  Primitive periodic words yield smooth spatially periodic stationary
- solutions of \eqref{eq:pde}; nonperiodic bi-infinite words yield bounded
- nonperiodic stationary solutions; and arbitrary finite admissible edge
- words with the
- selected unstable and stable endpoints yield homoclinic multipulse profiles
- converging to $(a,f(a))$ as $\mathsf x\to\pm\infty$.
+ solutions of \eqref{eq:pde}, and nonperiodic bi-infinite words yield bounded
+ nonperiodic stationary solutions.  The completed first-event relation, with
+ its selected unstable and stable boundary traces, realizes arbitrary finite
+ admissible edge words as homoclinic multipulse profiles converging to
+ $(a,f(a))$ as $\mathsf x\to\pm\infty$.
 \end{enumerate}
 \end{theorem}
 
-The set \eqref{eq:PV} is existential.  It is not the currently proposed
-numerical box, and the theorem does not claim uniformity down to the cusp tip
-$r=0$.  The parameter image in $(d,a,\epsilon)$ is a cusp, not a rectangular
-box.
+Items 1--3 classify the entire sufficiently high-winding source collar.  The
+pole and algebraic branches are terminal escape outcomes; they are not bounded
+stationary patterns.  The bi-infinite trapped return set in item~4 produces
+the periodic and bounded aperiodic profiles.  Multipulses instead come from
+the boundary-completed finite-word relation: they make only finitely many
+returns before converging to the homogeneous state in both spatial
+directions.  The theorem is local to the displayed source collar, not a
+classification of the global phase space.  Its parameter set \eqref{eq:PV} is
+existential: it is not the current numerical candidate box, it is not uniform
+down to the cusp tip $r=0$, and its image in $(d,a,\epsilon)$ is a cusp rather
+than a rectangular box.
 
 For completeness, the quantitative high-winding consequence is stated next.
 Let
@@ -358,8 +411,8 @@ For any
 \end{equation}
 the marked cover and $N$ may be chosen so that its cross forms and branch
 potentials converge in mixed $C^2$ at rate
-$C(1+n)^3e^{-\varkappa n}$.  In particular, for a fixed primitive cyclic
-word with windings $n_0,\ldots,n_{m-1}$,
+$C(1+n)^3e^{-\varkappa n}$.  Fix $\mu\in\cP_{\rm V}$ and one marked chart.
+For a fixed primitive cyclic word with windings $n_0,\ldots,n_{m-1}$,
 \begin{equation}\label{eq:period-asymptotic}
  L(\gamma_{\mathbf n})
  =\frac{2\pi r}{\epsilon^{1/4}\beta_\mu}
@@ -368,40 +421,38 @@ word with windings $n_0,\ldots,n_{m-1}$,
   +O\!\left(\max_j(1+n_j)^3e^{-\varkappa n_j}\right),
 \end{equation}
 while its closed action has a finite marking-independent limit with the same
-error.  The estimate is for fixed word length; it is not uniform when the
-number of composed branches tends to infinity.  Here
-$\boldsymbol\sigma$ denotes the cyclic sequence of source and target signs of
-the fixed word, so the finite offset need not be a function of a single sign.
+error.  Here $\mu$, the word length, and the cyclic sign sequence are fixed,
+and the limit means $\min_j n_j\to\infty$.  The estimate is not uniform when
+the number of composed branches tends to infinity.  The notation
+$\boldsymbol\sigma$ records the fixed cyclic sequence of source and target
+signs, so the finite offset need not be a function of a single sign.
 
-\subsection{Why the proof is not ordinary persistence}
+\subsection{Proof strategy: from finite gates to genuine exits}
 
-The frozen theory reaches the compact central gates.  It does not identify
-their positive-parameter futures.  The proof therefore has the following
-causal spine:
-\begin{equation}\label{eq:proof-spine}
-\begin{gathered}
- \text{physical Hamiltonian and frozen core}
- \longrightarrow \text{central continuation},\\
- \text{pole-directed gate}
- \longrightarrow \text{positive pole and its finite part},\\
- \text{positive outer field}
- \longrightarrow \text{future-staying sheet},\\
- \text{central gate}+\text{outer sheet}+{\rm(H_{Jost})}
- \longrightarrow K_2\to K_1\to\text{outer matching},\\
- \text{matched sheet}
- \longrightarrow \text{algebraic length/action finite parts},\\
- \text{compact event block}+\text{two actual terminals}+{\rm(H_{ret})}\\
- \longrightarrow \text{physical first-event relation}
- \longrightarrow \text{stationary PDE profiles}.
-\end{gathered}
-\end{equation}
-The pole changes dominant balance when $\delta>0$.  The algebraic branch
-enters an outer slow regime and must be matched across a nonhyperbolic chart
-corner.  These are the two obstructions removed in Sections~\ref{sec:pole}
-and \ref{sec:outer}; Section~\ref{sec:coding} then performs only the minimal
-replacement of the two finite gates by the actual terminals.
+The publicly archived fixed-system theorem reaches the two compact central gates; it
+does not identify their positive-diffusion futures.  The proof has four
+steps.  First, central continuation transports the singular event block to a
+compact positive-parameter family.  Second, an invariant cone and a
+regular-singular compactification connect the pole-directed gate to genuine
+finite-distance blow-up and its terminal action.  Third, an outer graph
+transform constructs the algebraic future near infinity, and a resolved
+$K_1$ bridge proves that the central algebraic gate lies on that same
+future-staying sheet.  Finally, replacing the two finite gates inside their
+protected flow boxes preserves the complete first-event arrangement, so the
+high-winding theorem applies to the original stationary PDE.  The logical
+chain is therefore: singular core, finite gates, genuine terminals,
+exhaustive first events, and finally stationary PDE profiles.
+Here $K_2$ is the central chart containing the finite algebraic gate, whereas
+$K_1$ resolves the intermediate corner through which that gate is matched to
+the outer sheet.  Sections~\ref{sec:pole} and \ref{sec:outer} remove the two
+model-specific obstructions; Section~\ref{sec:coding} completes the physical
+first-event relation.
 
 \section{Central continuation and the finite-distance pole}\label{sec:pole}
+
+The central scaling transfers the validated singular core to a compact
+positive-parameter family.  Its immediate output is a pair of finite exit
+gates; identifying their noncompact futures requires separate arguments.
 
 \subsection{Exact central scaling}
 
@@ -594,10 +645,11 @@ stable pole family therefore has normalized power spectrum
 \end{equation}
 
 \begin{proposition}[Positive pole terminal]\label{prop:pole}
-Under Hypothesis~\ref{hyp:H}, on a nonempty compact positive subannulus, the
-transported pole source window
-enters an open pole basin and reaches $u=+\infty$ at a finite physical
-position.  Each pole orbit has unique labels $(Z_0,W_0,c_4)$ and a
+Under Hypothesis~\ref{hyp:H}, after decreasing only $r_{\rm V}$ if necessary
+and retaining the full $[-A,A]\times[\epsilon_-,\epsilon_+]$ factors, the
+transported pole source window enters an open pole basin and reaches
+$u=+\infty$ at a finite physical position.  Each pole orbit has unique labels
+$(Z_0,W_0,c_4)$ and a
 polyhomogeneous expansion with admissible powers $1$ and $4$, including the
 forced $s\log s$ and $s^4(\log s)^2$ terms.  On the fixed zero-energy level,
 $c_4$ is determined uniquely because
@@ -605,7 +657,17 @@ $c_4$ is determined uniquely because
  \partial_{c_4}\cG_\delta=-30\epsilon\delta^4\ne0.
 \end{equation}
 The action finite part \eqref{eq:pole-main-fp} exists with two mixed parameter
-derivatives and satisfies exact moving-cut additivity.
+derivatives and satisfies exact moving-cut additivity.  On every fixed compact
+pole-entry chart with coordinates $\mathbf e_{\rm p}$, let $L_{\rm p}$ be the
+remaining physical length from the fixed entry cut to $\mathsf x_{\rm b}$.
+Then $L_{\rm p}$ and the renormalized action have uniformly bounded derivatives
+\begin{equation}\label{eq:pole-spare}
+ \sup_{i+j\le3,\ j\le2}
+ \left(\norm{D_{\mathbf e_{\rm p}}^iD_\mu^jL_{\rm p}}
+ +\norm{D_{\mathbf e_{\rm p}}^iD_\mu^j\cA_{\rm p}^{\rm ren}}\right)<\infty.
+\end{equation}
+This is one spare entry derivative; no additional derivative in the singular
+variable $s$ is asserted.
 \end{proposition}
 
 \begin{proof}
@@ -628,8 +690,10 @@ The nonresonant powers two and three are forced; at the indicial root four,
 the constant and logarithmic forcing produces
 $s^4\log s$ and $s^4(\log s)^2$, with $c_4s^4$ the free stable mode.  The
 Green inverse of $(s\partial_s-4)(s\partial_s+1)$ is bounded on the conormal
-weight $s^5(1+|\log s|)^2$.  A uniform contraction and two differentiated
-fixed-point equations prove the expansion and the mixed regularity.  The
+weight $s^5(1+|\log s|)^2$.  A uniform contraction, differentiated in the
+entry labels and parameters through total order three with at most two
+parameter derivatives, proves the expansion and the mixed regularity in
+\eqref{eq:pole-spare}.  The
 physical inverse of \eqref{eq:pole-compact-vars} has nonzero leading
 Jacobian, so these are genuine local state coordinates and their image is an
 open pole basin.  Substitution into \eqref{eq:G-lambda} gives
@@ -642,13 +706,24 @@ Finally,
     -\sqrt6\,\epsilon Z_0s^{-1}
     +O_{C^2}((1+|\log s|)^2).
 \end{equation}
-The remainder is integrable uniformly after two mixed derivatives.
+The remainder is integrable uniformly after two mixed derivatives and after
+the one spare entry derivative in \eqref{eq:pole-spare}.
 Integrating \eqref{eq:pole-density} proves \eqref{eq:pole-main-fp}.  Moving a
 finite cut merely transfers the same finite orbit integral between the
 central and terminal terms, proving exact additivity.
 \end{proof}
 
+\noindent
+Proposition~\ref{prop:pole} therefore replaces the pole-directed gate by an
+open basin of genuine finite-distance blow-up and supplies its terminal
+action.  The algebraic-directed gate remains unresolved.
+
 \section{The algebraic end: outer geometry, matching, and finite parts}\label{sec:outer}
+
+The algebraic terminal requires two distinct steps.  We first characterize
+the tails that remain in a compactified outer corridor.  We then prove that
+the algebraic-directed central gate enters precisely this future-staying
+hypersurface.
 
 \subsection{A positive-parameter future-staying hypersurface}
 
@@ -739,12 +814,20 @@ normal quotient cocycles for one fixed time $T>0$ then obey
  \sup_{\mu,Z}\norm{(N^T_{\mu,Z})^{-1}}
                    \norm{A^T_{\mu,Z}}^j<1,\qquad j=0,1,2,3.
 \end{equation}
-A graph transform on a doubled collar, restricted back using the inward and
-invariant face signs, gives the unique staying graph and
-\eqref{eq:outer-regularity}.  This is the relative-with-corners form of the
-standard compact invariant-manifold argument
-\cite{Fenichel1972,HirschPughShub1977}; the collar restriction and its
-fixed-extension uniqueness are part of the companion proof archive.
+Extend the field across the noninvariant faces of a doubled collar while
+preserving the displayed face signs and quotient gaps.  The time-$T$ graph
+transform on sections $\alpha=\Gamma(z,E,\beta)$ is a contraction in
+$C^3$: the estimate for its $j$th state derivative is exactly the $j$th
+inequality in \eqref{eq:bunching}.  Its fixed graph is independent of the
+chosen extension on the original corridor, because a forward-staying orbit
+there never meets the extended region.  Conversely, every point off the
+graph acquires a growing normal component and exits through an $\alpha$ face,
+so the graph is the maximal forward-staying set.  Differentiating the
+fixed-point equation once and twice in $\mu$ and using the same inequalities
+with one and two state derivatives spent gives
+\eqref{eq:outer-regularity}.  This is the relative-with-corners specialization
+of the compact section theorem
+\cite{Fenichel1972,HirschPughShub1977}.
 
 On the graph, $d(z^{-2})/d\tau=2\pi$ with $\pi$ uniformly positive.  Bounded
 variation of constants removes the growing $\alpha$ mode and gives
@@ -859,8 +942,7 @@ base crossing from the $K_2$ overlap to the outer overlap.  The relative
 overflowing invariant-manifold theorem applied on doubled collars, followed
 by the common-cone gluing allowed by
 \eqref{eq:outer-corner-gap}--\eqref{eq:K1-corner-gap}, constructs the
-codimension-one graph through the entire block with three state jets and two
-parameter derivatives.
+codimension-one graph through the block with the mixed jets stated below.
 
 \begin{proposition}[Central--outer matching]\label{prop:matching}
 Under Hypothesis~\ref{hyp:H}, after one final choice of the positive annulus,
@@ -875,7 +957,7 @@ If $G_0$ is the frozen singular comparison graph and $G_\mu$ the resolved
 trace, then
 \begin{equation}\label{eq:matched-O-r}
  \norm{G_\mu-G_0}_{C^2}\le Cr,\qquad
- \sup_{i+j\le2}\norm{D_Z^iD_\mu^jG_\mu}<\infty.
+ \sup_{i+j\le3,\ j\le2}\norm{D_Z^iD_\mu^jG_\mu}<\infty.
 \end{equation}
 Under ${\rm(H_{Jost})}$, the endpoint exchange pairing satisfies
 \begin{equation}\label{eq:exchange-positive}
@@ -884,7 +966,21 @@ Under ${\rm(H_{Jost})}$, the endpoint exchange pairing satisfies
 This is distinct from the source matching determinant.  If
 $y_\mu(\phi,t)=\Phi_\mu^t(S_\mu(\phi))$ and
 $\overline g_{{\rm c},\mu}$ defines the matched target on
-$h_{\rm c}=0$, put
+$h_{\rm c}=0$, choose $N_{\rm c}\in T(h_{\rm c}=0)$ with
+$Dg_{\rm a}(N_{\rm c})=1$.  Its projected row is nonzero on $N_{\rm c}$
+after the final annulus choice.  Rescale $\overline g_{{\rm c},\mu}$ so that
+this value is one, and let $\widetilde{\overline g}_{{\rm c},\mu}$ be any
+flowbox extension.  Its normalized intrinsic section row is
+\begin{equation}\label{eq:central-target-row}
+ \overline L_{{\rm c},\mu}
+ =d\widetilde{\overline g}_{{\rm c},\mu}
+  -\frac{d\widetilde{\overline g}_{{\rm c},\mu}(F_\mu)}
+         {dh_{\rm c}(F_\mu)}\,dh_{\rm c},
+ \qquad \overline L_{{\rm c},\mu}(N_{\rm c})=1.
+\end{equation}
+On the section this row is independent of the chosen extension, annihilates
+$F_\mu$, and satisfies
+$\overline L_{{\rm c},\mu}=Dg_{\rm a}+O_{C^1}(r)$.  Put
 \begin{equation}\label{eq:matching-operator}
  \mathfrak M_\mu(\phi,t)=
  \begin{pmatrix}
@@ -913,9 +1009,11 @@ graph with fixed-extension uniqueness.  Exact chart transitions transport it
 to both neighboring charts, and uniqueness makes the graphs agree on the
 overlaps.  The final central trace is therefore an actual saturation of the
 same future-staying hypersurface, not a second asymptotic sheet.  The resolved
-field and chart embeddings are $C^2$ in $\mu$ on the closed comparison
-family; graph-transform estimates yield \eqref{eq:matched-O-r} without a
-boundary trace loss.
+field and chart embeddings are $C^2$ in $\mu$ on the closed comparison family.
+The order-$j$ quotient gaps through $j=3$ give
+$G\in C^0_\mu C^3_Z\cap C^1_\mu C^2_Z\cap C^2_\mu C^1_Z$, precisely the
+mixed-order-three bound in \eqref{eq:matched-O-r}; the graph-transform also
+gives its $O(r)$ statement without a boundary trace loss.
 
 The endpoint-normalized adjoint row is transported through this same atlas.
 At $r=0$, ${\rm(H_{Jost})}$ gives \eqref{eq:exchange-core}; continuity gives
@@ -941,6 +1039,12 @@ covariance.
 \end{proof}
 
 \subsection{Reference-tail finite parts}
+
+Subtracting finitely many formal asymptotic terms would make the normalization
+depend on the truncation order.  We instead compare every algebraic tail with
+one complete reference orbit selected by the same vector field.  Contraction
+in the coordinate below makes the difference of both length and action
+densities integrable.
 
 Fix a small outer cut $z=z_*$ on the matched sheet and use
 $Q=z^{-2}$.  On zero energy, write the stable graph label as $b$ and let
@@ -1029,42 +1133,38 @@ changes converge to finite endpoint corrections.  This proves all stated
 covariances.
 \end{proof}
 
+\noindent
+Both noncompact outcomes now carry mixed-$C^2$ terminal potentials with exact
+cut covariance.  These are the final inputs needed to turn the compact
+first-hit partition into a physical return--exit relation.
+
 \section{Exhaustive first events and stationary spatial patterns}\label{sec:coding}
 
-\subsection{Minimal replacement of the two finite gates}
+\subsection{Completion of the physical first-event relation}
 
-We now return to the compact central event block.  The construction retains
-the entire finite physical block of Proposition~\ref{prop:central}.  Only two
-local refinements are made.
+The compact central theorem classifies first hits only up to two finite gates.
+Propositions~\ref{prop:pole} and \ref{prop:matching} identify the future of
+each gate.  Because both replacements take place inside protected flow boxes
+with strict ordering margins, they preserve the existing first-event
+partition rather than introducing new competing hit times.
 
-First, the existing transverse algebraic carrier is subdivided by the
-internal label that selects the matched sheet from
-Proposition~\ref{prop:matching}.  The carrier remains the physical event
-surface; the internal label supplies the terminal conormal but is not assigned
-a new hit time.  Second, an event-free slide inside the protected pole
-outcome replaces its old gate by the actual $x=10$ carrier in
-\eqref{eq:pole-cone}; that carrier is then partitioned into the pole aperture
-and its complement.  Strict earlier-event and flow-buffer margins keep this
-replacement away from every competing event.  Again no new event time is
-introduced.
-
-The resulting grouped event arrangement contains the four source-cell
-boundaries; the original outgoing and homoclinic-return faces; the algebraic
-carrier, internal label, and patch faces; the $x=10$ pole carrier and aperture
-faces; the nested return, target-sign, stable-cut, and return-box faces; and
-the original finite list of competing-time rows.  All of these are pulled
-back through the same signed limiting source template before clean incidence
-and first-event order are tested.  In the labels below, $\mathrm{out}$ is the
-named outgoing lateral boundary and $\mathrm{rbox}$ is the named return-box
-lateral boundary.
+Concretely, the transverse algebraic carrier is subdivided by the internal
+label selecting the matched sheet of Proposition~\ref{prop:matching}; the
+carrier keeps its original hit time.  Inside the protected pole outcome, an
+event-free slide replaces the old gate by the actual $x=10$ carrier in
+\eqref{eq:pole-cone}, which is partitioned into the pole aperture and its
+complement.  The supplement gives the stable proof-dossier location of the
+full face and competing-time inventory.  In the labels below,
+$\mathrm{out}$ and $\mathrm{rbox}$ denote the two named finite lateral
+boundaries.
 
 \begin{proposition}[Compact-family first events]\label{prop:first-events}
 Assume Hypothesis~\ref{hyp:H} and the constructions of
 Propositions~\ref{prop:central}, \ref{prop:pole},
-\ref{prop:matching}, and \ref{prop:alg-fp}.  There is a finite marked cover
-$V_i\Subset U_i$ of \eqref{eq:PV}, an intrinsic residence threshold $T_*$,
-an integer $N$, and local signed source collars $\Sigma_{N,i}$ with the
-following properties.
+\ref{prop:matching}, and \ref{prop:alg-fp}.  Fix $\varkappa$ satisfying
+\eqref{eq:kappa}.  There are a finite marked cover $V_i\Subset U_i$ of
+\eqref{eq:PV}, an intrinsic residence threshold $T_*$, an integer $N$, and
+local signed source collars $\Sigma_{N,i}$ with the following properties.
 
 In each marking, $\Sigma_{N,i}$ is the disjoint union
 \begin{equation}\label{eq:census}
@@ -1085,9 +1185,10 @@ In each marking, $\Sigma_{N,i}$ is the disjoint union
 where every union ranges only over nonempty connected components.  Every
 point has one local winding, current sign, component label, and first event;
 every return has one next sign.  The stable cut $\mathcal I_{\sigma,n}$ is an
-exit face and is not counted as either adjacent return.  Both target-sign
-returns are nonempty for every $n\ge N$, and the anchored pole and algebraic
-components are nonempty for every $n\ge N$.
+exit face and is not counted as either adjacent return.  For each current
+sign, both target-sign returns are nonempty for every $n\ge N$.  The selected
+anchored pole and algebraic components, with their fixed source-sign and
+component labels, are nonempty for every $n\ge N$.
 
 The displayed identity is a stratified disjoint union of connected relative
 interiors, not a union of open sets of one dimension.  In particular, an
@@ -1120,42 +1221,81 @@ winding labels differ at most by bounded integer recoding.
 \end{proposition}
 
 \begin{proof}
-Every new pole or algebraic face is an actual compact physical first hit with
-a strict speed, earlier-event exclusion, flow-domain buffer, and
-anchor-to-boundary margin.  The carrier/label distinction above preserves the
-old finite list of competing hit times.  Add the new conormals to the old
-clean event table and take one finite minimum of all normalized nonzero ranks
-and strict gaps.  Compact first-hit stability preserves the incidence complex
-and physical order; near a genuine tie the nonzero tie conormal and the fixed
+The transported pole carrier and the pre-existing algebraic carrier are
+compact transverse physical first hits with strict speeds, earlier-event
+exclusion, flow-domain buffers, and anchor-to-boundary margins.  The
+algebraic internal label is instead a cooriented subdivision of its carrier:
+Proposition~\ref{prop:matching} gives its nonzero pulled-back conormal, and it
+is assigned no new hit time.  The pole aperture is a clean product-face
+subdivision inside the protected $x=10$ carrier.  Thus the old finite list of
+competing hit times is unchanged.  Add the new conormals to the old clean
+event table and take one finite minimum of all normalized nonzero ranks and
+strict gaps.  Compact first-hit stability preserves the incidence complex and
+physical order; near a genuine tie the nonzero tie conormal and the fixed
 priority replace any false time-gap assertion.  The old finite block was
 already exhaustive, and the two operations only subdivide its algebraic and
 pole outcomes.  Hence there is no residual component.
 
-Apply the local conditional compact-family transfer proposition from the
-companion proof archive separately on each $U_i$.  Its passage/matching
-inputs are precisely the frozen modules in ${\rm(H_{ret})}$; its event
-input is the just-verified physical arrangement, and its overlap input is the
-already constructed finite marked atlas.  The proposition transfers these
-data to the compact family; it does not create or assume the application
-event census.  Refine the cover so that there is a common rate
+We now verify directly that the compact family meets the input--output
+contract in \({\rm(H_{ret})}\).  On each $U_i$,
+Proposition~\ref{prop:central} provides the exact transverse-action passage
+and the mixed two-jet expansions \eqref{eq:passage}.  Its continued homoclinic
+transversality, together with the frozen matching clause recorded in
+\({\rm(H_{ret})}\), provides the fixed limiting matching rectangle, inverse,
+and range margins.  Propositions~\ref{prop:pole} and \ref{prop:alg-fp}
+provide terminal potentials with one spare state derivative, while
+Proposition~\ref{prop:matching} supplies the required transverse terminal
+conormal.
+
+Let $\mathfrak h_{\mu,\sigma}$ denote the finite family of defining rows for
+all physical event faces, internal labels, and pairwise time differences.
+It satisfies
+\begin{equation}\label{eq:event-row-bound}
+ \sup_{i+j\le3,\ j\le2}
+ \norm{D_Z^iD_\mu^j\mathfrak h_{\mu,\sigma}}<\infty.
+\end{equation}
+For the old rows this follows from finite-flow state-$C^3$, parameter-$C^2$
+regularity; the algebraic label is supplied by
+Proposition~\ref{prop:matching}, and the pole rows are product faces in the
+pole chart.  On overlaps the rows arise from the same physical flow, and the
+section changes have uniformly bounded mixed jets.  The compact finite cover
+therefore supplies common constants.  Terminal potentials are not event
+rows; their separate spare-derivative bounds were established in
+Propositions~\ref{prop:pole} and \ref{prop:alg-fp}.  Together with the strict
+margins in the first paragraph, these are precisely the inputs of
+\({\rm(H_{ret})}\), now checked on a compact positive-parameter family rather
+than merely at its singular reference member.
+
+Apply the compact-family conclusion of \({\rm(H_{ret})}\) on each $U_i$ and
+refine the cover so that there is a common rate
 \begin{equation}\label{eq:cover-rate}
  \varkappa<\varkappa_i^+<
  \frac{2\pi\inf_{\mu\in U_i}\alpha_\mu}
       {\sup_{\mu\in U_i}\beta_\mu}.
 \end{equation}
 This order of infimum and supremum is what supplies a uniform passage
-contraction on the cover member.  The winding selector and clean event
-stability then give \eqref{eq:census}--\eqref{eq:cross-convergence}.  The
-pole and algebraic anchors have fixed interior component labels, so their
-selected components persist for every large winding.
+contraction on the cover member.  Inverting the phase law in
+\eqref{eq:passage} gives
+\[
+ |\nu_{\mu,\sigma,n}|=
+ O\!\left(\exp\left\{-\frac{2\pi\alpha_\mu}{\beta_\mu}n\right\}\right).
+\]
+Each of two parameter differentiations contributes at most a polynomial
+factor in $n$; composing with the event rows and completed cross coordinates
+uses the spare state derivative and yields the uniform bound
+$C(1+n)^3e^{-\varkappa n}$.  The winding selector and the clean first-event
+isotopy therefore give \eqref{eq:census}--\eqref{eq:cross-convergence}.
+Because the pole and algebraic anchors lie in fixed component interiors,
+their selected components persist for every sufficiently large winding.
 
 Finally, residence time and winding differ by a uniformly bounded amount
 after multiplication by $2\pi/\beta_\mu$.  Choose the final $N$ so that every
 displayed branch lies in the intrinsic collar $\Sigma_{T_*}$.  On marking
 overlaps, exact section changes preserve the physical event and change the
-angular lift by a bounded integer.  The finite marked-atlas descent therefore
-identifies the physical relation without asserting a global exact chart or a
-global integer alphabet.
+angular lift by a bounded integer.  Equality of the physical first-hit maps on
+overlaps, followed by a finite common refinement, gives the marked-atlas
+descent.  Thus the physical relation is intrinsic even though there need be
+neither a global exact chart nor a global integer alphabet.
 \end{proof}
 
 \subsection{Length, action, and exact composition}
@@ -1245,63 +1385,40 @@ on overlaps, although its raw integer word may be recoded.  This proves all
 remaining items of Theorem~\ref{thm:main}.
 \end{proof}
 
-\subsection{Interpretation boundary}
+\section{Consequences and scope}\label{sec:scope}
 
-The word ``dynamics'' in the title refers to spatial dynamics in the
-independent variable $\mathsf x$.  A stationary spatial shift, spatial
-entropy, or aperiodic stationary profile is not temporal chaos for the
-parabolic PDE.  The theorem also does not establish temporal spectral or
-nonlinear stability, connection to a branch selected from the Turing
-bifurcation, canard tracking along attracting and repelling slow manifolds,
-or experimental observation.  Those are separate questions about objects
-whose stationary existence is established here.
+The model-specific contribution is to continue two finite singular gates in
+the full positive-diffusion van der Pol system.  The invariant pole cone and
+regular-singular analysis construct the finite-distance end; the outer
+staying graph and resolved bridge construct the infinite-distance end.  Their
+finite parts supply the terminal potentials needed to turn the abstract
+first-hit block into an exhaustive physical return--exit relation.
 
-\appendix
+The pole and algebraic ends are two distinguished exit components; the stable
+cut and named lateral exits are the others.  No exit branch gives a bounded
+profile on the whole spatial line.  The bi-infinite trapped relation yields
+periodic and bounded aperiodic profiles, while its boundary-completed finite
+words yield multipulses.  Thus first-event exhaustiveness is not confused
+with the mechanism producing stationary patterns.
 
-\section{Proof archive and statement crosswalk}\label{app:crosswalk}
+The result remains conditional on Hypothesis~\ref{hyp:H}, local to a
+sufficiently high-winding source collar, and uniform only on the existential
+annulus \eqref{eq:PV}.  It gives neither an explicit validated parameter box
+nor uniformity at $r=0$.  The independent variable here is the spatial
+coordinate $\mathsf x$: spatial entropy or an aperiodic stationary profile is
+not temporal chaos for the parabolic PDE.  Temporal spectral or nonlinear
+stability, selection from a Turing bifurcation, canard tracking, and
+experimental observability remain separate questions.
 
-The main text organizes the argument by mathematical obstruction rather than
-by the historical labels V1--V7.  The complete coordinate calculations,
-polyhomogeneous recursions, cone estimates, matching-operator bounds, mixed
-jet bookkeeping, and event-face tables are included in the same immutable
-release as the following versioned proof files:
-\begin{center}
-\begin{tabular}{c|p{4.0cm}|p{6.2cm}}
- label & mathematical output & proof location \\
- \hline
- V1 & physical exact Hamiltonian and central scaling
-    & \texttt{HAMILTONIAN\_CHECK}, \texttt{MODEL\_AND\_CENTRAL\_CHART} \\
- V2 & central homoclinic, passage, and finite events
-    & \texttt{CENTRAL\_CONTINUATION} \\
- V3 & positive pole and pole finite part
-    & \texttt{POSITIVE\_POLE\_FINITE\_PART} \\
- V4 & outer future-staying graph
-    & \texttt{OUTER\_FUTURE\_STAYING} \\
- V5 & $K_2\to K_1\to$ outer matching
-    & \texttt{CENTRAL\_OUTER\_MATCHING} \\
- V5A & algebraic length/action finite parts
-    & \texttt{OUTER\_ALGEBRAIC\_FINITE\_PART} \\
- V6--V7 & physical first events and stationary coding
-    & \texttt{TWO\_END\_RETURN\_EXIT\_AND\_PDE}
-\end{tabular}
-\end{center}
-The filenames are shortened in the table; their full paths and exact source
-versions are listed in the provenance supplement.  No proof-bearing step of
-the main theorem is delegated to the numerical Issue~\#7 candidate box.
+\subsection*{Data and supplementary material}
 
-\section{Data and evidence availability}\label{app:data}
-
-The public release
-\begin{center}
- \url{https://github.com/h-lu/rfsn-ii-positive-parameter-pde/releases/tag/vdp-companion-v1}
-\end{center}
-contains the paper sources, companion proof archive, frozen RFSN-II source
-manuscript, interval certificates, validation source, environment lock, and
-replay manifest.  The separate supplement records SHA-256 identities,
-evidence roles, and the fail-closed replay command; exact frozen theorem
-labels and locations are in the versioned import notes cited there.
-The release makes Hypothesis~\ref{hyp:H} externally inspectable; it does not
-turn an imported certificate into an independent second-machine replay.
+The \href{https://doi.org/10.5281/zenodo.22139860}{fixed-system theorem} and
+the
+\href{https://github.com/h-lu/rfsn-ii-positive-parameter-pde/releases/tag/vdp-companion-v1}{application evidence release}
+are public immutable records.  The supplement maps each imported or
+application claim to those records, the versioned proof dossiers,
+certificates, hashes, environment, and replay commands; it also retains the
+V1--V7 crosswalk outside the mathematical narrative.
 
 \bibliographystyle{abbrv}
 \bibliography{references}

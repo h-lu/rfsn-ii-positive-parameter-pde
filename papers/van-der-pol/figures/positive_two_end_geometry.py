@@ -48,17 +48,17 @@ def main():
     gray = "#777777"
     dark = "#202020"
 
-    fig = plt.figure(figsize=(7.25, 4.75), constrained_layout=False)
-    ax = fig.add_axes([0.035, 0.12, 0.93, 0.80])
+    fig = plt.figure(figsize=(7.25, 5.10), constrained_layout=False)
+    ax = fig.add_axes([0.035, 0.08, 0.93, 0.86])
     ax.set_xlim(0, 11.2)
-    ax.set_ylim(-3.1, 3.3)
+    ax.set_ylim(-3.85, 3.3)
     ax.axis("off")
 
     # Source and return sections.
     ax.plot([0.75, 0.75], [-1.2, 1.25], color=dark, lw=1.6)
     ax.text(0.28, 1.62, r"source collar $\Sigma_{T_*}$", ha="left")
     ax.plot([4.45, 4.45], [-0.9, 0.9], color=dark, lw=1.4)
-    ax.text(4.48, -1.15, "outgoing first-event cell", ha="center")
+    ax.text(4.45, -1.35, "first-event cell", ha="center")
 
     # Representative incoming flight and a logarithmic high-winding spiral.
     arrow(ax, (0.83, 0.85), (1.82, 0.45), dark, width=1.8, rad=-0.08)
@@ -103,21 +103,61 @@ def main():
     ax.text(9.15, 0.08, r"$u\to+\infty$, $x\to+\infty$", color=green, ha="center")
 
     # Auxiliary finite exits, intentionally quiet.
-    arrow(ax, (4.52, -0.45), (5.75, -2.55), gray, style=":", width=1.2, rad=0.08, zorder=2)
+    arrow(ax, (4.52, -0.45), (5.35, -2.45), gray, style=":", width=1.2, rad=0.08, zorder=2)
     arrow(ax, (4.50, 0.75), (5.95, 2.75), gray, style=":", width=1.2, rad=-0.08, zorder=2)
-    ax.text(5.26, -2.72, "finite cut/lateral exits", color=gray, ha="center", fontsize=8.3)
+    ax.text(4.55, -2.68, "finite cut/lateral exits", color=gray, ha="center", fontsize=8.3)
     ax.text(5.65, 2.95, "finite auxiliary exits", color=gray, ha="center", fontsize=8.3)
 
-    # Matching inset.
-    inset = Rectangle((7.35, -2.92), 3.55, 1.00, facecolor="white", edgecolor="#555555", lw=0.8)
+    # Matching inset.  Its arrows encode analytic chart matching, not spatial
+    # flow time; the three labelled boxes are the objects joined in the proof.
+    inset = Rectangle(
+        (5.72, -3.68),
+        5.30,
+        1.44,
+        facecolor="white",
+        edgecolor="#555555",
+        lw=0.9,
+        zorder=5,
+    )
     ax.add_patch(inset)
-    ax.text(7.52, -2.12, "algebraic matching bridge", fontsize=8.4, ha="left")
-    boxes = [(7.55, r"$K_2$"), (8.55, r"$K_1$"), (9.60, "outer")]
-    for bx, label in boxes:
-        ax.add_patch(Rectangle((bx, -2.72), 0.72, 0.36, fill=False, edgecolor=dark, lw=0.9))
-        ax.text(bx + 0.36, -2.54, label, ha="center", va="center", fontsize=8.4)
-    arrow(ax, (8.28, -2.54), (8.50, -2.54), green, style="--", width=1.3)
-    arrow(ax, (9.28, -2.54), (9.55, -2.54), green, style="--", width=1.3)
+    ax.text(
+        8.37,
+        -2.47,
+        "resolved algebraic matching (chart sequence)",
+        fontsize=8.8,
+        ha="center",
+        va="center",
+        zorder=7,
+    )
+    boxes = [
+        (5.96, 1.34, "central $K_2$\ngate"),
+        (7.78, 1.34, "resolved $K_1$\nbridge"),
+        (9.60, 1.34, "outer future-\nstaying sheet"),
+    ]
+    for bx, box_width, label in boxes:
+        ax.add_patch(
+            Rectangle(
+                (bx, -3.50),
+                box_width,
+                0.80,
+                facecolor="#FAFAFA",
+                edgecolor=dark,
+                lw=1.0,
+                zorder=6,
+            )
+        )
+        ax.text(
+            bx + box_width / 2,
+            -3.10,
+            label,
+            ha="center",
+            va="center",
+            fontsize=9.2,
+            linespacing=0.98,
+            zorder=7,
+        )
+    arrow(ax, (7.34, -3.10), (7.72, -3.10), green, style="--", width=1.5, zorder=7)
+    arrow(ax, (9.16, -3.10), (9.54, -3.10), green, style="--", width=1.5, zorder=7)
 
     ax.text(0.05, 3.15, "SCHEMATIC: stationary spatial dynamics; geometry and distances are not quantitative", color=gray, fontsize=8.0)
 

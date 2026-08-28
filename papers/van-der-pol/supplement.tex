@@ -7,7 +7,7 @@
 \usepackage{microtype}
 \usepackage[colorlinks=true,linkcolor=blue!55!black,urlcolor=blue!55!black]{hyperref}
 \hypersetup{
-  pdftitle={Provenance and Evidence Supplement for Positive-Parameter Two-End Spatial Dynamics},
+  pdftitle={Provenance and Evidence Supplement for High-Winding Stationary Solutions and Singular Exits},
   pdfauthor={Haibo Lu},
   pdfsubject={Frozen inputs, claim dependencies, hashes, and replay scope},
   pdfkeywords={van der Pol reaction-diffusion system, RFSN-II, provenance, computer-assisted proof, frozen evidence}
@@ -17,7 +17,7 @@
 \newcommand{\sha}[1]{{\fontsize{6.5}{7.5}\selectfont\texttt{\detokenize{#1}}}}
 
 \title[Provenance supplement]{Provenance and Evidence Supplement for\\
-Positive-Parameter Two-End Spatial Dynamics in the Van der Pol
+High-Winding Stationary Solutions and Singular Exits in the Van der Pol
 Reaction--Diffusion System}
 \author{Haibo Lu}
 \address{Haibo Lu}
@@ -29,29 +29,79 @@ Reaction--Diffusion System}
 
 \section{Purpose and release identity}
 
-This supplement records evidence status, frozen-source identities, theorem
+This supplement records evidence status, source identities, theorem
 dependencies, and replay information for the companion paper.  It is not a
-second mathematical proof and does not enlarge the theorem.  The stable
-public release is
+second mathematical proof and does not enlarge the theorem.  Two immutable
+public records have different roles in the argument.  The publicly archived
+fixed-system preprint is Zenodo version 1.0.0,
+
+\begin{center}
+ \url{https://doi.org/10.5281/zenodo.22139860},
+\end{center}
+
+whereas the version-1 application proof dossiers, certificates, and exact
+frozen long-draft snapshot are fixed together by
+
 \begin{center}
  \url{https://github.com/h-lu/rfsn-ii-positive-parameter-pde/releases/tag/vdp-companion-v1}.
 \end{center}
-The release tag identifies the application manuscript, the detailed V1--V7
-proof archive, and the frozen input snapshot as one versioned object.  The
-read-only upstream repository was not modified.
+
+The two records are not interchangeable.  The Zenodo paper is the stable
+source for the fixed-Hamiltonian high-winding theorem and its RFSN-II
+realization.  The application release is the immutable evidence baseline for
+the older long-draft clauses not retained in that focused paper and for the
+coordinate-level version-1 positive-parameter arguments.  The present
+reader-facing manuscript may be revised without changing that archived
+baseline.  The read-only upstream repository was not modified.
 
 The companion theorem is conditional on Hypothesis H.  Its analytic
 application conclusions are existential on a nonempty compact positive
 annulus.  The proposed numerical Issue~\#7 box is not used as a theorem box.
 
-\section{Frozen source}
+\section{Public fixed-system source and frozen long source}
 
-The frozen source is H.~Lu, \emph{First returns, singular exits, and action
-finite parts near a reversible Hamiltonian saddle-focus}, originally stored
-in the historical repository \texttt{h-lu/reversible-rfsn-ii-waves}.  That
-repository is not the public locator for this supplement; the inspectable
-copy is the exact snapshot inside the application release.  Its upstream
-commit is
+\subsection{Public fixed-system preprint}
+
+The stable fixed-system source is H.~Lu, \emph{High-winding first-hit geometry
+and singular action finite parts near a reversible Hamiltonian saddle-focus},
+Zenodo version 1.0.0, DOI
+\url{https://doi.org/10.5281/zenodo.22139860}.  Its source revision is
+
+\begin{center}
+ \sha{3516a2ee499fc74a46d0ec204736bde8d3782c59},
+\end{center}
+
+and the deposited manuscript PDF has SHA-256
+
+\begin{center}
+ \sha{569906de86c7d3a716831e036056cfeebb772d5a87fb89c04ee61ee3daf0787d}.
+\end{center}
+
+That record contains the focused manuscript, its self-contained source, and
+the M1--M4 evidence used for the RFSN-II realization.  In particular, it is
+the stable source for the fixed-system first-hit theorem, the RFSN-II core
+homoclinic and three selected channels, the fixed-system return and action
+modules, and the countable coding consequence; the principal locations are
+Theorems~2.9 and 6.3 and Corollaries~7.1--7.2.  Its public replay summary
+records \texttt{PASS} for the M1--M4 \texttt{main-theorem} profile.  This is a
+replay of the stated computer-assisted inputs, not an independent review of
+the analytic arguments.
+
+The focused paper deliberately treats one fixed Hamiltonian.  It does not
+state the compact-parameter, mixed state/parameter versions used by the
+application, and it does not contain the optional Jost module described
+below.  Moreover, its concrete pole theorem concerns an isolated boundary
+sink with indicial roots $\{1,4,6\}$; it is not the positive-parameter van der
+Pol pole theorem.
+
+\subsection{Frozen long research version}
+
+The auxiliary frozen source is the earlier long research version H.~Lu,
+\emph{First returns, singular exits, and action finite parts near a reversible
+Hamiltonian saddle-focus}, originally stored in the historical repository
+\texttt{h-lu/reversible-rfsn-ii-waves}.  It is not another name for the Zenodo
+paper.  The inspectable copy is the exact snapshot inside the application
+release.  Its upstream commit is
 \begin{center}
  \sha{d54add098545063d5efe8f1d6f062d4cfc116a0d}
 \end{center}
@@ -68,7 +118,7 @@ extraction of the complete frozen
 \end{center}
 No file below that directory was edited after extraction.
 
-The principal SHA-256 identities are:
+The principal SHA-256 identities of this long snapshot are:
 \begin{center}
 \small
 \begin{tabular}{@{}p{4.3cm}p{7.9cm}@{}}
@@ -95,23 +145,58 @@ The principal SHA-256 identities are:
 The machine-readable copy of this table is
 \texttt{RELEASE\_MANIFEST.json} beside the frozen snapshot README.
 
+The four displayed claim-bearing certificate files are byte-identical to the
+corresponding M1--M4 evidence in the Zenodo record.  The long snapshot is kept
+because some analytic clauses used by the companion are absent from, or
+strictly stronger than, the focused paper; it is not used to replace the
+stable citation when the focused theorem already supplies the required
+fixed-system statement.
+
 \section{Imported clauses and exclusions}
 
-Only the following frozen clauses enter Hypothesis H.
+The following clauses of Hypothesis H are supplied directly by the public
+fixed-system preprint.
 
 \begin{enumerate}
  \item The core system, one selected symmetric homoclinic, transversality
  modulo flow in the regular zero-energy hypersurface, its true unstable
- source graph, and the complete finite central physical event block.
- \item The singular algebraic comparison sheet, source-incidence row, and
- endpoint-normalized Jost/adjoint row with exchange pairing $144\sqrt3$.
- \item The analytic fixed-system saddle passage, endpoint and matching
- equations, winding selector, completed cross forms, clean first-exit family,
- exact section/gauge covariance, finite-atlas covariance, and terminal coding
- theorem.
+ source graph, the certified channel anchors, and the adapted finite central
+ physical event block.
+ \item The fixed-system saddle passage, winding selector, whole-cell
+ convergence, clean first-event decomposition, exact finite-branch action and
+ covariance, and countable coding of the trapped return set.
+ \item The $C^3$, third-order-bunched singular algebraic comparison sheet and
+ the validated transverse source-to-sheet intersection.  The nonzero
+ source-incidence row in Hypothesis H is the corresponding section-level
+ restatement of this bordered transversality.
 \end{enumerate}
 
-The following frozen conclusions are not imported:
+Only the following additional clauses are taken from the frozen long version.
+
+\begin{enumerate}
+ \item The $C^4$, fourth-rate-gap form of the canonical singular algebraic
+ comparison sheet used in the matching proof (Proposition~8.1 of the long
+ source).
+ \item The exact Jost basis and tangent identification, with the
+ endpoint-normalized adjoint row whose directed exchange pairing is
+ $144\sqrt3$.  This coefficient is not a theorem statement in Zenodo version
+ 1.0.0; it is the explicit algebraic consequence of the frozen Cauchy data and
+ symplectic pairings in \texttt{app:jost-source-arm}, as recorded in the
+ application proof archive.
+ \item The compact-parameter architecture for the endpoint and matching
+ equations, mixed passage and selector, mixed two-jet estimates, and
+ finite-atlas covariance.  The concrete compact-family hypotheses and the
+ finite marked-atlas descent are checked in the companion paper, with
+ coordinate-level details retained in the application archive; the long
+ version does not by itself verify their van der Pol hypotheses.
+\end{enumerate}
+
+Thus Hypothesis H combines a publicly archived fixed-system theorem with a small,
+explicitly identified set of long-version clauses.  Its conditional status is
+a theorem-scope statement, not a claim that the focused flagship preprint is
+unarchived or inaccessible.
+
+The following conclusions are not imported from either source:
 \begin{itemize}
  \item either concrete singular end as a positive-parameter van der Pol end;
  \item a positive-parameter pole or algebraic compactification;
@@ -122,8 +207,8 @@ The following frozen conclusions are not imported:
  identification, or experiment.
 \end{itemize}
 Thus the two positive ends, matching bridge, finite parts, event refinements,
-and translation to the original PDE are application results, not frozen
-imports.
+and translation to the original PDE are application results, not imported
+conclusions of the fixed-system theory.
 
 \section{Claim register crosswalk}
 
@@ -141,19 +226,19 @@ replayed by this repository.
  V1 & physical reversible exact Hamiltonian structure and primitive
     & Derived & direct calculation \\
  V2 & central saddle-focus, selected homoclinic, exact passage, and finite events
-    & Proved & ${\rm H_{core}}$ and passage module \\
+    & Proved & public ${\rm H_{core}}$; long/local family passage \\
  V3 & genuine positive pole, open basin, labels, and pole action finite part
     & Proved & V2 pole window \\
  V4 & positive outer future-staying hypersurface and algebraic asymptotics
     & Proved & direct full-PDE construction \\
  V5 & $K_2\to K_1\to$ outer matching and moving-cut covariance
-    & Proved & V2, V4, ${\rm H_{Jost}}$ \\
+    & Proved & V2, V4; public incidence and long Jost row \\
  V5A & reference-subtracted algebraic length/action finite parts
     & Proved & matched V5 arrival \\
  V6 & exhaustive physical high-winding return/first-exit relation
-    & Proved & V2--V5A and ${\rm H_{ret}}$ \\
+    & Proved & V2--V5A; public fixed-system and long/local family modules \\
  V7 & periodic, multipulse, and aperiodic stationary PDE patterns
-    & Proved & V6 and coding module \\
+    & Proved & V6; public/local coding modules \\
  T2G & one global exact saddle chart and global winding alphabet
     & Proposed & not used \\
  S1 & temporal spectral or nonlinear stability
@@ -197,12 +282,18 @@ The complete coordinate-level arguments remain in the versioned archive:
   & \path{theory/FINITE_MARKED_ATLAS_DESCENT.md}\\
  first events, actions, and PDE coding
   & \path{van-der-pol/TWO_END_RETURN_EXIT_AND_PDE.md}\\
- arrow-by-arrow publication audit
+ arrow-by-arrow proof audit
   & \path{proof-audit/VDP_PUBLICATION_PROOF_AUDIT_2026-08-28.md}
 \end{tabular}
 \end{center}
 
 \section{Replay instructions and evidence level}
+
+Two replay statements must be kept distinct.  The Zenodo archive includes a
+public replay summary with status \texttt{PASS} for the fixed-system paper's
+M1--M4 \texttt{main-theorem} profile.  That replay concerns the four
+computer-assisted RFSN-II inputs only.  It neither validates the companion's
+positive annulus nor constitutes an independent review of the proofs.
 
 In a full Git clone of the application repository checked out at the release
 tag, change to the frozen \texttt{source/} directory and run
@@ -245,10 +336,12 @@ for an independent human expert review.  A neutral expert packet is included
 beside the manuscript; no human reading is claimed until a named reader has
 actually returned a report.
 
-Neither the application repository nor the frozen source contained a license
-file at the time of this release.  The snapshot therefore preserves public
-inspection and citation access without inventing reuse rights.  A future
-license decision belongs to the repository owner and is not a mathematical
-claim of this supplement.
+The Zenodo fixed-system deposit contains its own paper and code license files.
+Those licenses do not retroactively license the distinct application
+repository or its frozen long snapshot.  Neither of the latter contained a
+license file at the time of the application release; that snapshot therefore
+preserves inspection and citation access without inventing reuse rights.  A
+future license decision for the application materials belongs to the
+repository owner and is not a mathematical claim of this supplement.
 
 \end{document}
