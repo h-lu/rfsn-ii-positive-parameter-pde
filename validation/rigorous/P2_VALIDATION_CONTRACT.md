@@ -102,8 +102,12 @@ and [`P2D_EXACT_SECTIONS_REPORT.md`](P2D_EXACT_SECTIONS_REPORT.md).  The fifth
 child, `V2.CHART.WEIGHTED_PASSAGE`, now has a local mathematical `PASS` from
 [`EXPLICIT_WEIGHTED_KATO_PASSAGE.md`](../../theory/EXPLICIT_WEIGHTED_KATO_PASSAGE.md)
 and [`P2D_WEIGHTED_PASSAGE_REPORT.md`](P2D_WEIGHTED_PASSAGE_REPORT.md).  The
-remaining two P2d child atoms, `V2.CHART.PHYSICAL_SLIDES` and
-`V2.CHART.OVERLAPS`, and the parent `V2.EXACT_CHART` remain `OPEN`.
+sixth child, `V2.CHART.PHYSICAL_SLIDES`, now has a local mathematical `PASS`
+from
+[`EXPLICIT_PHYSICAL_SLIDES.md`](../../theory/EXPLICIT_PHYSICAL_SLIDES.md) and
+[`P2D_PHYSICAL_SLIDES_REPORT.md`](P2D_PHYSICAL_SLIDES_REPORT.md), including
+(D12) with \(C_{\rm phys}=7\).  `V2.CHART.OVERLAPS` and the parent
+`V2.EXACT_CHART` remain `OPEN`.
 
 ## 2. Exact moving eigenframe for P2a
 
@@ -1124,7 +1128,10 @@ gauges also establish local mathematical `PASS` for
 weighted passage, all-finite-order generator, and clock inversion likewise
 establish local mathematical `PASS` for `V2.CHART.WEIGHTED_PASSAGE`; see
 [`P2D_WEIGHTED_PASSAGE_REPORT.md`](P2D_WEIGHTED_PASSAGE_REPORT.md).  The
-remaining two child atoms are separate mathematical obligations, so the parent
+proof-bound physical slides likewise establish local mathematical `PASS` for
+`V2.CHART.PHYSICAL_SLIDES`; see
+[`P2D_PHYSICAL_SLIDES_REPORT.md`](P2D_PHYSICAL_SLIDES_REPORT.md).  The remaining
+overlap atom is a separate mathematical obligation, so the parent
 `V2.EXACT_CHART` remains `OPEN`.
 
 There is a mandatory sign dictionary.  With the positive Kato orientation,
@@ -1290,7 +1297,10 @@ buffers, event-free slides, first-hit uniqueness and speed, and the required
 state-\(C^3\)/parameter-\(C^2\) bounds.  The complete connected event-cell
 census remains P2e; only the local collar exclusion needed by P2d is frozen
 here.  Its bounded slide times combine with the radial comparison above to
-close (D12).
+close (D12).  The proof-bound local result now supplies slide times below
+\(19\) on both sides and closes (D12) with the explicit uniform choice
+\(C_{\rm phys}=7\); see
+[`P2D_PHYSICAL_SLIDES_REPORT.md`](P2D_PHYSICAL_SLIDES_REPORT.md).
 
 Finally, the overlap atom must validate a finite cover
 \(V_i\Subset U_i\), not silently replace it by one global nonlinear chart.

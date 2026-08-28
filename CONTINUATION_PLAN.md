@@ -431,9 +431,9 @@ Continue the interval lane only under the existing fail-closed policy:
 - first refactor the Issue #7 obligation map around the hypotheses of the
   publication-facing analytic propositions, preserving every archived
   certificate and its evidence status;
-- use the now locally passed weighted Kato passage as the input to the next
-  `V2.CHART.PHYSICAL_SLIDES` gate; attach finite overlaps only where the common
-  block and marked atlas consume them;
+- use the now locally passed weighted Kato passage and physical-slide gate as
+  the input to the remaining `V2.CHART.OVERLAPS` gate; attach only the finite
+  overlaps actually consumed by the common block and marked atlas;
 - validate the model-specific finite inputs that determine the explicit box:
   the selected homoclinic and its transversality, positive-pole entry and
   terminal bounds, outer graph cone and bunching, exchange coefficient and

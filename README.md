@@ -170,7 +170,7 @@ identified.
 |---|---|---|
 | Analytic applications | B1--B2 are **Proved**; V1 is **Derived**; V2--V7 are **Proved**, relative to the frozen inputs named in the claim register | These are existential positive-parameter results, not certification of the displayed numerical box.  The publication-facing import crosswalk, conditional compact-family/pole-interface audit, and exact frozen evidence snapshot are versioned with the companion release. |
 | Floating atlas | `COMPUTED/E1` and `COMPUTED/QA` | Finite explanatory samples only; they do not prove a uniform census, temporal stability, Turing-branch selection, or canard identification.  See the [numerical report](numerics/VAN_DER_POL_NUMERICAL_REPORT.md). |
-| Explicit-box validation (#7) | `INCONCLUSIVE`, `claim_bearing=false` | The frozen box is \([0.04,0.08]\times[-0.25,0.25]\times[0.8,1.2]\).  P1--P2c and the first five P2d children through weighted Kato passage pass locally; physical slides, overlaps, the parent chart, later theorem inputs, and distinct-machine replay remain pending.  See the [weighted-passage report](validation/rigorous/P2D_WEIGHTED_PASSAGE_REPORT.md). |
+| Explicit-box validation (#7) | `INCONCLUSIVE`, `claim_bearing=false` | The frozen box is \([0.04,0.08]\times[-0.25,0.25]\times[0.8,1.2]\).  P1--P2c and the first six P2d children through the physical slides pass locally, including (D12) with \(C_{\rm phys}=7\); overlaps, the parent chart, later theorem inputs, and distinct-machine replay remain pending.  See the [physical-slide report](validation/rigorous/P2D_PHYSICAL_SLIDES_REPORT.md). |
 
 Closing an analytic construction issue records completion under the current
 frozen-import repository contract.  Public availability of that contract does
@@ -188,7 +188,7 @@ experimental realization.
 - [Frozen RFSN-II source and evidence snapshot](frozen-imports/rfsn-ii-d54add098545063d5efe8f1d6f062d4cfc116a0d/README.md)
 - [Research contract](RESEARCH_CONTRACT.md)
 - [Continuation and publication plan](CONTINUATION_PLAN.md)
-- [Current weighted Kato-passage validation](validation/rigorous/P2D_WEIGHTED_PASSAGE_REPORT.md)
+- [Current physical-slide validation](validation/rigorous/P2D_PHYSICAL_SLIDES_REPORT.md)
 - [Claim register](CLAIM_REGISTER.md)
 - [Proof-seam audit](proof-audit/SEAM_AUDIT_2026-08-27.md)
 - [Van der Pol publication proof audit](proof-audit/VDP_PUBLICATION_PROOF_AUDIT_2026-08-28.md)
@@ -212,6 +212,8 @@ experimental realization.
 - [Issue #7 P2d analytic-normal-form report](validation/rigorous/P2D_NORMAL_FORM_REPORT.md)
 - [Issue #7 P2d zero-energy-fiber report](validation/rigorous/P2D_ZERO_ENERGY_REPORT.md)
 - [Issue #7 P2d exact-radial-sections report](validation/rigorous/P2D_EXACT_SECTIONS_REPORT.md)
+- [Issue #7 P2d weighted-Kato-passage report](validation/rigorous/P2D_WEIGHTED_PASSAGE_REPORT.md)
+- [Issue #7 P2d physical-slide report](validation/rigorous/P2D_PHYSICAL_SLIDES_REPORT.md)
 
 ## Issue map
 

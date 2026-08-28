@@ -216,13 +216,20 @@ and [`check_p2d_weighted_passage.py`](check_p2d_weighted_passage.py) prove and
 check the signed logarithmic time/phase law, absolute Kato deck, complete
 parameter-two-jet bounds, all-finite-log-order generator, and clock inversion.
 They give local mathematical `PASS` for `V2.CHART.WEIGHTED_PASSAGE`.  The
-aggregate remains `INCONCLUSIVE` and `claim_bearing=false` because independent
-replay is 1/2; physical slides, overlaps, and `V2.EXACT_CHART` remain `OPEN`.
-The next mathematical gate is `V2.CHART.PHYSICAL_SLIDES`.  See
-[`P2D_NORMAL_FORM_REPORT.md`](P2D_NORMAL_FORM_REPORT.md) and
-[`P2D_ZERO_ENERGY_REPORT.md`](P2D_ZERO_ENERGY_REPORT.md), and
-[`P2D_EXACT_SECTIONS_REPORT.md`](P2D_EXACT_SECTIONS_REPORT.md), and
-[`P2D_WEIGHTED_PASSAGE_REPORT.md`](P2D_WEIGHTED_PASSAGE_REPORT.md).
+proof contract
+[`EXPLICIT_PHYSICAL_SLIDES.md`](../../theory/EXPLICIT_PHYSICAL_SLIDES.md) and
+checker [`check_p2d_physical_slides.py`](check_p2d_physical_slides.py) then
+give local mathematical `PASS` for `V2.CHART.PHYSICAL_SLIDES`, including the
+inherited radius-\(1/100\) faces, finite first-hit slides, the complete
+regularity rectangle, and (D12) with \(C_{\rm phys}=7\).  The aggregate remains
+`INCONCLUSIVE` and `claim_bearing=false` because independent replay is 1/2;
+overlaps and `V2.EXACT_CHART` remain `OPEN`.  The next mathematical gate is
+`V2.CHART.OVERLAPS`.  See
+[`P2D_NORMAL_FORM_REPORT.md`](P2D_NORMAL_FORM_REPORT.md),
+[`P2D_ZERO_ENERGY_REPORT.md`](P2D_ZERO_ENERGY_REPORT.md),
+[`P2D_EXACT_SECTIONS_REPORT.md`](P2D_EXACT_SECTIONS_REPORT.md),
+[`P2D_WEIGHTED_PASSAGE_REPORT.md`](P2D_WEIGHTED_PASSAGE_REPORT.md), and
+[`P2D_PHYSICAL_SLIDES_REPORT.md`](P2D_PHYSICAL_SLIDES_REPORT.md).
 
 Run the two design checks with
 
@@ -264,6 +271,14 @@ Run the weighted-passage check with
 python3 -B validation/rigorous/check_p2d_weighted_passage.py
 python3 -B -m unittest \
   validation.rigorous.tests.test_p2d_weighted_passage -v
+```
+
+Run the physical-slide check with
+
+```bash
+python3 -B validation/rigorous/check_p2d_physical_slides.py
+python3 -B -m unittest \
+  validation.rigorous.tests.test_p2d_physical_slides -v
 ```
 
 Check the archived certificate with

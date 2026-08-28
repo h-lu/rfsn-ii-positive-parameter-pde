@@ -91,8 +91,14 @@ When records differ, use the following order.
   collar, freezes the absolute lifted-argument deck, supplies parameter-two-jet
   and all-finite-log-order bounds, and inverts the positive clock.  Its
   proof-bound exact-rational checker gives `V2.CHART.WEIGHTED_PASSAGE` a local
-  mathematical `PASS`; physical slides, overlaps, and `V2.EXACT_CHART` remain
-  open.
+  mathematical `PASS`; its physical comparison is completed by the next item.
+- [EXPLICIT_PHYSICAL_SLIDES.md](EXPLICIT_PHYSICAL_SLIDES.md) joins the exact
+  auxiliary Kato sections to the inherited radius-\(1/100\) physical faces,
+  proves event-free unique first hits with slide times below \(19\), supplies
+  the complete state-\(C^3\)/parameter-\(C^2\) rectangle, and closes (D12) with
+  \(C_{\rm phys}=7\).  Its proof-bound checker gives
+  `V2.CHART.PHYSICAL_SLIDES` a local mathematical `PASS`; overlaps and the
+  parent `V2.EXACT_CHART` remain open.
 - [COMPACT_FAMILY_FIRST_HIT_THEOREM.md](COMPACT_FAMILY_FIRST_HIT_THEOREM.md)
   proves compact-family persistence and transfer of the already supplied
   passage, selector, cross forms, and physical event arrangement.  It is

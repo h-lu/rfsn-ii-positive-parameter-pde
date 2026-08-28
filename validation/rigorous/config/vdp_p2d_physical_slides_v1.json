@@ -1,0 +1,40 @@
+{
+  "schema_version": "rfsn-vdp-p2d-physical-slides-config/1",
+  "configuration_id": "vdp-p2d-physical-slides-v1",
+  "status": "FROZEN_PROOF_BOUND",
+  "physical_interface": {
+    "coordinate_map": "Z=T_mu(u,s)",
+    "physical_radius": {"numerator": "1", "denominator": "100"},
+    "algebraic_block": "max(norm2(u),norm2(s))<=1/100",
+    "outgoing_face": "H_mu(Z)=0 and norm2(pi_u(T_mu^-1 Z))=1/100 with outward sign",
+    "incoming_face": "reverser image of outgoing_face",
+    "auxiliary_radius": {"numerator": "5", "denominator": "67108864"},
+    "action_collar": {"numerator": "25", "denominator": "288230376151711744"}
+  },
+  "local_event_support_contract": {
+    "family_id": "V2.P2E.CENTRAL_EVENT_GERMS",
+    "restriction_to_closed_physical_saddle_block": "EMPTY",
+    "physical_incoming_and_outgoing_faces_are_block_boundaries": true,
+    "physical_faces_are_not_members_of_excluded_non_saddle_event_family": true,
+    "excluded_non_saddle_event_germ_ids_inside_block": [],
+    "external_support_rule": "Every non-saddle event germ is represented only in an exterior flow box beyond a physical saddle face.",
+    "p2e_extension_and_complete_census_status": "OPEN"
+  },
+  "p2c_source_interface": {
+    "path": "validation/rigorous/config/vdp_p2_homoclinic_v1.json",
+    "sha256": "a1aca97d2fcf76f336dc06734c1ced25aeb9bd6b1bfa69b9dc8a6545846ce9ac",
+    "meaning": "The inherited radius-1/100 zero-action source set and its P2bK dependency remain the P2c source interface; only its transported local marking is used here."
+  },
+  "regularity_contract": {
+    "maximum_state_order": 3,
+    "maximum_external_parameter_order": 2,
+    "full_rectangular_claim": true,
+    "maximum_total_order": 5
+  },
+  "claim_boundary": {
+    "local_event_exclusion_only": true,
+    "V2.CHART.OVERLAPS": "OPEN",
+    "V2.EXACT_CHART": "OPEN",
+    "V2.EVENT_ATLAS_P2e": "OPEN"
+  }
+}
