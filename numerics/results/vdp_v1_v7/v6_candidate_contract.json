@@ -163,7 +163,7 @@
   ],
   "schema_version": "rfsn-candidate-validation-contract/2",
   "source_revision": {
-    "commit": "6cda532b4e411ffb2bfb1f70ec3a920ff6174c9e",
+    "commit": "91b42708b257c8a44dfb15f265d24d7d297f56be",
     "ignored_paths": [
       "numerics/results/vdp_v1_v7/v6_candidate_contract.json"
     ],
@@ -183,7 +183,7 @@
     {
       "path": "van-der-pol/POSITIVE_POLE_FINITE_PART.md",
       "role": "V3 theorem",
-      "sha256": "4e8096c86cc129f2cd0af71c6580537e9a4819a08f3d89ce47bd04caccfd62bc"
+      "sha256": "f6655e4f6ac6f54e55445dd2a5f4c8b293fcefeef109e687de059f6de914a0d0"
     },
     {
       "path": "van-der-pol/OUTER_FUTURE_STAYING.md",
@@ -203,7 +203,7 @@
     {
       "path": "van-der-pol/TWO_END_RETURN_EXIT_AND_PDE.md",
       "role": "V6 theorem",
-      "sha256": "385d1c8631232d57325b56fcf97f88c6a083866cd6be7fe9829492e5e191d1d5"
+      "sha256": "6adf67595e77055e3ec17549d37d552dca5434d18b26b742f6451995af074387"
     }
   ]
 }
