@@ -163,7 +163,7 @@
   ],
   "schema_version": "rfsn-candidate-validation-contract/2",
   "source_revision": {
-    "commit": "c31007c71af5e61f31b866adb93dc9f7d349040d",
+    "commit": "6cda532b4e411ffb2bfb1f70ec3a920ff6174c9e",
     "ignored_paths": [
       "numerics/results/vdp_v1_v7/v6_candidate_contract.json"
     ],
@@ -193,7 +193,7 @@
     {
       "path": "van-der-pol/CENTRAL_OUTER_MATCHING.md",
       "role": "V5 theorem",
-      "sha256": "9a69aeb4dff689d0afb3ecb9fb678ab3228535053e2329ffd3af02f04c28191c"
+      "sha256": "38887b048bb1d7dbdba5a5b28a6037b376cda2aa9bf81cf5b6055c56bfbf0e29"
     },
     {
       "path": "van-der-pol/OUTER_ALGEBRAIC_FINITE_PART.md",
