@@ -144,71 +144,18 @@ positive fold and the singular reduction is FSN-II-degenerate there, but no
 finite-parameter slow-manifold intersection has been computed; no canard is
 identified.
 
-For Issue #7, the box
+### Evidence layers at a glance
 
-\[
- [0.04,0.08]\times[-0.25,0.25]\times[0.8,1.2]
-\]
+| Layer | Current status | Boundary and detailed record |
+|---|---|---|
+| Analytic applications | B1--B2 are **Proved**; V1 is **Derived**; V2--V7 are **Proved**, relative to the frozen inputs named in the claim register | These are existential positive-parameter results, not certification of the displayed numerical box.  The publication-facing import crosswalk and compact-family/NHIM-pole audit remain scheduled in the [continuation plan](CONTINUATION_PLAN.md). |
+| Floating atlas | `COMPUTED/E1` and `COMPUTED/QA` | Finite explanatory samples only; they do not prove a uniform census, temporal stability, Turing-branch selection, or canard identification.  See the [numerical report](numerics/VAN_DER_POL_NUMERICAL_REPORT.md). |
+| Explicit-box validation (#7) | `INCONCLUSIVE`, `claim_bearing=false` | The frozen box is \([0.04,0.08]\times[-0.25,0.25]\times[0.8,1.2]\).  P1--P2c and the P2d symplectic-frame and analytic-normal-form children pass locally; the remaining theorem inputs, aggregate certification, and distinct-machine replay are pending.  See the [rigorous-validation record](validation/rigorous/README.md). |
 
-in \((r,a_2,\epsilon)\) is now formally frozen as
-`vdp-positive-box-v1`, before the first outward-rounded run.  It is an input
-to the existence/coding validation, not a temporal-stability box.  The first
-local phase-1 kernel now passes every implemented integrity and mathematical
-obligation on this box; its aggregate status remains `INCONCLUSIVE` and
-non-claim-bearing because the required independent replay and later stages
-are still pending.  The subsequent P2a kernel also passes its exact moving
-frame, isolating-block/difference-cone, and true coarse local-graph
-subobligations on the full connected bridge
-\([0,0.08]\times[-0.25,0.25]\times[0.8,1.2]\).  It certifies the complete
-radius-`.01` local source disk.  The clean P2b0 kernel now also regenerates
-the frozen exact H10 center byte-for-byte and proves uniform true-graph tubes
-
-\[
- \lVert H_\mu-H_{10}\rVert_2\le5\times10^{-6},\qquad
- \lVert DH_\mu-DH_{10}\rVert_F\le3\times10^{-4}
-\]
-
-on that bridge.  Its integrity and mathematical statuses pass locally, while
-the aggregate remains `INCONCLUSIVE` and non-claim-bearing because independent
-replay is still 1/2.  The subsequent clean P2b mixed-jet kernel now also
-passes the true-graph state-(C^2/C^3) bounds, the complete rectangular
-state/parameter jets, and the weight-(1/4) half-orbit bounds in moving and
-physical coordinates.  Consequently its local parent obligations
-`V2.WU.JETS` and `V2.WU_GRAPH` pass.  Its aggregate remains `INCONCLUSIVE` and
-non-claim-bearing solely because independent replay remains 1/2.  The
-subsequent clean P2bK kernel also passes its locked 56-identity exact audit,
-normalized Riesz/Kato transport, physical frame change, complete \(C^2\)
-parameter lift, degree-one radius-`.01` true source circle, and the nine-jet
-total-order-three source triangle.  Its aggregate likewise remains
-`INCONCLUSIVE` and non-claim-bearing solely because independent replay is
-1/2.  The full strict P2c design run now passes on the complete
-three-parameter bridge: it covers one selected lifted root branch, every
-common-face identification, the frozen core anchor, the first-hit sign tubes,
-the endpoint transversality checks, and the actual-root parameter two-jets.
-The new `V2.HOM.MIDDLE_C2` design atom encloses the fixed-\(\xi\),
-continuous-time \(C^2\) compact middle and composes it with the local
-pre-source pieces and both infinite tails.  The resulting global Theorem V2
-design constants are
-
-\[
- T_*=11,\qquad \eta=1/5,\qquad C_{\rm hom}=71496600
-\]
-
-for all original-parameter derivatives through order two.  A narrow
-retrospective local P2c certificate now parses the archived strict logs and
-replays the exact tail algebra without rerunning the full grid.  Its five P2c
-atoms and local `V2.HOMOCLINIC` parent pass, but the aggregate remains
-`INCONCLUSIVE` and non-claim-bearing while independent replay is 1/2.
-The exact verdict is recorded in
-[`validation/rigorous/P2C_CERTIFICATE_REPORT.md`](validation/rigorous/P2C_CERTIFICATE_REPORT.md).
-P2d now has local mathematical `PASS` for its symplectic-frame and
-analytic-normal-form child atoms.  The latter is supported by the proved
-all-orders majorant and an authenticated exact-rational source-bound checker;
-it is not inferred from the earlier finite prefix or design scout.  Its five
-remaining chart atoms and parent `V2.EXACT_CHART` stay `OPEN`.  Every aggregate
-status remains `INCONCLUSIVE` and `claim_bearing=false` because independent
-replay is 1/2; P2e--P5 also remain pending.  See the
-[`P2d normal-form report`](validation/rigorous/P2D_NORMAL_FORM_REPORT.md).
+Closing an analytic construction issue records completion under the current
+frozen-import repository contract.  It does not close the publication-facing
+dependency audit, certify the explicit box, or establish temporal stability,
+Turing selection, canard identification, or experimental realization.
 
 ## Repository map
 
@@ -216,6 +163,7 @@ replay is 1/2; P2e--P5 also remain pending.  See the
 - [Brusselator programme](brusselator/README.md)
 - [van der Pol programme](van-der-pol/README.md)
 - [Research contract](RESEARCH_CONTRACT.md)
+- [Continuation and publication plan](CONTINUATION_PLAN.md)
 - [Claim register](CLAIM_REGISTER.md)
 - [Proof-seam audit](proof-audit/SEAM_AUDIT_2026-08-27.md)
 - [Primary sources](references/PRIMARY_SOURCES.md)
@@ -237,15 +185,16 @@ replay is 1/2; P2e--P5 also remain pending.  See the
 - [Issue #7 P2d symplectic-frame report](validation/rigorous/P2D_FRAME_REPORT.md)
 - [Issue #7 P2d analytic-normal-form report](validation/rigorous/P2D_NORMAL_FORM_REPORT.md)
 
-## Initial work queue
+## Issue map
 
-- [#1: Brusselator localized stationary profile](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/1)
-- [#2: van der Pol Hamiltonian bridge and compact persistence](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/2)
-- [#3: positive-parameter pole and action finite part](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/3)
-- [#4: central--outer matching theorem](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/4), the decisive mathematical go/no-go task
-- [#5: outer algebraic action finite part](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/5)
-- [#6: exhaustive two-end theorem](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/6)
-- [#7: rigorous validation](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/7), with phase 1 through P2c passing locally, followed by local P2d passes for `V2.CHART.SYMPLECTIC_FRAME` and `V2.CHART.ANALYTIC_NORMAL_FORM`; the other five chart atoms, parent `V2.EXACT_CHART`, P2e--P5, and independent replay remain pending
+- [#1: Brusselator localized stationary profile](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/1) — analytic construction complete under the frozen core input.
+- [#2: van der Pol Hamiltonian bridge and compact persistence](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/2) — V1--V2 construction complete under the frozen central input.
+- [#3: positive-parameter pole and action finite part](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/3) — local NHIM-pole construction complete.
+- [#4: central--outer matching theorem](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/4) — V4--V5 matching construction complete; publication dependency audit remains separate.
+- [#5: outer algebraic action finite part](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/5) — V5A construction complete.
+- [#6: exhaustive two-end theorem](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/6) — V6--V7 construction complete under the pinned modular imports.
+- [#7: rigorous explicit-box validation](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/7) — open; aggregate status remains non-claim-bearing and inconclusive.
+- [#8: explanatory numerical atlas and dynamics prescreen](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/8) — open; numerical evidence remains separate from theorem status.
 
 The source theory remains in
 [`h-lu/reversible-rfsn-ii-waves`](https://github.com/h-lu/reversible-rfsn-ii-waves).
