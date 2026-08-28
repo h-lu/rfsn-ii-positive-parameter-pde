@@ -1,0 +1,254 @@
+\documentclass[11pt,reqno]{amsart}
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\usepackage{microtype}
+\usepackage[colorlinks=true,linkcolor=blue!55!black,urlcolor=blue!55!black]{hyperref}
+\hypersetup{
+  pdftitle={Provenance and Evidence Supplement for Positive-Parameter Two-End Spatial Dynamics},
+  pdfauthor={Haibo Lu},
+  pdfsubject={Frozen inputs, claim dependencies, hashes, and replay scope},
+  pdfkeywords={van der Pol reaction-diffusion system, RFSN-II, provenance, computer-assisted proof, frozen evidence}
+}
+
+\newcommand{\R}{\mathbb R}
+\newcommand{\sha}[1]{{\fontsize{6.5}{7.5}\selectfont\texttt{\detokenize{#1}}}}
+
+\title[Provenance supplement]{Provenance and Evidence Supplement for\\
+Positive-Parameter Two-End Spatial Dynamics in the Van der Pol
+Reaction--Diffusion System}
+\author{Haibo Lu}
+\address{Haibo Lu}
+\email{luhaibo1985@gmail.com}
+\date{August 28, 2026}
+
+\begin{document}
+\maketitle
+
+\section{Purpose and release identity}
+
+This supplement records evidence status, frozen-source identities, theorem
+dependencies, and replay information for the companion paper.  It is not a
+second mathematical proof and does not enlarge the theorem.  The stable
+public release is
+\begin{center}
+ \url{https://github.com/h-lu/rfsn-ii-positive-parameter-pde/releases/tag/vdp-companion-v1}.
+\end{center}
+The release tag identifies the application manuscript, the detailed V1--V7
+proof archive, and the frozen input snapshot as one versioned object.  The
+read-only upstream repository was not modified.
+
+The companion theorem is conditional on Hypothesis H.  Its analytic
+application conclusions are existential on a nonempty compact positive
+annulus.  The proposed numerical Issue~\#7 box is not used as a theorem box.
+
+\section{Frozen source}
+
+The frozen source is H.~Lu, \emph{First returns, singular exits, and action
+finite parts near a reversible Hamiltonian saddle-focus}, originally stored
+in the historical repository \texttt{h-lu/reversible-rfsn-ii-waves}.  That
+repository is not the public locator for this supplement; the inspectable
+copy is the exact snapshot inside the application release.  Its upstream
+commit is
+\begin{center}
+ \sha{d54add098545063d5efe8f1d6f062d4cfc116a0d}
+\end{center}
+and tree
+\begin{center}
+ \sha{b9cd34b1bae1c29bdd722d9ed3c33402c4b3ee89}.
+\end{center}
+The public application release contains an exact \texttt{git archive}
+extraction of the complete frozen
+\texttt{papers/paper-a/manuscript/} and \texttt{validation/} directories at
+\begin{center}
+\small
+\path{frozen-imports/rfsn-ii-d54add098545063d5efe8f1d6f062d4cfc116a0d/source/}.
+\end{center}
+No file below that directory was edited after extraction.
+
+The principal SHA-256 identities are:
+\begin{center}
+\small
+\begin{tabular}{@{}p{4.3cm}p{7.9cm}@{}}
+ frozen file & SHA-256 \\
+ \hline
+ manuscript source &
+ \sha{0baf6335aad72d5893479d8876d2613671ecb8ac2ccd73664405dea4381e6a20}\\
+ manuscript PDF &
+ \sha{67888cf8b61b34c923cf55bd69ee41cab69493be6fc275533c8f5a074f1e96c5}\\
+ replay manifest &
+ \sha{15905f5a20b24a0ae0d298d9d14aa940177a006cc2cce3f2a39fd2e1cf4dac9b}\\
+ environment lock &
+ \sha{6240ebdbf0f296738534c07a33aea40202883f6abf37e1ff28e43dad47aa0cba}\\
+ core homoclinic certificate &
+ \sha{ed0f9f58f8ba5f1d5c36dc7c3a72bb725599c4172a3cd610d890b88699fecfbd}\\
+ algebraic-anchor certificate &
+ \sha{60882ee1d3b2b18264b85764288505ae8b47d00bc826a2bddec152898f690fbe}\\
+ future-target certificate &
+ \sha{88fa64035bb4352f5e25aa8d1627b191936264958c125dface59c5a767f6b3ce}\\
+ pole-gate certificate &
+ \sha{7f325a87810f8b0dda2542aed90263b39f9a9f4bd2e8ebb3abcc238d032eb6e2}
+\end{tabular}
+\end{center}
+The machine-readable copy of this table is
+\texttt{RELEASE\_MANIFEST.json} beside the frozen snapshot README.
+
+\section{Imported clauses and exclusions}
+
+Only the following frozen clauses enter Hypothesis H.
+
+\begin{enumerate}
+ \item The core system, one selected symmetric homoclinic, transversality
+ modulo flow in the regular zero-energy hypersurface, its true unstable
+ source graph, and the complete finite central physical event block.
+ \item The singular algebraic comparison sheet, source-incidence row, and
+ endpoint-normalized Jost/adjoint row with exchange pairing $144\sqrt3$.
+ \item The analytic fixed-system saddle passage, endpoint and matching
+ equations, winding selector, completed cross forms, clean first-exit family,
+ exact section/gauge covariance, finite-atlas covariance, and terminal coding
+ theorem.
+\end{enumerate}
+
+The following frozen conclusions are not imported:
+\begin{itemize}
+ \item either concrete singular end as a positive-parameter van der Pol end;
+ \item a positive-parameter pole or algebraic compactification;
+ \item a positive-parameter $K_2\to K_1\to$ outer matching theorem;
+ \item a positive-parameter terminal counterterm or finite part;
+ \item a global exact saddle chart or one parameter-global winding alphabet;
+ \item temporal PDE stability, temporal chaos, Turing selection, canard
+ identification, or experiment.
+\end{itemize}
+Thus the two positive ends, matching bridge, finite parts, event refinements,
+and translation to the original PDE are application results, not frozen
+imports.
+
+\section{Claim register crosswalk}
+
+The status column below reproduces the authoritative register verbatim.  The
+dependency column records where a proved application statement uses
+Hypothesis H or an earlier H-dependent statement.  Thus \emph{Proved} is a
+proof status, not a claim that the frozen certificates were independently
+replayed by this repository.
+
+\begin{center}
+\small
+\begin{tabular}{@{}c|p{5.7cm}|c|p{3.1cm}@{}}
+ ID & statement & status & dependency \\
+ \hline
+ V1 & physical reversible exact Hamiltonian structure and primitive
+    & Derived & direct calculation \\
+ V2 & central saddle-focus, selected homoclinic, exact passage, and finite events
+    & Proved & ${\rm H_{core}}$ and passage module \\
+ V3 & genuine positive pole, open basin, labels, and pole action finite part
+    & Proved & V2 pole window \\
+ V4 & positive outer future-staying hypersurface and algebraic asymptotics
+    & Proved & direct full-PDE construction \\
+ V5 & $K_2\to K_1\to$ outer matching and moving-cut covariance
+    & Proved & V2, V4, ${\rm H_{Jost}}$ \\
+ V5A & reference-subtracted algebraic length/action finite parts
+    & Proved & matched V5 arrival \\
+ V6 & exhaustive physical high-winding return/first-exit relation
+    & Proved & V2--V5A and ${\rm H_{ret}}$ \\
+ V7 & periodic, multipulse, and aperiodic stationary PDE patterns
+    & Proved & V6 and coding module \\
+ T2G & one global exact saddle chart and global winding alphabet
+    & Proposed & not used \\
+ S1 & temporal spectral or nonlinear stability
+    & Deferred & separate problem \\
+ E1 & calibrated experimental observation
+    & Deferred & separate problem
+\end{tabular}
+\end{center}
+
+\section{Application proof locations}
+
+The reader-facing paper compresses the proof into four mathematical sections.
+The complete coordinate-level arguments remain in the versioned archive:
+\begin{center}
+\small
+\begin{tabular}{@{}p{4.1cm}p{8.1cm}@{}}
+ output & repository proof file \\
+ \hline
+ physical model, clocks, Hamiltonian
+  & \path{van-der-pol/HAMILTONIAN_CHECK.md};
+    \path{van-der-pol/MODEL_AND_CENTRAL_CHART.md}\\
+ frozen core statement
+  & \path{van-der-pol/CENTRAL_CORE_IMPORT.md}\\
+ central continuation
+  & \path{van-der-pol/CENTRAL_CONTINUATION.md}\\
+ positive pole terminal
+  & \path{van-der-pol/POSITIVE_POLE_FINITE_PART.md}\\
+ outer future-staying graph
+  & \path{van-der-pol/OUTER_FUTURE_STAYING.md}\\
+ relative corner invariant manifold
+  & \path{theory/RELATIVE_OVERFLOWING_NHIM.md}\\
+ central--outer matching
+  & \path{van-der-pol/CENTRAL_OUTER_MATCHING.md}\\
+ algebraic finite parts
+  & \path{van-der-pol/OUTER_ALGEBRAIC_FINITE_PART.md}\\
+ frozen return/coding statement
+  & \path{van-der-pol/RETURN_EXIT_CODING_IMPORT.md}\\
+ conditional compact-family transfer
+  & \path{theory/COMPACT_FAMILY_FIRST_HIT_THEOREM.md}\\
+ physical finite-atlas descent
+  & \path{theory/FINITE_MARKED_ATLAS_DESCENT.md}\\
+ first events, actions, and PDE coding
+  & \path{van-der-pol/TWO_END_RETURN_EXIT_AND_PDE.md}\\
+ arrow-by-arrow publication audit
+  & \path{proof-audit/VDP_PUBLICATION_PROOF_AUDIT_2026-08-28.md}
+\end{tabular}
+\end{center}
+
+\section{Replay instructions and evidence level}
+
+In a full Git clone of the application repository checked out at the release
+tag, change to the frozen \texttt{source/} directory and run
+\begin{verbatim}
+python3 validation/replay_all.py \
+  --profile main-theorem \
+  --dry-run \
+  --report /tmp/rfsn-main-theorem-dry-run.json
+\end{verbatim}
+checks the manifest and frozen input hashes.  Its successful status is
+\begin{center}
+\small\texttt{PASS-DRY-RUN-NO-CERTIFICATES-EXECUTED}.
+\end{center}
+By design, this is not a mathematical replay.
+The frozen script is fail-closed and invokes Git, so this command is not
+advertised for a GitHub source ZIP or for a standalone copy without
+\texttt{.git}.  Its report field \texttt{git\_commit} identifies the
+enclosing application checkout; the upstream frozen identity is the
+\texttt{upstream\_commit} in \texttt{RELEASE\_MANIFEST.json}.
+
+A full replay uses the same command without \texttt{--dry-run}, supplies the
+CAPD source and \texttt{capd-config} paths, and follows the compiler and
+FILIB constraints in the frozen environment lock.  The interval computations
+use outward-rounded CAPD/FILIB enclosures; see the frozen validation README
+and the software records in the source package.  The package is included so
+that the source claim can be inspected and replayed.  This release does not
+claim that a second machine replay was performed by the application project.
+
+The application repository also contains an unfinished explicit positive-box
+validation programme under \texttt{validation/rigorous/}.  Its aggregate
+status remains \texttt{INCONCLUSIVE}, \texttt{claim\_bearing=false}.  Its
+development environment lock is distinct from the frozen core environment
+above and is not evidence for the existential annulus in the paper.
+
+\section{Review and licensing status}
+
+The companion was subjected to mathematical seam audits, rendered-PDF checks,
+and a separate AI cold-reading task.  These checks are not a substitute
+for an independent human expert review.  A neutral expert packet is included
+beside the manuscript; no human reading is claimed until a named reader has
+actually returned a report.
+
+Neither the application repository nor the frozen source contained a license
+file at the time of this release.  The snapshot therefore preserves public
+inspection and citation access without inventing reuse rights.  A future
+license decision belongs to the repository owner and is not a mathematical
+claim of this supplement.
+
+\end{document}

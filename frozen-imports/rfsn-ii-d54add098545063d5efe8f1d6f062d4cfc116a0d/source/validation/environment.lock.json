@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "environment_id": "paper-a-capd-filib-2026-08",
+  "scope": "All claim-bearing validation packages listed in validation/replay_manifest.json",
+  "platform": {
+    "operating_system": "Linux",
+    "architecture": "x86_64",
+    "historical_distribution": "Ubuntu",
+    "portable_claim": "No GPU or remote host is required. The interval replay is CPU-only."
+  },
+  "python": {
+    "executable": "python3",
+    "version": "3.14.4",
+    "packages": {
+      "gmpy2": "2.2.2",
+      "numpy": "2.5.2",
+      "scipy": "1.18.0",
+      "sympy": "1.14.0"
+    },
+    "mpfr_version_via_gmpy2": "MPFR 4.2.1"
+  },
+  "compiler": {
+    "executable": "g++",
+    "version": "15.2.0",
+    "historical_first_line": "g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+    "binary_sha256": "e6718f7e0c7d057c3ff77b550c603da9bc4030e3ede3c053705acce1293dbe4d",
+    "language_standard": "c++17",
+    "required_rounding_marker": "-frounding-math"
+  },
+  "cmake": {
+    "executable": "cmake",
+    "version": "4.2.3",
+    "historical_exact_invocation_recorded": false,
+    "note": "The fixed manuscript repository recorded the cache version and options but not the original complete argv. The following is the required rebuild recipe, not a claim about the lost historical shell command.",
+    "required_rebuild_argv": [
+      "cmake",
+      "-S",
+      "{capd_source}",
+      "-B",
+      "{capd_build}",
+      "-DCMAKE_BUILD_TYPE=Release",
+      "-DCAPD_INTERVAL_TYPE=FILIB",
+      "-DCAPD_ENABLE_MULTIPRECISION=OFF",
+      "-DCAPD_BUILD_TESTS=OFF",
+      "-DCAPD_BUILD_EXAMPLES=OFF"
+    ],
+    "required_build_argv": [
+      "cmake",
+      "--build",
+      "{capd_build}",
+      "--parallel"
+    ]
+  },
+  "capd": {
+    "repository": "https://github.com/CAPDGroup/CAPD.git",
+    "source_commit": "731079217a9254ea2948d742df2b170895effe7f",
+    "source_version": "6.1.0",
+    "capd_config_modversion": "6.1.0",
+    "capd_config_dash_version_interpretation": "pkgconf frontend version",
+    "pkgconf_frontend_version": "2.5.1",
+    "byte_identical_source_path": "/tmp/papera-capd.bKwHIQ/CAPD",
+    "byte_identical_source_path_reason": "CAPDSmithForm.h contributes an __FILE__ string to intMatrixAlgorithms.cpp.o, so the locked libcapd.a SHA-256 is reproducible only from this historical source path.",
+    "interval_backend": "FILIB",
+    "cmake_cache_requirements": {
+      "CAPD_BUILD_EXAMPLES": "OFF",
+      "CAPD_BUILD_TESTS": "OFF",
+      "CAPD_ENABLE_MULTIPRECISION": "OFF",
+      "CAPD_INTERVAL_TYPE": "FILIB",
+      "CMAKE_BUILD_TYPE": "Release"
+    },
+    "compile_flag_markers": [
+      "-frounding-math",
+      "FILIB"
+    ],
+    "link_markers": [
+      "capd",
+      "filib"
+    ],
+    "libraries": {
+      "libcapd.a": "316b2c480f1ce36b293602da9978eb43560646991a4a906d72ee893b3c557119",
+      "libfilib.a": "ce5cdf8f22d4a6737461774211053a3df360178194e431e4f7ad2b2ada5caa7e"
+    }
+  },
+  "process": {
+    "locale": "C.UTF-8",
+    "python_dont_write_bytecode": true,
+    "python_user_site_policy": "Allowed because the replay preflight rechecks every locked package version and MPFR inside the sanitized subprocess environment before any claim probe runs.",
+    "openblas_threads": 1,
+    "omp_threads": 1,
+    "temporary_outputs_outside_repository": true
+  },
+  "verification": {
+    "toolchain_verifier": "validation/toolchain-metadata-audit/verify.py",
+    "manifest": "validation/replay_manifest.json",
+    "driver": "validation/replay_all.py",
+    "certificate_policy": "A package is PASS only after its declared source/dependency hash contracts, executable exit gates, and declared comparison strategy all pass. Historical certificate JSON alone is never a replay PASS."
+  }
+}

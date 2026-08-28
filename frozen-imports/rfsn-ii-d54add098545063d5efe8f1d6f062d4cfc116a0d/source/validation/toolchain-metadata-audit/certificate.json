@@ -1,0 +1,120 @@
+{
+  "schema": "paper-a-toolchain-metadata-audit-v1",
+  "status": "PASS",
+  "purpose": "interpretive addendum for historical CAPD version fields",
+  "expected": {
+    "capd_source_version": "6.1.0",
+    "capd_source_commit": "731079217a9254ea2948d742df2b170895effe7f",
+    "capd_config_modversion": "6.1.0",
+    "capd_config_dash_version": "2.5.1",
+    "pkg_config_frontend": "pkgconf",
+    "libcapd_sha256": "316b2c480f1ce36b293602da9978eb43560646991a4a906d72ee893b3c557119",
+    "libfilib_sha256": "ce5cdf8f22d4a6737461774211053a3df360178194e431e4f7ad2b2ada5caa7e",
+    "interval_backend": "FILIB"
+  },
+  "observed": {
+    "capd_source_version": "6.1.0",
+    "capd_source_commit": "731079217a9254ea2948d742df2b170895effe7f",
+    "capd_config_modversion": "6.1.0",
+    "capd_config_dash_version": "2.5.1",
+    "pkg_config_frontend": "pkgconf",
+    "pkg_config_frontend_about_version": "2.5.1",
+    "libcapd_sha256": "316b2c480f1ce36b293602da9978eb43560646991a4a906d72ee893b3c557119",
+    "libfilib_sha256": "ce5cdf8f22d4a6737461774211053a3df360178194e431e4f7ad2b2ada5caa7e",
+    "interval_backend": "FILIB",
+    "backend_evidence": {
+      "cflags_defines": [
+        "-D__USE_FILIB__",
+        "-DFILIB_EXTENDED",
+        "-DFILIB_HAVE_SSE"
+      ],
+      "linked_libraries": [
+        "-lcapd",
+        "-lfilib"
+      ]
+    }
+  },
+  "checks": {
+    "source_version_matches": true,
+    "source_commit_matches": true,
+    "capd_modversion_matches": true,
+    "dash_version_is_pkgconf_version": true,
+    "libcapd_hash_matches": true,
+    "libfilib_hash_matches": true,
+    "filib_backend_matches": true,
+    "affected_claim_fields_complete": true,
+    "byte_identical_source_path_matches": true
+  },
+  "resolution": {
+    "legacy_value_2.5.1_means": "pkgconf frontend version returned by capd-config --version",
+    "legacy_value_2.5.1_does_not_mean": "CAPD source or library version",
+    "authoritative_capd_version": "6.1.0",
+    "claim_certificates_rewritten": false,
+    "claim_certificate_hash_cascade": false,
+    "claim_interval_results_changed": false,
+    "claim_probe_replay_performed_by_this_audit": false
+  },
+  "affected_claim_certificate_fields": [
+    {
+      "file": "validation/finite-source-intermediate-collar/certificate.json",
+      "json_path": "$.replay_pins.capd_pkg_config_version",
+      "recorded_value": "2.5.1",
+      "correct_interpretation": "pkgconf frontend version from capd-config --version"
+    },
+    {
+      "file": "validation/finite-source-intermediate-collar/spiral_extension_certificate.json",
+      "json_path": "$.replay_pins.capd_pkg_config_version",
+      "recorded_value": "2.5.1",
+      "correct_interpretation": "pkgconf frontend version from capd-config --version"
+    },
+    {
+      "file": "validation/fixed-fold-event-bridge/certificate.json",
+      "json_path": "$.environment.capd_config_version",
+      "recorded_value": "2.5.1",
+      "correct_interpretation": "pkgconf frontend version from capd-config --version"
+    },
+    {
+      "file": "validation/fundamental-annulus-overlap/certificate.json",
+      "json_path": "$.build.capd_version",
+      "recorded_value": "2.5.1",
+      "correct_interpretation": "pkgconf frontend version from capd-config --version"
+    },
+    {
+      "file": "validation/future-target-fold/certificate.json",
+      "json_path": "$.pins.capd_pkg_config_version",
+      "recorded_value": "2.5.1",
+      "correct_interpretation": "pkgconf frontend version from capd-config --version"
+    },
+    {
+      "file": "validation/origin-algebraic-heteroclinic/certificate.json",
+      "json_path": "$.toolchain.capd",
+      "recorded_value": "2.5.1",
+      "correct_interpretation": "pkgconf frontend version from capd-config --version"
+    },
+    {
+      "file": "validation/origin-unstable-pole-entry/certificate.json",
+      "json_path": "$.replay.capd_version",
+      "recorded_value": "2.5.1",
+      "correct_interpretation": "pkgconf frontend version from capd-config --version"
+    },
+    {
+      "file": "validation/universal-core-periodic-return/certificate.json",
+      "json_path": "$.implementation.capd_version",
+      "recorded_value": "2.5.1",
+      "correct_interpretation": "pkgconf frontend version from capd-config --version"
+    },
+    {
+      "file": "validation/universal-core-symmetric-homoclinic/certificate.json",
+      "json_path": "$.replay.capd_version",
+      "recorded_value": "2.5.1",
+      "correct_interpretation": "pkgconf frontend version from capd-config --version"
+    }
+  ],
+  "path_independence": {
+    "certificate_records_plaintext_local_source_path": true,
+    "local_capd_config_path_recorded": false,
+    "libcapd_hash_is_source_path_sensitive": true,
+    "byte_identical_source_path": "/tmp/papera-capd.bKwHIQ/CAPD",
+    "reason": "CAPDSmithForm.h contributes an __FILE__ string to intMatrixAlgorithms.cpp.o; a byte-identical libcapd.a therefore requires the audited historical source path."
+  }
+}

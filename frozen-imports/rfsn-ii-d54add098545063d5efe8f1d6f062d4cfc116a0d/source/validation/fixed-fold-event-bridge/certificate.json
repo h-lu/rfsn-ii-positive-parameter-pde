@@ -1,0 +1,129 @@
+{
+  "box0": {
+    "adjacent_bridge_certified": false,
+    "contraction_ratio": 0.16802038029318725,
+    "d_source_U_dparameter": "[-0.39902198777056247, -0.39782570616752944]",
+    "d_source_energy_dparameter": "[-0.00015708132209849013, 0.00015713172007812692]",
+    "equations": 185,
+    "first_event": true,
+    "flight_time": "[15.002816368050381, 15.003195575047364]",
+    "krawczyk_ratio": 0.7604664676756359,
+    "parameter_kind": "v",
+    "residual_sup": 2.0000000000006124e-05,
+    "segments": 36,
+    "source_U": "[0.041519034853466349, 0.041534990126568992]",
+    "source_V": "[0.1024837381012005, 0.10252373810120914]",
+    "source_energy": "[-0.0085644144413491718, -0.0085577663005715794]",
+    "source_parameter": "[0.10248373810120481, 0.10252373810120483]",
+    "source_radius": "[0.11057462109525316, 0.11061768520024054]",
+    "status": "PASS-PARAMETRIC-SOURCE-COVER-BOX",
+    "tangent_certified": true,
+    "tangent_krawczyk_ratio": 0.10037347894287656,
+    "tangent_primal_scale": 0,
+    "tangent_radius_mode": "relative",
+    "target_graph_C0_budget": "2 e^8",
+    "target_graph_C1_budget": 1e-05,
+    "terminal_U": "[-17.391304347896469, -17.391304347755703]",
+    "terminal_X_graph_energy_abs_zeta_le_2": "[-0.0099246216464974925, -0.0071975591839096992]",
+    "terminal_X_physical_a": "[0.0033958581684308247, 0.0040360723387005215]",
+    "terminal_X_physical_b": "[-0.0051787869987117534, 0.0054122225515913572]",
+    "terminal_e": "[0.0574999999997673, 0.057500000000232712]",
+    "unknowns": 185,
+    "worst_component": 1,
+    "worst_node": 27
+  },
+  "bridge": {
+    "collar_box0_V_parameter": "[0.10248373810120483, 0.10252373810120483]",
+    "collar_components_per_node": 5,
+    "collar_nodes_contained": 37,
+    "event_delta_bracket": "[0.0030040000000000002, 0.0030079999999999998]",
+    "event_e_at_lower_delta": "[0.057500015687599458, 0.057500015701931854]",
+    "event_e_at_upper_delta": "[0.057499983845560952, 0.057499983859893661]",
+    "event_total_time_bracket": "[15.003005970677368, 15.003005972477823]",
+    "first_event_after_T15": true,
+    "fold_V_strictly_inside_collar_parameter": true,
+    "fold_box_input": "upstream robust Krawczyk image",
+    "fold_source_V": "[0.10250373809755933, 0.10250373810013601]",
+    "fold_source_dU_dV_enclosure": "[-0.39842384494363481, -0.39842384490415239]",
+    "maximum_image_radius_over_collar_radius": 0.013136319938984245,
+    "minimum_absolute_containment_margin": 2.999881659867495e-08,
+    "poincare_return_time": "[0.0030059706773684328, 0.0030059724778218307]",
+    "status": "PASS-FOLD-BOX-FLOW-CONTAINMENT-IN-COLLAR-BOX0",
+    "strict_flow_containment_in_box0": true,
+    "strict_negative_P_on_event_bracket": true,
+    "strict_time_containment_in_box0": true,
+    "upstream_robust_fold_krawczyk_replayed": true,
+    "worst_component": 0,
+    "worst_node": 36
+  },
+  "claim_boundary": "For the canonical physical future graph only, the unique fixed-T=15 fold root reaches its first e=0.0575 event and its complete event-chart representation lies strictly in the finite intermediate-collar box-0 uniqueness tube.",
+  "dependency_sha256": {
+    "finite-source-intermediate-collar/certificate.json": "f89fc02709b43837d7cbdfe88b2883e96da307eef66a052241d4656278fb1bc5",
+    "finite-source-intermediate-collar/generate_full_cover.py": "7e135b841c3a5e84c6f5dddbf9067afba4fa250862e0012722c9c5998eb73a29",
+    "finite-source-intermediate-collar/numerical_bvp.py": "b602820bccf5c79014db7e65936c3829ae74fb360c7d3d6191b9c28f6500414f",
+    "finite-source-intermediate-collar/source_cover_probe.cpp": "7b77c37e5b6bbd44ca12644e021eb85700fca3039febdd2341abfeaf2bb2b683",
+    "future-target-fold/certificate.json": "88fa64035bb4352f5e25aa8d1627b191936264958c125dface59c5a767f6b3ce",
+    "future-target-fold/fold_centres_generated.hpp": "b7dc18823832dbc5ab6869aecc91abdde2c74a4f66fc8eff08e545e2d6fedec3",
+    "future-target-fold/fold_interval_probe.cpp": "c34d26ea85f0c7b6611939569a0a911ff3c2013583fa5ce7f24f18d6b1132319",
+    "future-target-fold/tail_graph_generated.hpp": "f9f9070c748c684533b779b921f524069c2dac5238e0872bb6f8a1f87552f0b8",
+    "future-target-fold/weighted_tail_generated.hpp": "b3f286def464dde6fb5f9641ca74b1cb6d50ef4d571e4e148233e4c5cf56e9d5"
+  },
+  "deterministic_seed": {
+    "box0_manifest": {
+      "chart": "v",
+      "flight_time": 15.003005971549284,
+      "half_width": 2e-05,
+      "index": 0,
+      "overlap_with_previous": null,
+      "parameter_centre": 0.10250373810120482,
+      "parameter_lower": 0.10248373810120481,
+      "parameter_upper": 0.10252373810120483,
+      "region": "outer_v",
+      "seed_offset": 0,
+      "source_U": 0.04152701249,
+      "source_V": 0.10250373810120482,
+      "source_energy": -0.008561090046565448,
+      "source_radius": 0.11059615314767962
+    },
+    "generator_mode": "generate_full_cover.py --fresh --limit 3",
+    "reason_for_three_centres": "box-0 endpoint tangent uses the same second-order three-centre finite difference as the full cover",
+    "sha256": "eeddeb21fa3331dde5574369d47898aae1031f3205128ad702ecf8c979397393"
+  },
+  "elapsed_seconds": 167.11405736200686,
+  "environment": {
+    "capd_config_version": "2.5.1",
+    "compiler": "g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+    "interval_backend": "FILIB"
+  },
+  "generated_sharp_fold_source_sha256": "7bc73e17a934e80ff8436a7a404f2bd8f1482bdeec7b017d6bae5f0ab057b8d2",
+  "logic": {
+    "common_root": "strict containment in box 0 plus box-0 Krawczyk uniqueness",
+    "fold_root": "sharp physical-budget Krawczyk replay in upstream fold box",
+    "not_used": "midpoint proximity or two independent root enclosures",
+    "same_orbit": "exact IVP flow from the captured fold Krawczyk image",
+    "target_at_event": "invariance of the same canonical physical graph"
+  },
+  "quantifier": {
+    "box0_C1_budget": "||D eta||_2 <= 1e-5",
+    "box0_value_budget": "|eta| <= 2 e^8",
+    "sharp_fold_C1_budget": "||D eta||_2 <= 1e-5",
+    "sharp_fold_C2_budget": "||D^2 eta||_2 <= 1e-3",
+    "sharp_fold_value_budget": "|eta| <= 2*(0.06)^8 = 3.359232e-10",
+    "target": "one and the same canonical physical future graph"
+  },
+  "remaining_gates": {
+    "fold_to_exact_algebraic_source": "NOT-COVERED-HERE",
+    "intermediate_collar_to_local_annulus": "NOT-COVERED-HERE"
+  },
+  "source_sha256": {
+    "fold_event_flow_bridge_probe.cpp": "d0d7ff28520cb79cab408437b4045a893655c4f52f829d10ddda5960c1bdf15b",
+    "prepare_sharp_fold.py": "217c62863497ecbbfdf4d43d04201b473cf607bdae1e805ad4770525341d8d93",
+    "replay.py": "2130c61d06a9c112fd1300ebdc6d8fde01c72d246ccca0065ab856dfbcdde0e7"
+  },
+  "status": "PASS-SAME-ORBIT-FIXED-T-FOLD-TO-EVENT-BOX0-BRIDGE",
+  "tangent": {
+    "box0_dU_dV": "[-0.39902198777056247, -0.39782570616752944]",
+    "fold_source_dU_dV": "[-0.39842384494363481, -0.39842384490415239]",
+    "strict_containment": true
+  }
+}

@@ -14,9 +14,9 @@ remain authoritative.
   novelty audit, frozen-core crosswalk, independent proof-interface audit,
   companion-paper source, clean independent build, and page-by-page PDF review
   are present in this repository.
-- The remaining Phase 1 publication blocker is external accessibility of the
-  imported Core Lemma's complete evidence closure. It does not invalidate the
-  local analytic implication proved in the paper.
+- The imported Core Lemma's complete frozen source, certificate,
+  environment, and replay manifest are now included in the versioned public
+  snapshot.  This supplies inspectability, not a new independent replay.
 - Phase 2 is complete: every imported flagship clause has been mapped to the
   frozen long draft and compressed focused paper in
   `theory/FLAGSHIP_IMPORT_AUDIT_2026-08-28.md`. The frozen baseline was not
@@ -28,10 +28,13 @@ remain authoritative.
   protected pole gate by the V3 \(x=10\) carrier, and proves the one spare
   pole-composition derivative.  It does not introduce a general block-
   production theorem.
-- This execution stops after deterministic candidate-contract refresh,
-  tests, commit, and push.  The van der Pol manuscript, Issue #7 interval
-  validation, temporal stability, Turing selection, and canard identification
-  remain deferred.
+- Phase 4 is complete as a compact conditional companion: the theorem is
+  stated in the original PDE variables, V1--V7 are compressed into one proof
+  spine, one schematic geometry figure is included, and hashes/provenance are
+  separated into a supplement.
+- Issue #7 interval validation, temporal stability, Turing selection, and
+  canard identification remain deferred.  An independent human expert report
+  is requested separately and is not claimed before it is returned.
 
 ## 1. Decision
 
@@ -403,6 +406,12 @@ uniformity nor the NHIM pole occurring at positive parameter
 Do not reproduce the full validation ledger, GitHub issue history, or every
 exploratory numerical figure in the paper.  Those belong to a supplement.
 
+**Completion record.**  The paper source, one-page geometry, provenance
+supplement, neutral cold-read packet, rendered PDFs, and exact frozen input
+snapshot are now under `papers/van-der-pol/`, `output/pdf/`, and
+`frozen-imports/`.  The theorem remains conditional on Hypothesis H, and
+the supplement preserves the claim register's evidence boundaries.
+
 ## 9. Phase 5: explicit parameter validation
 
 Issue #7 is a separate strengthening project.  It is not a prerequisite for
@@ -480,7 +489,8 @@ application sound more physical.
 
 ## 12. Immediate next task
 
-No further research phase is active under the narrowed scope.  Finish only
-the deterministic evidence-binding refresh, full local tests, commit, and
-GitHub push for the Phase 3 interface repair, then pause.  Phase 4 and Phase 5
-require a later explicit instruction.
+No further mathematical-development phase is active under the narrowed
+scope.  Publish the versioned companion package and leave a neutral public
+entry point for an independent human expert cold read.  Do not begin Phase 5,
+temporal stability, Turing selection, or canard identification without a
+separate decision.

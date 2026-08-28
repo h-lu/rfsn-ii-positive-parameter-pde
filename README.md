@@ -1,6 +1,6 @@
 # Positive-parameter PDE applications of the RFSN-II theory
 
-This private repository develops two model-level applications of the
+This repository develops two model-level applications of the
 return--first-exit theory proved for the RFSN-II Hamiltonian core:
 
 1. a positive-diffusion localized stationary pattern for the Brusselator;
@@ -22,9 +22,10 @@ Its independently buildable companion manuscript is under
 [`papers/brusselator/`](papers/brusselator/README.md), with the current
 [rendered PDF](output/pdf/brusselator-localized-stationary-profiles.pdf).
 The analytic continuation is proved relative to the stated computer-assisted
-Core Lemma; a stable public archive of that lemma's complete evidence closure
-is still required before the manuscript is externally auditable as a
-submission package.
+Core Lemma.  Its frozen source, certificate, environment, and replay manifest
+are included in the
+[public frozen snapshot](frozen-imports/rfsn-ii-d54add098545063d5efe8f1d6f062d4cfc116a0d/README.md);
+this repository does not claim a new independent-machine replay.
 For the van der Pol track, the exact model bridge is **Derived** and the
 compact central continuation theorem V2 is **Proved** in
 [CENTRAL_CONTINUATION.md](van-der-pol/CENTRAL_CONTINUATION.md), using the
@@ -60,6 +61,14 @@ Their reusable
 high-winding and coding inputs are isolated in a strictly bounded
 [frozen modular import](van-der-pol/RETURN_EXIT_CODING_IMPORT.md); neither
 positive end is imported from the flagship model.
+
+The reader-facing synthesis is the
+[van der Pol companion manuscript](papers/van-der-pol/README.md):
+[main PDF](output/pdf/van-der-pol-positive-two-end-spatial-dynamics.pdf) and
+[provenance supplement](output/pdf/van-der-pol-positive-two-end-spatial-dynamics-supplement.pdf).
+It states the theorem directly in the original PDE variables, compresses
+V1--V7 into one proof spine, and moves hashes, replay instructions, and the
+claim crosswalk to the supplement.
 
 | Workstream | First rigorous target | Structure retained | Main obstruction |
 |---|---|---|---|
@@ -159,15 +168,15 @@ identified.
 
 | Layer | Current status | Boundary and detailed record |
 |---|---|---|
-| Analytic applications | B1--B2 are **Proved**; V1 is **Derived**; V2--V7 are **Proved**, relative to the frozen inputs named in the claim register | These are existential positive-parameter results, not certification of the displayed numerical box.  The publication-facing import crosswalk and conditional compact-family/pole-interface audit are recorded; external accessibility of the frozen evidence closure remains a publication blocker. |
+| Analytic applications | B1--B2 are **Proved**; V1 is **Derived**; V2--V7 are **Proved**, relative to the frozen inputs named in the claim register | These are existential positive-parameter results, not certification of the displayed numerical box.  The publication-facing import crosswalk, conditional compact-family/pole-interface audit, and exact frozen evidence snapshot are versioned with the companion release. |
 | Floating atlas | `COMPUTED/E1` and `COMPUTED/QA` | Finite explanatory samples only; they do not prove a uniform census, temporal stability, Turing-branch selection, or canard identification.  See the [numerical report](numerics/VAN_DER_POL_NUMERICAL_REPORT.md). |
 | Explicit-box validation (#7) | `INCONCLUSIVE`, `claim_bearing=false` | The frozen box is \([0.04,0.08]\times[-0.25,0.25]\times[0.8,1.2]\).  P1--P2c and the P2d symplectic-frame and analytic-normal-form children pass locally; the remaining theorem inputs, aggregate certification, and distinct-machine replay are pending.  See the [rigorous-validation record](validation/rigorous/README.md). |
 
 Closing an analytic construction issue records completion under the current
-frozen-import repository contract.  It does not make the imported evidence
-externally accessible, certify the explicit box, or establish temporal
-stability, Turing selection, canard identification, or experimental
-realization.
+frozen-import repository contract.  Public availability of that contract does
+not constitute an independent certificate replay, certify the explicit box,
+or establish temporal stability, Turing selection, canard identification, or
+experimental realization.
 
 ## Repository map
 
@@ -175,6 +184,8 @@ realization.
 - [Brusselator programme](brusselator/README.md)
 - [Brusselator companion paper](papers/brusselator/README.md)
 - [van der Pol programme](van-der-pol/README.md)
+- [van der Pol companion paper and provenance supplement](papers/van-der-pol/README.md)
+- [Frozen RFSN-II source and evidence snapshot](frozen-imports/rfsn-ii-d54add098545063d5efe8f1d6f062d4cfc116a0d/README.md)
 - [Research contract](RESEARCH_CONTRACT.md)
 - [Continuation and publication plan](CONTINUATION_PLAN.md)
 - [Claim register](CLAIM_REGISTER.md)
@@ -210,7 +221,9 @@ realization.
 - [#7: rigorous explicit-box validation](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/7) — open; aggregate status remains non-claim-bearing and inconclusive.
 - [#8: explanatory numerical atlas and dynamics prescreen](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/8) — open; numerical evidence remains separate from theorem status.
 
-The source theory remains in
-[`h-lu/reversible-rfsn-ii-waves`](https://github.com/h-lu/reversible-rfsn-ii-waves).
-This repository imports only explicitly cited results from it; it does not copy
-or silently strengthen them.
+The source theory was developed in the historical repository
+`h-lu/reversible-rfsn-ii-waves`.  This application repository leaves that
+repository unchanged and publishes the exact imported source and evidence at
+the [frozen snapshot](frozen-imports/rfsn-ii-d54add098545063d5efe8f1d6f062d4cfc116a0d/README.md).
+It imports only explicitly cited results; it does not silently strengthen
+them.

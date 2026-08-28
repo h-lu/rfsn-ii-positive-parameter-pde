@@ -1,0 +1,334 @@
+{
+  "binary_policy": "source-only; all rebuild executables are outside the repository under /tmp",
+  "canonical_padded_signed_physical_corridor": {
+    "B_norm_upper": 2.591945569285082e-05,
+    "C1_gap": 1.3610486662045735,
+    "C2_gap": 1.3081479368728217,
+    "C3_gap": 1.25524720754107,
+    "C4_gap": 1.2023464782093183,
+    "D_norm_upper": 11.271134904270896,
+    "b_lower_face_min": 0.07856912384996335,
+    "b_upper_face_max": -0.07861388642324546,
+    "base_log_norm_upper": 0.052641534774823216,
+    "cone_alpha": 10,
+    "cone_margin": 2.341943703344124,
+    "domain": {
+      "a": [
+        -0.012000000000000002,
+        0.012000000000000002
+      ],
+      "b": [
+        -0.060000000000000005,
+        0.060000000000000005
+      ],
+      "e": [
+        0,
+        0.060000000000000005
+      ],
+      "energy": [
+        -0.012000000000000002,
+        0.012000000000000002
+      ],
+      "zeta": [
+        -2.0000000000000004,
+        2.0000000000000004
+      ]
+    },
+    "energy_at_a_lower": [
+      0.020313942100960377,
+      0.035067915582098715
+    ],
+    "energy_at_a_upper": [
+      -0.03506777523291379,
+      -0.020313802840464888
+    ],
+    "energy_da": [
+      -2.3094011386887834,
+      -2.307387061239438
+    ],
+    "normal_expansion_lower": 1.4142085900932535,
+    "p_over_e": [
+      -0.5773606390130895,
+      -0.577339895004093
+    ],
+    "status": "PASS-ZERO-INCLUSIVE-PHYSICAL-CORRIDOR",
+    "subdivision": [
+      12,
+      4,
+      8,
+      4
+    ],
+    "unweighted_image": {
+      "d": [
+        -2.5920000000000016e-06,
+        2.5920000000000016e-06
+      ],
+      "omega": [
+        -7.776000000000005e-07,
+        0.0006007776000000002
+      ],
+      "xi": [
+        -3.3592320000000047e-10,
+        3.3592320000000047e-10
+      ]
+    },
+    "vertical_growth_lower": 0.28709509966616387,
+    "zeta_lower_face_max": -1.3523716625942455,
+    "zeta_upper_face_min": 4.287031790901754
+  },
+  "canonical_signed_physical_corridor": {
+    "B_norm_upper": 2.591943887075491e-05,
+    "C1_gap": 1.3908133252175652,
+    "C2_gap": 1.367677254571667,
+    "C3_gap": 1.3445411839257686,
+    "C4_gap": 1.3214051132798703,
+    "D_norm_upper": 11.269134128862044,
+    "b_lower_face_min": 0.012815359139113863,
+    "b_upper_face_max": -0.012859991059044963,
+    "base_log_norm_upper": 0.02287687625719074,
+    "cone_alpha": 10,
+    "cone_margin": 2.641591067200683,
+    "contains_exact_algebraic_reference": true,
+    "domain": {
+      "a": [
+        -0.006500000000000001,
+        0.006500000000000001
+      ],
+      "b": [
+        -0.010000000000000002,
+        0.010000000000000002
+      ],
+      "e": [
+        0,
+        0.060000000000000005
+      ],
+      "energy": [
+        -0.012000000000000002,
+        0.012000000000000002
+      ],
+      "zeta": [
+        -2.0000000000000004,
+        2.0000000000000004
+      ]
+    },
+    "energy_at_a_lower": [
+      0.013768862160662696,
+      0.01622967106630342
+    ],
+    "energy_at_a_upper": [
+      -0.016229568307435376,
+      -0.01376875950033547
+    ],
+    "energy_da": [
+      -2.3094011373136727,
+      -2.3073894635767043
+    ],
+    "normal_expansion_lower": 1.4142085902521708,
+    "p_over_e": [
+      -0.577352480645088,
+      -0.5773480533731503
+    ],
+    "physical_time_diverges": true,
+    "physical_time_relation": "dt/dtau=sqrt(e)",
+    "status": "PASS-ZERO-INCLUSIVE-PHYSICAL-CORRIDOR",
+    "subdivision": [
+      12,
+      4,
+      8,
+      4
+    ],
+    "unweighted_image": {
+      "d": [
+        -1.4040000000000007e-06,
+        1.4040000000000007e-06
+      ],
+      "omega": [
+        -1.296000000000001e-07,
+        0.0006001296000000002
+      ],
+      "xi": [
+        -3.3592320000000047e-10,
+        3.3592320000000047e-10
+      ]
+    },
+    "vertical_growth_lower": 0.28729517736596644,
+    "zeta_lower_face_max": -1.3523766005713447,
+    "zeta_upper_face_min": 4.287036728907498
+  },
+  "canonical_terminal_target_contract": {
+    "a": [
+      -0.00040856190871630305,
+      0.00040780247295930716
+    ],
+    "b": [
+      -0.007709241447273956,
+      0.007693630427482733
+    ],
+    "e": [
+      0.05749999834026255,
+      0.05750000165973755
+    ],
+    "energy_for_abs_zeta_le_2": [
+      -0.001850408298773085,
+      0.001850408284774635
+    ],
+    "inside_signed_physical_corridor": true,
+    "meaning": "Complete terminal node X used for ambient target evaluation, not the final Krawczyk root image; this package does not certify the heteroclinic root.",
+    "status": "PASS-TERMINAL-PHYSICAL-CONTRACT",
+    "terminal_P": [
+      -2.407719059415291,
+      -2.407715055415291
+    ],
+    "terminal_Q": [
+      -83.74668241472695,
+      -83.74667841072694
+    ],
+    "terminal_U": [
+      -17.391304849826085,
+      -17.391303845826087
+    ],
+    "terminal_V": [
+      -302.2908082798536,
+      -302.29079227585356
+    ]
+  },
+  "canonical_unweighted_future_graph": {
+    "B_norm_upper": 2.0209785282194934,
+    "C1_gap": 1.3039237389101843,
+    "C2_bound_required": 8.738042494604021e-05,
+    "C2_forcing": 0.00010901112642318933,
+    "C2_gap": 1.2475463067444073,
+    "D_norm_upper": 2.647392463293974e-07,
+    "Fyxi_norm_upper": 2.727178028658929,
+    "Fyy_norm_upper": 4.520218882192839,
+    "Gyxi_norm_upper": 1.2325461498067685,
+    "Gyy_norm_upper": 3.915716916951981e-05,
+    "alpha": 1e-05,
+    "base_log_norm_upper": 0.056357222380494926,
+    "beta": 0.001,
+    "cone_margin": 1.277470024062527e-05,
+    "defect_bound": 1.1510202539352873e-09,
+    "normal_expansion_lower": 1.3603213808612435,
+    "rho": 1e-08,
+    "status": "PASS-GRAPH-TRANSFORM-INEQUALITIES",
+    "subdivision": [
+      24,
+      8,
+      24
+    ],
+    "tail_block": {
+      "d": [
+        -0.0010000000000000002,
+        0.0010000000000000002
+      ],
+      "e": [
+        0,
+        0.060000000000000005
+      ],
+      "omega": [
+        -0.010000000000000002,
+        0.020000000000000004
+      ]
+    },
+    "vertical_exit_margin": 1.2452193404677152e-08,
+    "vertical_growth_lower": 1.3338474562283038
+  },
+  "claim": {
+    "exact_energy": 0,
+    "existence": true,
+    "future": "canonical algebraic future end",
+    "local_uniqueness_modulo_flow": true,
+    "past": "origin equilibrium",
+    "transverse_modulo_flow": true
+  },
+  "created_at": "2026-08-24",
+  "local_unstable_graph": {
+    "D2H10_frobenius_upper": 0.4265734376499307,
+    "DH10_frobenius_upper": 0.005237905481357889,
+    "H10_norm_upper": 3.2961536609720836e-05,
+    "defect_derivative_upper": 2.0210645060702385e-21,
+    "defect_norm_upper": 2.268961229178706e-24,
+    "difference_cone_margin_lower": 1.384068503193362,
+    "normal_boundary_margin_lower": 6.968140489455985e-21,
+    "normal_contraction_lower": 0.6970409450685168,
+    "residual_euclidean_radius": 1e-20,
+    "small_cone_margin_lower": 1.3819130787158866e-18,
+    "status": "PASS-LOCAL-UNSTABLE-GRAPH",
+    "true_graph_residual_C0_component_upper": 1e-20,
+    "true_graph_residual_C1_operator_upper": 1e-18,
+    "u_radius": 0.01,
+    "unstable_exit_margin_lower": 7.020933852823626e-05
+  },
+  "proof_contract": {
+    "equations": "144 continuity + 3 true-Wu source rows + 1 true-future target row = 148",
+    "physical_identification": "signed C4 weighted graph plus complete terminal-X contract identifies the unweighted target row with the canonical physical future graph at E=0",
+    "transversality": "bordered nonsingularity after continuity elimination is equivalent to target-row nonvanishing on the transported source-phase tangent; the radial source gauge removes time translation",
+    "uniform_jets": "Krawczyk value/Jacobian intervals contain every true correlated source/target C1 jet allowed by the certified budgets",
+    "uniqueness": "for each fixed admissible true graph pair, the weighted-max Krawczyk map is a strict contraction in X"
+  },
+  "robust_multiple_shooting": {
+    "contraction_ratio": 0.1821693277786647,
+    "exact_orbit_energy_by_conservation": 0,
+    "krawczyk_ratio": 0.18217055712874344,
+    "residual_sup": 1.0000000291433544e-08,
+    "segments": 36,
+    "source_P": "[0.0096560950352696656, 0.0096560950455169148]",
+    "source_Q": "[0.0025622907511686009, 0.0025622907690503547]",
+    "source_U": "[0.0086517807045863506, 0.0086517807245419503]",
+    "source_V": "[-0.0050340261361181719, -0.0050340261308205372]",
+    "source_energy_enclosure": "[-2.9255143771909908e-13, 2.9255141061404477e-13]",
+    "source_graph_C0_component_budget": 1e-20,
+    "source_graph_C1_operator_budget": 1e-18,
+    "source_phase": "[5.7566913947049203, 5.7566913967948983]",
+    "source_s1": "[6.0386199761562273e-06, 6.0386398990641688e-06]",
+    "source_s2": "[-8.9745175322190375e-06, -8.9745049382953038e-06]",
+    "source_u1": "[0.0086457420746650863, 0.0086457420945879951]",
+    "source_u2": "[-0.0050250516285310597, -0.0050250516159371355]",
+    "status": "PASS-ROBUST-HETEROCLINIC",
+    "step": 0.4836840223417348,
+    "target_graph_C0_budget": 1e-08,
+    "target_graph_C1_budget": 1e-05,
+    "terminal_P": "[-2.4077174184393826, -2.4077166963911969]",
+    "terminal_Q": "[-83.746680441340601, -83.746680384113318]",
+    "terminal_U": "[-17.391304411891962, -17.391304283760213]",
+    "terminal_V": "[-302.29080036626948, -302.29080018943768]",
+    "terminal_X_graph_energy_for_abs_zeta_le_2": "[-0.001850408298773085, 0.0018504082847746351]",
+    "terminal_X_physical_a": "[-0.00040856190871630305, 0.00040780247295930716]",
+    "terminal_X_physical_b": "[-0.0077092414472739561, 0.0076936304274827332]",
+    "terminal_X_physical_e": "[0.057499998340262551, 0.057500001659737551]",
+    "terminal_a": "[-3.6017260419861712e-05, 3.5257853919823115e-05]",
+    "terminal_b": "[-0.00070853685174953327, 0.00069292660568325405]",
+    "terminal_d": "[-6.8472187919610406e-09, 6.7028484984632541e-09]",
+    "terminal_e": "[0.057499999788182196, 0.057500000211817802]",
+    "terminal_energy_enclosure": "[-8.7093871115939692e-05, 8.7093876572907902e-05]",
+    "terminal_omega": "[0.00055103392550548413, 0.00055104923718773957]",
+    "terminal_p": "[-0.033197645580359182, -0.033197635257868299]",
+    "total_time": 17.412624804302453,
+    "unknowns": 148
+  },
+  "schema": "papera-origin-algebraic-heteroclinic-certificate-v1",
+  "scope_exclusions": [
+    "no all-phase pole-cover claim",
+    "no full source-component connection or classification",
+    "no global uniqueness outside the reported Krawczyk box"
+  ],
+  "source_sha256": {
+    "validation/future-target-fold/graph_transform_probe.cpp": "1b29ce5f5d3806fb03b9e34cc192cee755e214403265338a8c8c1b02f93644f6",
+    "validation/future-target-fold/signed_corridor_probe.cpp": "e60da563c64a304b260d843402804ca12605caaa91ea2ea6f0db18dc4fd6dac7",
+    "validation/future-target-fold/tail_graph_generated.hpp": "f9f9070c748c684533b779b921f524069c2dac5238e0872bb6f8a1f87552f0b8",
+    "validation/future-target-fold/weighted_tail_generated.hpp": "b3f286def464dde6fb5f9641ca74b1cb6d50ef4d571e4e148233e4c5cf56e9d5",
+    "validation/origin-algebraic-heteroclinic/generate_polynomial_header.py": "7c612d51b357569b64a51f0bb36c59e215e26c8d14b584419c24e32ffed5bfcb",
+    "validation/origin-algebraic-heteroclinic/heteroclinic_centres.hpp": "ec742fb46763f29703157bee7d19dac60d161c2227e09cf5b3bcb1da41977c1d",
+    "validation/origin-algebraic-heteroclinic/heteroclinic_interval_probe.cpp": "17e9840e65e7a313a6bf3041b64bfa60c4a0895586ae492bd2a6914459e6008f",
+    "validation/origin-algebraic-heteroclinic/unstable_graph_probe.cpp": "a2102394a7afbb70331e810a4676f19ec9a79dd3492509ab3c7aad2464e2d2c2",
+    "validation/origin-algebraic-heteroclinic/unstable_graph_terms.hpp": "d617587ea1b9037c1c7575ccdde5029529ec5b736dee259baff9a2a162001e96"
+  },
+  "status": "PASS-ORIGIN-ALGEBRAIC-HETEROCLINIC",
+  "toolchain": {
+    "capd": "2.5.1",
+    "capd_git": "731079217a9254ea2948d742df2b170895effe7f",
+    "compiler": "g++ 15.2.0",
+    "interval_backend": "FILIB",
+    "rounding_flag": "-frounding-math"
+  }
+}

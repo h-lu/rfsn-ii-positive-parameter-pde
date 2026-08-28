@@ -1,0 +1,81 @@
+{
+  "status": "PASS-ROBUST-SYMMETRIC-HOMOCLINIC",
+  "scope": "One locally unique primary reversible homoclinic root, robust over the proved true local unstable-graph C0/C1 budgets; no global uniqueness or finite-return-curve bridge.",
+  "source_contract": {
+    "unstable_radius": 0.01,
+    "true_graph_C0_euclidean_upper": 1e-20,
+    "true_graph_C1_operator_upper": 1e-18
+  },
+  "root": {
+    "phase": [
+      5.8615055856447817,
+      5.8615055856450482
+    ],
+    "half_time": [
+      9.63744206789581,
+      9.637442067897151
+    ],
+    "endpoint_U": [
+      4.87852345744593,
+      4.878523498811677
+    ],
+    "endpoint_V": [
+      -7.933330499422483,
+      -7.933330385013492
+    ],
+    "krawczyk_inclusion_ratio": 0.0007531738996822105,
+    "krawczyk_contraction_ratio": 1.754824157736503e-06
+  },
+  "nondegeneracy": {
+    "shooting_determinant": [
+      149.56393055300413,
+      149.56404227745782
+    ],
+    "endpoint_phase_U": [
+      -10.889708535478462,
+      -10.8897049543477
+    ],
+    "endpoint_phase_V": [
+      35.417125972639965,
+      35.41712739412789
+    ],
+    "conclusion": "T_c Wu intersect T_c Ws equals span(X(c)) inside the regular zero-energy hypersurface."
+  },
+  "first_hit": {
+    "P_positive_0_to_1_65": [
+      0.0007788880339318585,
+      0.01080525704061586
+    ],
+    "Q_positive_1_65_to_1_75": [
+      0.031929280244111596,
+      0.03431253680705317
+    ],
+    "P_negative_1_75_to_7_35": [
+      -0.429258782221617,
+      -0.0016014894439174334
+    ],
+    "Q_negative_7_35_to_9_55": [
+      -3.1601535680919888,
+      -0.42289548940031896
+    ],
+    "final_U_positive": [
+      4.731124777013768,
+      5.021850834971993
+    ],
+    "local_origin_to_radius_exclusion": "P=Q=0 implies u=s, excluded by ||s||<||u||^2/4 on 0<||u||<=.01."
+  },
+  "replay": {
+    "compiler": "g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+    "capd_version": "2.5.1",
+    "capd_commit": "731079217a9254ea2948d742df2b170895effe7f",
+    "interval_backend": "FILIB",
+    "libcapd_sha256": "316b2c480f1ce36b293602da9978eb43560646991a4a906d72ee893b3c557119",
+    "libfilib_sha256": "ce5cdf8f22d4a6737461774211053a3df360178194e431e4f7ad2b2ada5caa7e"
+  },
+  "source_sha256": {
+    "homoclinic_interval_probe.cpp": "655cfe16e2cdb24185f11cbb314e7c0b2f029705d4588fdcbaf5a9f0993298f3",
+    "unstable_graph_terms.hpp": "d617587ea1b9037c1c7575ccdde5029529ec5b736dee259baff9a2a162001e96",
+    "unstable_graph_probe.cpp": "a2102394a7afbb70331e810a4676f19ec9a79dd3492509ab3c7aad2464e2d2c2",
+    "origin_algebraic_certificate.json": "60882ee1d3b2b18264b85764288505ae8b47d00bc826a2bddec152898f690fbe"
+  }
+}

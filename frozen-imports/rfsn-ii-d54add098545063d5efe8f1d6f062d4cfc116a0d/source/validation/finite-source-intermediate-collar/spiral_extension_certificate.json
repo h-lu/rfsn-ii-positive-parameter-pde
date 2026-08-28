@@ -1,0 +1,218 @@
+{
+  "bulk_replay_sha256": {
+    "base_spiral_extension_boxes.jsonl": "00419c3b1def6db3d03837f946b0bd0aa775384a0d58bbb396c0e3b4d52a0bcc",
+    "base_spiral_extension_centres_summary.json": "4726f9dfa4b5ff395f6752c8e47892abbfa074985e535c2c4a9dd4220b263d44",
+    "base_spiral_extension_seeds.txt": "3f6262c1a1fae40df1cf1b616142d35929010abadfef4676ac89bc841e8e2643",
+    "promoted_first_stage_boxes.jsonl": "7922f913db216c3f1b6d4e00baa933b01d2d079d65950877339060fa55661655",
+    "promoted_first_stage_seeds.txt": "108cb79fd300743b28731674937ef52b59bf2f28c7ca9ccdc98407b6f812e0df",
+    "spiral_extension_boxes.jsonl": "acfbd6f68ec61bf097b26fed0e1d578b1fecb330a604e9f75113af1c0c4daff3",
+    "spiral_extension_bridge_results.jsonl": "751c3783c5d1cf4d1f58b6ddf96b0d09b3efbf09d33c565f1e32f1b073c8e241",
+    "spiral_extension_centres_summary.json": "3091c423e7c0285eb601b90c396988dd54e227ecc2ad0830b4a7ec2cb631352f",
+    "spiral_extension_results.jsonl": "f43d633808fcd58dc6e1d60534b52d412e855b0879acbbdce908a88d4b656902",
+    "spiral_extension_seeds.txt": "99a89e520627333c2153b81d0b63a17e584886be50109cb535ac62da236b4527"
+  },
+  "claim_boundary": "Uniform physical-target event-BVP cover from the promoted R\u22480.025 intermediate collar to the promoted fixed radial local seam R=2.4e-4.  This closes only the inward finite-to-local seam; the outer fold and algebraic-source sides remain separate gates.",
+  "cover": {
+    "adjacent_common_root_bridge_count": 9724,
+    "base_box_count": 9616,
+    "box_count": 9725,
+    "chart_switch_pairs": [
+      [
+        3990,
+        3991
+      ],
+      [
+        6525,
+        6526
+      ],
+      [
+        9482,
+        9483
+      ],
+      [
+        9723,
+        9724
+      ]
+    ],
+    "fixed_radial_endpoint": {
+      "U": 5.648200092711647e-05,
+      "V": 0.000233259048208787,
+      "radius": 0.00024
+    },
+    "former_isolated_radius_0p000304_role": "strictly bridged interior chart-switch row, not an endpoint or substitute for the chain to R=2.4e-4",
+    "groups": [
+      {
+        "box_count": 3991,
+        "chart": "u",
+        "first_index": 0,
+        "last_index": 3990,
+        "name": "quadrant-IV-u-chart",
+        "parameter_range": [
+          0.023799818459857215,
+          1.8790388972642136e-32
+        ]
+      },
+      {
+        "box_count": 2535,
+        "chart": "v",
+        "first_index": 3991,
+        "last_index": 6525,
+        "name": "quadrant-III-v-chart",
+        "parameter_range": [
+          -0.0070364116384065934,
+          2.94775224317e-32
+        ]
+      },
+      {
+        "box_count": 2957,
+        "chart": "u",
+        "first_index": 6526,
+        "last_index": 9482,
+        "name": "quadrant-II-u-chart",
+        "parameter_range": [
+          -0.001463384433257953,
+          -6.98024363332565e-33
+        ]
+      },
+      {
+        "box_count": 241,
+        "chart": "v",
+        "first_index": 9483,
+        "last_index": 9723,
+        "name": "quadrant-I-v-chart-to-seam",
+        "parameter_range": [
+          0.00030436859259991484,
+          0.0002332590482087833
+        ]
+      },
+      {
+        "box_count": 1,
+        "chart": "radius",
+        "first_index": 9724,
+        "last_index": 9724,
+        "name": "fixed-radial-seam",
+        "parameter_range": [
+          0.00024,
+          0.00024
+        ]
+      }
+    ],
+    "inserted_box_count": 109,
+    "outer_endpoint": {
+      "U": 0.023799818459857215,
+      "V": -0.007704604741999802,
+      "radius": 0.025015840840407626
+    },
+    "reverse_bridge_count": 1,
+    "shrunk_base_box_count": 90
+  },
+  "created_at": "2026-08-24",
+  "dependency_sha256": {
+    "fixed_radial_source_centres.hpp": "5be9a8e360d563d4be244cd637a7bd39d79c268353a732fba23c9bfbf455eeb1",
+    "promoted_first_stage_certificate.json": "f89fc02709b43837d7cbdfe88b2883e96da307eef66a052241d4656278fb1bc5",
+    "promoted_fundamental_annulus_certificate.json": "ac27a02ae8ab701d598b2c32563284bd628b5400c50a3b356dc78a7c79626c3c",
+    "tail_graph_generated.hpp": "f9f9070c748c684533b779b921f524069c2dac5238e0872bb6f8a1f87552f0b8",
+    "weighted_tail_generated.hpp": "b3f286def464dde6fb5f9641ca74b1cb6d50ef4d571e4e148233e4c5cf56e9d5"
+  },
+  "dimensions": {
+    "continuity_rows": 540,
+    "equations": 545,
+    "segments": 108,
+    "source_rows": [
+      "P0=0",
+      "Q0=0",
+      "U0=u, V0=v, or sqrt(U0^2+V0^2)=R"
+    ],
+    "state_dimension_with_time": 5,
+    "terminal_rows": [
+      "e=0.0575",
+      "p-h7-eta=0"
+    ],
+    "unknowns": 545
+  },
+  "endpoint_identifications": {
+    "event_root_source_to_fixed_radial_seam": {
+      "containment_margin": 1.9847633425012015e-09,
+      "error": null,
+      "extension_index": 9724,
+      "returncode": 0,
+      "source_P": "[-7.9670820672221284e-16, 7.9670810503217323e-16]",
+      "source_Q": "[-1.3057612007694974e-15, 1.3057613674337898e-15]",
+      "source_U": "[5.6481990625332927e-05, 5.6482011229006114e-05]",
+      "source_V": "[0.00023325903134237017, 0.00023325906507517809]",
+      "source_radius": "[0.00023999998118287639, 0.00024000001881712376]",
+      "status": "PASS-EVENT-ROOT-SOURCE-IN-FIXED-RADIAL-SEAM-BOX"
+    },
+    "local_selected_arm_identity": "The fixed radial package identifies its seam root with the unique local selected arm through the common exit-target chart.",
+    "promoted_36_to_108_endpoint": {
+      "coarse_endpoint_index": 6315,
+      "containment_margin": 2.999999226501013e-08,
+      "error": null,
+      "fine_extension_index": 0,
+      "returncode": 0,
+      "status": "PASS-FINE-ROOT-IN-COARSE-ENDPOINT-UNIQUENESS-BOX"
+    }
+  },
+  "physical_target_contract": {
+    "corridor": "0<e<.06, |a|<.0065, |b|<.01, |E|<.012",
+    "row_budget": "||D eta||_2 <= 1e-5; component-cube superset",
+    "value_budget": "|eta| <= 2 e^8 (|zeta|<=2)"
+  },
+  "refinement": {
+    "failed_base_box_count": 68,
+    "margin_refinement_base_box_count": 22,
+    "minimum_parameter_overlap_fraction": 0.25,
+    "plan_sha256": "69999d1f59411293663a7dfb1e7e1cab8c4d3585199621a50f4c8cfaa5a12558",
+    "selection_rule": "all 68 failed base boxes plus all 22 successful base boxes with root Krawczyk ratio at least 0.95",
+    "width_factor": 0.5
+  },
+  "remaining_gates_not_proved_here": {
+    "exact_algebraic_c0_Jost_endpoint_identification": "NOT-PROVED-HERE",
+    "outer_algebraic_source_c0_to_first_fold": "NOT-PROVED-HERE",
+    "outer_fixed_time_fold_to_event_chart": "NOT-PROVED-HERE"
+  },
+  "replay_pins": {
+    "capd_commit": "731079217a9254ea2948d742df2b170895effe7f",
+    "capd_pkg_config_version": "2.5.1",
+    "compiler": "g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+    "interval_backend": "FILIB",
+    "libcapd_sha256": "316b2c480f1ce36b293602da9978eb43560646991a4a906d72ee893b3c557119",
+    "libfilib_sha256": "ce5cdf8f22d4a6737461774211053a3df360178194e431e4f7ad2b2ada5caa7e",
+    "numpy": "2.5.2",
+    "python": "3.14.4",
+    "scipy": "1.18.0",
+    "sympy": "1.14.0"
+  },
+  "source_sha256": {
+    "build_spiral_extension_certificate.py": "818aa8948e6e565065de162d0e36bd4049044f8c530d33b54245353f796aaecc",
+    "generate_full_cover.py": "7e135b841c3a5e84c6f5dddbf9067afba4fa250862e0012722c9c5998eb73a29",
+    "generate_spiral_extension_cover.py": "76b537b0a72ed5beeb6a742600478ddefc08927f385520afb369c1fe56290839",
+    "numerical_bvp.py": "b602820bccf5c79014db7e65936c3829ae74fb360c7d3d6191b9c28f6500414f",
+    "refine_spiral_extension_cover.py": "9eb83a8da27c894be9e60f11d0a01ba95bcc3f3a1590c6c56025c81814338166",
+    "run_spiral_extension_validation.sh": "18943752a8cfe9a463304c6a61d9b629930ae18e4023f44af0419a849c56b77d",
+    "spiral_source_cover_probe.cpp": "b9451a7c9dc8ef345ddc5d5bb5263ef9f752d77f2170493ec839cbf371c22d75",
+    "validate_spiral_extension_cover.py": "cf757b63b2d3e0ad0bedd51d142292a67bd456fda90c3bbf3a0ae9a4ffc58465"
+  },
+  "status": "PASS-FINITE-COLLAR-TO-FIXED-ANNULUS-SEAM",
+  "uniform_bounds": {
+    "all_first_event": true,
+    "maximum_contraction_ratio": 0.7733951226387051,
+    "maximum_krawczyk_ratio": 0.9492402114706467,
+    "maximum_tangent_krawczyk_ratio": 0.9991041442254496,
+    "minimum_bridge_current_containment_margin": 5.986850324518622e-09,
+    "minimum_bridge_next_containment_margin": 1.7765607596142985e-09,
+    "minimum_bridge_next_parameter_margin": 2.5013612657267084e-08,
+    "terminal_graph_energy_union_for_abs_zeta_le_2": [
+      -0.0013795233948272376,
+      0.001733612611683491
+    ],
+    "terminal_physical_a_union": [
+      -0.0004811384129804698,
+      0.0003266693999667743
+    ],
+    "terminal_physical_b_union": [
+      -0.005308696923160826,
+      0.005287925661426083
+    ]
+  }
+}

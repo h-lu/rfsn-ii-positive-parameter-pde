@@ -1,0 +1,26 @@
+{
+  "schema_version": "rfsn-ii-frozen-public-snapshot/1",
+  "status": "READ_ONLY_FROZEN_INPUT_SNAPSHOT",
+  "upstream_repository": "https://github.com/h-lu/reversible-rfsn-ii-waves",
+  "upstream_commit": "d54add098545063d5efe8f1d6f062d4cfc116a0d",
+  "upstream_tree": "b9cd34b1bae1c29bdd722d9ed3c33402c4b3ee89",
+  "extraction": "git archive of papers/paper-a/manuscript and validation",
+  "frozen_file_count": 102,
+  "release_profile": "main-theorem",
+  "evidence_boundary": {
+    "source_hashes_checked": true,
+    "independent_machine_replay_added_by_this_snapshot": false,
+    "positive_parameter_van_der_pol_conclusion_imported": false,
+    "issue_7_claim_bearing": false
+  },
+  "principal_sha256": {
+    "source/papers/paper-a/manuscript/main.tex": "0baf6335aad72d5893479d8876d2613671ecb8ac2ccd73664405dea4381e6a20",
+    "source/papers/paper-a/manuscript/main.pdf": "67888cf8b61b34c923cf55bd69ee41cab69493be6fc275533c8f5a074f1e96c5",
+    "source/validation/replay_manifest.json": "15905f5a20b24a0ae0d298d9d14aa940177a006cc2cce3f2a39fd2e1cf4dac9b",
+    "source/validation/environment.lock.json": "6240ebdbf0f296738534c07a33aea40202883f6abf37e1ff28e43dad47aa0cba",
+    "source/validation/universal-core-symmetric-homoclinic/certificate.json": "ed0f9f58f8ba5f1d5c36dc7c3a72bb725599c4172a3cd610d890b88699fecfbd",
+    "source/validation/origin-algebraic-heteroclinic/certificate.json": "60882ee1d3b2b18264b85764288505ae8b47d00bc826a2bddec152898f690fbe",
+    "source/validation/future-target-fold/certificate.json": "88fa64035bb4352f5e25aa8d1627b191936264958c125dface59c5a767f6b3ce",
+    "source/validation/origin-unstable-pole-entry/certificate.json": "7f325a87810f8b0dda2542aed90263b39f9a9f4bd2e8ebb3abcc238d032eb6e2"
+  }
+}

@@ -1,0 +1,371 @@
+{
+  "schema_version": 1,
+  "title": "Paper A claim-bearing validation replay graph",
+  "environment_lock": "validation/environment.lock.json",
+  "historical_json_only_packages": [],
+  "profiles": {
+    "main-theorem": [
+      "future-target-fold",
+      "origin-algebraic-heteroclinic",
+      "universal-core-symmetric-homoclinic",
+      "origin-unstable-pole-entry"
+    ],
+    "selected-branch": [
+      "future-target-fold",
+      "origin-algebraic-heteroclinic",
+      "universal-core-symmetric-homoclinic",
+      "origin-unstable-pole-entry",
+      "exact-source-outer-fold",
+      "finite-source-intermediate-collar",
+      "fixed-fold-event-bridge",
+      "fundamental-annulus-overlap",
+      "finite-source-spiral-extension"
+    ],
+    "ancillary": [
+      "pole-cone-entry",
+      "universal-core-periodic-return"
+    ],
+    "all": [
+      "future-target-fold",
+      "origin-algebraic-heteroclinic",
+      "universal-core-symmetric-homoclinic",
+      "origin-unstable-pole-entry",
+      "exact-source-outer-fold",
+      "finite-source-intermediate-collar",
+      "fixed-fold-event-bridge",
+      "fundamental-annulus-overlap",
+      "finite-source-spiral-extension",
+      "pole-cone-entry",
+      "universal-core-periodic-return"
+    ]
+  },
+  "packages": [
+    {
+      "id": "toolchain-metadata-audit",
+      "category": "provenance-addendum",
+      "evidence_role": "toolchain provenance; not a mathematical claim",
+      "runner": "toolchain-audit",
+      "dependencies": [],
+      "certificates": [
+        "validation/toolchain-metadata-audit/certificate.json"
+      ],
+      "comparison": "exact JSON reconstruction by the package verifier",
+      "command_summary": [
+        "python3 validation/toolchain-metadata-audit/verify.py --capd-source {capd_source} --capd-config {capd_config}"
+      ]
+    },
+    {
+      "id": "future-target-fold",
+      "category": "source-verifiable-only",
+      "evidence_role": "normal-form realization: algebraic future graph and H2/H3 margins",
+      "runner": "future-target-fold",
+      "dependencies": [
+        "toolchain-metadata-audit"
+      ],
+      "certificates": [
+        "validation/future-target-fold/certificate.json"
+      ],
+      "comparison": "regenerate exact symbolic headers; rerun all interval probes; assert PASS outputs and frozen source hashes",
+      "command_summary": [
+        "python3 build_prototype.py",
+        "compile and run graph_transform_probe",
+        "compile and run weighted_corridor_probe",
+        "compile and run signed_corridor_probe for the signed and padded corridors",
+        "compile and run terminal_physical_contract_probe",
+        "compile and run fold_interval_probe with and without --robust"
+      ],
+      "hash_contracts": [
+        {
+          "certificate": "validation/future-target-fold/certificate.json",
+          "pointer": "/source_sha256",
+          "base": "validation/future-target-fold"
+        }
+      ]
+    },
+    {
+      "id": "origin-algebraic-heteroclinic",
+      "category": "source-verifiable-only",
+      "evidence_role": "normal-form realization: algebraic first-exit anchor and selected transverse connection",
+      "runner": "origin-algebraic-heteroclinic",
+      "dependencies": [
+        "future-target-fold"
+      ],
+      "certificates": [
+        "validation/origin-algebraic-heteroclinic/certificate.json"
+      ],
+      "comparison": "regenerate and compare the degree-ten header; rerun graph and robust heteroclinic probes; assert PASS outputs and frozen source hashes",
+      "command_summary": [
+        "python3 generate_polynomial_header.py --output {work}/unstable_graph_terms.hpp",
+        "compile and run unstable_graph_probe",
+        "compile and run heteroclinic_interval_probe --robust"
+      ],
+      "hash_contracts": [
+        {
+          "certificate": "validation/origin-algebraic-heteroclinic/certificate.json",
+          "pointer": "/source_sha256",
+          "base": "."
+        }
+      ]
+    },
+    {
+      "id": "universal-core-symmetric-homoclinic",
+      "category": "source-verifiable-only",
+      "evidence_role": "normal-form realization: H1 homoclinic matching and H4 return geometry",
+      "runner": "universal-core-symmetric-homoclinic",
+      "dependencies": [
+        "origin-algebraic-heteroclinic"
+      ],
+      "certificates": [
+        "validation/universal-core-symmetric-homoclinic/certificate.json"
+      ],
+      "comparison": "rerun the interval probe; assert its fail-closed PASS marker and frozen source/dependency hashes",
+      "command_summary": [
+        "compile and run homoclinic_interval_probe"
+      ],
+      "hash_contracts": [
+        {
+          "certificate": "validation/universal-core-symmetric-homoclinic/certificate.json",
+          "pointer": "/source_sha256",
+          "base": "validation/universal-core-symmetric-homoclinic",
+          "overrides": {
+            "unstable_graph_terms.hpp": "validation/origin-algebraic-heteroclinic/unstable_graph_terms.hpp",
+            "unstable_graph_probe.cpp": "validation/origin-algebraic-heteroclinic/unstable_graph_probe.cpp",
+            "origin_algebraic_certificate.json": "validation/origin-algebraic-heteroclinic/certificate.json"
+          }
+        }
+      ]
+    },
+    {
+      "id": "origin-unstable-pole-entry",
+      "category": "source-verifiable-only",
+      "evidence_role": "normal-form realization: H2 pole first-exit window and interior anchor",
+      "runner": "origin-unstable-pole-entry",
+      "dependencies": [
+        "origin-algebraic-heteroclinic"
+      ],
+      "certificates": [
+        "validation/origin-unstable-pole-entry/certificate.json"
+      ],
+      "comparison": "compile and rerun both source-only probes under the locked compiler; parse both JSON outputs; assert exact PASS statuses and frozen hashes",
+      "command_summary": [
+        "compile and run unstable_graph_probe.cpp",
+        "compile and run pole_phase_interval_probe.cpp"
+      ],
+      "hash_contracts": [
+        {
+          "certificate": "validation/origin-unstable-pole-entry/certificate.json",
+          "pointer": "/source_sha256",
+          "base": "validation/origin-unstable-pole-entry",
+          "overrides": {
+            "unstable_graph_probe.cpp": "validation/origin-algebraic-heteroclinic/unstable_graph_probe.cpp",
+            "unstable_graph_terms.hpp": "validation/origin-algebraic-heteroclinic/unstable_graph_terms.hpp"
+          }
+        }
+      ]
+    },
+    {
+      "id": "exact-source-outer-fold",
+      "category": "source-rebuildable",
+      "evidence_role": "selected branch: exact algebraic source to first outer fold",
+      "runner": "exact-source-outer-fold",
+      "dependencies": [
+        "future-target-fold"
+      ],
+      "certificates": [
+        "validation/exact-source-outer-fold/certificate.json"
+      ],
+      "comparison": "package-native complete byte comparison",
+      "command_summary": [
+        "PYTHONDONTWRITEBYTECODE=1 CAPD_CONFIG={capd_config} python3 replay.py --workers {jobs} --work-dir {work} --output-certificate {work}/certificate.json"
+      ],
+      "hash_contracts": [
+        {
+          "certificate": "validation/exact-source-outer-fold/certificate.json",
+          "pointer": "/source_sha256",
+          "base": "validation/exact-source-outer-fold"
+        },
+        {
+          "certificate": "validation/exact-source-outer-fold/certificate.json",
+          "pointer": "/dependency_sha256",
+          "base": "validation",
+          "overrides": {
+            "archive/research-history/papers/paper-a/LIMITING_JOST_THEORY.md": "archive/research-history/papers/paper-a/LIMITING_JOST_THEORY.md",
+            "archive/research-history/papers/paper-a/UNIVERSAL_CORE_FINITE_TO_LOCAL_SEAM.md": "archive/research-history/papers/paper-a/UNIVERSAL_CORE_FINITE_TO_LOCAL_SEAM.md"
+          }
+        }
+      ]
+    },
+    {
+      "id": "finite-source-intermediate-collar",
+      "category": "source-rebuildable",
+      "evidence_role": "selected branch: first finite event-chart collar",
+      "runner": "finite-source-intermediate-collar",
+      "dependencies": [
+        "future-target-fold"
+      ],
+      "certificates": [
+        "validation/finite-source-intermediate-collar/certificate.json"
+      ],
+      "comparison": "rebuild in a temporary validation-tree copy and compare the complete certificate bytes",
+      "command_summary": [
+        "python3 cover_plan.py",
+        "python3 generate_full_cover.py --fresh",
+        "python3 validate_full_cover.py --workers {jobs} --capd-config {capd_config}",
+        "python3 build_certificate.py"
+      ],
+      "hash_contracts": [
+        {
+          "certificate": "validation/finite-source-intermediate-collar/certificate.json",
+          "pointer": "/source_sha256",
+          "base": "validation/finite-source-intermediate-collar"
+        },
+        {
+          "certificate": "validation/finite-source-intermediate-collar/certificate.json",
+          "pointer": "/promoted_target_header_sha256",
+          "base": "validation/future-target-fold"
+        }
+      ]
+    },
+    {
+      "id": "fixed-fold-event-bridge",
+      "category": "source-rebuildable",
+      "evidence_role": "selected branch: fixed-fold to first-event same-orbit bridge",
+      "runner": "fixed-fold-event-bridge",
+      "dependencies": [
+        "future-target-fold",
+        "finite-source-intermediate-collar"
+      ],
+      "certificates": [
+        "validation/fixed-fold-event-bridge/certificate.json"
+      ],
+      "comparison": "canonical JSON comparison after removing elapsed_seconds; that run-time field is not mathematical evidence",
+      "command_summary": [
+        "python3 replay.py --capd-config {capd_config} --output {work}/certificate.json"
+      ],
+      "hash_contracts": [
+        {
+          "certificate": "validation/fixed-fold-event-bridge/certificate.json",
+          "pointer": "/source_sha256",
+          "base": "validation/fixed-fold-event-bridge"
+        },
+        {
+          "certificate": "validation/fixed-fold-event-bridge/certificate.json",
+          "pointer": "/dependency_sha256",
+          "base": "validation"
+        }
+      ]
+    },
+    {
+      "id": "fundamental-annulus-overlap",
+      "category": "source-verifiable-only",
+      "evidence_role": "selected branch: local annulus and fixed radial seam",
+      "runner": "fundamental-annulus-overlap",
+      "dependencies": [
+        "future-target-fold",
+        "origin-algebraic-heteroclinic"
+      ],
+      "certificates": [
+        "validation/fundamental-annulus-overlap/certificate.json"
+      ],
+      "comparison": "compile the three probes under the locked compiler; rerun all four JSON-producing gates; assert exact PASS statuses and frozen source/dependency hashes",
+      "command_summary": [
+        "compile local_annulus_bounds_probe.cpp, exit_target_chart_probe.cpp, and fixed_radial_source_probe.cpp",
+        "run the local, two exit-target, and fixed-radial JSON gates"
+      ],
+      "hash_contracts": [
+        {
+          "certificate": "validation/fundamental-annulus-overlap/certificate.json",
+          "pointer": "/source_sha256",
+          "base": "validation/fundamental-annulus-overlap"
+        },
+        {
+          "certificate": "validation/fundamental-annulus-overlap/certificate.json",
+          "pointer": "/dependency_sha256",
+          "base": "validation"
+        }
+      ]
+    },
+    {
+      "id": "finite-source-spiral-extension",
+      "category": "source-rebuildable",
+      "evidence_role": "selected branch: finite collar to local zero-action boundary",
+      "runner": "finite-source-spiral-extension",
+      "dependencies": [
+        "finite-source-intermediate-collar",
+        "fundamental-annulus-overlap"
+      ],
+      "certificates": [
+        "validation/finite-source-intermediate-collar/spiral_extension_certificate.json"
+      ],
+      "comparison": "consume the coarse files from the same replay run, rebuild outside the repository, and compare complete certificate bytes",
+      "command_summary": [
+        "CAPD_CONFIG={capd_config} bash run_spiral_extension_validation.sh {work} {coarse_manifest} {coarse_seeds} {jobs}"
+      ],
+      "hash_contracts": [
+        {
+          "certificate": "validation/finite-source-intermediate-collar/spiral_extension_certificate.json",
+          "pointer": "/source_sha256",
+          "base": "validation/finite-source-intermediate-collar"
+        },
+        {
+          "certificate": "validation/finite-source-intermediate-collar/spiral_extension_certificate.json",
+          "pointer": "/dependency_sha256",
+          "base": ".",
+          "overrides": {
+            "promoted_first_stage_certificate.json": "validation/finite-source-intermediate-collar/certificate.json",
+            "promoted_fundamental_annulus_certificate.json": "validation/fundamental-annulus-overlap/certificate.json",
+            "fixed_radial_source_centres.hpp": "validation/fundamental-annulus-overlap/fixed_radial_source_centres.hpp",
+            "tail_graph_generated.hpp": "validation/future-target-fold/tail_graph_generated.hpp",
+            "weighted_tail_generated.hpp": "validation/future-target-fold/weighted_tail_generated.hpp"
+          }
+        }
+      ]
+    },
+    {
+      "id": "pole-cone-entry",
+      "category": "source-verifiable-only",
+      "evidence_role": "ancillary raw-crest result; not used by the manuscript's main theorem",
+      "runner": "pole-cone-entry",
+      "dependencies": [
+        "toolchain-metadata-audit"
+      ],
+      "certificates": [
+        "validation/pole-cone-entry/certificate.json"
+      ],
+      "comparison": "rerun the interval probe and compare every mathematical output field, excluding wall time",
+      "command_summary": [
+        "compile and run cone_entry_certificate.cpp"
+      ],
+      "hash_contracts": [
+        {
+          "certificate": "validation/pole-cone-entry/certificate.json",
+          "pointer": "/source_sha256",
+          "file": "validation/pole-cone-entry/cone_entry_certificate.cpp"
+        }
+      ]
+    },
+    {
+      "id": "universal-core-periodic-return",
+      "category": "source-verifiable-only",
+      "evidence_role": "ancillary source-block obstruction; not used by the manuscript's main theorem",
+      "runner": "universal-core-periodic-return",
+      "dependencies": [
+        "toolchain-metadata-audit"
+      ],
+      "certificates": [
+        "validation/universal-core-periodic-return/certificate.json"
+      ],
+      "comparison": "rerun the fail-closed interval probe; assert its PASS marker and frozen source hash",
+      "command_summary": [
+        "compile and run periodic_return_probe.cpp"
+      ],
+      "hash_contracts": [
+        {
+          "certificate": "validation/universal-core-periodic-return/certificate.json",
+          "pointer": "/implementation/source_sha256",
+          "file": "validation/universal-core-periodic-return/periodic_return_probe.cpp"
+        }
+      ]
+    }
+  ]
+}

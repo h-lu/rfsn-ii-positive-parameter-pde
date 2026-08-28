@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+*.o
+fixed_source_cover_probe
+fold_endpoint_bridge_probe
+cover_boxes.jsonl
+cover_seeds.txt
+cover_summary.json
+results.jsonl
+bridge_results.jsonl
+certificate.json.tmp

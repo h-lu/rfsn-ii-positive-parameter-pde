@@ -1,0 +1,121 @@
+{
+  "bulk_replay_hashes": {
+    "cover_boxes.jsonl": "7922f913db216c3f1b6d4e00baa933b01d2d079d65950877339060fa55661655",
+    "cover_bridge_results.jsonl": "9d2bf88488498c2acad978e744cb5bdef65ba6405a21d057cbc8b919627b9edb",
+    "cover_results.jsonl": "ff4678e51e4128b491664830e5178dd023bf7f96598780cd52d0515124f8b914",
+    "cover_seeds.txt": "108cb79fd300743b28731674937ef52b59bf2f28c7ca9ccdc98407b6f812e0df"
+  },
+  "claim_boundary": "Uniform physical-target BVP cover from the numerical outer-fold event box to the numerical R\u22480.025 intermediate source collar. This collar is not the local fundamental annulus; endpoint and spiral-extension identifications are separate gates.",
+  "cover": {
+    "adjacent_bridge_count": 6315,
+    "box_count": 6316,
+    "chart_switch_indices": [
+      4918,
+      4919
+    ],
+    "chart_switch_source_centre": {
+      "U": 0.03426454453805599,
+      "V": 0.0
+    },
+    "inner_source_centre": {
+      "U": 0.023799818459857215,
+      "V": -0.007704604741999802,
+      "radius": 0.025015840840407626
+    },
+    "minimum_u_parameter_overlap": 2.503777880941138e-06,
+    "minimum_v_parameter_overlap": 2.503748125935387e-06,
+    "outer_source_centre": {
+      "U": 0.04152701249,
+      "V": 0.10250373810120482
+    },
+    "u_chart_box_count": 1397,
+    "u_parameter_range": [
+      0.023799818459857215,
+      0.03426454453805599
+    ],
+    "v_chart_box_count": 4919,
+    "v_parameter_range": [
+      0.0,
+      0.10250373810120482
+    ]
+  },
+  "dimensions": {
+    "continuity_rows": 180,
+    "equations": 185,
+    "segments": 36,
+    "source_rows": [
+      "P0=0",
+      "Q0=0",
+      "V0=v or U0=u"
+    ],
+    "state_dimension_with_time": 5,
+    "terminal_rows": [
+      "e=0.0575",
+      "p-h7-eta=0"
+    ],
+    "unknowns": 185
+  },
+  "physical_target_contract": {
+    "corridor": "0<e<.06, |a|<.0065, |b|<.01, |E|<.012",
+    "row_budget": "||D eta||_2 <= 1e-5; evaluated by a component cube superset",
+    "value_budget": "|eta| <= 2 e^8 (|zeta|<=2)"
+  },
+  "promoted_target_header_sha256": {
+    "tail_graph_generated.hpp": "f9f9070c748c684533b779b921f524069c2dac5238e0872bb6f8a1f87552f0b8",
+    "weighted_tail_generated.hpp": "b3f286def464dde6fb5f9641ca74b1cb6d50ef4d571e4e148233e4c5cf56e9d5"
+  },
+  "replay_pins": {
+    "capd_commit": "731079217a9254ea2948d742df2b170895effe7f",
+    "capd_pkg_config_version": "2.5.1",
+    "compiler": "g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+    "interval_backend": "FILIB",
+    "libcapd_sha256": "316b2c480f1ce36b293602da9978eb43560646991a4a906d72ee893b3c557119",
+    "libfilib_sha256": "ce5cdf8f22d4a6737461774211053a3df360178194e431e4f7ad2b2ada5caa7e",
+    "numpy": "2.5.2",
+    "python": "3.14.4",
+    "scipy": "1.18.0",
+    "sympy": "1.14.0"
+  },
+  "required_gates_not_proved_here": {
+    "exact_algebraic_c0_Jost_endpoint_identification": "NOT-PROVED",
+    "intermediate_collar_to_local_annulus_spiral_extension": "NOT-COVERED",
+    "local_annulus_to_saddle_focus_sector_identification": "NOT-PROVED",
+    "outer_algebraic_source_c0_to_first_fold": "NOT-COVERED",
+    "outer_fixed_time_fold_to_event_chart": "NOT-PROVED"
+  },
+  "source_sha256": {
+    "build_certificate.py": "bee9b23f555fe484c37946bff8bfdd4a1517331492b1f74998e32cca6f4bea3f",
+    "generate_full_cover.py": "7e135b841c3a5e84c6f5dddbf9067afba4fa250862e0012722c9c5998eb73a29",
+    "numerical_bvp.py": "b602820bccf5c79014db7e65936c3829ae74fb360c7d3d6191b9c28f6500414f",
+    "source_cover_probe.cpp": "7b77c37e5b6bbd44ca12644e021eb85700fca3039febdd2341abfeaf2bb2b683",
+    "validate_full_cover.py": "09be66feacc8d1e4e5adfc2082806ac30304b0ee335056d3c0c3a381754fb92a"
+  },
+  "status": "PASS-FIRST-STAGE-INNER-ARC-BOXES-AND-TRUE-ADJACENCY",
+  "uniform_bounds": {
+    "all_first_event": true,
+    "all_tangent_certified": true,
+    "energy_sign_unresolved_indices": [
+      0,
+      1
+    ],
+    "maximum_krawczyk_ratio": 0.8456983578086148,
+    "maximum_tangent_krawczyk_ratio": 0.6733191700153359,
+    "maximum_weighted_contraction_ratio": 0.7155493759061057,
+    "strict_negative_energy_derivative_index_range": [
+      2,
+      6315
+    ],
+    "terminal_graph_energy_union_for_abs_zeta_le_2": [
+      -0.009924622725387463,
+      0.0017213446757670227
+    ],
+    "terminal_physical_a_union": [
+      -0.00047581278654232134,
+      0.004036072807061905
+    ],
+    "terminal_physical_b_union": [
+      -0.005308518394336856,
+      0.005412222551591357
+    ]
+  }
+}

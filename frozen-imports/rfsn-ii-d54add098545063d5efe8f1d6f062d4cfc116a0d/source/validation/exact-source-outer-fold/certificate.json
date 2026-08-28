@@ -1,0 +1,196 @@
+{
+  "augmented_fold_cap": {
+    "contraction_ratio": 0.9120134920812052,
+    "krawczyk_ratio": 0.912135743122722,
+    "minimum_containment_margin": 5.000063524161638e-10,
+    "source_X_U": "[0.041524872490323564, 0.041529152490323559]",
+    "target_C0_bound": 2.397966144117267e-10,
+    "target_C1_bound": 1e-05,
+    "target_C2_bound": 0.001,
+    "terminal_a": "[0.0036370155544252288, 0.003794932635349271]",
+    "terminal_b": "[-0.0016486135440346953, 0.0018821248896065421]",
+    "terminal_e": "[0.057523534807291367, 0.057524338265743706]",
+    "terminal_graph_energy": "[-0.0089516476978326286, -0.008170541881241165]"
+  },
+  "bulk_replay_sha256": {
+    "cap_containment.jsonl": "2f048bb5ba65df93fe5cce356193aa2595fa064b62f9a07ce37a066e12f38663",
+    "main_bridges.jsonl": "2ddf659ab53d01b07bbd85bff44fac8d7b29d342080c1eb7ac8f7f7a906cedac",
+    "main_cover_boxes.jsonl": "9b9e3527dc83ade79fe3b5d0eba61707d99cdd988609c1114898bcb881fe6bf8",
+    "main_cover_seeds.txt": "285efa195cf79bfe5c0b237473e27c54ed24972f3f8d2f8dc247c377eac8726b",
+    "main_cover_summary.json": "8d87f808bd28c198d86ce94ba9805bd8540fef03466718a132b12f186bbd8df2",
+    "main_results.jsonl": "95126a620094a691e3a95eb02574755d74e53cdf8726fd25b91f74e19991c219",
+    "tail_bridges.jsonl": "84e3b3f655f65c43809fe7684f773618e6c247f0e5d4c1cd6d6718517f05ccf5",
+    "tail_cover_boxes.jsonl": "5cf59dcf03f9bb55e233e7999853310bd508ceb9b4ee91a98c88f5ee8fadf68d",
+    "tail_cover_seeds.txt": "fa31465ea147587dfc325be7bc541e1ea56adf35994f561e2507c5556cb0daf0",
+    "tail_cover_summary.json": "1e8cfbea6970107eaba5ea0f200b959791d15f1356d917f8c050e2bffaf928b2",
+    "tail_results.jsonl": "d60cb850339a4cdc649a9607789db45e82c4f59a494b65cc516c2c36acd656fe"
+  },
+  "claim_boundary": "One selected C2 arc of the declared finite backward saturation W_a intersect Fix(R), from the exact algebraic source c0=(U,P,V,Q)=(0,0,1/6,0) to its first source-energy fold. No assertion outside the declared flow tube, no classification of other Fix(R) branches, and no origin-unstable incidence claim.",
+  "created_at": "2026-08-24",
+  "dependency_sha256": {
+    "archive/research-history/papers/paper-a/LIMITING_JOST_THEORY.md": "3d19be071894e5aacdf96d5cf342d5e4da2c451fcd28dcdfa71fe263baa6725a",
+    "archive/research-history/papers/paper-a/UNIVERSAL_CORE_FINITE_TO_LOCAL_SEAM.md": "83ac973e83fd431bcdf4f6b04b92b19fed71122232952fc9b893c0f12c03e2a7",
+    "finite-source-intermediate-collar/numerical_bvp.py": "b602820bccf5c79014db7e65936c3829ae74fb360c7d3d6191b9c28f6500414f",
+    "future-target-fold/certificate.json": "88fa64035bb4352f5e25aa8d1627b191936264958c125dface59c5a767f6b3ce",
+    "future-target-fold/fold_centres_generated.hpp": "b7dc18823832dbc5ab6869aecc91abdde2c74a4f66fc8eff08e545e2d6fedec3",
+    "future-target-fold/fold_interval_probe.cpp": "c34d26ea85f0c7b6611939569a0a911ff3c2013583fa5ce7f24f18d6b1132319",
+    "future-target-fold/tail_graph_generated.hpp": "f9f9070c748c684533b779b921f524069c2dac5238e0872bb6f8a1f87552f0b8",
+    "future-target-fold/weighted_tail_generated.hpp": "b3f286def464dde6fb5f9641ca74b1cb6d50ef4d571e4e148233e4c5cf56e9d5"
+  },
+  "equations": {
+    "energy": "Q^2-P^2-(2/3)U^3-2UV",
+    "raw": [
+      "U'=P",
+      "P'=-U^2-V",
+      "V'=Q",
+      "Q'=U"
+    ],
+    "source_section": "P=Q=0"
+  },
+  "exact_c0_endpoint": {
+    "Jost_dV_dU_interval": "[-1.0704505140376159, -1.0704505140376155]",
+    "algebraic_target_residual": "[-6.6177948537804454e-11, -6.6177275465095775e-11]",
+    "analytic_identification": "The validated tail graph has tangent span{T,Z,s}; finite variational pullback gives T_c0 W_a, whose intersection with P=Q=0 is span Z(0), so dV/dU=-2k0. See README Lemma.",
+    "k0_interval": "[0.53522525701880774, 0.53522525701880797]",
+    "minimum_state_margin": 3.0521632325564613e-09,
+    "mpfr_precision_bits": 256,
+    "state_contained": true
+  },
+  "fine_sign_tail": {
+    "adjacent_common_root_bridge_count": 2001,
+    "box_count": 2002,
+    "maximum_krawczyk_ratio": {
+      "index": 2001,
+      "value": 0.7400311789593388
+    },
+    "maximum_negative_energy_derivative_upper": {
+      "index": 1866,
+      "value": -2.9561716261977677e-05
+    },
+    "maximum_tangent_krawczyk_ratio": {
+      "index": 1999,
+      "value": 0.009213797245811863
+    },
+    "negative_sign_box_count": 1867,
+    "negative_sign_parameter_end": 0.041525012490321776
+  },
+  "fixed_time_formulation": {
+    "augmented_fold_unknowns": 248,
+    "base_unknowns": 124,
+    "compact_nodes": [
+      4,
+      30
+    ],
+    "physical_time": 15.0,
+    "raw_nodes": [
+      0,
+      3
+    ],
+    "raw_to_compact_switch_node": 4,
+    "segments": 30,
+    "switch_time": 2.0,
+    "terminal_contract": {
+      "first_derivatives_componentwise": 1e-05,
+      "second_derivatives_componentwise": 0.001,
+      "slope_subdivision": "none; whole declared cube",
+      "value": "|eta| <= 2 e^8"
+    }
+  },
+  "main_cover": {
+    "adjacent_common_root_bridge_count": 17344,
+    "all_first_e_0p06_event": true,
+    "box_count": 17345,
+    "fold_U_interval": [
+      0.041527012176079285,
+      0.041527012805834346
+    ],
+    "maximum_contraction_ratio": {
+      "index": 2580,
+      "value": 0.5879445541958938
+    },
+    "maximum_krawczyk_ratio": {
+      "index": 2580,
+      "value": 0.9346496017290783
+    },
+    "maximum_tangent_krawczyk_ratio": {
+      "index": 11119,
+      "value": 0.5630408814315386
+    },
+    "minimum_bridge_current_margin": {
+      "index": 2579,
+      "value": 1.0772801314599769e-09
+    },
+    "minimum_bridge_next_margin": {
+      "index": 2580,
+      "value": 1.0403570778281791e-09
+    },
+    "minimum_bridge_parameter_margin": {
+      "index": 17343,
+      "value": 2.999999901276418e-10
+    },
+    "source_U_range": [
+      0.0,
+      0.04152701249032356
+    ]
+  },
+  "source_sha256": {
+    "README.md": "f6b63d69124d1ff5f6742a33ba30a359a9958c919dd820a15b2ed876896d7064",
+    "build_certificate.py": "fe359cfe97f90b5eb217057c32a14e886e9fb47c5122a74d357d6d03c6452911",
+    "fixed_source_cover_probe.cpp": "605a7600b11ed5264406ad59c387a735359b0ab6b74fd5406a178e866a20d77c",
+    "generate_cover.py": "586c7f50c9002b56e08582df3f3dd72682876fabbc02ec2e3f8b6819a70ab7d2",
+    "mixed_fold_cap_probe.cpp": "73942f56cb89dfcfffe4664570bdf36c88d630f59ab992954b9a9cff7c305501",
+    "replay.py": "32d2040ef292f145fb8ab10c2ba2d8439407c99932c25aa3db421061c9b54b9d",
+    "validate_cover.py": "b1e99d98f52536f5bf87cfc89171d841562c31bdb9ece0bb192781fdc386cb11",
+    "validate_fold_closure.py": "fda7e17ca1cf036b8d91ed7a7307198ba6dab11bd6288ea6a9f57bed6cd47a59",
+    "verify_jost_constant.py": "7d358a40b09bad6cc3e6769261e3fcd083ec0dd9986a0c7cf795655600438dd6"
+  },
+  "status": "PASS-EXACT-ALGEBRAIC-SOURCE-TO-FIRST-OUTER-FOLD",
+  "three_full_state_identifications": {
+    "existing_fold_to_cap_and_final_fixed_family": {
+      "fixed_endpoint_contraction_ratio": 0.000988063278639164,
+      "fixed_endpoint_krawczyk_ratio": 0.14836741019782848,
+      "fixed_endpoint_radius_scale": 5.0,
+      "fixed_endpoint_tangent_krawczyk_ratio": 0.04603239502935963,
+      "fold_parameter_to_final_interval_margin": 9.683432583562634e-09,
+      "fold_to_cap_margin": 1.947670835849842e-09,
+      "fold_to_final_fixed_family_margin": 6.390445225832979e-09,
+      "status": "PASS-FULL-STATE-COMMON-ROOT"
+    },
+    "fine_family_to_augmented_cap": {
+      "box_count": 140,
+      "minimum_full_state_margin": 1.0001554357993005e-09,
+      "parameter_start": 0.04152493249032178,
+      "sign_overlap": 9.000000178449596e-08,
+      "status": "PASS-ALL-BASE-AND-TANGENT-UNIQUENESS-BOXES-CONTAINED"
+    },
+    "main_cover_to_fine_tail": {
+      "bridge_parameter": 0.04149701249032356,
+      "current_containment_margin": 2.8561634311170243e-09,
+      "main_containment_margin": 2.8624491838829684e-09,
+      "main_index": 17307,
+      "main_parameter_margin": 6.625096951318188e-07,
+      "status": "PASS-TRUE-COMMON-ROOT",
+      "tail_index": 0
+    }
+  },
+  "toolchain": {
+    "capd_config_modversion": "6.1.0",
+    "capd_source_commit": "731079217a9254ea2948d742df2b170895effe7f",
+    "capd_source_version": "6.1.0",
+    "cxx_driver": "g++",
+    "cxx_version": "15.2.0",
+    "gmpy2_version": "2.2.2",
+    "interval_backend": "FILIB",
+    "libcapd_sha256": "316b2c480f1ce36b293602da9978eb43560646991a4a906d72ee893b3c557119",
+    "libfilib_sha256": "ce5cdf8f22d4a6737461774211053a3df360178194e431e4f7ad2b2ada5caa7e",
+    "links_capd": true,
+    "links_filib": true,
+    "mpfr_version": "MPFR 4.2.1",
+    "numpy_version": "2.5.2",
+    "pkgconf_frontend_version": "2.5.1",
+    "python_version": "3.14.4",
+    "rounding_math_enabled": true,
+    "scipy_version": "1.18.0",
+    "status": "PASS-PINNED-CAPD-FILIB-PREFLIGHT"
+  }
+}

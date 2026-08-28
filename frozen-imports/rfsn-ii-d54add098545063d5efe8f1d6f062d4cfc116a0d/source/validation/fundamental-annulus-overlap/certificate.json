@@ -1,0 +1,127 @@
+{
+  "status": "PASS-LOCAL-ANNULUS-AND-FIXED-SEAM",
+  "created_at": "2026-08-24",
+  "scope": {
+    "local_annulus_exit_chart": "E2 analytic plus validated",
+    "fixed_outer_seam": "E2 validated plus analytic identification",
+    "finite_component_to_outer_seam": "E0 missing interval adjacency chain",
+    "quantitative_regularity": "C1 transversality; analytic C2_log inherited, no numerical C2 constant claimed"
+  },
+  "coordinates": {
+    "hyperbolic_exit_radius": 0.01,
+    "hyperbolic_source_radius_upper": 0.00012,
+    "physical_source_radius_upper": 0.00024,
+    "physical_radius_relation": "R=2 rho on Fix(R)"
+  },
+  "local_annulus": {
+    "status": "PASS-QUANTITATIVE-LOCAL-ANNULUS",
+    "unique_first_exit": true,
+    "same_selected_arm_through_all_radii": true,
+    "hidden_target_shooting_coordinates_strictly_interior": true,
+    "same_canonical_true_target_graph_on_closed_parameter_box": true,
+    "initial_w_upper": "[0.0001200036, 0.00012000360000000001]",
+    "w_contraction_lower": "[0.69690863901132083, 0.69690863901132127]",
+    "radial_error_upper": "[0.0051460549022006464, 0.0051460549022006507]",
+    "decay_exponent": "[0.97845681154224895, 0.97845681154225028]",
+    "exit_w_upper": "[1.5840032967580925e-06, 1.5840032967581183e-06]",
+    "target_phase_span_upper": "[4.0769457956831499e-06, 4.0769457956831525e-06]",
+    "stable_square_margin_lower": "[4.1577125665343258e-07, 4.1577125665345884e-07]",
+    "source_phase_derivative_lower": "[0.78361925716670555, 0.78361925716670666]",
+    "intersection_derivative_lower": "[0.78162878898263233, 0.78162878898263366]",
+    "reference_log_annuli": {
+      "pi_over_2_lower_radius": "[4.9891098324182828e-05, 4.989109832418293e-05]",
+      "two_pi_lower_radius": "[4.4818625560991678e-07, 4.48186255609918e-07]",
+      "exact_fold_count_claimed": false
+    }
+  },
+  "exit_target_chart": {
+    "status": "PASS-EXIT-TARGET-CHART",
+    "segments": 36,
+    "unknowns": 185,
+    "stable_parameter_half_width": 2e-06,
+    "source_s1_parameter": "[4.0386299376106322e-06, 8.0386299376106312e-06]",
+    "source_s2_parameter": "[-1.0974511235257387e-05, -6.974511235257388e-06]",
+    "first_terminal_event": true,
+    "krawczyk_ratio": 0.9628392381105688,
+    "contraction_ratio": 0.22816916983272487,
+    "tangent_krawczyk_ratio_ds1": 0.4517804117433407,
+    "tangent_krawczyk_ratio_ds2": 0.8888327595501343,
+    "d_exit_phase_ds1": "[-1.2090840653379487, -0.79803667987229299]",
+    "d_exit_phase_ds2": "[-0.82937667983724916, -0.42054018892737088]",
+    "d_source_energy_ds1": "[0.01988243404567723, 0.020020143710573007]",
+    "d_source_energy_ds2": "[-0.034651082447266529, -0.034513930034541139]",
+    "terminal_e": "[0.057499999999993653, 0.057500000000006352]",
+    "terminal_physical_contract": "PASS"
+  },
+  "exit_target_centre": {
+    "status": "PASS-EXIT-TARGET-CHART",
+    "stable_parameter_half_width": 1e-12,
+    "source_phase": "[5.7566913954699697, 5.7566913960298489]",
+    "source_energy_contains_zero": true,
+    "krawczyk_ratio": 0.048290827393130668,
+    "contraction_ratio": 0.0086906424118429176
+  },
+  "fixed_radial_seam": {
+    "status": "PASS-FIXED-TIME-RADIAL-ANNULUS-ENTRANCE",
+    "segments": 48,
+    "unknowns": 196,
+    "source_radius_parameter": "[0.00023999999900000001, 0.00024000000100000003]",
+    "krawczyk_ratio": 0.31697621732285175,
+    "contraction_ratio": 0.12577993654562353,
+    "tangent_krawczyk_ratio": 0.027568462574949108,
+    "source_U": "[5.6481999595952449e-05, 5.6482002258388645e-05]",
+    "source_P": "[-7.9122316652091503e-14, 7.9122588670747598e-14]",
+    "source_V": "[0.00023325904664186733, 0.00023325904977567993]",
+    "source_Q": "[-1.2967772002552354e-13, 1.2967727420139496e-13]",
+    "source_energy": "[-2.6349996478985773e-08, -2.6349994882886101e-08]",
+    "d_source_U_dradius": "[-0.74553001050360423, -0.72738115132262338]",
+    "d_source_V_dradius": "[1.2024125721637535, 1.2120402599701876]",
+    "d_source_phase_dradius": "[4112.5582025792792, 4219.7852517839419]",
+    "d_source_energy_dradius": "[0.00020242418740939398, 0.00021197866763355858]",
+    "exit_crossing_is_first_by_analytic_radial_sign": true,
+    "exit_crossing_time": "[6.2566981438975864, 6.2566981674605229]",
+    "exit_s1": "[4.6005529623621005e-06, 4.6009873165006945e-06]",
+    "exit_s2": "[-9.0422647141433048e-06, -9.0419193630232077e-06]",
+    "exit_target_strict_containment_margin": 5.619230247514683e-07,
+    "same_local_selected_arm_by_target_chart_uniqueness": true,
+    "terminal_physical_contract": "PASS"
+  },
+  "remaining_finite_bridge": {
+    "status": "E0-NO-ADJACENCY-CHAIN",
+    "existing_endpoint_index_zero_based": 6315,
+    "existing_endpoint_chart": "u",
+    "existing_endpoint_centre": {
+      "U": 0.023799818459857215,
+      "V": -0.007704604741999802
+    },
+    "existing_endpoint_radius": "[0.025010308718855751, 0.025021372991159356]",
+    "required_terminal_radius": "[0.00023999999900000001, 0.00024000000100000003]",
+    "missing": [
+      "individual Krawczyk inclusions on the entire intervening source component",
+      "true adjacent-root containment across every chart",
+      "fold-safe chart changes and tangent orientation",
+      "final root containment into the fixed radial seam box"
+    ],
+    "isolated_radius_0p000304_root_used_as_component_evidence": false
+  },
+  "build": {
+    "compiler": "g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+    "capd_version": "2.5.1",
+    "interval_backend": "FILIB",
+    "repository_head_before_uncommitted_work": "6259cce7e8b597109ad4ee4d12ba426bcf3832e8"
+  },
+  "source_sha256": {
+    "local_annulus_bounds_probe.cpp": "f8e8e7663132c0fdce9df942226f0b9cafed40df39df5c3768533a3ccbfd02cb",
+    "exit_target_chart_probe.cpp": "835c1e94cc542ea297ca457b125573de239abffc9d1d9e688b171119e4c209e1",
+    "exit_target_centres.hpp": "c476e5bb86fa314bb352644d35dd59a4eb2101f7d30daa30d66a73069c1c22cf",
+    "fixed_radial_source_probe.cpp": "4ae63691c61dcdff93de620f07ed22727c5375fff75c6fa2bfb1cb96cba052cc",
+    "fixed_radial_source_centres.hpp": "5be9a8e360d563d4be244cd637a7bd39d79c268353a732fba23c9bfbf455eeb1",
+    "run_validation.sh": "a925beeef834da4f53874646e4df801ff037e3b9bddb507dbe2a23598b5750b2"
+  },
+  "dependency_sha256": {
+    "future-target-fold/tail_graph_generated.hpp": "f9f9070c748c684533b779b921f524069c2dac5238e0872bb6f8a1f87552f0b8",
+    "future-target-fold/weighted_tail_generated.hpp": "b3f286def464dde6fb5f9641ca74b1cb6d50ef4d571e4e148233e4c5cf56e9d5",
+    "future-target-fold/certificate.json": "88fa64035bb4352f5e25aa8d1627b191936264958c125dface59c5a767f6b3ce",
+    "origin-algebraic-heteroclinic/certificate.json": "60882ee1d3b2b18264b85764288505ae8b47d00bc826a2bddec152898f690fbe"
+  }
+}

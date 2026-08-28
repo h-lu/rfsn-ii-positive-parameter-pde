@@ -1,0 +1,91 @@
+{
+  "status": "PASS-TRUE-WU-OPEN-PHASE-POLE-ENTRY",
+  "scope": "One robust phase interval on the true local W^u(0) circle enters the analytic invariant pole cone; no all-phase classification and no raw-crest identification.",
+  "phase": {
+    "closed_cover": [-0.2, 0.2],
+    "open_conclusion": "(-0.2,0.2) modulo 2*pi",
+    "boxes": 400,
+    "box_width": 0.001,
+    "source_radius": 0.01
+  },
+  "true_unstable_graph_contract": {
+    "polynomial_degree": 10,
+    "field": "Q(sqrt(2))",
+    "C0_residual_euclidean_upper": 1e-20,
+    "C0_residual_component_interval_upper": 1e-20,
+    "C1_residual_operator_upper": 1e-18,
+    "phase_tangent_norm": 0.01,
+    "C1_phase_directional_component_upper": 1e-20,
+    "graph_probe": {
+      "H10_norm_upper": 3.2961536609720836e-05,
+      "DH10_frobenius_upper": 0.005237905481357889,
+      "D2H10_frobenius_upper": 0.4265734376499307,
+      "invariance_defect_norm_upper": 2.268961229178706e-24,
+      "normal_contraction_lower": 0.6970409450685168,
+      "normal_boundary_margin_lower": 6.968140489455985e-21,
+      "unstable_exit_margin_lower": 7.020933852823626e-05,
+      "difference_cone_margin_lower": 1.384068503193362,
+      "small_C1_cone_margin_lower": 1.381913078715887e-18
+    }
+  },
+  "source_hull_in_pole_coordinates": {
+    "x": [-0.010010031791811595, -0.009809645045468305],
+    "y": [-0.008319910765767885, -0.00550520261510412],
+    "q": [-0.008341887233240431, -0.005529021304629892],
+    "w": [-0.0019685600643001137, 0.0020009421303591266],
+    "exact_energy": 0,
+    "raw_crest_separation": "Strict y,q<-0.005 at source; raw crest has y=q=0 and negative energy for r>0."
+  },
+  "first_event": {
+    "section": "x=10",
+    "poincare_crossing_mode": "Both",
+    "logic": "The CAPD Poincare map returns the first section encounter without orientation filtering; x<0 at source and x'=y>25 at the event make it the first inward crossing.",
+    "tau": [10.885720013440157, 11.579632102474379],
+    "y": [26.310478749525817, 27.494382470947933],
+    "q": [0.5334650875693207, 0.7549382939245018],
+    "w": [-4.034962288094156, -2.1775266426859745]
+  },
+  "cone": {
+    "theta": 0.5,
+    "X": 10,
+    "D": [52.17752664268594, 54.03496228809419],
+    "H": [262.34984920133354, 274.3295588505379],
+    "y_prime": [102.17752664268592, 104.03496228809421],
+    "H_prime": [1704.016558456108, 1786.2906903397122],
+    "analytic_conclusion": "Strict entry into K_{1/2,10}; forward invariance and finite pole follow from Proposition 1.1 of UNIVERSAL_CORE_POLE_CHANNEL.md."
+  },
+  "C1_first_event": {
+    "tau_phase": [-2.893287200194501, -1.2302008618944771],
+    "event_phase_x": [-11.094742366931543, 10.822151947014323],
+    "event_phase_y": [-41.94109443706436, 47.795645216146646],
+    "event_phase_q": [-6.175548044813452, 1.6701545557414184],
+    "event_phase_w": [-10.503244611568475, -1.6820253655761608]
+  },
+  "separate_certified_phases": {
+    "origin_to_algebraic": [5.7566913947049203, 5.7566913967948983],
+    "symmetric_homoclinic": [5.8615055856447817, 5.8615055856450482],
+    "common_lift": "Subtract 2*pi from the two displayed root boxes; the pole cover is [-0.2,0.2] in the identical linearizing phase gauge.",
+    "elementary_pi_bound_used": "2*pi>6.28318",
+    "strict_gap_lower": {
+      "origin_to_algebraic_vs_pole": 0.32648,
+      "symmetric_homoclinic_vs_pole": 0.22167
+    },
+    "conclusion": "Both are strictly disjoint modulo 2*pi from the closed pole cover [-0.2,0.2]."
+  },
+  "replay": {
+    "compiler": "g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+    "capd_version": "2.5.1",
+    "capd_commit": "731079217a9254ea2948d742df2b170895effe7f",
+    "interval_backend": "FILIB",
+    "libcapd_sha256": "316b2c480f1ce36b293602da9978eb43560646991a4a906d72ee893b3c557119",
+    "libfilib_sha256": "ce5cdf8f22d4a6737461774211053a3df360178194e431e4f7ad2b2ada5caa7e",
+    "audited_wall_seconds": [20.697574163, 45.387963328],
+    "fresh_source_tree_copy_replay": true
+  },
+  "source_sha256": {
+    "pole_phase_interval_probe.cpp": "20d6e90965e754a0804eb7e27c97efb4397cf4a50078300e3b02bb9d1141b847",
+    "run_validation.sh": "c6445d906adee90a639f29fc1a7e049aeada6302cd2198b1b34f89f6999bb3f2",
+    "unstable_graph_probe.cpp": "a2102394a7afbb70331e810a4676f19ec9a79dd3492509ab3c7aad2464e2d2c2",
+    "unstable_graph_terms.hpp": "d617587ea1b9037c1c7575ccdde5029529ec5b736dee259baff9a2a162001e96"
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "status": "PASS",
+  "evidence_level": "E2 analytic plus interval validated",
+  "system": {
+    "field": [
+      "U'=P",
+      "P'=-U^2-V",
+      "V'=Q",
+      "Q'=U"
+    ],
+    "reverser": "(U,P,V,Q)->(U,-P,V,-Q)",
+    "source_section": "P=Q=0",
+    "fixed_source_V": "0.08"
+  },
+  "root_box": {
+    "U0": "[0.041783787871385494,0.041783788271385514]",
+    "half_period_T": "[7.5096097217978439,7.5096097221978457]",
+    "period_2T": "[15.019219443595688,15.019219444395691]",
+    "krawczyk_image_U0": "[0.041783788071380834,0.041783788071391208]",
+    "krawczyk_image_T": "[7.5096097219975215,7.5096097219982614]",
+    "maximum_component_inclusion_ratio": 0.0020827689725154432
+  },
+  "whole_box_endpoint": {
+    "U": "[4.8791826426000533,4.8791827107482701]",
+    "P": "[-1.885788956382582e-7,1.8857942123703354e-7]",
+    "V": "[-7.9347845613908898,-7.9347843429571459]",
+    "Q": "[-8.6962308512105784e-8,8.6962302773426372e-8]"
+  },
+  "first_positive_FixR_hit": {
+    "analytic_initial_block_time": "[0,0.05]",
+    "analytic_initial_sign": "P(t)<0 for 0<t<=0.05",
+    "P_hull_on_0.05_to_2": "[-0.19951202994639897,-0.0040880219580392112]",
+    "Q_hull_on_2_to_7.49": "[-3.1557213128281569,-0.033687513004263044]",
+    "U_hull_on_7.49_to_T_upper": "[4.8522803334469549,4.9059502139315816]",
+    "final_argument": "Q(T)=0 and Q'=U>0 imply Q(t)<0 for 7.49<=t<T",
+    "conclusion": "no simultaneous P=Q=0 for 0<t<T"
+  },
+  "transversality": {
+    "D_F_row_P_col_U": "[925.94486566632031,925.945113365471]",
+    "D_F_row_P_col_T": "[-15.871639581907692,-15.871638698458748]",
+    "D_F_row_Q_col_U": "[-429.77469249063961,-429.77463929054551]",
+    "D_F_row_Q_col_T": "[4.8791826426000533,4.8791827107482701]",
+    "determinant": "[-2303.3749040728944,-2303.372408345318]",
+    "local_consequence": "analytic first-periodic-return curve parameterized by V0"
+  },
+  "source_energy": "[-0.0067340392484958661,-0.0067340391830991502]",
+  "nontriviality": "endpoint U exceeds source U by more than one",
+  "periodic_extension": "reflection at the two FixR endpoints is C1 by reversibility and equals the unique forward ODE continuation",
+  "implementation": {
+    "source": "periodic_return_probe.cpp",
+    "source_sha256": "a1565a313c8314028c677ee74224f501f0f730aa10f93987fabdaf75efcee084",
+    "compiler": "g++ 15.2.0",
+    "capd_version": "2.5.1",
+    "capd_git": "731079217a9254ea2948d742df2b170895effe7f",
+    "interval_backend": "FILIB"
+  },
+  "scope_exclusions": [
+    "no global continuation of the periodic-return curve",
+    "no complete source-block itinerary cover",
+    "no exclusion of additional periodic or multipulse strata",
+    "no positive-parameter physical wave or Fredholm claim"
+  ]
+}

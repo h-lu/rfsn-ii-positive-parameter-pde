@@ -1,0 +1,22 @@
+{
+  "adjacent_bridge_count": 6315,
+  "adjacent_bridge_failure_count": 0,
+  "adjacent_bridge_failure_pairs": [],
+  "adjacent_bridge_gate": "PASS",
+  "box_count": 6316,
+  "elapsed_seconds": 185.84546495699033,
+  "energy_sign_unresolved_count_excluding_first_box": 1,
+  "energy_sign_unresolved_indices": [
+    1
+  ],
+  "failure_count": 0,
+  "failure_indices": [],
+  "local_annulus_gate": "NOT-RUN-BY-THIS-SCRIPT",
+  "maximum_contraction_ratio": 0.7155493759061057,
+  "maximum_krawczyk_ratio": 0.8456983578086148,
+  "maximum_tangent_krawczyk_ratio": 0.6733191700153359,
+  "outer_fold_event_bridge_gate": "NOT-RUN-BY-THIS-SCRIPT",
+  "status": "PASS-ALL-BOXES-AND-TRUE-ADJACENCY",
+  "tangent_failure_count": 0,
+  "tangent_failure_indices": []
+}
