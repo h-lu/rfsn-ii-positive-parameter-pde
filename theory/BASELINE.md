@@ -40,7 +40,7 @@ statements take precedence over this summary.
 | Baseline module used locally | Normative import record | Permitted role | Explicitly not imported |
 |---|---|---|---|
 | Selected Brusselator core homoclinic and its transverse shooting derivative | [`brusselator/CORE_HOMOCLINIC_IMPORT.md`](../brusselator/CORE_HOMOCLINIC_IMPORT.md) | Base-point input for the local positive-diffusion implicit-function proof | Any positive-parameter Brusselator theorem, exact-action theorem, multipulse theorem, or temporal stability |
-| Universal van der Pol saddle-focus, one selected symmetric homoclinic, and the compact central event package | [`van-der-pol/CENTRAL_CORE_IMPORT.md`](../van-der-pol/CENTRAL_CORE_IMPORT.md) | Zero-parameter input for V2 and the finite pole/algebraic gate anchors | Either noncompact positive-parameter end, positive-parameter matching, an action finite part, return--exit exhaustiveness, coding, or temporal stability |
+| Universal RFSN-II core used in Track V: saddle-focus, one selected symmetric homoclinic, and the compact central event package | [`van-der-pol/CENTRAL_CORE_IMPORT.md`](../van-der-pol/CENTRAL_CORE_IMPORT.md) | Zero-parameter input for V2 and the finite pole/algebraic gate anchors | Either noncompact positive-parameter end, positive-parameter matching, an action finite part, return--exit exhaustiveness, coding, or temporal stability |
 | Model-independent high-winding, first-event, exact-action gluing, and coding modules | [`van-der-pol/RETURN_EXIT_CODING_IMPORT.md`](../van-der-pol/RETURN_EXIT_CODING_IMPORT.md) | Abstract modules applied only after the local V1--V5A hypotheses are established | The flagship's concrete singular end compactifications or an automatic positive-parameter application |
 | Singular algebraic comparison hypersurface, Jost normalization, and limiting transverse source intersection | Section 2 of [`van-der-pol/CENTRAL_OUTER_MATCHING.md`](../van-der-pol/CENTRAL_OUTER_MATCHING.md) | Frozen comparison data for the locally proved resolved V5 matching problem | Persistence of the singular end, a positive-parameter outer graph, or the positive-parameter matching theorem itself |
 
@@ -49,6 +49,11 @@ four records.  The central-core record expressly says that this repository
 checked the immutable source and hashes but did not perform an independent
 machine replay of the reported interval certificates.  Freezing a hash is a
 provenance guarantee; it does not by itself upgrade the evidence class.
+
+The clause-by-clause comparison with the compressed focused manuscript,
+including the decision not to repin this baseline and the two local van der
+Pol theorem obligations exposed by that comparison, is recorded in
+[FLAGSHIP_IMPORT_AUDIT_2026-08-28.md](FLAGSHIP_IMPORT_AUDIT_2026-08-28.md).
 
 ## Other external model sources
 
@@ -82,3 +87,6 @@ repository change which records the new commit, hashes, changed theorem
 statements, hypothesis differences, and the effect on every dependent local
 claim.  Updating a URL, fetching a branch, or observing a newer flagship
 commit does not update the baseline.
+
+The 2026-08-28 audit inspected focused revisions `8e04dc3` and `3516a2e`
+and made no baseline update.

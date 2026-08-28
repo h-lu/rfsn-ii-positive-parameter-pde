@@ -132,6 +132,12 @@ They do not choose counterterms at \(z=0\).
 
 ## 2. Frozen comparison data and import boundary
 
+The clause-by-clause read-only comparison with the compressed flagship paper
+is recorded in
+[`../theory/FLAGSHIP_IMPORT_AUDIT_2026-08-28.md`](../theory/FLAGSHIP_IMPORT_AUDIT_2026-08-28.md).
+In particular, the Jost identification below is retained only in the frozen
+long draft; no baseline repin or positive-parameter import is made.
+
 At \(r=0\) the universal system is
 
 \[
@@ -161,7 +167,10 @@ They are imported only as singular comparison facts.
 - Proposition 8.1 constructs the locally maximal \(C^4\) canonical
   algebraic future hypersurface \(\mathcal W^0_{\rm a}\), with a
   fourth-order-bunched weighted tail and a regular finite saturation.
-- The optional Jost module proves along the exact algebraic orbit that
+- The optional Jost module constructs the exact basis
+  \(\{\mathcal T,\mathcal Z,\mathbf s,\mathbf u\}\), records its Cauchy
+  data and symplectic pairings, and proves along the exact algebraic orbit
+  that
 
   \[
    T\mathcal W^0_{\rm a}
@@ -170,7 +179,10 @@ They are imported only as singular comparison facts.
   \tag{11}
   \]
 
-  and gives the exact growing solution \(\mathbf u\) used in (6).
+  The normalization \(\psi=\omega(\mathbf s,\,\cdot)\) is a choice made
+  here from that frozen basis.  The frozen Cauchy data and
+  \(B_2B_3=6\sqrt3\) then give
+  \(\psi(\mathbf u)=24B_2B_3=144\sqrt3\), the base value used in (6).
 - Proposition 8.4 proves a locally unique, modulo flow, transverse
   intersection of \(W^u_0(O)\) with
   \(\mathcal W^0_{\rm a}\cap\{H_0=0\}\).  Its source phase lies in
@@ -201,8 +213,11 @@ CENTRAL_CORE_IMPORT.md, this note adds only the frozen canonical-tail
 statement, the full transverse conclusion of Proposition 8.4, and the
 optional Jost appendix.  In the immutable source these are labelled
 prop:core-algebraic-future, prop:core-origin-algebraic, and
-app:jost-source-arm; equations eq:jost-symplectic-pairings through
-eq:weighted-horizontal-tangent contain (11) and (51).  All
+app:jost-source-arm.  The tangent equality in (11) is proved immediately
+after eq:weighted-horizontal-tangent.  The numerical pairing in (51) is the
+direct algebraic consequence of eq:jost-cauchy-data, the frozen symplectic
+form, and \(B_2B_3=6\sqrt3\); it is not printed verbatim in
+eq:jost-symplectic-pairings.  All
 positive-parameter attachment statements are proved here.
 
 The model equations and the \(K_1\)--\(K_2\) transitions come from the

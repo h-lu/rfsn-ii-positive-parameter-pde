@@ -17,8 +17,15 @@ remain authoritative.
 - The remaining Phase 1 publication blocker is external accessibility of the
   imported Core Lemma's complete evidence closure. It does not invalidate the
   local analytic implication proved in the paper.
-- The next active task is Phase 2, the clause-by-clause flagship-import audit
-  required before the van der Pol proof audit and manuscript.
+- Phase 2 is complete: every imported flagship clause has been mapped to the
+  frozen long draft and compressed focused paper in
+  `theory/FLAGSHIP_IMPORT_AUDIT_2026-08-28.md`. The frozen baseline was not
+  repinned. The audit exposes two Phase 3 theorem interfaces: compact-family
+  passage/whole-cell uniformity and the genuine positive NHIM-pole terminal
+  module.
+- The next active task is Phase 3, beginning with those two interfaces and the
+  finite whole-cell event census. The polished van der Pol manuscript remains
+  deferred until the seam audit closes.
 
 ## 1. Decision
 
@@ -474,10 +481,10 @@ application sound more physical.
 
 ## 12. Immediate next task
 
-Phases 0 and 1 are complete at the repository level, subject to the explicit
-Core-evidence accessibility blocker stated above. The next task is Phase 2:
-audit every flagship clause imported by the van der Pol track against the
-frozen baseline and the compressed read-only theory manuscript, then classify
-it as directly applicable, adapted locally, or not applicable. Do not begin
-the polished van der Pol paper until that audit and the local replacement
-obligations it exposes are closed.
+Phases 0--2 are complete at the repository level, subject to the explicit
+external-evidence accessibility blocker stated above. The next task is Phase
+3: assemble and audit the compact-family passage/whole-cell proposition and
+the genuine positive NHIM-pole terminal proposition, then close the remaining
+V2--V7 seams listed in Section 7. Do not begin the polished van der Pol paper
+until those local theorem interfaces and the finite whole-cell event census
+are closed.

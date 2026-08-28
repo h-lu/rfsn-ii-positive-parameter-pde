@@ -7,6 +7,13 @@ exact-action, and coding modules used in V6--V7.  In particular, it does
 positive-parameter pole and algebraic end used in this repository remain the
 objects proved in V3--V5A.
 
+The 2026-08-28 read-only crosswalk to the fixed-system focused paper is
+recorded in
+[`../theory/FLAGSHIP_IMPORT_AUDIT_2026-08-28.md`](../theory/FLAGSHIP_IMPORT_AUDIT_2026-08-28.md).
+It identifies the compact-family passage/whole-cell theorem and the genuine
+positive NHIM-pole terminal theorem as local obligations; the frozen revision
+below remains the normative modular source.
+
 ## 1. Immutable source
 
 The source is H. Lu, *First returns, singular exits, and action finite parts

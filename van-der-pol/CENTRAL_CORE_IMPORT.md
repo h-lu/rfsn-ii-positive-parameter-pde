@@ -10,6 +10,11 @@ successful outward-rounded interval certificates.  This repository has
 checked the immutable source and hashes, but does not claim an independent
 machine replay.
 
+The 2026-08-28 read-only comparison with the compressed focused paper and
+the resulting compact-family adaptation obligation are recorded in
+[`../theory/FLAGSHIP_IMPORT_AUDIT_2026-08-28.md`](../theory/FLAGSHIP_IMPORT_AUDIT_2026-08-28.md).
+The frozen revision below remains normative.
+
 ## 1. Immutable source and citation-level location
 
 The source is H. Lu, *First returns, singular exits, and action finite parts

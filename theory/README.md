@@ -58,6 +58,10 @@ When records differ, use the following order.
 
 - [BASELINE.md](BASELINE.md) identifies the immutable flagship comparison
   revision, its role, the allowed imports, and the excluded conclusions.
+- [FLAGSHIP_IMPORT_AUDIT_2026-08-28.md](FLAGSHIP_IMPORT_AUDIT_2026-08-28.md)
+  maps every imported clause to the frozen long draft and compressed focused
+  paper, records the evidence-access boundary, and identifies the two local
+  theorem interfaces required before the van der Pol manuscript.
 - [AMENDMENT_REGISTER.md](AMENDMENT_REGISTER.md) records local companion
   results and numerical work, their evidence status, and their complete
   dependency chain.
