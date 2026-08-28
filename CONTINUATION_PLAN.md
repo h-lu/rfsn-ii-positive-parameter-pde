@@ -220,6 +220,34 @@ Before the van der Pol paper is drafted:
 4. update the baseline only in one explicit audit commit containing new
    hashes, theorem locations, hypothesis differences, and downstream effects.
 
+Classify every imported clause as one of the following:
+
+- **directly applicable:** the focused theorem has the same objects,
+  hypotheses, regularity, and quantifier order;
+- **adapted locally:** the focused proof mechanism is reused, but this
+  repository must prove an additional parameter-uniform or model-specific
+  statement; or
+- **not applicable:** a decisive object or hypothesis differs, so the local
+  theorem must not be presented as an application of that focused clause.
+
+Two adaptations are already known and must appear as theorem-level local
+obligations rather than editorial qualifications:
+
+1. the focused paper treats one fixed Hamiltonian, whereas V6 uses a compact
+   parameter family, one uniform high-winding threshold, and the mixed
+   state/parameter derivatives claimed in V2--V7; and
+2. the focused pole hypothesis has an isolated boundary sink with three
+   simple positive indicial roots, whereas the V3 positive-parameter pole has
+   a two-dimensional boundary equilibrium NHIM with normalized spectrum
+   `{-1,0,0,1,4}` and admissible positive roots `1,4`.
+
+The first difference requires a local compact-family passage, selector, and
+whole-cell uniformization result unless an accessible stable source supplies
+exactly those clauses.  The second requires a local NHIM-pole terminal result
+and its interface with first-event coding and exact-action composition.  A
+similar name or proof pattern does not make either focused theorem directly
+applicable.
+
 Do not silently replace the frozen commit with a branch name or the newest
 flagship commit.  If a required imported clause is unavailable to referees,
 the dependent application theorem remains conditional in publication prose.
@@ -239,21 +267,44 @@ two positive-parameter singular ends and compatible action finite parts.
 
 ### Required seam audits
 
-1. **V2 to V3:** verify that the finite central pole gate is connected to the
+1. **Compact-family saddle passage:** assemble the completed frame and
+   analytic normal form together with the zero-energy graph, exact sections,
+   and weighted passage into one publication-facing proposition on the common
+   compact parameter box.  It must state the uniform domains and constants,
+   one uniform high-winding threshold, and exactly the state/parameter
+   derivatives later consumed by the selector, whole-cell geometry, action,
+   and coding arguments.  The existing P2d atoms are supporting evidence, not
+   the theorem architecture.
+2. **Positive-pole terminal interface:** state and prove, or identify an
+   accessible exact source for, the modular terminal result actually used for
+   the V3 two-dimensional equilibrium NHIM.  It must cover the open pole
+   aperture, terminal labels, regular-singular finite part, every
+   label/parameter derivative consumed downstream, and compatibility with
+   finite first-event and exact-action composition.  Do not identify this
+   result with the focused paper's isolated-sink H3.
+3. **V2 to V3:** verify that the finite central pole gate is connected to the
    genuine positive-parameter pole on a uniform nonempty source window, with
    the stated parameter derivatives and no use of a singular-core pole
    persistence claim.
-2. **V4 to V5 and V5A:** verify the resolved
+4. **V4 to V5 and V5A:** verify the resolved
    `K2 -> K1 -> outer` matching, the imported base comparison data, the
    exchange coefficient, uniform inverse, moving-cut covariance, and the
    same-physical-orbit finite-part construction.
-3. **V5 to V6:** replace the compressed H2 discussion by a finite audit table
-   listing the actual defining functions, ambient domains, allowed
-   incidences, empty-incidence gaps, event order, side faces, and anchors.
-4. **Finite-atlas descent:** verify that all local return, terminal,
+5. **V5 to V6 whole-cell geometry:** prove a compact-family block-production
+   and structural-stability proposition.  It must hold the three physical
+   channel cores fixed, construct only the auxiliary lateral faces, and use
+   relative transversality, whole-cell convergence, and strict event-speed and
+   event-order margins to obtain a disjoint exhaustive first-event
+   decomposition with uniform margins.  After this proposition is stated, a
+   finite audit table must list the model's defining functions, ambient
+   domains, allowed incidences, empty-incidence gaps, event order, physical
+   anchors, and inputs used to construct the auxiliary faces.  The table
+   records hypotheses; it does not prove neatness, exhaustiveness, or
+   first-event exclusion.
+6. **Finite-atlas descent:** verify that all local return, terminal,
    exact-action, and coding modules are constructed before descent; do not
    assert one global chart, raw winding alphabet, or unmodified local symbol.
-5. **V6 to V7:** verify that periodic, finite-word homoclinic, and aperiodic
+7. **V6 to V7:** verify that periodic, finite-word homoclinic, and aperiodic
    spatial solutions use only completed branch domains and that the exact
    inverse scaling returns them to the original PDE.
 
@@ -288,6 +339,12 @@ has an explicit input, output, decisive estimate or transversality statement,
 and source location.  An outline, analogy with the flagship, or successful
 floating computation does not close an arrow.
 
+In addition, the compact-family passage/whole-cell result and the NHIM-pole
+terminal result must either be proved locally with all clauses used above or
+bound to stable directly applicable sources.  Until then, V6--V7 remain
+conditional on the frozen modular imports in publication prose even if their
+repository statuses are unchanged.
+
 ## 8. Phase 4: van der Pol companion paper
 
 Create the paper only after Phase 3 under:
@@ -313,10 +370,11 @@ administrative numbering.  A suitable mathematical order is:
 The abstract should identify one obstruction and one resolution:
 
 ```text
-the singular RFSN-II end geometry does not persist automatically at positive
-parameter
-    -> construct the pole and outer algebraic channel directly from the full
-       positive-parameter equations and match the latter through K2 and K1
+the fixed-system RFSN-II mechanism supplies neither the claimed compact-family
+uniformity nor the NHIM pole occurring at positive parameter
+    -> prove the uniform saddle-passage and whole-cell statements, construct
+       the positive pole and outer algebraic channel directly from the full
+       equations, and match the latter through K2 and K1
     -> apply the local exhaustive return--exit mechanism
     -> obtain stationary PDE pattern families.
 ```
@@ -332,14 +390,28 @@ candidate box.
 
 Continue the interval lane only under the existing fail-closed policy:
 
-- complete the remaining five P2d exact-chart children and parent
-  `V2.EXACT_CHART`;
-- complete P2e and P3--P5;
-- validate the full event census, cross forms, two terminal channels, and
-  finite-part remainders rather than finitely many representative orbits;
+- first refactor the Issue #7 obligation map around the hypotheses of the
+  publication-facing analytic propositions, preserving every archived
+  certificate and its evidence status;
+- treat the zero-energy graph, exact sections, and weighted passage as one
+  uniform-passage validation target, with physical slides and finite overlaps
+  attached only where the common block and marked atlas consume them;
+- validate the model-specific finite inputs that determine the explicit box:
+  the selected homoclinic and its transversality, positive-pole entry and
+  terminal bounds, outer graph cone and bunching, exchange coefficient and
+  matching inverse, and the strict physical-channel arrangement margins;
+- derive cross forms, auxiliary lateral faces, the component census, and
+  coding from the proved analytic propositions rather than independently
+  recreating every conclusion as a separate interval subsystem;
 - perform the required independent-machine replay;
 - bind source, configuration, environment, certificate, and report hashes in
   one immutable release.
+
+Existing P2d, P2e, and P3--P5 atoms may remain as validation implementation
+details when they discharge one of these inputs.  They are not the paper's
+proof spine, and no new schema, dashboard, or per-atom governance layer should
+be introduced unless it is needed for a claim-bearing predicate that is not
+already covered.
 
 Until all parent obligations and replay requirements pass, retain
 `final_status: INCONCLUSIVE` and `claim_bearing: false`.
