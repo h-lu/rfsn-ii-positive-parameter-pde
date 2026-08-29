@@ -1,0 +1,56 @@
+{
+  "schema_version": "vdp-canard-boundary-convergence-config/1",
+  "freeze_status": "FROZEN_BEFORE_FIRST_THREE_BOUNDARY_RUN",
+  "frozen_from_commit": "6e8a10136c4525781ca5e14daaa169d1b523999e",
+  "base_inputs": [
+    {
+      "path": "numerics/vdp_canard_slow_trace.py",
+      "sha256": "6d75b20007dd12b3b5faabd8ac17af7ecb742c286d7c8e2433f381a366049283"
+    },
+    {
+      "path": "numerics/config/vdp_canard_slow_trace_v1.json",
+      "sha256": "20f1601374591f95b3bd5717c04b3ea5520620667222f5e71028a75ca3293426"
+    }
+  ],
+  "parameters": {
+    "r": 0.08,
+    "epsilon": 1.0,
+    "initial_a2": -0.008333333333333333,
+    "a2_candidate_interval": [-0.0086, -0.0081]
+  },
+  "outer_q2_boundaries": [-60.0, -80.0, -100.0],
+  "common_section": {
+    "equation": "u2=16",
+    "u2": 16.0,
+    "allow_exact_backward_ivp_extension": true,
+    "extension_max_time": 4.0,
+    "extension_rtol": 1e-11,
+    "extension_atol": 1e-13,
+    "extension_max_step": 0.002
+  },
+  "a3_half_bvp": {
+    "left_conditions": ["u2=u_star", "v2=critical_graph(u_star)", "q2=q0", "H2=0"],
+    "right_conditions": ["p2=0", "q2=0"],
+    "unknowns": ["half_flight_time", "a2"],
+    "require_primary_no_loop": true,
+    "require_central_localization": true
+  },
+  "finite_boundary_splitting_derivative": {
+    "definition": "At fixed (u_star,q0), impose left H2=0 and terminal p2=0; S(a2)=terminal q2.",
+    "a2_steps": [2e-05, 1e-05],
+    "method": "symmetric_collocation_resolve",
+    "report_only_if_all_four_perturbed_BVPs_succeed": true
+  },
+  "comparison": {
+    "order": "increasing_abs_q0",
+    "entry_coordinates": "K2 state on common u2=16",
+    "successive_differences": ["entry_state_inf", "a2_candidate_abs", "reverser_state_inf"],
+    "convergence_label": "DESCRIPTIVE_ONLY_NO_ASYMPTOTIC_CLAIM"
+  },
+  "nonclaims": [
+    "All candidates remain finite-boundary Appendix-A.2/A.3 objects.",
+    "Boundary convergence does not identify an intrinsic Wcu trace.",
+    "No rigorous, maximal-canard, C1, C2, or high-winding claim is made."
+  ],
+  "claim_bearing": false
+}
