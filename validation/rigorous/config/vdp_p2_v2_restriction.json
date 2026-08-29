@@ -1,0 +1,283 @@
+{
+  "schema_version": "rfsn-vdp-p2-v2-restriction-config/1",
+  "configuration_id": "vdp-p2-v2-restriction-v1",
+  "status": "FROZEN_SOURCE_PRE_RESULT",
+  "baseline": {
+    "tag": "vdp-issue7-box-v2-freeze",
+    "tag_object": "13acd7095a7fbe8bb24985acf0dd449ee6049041",
+    "commit": "8ba7ffc0bb2cdced0c904ff6dfa319e4a5bd9b2b"
+  },
+  "restriction_policy": {
+    "kind": "UNIVERSAL_THEOREM_DOMAIN_RESTRICTION",
+    "retain_v1_constants_unchanged": true,
+    "recompute_tighter_hulls": false,
+    "reparameterize_normalized_coordinates": false,
+    "new_interval_or_ode_run": false
+  },
+  "stages": [
+    {
+      "id": "P2a",
+      "source": "validation/rigorous/results/vdp_bridge_v1_p2a_local_graph.json",
+      "atoms": [
+        "V2.WU.FRAME_BLOCK",
+        "V2.WU.COARSE_GRAPH"
+      ]
+    },
+    {
+      "id": "P2b0",
+      "source": "validation/rigorous/results/vdp_bridge_v1_p2b_h10_c01.json",
+      "atoms": [
+        "P2.H10_CENTER_EXACT",
+        "V2.WU.H10_C0_TUBE",
+        "V2.WU.H10_C1_TUBE"
+      ]
+    },
+    {
+      "id": "P2b",
+      "source": "validation/rigorous/results/vdp_bridge_v1_p2b_jets.json",
+      "atoms": [
+        "P2.JETS.COEFFICIENTS",
+        "V2.WU.STATE_C23",
+        "V2.WU.MIXED_JETS",
+        "V2.WU.WEIGHTED_HALF_ORBITS",
+        "V2.WU.JETS",
+        "V2.WU_GRAPH"
+      ]
+    },
+    {
+      "id": "P2bK",
+      "source": "validation/rigorous/results/vdp_bridge_v1_p2b_kato.json",
+      "atoms": [
+        "P2.KATO.EXACT_ALGEBRA",
+        "P2.KATO.RIESZ_TRANSPORT",
+        "P2.KATO.FRAME_CHANGE",
+        "P2.KATO.C2_LIFT",
+        "P2.KATO.SOURCE_PARAMETERIZATION",
+        "V2.PHASE.TRUE_SOURCE",
+        "V2.PHASE.KATO_INTERFACE"
+      ]
+    },
+    {
+      "id": "P2c",
+      "source": "validation/rigorous/results/vdp_bridge_v1_p2c_homoclinic.json",
+      "atoms": [
+        "V2.HOM.BRANCH",
+        "V2.HOM.FIRST_HIT",
+        "V2.HOM.TRANSVERSE",
+        "V2.HOM.TAILS",
+        "V2.HOM.MIDDLE_C2",
+        "V2.HOMOCLINIC"
+      ]
+    },
+    {
+      "id": "P2d-frame",
+      "source": "validation/rigorous/results/vdp_bridge_v1_p2d_symplectic_frame.json",
+      "atoms": [
+        "V2.CHART.SYMPLECTIC_FRAME"
+      ]
+    },
+    {
+      "id": "P2d-proof-chain",
+      "source": "validation/rigorous/check_p2d_chart_overlaps.py",
+      "atoms": [
+        "V2.CHART.ANALYTIC_NORMAL_FORM",
+        "V2.CHART.ZERO_ENERGY",
+        "V2.CHART.EXACT_SECTIONS",
+        "V2.CHART.WEIGHTED_PASSAGE",
+        "V2.CHART.PHYSICAL_SLIDES",
+        "V2.CHART.OVERLAPS",
+        "V2.EXACT_CHART"
+      ]
+    }
+  ],
+  "source_bindings": [
+    {
+      "path": "validation/rigorous/config/vdp_bridge_v1.json",
+      "sha256": "2b62e6fc5625d3f5634d986f7e9cbe8199abfc45c7b97ca29e5efd464b5b69c7",
+      "role": "source-domain"
+    },
+    {
+      "path": "validation/rigorous/config/vdp_bridge_v2.json",
+      "sha256": "ee45e35157075805f89e12d9eb89a82e9203167d22109d4f2b9e83ee2bd12de9",
+      "role": "restricted-domain"
+    },
+    {
+      "path": "validation/rigorous/config/vdp_box_v1.json",
+      "sha256": "ce84e84e4e2e53563125497df4ad2df98a533437b04b35bee042e9b04ea1c735",
+      "role": "noninherited-source-target"
+    },
+    {
+      "path": "validation/rigorous/config/vdp_box_v2.json",
+      "sha256": "43ff2ee14db2e9d42abe484e9d415176cc92836fb2956a27cb6b9f72a751b1ed",
+      "role": "restricted-positive-target"
+    },
+    {
+      "path": "validation/rigorous/config/vdp_p2d_overlaps_v1.json",
+      "sha256": "698f5979f021e3702fd733169d71178fd06fd103647dff1a2bf87456edad407a",
+      "role": "overlap-cover-source"
+    },
+    {
+      "path": "validation/rigorous/results/vdp_bridge_v1_p2a_local_graph.json",
+      "sha256": "192b351c3f153080d82bc856fa3c667388dc16c7b4cf0cfa8568fa347bcaf6be",
+      "role": "historical-certificate"
+    },
+    {
+      "path": "validation/rigorous/results/vdp_bridge_v1_p2b_h10_c01.json",
+      "sha256": "91c1762329a9e19e8db69052f9397532512d8031f361f0b6eeb43edbeda5d5ac",
+      "role": "historical-certificate"
+    },
+    {
+      "path": "validation/rigorous/results/vdp_bridge_v1_p2b_jets.json",
+      "sha256": "07b0949a3d403c0c0a85a4a157b86d7b32cce3ff0348aeffa1db474d441fca07",
+      "role": "historical-certificate"
+    },
+    {
+      "path": "validation/rigorous/results/vdp_bridge_v1_p2b_kato.json",
+      "sha256": "c67cce575caa396eba5b4388e8ba9a0c9d73fd702f69911d64c878f57f27bff3",
+      "role": "historical-certificate"
+    },
+    {
+      "path": "validation/rigorous/results/vdp_bridge_v1_p2c_homoclinic.json",
+      "sha256": "38709fac54569f190f3663df95baedbdb6e0c646d3ec372385a1373dfaf34d34",
+      "role": "historical-certificate"
+    },
+    {
+      "path": "validation/rigorous/results/vdp_bridge_v1_p2d_symplectic_frame.json",
+      "sha256": "5fabbcf01dc9b2f818f34525010332c76ff40190ea9a3d5ab166072397397847",
+      "role": "historical-certificate"
+    },
+    {
+      "path": "validation/rigorous/check_certificate.py",
+      "sha256": "a5ce2a344db719b3d2563b43b33128a57c397f5a5291fdb60f74db89ab96fb62",
+      "role": "historical-validator"
+    },
+    {
+      "path": "validation/rigorous/p2_homoclinic_certificate.py",
+      "sha256": "6551174d22bbde80e7779105654ba672519c65d01d1a4779c241f15f08bf6f87",
+      "role": "historical-validator"
+    },
+    {
+      "path": "validation/rigorous/p2d_frame_certificate.py",
+      "sha256": "3393b44bf843bbf7d07e840abb2895069cbc8b8d6f86d89187b8ad82aecd5349",
+      "role": "historical-validator"
+    },
+    {
+      "path": "validation/rigorous/check_p2d_normal_form_source_bounds.py",
+      "sha256": "1ada580a6cf5c46637c10335c6d9bb86ee4961157da8e6a6c5f0c7b23bcdc852",
+      "role": "p2d-proof-checker"
+    },
+    {
+      "path": "validation/rigorous/check_p2d_zero_energy.py",
+      "sha256": "fbb6a6f50a9299aecabef06bd37bcea6560688f0200e1593ad7cc99ca2943a82",
+      "role": "p2d-proof-checker"
+    },
+    {
+      "path": "validation/rigorous/check_p2d_exact_sections.py",
+      "sha256": "0ebcf90717570a527b122b7ec091b8086fec20231287541fe9d3ab0a293dd8d9",
+      "role": "p2d-proof-checker"
+    },
+    {
+      "path": "validation/rigorous/check_p2d_weighted_passage.py",
+      "sha256": "a5b1b44cb697ce12f3f503dce2608f27791525c3b54ac9de01300585b9cf2246",
+      "role": "p2d-proof-checker"
+    },
+    {
+      "path": "validation/rigorous/check_p2d_physical_slides.py",
+      "sha256": "8c3d5f6432e96248a60f020b5451f98283d0a2c0ed0d7486d95245a614e96972",
+      "role": "p2d-proof-checker"
+    },
+    {
+      "path": "validation/rigorous/check_p2d_chart_overlaps.py",
+      "sha256": "69a285cdf38a3dd1a219e8e122a71b23b0ece93d7effc33bada5236a6f59e477",
+      "role": "p2d-terminal-checker"
+    },
+    {
+      "path": "validation/rigorous/design/p2d_normal_form_scout.py",
+      "sha256": "1a15d83587b4bcfedf8339a6dd00d72b99ac0896535ab422a0841cf7116d26f4",
+      "role": "p2d-proof-helper"
+    },
+    {
+      "path": "validation/rigorous/audit_p2d_normal_form_exact.py",
+      "sha256": "82147d559b351aab2e71c71732507fbbb24265fb172e136e51670484a51a6d68",
+      "role": "p2d-exact-audit"
+    },
+    {
+      "path": "validation/rigorous/audit_p2d_exact_chart.py",
+      "sha256": "050cfd00d49412e9404c17b0eed680bf17e88798bfce48d0e1ec0920770c52d1",
+      "role": "p2d-exact-audit"
+    },
+    {
+      "path": "validation/rigorous/config/vdp_p2_jets_v1.json",
+      "sha256": "b8123dff51f7444277f71b1b8a5b0cdbbc94df46a848af05e8288751bb6681e0",
+      "role": "p2d-prerequisite-config"
+    },
+    {
+      "path": "validation/rigorous/config/vdp_p2_kato_v1.json",
+      "sha256": "676de23609a66b9a6fa35d2cc476878018bc84b4615460719f9c2f87eb1823e3",
+      "role": "p2d-prerequisite-config"
+    },
+    {
+      "path": "validation/rigorous/config/vdp_p2_homoclinic_v1.json",
+      "sha256": "a1aca97d2fcf76f336dc06734c1ced25aeb9bd6b1bfa69b9dc8a6545846ce9ac",
+      "role": "p2d-prerequisite-config"
+    },
+    {
+      "path": "validation/rigorous/config/vdp_p2d_physical_slides_v1.json",
+      "sha256": "fa7daa1273b508951e081378d938342f985271722bf4871669a30f4ab44a8f16",
+      "role": "p2d-proof-config"
+    },
+    {
+      "path": "theory/EXPLICIT_GLOBAL_MOSER_MAJORANT.md",
+      "sha256": "069d109a22fa502c2e6970de7e3ef4c60234e327138b9052df764b6f36cf8245",
+      "role": "p2d-proof"
+    },
+    {
+      "path": "theory/EXPLICIT_ZERO_ENERGY_FIBER.md",
+      "sha256": "ac1cac62e56acf59e2ae2bfb79ae10730756673bf86775d50c8196d47c2c3342",
+      "role": "p2d-proof"
+    },
+    {
+      "path": "theory/EXPLICIT_EXACT_RADIAL_SECTIONS.md",
+      "sha256": "df3ff1e0c23871ffc050183e941c63a9d93d57179eecb38efa3db8dd161a6d55",
+      "role": "p2d-proof"
+    },
+    {
+      "path": "theory/EXPLICIT_WEIGHTED_KATO_PASSAGE.md",
+      "sha256": "78023f2c1511b2037b07ad9fa6a70504abb8734ee9f73103a00634c91f315f1c",
+      "role": "p2d-proof"
+    },
+    {
+      "path": "theory/EXPLICIT_PHYSICAL_SLIDES.md",
+      "sha256": "7fa2fc45827f7c8b41a0dabb3a2bd872f66088e61d3c26ed55d8c78bc80e187b",
+      "role": "p2d-proof"
+    },
+    {
+      "path": "theory/EXPLICIT_FINITE_CHART_OVERLAPS.md",
+      "sha256": "4afe3faa733eb20bac87978bbaaa8bd746248fd90e52d195c9d1ee4cc551d918",
+      "role": "p2d-proof"
+    }
+  ],
+  "generated_source_bindings": {
+    "checker": {
+      "path": "validation/rigorous/p2_v2_restriction.py",
+      "sha256": "2d8ee656925e229abc5436080288e8ca5bda0c720185039b843ea704138c29ae"
+    },
+    "result_schema": {
+      "path": "validation/rigorous/p2_v2_restriction.schema.json",
+      "sha256": "c8e32c003d5558bd21c3e63a3e9adef3796cf58589936139b5903bf8c2c696a0"
+    }
+  },
+  "claim_boundary": {
+    "mathematical_status": "RESTRICTED_LOCAL_MATHEMATICAL_PASS",
+    "final_status": "INCONCLUSIVE",
+    "claim_bearing": false,
+    "release_eligible": false,
+    "independent_replay": "1/2",
+    "excluded": [
+      "P1 on vdp-positive-box-v2",
+      "P2e event atlas and phase order",
+      "v2-specific sharper bounds or worst cells",
+      "a nonempty two-chart overlap internal to the v2 bridge"
+    ]
+  }
+}

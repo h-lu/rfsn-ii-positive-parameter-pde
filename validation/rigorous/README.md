@@ -429,6 +429,29 @@ complete event-atlas manifest, its numerical materialization choices,
 Theorem V2(5), and `V2.EVENT_ATLAS` remain pending.  See
 [`P2E_V2_BOX_FREEZE.md`](P2E_V2_BOX_FREEZE.md).
 
+The source-frozen P2 restriction lane is specified in
+[`P2_V2_RESTRICTION_CONTRACT.md`](P2_V2_RESTRICTION_CONTRACT.md).  Its
+deterministic checker recursively authenticates the P2a--P2c certificates,
+the P2d frame evidence, and the lightweight P2d proof chain, then verifies the
+exact inclusion of the v2 bridge in v1.  It derives 32 restricted atoms with
+unchanged constants and status `RESTRICTED_LOCAL_MATHEMATICAL_PASS`.  On v2,
+only the P2d anchor chart is nonempty, so the chart transition obligation is
+vacuous; this does not manufacture a v2-internal two-chart overlap.  The lane
+does not validate P1 or P2e and remains `final_status=INCONCLUSIVE`,
+`claim_bearing=false`, and replay 1/2.  No final restriction result is archived
+at the source-freeze stage.
+
+Build and check a disposable restriction preview with
+
+```bash
+python3 -B validation/rigorous/p2_v2_restriction.py build \
+  > /tmp/vdp-p2-v2-restriction-preview.json
+python3 -B validation/rigorous/p2_v2_restriction.py check \
+  /tmp/vdp-p2-v2-restriction-preview.json
+python3 -B -m unittest \
+  validation.rigorous.tests.test_p2_v2_restriction -v
+```
+
 ## Strict replay
 
 Build the pinned CAPD source in a separate build directory using every flag

@@ -1,0 +1,421 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/h-lu/rfsn-ii-positive-parameter-pde/raw/main/validation/rigorous/p2_v2_restriction.schema.json",
+  "title": "van der Pol P2a--P2d v2 theorem-restriction certificate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "certificate_id",
+    "scope",
+    "restriction_status",
+    "source_freeze",
+    "configuration",
+    "checker",
+    "result_schema",
+    "domains",
+    "source_authentication",
+    "historical_certificate_authentication",
+    "p2d_proof_chain_authentication",
+    "grid_restrictions",
+    "p2d_overlap_restriction",
+    "atoms",
+    "restriction_principle",
+    "integrity_status",
+    "mathematical_status",
+    "independent_replay",
+    "final_status",
+    "claim_bearing",
+    "release_eligible",
+    "nonclaims"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "rfsn-vdp-p2-v2-restriction-certificate/1"
+    },
+    "certificate_id": {
+      "type": "string",
+      "pattern": "^vdp-p2-v2-restriction-[0-9a-f]{12}$"
+    },
+    "scope": {
+      "const": "P2A_THROUGH_P2D_V2_BRIDGE_THEOREM_RESTRICTION"
+    },
+    "restriction_status": {
+      "const": "RESTRICTED_LOCAL_MATHEMATICAL_PASS"
+    },
+    "source_freeze": {"$ref": "#/$defs/sourceFreeze"},
+    "configuration": {"$ref": "#/$defs/boundConfiguration"},
+    "checker": {"$ref": "#/$defs/pathHash"},
+    "result_schema": {"$ref": "#/$defs/pathHash"},
+    "domains": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_bridge",
+        "restricted_bridge",
+        "source_positive_box",
+        "restricted_positive_box",
+        "relations",
+        "inherited_parameter_normalization"
+      ],
+      "properties": {
+        "source_bridge": {"$ref": "#/$defs/domainBinding"},
+        "restricted_bridge": {"$ref": "#/$defs/domainBinding"},
+        "source_positive_box": {
+          "allOf": [
+            {"$ref": "#/$defs/domainBinding"},
+            {
+              "type": "object",
+              "required": ["inheritance"],
+              "properties": {
+                "inheritance": {
+                  "const": "NOT_INHERITED_DISJOINT_FROM_V2_TARGET"
+                }
+              }
+            }
+          ]
+        },
+        "restricted_positive_box": {"$ref": "#/$defs/domainBinding"},
+        "relations": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "restricted_bridge_is_strict_subset",
+            "transverse_ranges_equal",
+            "anchor_face_equal",
+            "restricted_positive_box_is_subset",
+            "source_and_restricted_positive_boxes_are_disjoint"
+          ],
+          "properties": {
+            "restricted_bridge_is_strict_subset": {"const": true},
+            "transverse_ranges_equal": {"const": true},
+            "anchor_face_equal": {"const": true},
+            "restricted_positive_box_is_subset": {"const": true},
+            "source_and_restricted_positive_boxes_are_disjoint": {"const": true}
+          }
+        },
+        "inherited_parameter_normalization": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "formulas",
+            "v2_bridge_theta_r",
+            "v2_box_theta_r",
+            "reparameterized"
+          ],
+          "properties": {
+            "formulas": {
+              "const": [
+                "theta_r=25*r-1",
+                "theta_a=4*a2",
+                "theta_epsilon=5*(epsilon-1)"
+              ]
+            },
+            "v2_bridge_theta_r": {"$ref": "#/$defs/rationalInterval"},
+            "v2_box_theta_r": {"$ref": "#/$defs/rationalInterval"},
+            "reparameterized": {"const": false}
+          }
+        }
+      }
+    },
+    "source_authentication": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/sourceAuthentication"}
+    },
+    "historical_certificate_authentication": {
+      "type": "array",
+      "minItems": 6,
+      "maxItems": 6,
+      "items": {"$ref": "#/$defs/historicalAuthentication"}
+    },
+    "p2d_proof_chain_authentication": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "terminal_checker",
+        "terminal_checker_sha256",
+        "terminal_report_sha256",
+        "status",
+        "mathematical_status",
+        "local_chart_status",
+        "claim_bearing",
+        "independent_replay"
+      ],
+      "properties": {
+        "terminal_checker": {"type": "string"},
+        "terminal_checker_sha256": {"$ref": "#/$defs/sha256"},
+        "terminal_report_sha256": {"$ref": "#/$defs/sha256"},
+        "status": {"const": "PASS"},
+        "mathematical_status": {"const": "LOCAL_MATHEMATICAL_PASS"},
+        "local_chart_status": {
+          "type": "object",
+          "minProperties": 8,
+          "maxProperties": 8,
+          "additionalProperties": {"const": "PASS"}
+        },
+        "claim_bearing": {"const": false},
+        "independent_replay": {"const": "1/2"}
+      }
+    },
+    "grid_restrictions": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": {
+        "type": "object",
+        "required": [
+          "stage",
+          "source_r_subdivisions",
+          "selected_r_indices",
+          "selected_cell_count",
+          "role"
+        ],
+        "properties": {
+          "stage": {"enum": ["P2b", "P2bK", "P2c", "P2d-frame"]},
+          "source_r_subdivisions": {"type": "integer", "minimum": 1},
+          "selected_r_indices": {
+            "type": "array",
+            "items": {"type": "integer", "minimum": 0}
+          },
+          "restricted_positive_target_r_indices": {
+            "type": "array",
+            "items": {"type": "integer", "minimum": 0}
+          },
+          "selected_cell_count": {"type": "integer", "minimum": 1},
+          "selected_internal_face_count": {"type": "integer", "minimum": 1},
+          "selected_internal_faces_by_axis": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["r", "a2", "epsilon"],
+            "properties": {
+              "r": {"type": "integer", "minimum": 1},
+              "a2": {"type": "integer", "minimum": 1},
+              "epsilon": {"type": "integer", "minimum": 1}
+            }
+          },
+          "role": {"const": "ALIGNMENT_CHECK_ONLY_NO_RECOMPUTED_HULL"}
+        },
+        "additionalProperties": false
+      }
+    },
+    "p2d_overlap_restriction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "v2_theta_r",
+        "nonempty_v2_members",
+        "anchor_member_covers_v2",
+        "positive_member_intersects_v2",
+        "v1_nonempty_overlap_theta_r",
+        "v1_nonempty_overlap_intersects_v2",
+        "transition_obligation_on_v2",
+        "parent_exact_chart_basis",
+        "nonclaim"
+      ],
+      "properties": {
+        "v2_theta_r": {"$ref": "#/$defs/rationalInterval"},
+        "nonempty_v2_members": {"const": ["anchor"]},
+        "anchor_member_covers_v2": {"const": true},
+        "positive_member_intersects_v2": {"const": false},
+        "v1_nonempty_overlap_theta_r": {"$ref": "#/$defs/rationalInterval"},
+        "v1_nonempty_overlap_intersects_v2": {"const": false},
+        "transition_obligation_on_v2": {
+          "const": "VACUOUS_SINGLE_ANCHOR_CHART"
+        },
+        "parent_exact_chart_basis": {
+          "const": "RESTRICTION_OF_ONE_GLOBAL_NORMALIZED_MOSER_FAMILY"
+        },
+        "nonclaim": {"type": "string", "minLength": 1}
+      }
+    },
+    "atoms": {
+      "type": "array",
+      "minItems": 32,
+      "maxItems": 32,
+      "items": {"$ref": "#/$defs/atom"}
+    },
+    "restriction_principle": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "logic",
+        "interval_monotonicity_assumed",
+        "new_numerical_enclosures_claimed",
+        "all_v1_constants_retained_unchanged",
+        "parameter_reparameterization"
+      ],
+      "properties": {
+        "logic": {"type": "string", "minLength": 1},
+        "interval_monotonicity_assumed": {"const": false},
+        "new_numerical_enclosures_claimed": {"const": false},
+        "all_v1_constants_retained_unchanged": {"const": true},
+        "parameter_reparameterization": {"const": false}
+      }
+    },
+    "integrity_status": {"const": "PASS"},
+    "mathematical_status": {
+      "const": "RESTRICTED_LOCAL_MATHEMATICAL_PASS"
+    },
+    "independent_replay": {"$ref": "#/$defs/replay"},
+    "final_status": {"const": "INCONCLUSIVE"},
+    "claim_bearing": {"const": false},
+    "release_eligible": {"const": false},
+    "nonclaims": {
+      "type": "array",
+      "minItems": 5,
+      "items": {"type": "string", "minLength": 1}
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "rational": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["numerator", "denominator"],
+      "properties": {
+        "numerator": {"type": "string", "pattern": "^-?[0-9]+$"},
+        "denominator": {"type": "string", "pattern": "^[1-9][0-9]*$"}
+      }
+    },
+    "rationalInterval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["lower", "upper"],
+      "properties": {
+        "lower": {"$ref": "#/$defs/rational"},
+        "upper": {"$ref": "#/$defs/rational"}
+      }
+    },
+    "pathHash": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "sourceFreeze": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["tag", "tag_object", "commit"],
+      "properties": {
+        "tag": {"const": "vdp-issue7-box-v2-freeze"},
+        "tag_object": {
+          "const": "13acd7095a7fbe8bb24985acf0dd449ee6049041"
+        },
+        "commit": {
+          "const": "8ba7ffc0bb2cdced0c904ff6dfa319e4a5bd9b2b"
+        }
+      }
+    },
+    "boundConfiguration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256", "configuration_id", "status"],
+      "properties": {
+        "path": {"const": "validation/rigorous/config/vdp_p2_v2_restriction.json"},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "configuration_id": {"const": "vdp-p2-v2-restriction-v1"},
+        "status": {"const": "FROZEN_SOURCE_PRE_RESULT"}
+      }
+    },
+    "domainBinding": {
+      "type": "object",
+      "required": ["path", "sha256", "variables"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "variables": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["r", "a2", "epsilon"],
+          "properties": {
+            "r": {"$ref": "#/$defs/rationalInterval"},
+            "a2": {"$ref": "#/$defs/rationalInterval"},
+            "epsilon": {"$ref": "#/$defs/rationalInterval"}
+          }
+        }
+      }
+    },
+    "sourceAuthentication": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path", "role", "sha256", "baseline_blob", "current_blob"
+      ],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "role": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "baseline_blob": {"const": "MATCH"},
+        "current_blob": {"const": "MATCH"}
+      }
+    },
+    "historicalAuthentication": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "stage", "path", "sha256", "source_commit", "validator",
+        "validator_status", "integrity_status", "mathematical_status",
+        "claim_bearing", "independent_replay"
+      ],
+      "properties": {
+        "stage": {"enum": ["P2a", "P2b0", "P2b", "P2bK", "P2c", "P2d-frame"]},
+        "path": {"type": "string", "minLength": 1},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "source_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "validator": {"type": "string", "minLength": 1},
+        "validator_status": {"const": "PASS"},
+        "integrity_status": {"const": "PASS"},
+        "mathematical_status": {"const": "PASS"},
+        "claim_bearing": {"const": false},
+        "independent_replay": {"const": "1/2"}
+      }
+    },
+    "atom": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id", "stage", "source", "source_sha256", "source_status",
+        "restriction_status", "restriction_kind", "constants"
+      ],
+      "properties": {
+        "id": {"type": "string", "minLength": 1},
+        "stage": {"type": "string", "minLength": 1},
+        "source": {"type": "string", "minLength": 1},
+        "source_sha256": {"$ref": "#/$defs/sha256"},
+        "source_status": {"const": "PASS"},
+        "restriction_status": {
+          "const": "RESTRICTED_LOCAL_MATHEMATICAL_PASS"
+        },
+        "restriction_kind": {
+          "enum": [
+            "UNIVERSAL_STATEMENT_ON_SUPERSET",
+            "SINGLE_ANCHOR_CHART_VACUOUS_TRANSITION",
+            "ALL_SEVEN_RESTRICTED_CHILDREN"
+          ]
+        },
+        "constants": {"const": "INHERITED_UNCHANGED"}
+      }
+    },
+    "replay": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "required_distinct_machines",
+        "observed_distinct_machines",
+        "status"
+      ],
+      "properties": {
+        "required_distinct_machines": {"const": 2},
+        "observed_distinct_machines": {"const": 1},
+        "status": {"const": "PENDING_REQUIRED"}
+      }
+    }
+  }
+}
