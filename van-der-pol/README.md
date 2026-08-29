@@ -262,3 +262,12 @@ published leading value \(a_{2,c}=-1/120\), but starts from a projected formal
 jet rather than an invariant finite-\(r\) saddle slow manifold.  It is therefore
 a candidate generator only; no maximal canard or high-winding connection is
 identified.
+
+The follow-up
+[Appendix-A.2 boundary-value computation](../numerics/VDP_CANARD_SLOW_TRACE.md)
+replaces that projected jet by collocation solutions of the exact finite-\(r\)
+field on a branch-continued finite-boundary representative.  Its imposed
+\(H_2=0\) condition produces a numerically reversible candidate, but the
+central hit misses the published algebraic-canard localization by an
+\(O(1)\) margin.  Boundary independence, the intrinsic slow-sheet trace, and
+the simple-zero coincidence graph therefore remain open.

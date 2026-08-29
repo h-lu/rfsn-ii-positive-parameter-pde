@@ -205,6 +205,16 @@ now finds eight floating-point simple roots from projected formal entries at
 invariant slow-manifold entry prevents a true coincidence root, classification
 of \(a_2=0\), or a high-winding connection claim.
 
+The follow-up [Appendix-A.2 BVP calculation](VDP_CANARD_SLOW_TRACE.md) replaces
+the projected jet with collocation orbits of the exact finite-\(r\) field on a
+frozen finite-boundary saddle-slow representative.  Pseudo-arclength
+continuation and an imposed \(H_2=0\) boundary condition produce a numerically
+reversible BVP candidate, but it fails the frozen central-localization
+diagnostic for the published algebraic RFSN-II core.  Since boundary
+independence, the symmetry-breaking slow-sheet direction, and an
+\(a_2\)-simple-zero graph remain unresolved, this is still non-claim-bearing
+candidate evidence rather than canard identification.
+
 The proposed Issue #7 box
 
 \[
@@ -286,8 +296,9 @@ their small diffusion prefactors can conceal a poor scaled solution.
 - Classical stationary Turing onset is exactly excluded for this PDE, but the
   computation does not supply a nonlinear branch or an alternative dynamical
   pattern-selection mechanism.
-- Fold passage, singular FSN-II degeneracy, and formal-entry surrogate roots do
-  not identify a canard; the scout remains candidate-only until the invariant
-  slow-manifold entry is constructed.
+- Fold passage, singular FSN-II degeneracy, formal-entry roots, and a
+  numerically reversible finite-boundary A.2 zero-energy BVP candidate do not
+  by themselves identify the Lemma-6.4 maximal canard; an intrinsic
+  branch-identified slow-sheet trace and simple-zero graph are still required.
   Saddle-focus winding and canard-organized outer geometry remain distinct
   mechanisms.

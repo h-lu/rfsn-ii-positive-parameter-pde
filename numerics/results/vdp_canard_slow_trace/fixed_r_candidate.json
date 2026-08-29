@@ -1,0 +1,305 @@
+{
+  "boundary_selection": {
+    "fixed_entry_section": "u2=16.0, p2<0, q2<0",
+    "method": "published Appendix A.2 outside BVP followed by full-orbit boundary continuation through a reversible representative",
+    "outer_q2": -80.0,
+    "outside_right_boundary": [
+      "p2=0",
+      "u2=0"
+    ],
+    "p_nullcline": "v2=u2^2+r^2*u2^3/3"
+  },
+  "claim_bearing": false,
+  "continuation": [
+    {
+      "hamiltonian": -0.0026404838439404443,
+      "left_q2": -80.00003163802596,
+      "max_interval_rms_relative_residual": 1.627139441983205e-05,
+      "period": 28.341525370636433,
+      "step": 1.0
+    },
+    {
+      "hamiltonian": -0.0059582777274656,
+      "left_q2": -80.00007314558948,
+      "max_interval_rms_relative_residual": 1.5959719871837373e-05,
+      "period": 28.114122380379325,
+      "step": 2.0
+    },
+    {
+      "hamiltonian": -0.010159502604317083,
+      "left_q2": -80.00012570536623,
+      "max_interval_rms_relative_residual": 1.5650893079749338e-05,
+      "period": 27.88708233777152,
+      "step": 3.0
+    },
+    {
+      "hamiltonian": -0.015322871926279902,
+      "left_q2": -80.00019030208456,
+      "max_interval_rms_relative_residual": 1.534487490816752e-05,
+      "period": 27.660365033127768,
+      "step": 4.0
+    },
+    {
+      "hamiltonian": -0.021500507939315128,
+      "left_q2": -80.00026758779369,
+      "max_interval_rms_relative_residual": 1.5041633278021028e-05,
+      "period": 27.433934283210615,
+      "step": 5.0
+    },
+    {
+      "hamiltonian": -0.02870531501354634,
+      "left_q2": -80.00035772389631,
+      "max_interval_rms_relative_residual": 1.9867266874084925e-05,
+      "period": 27.207758730563004,
+      "step": 6.0
+    },
+    {
+      "hamiltonian": -0.0368958495599756,
+      "left_q2": -80.0004601918703,
+      "max_interval_rms_relative_residual": 1.9428309116378664e-05,
+      "period": 26.98181251336362,
+      "step": 7.0
+    },
+    {
+      "hamiltonian": -0.045958526415567746,
+      "left_q2": -80.00057357065874,
+      "max_interval_rms_relative_residual": 1.8994396579703103e-05,
+      "period": 26.756075788964417,
+      "step": 8.0
+    },
+    {
+      "hamiltonian": -0.055687048772476544,
+      "left_q2": -80.00069527934096,
+      "max_interval_rms_relative_residual": 1.856552033739212e-05,
+      "period": 26.53053510149315,
+      "step": 9.0
+    },
+    {
+      "hamiltonian": -0.06575900571203164,
+      "left_q2": -80.00082128436658,
+      "max_interval_rms_relative_residual": 1.8141684453086213e-05,
+      "period": 26.30518359148224,
+      "step": 10.0
+    },
+    {
+      "hamiltonian": -0.07570964642842881,
+      "left_q2": -80.00094577147303,
+      "max_interval_rms_relative_residual": 1.772290796253609e-05,
+      "period": 26.08002105287668,
+      "step": 11.0
+    },
+    {
+      "hamiltonian": -0.0849029109207251,
+      "left_q2": -80.00106078328133,
+      "max_interval_rms_relative_residual": 1.7309221851636318e-05,
+      "period": 25.855053849330687,
+      "step": 12.0
+    },
+    {
+      "hamiltonian": -0.09249987090276335,
+      "left_q2": -80.00115582448886,
+      "max_interval_rms_relative_residual": 1.6900667199871802e-05,
+      "period": 25.63029470700752,
+      "step": 13.0
+    },
+    {
+      "hamiltonian": -0.09742480936062492,
+      "left_q2": -80.00121743750792,
+      "max_interval_rms_relative_residual": 1.64972939456243e-05,
+      "period": 25.405762404812418,
+      "step": 14.0
+    },
+    {
+      "hamiltonian": -0.09832924023100276,
+      "left_q2": -80.0012287523075,
+      "max_interval_rms_relative_residual": 1.609916649562928e-05,
+      "period": 25.18148138496502,
+      "step": 15.0
+    },
+    {
+      "hamiltonian": -0.09355423927524242,
+      "left_q2": -80.00116901507808,
+      "max_interval_rms_relative_residual": 1.5706351333280233e-05,
+      "period": 24.957481307086933,
+      "step": 16.0
+    },
+    {
+      "hamiltonian": -0.08109152184612611,
+      "left_q2": -80.00101310113764,
+      "max_interval_rms_relative_residual": 1.5318924700352844e-05,
+      "period": 24.73379656773876,
+      "step": 17.0
+    },
+    {
+      "hamiltonian": -0.05854376183412313,
+      "left_q2": -80.00073101821671,
+      "max_interval_rms_relative_residual": 1.4936964727218083e-05,
+      "period": 24.510465804907703,
+      "step": 18.0
+    },
+    {
+      "hamiltonian": -0.0230846980169801,
+      "left_q2": -80.00028740689332,
+      "max_interval_rms_relative_residual": 1.4560557592931862e-05,
+      "period": 24.28753140370962,
+      "step": 19.0
+    },
+    {
+      "hamiltonian": 0.028580381333206617,
+      "left_q2": -79.99964104548648,
+      "max_interval_rms_relative_residual": 1.955006104356501e-05,
+      "period": 24.06503901592717,
+      "step": 20.0
+    }
+  ],
+  "decision": {
+    "C1_finite_parameter_saddle_slow_manifolds": "INCOMPLETE_BOUNDARY_SELECTED_REPRESENTATIVE_ONLY",
+    "C2_coincidence_curve": "INCOMPLETE_NO_SIMPLE_ZERO_GRAPH_IN_A2",
+    "current_sample_a2_zero_classification": "INCONCLUSIVE",
+    "finite_parameter_maximal_canard_status": "INCONCLUSIVE_INTRINSIC_SLOW_TRACE_AND_TARGET_BRANCH_NOT_VALIDATED",
+    "next_mathematical_object": "Resolve the symmetry-breaking/slow-sheet direction independently of the endpoint family, transport its H2=0 trace to u2=16, and evaluate q2 at the first increasing p2=0 hit as a function of (r,a2).",
+    "surrogate_upgrade": "The formal projected entry has been replaced by collocation solutions of the exact finite-r field on a boundary-selected A.2 branch. An H2=0 condition is imposed in the candidate BVP, whose numerically observed reversibility does not yet identify the intrinsic Wcu/Wcs maximal-canard branch."
+  },
+  "endpoint_family_tangent": {
+    "max_abs_raw_state_components": [
+      1236.8374096600132,
+      306.43512551595467,
+      17831.592536338725,
+      5247.17289181224
+    ],
+    "normalization": "q2(1)-q2(0)=1 before weighted normalization",
+    "normalized_period_component": -22.80209710969173,
+    "raw_period_component": -4201.341094559646,
+    "state_scales": [
+      16.645083364843376,
+      2.3,
+      286.89702278614504,
+      80.0
+    ],
+    "weighted_norm": 184.25239899421013
+  },
+  "evidence_status": "COMPUTED/E1_BOUNDARY_SELECTED_A2_COINCIDENCE_CANDIDATE",
+  "exact_k2_field": [
+    "u2'=p2",
+    "p2'=u2^2-v2+r^2*u2^3/3",
+    "v2'=q2",
+    "q2'=u2-r*a2"
+  ],
+  "nonclaims": [
+    "The finite A.2 boundary representative is not a proved intrinsic saddle slow manifold.",
+    "The zero-energy BVP candidate is not identified with the Lemma-6.4 maximal canard.",
+    "The localization diagnostic is not an interval separation result.",
+    "No simple-zero a2,c(r) graph or parameter derivative is validated.",
+    "No classification of a2=0 or connection to the frozen high-winding edge is made.",
+    "No interval arithmetic is used."
+  ],
+  "parameters": {
+    "a2": -0.008333333333333333,
+    "epsilon": 1.0,
+    "published_leading_a2": -0.008333333333333333,
+    "r": 0.08
+  },
+  "primary_saddle_slow_representative": {
+    "entry_hamiltonian": -0.00011117975594032714,
+    "entry_state": [
+      15.999999999984798,
+      -2.234279970297489,
+      264.61740703026595,
+      -75.31620240154
+    ],
+    "fold_state": [
+      1.3477029237502379e-28,
+      0.0,
+      -0.1673789078690529,
+      0.0
+    ],
+    "full_reflected_orbit_entry_section_s": 0.010044010726710751,
+    "full_reflected_period": 28.569330053788864,
+    "half_orbit_entry_section_s": 0.020088051375344626,
+    "half_orbit_entry_state": [
+      15.99999999999403,
+      -2.2342799713767807,
+      264.61740702542835,
+      -75.31620240593152
+    ],
+    "half_period": 14.284643751577155,
+    "interpretation": "This point lies on a collocation solution of the exact finite-r field for the frozen finite-boundary A.2 BVP branch. The two stored section coordinates refer to the normalized half orbit and full reflected orbit, respectively. It is not on H2=0 and is not itself the Issue-13 entry trace.",
+    "left_state": [
+      16.645083364843376,
+      -2.256345084929293,
+      286.897022786145,
+      -80.0
+    ],
+    "status": "COMPUTED/E1_BOUNDARY_SELECTED_FINITE_R_SADDLE_SLOW_ENTRY"
+  },
+  "schema_version": "vdp-canard-slow-trace/1",
+  "target_branch_diagnostic": {
+    "candidate_minus_formal_midpoint": [
+      0.773758487290978,
+      4.0588014887734275e-17,
+      0.3659651756546928,
+      7.631279573967014e-17
+    ],
+    "frozen_u2_tolerance": 0.1,
+    "frozen_v2_tolerance": 0.1,
+    "interpretation": "Failure is a branch-discrimination warning, not a rigorous separation theorem: the formal midpoint is asymptotic rather than an interval enclosure.",
+    "passes": false,
+    "published_order_3_formal_midpoint": [
+      -0.0006666666666666666,
+      0.0,
+      -0.16666695555555555,
+      0.0
+    ],
+    "status": "DOES_NOT_PASS_RFSNII_CENTRAL_LOCALIZATION_DIAGNOSTIC"
+  },
+  "zero_energy_coincidence_candidate": {
+    "entry_hamiltonian": -6.181721801112872e-13,
+    "entry_section_s": 0.011868069830596257,
+    "entry_state": [
+      16.000000000011678,
+      -2.234279927924153,
+      264.61740700784236,
+      -75.31620091934596
+    ],
+    "event_p2_derivative": 0.3993584593541626,
+    "first_increasing_p_zero_s": 0.5,
+    "first_increasing_p_zero_state": [
+      0.7730918206243113,
+      4.0588014887734275e-17,
+      0.1992982200991372,
+      7.631279573967014e-17
+    ],
+    "flight_time_entry_to_hit": 11.80223768893288,
+    "hamiltonian_abs_at_left": 1.2079226507921703e-13,
+    "hamiltonian_bracket": {
+      "negative": -0.0230846980169801,
+      "negative_period": 24.28753140370962,
+      "positive": 0.028580381333206617,
+      "positive_period": 24.06503901592717
+    },
+    "hamiltonian_drift": 9.859526528543938e-10,
+    "left_state": [
+      16.645083364843376,
+      -2.25634504307804,
+      286.89702278614504,
+      -79.99999860400123
+    ],
+    "max_interval_rms_relative_residual": 1.990373891755307e-08,
+    "midpoint_state": [
+      0.7730918206243113,
+      4.0588014887734275e-17,
+      0.1992982200991372,
+      7.631279573967014e-17
+    ],
+    "period": 24.178376704095083,
+    "reversibility_residual_inf": 8.881784197001252e-16,
+    "right_state": [
+      16.645083364843376,
+      2.2563450430780407,
+      286.89702278614504,
+      79.99999860400123
+    ],
+    "splitting_q2": 7.631279573967014e-17,
+    "status": "COMPUTED/E1_BOUNDARY_SELECTED_ZERO_ENERGY_BVP_CANDIDATE"
+  }
+}

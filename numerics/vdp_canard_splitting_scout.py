@@ -73,7 +73,7 @@ def central_field(state: Array, *, r: float, a2: float) -> Array:
 
 
 def central_hamiltonian(state: Array, *, r: float, a2: float) -> float:
-    """Exact shifted central Hamiltonian H2 for epsilon=1."""
+    """Exact translated central Hamiltonian H2 for epsilon=1."""
 
     u, p, v, q = np.asarray(state, dtype=np.float64)
     return float(

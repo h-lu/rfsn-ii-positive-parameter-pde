@@ -1,0 +1,41 @@
+{
+  "schema_version": "vdp-canard-slow-trace-config/1",
+  "epsilon": 1.0,
+  "r": 0.08,
+  "a2": -0.008333333333333333,
+  "outer_q_boundary": -80.0,
+  "entry_section_u2": 16.0,
+  "natural_start_u2": 0.001,
+  "natural_u2_continuation": {
+    "geometric": [0.002, 1.0, 18],
+    "linear_middle": [1.5, 10.0, 18],
+    "linear_outer": [10.5, 16.5, 13]
+  },
+  "terminal_q2_continuation": [
+    -12.0,
+    -8.0,
+    -5.0,
+    -3.0,
+    -2.0,
+    -1.0,
+    -0.5,
+    -0.2,
+    -0.1,
+    -0.05,
+    -0.02,
+    -0.01,
+    0.0
+  ],
+  "half_mesh_points": 801,
+  "full_mesh_points": 1201,
+  "continuation_tolerance": 8e-6,
+  "kernel_tolerance": 2e-6,
+  "root_tolerance": 2e-8,
+  "max_nodes": 220000,
+  "pseudo_arclength_step": 0.01,
+  "pseudo_arclength_max_steps": 24,
+  "central_localization_u2_tolerance": 0.1,
+  "central_localization_v2_tolerance": 0.1,
+  "source_method": "Vo--Doelman--Kaper, Appendix A.2 boundary-value construction",
+  "claim_bearing": false
+}

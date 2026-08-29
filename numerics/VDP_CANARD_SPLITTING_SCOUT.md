@@ -118,6 +118,15 @@ first-hit map can then define the genuine splitting.  Only after that object
 exists should the scalar root be continued in (r) or enclosed with interval
 arithmetic.
 
+The first finite-boundary implementation of that step is now recorded in the
+[A.2 slow-trace report](VDP_CANARD_SLOW_TRACE.md).  It replaces the projected
+jet with collocation solutions of the exact finite-\(r\) Appendix-A.2 field
+and imposes zero energy in a numerically reversible BVP candidate.  The
+candidate fails the frozen central-branch localization
+diagnostic, however, and the A.2 finite boundary has not been replaced by an
+intrinsic slow-sheet graph.  Thus it is a boundary-selected coincidence
+candidate, not completion of C1 or C2.
+
 Issue #13's high-winding comparison remains separately blocked until the
 frozen numerical return target is identified as the exact intended
 \((+,2,+)\) branch.  No substitute edge is used here.
