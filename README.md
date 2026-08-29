@@ -184,6 +184,13 @@ central point, and the finite A.2 boundary has not been shown to define the
 intrinsic \(W^{cu}\) trace.  It is therefore a branch-discriminating
 coincidence candidate, not a maximal-canard identification or C1/C2 result.
 
+The follow-up
+[intrinsic-entry audit](numerics/VDP_CANARD_INTRINSIC_ENTRY_BLOCKER.md) now
+freezes a fail-closed C1 interface and a zero-energy section nonuniqueness
+counterexample.  It confirms that the unresolved item is a finite-parameter
+application branch selector, not an identified error in the cited theory;
+no intrinsic entry, splitting, or \(a_2\) derivative is reported.
+
 For the frozen periodic target `A2`, the analytic problem has now been reduced
 further.  A proved
 [self-adjoint operator-pencil moment criterion](van-der-pol/A2_PERIODIC_SPECTRAL_INSTABILITY.md)
@@ -228,7 +235,8 @@ independent-machine replay.
 | A2 and `pulse_1` spectral/nonlinear orbital instability (#11) | Two local mathematical `PASS` results; `claim_bearing=false` | Each true target has a positive real temporal eigenvalue in \((0.01,2)\).  The general semilinear bridge therefore gives A2 co-periodic and `pulse_1` whole-line localized nonlinear orbital instability.  Independent replay is pending, and no pattern-selection conclusion is made.  See the [nonlinear theorem](van-der-pol/NONLINEAR_ORBITAL_INSTABILITY.md), [A2](validation/a2_periodic/README.md), and [`pulse_1`](validation/pulse_1/README.md) records. |
 | Canard splitting scout (#13) | `COMPUTED/E1`; `claim_bearing=false` | Exact central-chart integration and first-hit root finding work at \((r,\epsilon)=(0.08,1)\), but the entry uses a projected finite formal jet, not a computed invariant slow manifold.  It is a candidate generator, not a maximal-canard identification.  See the [scout record](numerics/VDP_CANARD_SPLITTING_SCOUT.md). |
 | Finite-boundary A.3-compatible canard BVP (#13) | `COMPUTED/E1`; `claim_bearing=false` | With the A.2 outer value \(u_*\) frozen, a six-condition exact-field half-orbit BVP solves jointly for \(T\) and \(a_2\), giving \(a_2\approx-0.008338195267\) and a central/no-loop reverser endpoint within \(1.5\times10^{-6}\) of the order-three formal state.  The older A.2 endpoint-family root is retained as a wrong-branch diagnostic.  Boundary independence, the intrinsic \(W^{cu}\) trace, and the simple-zero graph remain unresolved.  See the [BVP record](numerics/VDP_CANARD_SLOW_TRACE.md). |
-| Explicit-box validation (#7) | v1 mathematical `FAIL`; v2 P1 local mathematical `PASS`; aggregate `INCONCLUSIVE`, `claim_bearing=false` | The immutable v1 box is \([0.04,0.08]\times[-0.25,0.25]\times[0.8,1.2]\); its strict P2e phase-order failure remains the verdict for v1.  On the versioned v2 target \([0.01,0.02]\times[-0.25,0.25]\times[0.8,1.2]\), the clean source-bound P1 run passes V1 and V2(1), with exact stdout replay.  P2a--P2d still require the separate restriction certificate, the three v2 phase-gap atoms are a proper subgate, and the complete P2e event manifest/numeric materialization remains pending.  See the [v1 fail-fast report](validation/rigorous/P2E_PHASE_ORDER_FAIL_REPORT.md), [v2 freeze](validation/rigorous/P2E_V2_BOX_FREEZE.md), and [v2 P1 report](validation/rigorous/P1_V2_REPORT.md). |
+| Intrinsic canard entry gate (#13 C1) | `AUDITED/E1_APPLICATION_INTRINSIC_ENTRY_BLOCKER`; `claim_bearing=false` | The exact K1--K2 interface is checked, existing finite-boundary/formal candidates are rejected as intrinsic entries, and a counterexample shows that section + \(H_2=0\) + orientation do not select \(W^{cu}\).  No \(S\) or \(dS/da_2\) is emitted.  See the [blocker audit](numerics/VDP_CANARD_INTRINSIC_ENTRY_BLOCKER.md). |
+| Explicit-box validation (#7) | v1 mathematical `FAIL`; v2 P1 local mathematical `PASS`; P2a--P2d restricted local mathematical `PASS`; aggregate `INCONCLUSIVE`, `claim_bearing=false` | The immutable v1 box is \([0.04,0.08]\times[-0.25,0.25]\times[0.8,1.2]\); its strict P2e phase-order failure remains the verdict for v1.  On the versioned v2 target \([0.01,0.02]\times[-0.25,0.25]\times[0.8,1.2]\), the clean source-bound P1 run passes V1 and V2(1), and the already validated P2a--P2d statements restrict exactly from the larger bridge without recomputation.  The three v2 phase-gap atoms and the complete P2e event manifest/materialization remain separate pending gates.  See the [v1 fail-fast report](validation/rigorous/P2E_PHASE_ORDER_FAIL_REPORT.md), [v2 P1 report](validation/rigorous/P1_V2_REPORT.md), and [P2 restriction contract](validation/rigorous/P2_V2_RESTRICTION_CONTRACT.md). |
 
 Closing an analytic construction issue records completion under the current
 frozen-import repository contract.  Public availability of that contract does

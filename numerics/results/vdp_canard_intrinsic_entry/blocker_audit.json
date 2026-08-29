@@ -1,0 +1,168 @@
+{
+  "C1_status": "BLOCKED_MISSING_FINITE_R_WCU_BRANCH_SELECTOR",
+  "a2_derivative": null,
+  "a2_derivative_status": "NOT_COMPUTED_NO_INTRINSIC_ENTRY_TANGENT",
+  "claim_bearing": false,
+  "configuration": {
+    "configuration_id": "vdp-canard-intrinsic-entry-r008-eps1-v1",
+    "path": "numerics/config/vdp_canard_intrinsic_entry_v1.json",
+    "repository_baseline": {
+      "commit": "8ba7ffc0bb2cdced0c904ff6dfa319e4a5bd9b2b",
+      "role": "read-only application audit baseline; the current checkout need not equal this commit"
+    },
+    "sha256": "59f4989d0551f624f2d8ad17c624440710784c6a386f53ed32aae7d6a6c759d5"
+  },
+  "constraint_nonuniqueness_counterexample": {
+    "a2": -0.008333333333333333,
+    "both_intrinsic_membership": "UNDETERMINED",
+    "purpose": "H2=0, u2=16, p2<0 and q2<0 admit distinct points; these constraints do not identify Wcu.",
+    "state_1": [
+      16.0,
+      -2.24,
+      264.73813333333334,
+      -75.34201429156982
+    ],
+    "state_1_residuals": {
+      "hamiltonian": 1.4210854715202004e-14,
+      "p2_negative": true,
+      "q2_negative": true,
+      "u2_minus_section": 0.0
+    },
+    "state_2": [
+      16.0,
+      -2.24,
+      264.6381333333333,
+      -75.32077392179251
+    ],
+    "state_2_residuals": {
+      "hamiltonian": 1.4210854715202004e-14,
+      "p2_negative": true,
+      "q2_negative": true,
+      "u2_minus_section": 0.0
+    },
+    "state_distance_inf": 0.10000000000002274
+  },
+  "current_candidate_audit": {
+    "finite_boundary_a3_status": "COMPUTED/E1_FINITE_BOUNDARY_A3_COMPATIBLE_PRIMARY_CANDIDATE",
+    "formal_entry_status": "COMPUTED/E1_SURROGATE_SPLITTING_SCOUT",
+    "frozen_outer_q2": -80.0,
+    "frozen_outer_u2": 16.64508336484338,
+    "promotion_to_intrinsic_entry": "REJECTED",
+    "reason": "One candidate freezes a finite A.2 boundary and the other projects a formal jet; neither supplies finite-r Wcu membership."
+  },
+  "decision": {
+    "C1": "BLOCKED_MISSING_FINITE_R_WCU_BRANCH_SELECTOR",
+    "C2": "NOT_STARTED_REQUIRES_C1_ENTRY_AND_DS_DA2",
+    "C4": "NOT_STARTED_REQUIRES_SEPARATE_NARROW_SLICE_ATLAS",
+    "next_input": "A finite-r K1 Wcu disk or outer saddle-slow graph with an authenticated K1-to-K2 trace on u2=16, primary no-loop branch continuation, two cut/section replays, and a2 tangent."
+  },
+  "entry_manifest": {
+    "errors": [
+      "no intrinsic-entry manifest was supplied"
+    ],
+    "path": null,
+    "status": "REJECTED_OR_ABSENT"
+  },
+  "evidence_status": "AUDITED/E1_APPLICATION_INTRINSIC_ENTRY_BLOCKER",
+  "fixed_problem": {
+    "exact_k2_field": [
+      "u2'=p2",
+      "p2'=u2^2-v2+r^2*u2^3/3",
+      "v2'=q2",
+      "q2'=u2-r*a2"
+    ],
+    "parameters": {
+      "a2_interval": [
+        -0.0125,
+        0.0
+      ],
+      "epsilon": 1.0,
+      "r": 0.08
+    },
+    "source_section": {
+      "equation": "u2=16",
+      "orientation": [
+        "p2<0",
+        "q2<0"
+      ],
+      "u2": 16.0
+    },
+    "target_event": {
+      "direction": "increasing",
+      "equation": "p2=0",
+      "splitting": "S=q2",
+      "transversality": "p2_prime>0"
+    }
+  },
+  "intrinsic_entry": null,
+  "issue7_and_C4_domain_boundary": {
+    "C1_fixed_r": 0.08,
+    "C4_requirement": "Separate narrow-slice branch-identification/event-atlas certificate; no substitute for the frozen A2 edge.",
+    "disjoint": true,
+    "issue7_v2_r_interval": [
+      0.01,
+      0.02
+    ],
+    "v1_wide_box_failure_implication_for_C1_narrow_slice": "NONE"
+  },
+  "literature_coordinate_audit": {
+    "A2_scope": "Finite q0- or u0-boundary BVPs numerically parameterize saddle slow-manifold subsets; A.2 supplies no canonical boundary limit at r=0.08.",
+    "A3_scope": "Reverser parity plus the integral H2=0 constraint; no Wcu or outer saddle-slow membership condition.",
+    "K2_match": "Repository epsilon=1 equations and H2 agree with (6.8)--(6.10); K1/K2 transition is (6.31)--(6.32).",
+    "source": "Vo--Doelman--Kaper, SIAM J. Appl. Dyn. Syst. 24 (2025), DOI 10.1137/24M1690722; arXiv:2409.02400v1",
+    "theory_scope": "The K1 center-manifold/foliation result and asymptotic Wcu-Wcs coincidence do not provide a numerical finite-r branch selector on u2=16.",
+    "theory_status": "NO_THEORY_ERROR_IDENTIFIED_APPLICATION_INTERFACE_MISSING"
+  },
+  "narrow_slice_route_scout": {
+    "AH_gap_lower_approx": 0.0961840608570616,
+    "a2_cover": [
+      -0.015625,
+      0.0
+    ],
+    "authenticated_manifest": null,
+    "cells_passed": 8,
+    "cells_total": 8,
+    "epsilon_cover": [
+      0.9,
+      1.1
+    ],
+    "frozen_alg_upper": 5.756691396794898,
+    "hom_phase_hull": [
+      5.85287545765196,
+      5.860747521968327
+    ],
+    "r_cell": [
+      0.0775,
+      0.08
+    ],
+    "role": "Route planning only: a prospective C4 narrow-slice certificate appears feasible. This closes no atom.",
+    "status": "NON_EVIDENTIARY_STRICT_BINARY_SCOUT"
+  },
+  "nonclaims": [
+    "This audit does not compute an intrinsic slow-manifold entry.",
+    "It does not compute S or dS/da2.",
+    "The counterexample states are not asserted to lie on Wcu.",
+    "The missing application selector is not identified as an error in the cited theory.",
+    "The non-evidentiary narrow-slice scout does not close C4."
+  ],
+  "required_intrinsic_entry_interface": {
+    "coordinate_interface": "K1-to-K2 map (6.31) and fixed central section u2=16",
+    "forbidden_anchors": [
+      "frozen finite-boundary u2 value",
+      "q-only projection of a truncated formal jet"
+    ],
+    "minimum_outer_cut_or_section_replays": 2,
+    "object": "H2=0 trace of the finite-r outer saddle slow manifold/Wcu",
+    "replay_requirement": "distinct outer cuts or section positions, each carrying entry, invariance, first-event, splitting, and a2-tangent data; report their entry/S/dS differences",
+    "required_branch_id": "primary no-loop continuation from Gamma0 minus",
+    "required_parameter_data": [
+      "entry state",
+      "d(entry state)/d(a2)",
+      "first increasing p2=0 hit",
+      "dS/d(a2)"
+    ]
+  },
+  "schema_version": "vdp-canard-intrinsic-entry-blocker-audit/1",
+  "splitting_S": null,
+  "splitting_status": "NOT_COMPUTED_NO_INTRINSIC_ENTRY"
+}

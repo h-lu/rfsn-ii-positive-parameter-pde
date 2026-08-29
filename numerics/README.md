@@ -215,6 +215,17 @@ independence, the symmetry-breaking slow-sheet direction, and an
 \(a_2\)-simple-zero graph remain unresolved, this is still non-claim-bearing
 candidate evidence rather than canard identification.
 
+The subsequent
+[intrinsic-entry blocker audit](VDP_CANARD_INTRINSIC_ENTRY_BLOCKER.md) checks
+the exact K1--K2 coordinate interface against Vo--Doelman--Kaper and makes the
+remaining C1 input executable.  Neither Appendix-A.2 finite boundaries nor
+Appendix-A.3 reverser/zero-energy conditions uniquely select the finite-
+\(r\) \(W^{cu}\) trace.  A concrete pair of distinct zero-energy section
+states demonstrates that those algebraic conditions alone are insufficient.
+Accordingly the checker emits no entry, \(S\), or \(dS/da_2\), and classifies
+the issue as an application-layer branch-selector blocker rather than a
+theory error.
+
 The proposed Issue #7 box
 
 \[

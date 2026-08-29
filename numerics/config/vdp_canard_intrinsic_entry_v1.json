@@ -1,0 +1,78 @@
+{
+  "schema_version": "vdp-canard-intrinsic-entry-blocker-config/1",
+  "configuration_id": "vdp-canard-intrinsic-entry-r008-eps1-v1",
+  "repository_baseline": {
+    "commit": "8ba7ffc0bb2cdced0c904ff6dfa319e4a5bd9b2b",
+    "role": "read-only application audit baseline; the current checkout need not equal this commit"
+  },
+  "parameters": {
+    "r": 0.08,
+    "epsilon": 1.0,
+    "a2_interval": [-0.0125, 0.0]
+  },
+  "source_section": {
+    "equation": "u2=16",
+    "u2": 16.0,
+    "orientation": ["p2<0", "q2<0"]
+  },
+  "target_event": {
+    "equation": "p2=0",
+    "direction": "increasing",
+    "transversality": "p2_prime>0",
+    "splitting": "S=q2"
+  },
+  "required_intrinsic_entry": {
+    "object": "H2=0 trace of the finite-r outer saddle slow manifold/Wcu",
+    "coordinate_interface": "K1-to-K2 map (6.31) and fixed central section u2=16",
+    "forbidden_anchors": [
+      "frozen finite-boundary u2 value",
+      "q-only projection of a truncated formal jet"
+    ],
+    "required_branch_id": "primary no-loop continuation from Gamma0 minus",
+    "minimum_outer_cut_or_section_replays": 2,
+    "replay_requirement": "distinct outer cuts or section positions, each carrying entry, invariance, first-event, splitting, and a2-tangent data; report their entry/S/dS differences",
+    "required_parameter_data": [
+      "entry state",
+      "d(entry state)/d(a2)",
+      "first increasing p2=0 hit",
+      "dS/d(a2)"
+    ]
+  },
+  "audited_repository_inputs": [
+    {
+      "path": "numerics/vdp_canard_slow_trace.py",
+      "sha256": "6d75b20007dd12b3b5faabd8ac17af7ecb742c286d7c8e2433f381a366049283"
+    },
+    {
+      "path": "numerics/vdp_canard_splitting_scout.py",
+      "sha256": "1e0bbc315b6674c7aaf36b624eebed09454b8f27b815a5eb336d324abff65e79"
+    },
+    {
+      "path": "numerics/VDP_CANARD_SLOW_TRACE.md",
+      "sha256": "e7add04ef8c7e62114f3a56a244dfce1432d702ec89310a47aa2e2da90eb923b"
+    },
+    {
+      "path": "numerics/VDP_CANARD_SPLITTING_SCOUT.md",
+      "sha256": "cf47b3074047ab50d2bee89c173916d2f7c879328b74c308abcdd922b47b76aa"
+    },
+    {
+      "path": "numerics/config/vdp_canard_slow_trace_v1.json",
+      "sha256": "20f1601374591f95b3bd5717c04b3ea5520620667222f5e71028a75ca3293426"
+    },
+    {
+      "path": "numerics/results/vdp_canard_slow_trace/fixed_r_candidate.json",
+      "sha256": "515a5f931b4083feb8a17acd9e968c5d2caf75d3b9c8a4865f84cca648cd50d2"
+    },
+    {
+      "path": "numerics/results/vdp_canard_splitting_scout/fixed_r_report.json",
+      "sha256": "f0497d6cbcd070e2ebf981f3dc61bfbdb4289c4f4cb81229cc988ba376c3ff5a"
+    }
+  ],
+  "literature_interface": {
+    "source": "Vo--Doelman--Kaper, SIAM J. Appl. Dyn. Syst. 24 (2025), DOI 10.1137/24M1690722; arXiv:2409.02400v1",
+    "coordinates": ["(6.8)", "(6.9)", "(6.10)", "(6.31)", "(6.32)"],
+    "analytic_objects": ["(6.30)", "Lemma 6.3 in arXiv v1"],
+    "numerical_methods": ["Appendix A.2", "Appendix A.3"]
+  },
+  "claim_bearing": false
+}
