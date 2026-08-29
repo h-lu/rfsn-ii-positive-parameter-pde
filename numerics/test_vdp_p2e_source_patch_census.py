@@ -31,6 +31,25 @@ class SourcePatchCensusTests(unittest.TestCase):
         self.assertFalse(result["claim_bearing"])
         self.assertEqual(result["mathematical_status"], "INCONCLUSIVE")
         self.assertEqual(
+            result["outcomes"],
+            {"algebraic": 40, "pole": 59, "return": 1},
+        )
+        self.assertTrue(result["qa"]["all_declared_floating_gates_pass"])
+        self.assertEqual(
+            result["patch_summaries"]["P"]["outcomes"], {"pole": 25}
+        )
+        returns = [
+            sample for sample in result["samples"]
+            if sample["outcome"] == "return"
+        ]
+        self.assertEqual(len(returns), 1)
+        self.assertEqual(returns[0]["patch"], "H")
+        self.assertEqual(returns[0]["phase_offset_exact"], "0")
+        self.assertEqual(returns[0]["nu_exact"], "0")
+        self.assertLess(
+            abs(returns[0]["stable_label"]["c_stable"]), 1.0e-9
+        )
+        self.assertEqual(
             result["configuration"]["sha256"],
             hashlib.sha256(census.DEFAULT_CONFIG.read_bytes()).hexdigest(),
         )
