@@ -886,6 +886,77 @@ def compute_graph_slice(
         >= float(thresholds["third_order_bunching_rate_lower"]),
     }
     all_passed = all(qa.values())
+    superseded = configuration["superseded_slice_reference"]
+    metric_names = tuple(superseded["headline_metrics"])
+    metric_old = np.asarray(
+        [float(superseded["headline_metrics"][name]) for name in metric_names],
+        dtype=np.float64,
+    )
+    metric_current = np.asarray(
+        [float(diagnostics[name]) for name in metric_names], dtype=np.float64
+    )
+    binding_update = {
+        "reason": configuration["binding_update"]["reason"],
+        "frozen_design_unchanged": configuration["binding_update"][
+            "frozen_design_unchanged"
+        ],
+        "source_commits_on_integration": configuration["binding_update"][
+            "current_input_commits_on_integration"
+        ],
+        "report_sha256": {
+            "superseded": configuration["binding_update"][
+                "superseded_report_sha256"
+            ],
+            "current": binding["report_sha256"],
+        },
+        "data_sha256": {
+            "superseded": configuration["binding_update"][
+                "superseded_data_sha256"
+            ],
+            "current": binding["data_sha256"],
+        },
+        "energy_H": {
+            "superseded": float(
+                configuration["binding_update"]["superseded_energy_H"]
+            ),
+            "current": energy_h,
+            "difference": energy_h
+            - float(configuration["binding_update"]["superseded_energy_H"]),
+        },
+        "outer_energy": {
+            "superseded": float(superseded["fixed_energy"]),
+            "current": energy,
+            "difference": energy - float(superseded["fixed_energy"]),
+        },
+        "seam_beta_center": {
+            "superseded": float(
+                configuration["binding_update"][
+                    "superseded_seam_beta_center"
+                ]
+            ),
+            "current": beta_center,
+            "difference": beta_center
+            - float(
+                configuration["binding_update"][
+                    "superseded_seam_beta_center"
+                ]
+            ),
+        },
+        "superseded_slice_git_object": superseded["git_object"],
+        "superseded_slice_result_sha256": superseded["result_sha256"],
+        "headline_metric_order": list(metric_names),
+        "headline_metrics": {
+            name: {
+                "superseded": float(metric_old[index]),
+                "current": float(metric_current[index]),
+                "difference": float(metric_current[index] - metric_old[index]),
+            }
+            for index, name in enumerate(metric_names)
+        },
+        "qa_status_changed": bool(
+            bool(superseded["all_qa_passed"]) != all_passed
+        ),
+    }
     report = {
         "schema_version": "rfsn-vdp-v4-future-graph-slice-v2/1",
         "status": (
@@ -902,6 +973,7 @@ def compute_graph_slice(
         "Q_start": float(binding["seam_Q"]),
         "collocation_Q_end_ladder": horizons.tolist(),
         "shooting_Q_end": shooting_q_end,
+        "binding_update": binding_update,
         "terminal_model": (
             "Exact alpha_dot=0 normal nullcline; asymptotically compatible "
             "but not the exact finite-Q V4 graph."
@@ -931,6 +1003,22 @@ def compute_graph_slice(
         "shooting_pi": shooting_pi,
         "method_beta_difference": method_beta_difference,
         "method_alpha_difference": method_alpha_difference,
+        "binding_energy_H_superseded_current": np.array(
+            [binding_update["energy_H"]["superseded"], energy_h],
+            dtype=np.float64,
+        ),
+        "binding_outer_energy_superseded_current": np.array(
+            [binding_update["outer_energy"]["superseded"], energy],
+            dtype=np.float64,
+        ),
+        "binding_seam_beta_superseded_current": np.array(
+            [binding_update["seam_beta_center"]["superseded"], beta_center],
+            dtype=np.float64,
+        ),
+        "binding_headline_metrics_superseded_current": np.column_stack(
+            (metric_old, metric_current)
+        ),
+        "binding_headline_metrics_difference": metric_current - metric_old,
         **rates,
     }
     if not all_passed:

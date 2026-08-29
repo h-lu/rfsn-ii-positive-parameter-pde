@@ -11,13 +11,49 @@
   },
   "matched_centerline_binding": {
     "report_path": "numerics/results/vdp_p2e_channel_scout_v2/energy_matched_centerline.json",
-    "report_sha256": "a6ea8deb1804ccad6db196e52705ae737e0311bc87b1b4565658d5e0cc7bf3ff",
+    "report_sha256": "c66a9750a632f6066da4133830b1f85ab2f6519919c369ed30ca9bbbffd5bdb4",
     "data_path": "numerics/results/vdp_p2e_channel_scout_v2/energy_matched_centerline.npz",
-    "data_sha256": "f95758d8bfb0872e34c23faa1c303a3f31a6f71b2edc55cdde5775a3a0e9bc94",
+    "data_sha256": "d5fe5897604de1975aa8895a2a3c42413e488975a360f6504dd3e761e0af2fbf",
     "seam_Q": 25.0,
-    "seam_beta_center": 2.7385502869454753e-6,
-    "energy_H": 2.1287391499046257e-14,
+    "seam_beta_center": 2.7385502869454787e-6,
+    "energy_H": 1.6531401306609465e-14,
     "outer_energy_relation": "E=epsilon^(5/2)*r^6*H"
+  },
+  "binding_update": {
+    "reason": "The centerline was replayed in exactly conjugate axis/log(Pi) coordinates after this slice was first computed.",
+    "superseded_report_sha256": "a6ea8deb1804ccad6db196e52705ae737e0311bc87b1b4565658d5e0cc7bf3ff",
+    "superseded_data_sha256": "f95758d8bfb0872e34c23faa1c303a3f31a6f71b2edc55cdde5775a3a0e9bc94",
+    "superseded_seam_beta_center": 2.7385502869454753e-6,
+    "superseded_energy_H": 2.1287391499046257e-14,
+    "current_input_commits_on_integration": ["e348fa8", "6ab05a0"],
+    "frozen_design_unchanged": [
+      "beta_offsets",
+      "collocation_Q_end_ladder",
+      "common_Q_cuts",
+      "rate_Q_cuts",
+      "terminal_normal_nullcline",
+      "solver_tolerances",
+      "QA_thresholds"
+    ]
+  },
+  "superseded_slice_reference": {
+    "git_object": "b87d806:numerics/results/vdp_v4_future_graph_slice_v2/result.json",
+    "result_sha256": "81491ef4aca74acb29769e27eed8081b32494537c1636b8a5dfd64fc75b9f147",
+    "data_git_object": "b87d806:numerics/results/vdp_v4_future_graph_slice_v2/slice.npz",
+    "data_sha256": "ba0bae41933f390f9e48c70b44ed93bb9d29f69785ce7431cbbeb442b7e67b58",
+    "status": "V4_FUTURE_GRAPH_SLICE_COMPUTED",
+    "all_qa_passed": true,
+    "fixed_energy": 2.4247669379382373e-25,
+    "headline_metrics": {
+      "horizon_seam_gamma_spread_max": 2.964615315390051e-21,
+      "method_seam_gamma_difference_abs_max": 2.8375118806656758e-14,
+      "method_common_state_difference_inf": 3.608591943343758e-11,
+      "energy_residual_inf": 2.220446049250313e-16,
+      "minimum_pi": 1.1145341380506697e-4,
+      "invariance_residual_inf": 5.061104451687955e-20,
+      "normal_quotient_rate_min": 0.9797990702680197,
+      "third_order_bunching_rate_min": 0.9797953294685494
+    }
   },
   "slice": {
     "beta_offsets": [-1.0e-6, 0.0, 1.0e-6],

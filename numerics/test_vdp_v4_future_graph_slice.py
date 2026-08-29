@@ -58,6 +58,29 @@ class V4FutureGraphSliceTests(unittest.TestCase):
         self.assertFalse(self.result["claim_bearing"])
         self.assertTrue(all(self.result["qa"].values()))
 
+    def test_axis_log_pi_binding_update_is_explicit(self) -> None:
+        update = self.result["binding_update"]
+        self.assertFalse(update["qa_status_changed"])
+        self.assertEqual(
+            update["source_commits_on_integration"], ["e348fa8", "6ab05a0"]
+        )
+        self.assertNotEqual(
+            update["report_sha256"]["superseded"],
+            update["report_sha256"]["current"],
+        )
+        np.testing.assert_allclose(
+            self.data["binding_energy_H_superseded_current"],
+            np.array(
+                [2.1287391499046257e-14, 1.6531401306609465e-14]
+            ),
+            rtol=0.0,
+            atol=0.0,
+        )
+        self.assertEqual(
+            self.data["binding_headline_metrics_superseded_current"].shape,
+            (8, 2),
+        )
+
     def test_two_constructions_and_horizon_ladder_agree(self) -> None:
         diagnostics = self.result["diagnostics"]
         thresholds = self.result["thresholds"]

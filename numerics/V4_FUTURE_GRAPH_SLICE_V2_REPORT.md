@@ -6,10 +6,29 @@ At the fixed point
  (r,a_2,\epsilon)=(3/200,0,1),
 \]
 
-the matched algebraic centerline reaches the outer seam `Q=25` at
-`beta=2.7385502869454753e-6`.  This computation resolves the three-point
+the current axis/log(`Pi`) replay of the matched algebraic centerline reaches
+the outer seam `Q=25` at `beta=2.7385502869454787e-6`.  This computation resolves the three-point
 slice with beta offsets `(-1e-6,0,1e-6)`.  It is
 `COMPUTED/E1_NON_RIGOROUS_WITH_QA`, not an interval validation of V4.
+
+## Input replay update
+
+The first slice run was bound to the superseded centerline artifacts with
+`H=2.1287391499046257e-14` and seam
+`beta=2.7385502869454753e-6`.  The centerline was subsequently replayed in
+exactly conjugate axis/log(`Pi`) coordinates, giving
+`H=1.6531401306609465e-14` and seam
+`beta=2.7385502869454787e-6`.  The input JSON/NPZ hashes, seam, and energy in
+the frozen slice configuration now bind this replay.
+
+No beta offset, horizon, common cut, terminal model, solver tolerance, or QA
+threshold was changed.  Because the outer energy is `E=r^6 H` here, it moved
+only from `2.4247669379382373e-25` to `1.883029930080984e-25`.  The largest
+raw-array changes relative to commit `b87d806` were `2.7483e-17` in shooting
+`alpha`, `2.1073e-13` in the rate/bunching array, and at most
+`1.3977e-20` in collocation `(beta,alpha)`.  All twelve QA decisions stayed
+`true`.  The machine-readable result and NPZ record old/current headline
+metrics and their differences.
 
 ## Construction
 
@@ -26,7 +45,7 @@ an asymptotic terminal model at finite `Q`.
    shooting bracket and all tolerances were fixed before the run.
 
 The three horizon values of `Gamma(25,beta)` differ by at most
-`2.965e-21`.  Shooting and the longest collocation agree at the seam within
+`5.506e-21`.  Shooting and the longest collocation agree at the seam within
 `2.838e-14`, and their full common `(beta,alpha)` arrays agree within
 `3.609e-11`.
 
@@ -37,7 +56,7 @@ The three horizon values of `Gamma(25,beta)` differ by at most
 - clearance from the fixed sampled `|beta|,|alpha| <= 1e-5` faces:
   `6.261e-6`;
 - minimum sampled inward/exit face margin: `8.916e-7`;
-- fixed-energy graph invariance residual: `5.061e-20`;
+- fixed-energy graph invariance residual: `5.209e-20`;
 - maximum tangent logarithmic rate: `1.247e-6`;
 - minimum normal quotient rate: `0.9797991`;
 - minimum third-order bunching proxy `lambda_n-3 lambda_t`: `0.9797953`.
