@@ -1,0 +1,68 @@
+{
+  "schema_version": "rfsn-vdp-v5a-current-tail-config/1",
+  "input": {
+    "centerline_json": "numerics/results/vdp_p2e_channel_scout_v2/energy_matched_centerline.json",
+    "centerline_npz": "numerics/results/vdp_p2e_channel_scout_v2/energy_matched_centerline.npz",
+    "required_status": "ENERGY_PRESERVING_MATCHED_CENTERLINE_SUCCESS"
+  },
+  "normalization": {
+    "q_star_selection": "nearest saved outer_Q node to target_q_star",
+    "target_q_star": 100.0,
+    "q_end": 200.0,
+    "reference_beta_factor": 0.0,
+    "alternate_reference_beta_factor": 0.5
+  },
+  "outer_bvp": {
+    "chart": "eta=log(pi/delta), omega=w/delta",
+    "terminal_condition": "alpha(q_end)=0",
+    "tolerance": 2e-9,
+    "max_nodes": 100000,
+    "output_points": 51201
+  },
+  "quadrature": {
+    "grid_ladder": [6401, 12801, 25601, 51201],
+    "start_layer_width": 0.01,
+    "grid_rule": "union of endpoint-clustered cosine grid and uniform q_star start-layer grid"
+  },
+  "cutoff_offsets": [
+    0.001,
+    0.01,
+    0.1,
+    1.0,
+    5.0,
+    10.0,
+    20.0,
+    40.0,
+    60.0,
+    80.0
+  ],
+  "covariance": {
+    "split_cut_offsets": [10.0, 40.0, 80.0],
+    "gauge": {
+      "formula": "psi=coefficient_z*z+coefficient_w*w",
+      "coefficient_z": 0.1,
+      "coefficient_w": 0.03
+    }
+  },
+  "qa_thresholds": {
+    "solver_rms_residual_max": 2.1e-9,
+    "boundary_residual_inf": 1e-12,
+    "energy_residual_inf": 1e-14,
+    "saved_node_state_reconstruction_inf": 1e-12,
+    "saved_node_chi_pi_reconstruction_inf": 1e-12,
+    "last_grid_length_change_abs": 1e-12,
+    "last_grid_action_change_abs": 1e-6,
+    "post_layer_length_change_abs": 1e-11,
+    "post_layer_action_change_abs": 1e-5,
+    "cut_balance_length_abs": 1e-15,
+    "cut_balance_action_abs": 1e-8,
+    "reference_balance_length_abs": 1e-15,
+    "reference_balance_action_abs": 1e-8,
+    "gauge_balance_action_abs": 1e-8
+  },
+  "evidence_policy": {
+    "status": "COMPUTED/E1_NON_RIGOROUS",
+    "theorem_status": "INCONCLUSIVE",
+    "forbidden_upgrade": "No improper-limit, exponential-flatness, mixed-jet, uniform-box, or coordinate-covariance claim."
+  }
+}
