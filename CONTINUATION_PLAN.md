@@ -32,13 +32,18 @@ remain authoritative.
   stated in the original PDE variables, V1--V7 are compressed into one proof
   spine, one schematic geometry figure is included, and hashes/provenance are
   separated into a supplement.
-- Issue #7 interval validation has resumed under Phase 5.  All seven P2d
-  chart children and the local parent `V2.EXACT_CHART` now pass mathematically
-  on their declared domains; P2e and later obligations remain open, and the
-  aggregate remains non-claim-bearing at independent replay 1/2.  Temporal
-  stability, Turing selection, and canard identification remain deferred.  An
-  independent human expert report is requested in Issue #9 and is not claimed
-  before it is returned.
+- Issue #7 interval validation has reached local mathematical `PASS` through
+  P2c and all seven P2d chart children, including the local parent
+  `V2.EXACT_CHART`; P2e and later obligations remain open, and the aggregate
+  remains non-claim-bearing at independent replay 1/2.
+- Post-existence work has begun under separate issues.  #11 now gives local
+  positive temporal eigenvalues for A2 and `pulse_1` and a proved nonlinear
+  orbital-instability bridge; #12 proves exact classical stationary Turing
+  exclusion; #13 has a fixed-parameter formal-entry splitting scout that is
+  candidate-only because the invariant slow-manifold entry is missing.
+  Temporal stability, dynamic pattern selection, and maximal-canard
+  identification remain open.  An independent human expert report is requested
+  in Issue #9 and is not claimed before it is returned.
 
 ## 1. Decision
 
@@ -497,10 +502,15 @@ Temporal stability and experimental realization remain separate projects.
 They must not be added to either first submission merely to make the PDE
 application sound more physical.
 
-## 12. Immediate next task
+## 12. Current bounded next task
 
-No further mathematical-development phase is active under the narrowed
-scope.  Publish the versioned companion package and leave a neutral public
-entry point for an independent human expert cold read.  Do not begin Phase 5,
-temporal stability, Turing selection, or canard identification without a
-separate decision.
+The earlier publication-only handoff has been superseded by the explicit
+post-existence decision recorded in Issues #10--#13.  The next canard object is
+a branch-identified finite-\(r\) saddle-slow zero-energy trace on one fixed
+normally hyperbolic entry section, including its \(a_2\)-derivative.  Only then
+should the first-hit splitting be promoted from a surrogate to a genuine local
+coincidence problem.  A full Evans function is deferred unless a complete
+unstable count, multiplicity, Bloch continuation, or multipulse splitting is
+needed; it is not required for the already proved positive-eigenvalue
+instability consequences.  Dynamic selection remains a separate nonlinear
+evolution problem.

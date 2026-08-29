@@ -254,3 +254,11 @@ Thus this true localized stationary profile has a positive real whole-line
 nonlinear orbital instability under localized \(H^1\) perturbations.  This
 too is a local mathematical `PASS` pending independent replay and does not
 assert nonlinear selection.
+
+For canard identification, the first finite-parameter computation is the
+[surrogate splitting scout](../numerics/VDP_CANARD_SPLITTING_SCOUT.md).  At
+\((r,\epsilon)=(0.08,1)\) it produces floating-point simple roots near the
+published leading value \(a_{2,c}=-1/120\), but starts from a projected formal
+jet rather than an invariant finite-\(r\) saddle slow manifold.  It is therefore
+a candidate generator only; no maximal canard or high-winding connection is
+identified.

@@ -166,7 +166,12 @@ the separately validated A2 and `pulse_1` targets have theorem-level local
 consequences.  The saved profiles cross the
 positive fold and the singular reduction is FSN-II-degenerate there, but no
 finite-parameter slow-manifold intersection has been computed; no canard is
-identified.
+identified.  A separate
+[fixed-\(r\) surrogate splitting scout](numerics/VDP_CANARD_SPLITTING_SCOUT.md)
+finds eight floating-point simple roots from formal entries and is explicitly
+`GO_FOR_CANDIDATE_GENERATION_ONLY`; without an invariant slow-manifold entry,
+the true maximal-canard root, the classification of \(a_2=0\), and the
+high-winding connection all remain `INCONCLUSIVE`.
 
 For the frozen periodic target `A2`, the analytic problem has now been reduced
 further.  A proved
@@ -210,6 +215,7 @@ independent-machine replay.
 | Analytic applications | B1--B2 are **Proved**; V1 is **Derived**; V2--V7 are **Proved**, relative to the frozen inputs named in the claim register | These are existential positive-parameter results, not certification of the displayed numerical box.  The publication-facing import crosswalk, conditional compact-family/pole-interface audit, and exact frozen evidence snapshot are versioned with the companion release. |
 | Floating atlas | `COMPUTED/E1` and `COMPUTED/QA` | Finite explanatory samples only; they do not prove a uniform census, temporal stability, Turing-branch selection, or canard identification.  See the [numerical report](numerics/VAN_DER_POL_NUMERICAL_REPORT.md). |
 | A2 and `pulse_1` spectral/nonlinear orbital instability (#11) | Two local mathematical `PASS` results; `claim_bearing=false` | Each true target has a positive real temporal eigenvalue in \((0.01,2)\).  The general semilinear bridge therefore gives A2 co-periodic and `pulse_1` whole-line localized nonlinear orbital instability.  Independent replay is pending, and no pattern-selection conclusion is made.  See the [nonlinear theorem](van-der-pol/NONLINEAR_ORBITAL_INSTABILITY.md), [A2](validation/a2_periodic/README.md), and [`pulse_1`](validation/pulse_1/README.md) records. |
+| Canard splitting scout (#13) | `COMPUTED/E1`; `claim_bearing=false` | Exact central-chart integration and first-hit root finding work at \((r,\epsilon)=(0.08,1)\), but the entry uses a projected finite formal jet, not a computed invariant slow manifold.  It is a candidate generator, not a maximal-canard identification.  See the [scout record](numerics/VDP_CANARD_SPLITTING_SCOUT.md). |
 | Explicit-box validation (#7) | `INCONCLUSIVE`, `claim_bearing=false` | The frozen box is \([0.04,0.08]\times[-0.25,0.25]\times[0.8,1.2]\).  P1--P2c, all seven P2d chart children, and the local parent `V2.EXACT_CHART` pass mathematically on their declared domains, including (D12) with \(C_{\rm phys}=7\).  P2e and the later theorem inputs remain pending, and independent replay is 1/2, so the aggregate is not claim-bearing.  See the [chart-overlap report](validation/rigorous/P2D_CHART_OVERLAPS_REPORT.md). |
 
 Closing an analytic construction issue records completion under the current
@@ -271,7 +277,7 @@ experimental realization.
 - [#10: explicit-box and post-existence research roadmap](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/10) — open; records execution order, mathematical dependencies, and stop rules.
 - [#11: rigorous temporal spectral instability](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/11) — both targets have local outward-rounded positive eigenvalues and therefore nonlinear orbital instability by V11; independent replay remains before claim-bearing release.
 - [#12: classical stationary Turing exclusion](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/12) — exact theorem and frozen-box corollary proved; mathematically independent of #7.
-- [#13: finite-parameter maximal-canard curve and high-winding connection](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/13) — staged local curve and global same-orbit connection or separation problem.
+- [#13: finite-parameter maximal-canard curve and high-winding connection](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/13) — formal-entry surrogate candidate generator completed; the invariant slow-manifold entry, genuine coincidence root, and high-winding connection remain open.
 
 The source theory was developed in the historical repository
 `h-lu/reversible-rfsn-ii-waves`.  This application repository leaves that

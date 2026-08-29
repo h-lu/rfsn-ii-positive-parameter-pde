@@ -1,0 +1,674 @@
+{
+  "claim_bearing": false,
+  "decision": {
+    "branch_construction_status": "GO_FOR_CANDIDATE_GENERATION_ONLY",
+    "current_sample_a2_zero_classification": "INCONCLUSIVE",
+    "finite_parameter_maximal_canard_status": "INCONCLUSIVE_MISSING_INVARIANT_SLOW_MANIFOLD_ENTRY",
+    "high_winding_connection_status": "INCONCLUSIVE_EXACT_HIGH_WINDING_EDGE_UNAVAILABLE",
+    "next_mathematical_object": "A branch-identified finite-r saddle-slow zero-energy trace on a fixed normally hyperbolic entry section, with parameter derivatives; then evaluate the same first-hit splitting.",
+    "reason": "The exact flow, first-hit event, energy level, and scalar root are numerically well posed, but the initial point is a projected finite formal jet rather than a point on a computed finite-r invariant saddle slow manifold. Root drift under Y and truncation changes therefore cannot be promoted to a finite-parameter coincidence graph."
+  },
+  "descriptive_order_3_core_cluster": {
+    "definition": "descriptive post-scout range of order-3 surrogate roots at Y=1,2,3; not an enclosure",
+    "maximum": -0.008334824509839928,
+    "midpoint": -0.008350978783406057,
+    "minimum": -0.008367133056972188,
+    "width": 3.230854713225963e-05
+  },
+  "evidence_status": "COMPUTED/E1_SURROGATE_SPLITTING_SCOUT",
+  "nonclaims": [
+    "The descriptive root range is not an error bar or interval enclosure.",
+    "The projected formal entry is not a validated invariant slow manifold.",
+    "A surrogate zero does not identify a maximal canard.",
+    "No classification of (r,a2,epsilon)=(0.08,0,1) is proved.",
+    "No exact (+,2,+) high-winding branch is identified or connected.",
+    "No interval arithmetic is used."
+  ],
+  "parameters": {
+    "a2_interval": [
+      -0.0125,
+      0.0
+    ],
+    "epsilon": 1.0,
+    "r": 0.08
+  },
+  "published_leading_a2": -0.008333333333333333,
+  "rows": [
+    {
+      "comparison_time_Y": 1.0,
+      "formal_truncation_order": 2,
+      "left_endpoint": {
+        "a2": -0.0125,
+        "comparison_time_Y": 1.0,
+        "entry_curve_defect_inf": 0.002876152376465102,
+        "entry_hamiltonian_abs": 1.0458540792875461e-19,
+        "entry_state": [
+          0.0821574074074074,
+          -0.16662962962962963,
+          -0.15980361419753086,
+          -0.02860029411198979
+        ],
+        "event_p_derivative": 0.16764543327924708,
+        "event_state": [
+          -0.0010026889310686326,
+          7.806255641895632e-18,
+          -0.16764442789630518,
+          -0.000949863505591655
+        ],
+        "event_time": 0.9970556124028673,
+        "formal_truncation_order": 2,
+        "hamiltonian_drift": 1.7477050623945765e-17,
+        "surrogate_splitting_q_at_first_p_zero": -0.000949863505591655
+      },
+      "right_endpoint": {
+        "a2": 0.0,
+        "comparison_time_Y": 1.0,
+        "entry_curve_defect_inf": 0.006585926835438072,
+        "entry_hamiltonian_abs": 9.670403105234936e-20,
+        "entry_state": [
+          0.0836574074074074,
+          -0.16662962962962963,
+          -0.15955586419753084,
+          -0.026057634770913034
+        ],
+        "event_p_derivative": 0.16461992044489712,
+        "event_state": [
+          -1.1740117366033407e-05,
+          -4.098284211995207e-17,
+          -0.16461992030706676,
+          0.0019660402771736135
+        ],
+        "event_time": 1.006219181684888,
+        "formal_truncation_order": 2,
+        "hamiltonian_drift": 1.0200040027212586e-17,
+        "surrogate_splitting_q_at_first_p_zero": 0.0019660402771736135
+      },
+      "root": {
+        "a2": -0.008325903143014471,
+        "centered_parameter_derivative": 0.23025489919096565,
+        "comparison_time_Y": 1.0,
+        "entry_curve_defect_inf": 3.7269766249431457e-06,
+        "entry_hamiltonian_abs": 8.135916894500065e-19,
+        "entry_state": [
+          0.08265829903024567,
+          -0.16662962962962963,
+          -0.1597213840428418,
+          -0.027776125228432882
+        ],
+        "event_p_derivative": 0.1666660385239409,
+        "event_state": [
+          -0.0006660716604306559,
+          -1.1638338574392493e-17,
+          -0.1666655948731145,
+          -1.0071913861013378e-14
+        ],
+        "event_time": 1.0000036237838685,
+        "formal_truncation_order": 2,
+        "hamiltonian_drift": 9.394650040331196e-18,
+        "offset_from_published_leading_a2": 7.4301903188623425e-06,
+        "surrogate_splitting_q_at_first_p_zero": -1.0071913861013378e-14
+      },
+      "sign_change_on_frozen_a2_interval": true
+    },
+    {
+      "comparison_time_Y": 1.0,
+      "formal_truncation_order": 3,
+      "left_endpoint": {
+        "a2": -0.0125,
+        "comparison_time_Y": 1.0,
+        "entry_curve_defect_inf": 0.0028739356254076365,
+        "entry_hamiltonian_abs": 8.255659559973242e-19,
+        "entry_state": [
+          0.08215787407407407,
+          -0.16663056296296297,
+          -0.15980550864197532,
+          -0.02859750582067374
+        ],
+        "event_p_derivative": 0.16764441620785148,
+        "event_state": [
+          -0.0010026720295578408,
+          -1.951563910473908e-18,
+          -0.1676434108588031,
+          -0.0009468729175113089
+        ],
+        "event_time": 0.9970583834114228,
+        "formal_truncation_order": 3,
+        "hamiltonian_drift": 1.2386146929096328e-17,
+        "surrogate_splitting_q_at_first_p_zero": -0.0009468729175113089
+      },
+      "right_endpoint": {
+        "a2": 0.0,
+        "comparison_time_Y": 1.0,
+        "entry_curve_defect_inf": 0.006585926835438072,
+        "entry_hamiltonian_abs": 9.670403105234936e-20,
+        "entry_state": [
+          0.0836574074074074,
+          -0.16662962962962963,
+          -0.15955586419753084,
+          -0.026057634770913034
+        ],
+        "event_p_derivative": 0.16461992044489712,
+        "event_state": [
+          -1.1740117366033407e-05,
+          -4.098284211995207e-17,
+          -0.16461992030706676,
+          0.0019660402771736135
+        ],
+        "event_time": 1.006219181684888,
+        "formal_truncation_order": 3,
+        "hamiltonian_drift": 1.0200040027212586e-17,
+        "surrogate_splitting_q_at_first_p_zero": 0.0019660402771736135
+      },
+      "root": {
+        "a2": -0.008334824509839928,
+        "centered_parameter_derivative": 0.23001161902214004,
+        "comparison_time_Y": 1.0,
+        "entry_curve_defect_inf": 7.753502263146972e-07,
+        "entry_hamiltonian_abs": 3.2890355516333486e-19,
+        "entry_state": [
+          0.08265753963300831,
+          -0.16663025196319303,
+          -0.15972282351877232,
+          -0.02777598995889856
+        ],
+        "event_p_derivative": 0.16666741501474616,
+        "event_state": [
+          -0.000666785367879677,
+          -6.505213034913027e-19,
+          -0.16666697041265177,
+          -1.001766912701105e-14
+        ],
+        "event_time": 0.9999992677883236,
+        "formal_truncation_order": 3,
+        "hamiltonian_drift": 9.021298762132937e-18,
+        "offset_from_published_leading_a2": -1.491176506595096e-06,
+        "surrogate_splitting_q_at_first_p_zero": -1.001766912701105e-14
+      },
+      "sign_change_on_frozen_a2_interval": true
+    },
+    {
+      "comparison_time_Y": 2.0,
+      "formal_truncation_order": 2,
+      "left_endpoint": {
+        "a2": -0.0125,
+        "comparison_time_Y": 2.0,
+        "entry_curve_defect_inf": 0.00018804682144202278,
+        "entry_hamiltonian_abs": 2.6300373012246026e-18,
+        "entry_state": [
+          0.3320185185185185,
+          -0.333037037037037,
+          -0.05590639197530864,
+          -0.22195641524217327
+        ],
+        "event_p_derivative": 0.16688549074889053,
+        "event_state": [
+          -0.001000003540890017,
+          -6.201636426617085e-17,
+          -0.1668844907439421,
+          -4.299432619823245e-05
+        ],
+        "event_time": 1.9985378956827966,
+        "formal_truncation_order": 2,
+        "hamiltonian_drift": 1.1192036914484203e-16,
+        "surrogate_splitting_q_at_first_p_zero": -4.299432619823245e-05
+      },
+      "right_endpoint": {
+        "a2": 0.0,
+        "comparison_time_Y": 2.0,
+        "entry_curve_defect_inf": 0.0003738603796188955,
+        "entry_hamiltonian_abs": 2.6520601578532144e-18,
+        "entry_state": [
+          0.3335185185185185,
+          -0.333037037037037,
+          -0.05490864197530864,
+          -0.22257996095851967
+        ],
+        "event_p_derivative": 0.16623439988841626,
+        "event_state": [
+          -2.0129657907387997e-08,
+          1.577514160966409e-17,
+          -0.16623439988841585,
+          8.180759821637971e-05
+        ],
+        "event_time": 2.002912763606802,
+        "formal_truncation_order": 2,
+        "hamiltonian_drift": 6.719921824971578e-17,
+        "surrogate_splitting_q_at_first_p_zero": 8.180759821637971e-05
+      },
+      "root": {
+        "a2": -0.008205961003399832,
+        "centered_parameter_derivative": 0.009997628657912873,
+        "comparison_time_Y": 2.0,
+        "entry_curve_defect_inf": 5.611507486569245e-06,
+        "entry_hamiltonian_abs": 2.7503159797347132e-18,
+        "entry_state": [
+          0.3325338031981105,
+          -0.333037037037037,
+          -0.05556414919131838,
+          -0.22217030822509964
+        ],
+        "event_p_derivative": 0.166661689925609,
+        "event_state": [
+          -0.0006564763144228739,
+          1.523134645752683e-17,
+          -0.16666125896506115,
+          4.260335079360911e-16
+        ],
+        "event_time": 2.000039595970434,
+        "formal_truncation_order": 2,
+        "hamiltonian_drift": 7.425249634308807e-17,
+        "offset_from_published_leading_a2": 0.00012737232993350125,
+        "surrogate_splitting_q_at_first_p_zero": 4.260335079360911e-16
+      },
+      "sign_change_on_frozen_a2_interval": true
+    },
+    {
+      "comparison_time_Y": 2.0,
+      "formal_truncation_order": 3,
+      "left_endpoint": {
+        "a2": -0.0125,
+        "comparison_time_Y": 2.0,
+        "entry_curve_defect_inf": 0.00018776333305470239,
+        "entry_hamiltonian_abs": 7.65633081023162e-18,
+        "entry_state": [
+          0.3320203851851852,
+          -0.3330389037037037,
+          -0.05590770308641975,
+          -0.22195585100555756
+        ],
+        "event_p_derivative": 0.16688340538691787,
+        "event_state": [
+          -0.0010000029611649576,
+          -5.312590645178972e-17,
+          -0.16688240538312887,
+          -4.068174217187804e-05
+        ],
+        "event_time": 1.9985469127133917,
+        "formal_truncation_order": 3,
+        "hamiltonian_drift": 4.9445124779496155e-17,
+        "surrogate_splitting_q_at_first_p_zero": -4.068174217187804e-05
+      },
+      "right_endpoint": {
+        "a2": 0.0,
+        "comparison_time_Y": 2.0,
+        "entry_curve_defect_inf": 0.0003738603796188955,
+        "entry_hamiltonian_abs": 2.6520601578532144e-18,
+        "entry_state": [
+          0.3335185185185185,
+          -0.333037037037037,
+          -0.05490864197530864,
+          -0.22257996095851967
+        ],
+        "event_p_derivative": 0.16623439988841626,
+        "event_state": [
+          -2.0129657907387997e-08,
+          1.577514160966409e-17,
+          -0.16623439988841585,
+          8.180759821637971e-05
+        ],
+        "event_time": 2.002912763606802,
+        "formal_truncation_order": 3,
+        "hamiltonian_drift": 6.719921824971578e-17,
+        "surrogate_splitting_q_at_first_p_zero": 8.180759821637971e-05
+      },
+      "root": {
+        "a2": -0.00836079389635832,
+        "centered_parameter_derivative": 0.009813847975446918,
+        "comparison_time_Y": 2.0,
+        "entry_curve_defect_inf": 1.169925358646129e-06,
+        "entry_hamiltonian_abs": 1.0062751413381088e-18,
+        "entry_state": [
+          0.3325164717961774,
+          -0.3330382855822589,
+          -0.055577375840005404,
+          -0.22216221241057282
+        ],
+        "event_p_derivative": 0.1666683587174699,
+        "event_state": [
+          -0.0006688629132451135,
+          4.336808689942018e-18,
+          -0.16666791134051157,
+          -4.342757442035254e-17
+        ],
+        "event_time": 1.9999914759995343,
+        "formal_truncation_order": 3,
+        "hamiltonian_drift": 4.5496243944506806e-17,
+        "offset_from_published_leading_a2": -2.7460563024985993e-05,
+        "surrogate_splitting_q_at_first_p_zero": -4.342757442035254e-17
+      },
+      "sign_change_on_frozen_a2_interval": true
+    },
+    {
+      "comparison_time_Y": 3.0,
+      "formal_truncation_order": 2,
+      "left_endpoint": {
+        "a2": -0.0125,
+        "comparison_time_Y": 3.0,
+        "entry_curve_defect_inf": 3.921022999775481e-05,
+        "entry_hamiltonian_abs": 5.4969050145015075e-17,
+        "entry_state": [
+          0.7480833333333334,
+          -0.499,
+          0.3948605833333334,
+          -0.749089210311739
+        ],
+        "event_p_derivative": 0.16670951462725045,
+        "event_state": [
+          -0.0010000206211734958,
+          2.190088388420719e-17,
+          -0.16670851458814115,
+          8.684559333847036e-05
+        ],
+        "event_time": 2.9991134482329502,
+        "formal_truncation_order": 2,
+        "hamiltonian_drift": 2.113415552654948e-16,
+        "surrogate_splitting_q_at_first_p_zero": 8.684559333847036e-05
+      },
+      "right_endpoint": {
+        "a2": 0.0,
+        "comparison_time_Y": 3.0,
+        "entry_curve_defect_inf": 7.473434468285856e-05,
+        "entry_hamiltonian_abs": 7.51623156075576e-17,
+        "entry_state": [
+          0.7495833333333334,
+          -0.499,
+          0.3971083333333334,
+          -0.7504760591755604
+        ],
+        "event_p_derivative": 0.16660583655757466,
+        "event_state": [
+          -1.0765738445278777e-07,
+          9.812029660993815e-18,
+          -0.16660583655756306,
+          -0.00018940089030184944
+        ],
+        "event_time": 3.0016747477896146,
+        "formal_truncation_order": 2,
+        "hamiltonian_drift": 2.5886682120807025e-16,
+        "surrogate_splitting_q_at_first_p_zero": -0.00018940089030184944
+      },
+      "root": {
+        "a2": -0.008572579107880849,
+        "centered_parameter_derivative": -0.022106703833298602,
+        "comparison_time_Y": 3.0,
+        "entry_curve_defect_inf": 4.16245992274078e-06,
+        "entry_hamiltonian_abs": 6.383240290508407e-17,
+        "entry_state": [
+          0.7485546238403876,
+          -0.499,
+          0.39556632733713565,
+          -0.7495249036550317
+        ],
+        "event_p_derivative": 0.1666769924370166,
+        "event_state": [
+          -0.0006858056835594215,
+          9.75781955236954e-18,
+          -0.16667652210826914,
+          9.094742937581438e-16
+        ],
+        "event_time": 2.999917569515466,
+        "formal_truncation_order": 2,
+        "hamiltonian_drift": 2.0766706767833681e-16,
+        "offset_from_published_leading_a2": -0.00023924577454751544,
+        "surrogate_splitting_q_at_first_p_zero": 9.094742937581438e-16
+      },
+      "sign_change_on_frozen_a2_interval": true
+    },
+    {
+      "comparison_time_Y": 3.0,
+      "formal_truncation_order": 3,
+      "left_endpoint": {
+        "a2": -0.0125,
+        "comparison_time_Y": 3.0,
+        "entry_curve_defect_inf": 3.716324464453358e-05,
+        "entry_hamiltonian_abs": 9.622294280808852e-18,
+        "entry_state": [
+          0.7480875333333334,
+          -0.4990028,
+          0.3948618000000001,
+          -0.7490913633278435
+        ],
+        "event_p_derivative": 0.16669977485062293,
+        "event_state": [
+          -0.0010000242873196856,
+          -1.0842021724855044e-18,
+          -0.1666987748041812,
+          9.361648642597481e-05
+        ],
+        "event_time": 2.999155767183251,
+        "formal_truncation_order": 3,
+        "hamiltonian_drift": 2.762368180428224e-16,
+        "surrogate_splitting_q_at_first_p_zero": 9.361648642597481e-05
+      },
+      "right_endpoint": {
+        "a2": 0.0,
+        "comparison_time_Y": 3.0,
+        "entry_curve_defect_inf": 7.473434468285856e-05,
+        "entry_hamiltonian_abs": 7.51623156075576e-17,
+        "entry_state": [
+          0.7495833333333334,
+          -0.499,
+          0.3971083333333334,
+          -0.7504760591755604
+        ],
+        "event_p_derivative": 0.16660583655757466,
+        "event_state": [
+          -1.0765738445278777e-07,
+          9.812029660993815e-18,
+          -0.16660583655756306,
+          -0.00018940089030184944
+        ],
+        "event_time": 3.0016747477896146,
+        "formal_truncation_order": 3,
+        "hamiltonian_drift": 2.5886682120807025e-16,
+        "surrogate_splitting_q_at_first_p_zero": -0.00018940089030184944
+      },
+      "root": {
+        "a2": -0.008367133056972188,
+        "centered_parameter_derivative": -0.022646598807360037,
+        "comparison_time_Y": 3.0,
+        "entry_curve_defect_inf": 1.3146046149159485e-06,
+        "entry_hamiltonian_abs": 3.848917712323541e-17,
+        "entry_state": [
+          0.7485820887232039,
+          -0.4990018742378048,
+          0.3956040719124138,
+          -0.7495491366863332
+        ],
+        "event_p_derivative": 0.1666687597988494,
+        "event_state": [
+          -0.0006693700447334954,
+          1.5178830414797062e-17,
+          -0.16666831174323243,
+          2.8662947418102017e-16
+        ],
+        "event_time": 2.999988018658881,
+        "formal_truncation_order": 3,
+        "hamiltonian_drift": 1.4476809508112698e-16,
+        "offset_from_published_leading_a2": -3.379972363885472e-05,
+        "surrogate_splitting_q_at_first_p_zero": 2.8662947418102017e-16
+      },
+      "sign_change_on_frozen_a2_interval": true
+    },
+    {
+      "comparison_time_Y": 4.0,
+      "formal_truncation_order": 2,
+      "left_endpoint": {
+        "a2": -0.0125,
+        "comparison_time_Y": 4.0,
+        "entry_curve_defect_inf": 2.987631463924334e-05,
+        "entry_hamiltonian_abs": 1.1254018550399536e-16,
+        "entry_state": [
+          1.3297962962962961,
+          -0.6642962962962963,
+          1.6085158302469134,
+          -1.7752362408004887
+        ],
+        "event_p_derivative": 0.16673566598844086,
+        "event_state": [
+          -0.0010000132797909173,
+          -1.0408340855860843e-17,
+          -0.1667346659640145,
+          7.137993778782897e-05
+        ],
+        "event_time": 3.998977588182419,
+        "formal_truncation_order": 2,
+        "hamiltonian_drift": 1.1610721065147267e-15,
+        "surrogate_splitting_q_at_first_p_zero": 7.137993778782897e-05
+      },
+      "right_endpoint": {
+        "a2": 0.0,
+        "comparison_time_Y": 4.0,
+        "entry_curve_defect_inf": 2.870484154082753e-05,
+        "entry_hamiltonian_abs": 1.452830911130576e-17,
+        "entry_state": [
+          1.3312962962962962,
+          -0.6642962962962963,
+          1.6125135802469135,
+          -1.7771861100271586
+        ],
+        "event_p_derivative": 0.16696346365133416,
+        "event_state": [
+          -5.36888129412148e-07,
+          -4.7488055154865094e-17,
+          -0.16696346365104592,
+          -0.0004234163489856612
+        ],
+        "event_time": 4.000236280473467,
+        "formal_truncation_order": 2,
+        "hamiltonian_drift": 1.2226547899119034e-15,
+        "surrogate_splitting_q_at_first_p_zero": -0.0004234163489856612
+      },
+      "root": {
+        "a2": -0.010696588342128914,
+        "centered_parameter_derivative": -0.0395810352638008,
+        "comparison_time_Y": 4.0,
+        "entry_curve_defect_inf": 2.830837222692062e-05,
+        "entry_hamiltonian_abs": 7.654467337747661e-17,
+        "entry_state": [
+          1.3300127056952407,
+          -0.6642962962962963,
+          1.6090923195822633,
+          -1.775517548153961
+        ],
+        "event_p_derivative": 0.1667686196983222,
+        "event_state": [
+          -0.0008557258148936528,
+          -2.970713952610282e-17,
+          -0.16676788743298873,
+          -2.7208387831840103e-15
+        ],
+        "event_time": 3.999158465205483,
+        "formal_truncation_order": 2,
+        "hamiltonian_drift": 1.1065096321843937e-15,
+        "offset_from_published_leading_a2": -0.0023632550087955805,
+        "surrogate_splitting_q_at_first_p_zero": -2.7208387831840103e-15
+      },
+      "sign_change_on_frozen_a2_interval": true
+    },
+    {
+      "comparison_time_Y": 4.0,
+      "formal_truncation_order": 3,
+      "left_endpoint": {
+        "a2": -0.0125,
+        "comparison_time_Y": 4.0,
+        "entry_curve_defect_inf": 1.8888994319982144e-05,
+        "entry_hamiltonian_abs": 1.8648277366750676e-16,
+        "entry_state": [
+          1.3298037629629629,
+          -0.6643000296296296,
+          1.6085238524691357,
+          -1.7752429582195075
+        ],
+        "event_p_derivative": 0.16665699583497756,
+        "event_state": [
+          -0.0010000430189477476,
+          -2.2985086056692694e-17,
+          -0.1666559957510714,
+          0.0001224968665345202
+        ],
+        "event_time": 3.999308730011879,
+        "formal_truncation_order": 3,
+        "hamiltonian_drift": 1.596812959636651e-15,
+        "surrogate_splitting_q_at_first_p_zero": 0.0001224968665345202
+      },
+      "right_endpoint": {
+        "a2": 0.0,
+        "comparison_time_Y": 4.0,
+        "entry_curve_defect_inf": 2.870484154082753e-05,
+        "entry_hamiltonian_abs": 1.452830911130576e-17,
+        "entry_state": [
+          1.3312962962962962,
+          -0.6642962962962963,
+          1.6125135802469135,
+          -1.7771861100271586
+        ],
+        "event_p_derivative": 0.16696346365133416,
+        "event_state": [
+          -5.36888129412148e-07,
+          -4.7488055154865094e-17,
+          -0.16696346365104592,
+          -0.0004234163489856612
+        ],
+        "event_time": 4.000236280473467,
+        "formal_truncation_order": 3,
+        "hamiltonian_drift": 1.2226547899119034e-15,
+        "surrogate_splitting_q_at_first_p_zero": -0.0004234163489856612
+      },
+      "root": {
+        "a2": -0.009693533683619289,
+        "centered_parameter_derivative": -0.04365529480578112,
+        "comparison_time_Y": 4.0,
+        "entry_curve_defect_inf": 1.891152933972129e-05,
+        "entry_hamiltonian_abs": 1.1731067506293158e-16,
+        "entry_state": [
+          1.330138862525049,
+          -0.6642991914316898,
+          1.6094192236528335,
+          -1.7756792200730727
+        ],
+        "event_p_derivative": 0.1667258855730161,
+        "event_state": [
+          -0.0007754817623158306,
+          1.8431436932253575e-17,
+          -0.16672528420204732,
+          -1.7750244433393296e-16
+        ],
+        "event_time": 3.999516025884578,
+        "formal_truncation_order": 3,
+        "hamiltonian_drift": 1.8579091715618945e-15,
+        "offset_from_published_leading_a2": -0.0013602003502859554,
+        "surrogate_splitting_q_at_first_p_zero": -1.7750244433393296e-16
+      },
+      "sign_change_on_frozen_a2_interval": true
+    }
+  ],
+  "schema_version": "vdp-canard-splitting-scout/1",
+  "splitting_definition": "S_Y^[m](a2)=q at the first increasing p=0 hit, starting from the order-m formal jet from published Appendix C (Appendix E in arXiv v1) at y=-Y after q-only exact zero-energy projection",
+  "truncation_sensitivity": [
+    {
+      "absolute_order_shift": 8.921366825457439e-06,
+      "comparison_time_Y": 1.0,
+      "order_2_root": -0.008325903143014471,
+      "order_3_root": -0.008334824509839928
+    },
+    {
+      "absolute_order_shift": 0.00015483289295848725,
+      "comparison_time_Y": 2.0,
+      "order_2_root": -0.008205961003399832,
+      "order_3_root": -0.00836079389635832
+    },
+    {
+      "absolute_order_shift": 0.00020544605090866072,
+      "comparison_time_Y": 3.0,
+      "order_2_root": -0.008572579107880849,
+      "order_3_root": -0.008367133056972188
+    },
+    {
+      "absolute_order_shift": 0.001003054658509625,
+      "comparison_time_Y": 4.0,
+      "order_2_root": -0.010696588342128914,
+      "order_3_root": -0.009693533683619289
+    }
+  ]
+}

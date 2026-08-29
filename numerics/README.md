@@ -140,9 +140,10 @@ nor does it construct or select a nonlinear patterned branch.
 
 The numerical part finds positive-growth candidates for each of the five
 saved periodic profiles in sampled Fourier--Bloch matrices and for each of the
-one- through four-pulse profiles in finite-window matrices.  These results are
-`COMPUTED/E1`, not a complete Bloch/Evans spectral theorem and not a nonlinear
-instability theorem.  Short-time residual-subtracted perturbation evolution
+one- through four-pulse profiles in finite-window matrices.  These broad
+sampled results are `COMPUTED/E1` and, by themselves, are neither a complete
+Bloch/Evans spectral theorem nor a nonlinear-instability theorem.  Short-time
+residual-subtracted perturbation evolution
 checks the leading pulse modes but is not an unmodified full-PDE selection
 experiment.
 
@@ -189,10 +190,22 @@ and hence a real whole-line \(L^2\) eigenvalue in \((0.01,2)\).  This local
 mathematical `PASS` is independent of the finite-window matrix and awaits
 only independent-machine replay before claim-bearing release.
 
+Combined with the proved
+[semilinear bridge](../van-der-pol/NONLINEAR_ORBITAL_INSTABILITY.md), only the
+separately validated A2 and `pulse_1` targets presently yield nonlinear orbital
+instability: co-periodic for A2 and localized whole-line for `pulse_1`.  This
+is finite exit, not dynamic pattern selection.
+
 The same run records positive-fold passages and the FSN-II degeneracy of the
 singular reduced problem.  It does not compute an intersection of the relevant
 finite-parameter slow manifolds, so it does **not** identify a maximal canard.
-Its proposed Issue #7 box
+A [fixed-parameter surrogate splitting scout](VDP_CANARD_SPLITTING_SCOUT.md)
+now finds eight floating-point simple roots from projected formal entries at
+\((r,\epsilon)=(0.08,1)\).  It is only a candidate generator: the missing
+invariant slow-manifold entry prevents a true coincidence root, classification
+of \(a_2=0\), or a high-winding connection claim.
+
+The proposed Issue #7 box
 
 \[
  (r,a_2,\epsilon)\in
@@ -202,11 +215,12 @@ Its proposed Issue #7 box
 is formally frozen for Issue #7.  Clean interval kernels now pass the
 implemented V1/V2(1), P2a true coarse-graph, P2b0 H10-centered
 \(C^0/C^1\), P2b mixed-jet/weighted-half-orbit, and P2bK normalized source
-interfaces locally.  The P2c multiple-shooting design scout now passes at
-the core, the primary positive point, and a 27-point strict grid, but a
-gap-free same-root parameter cover, first-hit proof, and full homoclinic
-tails remain pending.  Detailed numerical
-values, stopping rules, and figure semantics are in the
+interfaces locally.  The strict P2c lane now has local mathematical `PASS`
+results for the gap-free selected branch and common faces, first symmetry hit
+and transversality, compact-middle \(C^2\) bounds, local pre-source pieces, and
+both infinite tails.  Its retrospective certificate and independent replay
+boundary remain, and the aggregate is still non-claim-bearing.  Detailed
+numerical values, stopping rules, and figure semantics are in the
 [screening report](VDP_DYNAMICS_SCREENING_REPORT.md) and
 [dynamics figure contracts](VDP_DYNAMICS_FIGURE_CONTRACTS.md).
 
@@ -266,10 +280,14 @@ their small diffusion prefactors can conceal a poor scaled solution.
   unknown integer offset is absorbed into a family-dependent intercept.
 - The sampled Bloch and finite-window spectra supply non-rigorous positive
   growth candidates for all five periodic and all four multipulse profiles;
-  they do not prove the complete spectrum or nonlinear instability.
+  those matrices by themselves do not prove the complete spectrum or nonlinear
+  instability.  V11 applies only after the separate strict A2 or `pulse_1`
+  positive-eigenvalue validation.
 - Classical stationary Turing onset is exactly excluded for this PDE, but the
   computation does not supply a nonlinear branch or an alternative dynamical
   pattern-selection mechanism.
-- Fold passage and singular FSN-II degeneracy do not identify a canard.
+- Fold passage, singular FSN-II degeneracy, and formal-entry surrogate roots do
+  not identify a canard; the scout remains candidate-only until the invariant
+  slow-manifold entry is constructed.
   Saddle-focus winding and canard-organized outer geometry remain distinct
   mechanisms.
