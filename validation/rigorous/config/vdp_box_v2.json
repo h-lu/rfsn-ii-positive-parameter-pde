@@ -1,0 +1,121 @@
+{
+  "schema_version": "rfsn-vdp-rigorous-parameter-box/2",
+  "box_id": "vdp-positive-box-v2",
+  "status": "FROZEN_PRE_P2E_V2_VALIDATION",
+  "selected_before_first_v2_target_specific_outward_rounded_run": true,
+  "selected_after_v1_failure": true,
+  "selection_date": "2026-08-29",
+  "selection_basis": {
+    "design_basis_commit": "058ee56c8a7e018dcce24ec62728069de3651e77",
+    "classification": "DISCLOSED_EXPLORATORY_DATA_INFORMED_CONFIRMATORY_TARGET",
+    "failed_predecessor": {
+      "box_id": "vdp-positive-box-v1",
+      "box_path": "validation/rigorous/config/vdp_box_v1.json",
+      "box_sha256": "ce84e84e4e2e53563125497df4ad2df98a533437b04b35bee042e9b04ea1c735",
+      "failure_path": "validation/rigorous/results/vdp_box_v1_p2e_phase_order_fail.json",
+      "failure_sha256": "5559522f686159e6f2d6c0b6a833c03626ec596ac4e940ab5bb3e82e37a55aae",
+      "required_status": "FAIL"
+    },
+    "analytic_basis": [
+      {
+        "path": "van-der-pol/CENTRAL_CORE_IMPORT.md",
+        "sha256": "037abc2fc9e54ebd8ec645489a5d62ba8e3cd06013360dfad82351e6eb442a56",
+        "role": "r=0 source-phase gaps and compact central reference data"
+      },
+      {
+        "path": "van-der-pol/CENTRAL_CONTINUATION.md",
+        "sha256": "e02d067595f89ea7f19dfac81a7eba84ea0bdda17e4bbe12f569e776ba775026",
+        "role": "sufficiently-small-r continuation theorem and frozen positive-gap thresholds"
+      }
+    ],
+    "containing_bridge_binding": {
+      "bridge_id": "vdp-core-to-positive-bridge-v1",
+      "path": "validation/rigorous/config/vdp_bridge_v1.json",
+      "sha256": "2b62e6fc5625d3f5634d986f7e9cbe8199abfc45c7b97ca29e5efd464b5b69c7",
+      "required_relation": "V2_BOX_STRICT_SUBSET_OF_V1_BRIDGE"
+    },
+    "rule": "Keep the complete a2 and epsilon intervals and apply the single exact radial homothety r -> r/4 to both endpoints of vdp-positive-box-v1.",
+    "reason": "The analytic theorem is anchored at r=0 and only asserts persistence for sufficiently small positive r.  A uniform radial contraction tests that mechanism without deleting the v1 counterexample's a2 or epsilon corner.",
+    "target_relationships": {
+      "to_v1_box": "EXACT_R_OVER_4_IMAGE_NOT_A_SUBSET",
+      "to_v1_bridge": "STRICT_EXACT_RATIONAL_SUBSET",
+      "transverse_ranges": "IDENTICAL_A2_AND_EPSILON_INTERVALS"
+    },
+    "phase_gap_targets": {
+      "algebraic_to_homoclinic": {
+        "r0_lower": "0.104814",
+        "required_v2_lower": "0.052407"
+      },
+      "algebraic_to_pole": {
+        "r0_lower": "0.32648",
+        "required_v2_lower": "0.16324"
+      },
+      "homoclinic_to_pole": {
+        "r0_lower": "0.22167",
+        "required_v2_lower": "0.110835"
+      }
+    },
+    "grid_alignment": {
+      "p2c_config_path": "validation/rigorous/config/vdp_p2_homoclinic_v1.json",
+      "p2c_config_sha256": "a1aca97d2fcf76f336dc06734c1ced25aeb9bd6b1bfa69b9dc8a6545846ce9ac",
+      "original_r_grid_indices": [4, 5, 6, 7],
+      "exact_r_grid_cells": [
+        ["1/100", "1/80"],
+        ["1/80", "3/200"],
+        ["3/200", "7/400"],
+        ["7/400", "1/50"]
+      ]
+    },
+    "preexisting_nonclaim_evidence_disclosed": {
+      "path": "validation/rigorous/design/logs/p2c_root_jets_v1.log",
+      "sha256": "b503e777183e6a5f759978b081828b70119bbfb95f48e643649857a89cace969",
+      "status": "HISTORICAL_NONCLAIM_DESIGN_EVIDENCE",
+      "inspection_disclosure": "The archived r-slab phase_hull values were available and inspected before this target was frozen; v2 is therefore confirmatory after disclosed exploratory evidence, not a blinded validation target.",
+      "claim_boundary": "The log validates the selected P2c root-jet computation on its historical bridge grid; it is not a v2 phase-order or event-atlas certificate."
+    }
+  },
+  "variables": {
+    "r": {
+      "lower": {"numerator": "1", "denominator": "100"},
+      "upper": {"numerator": "1", "denominator": "50"}
+    },
+    "a2": {
+      "lower": {"numerator": "-1", "denominator": "4"},
+      "upper": {"numerator": "1", "denominator": "4"}
+    },
+    "epsilon": {
+      "lower": {"numerator": "4", "denominator": "5"},
+      "upper": {"numerator": "6", "denominator": "5"}
+    }
+  },
+  "derived_conventions": {
+    "d": "r^4",
+    "delta": "r^2",
+    "a": "1+sqrt(epsilon)*r^3*a2",
+    "c": "2*r*a2+sqrt(epsilon)*r^4*a2^2",
+    "alpha": "sqrt(2+c)/2",
+    "beta": "sqrt(2-c)/2"
+  },
+  "inheritance_policy": {
+    "p1_v1_positive_box": "NOT_INHERITED_BECAUSE_V2_IS_OUTSIDE_V1_POSITIVE_R_INTERVAL",
+    "p2a_through_p2d_v1_bridge": "RESTRICTION_ALLOWED_ONLY_AFTER_EXACT_DOMAIN_AND_HASH_CHECKS",
+    "p2e_and_later": "NO_TARGET_SPECIFIC_RESULT_IS_INHERITED",
+    "forbidden": "A v1 FAIL, sampled candidate, or design log may not be relabelled as a v2 PASS."
+  },
+  "target_scope": ["V2", "V3", "V4", "V5", "V5A", "V6"],
+  "redesign_budget": {
+    "failed_predecessor_count": 1,
+    "allowed_replacement_boxes_after_v1": 1,
+    "this_box_consumes_replacement_budget": true,
+    "further_box_after_any_v2_result": "FORBIDDEN_UNDER_CURRENT_PROGRAMME",
+    "different_theorem_policy": "A genuinely different application theorem requires a separately proved statement and separately versioned validation scope; it is not another shrink of this target."
+  },
+  "mutation_policy": "Never overwrite, shrink, translate, or selectively trim this box after any v2 target-specific outward-rounded output is inspected.",
+  "stop_policy": "A strict v2 mathematical FAIL remains FAIL and stops its dependent run.  A run with an integrity or enclosure failure is INCONCLUSIVE and may use only refinement already frozen for that same target; neither outcome authorizes a v3 box under the current programme.",
+  "nonclaims": [
+    "Freezing v2 is not a validation result.",
+    "The historical P2c design log is disclosed target-selection information, not a v2 P2e certificate.",
+    "No v1 failure is erased or weakened.",
+    "The box was not selected for temporal stability, Turing selection, or canard behavior."
+  ]
+}

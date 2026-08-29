@@ -37,7 +37,14 @@ remain authoritative.
   `V2.EXACT_CHART`.  A strict P2e fail-fast cell reverses the required
   algebraic/homoclinic phase order, so `vdp-positive-box-v1` has mathematical
   status `FAIL` and its P2e/P3--P5 computation has stopped.  The negative
-  result remains non-claim-bearing at independent replay 1/2.
+  result remains non-claim-bearing at independent replay 1/2.  The separately
+  versioned v2 target
+  \([1/100,1/50]\times[-1/4,1/4]\times[4/5,6/5]\) and its
+  \(r=0\)-to-\(1/50\) comparison bridge are now frozen before the first
+  retained evidentiary v2 output.  That freeze is not a new mathematical
+  verdict: P1 must be
+  rerun, P2a--P2d require exact restriction audits, and the full P2e event
+  manifest remains unmaterialized.
 - Post-existence work has begun under separate issues.  #11 now gives local
   positive temporal eigenvalues for A2 and `pulse_1` and a proved nonlinear
   orbital-instability bridge; #12 proves exact classical stationary Turing
@@ -108,7 +115,7 @@ release.
 | Analytic claims B1--B2 and V1--V7 | statuses recorded by the repository; several conclusions depend on frozen imported RFSN-II theorems and certificates | `CLAIM_REGISTER.md` and the cited proof dossiers |
 | Floating numerical atlas | explanatory candidate evidence only | `numerics/` |
 | Staged interval work | local mathematical passes for completed atoms; aggregate remains non-claim-bearing | `validation/rigorous/` |
-| Explicit box `vdp-positive-box-v1` | strict mathematical `FAIL` at the P2e phase-order gate; not a certified theorem box | Issue #7 and `validation/rigorous/P2E_PHASE_ORDER_FAIL_REPORT.md` |
+| Explicit boxes | `vdp-positive-box-v1` has a strict mathematical `FAIL` at the P2e phase-order gate; the versioned v2 target and bridge are frozen but have no aggregate mathematical verdict | Issue #7, `validation/rigorous/P2E_PHASE_ORDER_FAIL_REPORT.md`, and `validation/rigorous/P2E_V2_BOX_FREEZE.md` |
 | Temporal PDE stability | deferred | S1 |
 | Experimental realization | deferred | E1 |
 

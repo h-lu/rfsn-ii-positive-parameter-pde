@@ -1,0 +1,346 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/h-lu/rfsn-ii-positive-parameter-pde/validation/rigorous/parameter_box_v2.schema.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "box_id",
+    "status",
+    "selected_before_first_v2_target_specific_outward_rounded_run",
+    "selected_after_v1_failure",
+    "selection_date",
+    "selection_basis",
+    "variables",
+    "derived_conventions",
+    "inheritance_policy",
+    "target_scope",
+    "redesign_budget",
+    "mutation_policy",
+    "stop_policy",
+    "nonclaims"
+  ],
+  "properties": {
+    "schema_version": {"const": "rfsn-vdp-rigorous-parameter-box/2"},
+    "box_id": {"const": "vdp-positive-box-v2"},
+    "status": {"const": "FROZEN_PRE_P2E_V2_VALIDATION"},
+    "selected_before_first_v2_target_specific_outward_rounded_run": {
+      "const": true
+    },
+    "selected_after_v1_failure": {"const": true},
+    "selection_date": {"type": "string", "format": "date"},
+    "selection_basis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "design_basis_commit",
+        "classification",
+        "failed_predecessor",
+        "analytic_basis",
+        "containing_bridge_binding",
+        "rule",
+        "reason",
+        "target_relationships",
+        "phase_gap_targets",
+        "grid_alignment",
+        "preexisting_nonclaim_evidence_disclosed"
+      ],
+      "properties": {
+        "design_basis_commit": {"$ref": "#/$defs/sha1"},
+        "classification": {
+          "const": "DISCLOSED_EXPLORATORY_DATA_INFORMED_CONFIRMATORY_TARGET"
+        },
+        "failed_predecessor": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "box_id",
+            "box_path",
+            "box_sha256",
+            "failure_path",
+            "failure_sha256",
+            "required_status"
+          ],
+          "properties": {
+            "box_id": {"const": "vdp-positive-box-v1"},
+            "box_path": {
+              "const": "validation/rigorous/config/vdp_box_v1.json"
+            },
+            "box_sha256": {"$ref": "#/$defs/sha256"},
+            "failure_path": {
+              "const": "validation/rigorous/results/vdp_box_v1_p2e_phase_order_fail.json"
+            },
+            "failure_sha256": {"$ref": "#/$defs/sha256"},
+            "required_status": {"const": "FAIL"}
+          }
+        },
+        "analytic_basis": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {"$ref": "#/$defs/roleBinding"}
+        },
+        "containing_bridge_binding": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["bridge_id", "path", "sha256", "required_relation"],
+          "properties": {
+            "bridge_id": {"const": "vdp-core-to-positive-bridge-v1"},
+            "path": {
+              "const": "validation/rigorous/config/vdp_bridge_v1.json"
+            },
+            "sha256": {"$ref": "#/$defs/sha256"},
+            "required_relation": {
+              "const": "V2_BOX_STRICT_SUBSET_OF_V1_BRIDGE"
+            }
+          }
+        },
+        "rule": {"type": "string", "minLength": 1},
+        "reason": {"type": "string", "minLength": 1},
+        "target_relationships": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["to_v1_box", "to_v1_bridge", "transverse_ranges"],
+          "properties": {
+            "to_v1_box": {"const": "EXACT_R_OVER_4_IMAGE_NOT_A_SUBSET"},
+            "to_v1_bridge": {"const": "STRICT_EXACT_RATIONAL_SUBSET"},
+            "transverse_ranges": {
+              "const": "IDENTICAL_A2_AND_EPSILON_INTERVALS"
+            }
+          }
+        },
+        "phase_gap_targets": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "algebraic_to_homoclinic",
+            "algebraic_to_pole",
+            "homoclinic_to_pole"
+          ],
+          "properties": {
+            "algebraic_to_homoclinic": {
+              "$ref": "#/$defs/gapTarget"
+            },
+            "algebraic_to_pole": {
+              "$ref": "#/$defs/gapTarget"
+            },
+            "homoclinic_to_pole": {
+              "$ref": "#/$defs/gapTarget"
+            }
+          }
+        },
+        "grid_alignment": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "p2c_config_path",
+            "p2c_config_sha256",
+            "original_r_grid_indices",
+            "exact_r_grid_cells"
+          ],
+          "properties": {
+            "p2c_config_path": {
+              "const": "validation/rigorous/config/vdp_p2_homoclinic_v1.json"
+            },
+            "p2c_config_sha256": {"$ref": "#/$defs/sha256"},
+            "original_r_grid_indices": {
+              "type": "array",
+              "prefixItems": [
+                {"const": 4},
+                {"const": 5},
+                {"const": 6},
+                {"const": 7}
+              ],
+              "items": false,
+              "minItems": 4,
+              "maxItems": 4
+            },
+            "exact_r_grid_cells": {
+              "type": "array",
+              "minItems": 4,
+              "maxItems": 4,
+              "items": {
+                "type": "array",
+                "minItems": 2,
+                "maxItems": 2,
+                "items": {"type": "string", "minLength": 1}
+              }
+            }
+          }
+        },
+        "preexisting_nonclaim_evidence_disclosed": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "path",
+            "sha256",
+            "status",
+            "inspection_disclosure",
+            "claim_boundary"
+          ],
+          "properties": {
+            "path": {
+              "const": "validation/rigorous/design/logs/p2c_root_jets_v1.log"
+            },
+            "sha256": {"$ref": "#/$defs/sha256"},
+            "status": {"const": "HISTORICAL_NONCLAIM_DESIGN_EVIDENCE"},
+            "inspection_disclosure": {"type": "string", "minLength": 1},
+            "claim_boundary": {"type": "string", "minLength": 1}
+          }
+        }
+      }
+    },
+    "variables": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["r", "a2", "epsilon"],
+      "properties": {
+        "r": {"$ref": "#/$defs/exactInterval"},
+        "a2": {"$ref": "#/$defs/exactInterval"},
+        "epsilon": {"$ref": "#/$defs/exactInterval"}
+      }
+    },
+    "derived_conventions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["d", "delta", "a", "c", "alpha", "beta"],
+      "properties": {
+        "d": {"const": "r^4"},
+        "delta": {"const": "r^2"},
+        "a": {"const": "1+sqrt(epsilon)*r^3*a2"},
+        "c": {"const": "2*r*a2+sqrt(epsilon)*r^4*a2^2"},
+        "alpha": {"const": "sqrt(2+c)/2"},
+        "beta": {"const": "sqrt(2-c)/2"}
+      }
+    },
+    "inheritance_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "p1_v1_positive_box",
+        "p2a_through_p2d_v1_bridge",
+        "p2e_and_later",
+        "forbidden"
+      ],
+      "properties": {
+        "p1_v1_positive_box": {
+          "const": "NOT_INHERITED_BECAUSE_V2_IS_OUTSIDE_V1_POSITIVE_R_INTERVAL"
+        },
+        "p2a_through_p2d_v1_bridge": {
+          "const": "RESTRICTION_ALLOWED_ONLY_AFTER_EXACT_DOMAIN_AND_HASH_CHECKS"
+        },
+        "p2e_and_later": {"const": "NO_TARGET_SPECIFIC_RESULT_IS_INHERITED"},
+        "forbidden": {
+          "const": "A v1 FAIL, sampled candidate, or design log may not be relabelled as a v2 PASS."
+        }
+      }
+    },
+    "target_scope": {
+      "type": "array",
+      "prefixItems": [
+        {"const": "V2"},
+        {"const": "V3"},
+        {"const": "V4"},
+        {"const": "V5"},
+        {"const": "V5A"},
+        {"const": "V6"}
+      ],
+      "items": false,
+      "minItems": 6,
+      "maxItems": 6
+    },
+    "redesign_budget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "failed_predecessor_count",
+        "allowed_replacement_boxes_after_v1",
+        "this_box_consumes_replacement_budget",
+        "further_box_after_any_v2_result",
+        "different_theorem_policy"
+      ],
+      "properties": {
+        "failed_predecessor_count": {"const": 1},
+        "allowed_replacement_boxes_after_v1": {"const": 1},
+        "this_box_consumes_replacement_budget": {"const": true},
+        "further_box_after_any_v2_result": {
+          "const": "FORBIDDEN_UNDER_CURRENT_PROGRAMME"
+        },
+        "different_theorem_policy": {
+          "const": "A genuinely different application theorem requires a separately proved statement and separately versioned validation scope; it is not another shrink of this target."
+        }
+      }
+    },
+    "mutation_policy": {
+      "const": "Never overwrite, shrink, translate, or selectively trim this box after any v2 target-specific outward-rounded output is inspected."
+    },
+    "stop_policy": {
+      "const": "A strict v2 mathematical FAIL remains FAIL and stops its dependent run.  A run with an integrity or enclosure failure is INCONCLUSIVE and may use only refinement already frozen for that same target; neither outcome authorizes a v3 box under the current programme."
+    },
+    "nonclaims": {
+      "type": "array",
+      "prefixItems": [
+        {"const": "Freezing v2 is not a validation result."},
+        {"const": "The historical P2c design log is disclosed target-selection information, not a v2 P2e certificate."},
+        {"const": "No v1 failure is erased or weakened."},
+        {"const": "The box was not selected for temporal stability, Turing selection, or canard behavior."}
+      ],
+      "items": false,
+      "minItems": 4,
+      "maxItems": 4,
+      "uniqueItems": true,
+      "unevaluatedItems": false
+    }
+  },
+  "$defs": {
+    "sha1": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "relativePath": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$)).+$"
+    },
+    "integerString": {"type": "string", "pattern": "^-?(?:0|[1-9][0-9]*)$"},
+    "positiveIntegerString": {"type": "string", "pattern": "^[1-9][0-9]*$"},
+    "rational": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["numerator", "denominator"],
+      "properties": {
+        "numerator": {"$ref": "#/$defs/integerString"},
+        "denominator": {"$ref": "#/$defs/positiveIntegerString"}
+      }
+    },
+    "exactInterval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["lower", "upper"],
+      "properties": {
+        "lower": {"$ref": "#/$defs/rational"},
+        "upper": {"$ref": "#/$defs/rational"}
+      }
+    },
+    "roleBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "sha256", "role"],
+      "properties": {
+        "path": {"$ref": "#/$defs/relativePath"},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "role": {"type": "string", "minLength": 1}
+      }
+    },
+    "gapTarget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["r0_lower", "required_v2_lower"],
+      "properties": {
+        "r0_lower": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+$"},
+        "required_v2_lower": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+$"
+        }
+      }
+    }
+  }
+}

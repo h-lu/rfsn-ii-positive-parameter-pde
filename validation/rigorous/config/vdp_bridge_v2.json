@@ -1,0 +1,56 @@
+{
+  "schema_version": "rfsn-vdp-rigorous-continuation-bridge/2",
+  "bridge_id": "vdp-core-to-positive-bridge-v2",
+  "status": "FROZEN_PRE_P2E_V2_VALIDATION",
+  "selected_before_first_v2_target_specific_outward_rounded_run": true,
+  "selection_date": "2026-08-29",
+  "selection_basis": {
+    "design_basis_commit": "058ee56c8a7e018dcce24ec62728069de3651e77",
+    "target_box": {
+      "path": "validation/rigorous/config/vdp_box_v2.json",
+      "sha256": "43ff2ee14db2e9d42abe484e9d415176cc92836fb2956a27cb6b9f72a751b1ed",
+      "box_id": "vdp-positive-box-v2"
+    },
+    "containing_bridge": {
+      "path": "validation/rigorous/config/vdp_bridge_v1.json",
+      "sha256": "2b62e6fc5625d3f5634d986f7e9cbe8199abfc45c7b97ca29e5efd464b5b69c7",
+      "bridge_id": "vdp-core-to-positive-bridge-v1"
+    },
+    "construction_rule": "Take the exact rectangular hull of the complete r=0 anchor face and vdp-positive-box-v2, retaining the v2 a2 and epsilon intervals.",
+    "classification": "DERIVED_TARGET_BRIDGE_WITH_NO_NEW_MATHEMATICAL_VERDICT"
+  },
+  "variables": {
+    "r": {
+      "lower": {"numerator": "0", "denominator": "1"},
+      "upper": {"numerator": "1", "denominator": "50"}
+    },
+    "a2": {
+      "lower": {"numerator": "-1", "denominator": "4"},
+      "upper": {"numerator": "1", "denominator": "4"}
+    },
+    "epsilon": {
+      "lower": {"numerator": "4", "denominator": "5"},
+      "upper": {"numerator": "6", "denominator": "5"}
+    }
+  },
+  "anchor_face": {
+    "equation": "r=0",
+    "role": "frozen-selected-core-branch",
+    "dummy_parameters": ["a2", "epsilon"]
+  },
+  "target_relation": {
+    "positive_box_is_subset": true,
+    "shared_upper_r_face": "r=1/50",
+    "bridge_is_strict_subset_of_v1_bridge": true,
+    "transverse_ranges_equal_v1_bridge": true
+  },
+  "inheritance_policy": "A mathematical statement proved uniformly on vdp-core-to-positive-bridge-v1 may be restricted to this bridge only after its source, theorem, domain, and certificate hashes are checked.  This derived bridge creates no PASS by itself.",
+  "mutation_policy": "Never shrink or overwrite this bridge after any v2 target-specific outward-rounded output is inspected.",
+  "stop_policy": "The bridge follows the v2 box stop rule; no failed or inconclusive v2 result authorizes a narrower bridge under the current programme.",
+  "nonclaims": [
+    "Freezing the v2 bridge does not prove continuation or an event atlas.",
+    "The bridge is not an additional parameter-box attempt.",
+    "No v1 failure or non-claim-bearing prerequisite is promoted by restriction.",
+    "No temporal-stability, Turing-selection, or canard conclusion follows."
+  ]
+}

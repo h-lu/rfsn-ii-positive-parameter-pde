@@ -1,0 +1,234 @@
+{
+  "schema_version": "rfsn-vdp-p2e-phase-order-config/2",
+  "scope": "V2_P2E_THREE_PHASE_GAPS_V2",
+  "box_id": "vdp-positive-box-v2",
+  "comparison_bridge_id": "vdp-core-to-positive-bridge-v2",
+  "status": "FROZEN_BEFORE_FIRST_RETAINED_EVIDENTIARY_V2_PHASE_OUTPUT",
+  "frozen_before_first_retained_evidentiary_v2_phase_output": true,
+  "pre_freeze_aborted_execution_disclosure": {
+    "attempt_started": true,
+    "completed": false,
+    "stdout_placeholder_files": 8,
+    "stderr_placeholder_files": 8,
+    "verified_bytes_per_placeholder": 0,
+    "numeric_output_emitted_inspected_or_retained": false,
+    "placeholders_removed_before_freeze": true,
+    "classification": "ABORTED_ZERO_OUTPUT_NON_EVIDENCE"
+  },
+  "freeze_date": "2026-08-29",
+  "theorem_clause": "van-der-pol/CENTRAL_CONTINUATION.md, Theorem V2(5)",
+  "theorem_binding": {
+    "path": "van-der-pol/CENTRAL_CONTINUATION.md",
+    "sha256": "e02d067595f89ea7f19dfac81a7eba84ea0bdda17e4bbe12f569e776ba775026",
+    "phase_convention_start": "We also freeze one phase convention.",
+    "phase_convention_end": "distance under arbitrary phase reparametrizations.",
+    "phase_convention_excerpt_sha256": "27b970b802f5d7fe13dae04a67f51938e22f17421ad578853dae285c0aef59a4",
+    "phase_order_start": "5. **Source phases and order.**",
+    "phase_order_end": "cut gap at least \\(m_0/2\\).",
+    "phase_order_excerpt_sha256": "e17de82d1a7e97accc6c9264556d15b328148e8cfeb22598508955747d34d00e"
+  },
+  "core_import_binding": {
+    "path": "van-der-pol/CENTRAL_CORE_IMPORT.md",
+    "sha256": "037abc2fc9e54ebd8ec645489a5d62ba8e3cd06013360dfad82351e6eb442a56"
+  },
+  "target_box_binding": {
+    "path": "validation/rigorous/config/vdp_box_v2.json",
+    "sha256": "43ff2ee14db2e9d42abe484e9d415176cc92836fb2956a27cb6b9f72a751b1ed"
+  },
+  "comparison_bridge_binding": {
+    "path": "validation/rigorous/config/vdp_bridge_v2.json",
+    "sha256": "ee45e35157075805f89e12d9eb89a82e9203167d22109d4f2b9e83ee2bd12de9"
+  },
+  "p2c_config_binding": {
+    "path": "validation/rigorous/config/vdp_p2_homoclinic_v1.json",
+    "sha256": "a1aca97d2fcf76f336dc06734c1ced25aeb9bd6b1bfa69b9dc8a6545846ce9ac"
+  },
+  "p2c_certificate_binding": {
+    "path": "validation/rigorous/results/vdp_bridge_v1_p2c_homoclinic.json",
+    "sha256": "38709fac54569f190f3663df95baedbdb6e0c646d3ec372385a1373dfaf34d34"
+  },
+  "kato_config_binding": {
+    "path": "validation/rigorous/config/vdp_p2_kato_v1.json",
+    "sha256": "676de23609a66b9a6fa35d2cc476878018bc84b4615460719f9c2f87eb1823e3"
+  },
+  "kato_certificate_binding": {
+    "path": "validation/rigorous/results/vdp_bridge_v1_p2b_kato.json",
+    "sha256": "c67cce575caa396eba5b4388e8ba9a0c9d73fd702f69911d64c878f57f27bff3"
+  },
+  "dependency_lock_binding": {
+    "path": "validation/rigorous/dependency.lock.json",
+    "sha256": "4d486a63cddf0902cc9fc4dedacc5a172527f6e167e2d311afa680c077a45b68"
+  },
+  "flagship_lock_binding": {
+    "path": "validation/rigorous/flagship_import.lock.json",
+    "sha256": "6c1752d6ee78d4b670c74ecb85e776eddcb4459e0b0e7f7ae14cae2325e0476e"
+  },
+  "checker_binding": {
+    "path": "validation/rigorous/p2e_phase_order_v2.py",
+    "sha256": "c78898dc8498bbf2999641d7012391495fe5cf4d4f858eafcf9b9d25ee284e84"
+  },
+  "h10_binding": {
+    "path": "frozen-imports/rfsn-ii-d54add098545063d5efe8f1d6f062d4cfc116a0d/source/validation/origin-algebraic-heteroclinic/unstable_graph_terms.hpp",
+    "sha256": "d617587ea1b9037c1c7575ccdde5029529ec5b736dee259baff9a2a162001e96"
+  },
+  "strict_source": {
+    "commit": "c1b8c815a1ffd0b690c46d1631b383f16b11fce4",
+    "path": "validation/rigorous/design/p2c_homoclinic_multishoot_scout.cpp",
+    "sha256": "7f1947f4d8ca7eaa74194a5060911a167982e6e5038c585be7609e5e36a98493",
+    "binary_sha256": "1d5b8092148d2a9cf1892e0880c01bd122edf03421f168142585818a5f3e9c7e",
+    "capd_commit": "731079217a9254ea2948d742df2b170895effe7f"
+  },
+  "strict_slab_runs": {
+    "mode": "mu-grid-root-jets-slab",
+    "shooting_radius_factor": 3,
+    "process_environment": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "LC_ALL": "C.UTF-8"
+    },
+    "r_indices": [0, 1, 2, 3, 4, 5, 6, 7],
+    "transverse_axes": {
+      "a2": {"indices": [0, 127], "cells": 128, "exact_interval": ["-1/4", "1/4"]},
+      "epsilon": {"indices": [0, 3], "cells": 4, "exact_interval": ["4/5", "6/5"]}
+    },
+    "logs": [
+      {
+        "r_index": 0,
+        "exact_r_cell": ["0", "1/400"],
+        "path": "validation/rigorous/design/logs/p2e_phase_order_v2_r00.log"
+      },
+      {
+        "r_index": 1,
+        "exact_r_cell": ["1/400", "1/200"],
+        "path": "validation/rigorous/design/logs/p2e_phase_order_v2_r01.log"
+      },
+      {
+        "r_index": 2,
+        "exact_r_cell": ["1/200", "3/400"],
+        "path": "validation/rigorous/design/logs/p2e_phase_order_v2_r02.log"
+      },
+      {
+        "r_index": 3,
+        "exact_r_cell": ["3/400", "1/100"],
+        "path": "validation/rigorous/design/logs/p2e_phase_order_v2_r03.log"
+      },
+      {
+        "r_index": 4,
+        "exact_r_cell": ["1/100", "1/80"],
+        "path": "validation/rigorous/design/logs/p2e_phase_order_v2_r04.log"
+      },
+      {
+        "r_index": 5,
+        "exact_r_cell": ["1/80", "3/200"],
+        "path": "validation/rigorous/design/logs/p2e_phase_order_v2_r05.log"
+      },
+      {
+        "r_index": 6,
+        "exact_r_cell": ["3/200", "7/400"],
+        "path": "validation/rigorous/design/logs/p2e_phase_order_v2_r06.log"
+      },
+      {
+        "r_index": 7,
+        "exact_r_cell": ["7/400", "1/50"],
+        "path": "validation/rigorous/design/logs/p2e_phase_order_v2_r07.log"
+      }
+    ]
+  },
+  "algebraic_anchor_binding": {
+    "path": "frozen-imports/rfsn-ii-d54add098545063d5efe8f1d6f062d4cfc116a0d/source/validation/origin-algebraic-heteroclinic/certificate.json",
+    "sha256": "60882ee1d3b2b18264b85764288505ae8b47d00bc826a2bddec152898f690fbe",
+    "json_path": ["robust_multiple_shooting", "source_phase"],
+    "expected_phase_hull": ["5.7566913947049203", "5.7566913967948983"]
+  },
+  "pole_anchor_binding": {
+    "path": "frozen-imports/rfsn-ii-d54add098545063d5efe8f1d6f062d4cfc116a0d/source/validation/origin-unstable-pole-entry/certificate.json",
+    "sha256": "7f325a87810f8b0dda2542aed90263b39f9a9f4bd2e8ebb3abcc238d032eb6e2",
+    "cover_json_path": ["phase", "closed_cover"],
+    "expected_closed_cover": ["-0.2", "0.2"],
+    "pi_bound_json_path": ["separate_certified_phases", "elementary_pi_bound_used"],
+    "required_pi_statement": "2*pi>6.28318"
+  },
+  "phase_interface": {
+    "common_lift": "TRANSPORTED_KATO_SOURCE_PHASE",
+    "algebraic_phase": "the immutable algebraic-directed anchor in the transported Kato source label",
+    "homoclinic_phase": "the selected P2c source root returned in the same transported Kato source label",
+    "pole_phase": "the immutable closed pole cover [-0.2,0.2] modulo 2*pi in the same lift",
+    "coordinate_embedding_formula": "phi_algebraic=phi+chi(c(theta))",
+    "coordinate_embedding_nonclaim": "The formula embeds the Kato label in algebraic graph coordinates and is not added to any compared phase value."
+  },
+  "phase_gap_predicates": [
+    {
+      "atom_id": "V2.ATLAS.PHASE_GAP_AH",
+      "predicate": "phi_h - phi_a > 0.052407 in the common transported Kato source-phase lift",
+      "strict_lower": "0.052407"
+    },
+    {
+      "atom_id": "V2.ATLAS.PHASE_GAP_AP",
+      "predicate": "phi_p^- - phi_a > 0.16324 after lifting the left pole-cover endpoint by 2*pi",
+      "strict_lower": "0.16324"
+    },
+    {
+      "atom_id": "V2.ATLAS.PHASE_GAP_HP",
+      "predicate": "phi_p^- - phi_h > 0.110835 after lifting the left pole-cover endpoint by 2*pi",
+      "strict_lower": "0.110835"
+    }
+  ],
+  "historical_log_disclosure": {
+    "path": "validation/rigorous/design/logs/p2c_root_jets_v1.log",
+    "sha256": "b503e777183e6a5f759978b081828b70119bbfb95f48e643649857a89cace969",
+    "seen_before_freeze": true,
+    "blinded": false,
+    "classification": "DISCLOSED_EXPLORATORY_DATA_INFORMED_CONFIRMATORY_TARGET"
+  },
+  "refinement_budget": {
+    "phase_gap_run": "NO_REFINEMENT_REUSE_P2C_GRID",
+    "full_event_atlas": "PENDING_DEFINITION_BEFORE_FIRST_FULL_RUN",
+    "budget_exhaustion_verdict": "INCONCLUSIVE"
+  },
+  "full_event_atlas_contract": {
+    "decomposition_status": "PROPOSED_LOCAL_DECOMPOSITION_NOT_AN_IMPORTED_FLAGSHIP_NAMING",
+    "status": "PENDING_DEFINITION",
+    "full_run_status": "PROHIBITED_BEFORE_CORE_FREEZE",
+    "parent_atom": {"id": "V2.EVENT_ATLAS", "status": "PENDING"},
+    "parent_atoms": [
+      {"id": "V2.ATLAS.CORE_MANIFEST", "status": "PENDING"},
+      {"id": "V2.ATLAS.INCIDENCE_COMPLEX", "status": "PENDING"},
+      {"id": "V2.ATLAS.FIRST_EVENT_CENSUS", "status": "PENDING"},
+      {"id": "V2.ATLAS.TRANSPORTED_TRACES", "status": "PENDING"}
+    ],
+    "required_core_manifest": [
+      "physical_event_faces",
+      "defining_functions_domains_and_coorientations",
+      "cell_face_corner_ids_and_sign_strata",
+      "connected_components_and_empty_incidences",
+      "fixed_corner_priority",
+      "normalized_rank_speed_and_separation_margins",
+      "phase_cut_containment_and_inactive_face_margins",
+      "strict_event_order_margins",
+      "homoclinic_tube_and_saddle_block_buffer",
+      "complete_first_event_census",
+      "exhaustion_with_no_residual_component",
+      "transported_kato_traces_anchors_and_proper_phase_arc",
+      "three_phase_gaps"
+    ],
+    "materialization_gate": {
+      "status": "PENDING_DEFINITION",
+      "must_freeze_before": "FIRST_FULL_EVENT_ATLAS_RUN",
+      "required_numeric_choices": ["D", "N", "precision"],
+      "predeclared_parameter_cover": {
+        "grid_axes": ["r", "a2", "epsilon"],
+        "index_ranges_inclusive": {"r": [0, 7], "a2": [0, 127], "epsilon": [0, 3]},
+        "cells": 4096
+      }
+    },
+    "logic_boundary": "Passing the three scalar phase gaps does not pass any proposed parent atom, Theorem V2(5), or V2.EVENT_ATLAS."
+  },
+  "nonclaims": [
+    "Only the three frozen scalar phase-gap subatoms are evaluated.",
+    "The full source-phase-and-order statement V2(5) remains pending because transported residual traces, the proper cut, and the complete cyclic-order manifest are not materialized.",
+    "The full V2 event atlas and all four proposed local parent atoms remain pending.",
+    "No P3--P5, temporal stability, Turing selection, or canard statement follows.",
+    "The target was selected after disclosed historical design output and is not described as blinded confirmation.",
+    "Independent-machine replay remains pending, so this local result is non-claim-bearing and not release-eligible."
+  ]
+}

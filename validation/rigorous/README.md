@@ -391,6 +391,31 @@ declared composition recurrences.  This scope deliberately does not claim a
 full rectangular fourth-order source jet, an orthonormal physical frame, or
 the later full symplectic completion.
 
+## Versioned v2 target and comparison bridge
+
+The v1 failure is immutable.  The separately versioned
+[`config/vdp_box_v2.json`](config/vdp_box_v2.json) freezes
+
+\[
+ r\in[1/100,1/50],\qquad
+ a_2\in[-1/4,1/4],\qquad
+ \epsilon\in[4/5,6/5],
+\]
+
+and [`config/vdp_bridge_v2.json`](config/vdp_bridge_v2.json) freezes the
+derived comparison bridge with \(r\in[0,1/50]\) and the same transverse
+ranges.  The target is the exact radial \(r\mapsto r/4\) image of v1 and was
+selected after disclosed exploratory phase data had been inspected; it is not
+a blinded confirmation target.  The one allowed box-redesign budget is now
+spent.
+
+This freeze is not a validation result.  P1 must be rerun because the positive
+v1 and v2 intervals are disjoint.  P2a--P2d may be restricted only after exact
+domain and hash checks.  The frozen v2 P2e checker can decide only the three
+scalar phase-gap subatoms; the complete event-atlas manifest, its numerical
+materialization choices, Theorem V2(5), and `V2.EVENT_ATLAS` remain pending.
+See [`P2E_V2_BOX_FREEZE.md`](P2E_V2_BOX_FREEZE.md).
+
 ## Strict replay
 
 Build the pinned CAPD source in a separate build directory using every flag
