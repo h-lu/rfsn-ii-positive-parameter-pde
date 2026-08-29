@@ -1,0 +1,101 @@
+{
+  "claim_bearing": false,
+  "configuration": {
+    "freeze_status": "FROZEN_BEFORE_RETAINED_MULTIPLE_SHOOT_RUN",
+    "path": "numerics/config/vdp_canard_multiple_shoot_v1.json",
+    "retained_run_commit": "7cb2543c683b661149d757ab65e339d420959a16",
+    "sha256": "7e19754983b38ac78c4c20f91d165f1071eb3332139d8b6bc1de6dc11ae098b8"
+  },
+  "decision": {
+    "boundary_selected_simple_zero_candidate": "NOT_ESTABLISHED",
+    "intrinsic_maximal_canard": "NOT_ESTABLISHED",
+    "reason": "At least one frozen root, replay, or derivative gate failed.",
+    "status": "INCONCLUSIVE_MULTIPLE_SHOOT_ACCEPTANCE_OR_DERIVATIVE_FAILED"
+  },
+  "definition": {
+    "coincidence": "terminal p2=terminal q2=0",
+    "left_boundary": "u2=u_star, v2=g_r(u_star), q2=-80, p2<0, H2=0",
+    "segments": 80,
+    "splitting_family": "continue the same multiple-shoot system with a2 fixed and terminal p2=0; S(a2)=terminal q2"
+  },
+  "evidence_status": "INCONCLUSIVE_MULTIPLE_SHOOT_ACCEPTANCE_OR_DERIVATIVE_FAILED",
+  "initialization_only": {
+    "a2": -0.00833819526697979,
+    "accepted_as_evidence": false,
+    "initial_scaled_residual_inf": 5.425437876738215e-13,
+    "max_interval_rms_relative_residual": 1.9984627646831774e-08,
+    "source": "recomputed q2=-80 Appendix-A.3 collocation branch",
+    "total_time": 14.290555625888304
+  },
+  "nonclaims": [
+    "The q2=-80 finite boundary is not an intrinsic center-unstable slow-manifold selector.",
+    "Floating-point multiple shooting is not an interval proof or a rigorous shadowing theorem.",
+    "No connection to the preregistered high-winding orbit or PDE selection is claimed."
+  ],
+  "retained_root": {
+    "a2": -0.00833819526697979,
+    "checks": {
+      "a2_strictly_inside_interval": true,
+      "hamiltonian_node_max_abs": 4.1923152267000213e-10,
+      "optimizer_success": true,
+      "raw_continuity_inf": 1.085087575347643e-11,
+      "scaled_residual_inf": 5.425437876738215e-13,
+      "terminal_abs_pq": 3.288222558822662e-13,
+      "tight_segment_replay_inf": 1.0884626533425035e-11
+    },
+    "checks_pass": true,
+    "optimizer_cost": 2.605586668187564e-24,
+    "optimizer_message": "`gtol` termination condition is satisfied.",
+    "optimizer_nfev": 1,
+    "optimizer_njev": 1,
+    "optimizer_status": 1,
+    "terminal_state": [
+      -0.0006670525123802707,
+      -3.288222558822662e-13,
+      -0.16666840892703375,
+      -2.100433425112424e-15
+    ],
+    "tight_segment_replay": {
+      "continuity_inf": 1.0884626533425035e-11,
+      "function_evaluations": 35440,
+      "terminal_abs_pq": 3.2881770223314177e-13,
+      "terminal_state": [
+        -0.0006670525123802707,
+        -3.2881770223314177e-13,
+        -0.16666840892703372,
+        -2.1004753968770904e-15
+      ]
+    },
+    "total_flight_time": 14.290555625888304
+  },
+  "schema_version": "vdp-canard-multiple-shoot-report/1",
+  "splitting_derivative": {
+    "checks_pass": false,
+    "finite_differences": [
+      {
+        "minus_optimizer_success": true,
+        "minus_scaled_residual_inf": 1.5619254138954376e-07,
+        "minus_splitting": -0.008304971071080944,
+        "plus_optimizer_success": true,
+        "plus_scaled_residual_inf": 1.5618411275397648e-07,
+        "plus_splitting": 0.008264439581045396,
+        "relative_mismatch_from_implicit": 1.000000000234147,
+        "step": 1e-06,
+        "symmetric_difference": 8284.70532606317
+      },
+      {
+        "minus_optimizer_success": true,
+        "minus_scaled_residual_inf": 7.809802671232546e-08,
+        "minus_splitting": -0.004143433288786945,
+        "plus_optimizer_success": true,
+        "plus_scaled_residual_inf": 7.809608550957137e-08,
+        "plus_splitting": 0.004138439345700855,
+        "relative_mismatch_from_implicit": 1.000000000234067,
+        "step": 5e-07,
+        "symmetric_difference": 8281.8726344878
+      }
+    ],
+    "fixed_family_jacobian_condition_2": 3.893085351515209e+16,
+    "implicit_derivative": -35382503915668.305
+  }
+}

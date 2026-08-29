@@ -58,6 +58,25 @@ class CanardMultipleShootTests(unittest.TestCase):
             report["decision"]["intrinsic_maximal_canard"], "NOT_ESTABLISHED"
         )
 
+    def test_retained_root_passes_but_simple_zero_does_not(self) -> None:
+        if not RESULT_PATH.exists():
+            self.skipTest("retained result is created only after the freeze commit")
+        report = json.loads(RESULT_PATH.read_text(encoding="utf-8"))
+        self.assertTrue(report["retained_root"]["checks_pass"])
+        self.assertLess(
+            report["retained_root"]["checks"]["tight_segment_replay_inf"],
+            2e-7,
+        )
+        self.assertFalse(report["splitting_derivative"]["checks_pass"])
+        self.assertGreater(
+            report["splitting_derivative"]["fixed_family_jacobian_condition_2"],
+            1e15,
+        )
+        self.assertEqual(
+            report["decision"]["status"],
+            "INCONCLUSIVE_MULTIPLE_SHOOT_ACCEPTANCE_OR_DERIVATIVE_FAILED",
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
