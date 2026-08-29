@@ -1,0 +1,115 @@
+{
+  "claim_bearing": false,
+  "configuration": {
+    "freeze_status": "FROZEN_BEFORE_FIRST_GRAPH_SOLVE",
+    "path": "numerics/config/vdp_canard_invariant_graph_scout_v1.json",
+    "sha256": "6c3759d1b1f96099cf5b5764f472e057546c625b01f2b7704ab6ad883e5f9b08"
+  },
+  "decision": {
+    "a2_tangent": null,
+    "a2_tangent_domain_independence": "NOT_TESTED_NO_ACCEPTED_GRAPH",
+    "entry_domain_independence": "NOT_TESTED_NO_ACCEPTED_GRAPH",
+    "intrinsic_Wcu_entry": null,
+    "reason": "Both predeclared collocations miss the frozen invariance residual and have nearly singular Newton Jacobians. The two-dimensional graph PDE lacks inflow/gauge/branch data.",
+    "status": "STOP_GRAPH_PDE_RESIDUAL_AND_NEWTON_CONDITIONING"
+  },
+  "evidence_status": "COMPUTED/E1_FAILED_GRAPH_PDE_SCOUT",
+  "mathematical_object": {
+    "invariance_equations": [
+      "P_u*P+P_q*delta*(u-a)=f(u)-V",
+      "V_u*P+V_q*delta*(u-a)=delta*q"
+    ],
+    "physical_graph": "p=P(u,q), v=V(u,q)",
+    "target_section": {
+      "comparison_coordinates": "K2",
+      "energy": "H2=0",
+      "k2_u2": 16.0,
+      "orientation": [
+        "P<0",
+        "q<0"
+      ],
+      "physical_q_bracket": [
+        -0.045,
+        -0.034
+      ],
+      "physical_u": 1.1024
+    }
+  },
+  "nonclaims": [
+    "This STOP is not evidence that Wcu does not exist.",
+    "No intrinsic Wcu entry or a2 tangent was computed.",
+    "No A.2 finite-boundary orbit BVP was used.",
+    "No C1, C2, maximal-canard, or high-winding claim is closed."
+  ],
+  "rectangles": [
+    {
+      "abort_safety": {
+        "iteration": 34,
+        "reason": "RESIDUAL_EXCEEDED_ONE",
+        "residual_inf": 1.287309028971544
+      },
+      "best_equation_residuals_inf": [
+        4.237126103645572e-06,
+        1.0167688520368377e-06
+      ],
+      "best_iteration": 21,
+      "best_residual_inf": 4.237126103645572e-06,
+      "chebyshev_shape": [
+        29,
+        25
+      ],
+      "finite_normal_gap_at_best_iterate": 0.3763839454128659,
+      "newton_diagnostic": {
+        "best_dyadic_alpha": 0.0009765625,
+        "best_dyadic_residual_inf": 4.231738585214195e-06,
+        "condition_1_from_lu": 6.717157203420164e+16,
+        "dimension": 1450,
+        "full_step_residual_inf": 0.9576051131484064,
+        "inverse_identity_residual_inf": 0.666015625,
+        "inverse_norm_1_from_lu": 1387349305757918.5,
+        "jacobian_norm_1": 48.41720232634949,
+        "newton_step_inf": 0.06300152800948298
+      },
+      "rectangle_id": "outer_wide",
+      "residual_gate_pass": false,
+      "residual_stop": 2e-09,
+      "singular_min_u2_minus_1": 0.1556249999999999,
+      "status": "STOP_GRAPH_PDE_RESIDUAL_AND_NEWTON_CONDITIONING"
+    },
+    {
+      "abort_safety": {
+        "iteration": 25,
+        "reason": "RESIDUAL_EXCEEDED_ONE",
+        "residual_inf": 3.0736234366813333
+      },
+      "best_equation_residuals_inf": [
+        2.3404262206039306e-06,
+        3.828155687764104e-07
+      ],
+      "best_iteration": 15,
+      "best_residual_inf": 2.3404262206039306e-06,
+      "chebyshev_shape": [
+        25,
+        23
+      ],
+      "finite_normal_gap_at_best_iterate": 0.4094998547032097,
+      "newton_diagnostic": {
+        "best_dyadic_alpha": 6.103515625e-05,
+        "best_dyadic_residual_inf": 2.340347907803242e-06,
+        "condition_1_from_lu": 2.0563345589705456e+16,
+        "dimension": 1150,
+        "full_step_residual_inf": 0.033041467763292864,
+        "inverse_identity_residual_inf": 0.080810546875,
+        "inverse_norm_1_from_lu": 360700513532944.5,
+        "jacobian_norm_1": 57.00947134312108,
+        "newton_step_inf": 0.008281103634531727
+      },
+      "rectangle_id": "outer_inner",
+      "residual_gate_pass": false,
+      "residual_stop": 2e-09,
+      "singular_min_u2_minus_1": 0.17722499999999997,
+      "status": "STOP_GRAPH_PDE_RESIDUAL_AND_NEWTON_CONDITIONING"
+    }
+  ],
+  "schema_version": "vdp-canard-invariant-graph-stop-report/1"
+}

@@ -226,6 +226,14 @@ Accordingly the checker emits no entry, \(S\), or \(dS/da_2\), and classifies
 the issue as an application-layer branch-selector blocker rather than a
 theory error.
 
+A direct [physical invariant-graph scout](VDP_CANARD_INVARIANT_GRAPH_STOP.md)
+then collocates the two graph invariance PDEs on two pre-frozen overlapping
+normally-hyperbolic rectangles.  Both residuals stall above the frozen stop
+and their Newton Jacobians are nearly singular, so the experiment records a
+numerical `STOP`: without inflow/gauge/branch data it emits neither an
+intrinsic \(W^{cu}\) entry nor an \(a_2\) tangent.  This does not show that
+\(W^{cu}\) is absent.
+
 The proposed Issue #7 box
 
 \[
