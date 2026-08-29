@@ -14,6 +14,7 @@ import hashlib
 import json
 import subprocess
 import sys
+import types
 from fractions import Fraction
 from pathlib import Path
 from typing import Any
@@ -25,7 +26,6 @@ HERE = Path(__file__).resolve().parent
 REPOSITORY = HERE.parents[1]
 sys.path.insert(0, str(HERE))
 
-import check_certificate as historical  # noqa: E402
 import check_p2d_chart_overlaps as p2d_overlaps  # noqa: E402
 import check_p2d_normal_form_source_bounds as p2d_normal_form  # noqa: E402
 import p2_homoclinic_certificate as p2c  # noqa: E402
@@ -40,6 +40,7 @@ CONFIG_PATH = REPOSITORY / CONFIG_RELATIVE
 SCHEMA_RELATIVE = "validation/rigorous/p2_v2_restriction.schema.json"
 SCHEMA_PATH = REPOSITORY / SCHEMA_RELATIVE
 CHECKER_RELATIVE = "validation/rigorous/p2_v2_restriction.py"
+HISTORICAL_CHECKER_RELATIVE = "validation/rigorous/check_certificate.py"
 
 BASELINE_TAG = "vdp-issue7-box-v2-freeze"
 BASELINE_TAG_OBJECT = "13acd7095a7fbe8bb24985acf0dd449ee6049041"
@@ -207,6 +208,24 @@ def git_blob(commit: str, relative: str) -> bytes:
         ) from error
 
 
+def load_historical_checker() -> types.ModuleType:
+    """Load the authenticated baseline validator, not the extended P1 file."""
+
+    source = git_blob(BASELINE_COMMIT, HISTORICAL_CHECKER_RELATIVE)
+    module = types.ModuleType("_vdp_frozen_v1_check_certificate")
+    module.__file__ = str(REPOSITORY / HISTORICAL_CHECKER_RELATIVE)
+    module.__package__ = None
+    exec(
+        compile(
+            source,
+            f"{BASELINE_COMMIT}:{HISTORICAL_CHECKER_RELATIVE}",
+            "exec",
+        ),
+        module.__dict__,
+    )
+    return module
+
+
 def exact_interval(record: Any, label: str) -> tuple[Fraction, Fraction]:
     require(isinstance(record, dict), f"{label} is not an interval object")
     return (
@@ -320,7 +339,7 @@ def authenticate_baseline(config: dict[str, Any]) -> list[dict[str, str]]:
         V1_BRIDGE_RELATIVE, V2_BRIDGE_RELATIVE, V1_BOX_RELATIVE,
         V2_BOX_RELATIVE, OVERLAP_CONFIG_RELATIVE,
         *(source for source, _ in HISTORICAL_CERTIFICATES.values()),
-        "validation/rigorous/check_certificate.py",
+        HISTORICAL_CHECKER_RELATIVE,
         "validation/rigorous/p2_homoclinic_certificate.py",
         "validation/rigorous/p2d_frame_certificate.py",
         "validation/rigorous/check_p2d_normal_form_source_bounds.py",
@@ -350,18 +369,28 @@ def authenticate_baseline(config: dict[str, Any]) -> list[dict[str, str]]:
         require(relative not in observed_paths,
                 f"duplicate restriction binding: {relative}")
         observed_paths.add(relative)
-        current_hash = sha256_file(REPOSITORY / relative)
         baseline_hash = sha256_bytes(git_blob(BASELINE_COMMIT, relative))
-        require(current_hash == expected_hash,
-                f"current source binding changed: {relative}")
-        require(baseline_hash == expected_hash,
-                f"source is not the frozen baseline blob: {relative}")
+        historical_validator = (
+            relative == HISTORICAL_CHECKER_RELATIVE and
+            role == "historical-validator-baseline"
+        )
+        if historical_validator:
+            require(baseline_hash == expected_hash,
+                    f"source is not the frozen baseline blob: {relative}")
+            current_blob = "SUPERSEDED_BY_V2_COMPATIBLE_VALIDATOR"
+        else:
+            current_hash = sha256_file(REPOSITORY / relative)
+            require(current_hash == expected_hash,
+                    f"current source binding changed: {relative}")
+            require(baseline_hash == expected_hash,
+                    f"source is not the frozen baseline blob: {relative}")
+            current_blob = "MATCH"
         authenticated.append({
             "path": relative,
             "role": role,
             "sha256": expected_hash,
             "baseline_blob": "MATCH",
-            "current_blob": "MATCH",
+            "current_blob": current_blob,
         })
     require(observed_paths == required_paths,
             "restriction source-binding path set changed")
@@ -478,6 +507,7 @@ def domain_restriction() -> tuple[dict[str, Any], dict[str, tuple[Fraction, Frac
 def authenticate_historical_certificates(
         target: dict[str, tuple[Fraction, Fraction]],
         ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    historical = load_historical_checker()
     authentication: list[dict[str, Any]] = []
     atoms: list[dict[str, Any]] = []
     for stage, (relative, required_atoms) in HISTORICAL_CERTIFICATES.items():

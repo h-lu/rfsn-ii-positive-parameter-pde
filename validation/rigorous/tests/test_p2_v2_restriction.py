@@ -138,6 +138,32 @@ class P2V2RestrictionTests(unittest.TestCase):
                                     "current source binding changed"):
             restriction.build_certificate(self.temporary_config(changed))
 
+    def test_historical_validator_is_loaded_from_baseline_blob(self) -> None:
+        records = {
+            item["path"]: item
+            for item in self.certificate["source_authentication"]
+        }
+        validator = records[restriction.HISTORICAL_CHECKER_RELATIVE]
+        self.assertEqual(validator["role"],
+                         "historical-validator-baseline")
+        self.assertEqual(validator["baseline_blob"], "MATCH")
+        self.assertEqual(
+            validator["current_blob"],
+            "SUPERSEDED_BY_V2_COMPATIBLE_VALIDATOR",
+        )
+
+    def test_historical_validator_hash_tamper_fails_closed(self) -> None:
+        config = json.loads(restriction.CONFIG_PATH.read_text(encoding="utf-8"))
+        changed = copy.deepcopy(config)
+        binding = next(
+            item for item in changed["source_bindings"]
+            if item["path"] == restriction.HISTORICAL_CHECKER_RELATIVE
+        )
+        binding["sha256"] = "0" * 64
+        with self.assertRaisesRegex(restriction.RestrictionError,
+                                    "frozen baseline blob"):
+            restriction.build_certificate(self.temporary_config(changed))
+
     def test_stage_atom_tamper_fails_before_evidence_replay(self) -> None:
         config = json.loads(restriction.CONFIG_PATH.read_text(encoding="utf-8"))
         changed = copy.deepcopy(config)

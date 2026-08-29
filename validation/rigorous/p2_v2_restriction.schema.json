@@ -353,7 +353,12 @@
         "role": {"type": "string", "minLength": 1},
         "sha256": {"$ref": "#/$defs/sha256"},
         "baseline_blob": {"const": "MATCH"},
-        "current_blob": {"const": "MATCH"}
+        "current_blob": {
+          "enum": [
+            "MATCH",
+            "SUPERSEDED_BY_V2_COMPATIBLE_VALIDATOR"
+          ]
+        }
       }
     },
     "historicalAuthentication": {

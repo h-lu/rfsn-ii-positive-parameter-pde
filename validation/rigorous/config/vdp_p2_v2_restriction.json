@@ -149,7 +149,7 @@
     {
       "path": "validation/rigorous/check_certificate.py",
       "sha256": "a5ce2a344db719b3d2563b43b33128a57c397f5a5291fdb60f74db89ab96fb62",
-      "role": "historical-validator"
+      "role": "historical-validator-baseline"
     },
     {
       "path": "validation/rigorous/p2_homoclinic_certificate.py",
@@ -260,11 +260,11 @@
   "generated_source_bindings": {
     "checker": {
       "path": "validation/rigorous/p2_v2_restriction.py",
-      "sha256": "2d8ee656925e229abc5436080288e8ca5bda0c720185039b843ea704138c29ae"
+      "sha256": "afad71d8ab17a7b87a9e8c0f511d2691610dc26b6c53fd438a55ce620a4bf44f"
     },
     "result_schema": {
       "path": "validation/rigorous/p2_v2_restriction.schema.json",
-      "sha256": "c8e32c003d5558bd21c3e63a3e9adef3796cf58589936139b5903bf8c2c696a0"
+      "sha256": "73e3849587a9b5a686311dfbf6d7e58ef0a91ef7a14ee55818132715a590c552"
     }
   },
   "claim_boundary": {

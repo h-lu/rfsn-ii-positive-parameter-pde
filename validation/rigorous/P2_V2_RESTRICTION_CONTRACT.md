@@ -28,9 +28,11 @@ binds the annotated freeze tag `vdp-issue7-box-v2-freeze`, tag object
 `13acd7095a7fbe8bb24985acf0dd449ee6049041`, and peeled commit
 `8ba7ffc0bb2cdced0c904ff6dfa319e4a5bd9b2b`.  It also binds every v1
 certificate, bridge and box, relevant historical validator, P2d proof source,
-and P2d lightweight checker to both its current SHA-256 and the corresponding
-Git blob at that commit.  The new checker and result schema are self-bound by
-SHA-256.
+and P2d lightweight checker to the corresponding Git blob at that commit.
+The v1 generic validator is loaded directly from its authenticated baseline
+blob because the v2 P1 lane legitimately extends the current file at the same
+path.  Every other frozen input must still match both baseline and current
+bytes.  The new checker and result schema are self-bound by SHA-256.
 
 The derived scope has 32 atoms:
 
