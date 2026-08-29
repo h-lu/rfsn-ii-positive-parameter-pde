@@ -1,0 +1,71 @@
+{
+  "schema_version": "vdp-canard-multiple-shoot-config/1",
+  "freeze_status": "FROZEN_BEFORE_RETAINED_MULTIPLE_SHOOT_RUN",
+  "claim_bearing": false,
+  "parameters": {
+    "epsilon": 1.0,
+    "r": 0.08,
+    "a2_interval": [-0.0125, 0.0],
+    "outer_u2": 16.645083364843376,
+    "outer_v2_definition": "u2^2+r^2*u2^3/3",
+    "outer_q2": -80.0,
+    "outer_p2_definition": "unique negative root of H2=0"
+  },
+  "initialization_only": {
+    "method": "recompute the saved q2=-80 Appendix-A.3 collocation branch",
+    "a2_seed": -0.008338195267063859,
+    "flight_time_seed": 14.29055562589188,
+    "accept_as_evidence": false
+  },
+  "multiple_shooting": {
+    "segments": 80,
+    "unknowns": [
+      "a2",
+      "log_total_flight_time",
+      "four state coordinates at each of the 79 interior nodes"
+    ],
+    "residuals": [
+      "four exact-IVP continuity defects at each of the first 79 segment endpoints",
+      "terminal p2",
+      "terminal q2"
+    ],
+    "state_residual_scales": [20.0, 20.0, 400.0, 100.0],
+    "endpoint_residual_scales": [1.0, 1.0],
+    "total_flight_time_bounds": [5.0, 30.0],
+    "ivp_method": "DOP853",
+    "ivp_rtol": 2e-11,
+    "ivp_atol": 2e-13,
+    "ivp_max_step": 0.01,
+    "least_squares_xtol": 2e-11,
+    "least_squares_ftol": 2e-11,
+    "least_squares_gtol": 2e-11,
+    "least_squares_max_nfev": 80
+  },
+  "retained_acceptance": {
+    "optimizer_success_required": true,
+    "scaled_residual_inf_max": 1e-8,
+    "raw_continuity_inf_max": 2e-7,
+    "terminal_abs_max": 1e-8,
+    "tight_segment_replay_inf_max": 2e-7,
+    "hamiltonian_node_abs_max": 2e-7,
+    "a2_strictly_inside_interval": true
+  },
+  "tight_segment_replay": {
+    "ivp_method": "DOP853",
+    "ivp_rtol": 2e-13,
+    "ivp_atol": 1e-15,
+    "ivp_max_step": 0.005
+  },
+  "splitting_derivative": {
+    "section": "terminal p2=0 on the locally continued multiple-shooting family",
+    "splitting": "S(a2)=terminal q2",
+    "symmetric_steps": [1e-6, 5e-7],
+    "relative_implicit_vs_fd_max": 0.05,
+    "simple_zero_derivative_abs_min": 0.001
+  },
+  "nonclaims": [
+    "The q2=-80 finite boundary is not an intrinsic center-unstable slow-manifold selector.",
+    "Floating-point multiple shooting is not an interval proof or a rigorous shadowing theorem.",
+    "No connection to the preregistered high-winding orbit or PDE selection is claimed."
+  ]
+}
