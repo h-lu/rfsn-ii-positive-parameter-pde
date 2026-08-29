@@ -1,0 +1,120 @@
+{
+  "schema_version": "rfsn-vdp-v5-endpoint-exchange-v2-config/1",
+  "configuration_id": "vdp-v5-endpoint-exchange-v2-center",
+  "status": "PREDECLARED_FLOATING_POINT_ENDPOINT_PAIRING",
+  "evidence_status": "COMPUTED/E1_NON_RIGOROUS",
+  "claim_bearing": false,
+  "parameter_point": {
+    "r": "3/200",
+    "a2": "0",
+    "epsilon": "1"
+  },
+  "input_bindings": [
+    {
+      "role": "ENERGY_PRESERVING_MATCHED_CENTERLINE_REPORT",
+      "path": "numerics/results/vdp_p2e_channel_scout_v2/energy_matched_centerline.json",
+      "sha256": "c66a9750a632f6066da4133830b1f85ab2f6519919c369ed30ca9bbbffd5bdb4"
+    },
+    {
+      "role": "ENERGY_PRESERVING_MATCHED_CENTERLINE_DATA",
+      "path": "numerics/results/vdp_p2e_channel_scout_v2/energy_matched_centerline.npz",
+      "sha256": "d5fe5897604de1975aa8895a2a3c42413e488975a360f6504dd3e761e0af2fbf"
+    },
+    {
+      "role": "V4_GRAPH_SLICE_REPORT",
+      "path": "numerics/results/vdp_v4_future_graph_slice_v2/result.json",
+      "sha256": "95514a22055b2bceba82b0c4ce0fc053b046fb684a47169989ce6db59c82144a"
+    },
+    {
+      "role": "V4_GRAPH_SLICE_DATA",
+      "path": "numerics/results/vdp_v4_future_graph_slice_v2/slice.npz",
+      "sha256": "2458b768e991c18c6d52816382cab3e73624de2e093059d399449e3c1c354d0a"
+    },
+    {
+      "role": "P2E_SOURCE_CONVENTION",
+      "path": "numerics/config/vdp_p2e_channel_scout_v2.json",
+      "sha256": "4395ab486b226f2ad5ace891077f738b3d2d8b76cd39b2459edb9f9efbc373eb"
+    },
+    {
+      "role": "FROZEN_JOST_SOURCE",
+      "path": "frozen-imports/rfsn-ii-d54add098545063d5efe8f1d6f062d4cfc116a0d/source/papers/paper-a/manuscript/main.tex",
+      "sha256": "0baf6335aad72d5893479d8876d2613671ecb8ac2ccd73664405dea4381e6a20"
+    }
+  ],
+  "sections_and_clocks": {
+    "central_section": "h_c=U+M=0",
+    "M": 4.0,
+    "outer_r1": 2.0,
+    "outer_Q": 25.0,
+    "central_clock": "xi",
+    "resolved_K1_clock": "r1 with dr1/dy1=(sqrt(epsilon)/2)*sigma^2*Pi*r1",
+    "outer_clock": "tau with d/dtau=r1*z*d/dy1 on the overlap"
+  },
+  "endpoint_row": {
+    "graph_horizon_Q_end": 200.0,
+    "beta_indices": [0, 1, 2],
+    "center_beta_index": 1,
+    "slope_fit": "quadratic alpha(beta) on the three frozen seam points",
+    "raw_scaled_normalization": "L_o=dA-Gamma_B*dB with L_o(partial_A)=1",
+    "K1_pullback": "exact derivative of V5(37) on the fixed r1=R, H leaf",
+    "central_pullback": "exact fixed-U derivative of V5(38), followed by intrinsic row reduction V5(54)"
+  },
+  "jost_normalization": {
+    "B2": "Gamma(3/4)*96^(5/8)/(8*sqrt(pi))",
+    "B3": "Gamma(1/4)*96^(7/8)/(16*sqrt(pi))",
+    "frozen_comparison": "24*B2*B3=144*sqrt(3)",
+    "central_algebraic_parameter": "t_c=2*sqrt(3*M)",
+    "symplectic_row": "psi=omega(s,.)=(s_P,-s_U,-s_Q,s_V)",
+    "section_normal": "N_J is the section-tangent Euclidean Riesz vector of psi, normalized by psi(N_J)=1",
+    "positive_row": "L_c^J=L_c^raw/L_c^raw(N_J)",
+    "growing_continuation": "u_mu is the constant fixed-universal-chart continuation of frozen u(t_c)"
+  },
+  "differentiation": {
+    "outer_map_steps": {
+      "Pi": 1.0e-6,
+      "Omega": 1.0e-7
+    },
+    "K1_rhs_steps": {
+      "Pi": 1.0e-6,
+      "Omega": 1.0e-7
+    },
+    "source_phase_step": 2.0e-5,
+    "source_phase_half_step": 1.0e-5,
+    "time_step": 1.0e-5
+  },
+  "integration": {
+    "method": "DOP853",
+    "Jost_rtol": 2.0e-12,
+    "Jost_atol": 2.0e-14,
+    "Jost_max_step": 0.01,
+    "K1_rtol": 2.0e-10,
+    "K1_atol": 2.0e-12,
+    "K1_max_step": 0.005,
+    "central_rtol": 2.0e-11,
+    "central_atol": 2.0e-13,
+    "central_max_step": 0.02
+  },
+  "qa_thresholds": {
+    "frozen_B2B3_identity_abs_upper": 1.0e-12,
+    "frozen_exchange_identity_abs_upper": 1.0e-9,
+    "Jost_pairing_drift_abs_upper": 1.0e-8,
+    "outer_map_jacobian_crosscheck_inf_upper": 1.0e-9,
+    "endpoint_graph_tangent_pairing_abs_upper": 1.0e-10,
+    "adjoint_forward_backward_relative_upper": 1.0e-7,
+    "intrinsic_flow_pairing_relative_upper": 1.0e-10,
+    "positive_exchange_lower": 124.70765814495917,
+    "positive_exchange_relative_deviation_from_frozen_upper": 0.5,
+    "source_tangent_crosscheck_relative_upper": 2.0e-5,
+    "time_tangent_crosscheck_relative_upper": 1.0e-7,
+    "source_phase_incidence_abs_lower": 1.0e-6,
+    "central_section_speed_abs_lower": 0.5,
+    "determinant_factorization_relative_upper": 1.0e-12,
+    "matching_sigma_min_lower": 1.0e-6,
+    "matching_condition_number_upper": 1.0e8
+  },
+  "nonclaims": [
+    "The positive exchange is one Jost-normalized fixed-center pairing, not a uniform lower bound on the v2 parameter box.",
+    "The two-by-two Jacobian and its singular values are for the declared flow-constant target extension and Jost row normalization; they do not prove nonlinear uniqueness.",
+    "Backward adjoint and forward variational agreement on the saved floating centerline is not interval validation of the resolved matching tube."
+  ]
+}
