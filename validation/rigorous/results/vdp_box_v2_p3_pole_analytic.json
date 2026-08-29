@@ -1,0 +1,317 @@
+{
+  "certificate_id": "vdp-box-v2-p3-pole-analytic",
+  "claim_bearing": false,
+  "local_lemma_atoms": [
+    {
+      "id": "V3.POLE.EXPLICIT_RADIUS",
+      "inequalities": {
+        "margin_to_one": {
+          "decimal": "0.98999998899999997",
+          "denominator": "1000000000",
+          "numerator": "989999989"
+        },
+        "margin_to_one_quarter": {
+          "decimal": "0.24999779999999999",
+          "denominator": "5000000",
+          "numerator": "1249989"
+        },
+        "sqrt_epsilon_plus_A_rp_cubed_lhs": {
+          "decimal": "2.2000000000000001e-06",
+          "denominator": "5000000",
+          "numerator": "11"
+        },
+        "two_A_rp_plus_sqrt_epsilon_plus_A_squared_rp_fourth_lhs": {
+          "decimal": "0.010000011",
+          "denominator": "1000000000",
+          "numerator": "10000011"
+        }
+      },
+      "scope": "UNCONDITIONAL_ON_THE_COMPLETE_V2_PARAMETER_BOX",
+      "status": "PASS"
+    },
+    {
+      "boundary_lower_bounds": {
+        "K_prime_at_K_zero": {
+          "decimal": "140.2962962962963",
+          "denominator": "27",
+          "numerator": "3788"
+        },
+        "derivative_of_K_prime_lower_polynomial": {
+          "decimal": "54.11851851851852",
+          "denominator": "135",
+          "numerator": "7306"
+        },
+        "derivative_of_y_prime_lower_polynomial": {
+          "decimal": "4.0088888888888885",
+          "denominator": "225",
+          "numerator": "902"
+        },
+        "y_prime_at_D_zero": {
+          "decimal": "15.02962962962963",
+          "denominator": "135",
+          "numerator": "2029"
+        }
+      },
+      "domain": "x>=10, y>0, D>=0, K>=0",
+      "id": "V3.POLE.CONE_INWARD",
+      "scope": "UNCONDITIONAL_FOR_ALL_PARAMETERS_IN_V2_AND_ALL_STATES_IN_K_MU",
+      "status": "PASS"
+    },
+    {
+      "antecedent": {
+        "D_lower": {
+          "decimal": "26",
+          "denominator": "1",
+          "numerator": "26"
+        },
+        "K_lower": {
+          "decimal": "131",
+          "denominator": "1",
+          "numerator": "131"
+        },
+        "x": {
+          "decimal": "10",
+          "denominator": "1",
+          "numerator": "10"
+        },
+        "y_lower": {
+          "decimal": "13",
+          "denominator": "1",
+          "numerator": "13"
+        }
+      },
+      "consequent": {
+        "K_prime_lower": {
+          "decimal": "918.29409519629633",
+          "denominator": "270000000",
+          "numerator": "247939405703"
+        },
+        "margin_above_51": {
+          "decimal": "24.92940951962963",
+          "denominator": "2700000000",
+          "numerator": "67309405703"
+        },
+        "margin_above_852": {
+          "decimal": "66.294095196296297",
+          "denominator": "270000000",
+          "numerator": "17899405703"
+        },
+        "y_prime_lower": {
+          "decimal": "75.92940951962963",
+          "denominator": "2700000000",
+          "numerator": "205009405703"
+        }
+      },
+      "id": "V3.POLE.GATE_MARGIN_IMPLICATION",
+      "scope": "CONDITIONAL_LEMMA_ONLY",
+      "status": "PASS"
+    },
+    {
+      "antecedent": "the same x=10,y>=13 cone entry",
+      "bounds": {
+        "epsilon_minus_one_quarter_upper": {
+          "decimal": "1.0666666666666667",
+          "denominator": "15",
+          "numerator": "16"
+        },
+        "remaining_central_time_at_x": "xi_b-xi<260/x",
+        "remaining_central_time_from_gate_upper": {
+          "decimal": "26",
+          "denominator": "1",
+          "numerator": "26"
+        },
+        "remaining_physical_time_from_gate_upper": {
+          "decimal": "0.55466666666666664",
+          "denominator": "375",
+          "numerator": "208"
+        },
+        "y_lower_formula": "y(x)>x^2/260 for every x>=10",
+        "y_squared_offset": {
+          "decimal": "168.85185185185185",
+          "denominator": "27",
+          "numerator": "4559"
+        }
+      },
+      "id": "V3.POLE.FINITE_TIME_TAIL_IMPLICATION",
+      "scope": "CONDITIONAL_LEMMA_ONLY",
+      "status": "PASS"
+    },
+    {
+      "abs_dG_dc4_lower": {
+        "decimal": "2.3999999999999999e-15",
+        "denominator": "1250000000000000",
+        "numerator": "3"
+      },
+      "admissible_power_roots": [
+        "1",
+        "4"
+      ],
+      "id": "V3.POLE.REGULAR_SINGULAR_EXACT_STRUCTURE",
+      "label_spectrum": [
+        "0",
+        "0"
+      ],
+      "leading_coordinate_determinant_5ell2delta_lower": {
+        "decimal": "3e-11",
+        "denominator": "100000000000",
+        "numerator": "3"
+      },
+      "normal_spectrum": [
+        "-1",
+        "-4",
+        "1"
+      ],
+      "scope": "EXACT_FORMULA_LEVEL_ONLY_NOT_A_REMAINDER_ENCLOSURE",
+      "status": "PASS"
+    }
+  ],
+  "mathematical_status": "INCONCLUSIVE",
+  "nonclaims": [
+    "The conditional gate and blow-up lemmas do not show that any source orbit reaches the cone.",
+    "The exact spectrum, transversality coefficient, and leading determinant do not enclose a local stable manifold or its remainder.",
+    "The one-point floating pole scout is not used in any PASS decision.",
+    "Neither V3 parent obligation is passed, and no V4--V6 claim follows."
+  ],
+  "parent_obligations": [
+    {
+      "id": "V3.SOURCE_TO_POLE",
+      "reason": "No gap-free interval event tube yet carries the complete source phase window to its unique first x=10 hit and proves the entry antecedent.",
+      "status": "INCONCLUSIVE"
+    },
+    {
+      "id": "V3.POLE_TAIL",
+      "reason": "The exact pole structure and conditional finite-time estimate pass, but no explicit label block, sigma0 contraction, stable-fibre enclosure, coordinate determinant remainder, or mixed-C2 action remainder is certified.",
+      "status": "INCONCLUSIVE"
+    }
+  ],
+  "rational_square_root_brackets": {
+    "sqrt_6": {
+      "lower": {
+        "decimal": "2.3999999999999999",
+        "denominator": "5",
+        "numerator": "12"
+      },
+      "upper": {
+        "decimal": "2.5",
+        "denominator": "2",
+        "numerator": "5"
+      }
+    },
+    "sqrt_epsilon": {
+      "lower": {
+        "decimal": "0.88888888888888884",
+        "denominator": "9",
+        "numerator": "8"
+      },
+      "upper": {
+        "decimal": "1.1000000000000001",
+        "denominator": "10",
+        "numerator": "11"
+      }
+    }
+  },
+  "required_interfaces": [
+    {
+      "id": "P3.POLE_GATE_EVENT_TUBE",
+      "required_output": [
+        "a gap-free cover of (r,a2,epsilon,phi) on v2 times [-0.2,0.2]",
+        "unique first-hit time and state intervals for g=x-10",
+        "strict pre-hit g<0 and hit-speed y>0 enclosures",
+        "gate lower bounds y>=13, D>=26, K>=131",
+        "state and parameter/phase mixed two-jet bounds at the gate"
+      ]
+    },
+    {
+      "id": "P3.POLE_LOCAL_END_BLOCK",
+      "required_output": [
+        "one explicit downstream section x=M or sigma=sigma0 reached by the entire gate image",
+        "interval bounds for Z0,W0,c4 and a containing label rectangle",
+        "an explicit sigma0 and contraction/remainder constants through mixed external order two",
+        "a positive full coordinate-Jacobian lower bound after its remainder, not only its leading term",
+        "an integrable O_C2 density remainder constant and the resulting action-tail error"
+      ]
+    }
+  ],
+  "schema_version": "rfsn-vdp-p3-pole-analytic-v2/1",
+  "status": "PARTIAL_ANALYTIC_PASS",
+  "target": {
+    "box_id": "vdp-positive-box-v2",
+    "box_path": "validation/rigorous/config/vdp_box_v2.json",
+    "box_sha256": "43ff2ee14db2e9d42abe484e9d415176cc92836fb2956a27cb6b9f72a751b1ed",
+    "exact_identification": {
+      "A": {
+        "decimal": "0.25",
+        "denominator": "4",
+        "numerator": "1"
+      },
+      "r_interval_equals_half_rp_to_rp": true,
+      "r_p": {
+        "decimal": "0.02",
+        "denominator": "50",
+        "numerator": "1"
+      }
+    },
+    "theorem_path": "van-der-pol/POSITIVE_POLE_FINITE_PART.md",
+    "theorem_sha256": "f6655e4f6ac6f54e55445dd2a5f4c8b293fcefeef109e687de059f6de914a0d0"
+  },
+  "uniform_parameter_bounds": {
+    "B_minus_one_half_lower": {
+      "decimal": "0.49999779999999999",
+      "denominator": "5000000",
+      "numerator": "2499989"
+    },
+    "a_and_B": {
+      "lower": {
+        "decimal": "0.99999780000000005",
+        "denominator": "5000000",
+        "numerator": "4999989"
+      },
+      "upper": {
+        "decimal": "1.0000022",
+        "denominator": "5000000",
+        "numerator": "5000011"
+      }
+    },
+    "abs_c_upper": {
+      "decimal": "0.010000011",
+      "denominator": "1000000000",
+      "numerator": "10000011"
+    },
+    "b": {
+      "lower": {
+        "decimal": "2.962962962962963e-05",
+        "denominator": "33750",
+        "numerator": "1"
+      },
+      "upper": {
+        "decimal": "0.00014666666666666666",
+        "denominator": "75000",
+        "numerator": "11"
+      }
+    },
+    "delta": {
+      "lower": {
+        "decimal": "0.0001",
+        "denominator": "10000",
+        "numerator": "1"
+      },
+      "upper": {
+        "decimal": "0.00040000000000000002",
+        "denominator": "2500",
+        "numerator": "1"
+      }
+    },
+    "ell": {
+      "lower": {
+        "decimal": "0.00024000000000000001",
+        "denominator": "12500",
+        "numerator": "3"
+      },
+      "upper": {
+        "decimal": "0.001",
+        "denominator": "1000",
+        "numerator": "1"
+      }
+    }
+  }
+}
