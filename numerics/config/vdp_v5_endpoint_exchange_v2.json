@@ -90,6 +90,10 @@
     "K1_rtol": 2.0e-10,
     "K1_atol": 2.0e-12,
     "K1_max_step": 0.005,
+    "K1_adjoint_representations": [
+      "unit-covector plus logarithmic scale",
+      "projective angle plus logarithmic scale"
+    ],
     "central_rtol": 2.0e-11,
     "central_atol": 2.0e-13,
     "central_max_step": 0.02
@@ -100,7 +104,7 @@
     "Jost_pairing_drift_abs_upper": 1.0e-8,
     "outer_map_jacobian_crosscheck_inf_upper": 1.0e-9,
     "endpoint_graph_tangent_pairing_abs_upper": 1.0e-10,
-    "adjoint_forward_backward_relative_upper": 1.0e-7,
+    "adjoint_projective_angle_difference_upper": 1.0e-7,
     "intrinsic_flow_pairing_relative_upper": 1.0e-10,
     "positive_exchange_lower": 124.70765814495917,
     "positive_exchange_relative_deviation_from_frozen_upper": 0.5,
