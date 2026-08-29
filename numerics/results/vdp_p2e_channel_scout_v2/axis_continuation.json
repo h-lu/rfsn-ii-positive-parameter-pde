@@ -1,0 +1,496 @@
+{
+  "centered_finite_differences": {
+    "a2": {
+      "d_central_flight_time": -0.02911432346204279,
+      "d_energy_h": -3.558470350505235e-13,
+      "d_source_phase": 0.08658683630287456,
+      "status": "COMPUTED/E1_QA"
+    },
+    "energy_h_caution": "The solved H values are near the floating energy noise floor; their endpoint quotients are recorded but not interpreted.",
+    "epsilon": {
+      "d_central_flight_time": 0.00032055298976541025,
+      "d_energy_h": -9.14030973637685e-15,
+      "d_source_phase": 3.810069138410199e-05,
+      "status": "COMPUTED/E1_QA"
+    },
+    "method": "paired endpoint centered finite differences; COMPUTED/E1/QA",
+    "nonclaim": "These endpoint quotients are sampled sensitivities, not derivative enclosures or C2 parameter validation.",
+    "r": {
+      "d_central_flight_time": 0.08504588646314204,
+      "d_energy_h": 2.6353365417698247e-12,
+      "d_source_phase": 0.010108358777483062,
+      "status": "COMPUTED/E1_QA"
+    }
+  },
+  "claim_bearing": false,
+  "data_path": "numerics/results/vdp_p2e_channel_scout_v2/axis_continuation.npz",
+  "evidence_status": "COMPUTED/E1_QA_NON_RIGOROUS",
+  "fixed_geometry": {
+    "center_phase_bracket_policy": "recorded at every point but not used as an axis acceptance test: phase is a solved output, and the bracket froze only the center scout's Newton initialization",
+    "equations": "identical to the center solve up to exact positive-pi and positive-Pi coordinate conjugacies",
+    "outer_r1": 2.0,
+    "predictor_policy": "center phase for every axial endpoint; the negative a2 endpoint uses the symmetric secant phase from center and the already successful positive a2 endpoint",
+    "q_end": 200.0,
+    "q_label": 100.0,
+    "residual_and_branch_thresholds": "identical to center solve",
+    "section_m": 4.0
+  },
+  "nonclaim": "Seven axial floating-point centerlines and scalar phase order do not form a box cover, channel tube, or V2 event atlas.",
+  "point_order": [
+    "center",
+    "r_lower",
+    "r_upper",
+    "a2_upper",
+    "a2_lower",
+    "epsilon_lower",
+    "epsilon_upper"
+  ],
+  "points": {
+    "a2_lower": {
+      "centerline_status": "ENERGY_PRESERVING_MATCHED_CENTERLINE_SUCCESS",
+      "central_flight_time": 9.902486716767925,
+      "energy_h": 8.679647552829894e-14,
+      "energy_residuals": {
+        "central_abs_max": 3.3048650621703146e-14,
+        "k1_equation_inf": 3.552713678800501e-15,
+        "outer_equation_inf": 5.551115123125783e-17
+      },
+      "initial_phase_predictor": 5.73515440938419,
+      "parameter_point": {
+        "a2": -0.25,
+        "epsilon": 1.0,
+        "r": 0.015
+      },
+      "phase_order_diagnostic": {
+        "algebraic_phase": 5.73508661903433,
+        "algebraic_to_homoclinic_gap": 0.10602254492704155,
+        "diagnostic_order_passed": true,
+        "homoclinic": {
+          "phase": 5.841109163961372,
+          "shooting_residual_inf": 1.7450867140222925e-12,
+          "status": "SUCCESS"
+        },
+        "homoclinic_to_pole_left_proxy_gap": 0.24207614321821413,
+        "nonclaim": "Scalar phase ordering at one sampled point is not an event atlas, event-face separation, or uniform phase enclosure.",
+        "pole_certified_cover_left_lift_proxy": 6.083185307179586,
+        "pole_phase_zero_lift_scalar": 6.283185307179586
+      },
+      "positive_branch_margins": {
+        "minimum_k1_Pi": 0.30429035466228965,
+        "minimum_k1_q1": 1.1554991009914808,
+        "minimum_outer_pi": 0.00013693065959803033
+      },
+      "qa": {
+        "algebraic_orientation": true,
+        "boundary_residual": true,
+        "central_energy": true,
+        "central_energy_alignment": true,
+        "central_k1_seam": true,
+        "k1_energy": true,
+        "k1_outer_seam": true,
+        "outer_energy": true,
+        "positive_branches": true,
+        "same_section": true,
+        "solver_residual": true
+      },
+      "six_row_and_seam_residuals": {
+        "boundary_inf": 1.5462076063954555e-12,
+        "central_k1_full_state_inf": 5.4072302191343624e-12,
+        "independent_same_section_abs": 8.470329472543003e-22,
+        "k1_outer_normal_inf": 3.8116482626443515e-21
+      },
+      "solver": {
+        "nodes": 1864,
+        "rms_residual_max": 9.904060911970356e-07,
+        "success": true
+      },
+      "source_phase": 5.73508661903433,
+      "source_phase_in_center_scout_bracket": false,
+      "status": "SUCCESS"
+    },
+    "a2_upper": {
+      "centerline_status": "ENERGY_PRESERVING_MATCHED_CENTERLINE_SUCCESS",
+      "central_flight_time": 9.887929555036903,
+      "energy_h": -9.11270419969628e-14,
+      "energy_residuals": {
+        "central_abs_max": 2.3440450969136606e-14,
+        "k1_equation_inf": 3.552713678800501e-15,
+        "outer_equation_inf": 5.551115123125783e-17
+      },
+      "initial_phase_predictor": 5.756767223284979,
+      "parameter_point": {
+        "a2": 0.25,
+        "epsilon": 1.0,
+        "r": 0.015
+      },
+      "phase_order_diagnostic": {
+        "algebraic_phase": 5.778380037185768,
+        "algebraic_to_homoclinic_gap": 0.10337302209783505,
+        "diagnostic_order_passed": true,
+        "homoclinic": {
+          "phase": 5.881753059283603,
+          "shooting_residual_inf": 1.0695524327308803e-13,
+          "status": "SUCCESS"
+        },
+        "homoclinic_to_pole_left_proxy_gap": 0.20143224789598335,
+        "nonclaim": "Scalar phase ordering at one sampled point is not an event atlas, event-face separation, or uniform phase enclosure.",
+        "pole_certified_cover_left_lift_proxy": 6.083185307179586,
+        "pole_phase_zero_lift_scalar": 6.283185307179586
+      },
+      "positive_branch_margins": {
+        "minimum_k1_Pi": 0.30429026480155763,
+        "minimum_k1_q1": 1.1540837648380973,
+        "minimum_outer_pi": 0.00013693061916070088
+      },
+      "qa": {
+        "algebraic_orientation": true,
+        "boundary_residual": true,
+        "central_energy": true,
+        "central_energy_alignment": true,
+        "central_k1_seam": true,
+        "k1_energy": true,
+        "k1_outer_seam": true,
+        "outer_energy": true,
+        "positive_branches": true,
+        "same_section": true,
+        "solver_residual": true
+      },
+      "six_row_and_seam_residuals": {
+        "boundary_inf": 6.713518629908322e-13,
+        "central_k1_full_state_inf": 2.33946195749013e-12,
+        "independent_same_section_abs": 1.6940658945086007e-21,
+        "k1_outer_normal_inf": 2.541098841762901e-21
+      },
+      "solver": {
+        "nodes": 1911,
+        "rms_residual_max": 9.904056447877648e-07,
+        "success": true
+      },
+      "source_phase": 5.778380037185768,
+      "source_phase_in_center_scout_bracket": false,
+      "status": "SUCCESS"
+    },
+    "center": {
+      "centerline_status": "ENERGY_PRESERVING_MATCHED_CENTERLINE_SUCCESS",
+      "central_flight_time": 9.895162060961962,
+      "energy_h": 1.6531401306609465e-14,
+      "energy_residuals": {
+        "central_abs_max": 6.910964855944002e-14,
+        "k1_equation_inf": 3.552713678800501e-15,
+        "outer_equation_inf": 5.551115123125783e-17
+      },
+      "initial_phase_predictor": 5.756691395749909,
+      "parameter_point": {
+        "a2": 0.0,
+        "epsilon": 1.0,
+        "r": 0.015
+      },
+      "phase_order_diagnostic": {
+        "algebraic_phase": 5.756767223284979,
+        "algebraic_to_homoclinic_gap": 0.10469088541723615,
+        "diagnostic_order_passed": true,
+        "homoclinic": {
+          "phase": 5.861458108702215,
+          "shooting_residual_inf": 8.631984016460592e-15,
+          "status": "SUCCESS"
+        },
+        "homoclinic_to_pole_left_proxy_gap": 0.221727198477371,
+        "nonclaim": "Scalar phase ordering at one sampled point is not an event atlas, event-face separation, or uniform phase enclosure.",
+        "pole_certified_cover_left_lift_proxy": 6.083185307179586,
+        "pole_phase_zero_lift_scalar": 6.283185307179586
+      },
+      "positive_branch_margins": {
+        "minimum_k1_Pi": 0.30429030973192694,
+        "minimum_k1_q1": 1.1548995820257388,
+        "minimum_outer_pi": 0.00013693063937936708
+      },
+      "qa": {
+        "algebraic_orientation": true,
+        "boundary_residual": true,
+        "central_energy": true,
+        "central_energy_alignment": true,
+        "central_k1_seam": true,
+        "k1_energy": true,
+        "k1_outer_seam": true,
+        "outer_energy": true,
+        "positive_branches": true,
+        "same_section": true,
+        "solver_residual": true
+      },
+      "six_row_and_seam_residuals": {
+        "boundary_inf": 1.4701573292086323e-12,
+        "central_k1_full_state_inf": 5.162092975297128e-12,
+        "independent_same_section_abs": 4.235164736271502e-22,
+        "k1_outer_normal_inf": 4.658681209898652e-21
+      },
+      "solver": {
+        "nodes": 1864,
+        "rms_residual_max": 9.904056508619115e-07,
+        "success": true
+      },
+      "source_phase": 5.756767223284979,
+      "source_phase_in_center_scout_bracket": true,
+      "status": "SUCCESS"
+    },
+    "epsilon_lower": {
+      "centerline_status": "ENERGY_PRESERVING_MATCHED_CENTERLINE_SUCCESS",
+      "central_flight_time": 9.89509471966165,
+      "energy_h": -3.922531790953483e-15,
+      "energy_residuals": {
+        "central_abs_max": 3.0359829233939095e-14,
+        "k1_equation_inf": 3.552713678800501e-15,
+        "outer_equation_inf": 5.551115123125783e-17
+      },
+      "initial_phase_predictor": 5.756767223284979,
+      "parameter_point": {
+        "a2": 0.0,
+        "epsilon": 0.8,
+        "r": 0.015
+      },
+      "phase_order_diagnostic": {
+        "algebraic_phase": 5.756759219106182,
+        "algebraic_to_homoclinic_gap": 0.10470390254448603,
+        "diagnostic_order_passed": true,
+        "homoclinic": {
+          "phase": 5.861463121650668,
+          "shooting_residual_inf": 1.0373646386341306e-14,
+          "status": "SUCCESS"
+        },
+        "homoclinic_to_pole_left_proxy_gap": 0.2217221855289182,
+        "nonclaim": "Scalar phase ordering at one sampled point is not an event atlas, event-face separation, or uniform phase enclosure.",
+        "pole_certified_cover_left_lift_proxy": 6.083185307179586,
+        "pole_phase_zero_lift_scalar": 6.283185307179586
+      },
+      "positive_branch_margins": {
+        "minimum_k1_Pi": 0.33496634496755673,
+        "minimum_k1_q1": 1.2211353197899324,
+        "minimum_outer_pi": 0.00012058788418832038
+      },
+      "qa": {
+        "algebraic_orientation": true,
+        "boundary_residual": true,
+        "central_energy": true,
+        "central_energy_alignment": true,
+        "central_k1_seam": true,
+        "k1_energy": true,
+        "k1_outer_seam": true,
+        "outer_energy": true,
+        "positive_branches": true,
+        "same_section": true,
+        "solver_residual": true
+      },
+      "six_row_and_seam_residuals": {
+        "boundary_inf": 5.605516051332415e-13,
+        "central_k1_full_state_inf": 1.9770851622524788e-12,
+        "independent_same_section_abs": 8.470329472543003e-22,
+        "k1_outer_normal_inf": 1.3552527156068805e-20
+      },
+      "solver": {
+        "nodes": 1871,
+        "rms_residual_max": 9.9870370017608e-07,
+        "success": true
+      },
+      "source_phase": 5.756759219106182,
+      "source_phase_in_center_scout_bracket": true,
+      "status": "SUCCESS"
+    },
+    "epsilon_upper": {
+      "centerline_status": "ENERGY_PRESERVING_MATCHED_CENTERLINE_SUCCESS",
+      "central_flight_time": 9.895222940857556,
+      "energy_h": -7.578655685504223e-15,
+      "energy_residuals": {
+        "central_abs_max": 2.6444124667790447e-14,
+        "k1_equation_inf": 3.552713678800501e-15,
+        "outer_equation_inf": 1.1102230246251565e-16
+      },
+      "initial_phase_predictor": 5.756767223284979,
+      "parameter_point": {
+        "a2": 0.0,
+        "epsilon": 1.2,
+        "r": 0.015
+      },
+      "phase_order_diagnostic": {
+        "algebraic_phase": 5.7567744593827355,
+        "algebraic_to_homoclinic_gap": 0.1046791171305923,
+        "diagnostic_order_passed": true,
+        "homoclinic": {
+          "phase": 5.861453576513328,
+          "shooting_residual_inf": 1.2284617767477357e-13,
+          "status": "SUCCESS"
+        },
+        "homoclinic_to_pole_left_proxy_gap": 0.2217317306662583,
+        "nonclaim": "Scalar phase ordering at one sampled point is not an event atlas, event-face separation, or uniform phase enclosure.",
+        "pole_certified_cover_left_lift_proxy": 6.083185307179586,
+        "pole_phase_zero_lift_scalar": 6.283185307179586
+      },
+      "positive_branch_margins": {
+        "minimum_k1_Pi": 0.2810570955070605,
+        "minimum_k1_q1": 1.1034587067285082,
+        "minimum_outer_pi": 0.00015177083157381265
+      },
+      "qa": {
+        "algebraic_orientation": true,
+        "boundary_residual": true,
+        "central_energy": true,
+        "central_energy_alignment": true,
+        "central_k1_seam": true,
+        "k1_energy": true,
+        "k1_outer_seam": true,
+        "outer_energy": true,
+        "positive_branches": true,
+        "same_section": true,
+        "solver_residual": true
+      },
+      "six_row_and_seam_residuals": {
+        "boundary_inf": 1.4088730182493236e-13,
+        "central_k1_full_state_inf": 4.956035581926699e-13,
+        "independent_same_section_abs": 8.470329472543003e-22,
+        "k1_outer_normal_inf": 1.2705494208814505e-20
+      },
+      "solver": {
+        "nodes": 1690,
+        "rms_residual_max": 9.926700760026319e-07,
+        "success": true
+      },
+      "source_phase": 5.7567744593827355,
+      "source_phase_in_center_scout_bracket": true,
+      "status": "SUCCESS"
+    },
+    "r_lower": {
+      "centerline_status": "ENERGY_PRESERVING_MATCHED_CENTERLINE_SUCCESS",
+      "central_flight_time": 9.894807674283777,
+      "energy_h": -2.407701761662367e-14,
+      "energy_residuals": {
+        "central_abs_max": 1.81603863891322e-14,
+        "k1_equation_inf": 3.552713678800501e-15,
+        "outer_equation_inf": 5.551115123125783e-17
+      },
+      "initial_phase_predictor": 5.756767223284979,
+      "parameter_point": {
+        "a2": 0.0,
+        "epsilon": 1.0,
+        "r": 0.01
+      },
+      "phase_order_diagnostic": {
+        "algebraic_phase": 5.756725099876434,
+        "algebraic_to_homoclinic_gap": 0.10475938666778184,
+        "diagnostic_order_passed": true,
+        "homoclinic": {
+          "phase": 5.8614844865442155,
+          "shooting_residual_inf": 2.8727020762175925e-14,
+          "status": "SUCCESS"
+        },
+        "homoclinic_to_pole_left_proxy_gap": 0.22170082063537055,
+        "nonclaim": "Scalar phase ordering at one sampled point is not an event atlas, event-face separation, or uniform phase enclosure.",
+        "pole_certified_cover_left_lift_proxy": 6.083185307179586,
+        "pole_phase_zero_lift_scalar": 6.283185307179586
+      },
+      "positive_branch_margins": {
+        "minimum_k1_Pi": 0.30429030972644233,
+        "minimum_k1_q1": 1.154788542486333,
+        "minimum_outer_pi": 6.085806194528846e-05
+      },
+      "qa": {
+        "algebraic_orientation": true,
+        "boundary_residual": true,
+        "central_energy": true,
+        "central_energy_alignment": true,
+        "central_k1_seam": true,
+        "k1_energy": true,
+        "k1_outer_seam": true,
+        "outer_energy": true,
+        "positive_branches": true,
+        "same_section": true,
+        "solver_residual": true
+      },
+      "six_row_and_seam_residuals": {
+        "boundary_inf": 4.823919041996305e-13,
+        "central_k1_full_state_inf": 1.694644424787839e-12,
+        "independent_same_section_abs": 8.470329472543003e-22,
+        "k1_outer_normal_inf": 0.0
+      },
+      "solver": {
+        "nodes": 2434,
+        "rms_residual_max": 9.911617215593692e-07,
+        "success": true
+      },
+      "source_phase": 5.756725099876434,
+      "source_phase_in_center_scout_bracket": true,
+      "status": "SUCCESS"
+    },
+    "r_upper": {
+      "centerline_status": "ENERGY_PRESERVING_MATCHED_CENTERLINE_SUCCESS",
+      "central_flight_time": 9.895658133148409,
+      "energy_h": 2.276347801074579e-15,
+      "energy_residuals": {
+        "central_abs_max": 4.70838645849625e-14,
+        "k1_equation_inf": 3.552713678800501e-15,
+        "outer_equation_inf": 5.551115123125783e-17
+      },
+      "initial_phase_predictor": 5.756767223284979,
+      "parameter_point": {
+        "a2": 0.0,
+        "epsilon": 1.0,
+        "r": 0.02
+      },
+      "phase_order_diagnostic": {
+        "algebraic_phase": 5.7568261834642085,
+        "algebraic_to_homoclinic_gap": 0.10459498885006013,
+        "diagnostic_order_passed": true,
+        "homoclinic": {
+          "phase": 5.861421172314269,
+          "shooting_residual_inf": 8.638645354608343e-13,
+          "status": "SUCCESS"
+        },
+        "homoclinic_to_pole_left_proxy_gap": 0.22176413486531743,
+        "nonclaim": "Scalar phase ordering at one sampled point is not an event atlas, event-face separation, or uniform phase enclosure.",
+        "pole_certified_cover_left_lift_proxy": 6.083185307179586,
+        "pole_phase_zero_lift_scalar": 6.283185307179586
+      },
+      "positive_branch_margins": {
+        "minimum_k1_Pi": 0.30429030974669313,
+        "minimum_k1_q1": 1.1550550137787168,
+        "minimum_outer_pi": 0.00024343224779735452
+      },
+      "qa": {
+        "algebraic_orientation": true,
+        "boundary_residual": true,
+        "central_energy": true,
+        "central_energy_alignment": true,
+        "central_k1_seam": true,
+        "k1_energy": true,
+        "k1_outer_seam": true,
+        "outer_energy": true,
+        "positive_branches": true,
+        "same_section": true,
+        "solver_residual": true
+      },
+      "six_row_and_seam_residuals": {
+        "boundary_inf": 1.379008018886907e-12,
+        "central_k1_full_state_inf": 4.8476778147232835e-12,
+        "independent_same_section_abs": 1.6940658945086007e-21,
+        "k1_outer_normal_inf": 2.371692252312041e-20
+      },
+      "solver": {
+        "nodes": 1346,
+        "rms_residual_max": 9.922921933256922e-07,
+        "success": true
+      },
+      "source_phase": 5.7568261834642085,
+      "source_phase_in_center_scout_bracket": true,
+      "status": "SUCCESS"
+    }
+  },
+  "saved_array_count": 56,
+  "schema_version": "rfsn-vdp-p2e-seven-axis-continuation/1",
+  "status": "ALL_SEVEN_CENTERLINES_SUCCESS",
+  "successful_points": [
+    "center",
+    "r_lower",
+    "r_upper",
+    "a2_upper",
+    "a2_lower",
+    "epsilon_lower",
+    "epsilon_upper"
+  ]
+}

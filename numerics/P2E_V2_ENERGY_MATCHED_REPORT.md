@@ -35,14 +35,14 @@ bracket, section, outer leaf, or terminal condition was changed.
 
 - source phase: `5.756767223284979`;
 - central flight time: `9.895162060961962`;
-- solved energy: `H=2.1287391499046257e-14`;
+- solved energy: `H=1.6531401306609465e-14`;
 - solver residual: `9.9041e-7` at the predeclared `1e-6` tolerance;
-- six-row boundary residual: `1.294e-12`;
+- six-row boundary residual: `1.470e-12`;
 - central energy: `6.911e-14`;
 - exact resolved-`K1` energy-equation residual: `3.553e-15`;
 - outer energy-equation residual: `5.551e-17`;
 - full central--`K1` state seam residual: `5.162e-12`;
-- `K1`--outer normal seam residual: `8.047e-21`;
+- `K1`--outer normal seam residual: `4.659e-21`;
 - independent same-section Gamma residual: `4.235e-22`;
 - positive branch margins: `min Pi=0.30429`, `min q1=1.15490`,
   `min pi_outer=1.36931e-4`.

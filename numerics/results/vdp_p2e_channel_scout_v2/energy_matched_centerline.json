@@ -32,32 +32,32 @@
   "claim_bearing": false,
   "data_path": "numerics/results/vdp_p2e_channel_scout_v2/energy_matched_centerline.npz",
   "diagnostics": {
-    "boundary_residual_inf": 1.2938469740042535e-12,
+    "boundary_residual_inf": 1.4701573292086323e-12,
     "central_cut_P": -1.1543688668786538,
     "central_cut_Q": -9.239196656207936,
     "central_cut_algebraic_orientation": true,
     "central_energy_abs_max": 6.910964855944002e-14,
     "central_energy_drift": 7.773285053830348e-14,
     "central_k1_state_seam_residual_inf": 5.162092975297128e-12,
-    "central_section_unique_evaluations": 20,
-    "energy_h": 2.1287391499046257e-14,
-    "energy_h_minus_central_endpoint": -2.1869926498042738e-14,
-    "k1_outer_normal_seam_residual_inf": 8.046812998915853e-21,
-    "minimum_k1_pi_scaled": 0.304290309731927,
+    "central_section_unique_evaluations": 22,
+    "energy_h": 1.6531401306609465e-14,
+    "energy_h_minus_central_endpoint": -2.662591669047953e-14,
+    "k1_outer_normal_seam_residual_inf": 4.658681209898652e-21,
+    "minimum_k1_pi_scaled": 0.30429030973192694,
     "minimum_k1_q1": 1.1548995820257388,
     "minimum_outer_pi": 0.00013693063937936708,
     "outer_energy_equation_residual_inf": 5.551115123125783e-17,
     "resolved_k1_energy_equation_residual_inf": 3.552713678800501e-15,
     "same_section_root_residual": -4.235164736271502e-22,
     "solver_nodes": 1864,
-    "solver_rms_residual_max": 9.90405537871e-07,
+    "solver_rms_residual_max": 9.904056508619115e-07,
     "solver_success": true,
     "solver_tolerance": 1e-06,
     "source_phase": 5.756767223284979,
-    "source_phase_in_frozen_bracket": true,
-    "source_provider_unique_evaluations": 20
+    "source_phase_in_center_scout_bracket": true,
+    "source_provider_unique_evaluations": 22
   },
-  "energy_h": 2.1287391499046257e-14,
+  "energy_h": 1.6531401306609465e-14,
   "equation_count": {
     "boundary_equations": 6,
     "rows": [
@@ -75,13 +75,15 @@
     "state_unknowns": 4
   },
   "evidence_status": "COMPUTED/E1_NON_RIGOROUS",
+  "initial_phase_predictor": 5.756691395749909,
   "nonclaim": "One finite-horizon three-segment floating-point centerline is not a parameter-box channel, V5 theorem validation, or V2 atlas.",
   "parameter_point": {
-    "a2": "0",
-    "epsilon": "1",
-    "r": "3/200"
+    "a2": "0.0",
+    "epsilon": "1.0",
+    "r": "0.015"
   },
   "qa": {
+    "algebraic_orientation": true,
     "boundary_residual": true,
     "central_energy": true,
     "central_energy_alignment": true,
@@ -89,7 +91,6 @@
     "k1_energy": true,
     "k1_outer_seam": true,
     "outer_energy": true,
-    "phase_and_orientation": true,
     "positive_branches": true,
     "same_section": true,
     "solver_residual": true

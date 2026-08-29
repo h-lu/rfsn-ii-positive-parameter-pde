@@ -140,12 +140,19 @@ def _central_section_provider(
     return section
 
 
-def compute_energy_matched_centerline() -> tuple[dict[str, Any], dict[str, Array]]:
+def compute_energy_matched_centerline(
+    parameters: OuterParameters | None = None,
+    *,
+    initial_phase: float | None = None,
+    raise_on_qa: bool = True,
+) -> tuple[dict[str, Any], dict[str, Array]]:
     frozen = _load_config(DEFAULT_CONFIG)
     config = _candidate_config(frozen)
     source = frozen["common_source_convention"]
     choices = frozen["algebraic_matched_single_attempt"]
-    parameters = OuterParameters(r=3.0 / 200.0, a2=0.0, epsilon=1.0)
+    parameters = parameters or OuterParameters(
+        r=3.0 / 200.0, a2=0.0, epsilon=1.0
+    )
     provider = _direct_kato_provider(
         r=parameters.r,
         a2=parameters.a2,
@@ -194,7 +201,11 @@ def compute_energy_matched_centerline() -> tuple[dict[str, Any], dict[str, Array
     outer_guess = normal_to_positive_pi_state(
         q_mesh, outer_normal_guess, parameters
     )
-    initial_guess = np.vstack((k1_guess, outer_guess))
+    k1_positive_pi_guess = np.vstack((
+        np.log(k1_guess[0]),
+        k1_guess[1],
+    ))
+    initial_guess = np.vstack((k1_positive_pi_guess, outer_guess))
     energy_scale = parameters.epsilon**2.5 * parameters.r**6
 
     def energy_h(unknown: Array) -> float:
@@ -204,11 +215,14 @@ def compute_energy_matched_centerline() -> tuple[dict[str, Any], dict[str, Array
         h_value = energy_h(unknown)
         r1 = r1_cut + r1_span * normalized
         compact_q = q_r + q_span * normalized
+        k1_pi = np.exp(state[0])
+        k1_normal = np.vstack((k1_pi, state[1]))
+        k1_rhs = resolved_k1_rhs_r1(
+            r1, k1_normal, parameters, energy_h=h_value
+        )
         return np.vstack((
-            r1_span
-            * resolved_k1_rhs_r1(
-                r1, state[:2], parameters, energy_h=h_value
-            ),
+            r1_span * k1_rhs[0] / k1_pi,
+            r1_span * k1_rhs[1],
             q_span
             * positive_pi_outer_rhs_q(
                 compact_q,
@@ -228,15 +242,17 @@ def compute_energy_matched_centerline() -> tuple[dict[str, Any], dict[str, Array
         k1_target = _central_to_k1_full(
             central_cut, parameters, r1_cut
         )
+        k1_left = np.array([np.exp(left[0]), left[1]])
+        k1_right = np.array([np.exp(right[0]), right[1]])
         q1_left = float(resolved_k1_energy_root(
             r1_cut,
-            left[0],
-            left[1],
+            k1_left[0],
+            k1_left[1],
             parameters,
             energy_h=h_value,
         ))
         outer_target = resolved_k1_to_outer_normal(
-            right[:2],
+            k1_right,
             parameters,
             outer_r1=config.outer_r1,
             energy_h=h_value,
@@ -254,19 +270,24 @@ def compute_energy_matched_centerline() -> tuple[dict[str, Any], dict[str, Array
             energy=energy_scale * h_value,
         )[1]
         return np.concatenate((
-            left[:2] - k1_target[:2],
+            np.array([left[0] - np.log(k1_target[0])]),
+            np.array([left[1] - k1_target[1]]),
             np.array([q1_left - k1_target[2]]),
             left[2:4] - positive_outer_target,
             np.array([terminal_alpha / parameters.delta]),
         ))
 
-    initial_phase = float(choices["core_phase_midpoint"])
+    phase_seed = (
+        float(choices["core_phase_midpoint"])
+        if initial_phase is None
+        else float(initial_phase)
+    )
     solution = solve_bvp(
         field,
         boundary,
         mesh,
         initial_guess,
-        p=np.array([initial_phase, 0.0], dtype=np.float64),
+        p=np.array([phase_seed, 0.0], dtype=np.float64),
         tol=SOLVER_TOLERANCE,
         bc_tol=1.0e-10,
         max_nodes=config.max_nodes,
@@ -285,7 +306,8 @@ def compute_energy_matched_centerline() -> tuple[dict[str, Any], dict[str, Array
     state = np.asarray(solution.sol(normalized), dtype=np.float64)
     r1 = r1_cut + r1_span * normalized
     compact_q = q_r + q_span * normalized
-    pi_scaled, omega_scaled = state[:2]
+    pi_scaled = np.exp(state[0])
+    omega_scaled = state[1]
     q1 = resolved_k1_energy_root(
         r1,
         pi_scaled,
@@ -385,7 +407,7 @@ def compute_energy_matched_centerline() -> tuple[dict[str, Any], dict[str, Array
             h_value - central_energy[-1]
         ),
         "source_phase": phase,
-        "source_phase_in_frozen_bracket": bool(
+        "source_phase_in_center_scout_bracket": bool(
             phase_bounds[0] <= phase <= phase_bounds[1]
         ),
         "central_cut_P": float(central_state[1, -1]),
@@ -426,9 +448,8 @@ def compute_energy_matched_centerline() -> tuple[dict[str, Any], dict[str, Array
             and np.min(q1) > 0.0
             and np.min(outer_pi) > 0.0
         ),
-        "phase_and_orientation": bool(
-            diagnostics["source_phase_in_frozen_bracket"]
-            and diagnostics["central_cut_algebraic_orientation"]
+        "algebraic_orientation": bool(
+            diagnostics["central_cut_algebraic_orientation"]
         ),
     }
     all_passed = all(qa.values())
@@ -441,7 +462,12 @@ def compute_energy_matched_centerline() -> tuple[dict[str, Any], dict[str, Array
         ),
         "evidence_status": "COMPUTED/E1_NON_RIGOROUS",
         "claim_bearing": False,
-        "parameter_point": {"r": "3/200", "a2": "0", "epsilon": "1"},
+        "parameter_point": {
+            "r": repr(float(parameters.r)),
+            "a2": repr(float(parameters.a2)),
+            "epsilon": repr(float(parameters.epsilon)),
+        },
+        "initial_phase_predictor": phase_seed,
         "source_phase": phase,
         "central_flight_time": central_time,
         "energy_h": h_value,
@@ -476,7 +502,7 @@ def compute_energy_matched_centerline() -> tuple[dict[str, Any], dict[str, Array
         "outer_chi": outer_chi,
         "outer_pi": outer_pi,
     }
-    if not all_passed:
+    if not all_passed and raise_on_qa:
         raise EnergyMatchedError(
             "energy-preserving candidate failed predeclared QA: "
             + ", ".join(key for key, passed in qa.items() if not passed)
