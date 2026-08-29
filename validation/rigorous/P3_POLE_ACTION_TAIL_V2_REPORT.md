@@ -9,7 +9,7 @@ decision output.
 For
 
 \[
- Y=1+h-Dh,qquad q=W-\ell\epsilon\log\sigma,
+ Y=1+h-Dh,\qquad q=W-\ell\epsilon\log\sigma,
 \]
 
 the regularized density is exactly
