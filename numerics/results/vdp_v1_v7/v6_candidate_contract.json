@@ -163,7 +163,7 @@
   ],
   "schema_version": "rfsn-candidate-validation-contract/2",
   "source_revision": {
-    "commit": "91b42708b257c8a44dfb15f265d24d7d297f56be",
+    "commit": "e7e7294cf30950a8ad6ab95e09a3ac2bffd674a8",
     "ignored_paths": [
       "numerics/results/vdp_v1_v7/v6_candidate_contract.json"
     ],
@@ -178,7 +178,7 @@
     {
       "path": "van-der-pol/CENTRAL_CONTINUATION.md",
       "role": "V2 theorem",
-      "sha256": "da99c043e6b45c8533cbfdbe73d21968ff6f27285da74530324437c9106e97f0"
+      "sha256": "e02d067595f89ea7f19dfac81a7eba84ea0bdda17e4bbe12f569e776ba775026"
     },
     {
       "path": "van-der-pol/POSITIVE_POLE_FINITE_PART.md",
