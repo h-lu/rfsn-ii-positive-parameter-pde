@@ -1,0 +1,616 @@
+{
+  "carrier_conclusion": {
+    "center_BRET_local_block_margin": 0.009987141993131204,
+    "center_stable_cut_nu_s": -1.6556378716316315e-13,
+    "nearest_left_sample_event": "algebraic",
+    "nearest_right_sample_event": "algebraic",
+    "two_sided_sampled_BRET_aperture": false,
+    "verdict": "The homoclinic center gives transverse application-owned B.RET and c_stable candidates, but the fixed nearest samples on both sides already have another first event."
+  },
+  "claim_bearing": false,
+  "configuration": {
+    "design_run_disclosure": {
+      "changes_after_finding": "Only the already-bound local-block containment and stable-label formula were made explicit. The parameter point, phase center, stencil, integration choices, thresholds, and no-retry policy are unchanged.",
+      "finding": "The unrestricted rho_s level has a remote projection crossing, while the P2d-bound physical face is its restriction to the local block. Reverser composition with the existing nonlinear-Wu/Kato inverse supplies an application-owned stable coordinate on that restricted face.",
+      "status": "UNRETAINED_INTERFACE_AUDIT_AFTER_INITIAL_PREFREEZE"
+    },
+    "path": "numerics/config/vdp_p2e_bret_scout_v2.json",
+    "sha256": "0aae3d9aec4099b944fd0d78663426c3b424149ae5c005f6d2a5536d7b0f6936",
+    "status": "PREFROZEN_BEFORE_FIRST_RETAINED_BRET_STABLE_RUN"
+  },
+  "event_counts": {
+    "B.RET_candidate": 1,
+    "algebraic": 4,
+    "pole_x10_carrier": 2
+  },
+  "evidence_status": "COMPUTED/E1_QA_NON_RIGOROUS",
+  "homoclinic_phase_center": 5.861458108702215,
+  "nonclaim": "The algebraic-frame numerical sphere and reverser/Kato stable label are not the exact-Moser theorem faces; one center hit and seven phases are not a return band or V2.EVENT_ATLAS.",
+  "parameter_point_exact": {
+    "a2": "0",
+    "epsilon": "1",
+    "r": "3/200"
+  },
+  "phase_monotonicity": {
+    "B.RET_candidate": {
+      "sample_count": 1,
+      "sampled_hit_time_strictly_decreasing": false,
+      "sampled_hit_time_strictly_increasing": false,
+      "single_sample_not_a_monotonicity_claim": true,
+      "variational_time_derivative_has_one_nonzero_sign": false
+    },
+    "algebraic": {
+      "sample_count": 4,
+      "sampled_hit_time_strictly_decreasing": true,
+      "sampled_hit_time_strictly_increasing": false,
+      "single_sample_not_a_monotonicity_claim": false,
+      "variational_time_derivative_has_one_nonzero_sign": false
+    },
+    "pole_x10_carrier": {
+      "sample_count": 2,
+      "sampled_hit_time_strictly_decreasing": false,
+      "sampled_hit_time_strictly_increasing": true,
+      "single_sample_not_a_monotonicity_claim": false,
+      "variational_time_derivative_has_one_nonzero_sign": true
+    }
+  },
+  "phase_offsets_exact": [
+    "-1/500",
+    "-1/1000",
+    "-1/2000",
+    "0",
+    "1/2000",
+    "1/1000",
+    "1/500"
+  ],
+  "points": [
+    {
+      "first_qualifying_event": "pole_x10_carrier",
+      "hamiltonian": {
+        "sampled_abs_max_to_hit": 1.1841916336408076e-12,
+        "sampled_drift_to_hit": 1.6283502324299093e-12
+      },
+      "hit_function_residual_abs": 7.105427357601002e-15,
+      "hit_speed": {
+        "cooriented_speed": 27.92032486659758,
+        "raw_defining_function_speed": -27.92032486659758
+      },
+      "hit_state": [
+        -10.000000000000007,
+        -27.92032486659758,
+        5.579655665266753,
+        -0.9538137576819634
+      ],
+      "hit_time": 16.48688116118097,
+      "inactive_gaps_at_hit": {
+        "B.RET_local_block_excess": 19.56496395569694,
+        "B.RET_surface_abs": 8.511397507157058,
+        "algebraic_surface_abs": 6.000000000000007,
+        "pole_x10_surface_abs": 7.105427357601002e-15
+      },
+      "kato_incoming_coordinates": {
+        "algebraic_coordinates_s": [
+          5.208549611074233,
+          -6.744273602394921
+        ],
+        "algebraic_coordinates_u": [
+          -15.20854961107424,
+          12.323929267661674
+        ],
+        "inside_local_block": false,
+        "rho_s": 8.521397507157058,
+        "rho_s_minus_source_radius": 8.511397507157058,
+        "rho_s_speed": 43.60400509793085,
+        "rho_u": 19.57496395569694,
+        "stable_kato_phase": 5.37000508865165
+      },
+      "offset": -0.002,
+      "offset_exact": "-1/500",
+      "phase": 5.859458108702215,
+      "rejected_Q_positive_algebraic_crossings_before_hit": [
+        {
+          "P_negative": true,
+          "Q_negative": false,
+          "algebraic_coordinates_s": [
+            0.813257480478051,
+            -1.112011640732077
+          ],
+          "algebraic_coordinates_u": [
+            -4.813257480478042,
+            6.537496975015835
+          ],
+          "inside_local_block": false,
+          "rho_s": 1.3776638264384942,
+          "rho_s_minus_source_radius": 1.3676638264384942,
+          "rho_s_speed": 6.93360398516061,
+          "rho_u": 8.118270399027063,
+          "stable_kato_phase": 5.343839687967686,
+          "state": [
+            -3.999999999999991,
+            -9.387566298279886,
+            5.425485334283759,
+            1.4304725316006532
+          ],
+          "time": 16.11772831034474
+        }
+      ],
+      "rejected_incoming_projection_crossings_before_hit": [],
+      "solver": {
+        "integration_guard_reached": true,
+        "success": true
+      },
+      "stable_cut_candidate": null,
+      "variational_hit_derivative": {
+        "d_hit_state_d_phase": [
+          0.0,
+          371.4069256380026,
+          -1110.3942956859091,
+          -769.690025363564
+        ],
+        "d_hit_time_d_phase": 350.2387143699777,
+        "source_phase_difference_step": 2e-05,
+        "source_tangent_method": "centered nonlinear-Wu source difference followed by the analytic central variational ODE",
+        "surface_tangency_residual_abs": 0.0
+      }
+    },
+    {
+      "first_qualifying_event": "pole_x10_carrier",
+      "hamiltonian": {
+        "sampled_abs_max_to_hit": 8.437139875638877e-13,
+        "sampled_drift_to_hit": 1.0687284390797913e-12
+      },
+      "hit_function_residual_abs": 3.197442310920451e-14,
+      "hit_speed": {
+        "cooriented_speed": 27.39566653284892,
+        "raw_defining_function_speed": -27.39566653284892
+      },
+      "hit_state": [
+        -10.000000000000032,
+        -27.39566653284892,
+        3.9748341504195737,
+        -1.996044865225541
+      ],
+      "hit_time": 16.98217832370441,
+      "inactive_gaps_at_hit": {
+        "B.RET_local_block_excess": 18.889375673176197,
+        "B.RET_surface_abs": 8.819871027787025,
+        "algebraic_surface_abs": 6.000000000000032,
+        "pole_x10_surface_abs": 3.197442310920451e-14
+      },
+      "kato_incoming_coordinates": {
+        "algebraic_coordinates_s": [
+          5.39153922012818,
+          -6.992705285164841
+        ],
+        "algebraic_coordinates_u": [
+          -15.391539220128212,
+          10.967539435584413
+        ],
+        "inside_local_block": false,
+        "rho_s": 8.829871027787025,
+        "rho_s_minus_source_radius": 8.819871027787025,
+        "rho_s_speed": 43.380794777553284,
+        "rho_u": 18.8993756731762,
+        "stable_kato_phase": 5.369209840089069
+      },
+      "offset": -0.001,
+      "offset_exact": "-1/1000",
+      "phase": 5.860458108702215,
+      "rejected_Q_positive_algebraic_crossings_before_hit": [
+        {
+          "P_negative": true,
+          "Q_negative": false,
+          "algebraic_coordinates_s": [
+            0.9218920965034125,
+            -1.1639623347786974
+          ],
+          "algebraic_coordinates_u": [
+            -4.921892096503427,
+            5.358728715897573
+          ],
+          "inside_local_block": false,
+          "rho_s": 1.4848209839502315,
+          "rho_s_minus_source_radius": 1.4748209839502315,
+          "rho_s_speed": 6.899121715804713,
+          "rho_u": 7.276056298587041,
+          "stable_kato_phase": 5.3822507142266085,
+          "state": [
+            -4.000000000000014,
+            -8.74441850418389,
+            4.194766381118877,
+            0.4800596428521055
+          ],
+          "time": 16.59732782535891
+        }
+      ],
+      "rejected_incoming_projection_crossings_before_hit": [
+        {
+          "P_negative": true,
+          "Q_negative": false,
+          "algebraic_coordinates_s": [
+            0.0025485287915520405,
+            0.009669798394932094
+          ],
+          "algebraic_coordinates_u": [
+            -0.307393549901768,
+            3.019028344548423
+          ],
+          "inside_local_block": false,
+          "rho_s": 0.01000000000000005,
+          "rho_s_minus_source_radius": 5.0306980803327406e-17,
+          "rho_s_speed": -0.03046916693072089,
+          "rho_u": 3.0346372006729245,
+          "stable_kato_phase": 1.3131007713256944,
+          "state": [
+            -0.30484502111021594,
+            -2.347099980625925,
+            3.028698142943356,
+            1.9087756893877221
+          ],
+          "time": 15.7844069583805
+        }
+      ],
+      "solver": {
+        "integration_guard_reached": true,
+        "success": true
+      },
+      "stable_cut_candidate": null,
+      "variational_hit_derivative": {
+        "d_hit_state_d_phase": [
+          0.0,
+          764.4795596746408,
+          -2386.082191524948,
+          -1461.5878019834572
+        ],
+        "d_hit_time_d_phase": 728.1006634636126,
+        "source_phase_difference_step": 2e-05,
+        "source_tangent_method": "centered nonlinear-Wu source difference followed by the analytic central variational ODE",
+        "surface_tangency_residual_abs": 0.0
+      }
+    },
+    {
+      "first_qualifying_event": "algebraic",
+      "hamiltonian": {
+        "sampled_abs_max_to_hit": 3.934678104167144e-14,
+        "sampled_drift_to_hit": 5.710774735045998e-14
+      },
+      "hit_function_residual_abs": 8.881784197001252e-15,
+      "hit_speed": {
+        "cooriented_speed": 8.128754973672569,
+        "raw_defining_function_speed": -8.128754973672569
+      },
+      "hit_state": [
+        -3.999999999999991,
+        -8.128754973672569,
+        2.9055149748746705,
+        -0.3953112145421446
+      ],
+      "hit_time": 17.094795652919917,
+      "inactive_gaps_at_hit": {
+        "B.RET_local_block_excess": 6.522059602044589,
+        "B.RET_surface_abs": 1.62391253717027,
+        "algebraic_surface_abs": 8.881784197001252e-15,
+        "pole_x10_surface_abs": 6.000000000000009
+      },
+      "kato_incoming_coordinates": {
+        "algebraic_coordinates_s": [
+          1.013712502484799,
+          -1.281427774565619
+        ],
+        "algebraic_coordinates_u": [
+          -5.01371250248479,
+          4.1869427494402895
+        ],
+        "inside_local_block": false,
+        "rho_s": 1.63391253717027,
+        "rho_s_minus_source_radius": 1.62391253717027,
+        "rho_s_speed": 6.793158673998878,
+        "rho_u": 6.532059602044589,
+        "stable_kato_phase": 5.3816674796566675
+      },
+      "offset": -0.0005,
+      "offset_exact": "-1/2000",
+      "phase": 5.860958108702215,
+      "rejected_Q_positive_algebraic_crossings_before_hit": [],
+      "rejected_incoming_projection_crossings_before_hit": [],
+      "solver": {
+        "integration_guard_reached": true,
+        "success": true
+      },
+      "stable_cut_candidate": null,
+      "variational_hit_derivative": {
+        "d_hit_state_d_phase": [
+          0.0,
+          1710.110814969179,
+          -3711.570443701895,
+          -2391.052789105365
+        ],
+        "d_hit_time_d_phase": 1464.8315097603827,
+        "source_phase_difference_step": 2e-05,
+        "source_tangent_method": "centered nonlinear-Wu source difference followed by the analytic central variational ODE",
+        "surface_tangency_residual_abs": 0.0
+      }
+    },
+    {
+      "first_qualifying_event": "B.RET_candidate",
+      "hamiltonian": {
+        "sampled_abs_max_to_hit": 3.054327624152364e-14,
+        "sampled_drift_to_hit": 3.785629951603541e-14
+      },
+      "hit_function_residual_abs": 1.0408340855860843e-17,
+      "hit_speed": {
+        "cooriented_speed": 0.007032107351375254,
+        "raw_defining_function_speed": -0.007032107351375254
+      },
+      "hit_state": [
+        0.009130927999922121,
+        -0.009333373885111735,
+        -0.004104092576059418,
+        -0.0035596405106089247
+      ],
+      "hit_time": 19.2759361067186,
+      "inactive_gaps_at_hit": {
+        "B.RET_local_block_excess": 0.0,
+        "B.RET_surface_abs": 1.0408340855860843e-17,
+        "algebraic_surface_abs": 4.009130927999922,
+        "pole_x10_surface_abs": 10.009130927999923
+      },
+      "kato_incoming_coordinates": {
+        "algebraic_coordinates_s": [
+          0.009123832954535989,
+          -0.004093369298966721
+        ],
+        "algebraic_coordinates_u": [
+          7.095045386132717e-06,
+          -1.0723277092696253e-05
+        ],
+        "inside_local_block": true,
+        "rho_s": 0.01000000000000001,
+        "rho_s_minus_source_radius": 1.0408340855860843e-17,
+        "rho_s_speed": -0.007032107351375255,
+        "rho_u": 1.2858006868796865e-05,
+        "stable_kato_phase": 5.861458108688916
+      },
+      "offset": 0.0,
+      "offset_exact": "0",
+      "phase": 5.861458108702215,
+      "rejected_Q_positive_algebraic_crossings_before_hit": [],
+      "rejected_incoming_projection_crossings_before_hit": [],
+      "solver": {
+        "integration_guard_reached": false,
+        "success": true
+      },
+      "stable_cut_candidate": {
+        "definition": "c_stable=nu(R Z) on the B.RET candidate",
+        "energy_correction_coordinate": 1.1264321616048992e-11,
+        "incoming_kato_phase": 5.861458108688916,
+        "nu_s": -1.6556378716316315e-13,
+        "raw_chart_identical": false,
+        "reflected_inverse_reconstruction_defect": 1.4642751435095294e-17,
+        "status": "COMPUTED/E1_KATO_COMPATIBLE_DARBOUX_SECTION"
+      },
+      "variational_hit_derivative": {
+        "d_hit_state_d_phase": [
+          43177.34700069357,
+          16865.207339252447,
+          18774.394480832183,
+          44831.94617100378
+        ],
+        "d_hit_time_d_phase": 34798.03320548151,
+        "source_phase_difference_step": 2e-05,
+        "source_tangent_method": "centered nonlinear-Wu source difference followed by the analytic central variational ODE",
+        "surface_tangency_residual_abs": 1.7325545474760196e-12
+      }
+    },
+    {
+      "first_qualifying_event": "algebraic",
+      "hamiltonian": {
+        "sampled_abs_max_to_hit": 4.691472904605476e-14,
+        "sampled_drift_to_hit": 6.323500750804456e-14
+      },
+      "hit_function_residual_abs": 1.7763568394002505e-15,
+      "hit_speed": {
+        "cooriented_speed": 5.713847161736204,
+        "raw_defining_function_speed": -5.713847161736204
+      },
+      "hit_state": [
+        -3.9999999999999982,
+        -5.713847161736204,
+        -2.6892346398668865,
+        -3.3890499907716563
+      ],
+      "hit_time": 15.869285093892426,
+      "inactive_gaps_at_hit": {
+        "B.RET_local_block_excess": 5.234470835381735,
+        "B.RET_surface_abs": 2.4756330672035056,
+        "algebraic_surface_abs": 1.7763568394002505e-15,
+        "pole_x10_surface_abs": 6.000000000000002
+      },
+      "kato_incoming_coordinates": {
+        "algebraic_coordinates_s": [
+          1.2183601524910115,
+          -2.1665572421696098
+        ],
+        "algebraic_coordinates_u": [
+          -5.21836015249101,
+          -0.5226773976972763
+        ],
+        "inside_local_block": false,
+        "rho_s": 2.4856330672035054,
+        "rho_s_minus_source_radius": 2.4756330672035056,
+        "rho_s_speed": 5.948166839719001,
+        "rho_u": 5.244470835381735,
+        "stable_kato_phase": 5.224663325167365
+      },
+      "offset": 0.0005,
+      "offset_exact": "1/2000",
+      "phase": 5.861958108702215,
+      "rejected_Q_positive_algebraic_crossings_before_hit": [],
+      "rejected_incoming_projection_crossings_before_hit": [],
+      "solver": {
+        "integration_guard_reached": true,
+        "success": true
+      },
+      "stable_cut_candidate": null,
+      "variational_hit_derivative": {
+        "d_hit_state_d_phase": [
+          0.0,
+          -1577.6373507401659,
+          4835.44563517,
+          3047.285779208263
+        ],
+        "d_hit_time_d_phase": -3587.1023560776557,
+        "source_phase_difference_step": 2e-05,
+        "source_tangent_method": "centered nonlinear-Wu source difference followed by the analytic central variational ODE",
+        "surface_tangency_residual_abs": 0.0
+      }
+    },
+    {
+      "first_qualifying_event": "algebraic",
+      "hamiltonian": {
+        "sampled_abs_max_to_hit": 3.017031069418863e-14,
+        "sampled_drift_to_hit": 5.3171009262165114e-14
+      },
+      "hit_function_residual_abs": 3.9968028886505635e-15,
+      "hit_speed": {
+        "cooriented_speed": 5.999998519900272,
+        "raw_defining_function_speed": -5.999998519900272
+      },
+      "hit_state": [
+        -3.999999999999996,
+        -5.999998519900272,
+        -1.6683054179737866,
+        -2.582665080092488
+      ],
+      "hit_time": 14.892409153331231,
+      "inactive_gaps_at_hit": {
+        "B.RET_local_block_excess": 5.038306874471945,
+        "B.RET_surface_abs": 2.2793863287673686,
+        "algebraic_surface_abs": 3.9968028886505635e-15,
+        "pole_x10_surface_abs": 6.0000000000000036
+      },
+      "kato_incoming_coordinates": {
+        "algebraic_coordinates_s": [
+          1.0344298160989152,
+          -2.0423625334187103
+        ],
+        "algebraic_coordinates_u": [
+          -5.034429816098911,
+          0.37405711544492404
+        ],
+        "inside_local_block": false,
+        "rho_s": 2.2893863287673684,
+        "rho_s_minus_source_radius": 2.2793863287673686,
+        "rho_s_speed": 5.985899217453965,
+        "rho_u": 5.048306874471945,
+        "stable_kato_phase": 5.181212612138241
+      },
+      "offset": 0.001,
+      "offset_exact": "1/1000",
+      "phase": 5.862458108702215,
+      "rejected_Q_positive_algebraic_crossings_before_hit": [],
+      "rejected_incoming_projection_crossings_before_hit": [],
+      "solver": {
+        "integration_guard_reached": true,
+        "success": true
+      },
+      "stable_cut_candidate": null,
+      "variational_hit_derivative": {
+        "d_hit_state_d_phase": [
+          0.0,
+          -184.59423507345127,
+          912.9193093107874,
+          985.0724043278747
+        ],
+        "d_hit_time_d_phase": -1162.6227303864407,
+        "source_phase_difference_step": 2e-05,
+        "source_tangent_method": "centered nonlinear-Wu source difference followed by the analytic central variational ODE",
+        "surface_tangency_residual_abs": 0.0
+      }
+    },
+    {
+      "first_qualifying_event": "algebraic",
+      "hamiltonian": {
+        "sampled_abs_max_to_hit": 2.3624385867698772e-14,
+        "sampled_drift_to_hit": 3.9290673579245317e-14
+      },
+      "hit_function_residual_abs": 2.6645352591003757e-15,
+      "hit_speed": {
+        "cooriented_speed": 6.050002928890001,
+        "raw_defining_function_speed": -6.050002928890001
+      },
+      "hit_state": [
+        -4.000000000000003,
+        -6.050002928890001,
+        -1.2258644334200652,
+        -1.9321449842781964
+      ],
+      "hit_time": 14.17776372005519,
+      "inactive_gaps_at_hit": {
+        "B.RET_local_block_excess": 4.885238800343599,
+        "B.RET_surface_abs": 2.2161780548952525,
+        "algebraic_surface_abs": 2.6645352591003757e-15,
+        "pole_x10_surface_abs": 5.999999999999997
+      },
+      "kato_incoming_coordinates": {
+        "algebraic_coordinates_s": [
+          0.8221154589176392,
+          -2.068814855008985
+        ],
+        "algebraic_coordinates_u": [
+          -4.822115458917642,
+          0.8429504215889202
+        ],
+        "inside_local_block": false,
+        "rho_s": 2.2261780548952523,
+        "rho_s_minus_source_radius": 2.2161780548952525,
+        "rho_s_speed": 5.77408850444359,
+        "rho_u": 4.8952388003435985,
+        "stable_kato_phase": 5.090638794198336
+      },
+      "offset": 0.002,
+      "offset_exact": "1/500",
+      "phase": 5.863458108702215,
+      "rejected_Q_positive_algebraic_crossings_before_hit": [],
+      "rejected_incoming_projection_crossings_before_hit": [],
+      "solver": {
+        "integration_guard_reached": true,
+        "success": true
+      },
+      "stable_cut_candidate": null,
+      "variational_hit_derivative": {
+        "d_hit_state_d_phase": [
+          0.0,
+          6.719535323688433,
+          211.08876775579927,
+          458.04444625718156
+        ],
+        "d_hit_time_d_phase": -462.807790764454,
+        "source_phase_difference_step": 2e-05,
+        "source_tangent_method": "centered nonlinear-Wu source difference followed by the analytic central variational ODE",
+        "surface_tangency_residual_abs": 0.0
+      }
+    }
+  ],
+  "qa": {
+    "all_energy_drifts_pass": true,
+    "all_hit_residuals_pass": true,
+    "all_hit_speeds_pass": true,
+    "all_seven_reach_a_qualifying_event": true,
+    "all_variational_tangencies_pass": true,
+    "center_reaches_BRET": true,
+    "center_stable_cut_inverse_passes": true
+  },
+  "qa_thresholds": {
+    "cooriented_event_speed_lower": 1e-06,
+    "event_hit_residual_abs_upper": 1e-09,
+    "incoming_radius_residual_abs_upper": 1e-09,
+    "sampled_hamiltonian_drift_upper": 1e-09,
+    "stable_cut_center_abs_upper": 1e-09,
+    "stable_inverse_reconstruction_defect_upper": 1e-09,
+    "variational_surface_tangency_residual_abs_upper": 1e-08
+  },
+  "schema_version": "rfsn-vdp-p2e-bret-census/1",
+  "source_provider_unique_evaluations": 21,
+  "status": "BRET_AND_STABLE_CUT_CENTER_CANDIDATES_NO_SAMPLED_APERTURE"
+}
