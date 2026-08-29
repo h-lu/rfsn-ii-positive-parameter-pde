@@ -1,0 +1,54 @@
+{
+  "schema_version": "rfsn-vdp-p3-pole-local-end-config/1",
+  "configuration_id": "vdp-p3-pole-local-end-v2",
+  "status": "FROZEN_BEFORE_FIRST_P3_LOCAL_END_DECISION_RUN",
+  "freeze_date": "2026-08-30",
+  "target_box": "vdp-positive-box-v2",
+  "section": {
+    "coordinate": "physical_remaining_distance_sigma",
+    "sigma0": {"numerator": "1", "denominator": "1000000000000"}
+  },
+  "label_rectangle": {
+    "Z0": {
+      "lower": {"numerator": "-1", "denominator": "1"},
+      "upper": {"numerator": "-1", "denominator": "2"}
+    },
+    "W0": {
+      "lower": {"numerator": "-1", "denominator": "4"},
+      "upper": {"numerator": "1", "denominator": "4"}
+    },
+    "c4": {
+      "lower": {"numerator": "0", "denominator": "1"},
+      "upper": {"numerator": "1000000000000000", "denominator": "1"}
+    }
+  },
+  "remainder_ball": {
+    "weight": "sigma^5*(1+abs(log(sigma)))^2",
+    "C0_radius": {"numerator": "1000000000000000000000000000000", "denominator": "1"}
+  },
+  "acceptance_gates": {
+    "green_operator_norm_upper": {"numerator": "1", "denominator": "1"},
+    "contraction_upper_strict": {"numerator": "1", "denominator": "2"},
+    "full_scaled_coordinate_jacobian_abs_lower_strict": {"numerator": "1", "denominator": "100"}
+  },
+  "selection_disclosure": {
+    "reason": "sigma0 is one hundred-millionth of the smallest v2 delta, making the displayed indicial jet uniformly small; the label box is a single deliberately broad rational box around the existing pole feasibility labels and is not fitted after an interval decision.",
+    "existing_v1_candidate": {
+      "path": "numerics/results/vdp_v1_v7/v3_pole.json",
+      "sha256": "37fe80f074ab421895377a0eb71636b68f3a9bc20af0947401d525f8a0b20001",
+      "observed_labels": {"Z0": -0.6664297670756484, "W0": -0.0688985323343616, "c4": 16524678.71208843},
+      "classification": "DISCLOSED_OUTSIDE_V2_FLOATING_FEASIBILITY_DATA"
+    },
+    "existing_v2_gate_scout": {
+      "path": "numerics/results/vdp_p2e_channel_scout_v2/scout.json",
+      "sha256": "6f076337aa465de013d9861749a9de834be141a25f79671c1e18a5aa5b386ae8",
+      "classification": "DISCLOSED_ONE_POINT_NON_EVIDENTIARY_GATE_ONLY"
+    },
+    "analytic_precursor": {
+      "path": "validation/rigorous/results/vdp_box_v2_p3_pole_analytic.json",
+      "sha256": "cc00aa9bf6e3d94b76e15c5229bddf80a3bd0f0041d95aeda0c34639ce2f8ee3"
+    }
+  },
+  "one_shot_policy": "Do not change sigma0, the label rectangle, the remainder radius, or an acceptance gate after inspecting the first retained decision output.",
+  "claim_boundary": "A PASS validates only the declared local end block. It does not prove that the V2 source window reaches this label rectangle or pass V3.SOURCE_TO_POLE."
+}
