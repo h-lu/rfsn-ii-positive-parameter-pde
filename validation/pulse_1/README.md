@@ -110,8 +110,12 @@ replay.  It does not weaken the local outward-rounded inequalities.
 
 ## Claim boundary
 
-This calculation proves one positive real whole-line point eigenvalue.  It
-does not give the complete point spectrum, a nonlinear instability theorem,
-dynamical pattern selection, a Turing bifurcation, or canard identification.
+This calculation proves one positive real whole-line point eigenvalue.  By
+the proved
+[semilinear bridge](../../van-der-pol/NONLINEAR_ORBITAL_INSTABILITY.md), that
+eigenvalue implies nonlinear orbital instability under localized whole-line
+\(H^1\) perturbations.  The calculation does not give the complete point
+spectrum, dynamical pattern selection, a Turing bifurcation, or canard
+identification.
 The finite-window eigenvalue near `0.0214` is a compatible numerical
 cross-check and is not used by the proof.

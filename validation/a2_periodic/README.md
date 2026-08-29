@@ -99,3 +99,10 @@ gates, and the exact binary64 interval endpoints in hexadecimal form.  The
 table above uses slightly widened outward decimal displays.  The record is
 intentionally labelled `claim_bearing=false`; no general certificate or replay
 framework was added.
+
+Combined with the proved
+[semilinear bridge](../../van-der-pol/NONLINEAR_ORBITAL_INSTABILITY.md), this
+positive eigenvalue implies co-periodic nonlinear orbital instability in
+\(H^1(\mathbb T_{L_*})\).  That consequence inherits this record's
+`claim_bearing=false` status until independent replay and does not imply
+pattern selection.

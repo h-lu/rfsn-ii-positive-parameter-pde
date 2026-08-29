@@ -24,6 +24,10 @@ The immutable publication version is
 [vdp-companion-v1](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/releases/tag/vdp-companion-v1).
 
 The paper is conditional on the frozen RFSN-II inputs stated as Hypothesis H.
-It does not claim temporal stability, Turing selection, canard identification,
-an explicit interval-validated positive parameter box, or experimental
-realization.
+The current manuscript also proves the exact V10 exclusion of a classical
+stationary Turing onset and the V11 bridge from a real positive temporal
+eigenvalue to nonlinear orbital instability.  The A2 and `pulse_1`
+applications of V11 retain local, non-claim-bearing status pending independent
+replay.  The paper does not claim temporal stability, dynamic pattern
+selection, canard identification, an explicit interval-validated positive
+parameter box, or experimental realization.

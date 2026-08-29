@@ -13,9 +13,11 @@ therefore gives a local mathematical proof for a true periodic profile in the
 frozen A2 shooting box.  Under the repository's evidence policy, the result is
 still **non-claim-bearing** until it has an independent-machine replay; this is
 a release/provenance boundary, not an unclosed mathematical inequality in the
-local run.  No statement below concerns nonlinear instability, temporal
-pattern selection, a continuum of Bloch phases, the `pulse_1` target, Turing
-selection, or canard identification.
+local run.  This spectral note alone does not prove nonlinear instability;
+the separate [semilinear bridge](NONLINEAR_ORBITAL_INSTABILITY.md) now turns
+its positive eigenvalue into co-periodic nonlinear orbital instability.  No
+statement concerns temporal pattern selection, a continuum of Bloch phases,
+the `pulse_1` target, Turing selection, or canard identification.
 
 ## 1. Physical equation and co-periodic operator
 

@@ -214,6 +214,12 @@ Periodic or localized spatial orbits are stationary solutions of the original
 PDE.  Spatial symbolic dynamics and spatial entropy do not imply temporal
 chaos, and existence does not imply temporal stability.
 
+The exact [classical stationary Turing exclusion](CLASSICAL_STATIONARY_TURING_EXCLUSION.md)
+shows that stable homogeneous kinetics and a stationary finite-wavenumber
+neutral mode are incompatible in this PDE.  It excludes that local classical
+onset mechanism, not nonlinear pattern selection on an already unstable
+background.
+
 The first post-existence temporal result is now isolated in
 [the A2 co-periodic instability note](A2_PERIODIC_SPECTRAL_INSTABILITY.md).
 It proves a general centered-moment criterion for a real positive temporal
@@ -223,8 +229,9 @@ Fourier candidate \(\lambda\approx0.02138145\).  A target-specific
 [CAPD enclosure](../validation/a2_periodic/README.md) now proves a true periodic
 orbit in the frozen shooting box and the strict interval moment, hence a real
 co-periodic eigenvalue \(\lambda_*\in(0.01,2)\).  This is a local mathematical
-`PASS`; independent replay remains before claim-bearing release.  It supplies
-neither nonlinear instability nor temporal selection.
+`PASS`; independent replay remains before claim-bearing release.  Combined
+with the [semilinear bridge](NONLINEAR_ORBITAL_INSTABILITY.md), it supplies
+co-periodic nonlinear orbital instability, but not temporal selection.
 
 The corresponding whole-line result is
 [`PULSE_1_SPECTRAL_INSTABILITY.md`](PULSE_1_SPECTRAL_INSTABILITY.md).  It
@@ -243,5 +250,7 @@ the selected P2c primary homoclinic and proves
 \]
 
 Thus this true localized stationary profile has a positive real whole-line
-\(L^2\) eigenvalue in \((0.01,2)\).  This too is a local mathematical `PASS`
-pending independent replay and does not assert nonlinear selection.
+\(L^2\) eigenvalue in \((0.01,2)\).  The semilinear bridge consequently gives
+nonlinear orbital instability under localized \(H^1\) perturbations.  This
+too is a local mathematical `PASS` pending independent replay and does not
+assert nonlinear selection.

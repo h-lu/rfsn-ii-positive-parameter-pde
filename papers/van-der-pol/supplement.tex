@@ -239,6 +239,14 @@ replayed by this repository.
     & Proved & V2--V5A; public fixed-system and long/local family modules \\
  V7 & periodic, multipulse, and aperiodic stationary PDE patterns
     & Proved & V6; public/local coding modules \\
+\end{tabular}
+\end{center}
+
+\begin{center}
+\small
+\begin{tabular}{@{}c|p{4.8cm}|p{2.1cm}|p{2.9cm}@{}}
+ ID & statement & status & dependency \\
+ \hline
  V8 & periodic centered-moment criterion for a positive co-periodic eigenvalue
     & Proved & direct temporal operator-pencil argument \\
  V8A & frozen A2 true profile satisfies the V8 criterion
@@ -250,10 +258,16 @@ replayed by this repository.
  V10 & exact exclusion of classical stationary Turing onset and frozen-box
         separation
     & Proved & direct Fourier-symbol calculation \\
+ V11 & a real positive temporal eigenvalue implies nonlinear orbital instability
+    & Proved & semilinear time-map argument \\
+ V11A & frozen A2 co-periodic nonlinear orbital instability
+    & Local mathematical PASS; non-claim-bearing & V8A; replay pending \\
+ V11B & frozen \texttt{pulse\_1} whole-line nonlinear orbital instability
+    & Local mathematical PASS; non-claim-bearing & V9A; replay pending \\
  T2G & one global exact saddle chart and global winding alphabet
     & Proposed & not used \\
- S1 & temporal spectral or nonlinear stability
-    & Deferred & separate problem \\
+ S1 & temporal stability of a B2 or V7 profile
+    & Deferred & complete spectral exclusion and nonlinear stability argument \\
  E1 & calibrated experimental observation
     & Deferred & separate problem
 \end{tabular}
@@ -293,6 +307,16 @@ The complete coordinate-level arguments remain in the versioned archive:
   & \path{theory/FINITE_MARKED_ATLAS_DESCENT.md}\\
  first events, actions, and PDE coding
   & \path{van-der-pol/TWO_END_RETURN_EXIT_AND_PDE.md}\\
+ periodic spectral criterion and A2 validation
+  & \path{van-der-pol/A2_PERIODIC_SPECTRAL_INSTABILITY.md};
+    \path{validation/a2_periodic/README.md}\\
+ localized spectral criterion and \texttt{pulse\_1} validation
+  & \path{van-der-pol/PULSE_1_SPECTRAL_INSTABILITY.md};
+    \path{validation/pulse_1/README.md}\\
+ classical stationary Turing exclusion
+  & \path{van-der-pol/CLASSICAL_STATIONARY_TURING_EXCLUSION.md}\\
+ nonlinear orbital-instability bridge
+  & \path{van-der-pol/NONLINEAR_ORBITAL_INSTABILITY.md}\\
  arrow-by-arrow proof audit
   & \path{proof-audit/VDP_PUBLICATION_PROOF_AUDIT_2026-08-28.md}
 \end{tabular}

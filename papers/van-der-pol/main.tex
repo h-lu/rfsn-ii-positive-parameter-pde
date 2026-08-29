@@ -1473,6 +1473,70 @@ or nonlinear mechanism, wavelength selection, or temporal selection of a
 nonconstant profile.
 \end{remark}
 
+\subsection{Nonlinear meaning of a positive temporal eigenvalue}
+
+One positive eigenvalue already has a nonlinear consequence; a complete
+Evans-function count is not needed for this implication.
+
+\begin{proposition}[A positive eigenvalue implies nonlinear orbital instability]
+\label{prop:nonlinear-instability}
+Let $\Omega=\mathbb T_L$ or $\mathbb R$, and let $Q=(U,V)$ be a nonconstant
+smooth stationary solution of \eqref{eq:pde}.  In the line case assume that
+$Q-Q_\infty$ is exponentially localized.  If the $L^2$ temporal
+linearization at $Q$ has a real eigenvalue $\lambda_*>0$, then $Q$ is
+orbitally Lyapunov unstable in $H^1(\Omega;\mathbb R^2)$.  More precisely,
+there is $\eta>0$ such that, for every $\delta>0$, one can find initial data
+$q_0$ and a finite $t_\delta>0$ for which
+\[
+ \norm{q_0-Q}_{H^1}<\delta,
+ \qquad
+ \inf_s\norm{q(t_\delta;q_0)-Q(\cdot+s)}_{H^1}\ge\eta.
+\]
+On the torus the shifts are taken modulo $L$; on the line the perturbations
+are localized.
+\end{proposition}
+
+\begin{proof}
+For $p=q-Q=(p_1,p_2)$, direct subtraction gives
+\[
+ p_t=\mathcal L_Qp+\mathcal N_Q(p),\qquad
+ \mathcal N_Q(p)=
+ \begin{pmatrix}-Up_1^2-p_1^3/3\\0\end{pmatrix}.
+\]
+In one dimension $H^1$ is a Banach algebra, so
+$\norm{\mathcal N_Q(p)}_{H^1}=O(\norm p_{H^1}^2)$.  The operator
+$\mathcal L_Q$, acting on $H^1$ with domain $H^3$, generates an analytic
+semigroup; hence a fixed-time map has the expansion
+\[
+ \Phi_T(p)=e^{T\mathcal L_Q}p+O(\norm p_{H^1}^2).
+\]
+The local translation orbit $Q(\cdot+s)-Q$ is a $C^2$ manifold of fixed
+points, tangent to $Q'\in\ker\mathcal L_Q$.  Elliptic regularity puts the
+positive $L^2$ eigenfunction in $H^3$, so the derivative of the time map has
+the multiplier $e^{T\lambda_*}>1$, transverse to that fixed manifold.  The
+linearized orbital-instability principle for a manifold of equilibria now
+gives exit from its fixed neighbourhood; see
+\cite[Section~5.3]{MeyriesRademacherSiero2014}.  For a periodic nonconstant
+profile, the stabilizer is discrete; compactness gives positive separation
+from shifts outside its local neighbourhoods.  On the line, put
+$P=Q-Q_\infty$.  A nonzero localized $P\in H^1$ has no nonzero period, while
+translations converge weakly to zero and therefore
+$\norm{\tau_sP-P}_{H^1}^2\to2\norm P_{H^1}^2$ as $|s|\to\infty$.
+Continuity then gives positive separation from all shifts outside a local
+neighbourhood.  In either case local exit is exit from the full translation
+orbit, which gives the displayed infimum.
+\end{proof}
+
+\begin{remark}[Instability is not selection]
+Proposition~\ref{prop:nonlinear-instability} asserts the existence of
+arbitrarily small perturbations that leave the translation-orbit
+neighbourhood.  It does not describe generic perturbations, the post-exit
+state, nonlinear saturation, an attracting pattern, or a Turing/canard
+selection mechanism.  A periodic eigenfunction yields only a co-periodic
+statement on $\mathbb T_L$; it is not a localized $L^2(\mathbb R)$
+perturbation of a wavetrain.
+\end{remark}
+
 The model-specific contribution is to continue two finite singular gates in
 the full positive-diffusion van der Pol system.  The invariant pole cone and
 regular-singular analysis construct the finite-distance end; the outer
@@ -1493,9 +1557,9 @@ sufficiently high-winding source collar, and uniform only on the existential
 annulus \eqref{eq:PV}.  It gives neither an explicit validated parameter box
 nor uniformity at $r=0$.  The independent variable here is the spatial
 coordinate $\mathsf x$: spatial entropy or an aperiodic stationary profile is
-not temporal chaos for the parabolic PDE.  Temporal spectral or nonlinear
-stability, nonlinear temporal selection, canard tracking, and experimental
-observability remain separate questions.
+not temporal chaos for the parabolic PDE.  Complete spectral counts,
+temporal stability, nonlinear temporal selection, canard tracking, and
+experimental observability remain separate questions.
 
 \subsection*{Data and supplementary material}
 

@@ -20,9 +20,11 @@ has a real, positive, whole-line \(L^2\) eigenvalue
 \]
 
 This is a local mathematical `PASS`.  It remains non-claim-bearing under the
-repository policy until independent-machine replay.  The conclusion is
-linear spectral instability; it is not a nonlinear instability, selection,
-Turing, or canard theorem.
+repository policy until independent-machine replay.  This note proves the
+linear spectral input; the separate
+[semilinear bridge](NONLINEAR_ORBITAL_INSTABILITY.md) turns that input into
+whole-line nonlinear orbital instability.  Neither result proves selection,
+a Turing connection, or canard identification.
 
 ## 1. Whole-line operator pencil
 
@@ -225,8 +227,9 @@ For context, the far-field temporal essential spectrum itself is
 \]
 
 It touches the imaginary axis at \(\nu_\pm(0)=\pm i\).  Thus the positive
-eigenvalue proved here is isolated, but this note does not claim a spectral
-gap for the full temporal semigroup or a nonlinear instability theorem.
+eigenvalue proved here is isolated, but there is no spectral gap for the full
+temporal semigroup.  Such a gap is not needed by the separate nonlinear
+orbital-instability bridge.
 
 ## 4. The true `pulse_1` and its strict moment
 
