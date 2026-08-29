@@ -1,0 +1,334 @@
+{
+  "Q_start": 25.0,
+  "array_shapes": {
+    "beta_initial": [
+      3
+    ],
+    "collocation_Q_end": [
+      3
+    ],
+    "collocation_alpha": [
+      3,
+      3,
+      7
+    ],
+    "collocation_beta": [
+      3,
+      3,
+      7
+    ],
+    "collocation_chi": [
+      3,
+      3,
+      7
+    ],
+    "collocation_pi": [
+      3,
+      3,
+      7
+    ],
+    "common_Q": [
+      7
+    ],
+    "method_alpha_difference": [
+      3,
+      7
+    ],
+    "method_beta_difference": [
+      3,
+      7
+    ],
+    "rate_Q": [
+      4
+    ],
+    "rate_beta_slice_separation": [
+      4
+    ],
+    "rate_bunching_gamma_j": [
+      4,
+      4
+    ],
+    "rate_gamma_beta": [
+      4
+    ],
+    "rate_gamma_z": [
+      4
+    ],
+    "rate_invariance_residual": [
+      4
+    ],
+    "rate_normal_quotient": [
+      4
+    ],
+    "rate_tangent_log_norm": [
+      4
+    ],
+    "shooting_Q": [
+      7
+    ],
+    "shooting_alpha": [
+      3,
+      7
+    ],
+    "shooting_beta": [
+      3,
+      7
+    ],
+    "shooting_chi": [
+      3,
+      7
+    ],
+    "shooting_pi": [
+      3,
+      7
+    ]
+  },
+  "beta_values": [
+    1.7385502869454754e-06,
+    2.7385502869454753e-06,
+    3.7385502869454755e-06
+  ],
+  "claim_bearing": false,
+  "collocation_Q_end_ladder": [
+    60.0,
+    100.0,
+    200.0
+  ],
+  "configuration_path": "numerics/config/vdp_v4_future_graph_slice_v2.json",
+  "data_path": "numerics/results/vdp_v4_future_graph_slice_v2/slice.npz",
+  "diagnostics": {
+    "collocation": [
+      {
+        "Q_end": 60.0,
+        "beta0": 1.7385502869454754e-06,
+        "boundary_residual_inf": 4.705738595857224e-17,
+        "energy_residual_inf": 5.551115123125783e-17,
+        "minimum_pi": 0.00013592042614512522,
+        "solver_nodes": 1092,
+        "solver_rms_residual_max": 1.9947562331323486e-08,
+        "terminal_alpha": 1.2079930163695387e-06,
+        "terminal_beta": 1.2079524540853147e-06,
+        "terminal_nullcline_alpha": 1.207993016369528e-06,
+        "terminal_nullcline_residual": 1.0587911840678754e-20
+      },
+      {
+        "Q_end": 60.0,
+        "beta0": 2.7385502869454753e-06,
+        "boundary_residual_inf": 4.799853367774369e-17,
+        "energy_residual_inf": 5.551115123125783e-17,
+        "minimum_pi": 0.00013693063937936708,
+        "solver_nodes": 523,
+        "solver_rms_residual_max": 1.0563025636948272e-08,
+        "terminal_alpha": 1.2079930163695389e-06,
+        "terminal_beta": 1.2079524540853145e-06,
+        "terminal_nullcline_alpha": 1.207993016369528e-06,
+        "terminal_nullcline_residual": 1.079967007749233e-20
+      },
+      {
+        "Q_end": 60.0,
+        "beta0": 3.7385502869454755e-06,
+        "boundary_residual_inf": 4.799853367774369e-17,
+        "energy_residual_inf": 5.551115123125783e-17,
+        "minimum_pi": 0.0001369319131286812,
+        "solver_nodes": 1089,
+        "solver_rms_residual_max": 1.9862261011223256e-08,
+        "terminal_alpha": 1.2079930163695389e-06,
+        "terminal_beta": 1.2079524540853145e-06,
+        "terminal_nullcline_alpha": 1.207993016369528e-06,
+        "terminal_nullcline_residual": 1.079967007749233e-20
+      },
+      {
+        "Q_end": 100.0,
+        "beta0": 1.7385502869454754e-06,
+        "boundary_residual_inf": 6.588034034200114e-18,
+        "energy_residual_inf": 5.551115123125783e-17,
+        "minimum_pi": 0.00013592042614512522,
+        "solver_nodes": 1417,
+        "solver_rms_residual_max": 1.9947562275743192e-08,
+        "terminal_alpha": 7.410466766611421e-07,
+        "terminal_beta": 7.410280752190777e-07,
+        "terminal_nullcline_alpha": 7.410466766611419e-07,
+        "terminal_nullcline_residual": 2.117582368135751e-22
+      },
+      {
+        "Q_end": 100.0,
+        "beta0": 2.7385502869454753e-06,
+        "boundary_residual_inf": 9.411477191714448e-18,
+        "energy_residual_inf": 5.551115123125783e-17,
+        "minimum_pi": 0.00013693063937936708,
+        "solver_nodes": 854,
+        "solver_rms_residual_max": 4.687847790365426e-09,
+        "terminal_alpha": 7.410466766611421e-07,
+        "terminal_beta": 7.410280752190777e-07,
+        "terminal_nullcline_alpha": 7.410466766611419e-07,
+        "terminal_nullcline_residual": 2.117582368135751e-22
+      },
+      {
+        "Q_end": 100.0,
+        "beta0": 3.7385502869454755e-06,
+        "boundary_residual_inf": 1.6940658945086007e-17,
+        "energy_residual_inf": 5.551115123125783e-17,
+        "minimum_pi": 0.00013693191312868125,
+        "solver_nodes": 1419,
+        "solver_rms_residual_max": 1.9957533700005484e-08,
+        "terminal_alpha": 7.410466766611421e-07,
+        "terminal_beta": 7.410280752190777e-07,
+        "terminal_nullcline_alpha": 7.410466766611419e-07,
+        "terminal_nullcline_residual": 2.117582368135751e-22
+      },
+      {
+        "Q_end": 200.0,
+        "beta0": 1.7385502869454754e-06,
+        "boundary_residual_inf": 1.8822954383428897e-17,
+        "energy_residual_inf": 5.551115123125783e-17,
+        "minimum_pi": 0.00013592042614512522,
+        "solver_nodes": 1804,
+        "solver_rms_residual_max": 1.9947562326612907e-08,
+        "terminal_alpha": 3.786228977699098e-07,
+        "terminal_beta": 3.786164467948127e-07,
+        "terminal_nullcline_alpha": 3.7862289776991405e-07,
+        "terminal_nullcline_residual": -4.235164736271502e-21
+      },
+      {
+        "Q_end": 200.0,
+        "beta0": 2.7385502869454753e-06,
+        "boundary_residual_inf": 6.588034034200114e-18,
+        "energy_residual_inf": 5.551115123125783e-17,
+        "minimum_pi": 0.00013693063937936708,
+        "solver_nodes": 1240,
+        "solver_rms_residual_max": 7.805570852065432e-09,
+        "terminal_alpha": 3.7862289776991257e-07,
+        "terminal_beta": 3.7861644679480994e-07,
+        "terminal_nullcline_alpha": 3.7862289776991405e-07,
+        "terminal_nullcline_residual": -1.4823076576950256e-21
+      },
+      {
+        "Q_end": 200.0,
+        "beta0": 3.7385502869454755e-06,
+        "boundary_residual_inf": 1.7881806664257453e-17,
+        "energy_residual_inf": 5.551115123125783e-17,
+        "minimum_pi": 0.00013693191312868125,
+        "solver_nodes": 1806,
+        "solver_rms_residual_max": 1.9957533695481275e-08,
+        "terminal_alpha": 3.7862289776991003e-07,
+        "terminal_beta": 3.786164467948125e-07,
+        "terminal_nullcline_alpha": 3.7862289776991405e-07,
+        "terminal_nullcline_residual": -4.0234064994579266e-21
+      }
+    ],
+    "energy_residual_inf": 2.220446049250313e-16,
+    "graph_face_clearance": 6.261449713054524e-06,
+    "horizon_seam_gamma_spread": [
+      0.0,
+      2.964615315390051e-21,
+      2.541098841762901e-21
+    ],
+    "horizon_seam_gamma_spread_max": 2.964615315390051e-21,
+    "invariance_residual_inf": 5.061104451687955e-20,
+    "method_common_state_difference_inf": 3.608591943343758e-11,
+    "method_seam_gamma_difference": [
+      -1.5619824142741384e-14,
+      -2.190502545180279e-14,
+      -2.8375118806656758e-14
+    ],
+    "method_seam_gamma_difference_abs_max": 2.8375118806656758e-14,
+    "minimum_pi": 0.00011145341380506697,
+    "normal_quotient_rate_min": 0.9797990702680197,
+    "outer_energy": 2.4247669379382373e-25,
+    "rate_beta_slice_separation_min": 5.588149192792338e-08,
+    "sampled_face_margins": {
+      "alpha_lower_exit": 1e-05,
+      "alpha_upper_exit": 6.970918086564981e-06,
+      "beta_lower_inward": 1e-05,
+      "beta_upper_inward": 6.97094536110274e-06,
+      "energy_equation_residual_inf": 2.220446049250313e-16,
+      "minimum_oriented_face_margin": 8.916273104405359e-07,
+      "positive_pi": 0.00011145341380506697,
+      "z_outer_inward": 8.916273104405359e-07
+    },
+    "shooting": [
+      {
+        "alpha0": 2.7284742664513392e-06,
+        "beta0": 1.7385502869454754e-06,
+        "bracket_lower_residual": -6.109305509999138e-05,
+        "bracket_upper_residual": 1.1639907724066885e-05,
+        "energy_residual_inf": 5.551115123125783e-17,
+        "initial_alpha_minus_nullcline": 1.0171134872595583e-08,
+        "initial_nullcline_alpha": 2.7183031315787436e-06,
+        "integrator_steps": 202,
+        "minimum_pi": 0.00013592042616074486,
+        "root_residual_evaluations": 11,
+        "terminal_residual": -1.5401176563451316e-17
+      },
+      {
+        "alpha0": 2.73867530885048e-06,
+        "beta0": 2.7385502869454753e-06,
+        "bracket_lower_residual": -3.251357349471898e-05,
+        "bracket_upper_residual": 2.1838959902271943e-05,
+        "energy_residual_inf": 5.551115123125783e-17,
+        "initial_alpha_minus_nullcline": -2.8040244524930316e-11,
+        "initial_nullcline_alpha": 2.738703349095005e-06,
+        "integrator_steps": 202,
+        "minimum_pi": 0.00013693063940127187,
+        "root_residual_evaluations": 11,
+        "terminal_residual": 2.7090654752034288e-17
+      },
+      {
+        "alpha0": 2.7488763371154287e-06,
+        "beta0": 3.7385502869454755e-06,
+        "bracket_lower_residual": -1.3752172468571612e-05,
+        "bracket_upper_residual": 3.0659015667784364e-05,
+        "energy_residual_inf": 5.551115123125783e-17,
+        "initial_alpha_minus_nullcline": -1.022718869511364e-08,
+        "initial_nullcline_alpha": 2.7591035258105423e-06,
+        "integrator_steps": 202,
+        "minimum_pi": 0.0001369323831106311,
+        "root_residual_evaluations": 11,
+        "terminal_residual": 7.214603128238503e-18
+      }
+    ],
+    "tangent_log_norm_max": 1.2469331567708198e-06,
+    "third_order_bunching_rate_min": 0.9797953294685494
+  },
+  "evidence_status": "COMPUTED/E1_NON_RIGOROUS_WITH_QA",
+  "fixed_energy": 2.4247669379382373e-25,
+  "mathematical_status": "INCONCLUSIVE",
+  "nonclaim": "This is one fixed-parameter, fixed-energy, three-beta floating slice.  It does not prove the maximal future-staying graph, uniform corridor faces, uniqueness, regularity, parameter jets, or the Issue #7 parameter-box theorem.",
+  "parameter_point": {
+    "a2": "0",
+    "epsilon": "1",
+    "r": "3/200"
+  },
+  "qa": {
+    "collocation_boundary": true,
+    "collocation_residual": true,
+    "energy": true,
+    "graph_inside_sampled_faces": true,
+    "horizon_convergence": true,
+    "independent_common_state_agreement": true,
+    "independent_seam_agreement": true,
+    "invariance": true,
+    "positive_pi": true,
+    "sampled_face_orientation": true,
+    "shooting_terminal": true,
+    "third_order_bunching_proxy": true
+  },
+  "schema_version": "rfsn-vdp-v4-future-graph-slice-v2/1",
+  "shooting_Q_end": 25.002,
+  "status": "V4_FUTURE_GRAPH_SLICE_COMPUTED",
+  "terminal_model": "Exact alpha_dot=0 normal nullcline; asymptotically compatible but not the exact finite-Q V4 graph.",
+  "thresholds": {
+    "collocation_boundary_residual_upper": 1e-10,
+    "collocation_rms_residual_upper": 3e-08,
+    "energy_residual_upper": 1e-12,
+    "graph_face_clearance_lower": 5e-06,
+    "horizon_seam_gamma_spread_upper": 1e-12,
+    "invariance_residual_upper": 1e-08,
+    "method_common_state_difference_upper": 2e-09,
+    "method_seam_gamma_difference_upper": 5e-11,
+    "minimum_pi_lower": 1e-05,
+    "sampled_oriented_face_margin_lower": 1e-08,
+    "shooting_terminal_residual_upper": 1e-12,
+    "third_order_bunching_rate_lower": 0.5
+  }
+}
