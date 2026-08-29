@@ -409,12 +409,20 @@ selected after disclosed exploratory phase data had been inspected; it is not
 a blinded confirmation target.  The one allowed box-redesign budget is now
 spent.
 
-This freeze is not a validation result.  P1 must be rerun because the positive
-v1 and v2 intervals are disjoint.  P2a--P2d may be restricted only after exact
-domain and hash checks.  The frozen v2 P2e checker can decide only the three
-scalar phase-gap subatoms; the complete event-atlas manifest, its numerical
-materialization choices, Theorem V2(5), and `V2.EVENT_ATLAS` remain pending.
-See [`P2E_V2_BOX_FREEZE.md`](P2E_V2_BOX_FREEZE.md).
+This freeze is not a validation result.  Because the positive v1 and v2
+intervals are disjoint, the versioned P1 lane uses
+`kernel --box-version v2`; all P2 scopes reject that option.  Its certificate
+uses `BOX.V2.FROZEN_DISCLOSED`, not the false v1 predicate that selection
+preceded all interval inspection.  The v2 checker verifies the complete raw
+field/enclosure sets, exact rational argument vector, raw parameter
+containment, strict-margin reductions, stored stdout, and a fresh byte replay
+of the compiled probe.  See [`P1_V2_REPORT.md`](P1_V2_REPORT.md).
+
+P2a--P2d may be restricted only after exact domain and hash checks.  The
+frozen v2 P2e checker can decide only the three scalar phase-gap subatoms; the
+complete event-atlas manifest, its numerical materialization choices,
+Theorem V2(5), and `V2.EVENT_ATLAS` remain pending.  See
+[`P2E_V2_BOX_FREEZE.md`](P2E_V2_BOX_FREEZE.md).
 
 ## Strict replay
 
@@ -440,6 +448,14 @@ python3 validation/rigorous/run_validation.py kernel \
   --capd-config CAPD_BUILD/bin/capd-config \
   --flagship-repository FLAGSHIP_REPOSITORY \
   --report /tmp/rfsn-vdp-rigorous-kernel.json
+
+python3 validation/rigorous/run_validation.py kernel \
+  --box-version v2 \
+  --allow-dirty \
+  --capd-source CAPD_SOURCE \
+  --capd-config CAPD_BUILD/bin/capd-config \
+  --flagship-repository FLAGSHIP_REPOSITORY \
+  --report /tmp/rfsn-vdp-rigorous-kernel-v2.json
 
 python3 validation/rigorous/run_validation.py local-graph \
   --allow-dirty \
@@ -490,8 +506,8 @@ the source-dirty check and is explicitly excluded from that pre-write
 observation in the certificate; the report is never a source input.  A dirty
 development run cannot be release-eligible.
 
-For a P2b jets or P2bK certificate, the checker also materializes the probe and
-its local support files from the certificate's frozen source commit,
+For a v2 P1, P2b jets, or P2bK certificate, the checker also materializes the
+probe and its local support files from the certificate's frozen source commit,
 reconstructs the recorded strict compile command, reruns the exact frozen
 argument vector, and compares stdout byte-for-byte.  For P2bK it additionally
 replays the 56 exact symbolic checks and recursively validates the archived

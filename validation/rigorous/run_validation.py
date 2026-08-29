@@ -42,6 +42,8 @@ from rigorous_common import (
 HERE = Path(__file__).resolve().parent
 REPOSITORY = HERE.parents[1]
 BOX_PATH = HERE / "config" / "vdp_box_v1.json"
+BOX_V2_PATH = HERE / "config" / "vdp_box_v2.json"
+BRIDGE_V2_PATH = HERE / "config" / "vdp_bridge_v2.json"
 BRIDGE_PATH = HERE / "config" / "vdp_bridge_v1.json"
 LOCAL_GRAPH_CONFIG_PATH = HERE / "config" / "vdp_p2_local_graph_v1.json"
 H10_C01_CONFIG_PATH = HERE / "config" / "vdp_p2_h10_c01_v1.json"
@@ -117,6 +119,17 @@ BOUND_SOURCES = (
     "validation/rigorous/check_certificate.py",
 )
 
+V2_P1_BOUND_SOURCES = (
+    "validation/rigorous/check_vdp_box_v2_freeze.py",
+    "validation/rigorous/parameter_box_v2.schema.json",
+    "validation/rigorous/config/vdp_box_v2.json",
+    "validation/rigorous/config/vdp_bridge_v2.json",
+    "validation/rigorous/results/vdp_box_v1_p2e_phase_order_fail.json",
+    "validation/rigorous/config/vdp_p2_homoclinic_v1.json",
+    "validation/rigorous/design/logs/p2c_root_jets_v1.log",
+    "validation/rigorous/P2E_V2_BOX_FREEZE.md",
+)
+
 
 def obligation_predicates() -> dict[str, str]:
     manifest = load_json(HERE / "obligations.json")
@@ -127,7 +140,35 @@ def obligation_predicates() -> dict[str, str]:
     }
 
 
-def verify_box(box: dict[str, Any]) -> tuple[str, list[str]]:
+def verify_box(box: dict[str, Any], box_version: str = "v1") -> tuple[str, list[str]]:
+    if box_version == "v2":
+        errors: list[str] = []
+        try:
+            from check_vdp_box_v2_freeze import audit as audit_v2_freeze
+
+            if box != load_json(BOX_V2_PATH):
+                errors.append("v2 box argument differs from the canonical frozen file")
+            audit = audit_v2_freeze(BOX_V2_PATH, BRIDGE_V2_PATH)
+            if audit.get("status") != "PASS" or \
+                    audit.get("mathematical_status") != "NOT_RUN" or \
+                    audit.get("box_id") != "vdp-positive-box-v2":
+                errors.append("v2 freeze audit did not return its canonical PASS")
+            frozen_commit = git_output(
+                REPOSITORY, "rev-parse", "vdp-issue7-box-v2-freeze^{commit}")
+            if frozen_commit != "8ba7ffc0bb2cdced0c904ff6dfa319e4a5bd9b2b":
+                errors.append("v2 freeze tag no longer resolves to the frozen commit")
+            ancestor = subprocess.run(
+                ["git", "-C", str(REPOSITORY), "merge-base", "--is-ancestor",
+                 frozen_commit, "HEAD"],
+                stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            if ancestor.returncode != 0:
+                errors.append("v2 freeze commit is not an ancestor of HEAD")
+        except (KeyError, OSError, ValueError,
+                subprocess.SubprocessError) as error:
+            errors.append(f"v2 freeze verification failed: {error}")
+        return ("PASS" if not errors else "FAIL", errors)
+    if box_version != "v1":
+        return "FAIL", [f"unsupported box version: {box_version}"]
     errors = validate_exact_box(box)
     try:
         jsonschema.validate(
@@ -1148,7 +1189,7 @@ def compile_and_run(
             "probe_argv": run_command,
             "probe_exit_code": executed.returncode,
         }
-        if scope in ("p2-jets", "p2-kato"):
+        if scope in ("kernel", "p2-jets", "p2-kato"):
             # Preserve the exact machine output for a byte-level hash check.
             # The parsed raw_probe remains the semantic representation.
             build["probe_stdout"] = executed.stdout
@@ -1157,9 +1198,11 @@ def compile_and_run(
         return raw, logs, build
 
 
-def source_bindings() -> list[dict[str, str]]:
+def source_bindings(box_version: str = "v1") -> list[dict[str, str]]:
     bindings: list[dict[str, str]] = []
-    for relative in BOUND_SOURCES:
+    relatives = BOUND_SOURCES + (
+        V2_P1_BOUND_SOURCES if box_version == "v2" else ())
+    for relative in relatives:
         path = safe_repository_path(REPOSITORY, relative)
         if not path.is_file():
             raise FileNotFoundError(f"bound source is missing: {relative}")
@@ -1187,15 +1230,22 @@ def main() -> int:
     parser.add_argument("--capd-source", type=Path, required=True)
     parser.add_argument("--capd-config", type=Path, required=True)
     parser.add_argument("--flagship-repository", type=Path)
+    parser.add_argument(
+        "--box-version", choices=("v1", "v2"), default="v1",
+        help="select the canonical P1 box; v2 is accepted only for kernel")
     parser.add_argument("--report", type=Path, required=True)
     parser.add_argument("--allow-dirty", action="store_true",
                         help="permit a hash-bound dirty development checkout")
     arguments = parser.parse_args()
 
     try:
+        if arguments.box_version == "v2" and arguments.scope != "kernel":
+            raise RuntimeError(
+                "--box-version v2 is currently defined only for the P1 kernel")
         dependency = load_json(DEPENDENCY_LOCK_PATH)
-        box = load_json(BOX_PATH)
-        box_status, box_errors = verify_box(box)
+        box_path = BOX_V2_PATH if arguments.box_version == "v2" else BOX_PATH
+        box = load_json(box_path)
+        box_status, box_errors = verify_box(box, arguments.box_version)
         bridge: dict[str, Any] | None = None
         local_graph_configuration: dict[str, Any] | None = None
         h10_c01_configuration: dict[str, Any] | None = None
@@ -1401,11 +1451,14 @@ def main() -> int:
         predicates = obligation_predicates()
         source_status = flagship_status
         rounding = raw["rounding_self_test"]
+        box_obligation = (
+            "BOX.V2.FROZEN_DISCLOSED"
+            if arguments.box_version == "v2" else "BOX.FROZEN")
         p0 = [
             make_obligation("ENV.SOURCE_BINDING", source_status, predicates),
             make_obligation("ENV.CAPD_BINDING", capd_status, predicates),
             make_obligation("ENV.ROUNDING", rounding["status"], predicates),
-            make_obligation("BOX.FROZEN", box_status, predicates,
+            make_obligation(box_obligation, box_status, predicates,
                             diagnostics=box_errors),
         ]
         if arguments.scope in (
@@ -1515,9 +1568,13 @@ def main() -> int:
             "p2-kato": "V2_P2_KATO_KERNEL",
         }[arguments.scope]
         certificate = {
-            "schema_version": "rfsn-rigorous-run-certificate/1",
+            "schema_version": (
+                "rfsn-rigorous-run-certificate/2"
+                if arguments.box_version == "v2" else
+                "rfsn-rigorous-run-certificate/1"),
             "certificate_id": (
-                f"vdp-{arguments.scope}-{now.strftime('%Y%m%dt%H%M%Sz').lower()}-"
+                f"vdp-{arguments.scope}-{arguments.box_version}-"
+                f"{now.strftime('%Y%m%dt%H%M%Sz').lower()}-"
                 f"{head[:12]}"),
             "scope": scope_name,
             "created_at": now.isoformat(),
@@ -1529,10 +1586,10 @@ def main() -> int:
                 "working_tree_observation": "BEFORE_REPORT_WRITE",
                 "report_output_excluded_from_observation": True,
             },
-            "source_bindings": source_bindings(),
+            "source_bindings": source_bindings(arguments.box_version),
             "parameter_box": {
-                "path": "validation/rigorous/config/vdp_box_v1.json",
-                "sha256": sha256_file(BOX_PATH),
+                "path": str(box_path.relative_to(REPOSITORY)),
+                "sha256": sha256_file(box_path),
                 "box_id": box["box_id"],
                 "variables": box["variables"],
             },
@@ -1570,8 +1627,15 @@ def main() -> int:
                     if arguments.scope == "p2-jets" else
                     P2_KATO_SCOPE_NONCLAIM
                     if arguments.scope == "p2-kato" else
-                    "Phase 1 does not validate V2 continuation beyond item (1), "
-                    "V3--V6, temporal stability, Turing selection, or canard identification."
+                    (
+                        "Phase 1 on the disclosed-data-informed v2 target proves "
+                        "only V1 exact identities and V2(1); it does not validate "
+                        "later V2 continuation, V3--V6, temporal stability, "
+                        "Turing selection, or canard identification."
+                        if arguments.box_version == "v2" else
+                        "Phase 1 does not validate V2 continuation beyond item (1), "
+                        "V3--V6, temporal stability, Turing selection, or canard identification."
+                    )
                 ),
             ],
         }

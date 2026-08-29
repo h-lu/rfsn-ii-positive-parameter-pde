@@ -32,7 +32,7 @@ from rigorous_common import (  # noqa: E402
     validate_p2_jets_configuration,
     validate_p2b0_true_tube_implication,
 )
-from run_validation import verify_exact_symbolic_backend  # noqa: E402
+from run_validation import verify_box, verify_exact_symbolic_backend  # noqa: E402
 
 
 class FrozenBoxTests(unittest.TestCase):
@@ -62,6 +62,53 @@ class FrozenBoxTests(unittest.TestCase):
         self.assertEqual(
             combine_verdicts(["PASS", "INCONCLUSIVE"]), "INCONCLUSIVE")
         self.assertEqual(combine_verdicts(["INCONCLUSIVE", "FAIL"]), "FAIL")
+
+
+class FrozenV2BoxTests(unittest.TestCase):
+    def setUp(self) -> None:
+        self.box = load_json(RIGOROUS / "config" / "vdp_box_v2.json")
+
+    def test_schema_exact_arguments_and_disclosed_freeze(self) -> None:
+        jsonschema.validate(
+            self.box,
+            load_json(RIGOROUS / "parameter_box_v2.schema.json"),
+            format_checker=jsonschema.FormatChecker(),
+        )
+        self.assertEqual(verify_box(self.box, "v2"), ("PASS", []))
+        self.assertEqual(
+            box_arguments(self.box),
+            ["1", "100", "1", "50", "-1", "4", "1", "4",
+             "4", "5", "6", "5"],
+        )
+
+    def test_certificate_versions_cannot_cross_label_boxes(self) -> None:
+        archived = load_json(
+            RIGOROUS / "results" / "vdp_box_v1_phase1.json")
+        invalid = copy.deepcopy(archived)
+        invalid["schema_version"] = "rfsn-rigorous-run-certificate/2"
+        self.assertTrue(schema_errors(invalid))
+
+        invalid = copy.deepcopy(archived)
+        invalid["parameter_box"]["box_id"] = "vdp-positive-box-v2"
+        invalid["parameter_box"]["path"] = \
+            "validation/rigorous/config/vdp_box_v2.json"
+        self.assertTrue(schema_errors(invalid))
+
+    def test_v2_is_fail_closed_for_p2_scopes(self) -> None:
+        completed = subprocess.run(
+            [
+                sys.executable, "-B", str(RIGOROUS / "run_validation.py"),
+                "local-graph", "--box-version", "v2",
+                "--capd-source", "/does/not/exist",
+                "--capd-config", "/does/not/exist/capd-config",
+                "--report", "/tmp/should-not-be-written.json",
+            ],
+            cwd=REPOSITORY, text=True, stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE, timeout=30)
+        self.assertEqual(completed.returncode, 2)
+        self.assertIn(
+            "--box-version v2 is currently defined only for the P1 kernel",
+            completed.stderr)
 
 
 class FrozenP2BridgeTests(unittest.TestCase):
@@ -686,6 +733,72 @@ class DevelopmentReplayTests(unittest.TestCase):
                 stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=30)
             self.assertEqual(checked.returncode, 0, checked.stderr)
             self.assertIn("claim_bearing=false", checked.stdout)
+
+    def test_v2_p1_kernel_replays_and_rejects_coordinated_tampering(self) -> None:
+        lock = load_json(RIGOROUS / "dependency.lock.json")
+        capd_source = Path(lock["capd"]["reference_source_path"])
+        capd_config = Path(lock["capd"]["reference_capd_config"])
+        if not (capd_source.is_dir() and capd_config.is_file()):
+            self.skipTest("reference CAPD development build is not present")
+        with tempfile.TemporaryDirectory(
+                prefix="rfsn-v2-p1-test-") as temporary:
+            report = Path(temporary) / "certificate.json"
+            command = [
+                sys.executable, "-B", str(RIGOROUS / "run_validation.py"),
+                "kernel", "--box-version", "v2", "--allow-dirty",
+                "--capd-source", str(capd_source),
+                "--capd-config", str(capd_config),
+                "--report", str(report),
+            ]
+            completed = subprocess.run(
+                command, cwd=REPOSITORY, text=True,
+                stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=180)
+            self.assertEqual(completed.returncode, 0, completed.stderr)
+            certificate = json.loads(report.read_text(encoding="utf-8"))
+            self.assertEqual(
+                certificate["schema_version"],
+                "rfsn-rigorous-run-certificate/2")
+            self.assertEqual(
+                certificate["parameter_box"]["box_id"],
+                "vdp-positive-box-v2")
+            self.assertEqual(
+                certificate["toolchain"]["probe_build"]["probe_argv"][1:],
+                ["1", "100", "1", "50", "-1", "4", "1", "4",
+                 "4", "5", "6", "5"])
+            self.assertEqual(certificate["mathematical_status"], "PASS")
+            self.assertEqual(certificate["final_status"], "INCONCLUSIVE")
+            self.assertFalse(certificate["claim_bearing"])
+            self.assertEqual(schema_errors(certificate), [])
+            self.assertEqual(semantic_errors(certificate, REPOSITORY), [])
+
+            by_id = {
+                item["id"]: item for item in certificate["obligations"]}
+            self.assertEqual(
+                by_id["BOX.V2.FROZEN_DISCLOSED"]["status"], "PASS")
+            self.assertNotIn("BOX.FROZEN", by_id)
+
+            invalid = copy.deepcopy(certificate)
+            invalid["raw_probe"]["parameter_enclosures"]["r"] = {
+                "lower_hex": "0x0p+0", "upper_hex": "0x1p-20",
+                "endpoint_format": "IEEE754_BINARY64_HEX"}
+            self.assertIn(
+                "raw kernel parameter enclosure does not contain the exact r box",
+                semantic_errors(invalid, REPOSITORY))
+
+            # Even a coordinated rewrite of parsed raw data, exact stdout,
+            # and its digest is rejected by recompilation and byte replay.
+            invalid = copy.deepcopy(certificate)
+            invalid["raw_probe"]["parameter_enclosures"]["c"] = {
+                "lower_hex": "0x0p+0", "upper_hex": "0x1p-100",
+                "endpoint_format": "IEEE754_BINARY64_HEX"}
+            stdout = json.dumps(
+                invalid["raw_probe"], separators=(",", ":")) + "\n"
+            invalid["toolchain"]["probe_build"]["probe_stdout"] = stdout
+            invalid["logs"]["probe_stdout_sha256"] = hashlib.sha256(
+                stdout.encode()).hexdigest()
+            self.assertIn(
+                "P2 replay stdout differs from the formal run",
+                semantic_errors(invalid, REPOSITORY))
 
     def test_local_graph_kernel_generates_checkable_scoped_certificate(self) -> None:
         lock = load_json(RIGOROUS / "dependency.lock.json")

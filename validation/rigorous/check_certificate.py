@@ -51,7 +51,20 @@ P0_IDS = {
     "ENV.ROUNDING",
     "BOX.FROZEN",
 }
+V2_KERNEL_P0_IDS = {
+    "ENV.SOURCE_BINDING",
+    "ENV.CAPD_BINDING",
+    "ENV.ROUNDING",
+    "BOX.V2.FROZEN_DISCLOSED",
+}
 KERNEL_IDS = P0_IDS | {
+    "V1.REVERSIBILITY",
+    "V1.HAMILTONIAN",
+    "V2.1.WEDGE",
+    "V2.1.POSITIVITY",
+    "V2.1.SADDLE_FOCUS",
+}
+V2_KERNEL_IDS = V2_KERNEL_P0_IDS | {
     "V1.REVERSIBILITY",
     "V1.HAMILTONIAN",
     "V2.1.WEDGE",
@@ -126,6 +139,16 @@ BASE_REQUIRED_BINDINGS = {
     "validation/rigorous/rigorous_common.py",
     "validation/rigorous/run_validation.py",
     "validation/rigorous/check_certificate.py",
+}
+V2_KERNEL_REQUIRED_BINDINGS = BASE_REQUIRED_BINDINGS | {
+    "validation/rigorous/check_vdp_box_v2_freeze.py",
+    "validation/rigorous/parameter_box_v2.schema.json",
+    "validation/rigorous/config/vdp_box_v2.json",
+    "validation/rigorous/config/vdp_bridge_v2.json",
+    "validation/rigorous/results/vdp_box_v1_p2e_phase_order_fail.json",
+    "validation/rigorous/config/vdp_p2_homoclinic_v1.json",
+    "validation/rigorous/design/logs/p2c_root_jets_v1.log",
+    "validation/rigorous/P2E_V2_BOX_FREEZE.md",
 }
 LOCAL_GRAPH_REQUIRED_BINDINGS = BASE_REQUIRED_BINDINGS | {
     "validation/rigorous/P2_VALIDATION_CONTRACT.md",
@@ -485,6 +508,22 @@ P2_KATO_SOURCE_MARGINS = {
     "normalized_source_coordinate_second_derivative_upper_margin",
     "source_coordinate_phase_speed_lower_margin",
 } | {f"{name}_upper_margin" for name in P2_KATO_TRUE_SOURCE_KEYS}
+KERNEL_ENCLOSURES = {
+    "V1.REVERSIBILITY": set(),
+    "V1.HAMILTONIAN": set(),
+    "V2.1.WEDGE": {
+        "one_minus_2Ar_minus_sqrtE_A2_r4",
+        "one_half_minus_sqrtE_A_r3",
+    },
+    "V2.1.POSITIVITY": {"r", "d", "delta", "epsilon", "a"},
+    "V2.1.SADDLE_FOCUS": {
+        "two_plus_c", "two_minus_c", "alpha_minus_one_half",
+        "beta_minus_one_half",
+    },
+}
+KERNEL_PARAMETER_ENCLOSURES = {
+    "r", "a2", "epsilon", "d", "delta", "a", "c", "alpha", "beta",
+}
 P2_JETS_SCOPE_NONCLAIM = (
     "The P2 mixed-jet kernel proves the local graph and weighted half-orbit "
     "obligations in the P2a algebraic frame; normalized Kato source phase, "
@@ -506,6 +545,11 @@ COMMON_NONCLAIMS = [
 PHASE1_SCOPE_NONCLAIM = (
     "Phase 1 does not validate V2 continuation beyond item (1), V3--V6, "
     "temporal stability, Turing selection, or canard identification."
+)
+PHASE1_V2_SCOPE_NONCLAIM = (
+    "Phase 1 on the disclosed-data-informed v2 target proves only V1 exact "
+    "identities and V2(1); it does not validate later V2 continuation, "
+    "V3--V6, temporal stability, Turing selection, or canard identification."
 )
 LOCAL_GRAPH_SCOPE_NONCLAIM = (
     "The local-graph kernel proves only its two P2a subobligations; "
@@ -1084,10 +1128,12 @@ def _kato_audit_status(audit: Any, errors: list[str]) -> str:
 def _replay_p2_probe(
         certificate: dict[str, Any], repository: Path,
         recorded_commit: str, recorded_dirty: bool) -> list[str]:
-    """Recompile and byte-replay a bound strict P2 probe on this machine."""
+    """Recompile and byte-replay a bound strict interval probe."""
 
     errors: list[str] = []
     source_by_scope = {
+        "V1_V2_1_KERNEL":
+            "validation/rigorous/src/vdp_parameter_box_probe.cpp",
         "V2_P2_JETS_KERNEL":
             "validation/rigorous/src/vdp_p2_jets_probe.cpp",
         "V2_P2_KATO_KERNEL":
@@ -1295,6 +1341,9 @@ def _replay_p2_probe(
         "validation/rigorous/include/rounding_self_test.hpp",
         "validation/rigorous/include/verdict.hpp",
     ]
+    if certificate.get("scope") == "V1_V2_1_KERNEL":
+        replay_files.append(
+            "validation/rigorous/include/exact_polynomial.hpp")
     contents: dict[str, bytes] = {}
     for relative in replay_files:
         try:
@@ -1466,21 +1515,52 @@ def semantic_errors(certificate: dict[str, Any],
         from p2_homoclinic_certificate import semantic_errors as p2c_semantic_errors
         return p2c_semantic_errors(certificate, repository)
     errors: list[str] = []
-    box_path = HERE / "config" / "vdp_box_v1.json"
+    certificate_version = certificate.get("schema_version")
+    v2_kernel = (
+        certificate_version == "rfsn-rigorous-run-certificate/2" and
+        certificate.get("scope") == "V1_V2_1_KERNEL")
+    box_path = HERE / "config" / (
+        "vdp_box_v2.json" if v2_kernel else "vdp_box_v1.json")
     box = load_json(box_path)
-    box_schema = load_json(HERE / "parameter_box.schema.json")
+    box_schema = load_json(HERE / (
+        "parameter_box_v2.schema.json" if v2_kernel else
+        "parameter_box.schema.json"))
     try:
         jsonschema.validate(box, box_schema,
                             format_checker=jsonschema.FormatChecker())
     except jsonschema.ValidationError as error:
         errors.append(f"frozen box schema: {error.message}")
-    errors.extend(validate_exact_box(box))
+    if v2_kernel:
+        try:
+            from check_vdp_box_v2_freeze import audit as audit_v2_freeze
+
+            freeze_audit = audit_v2_freeze(
+                box_path, HERE / "config" / "vdp_bridge_v2.json")
+            if freeze_audit.get("status") != "PASS" or \
+                    freeze_audit.get("mathematical_status") != "NOT_RUN":
+                errors.append("v2 freeze audit did not retain canonical PASS")
+            frozen_commit = git_output(
+                repository, "rev-parse",
+                "vdp-issue7-box-v2-freeze^{commit}")
+            if frozen_commit != \
+                    "8ba7ffc0bb2cdced0c904ff6dfa319e4a5bd9b2b":
+                errors.append("v2 freeze tag no longer resolves to its commit")
+        except (KeyError, OSError, ValueError,
+                subprocess.SubprocessError) as error:
+            errors.append(f"v2 freeze audit failed: {error}")
+    else:
+        errors.extend(validate_exact_box(box))
 
     parameter_box = certificate.get("parameter_box", {})
-    if parameter_box.get("path") != "validation/rigorous/config/vdp_box_v1.json":
+    expected_box_relative = (
+        "validation/rigorous/config/vdp_box_v2.json" if v2_kernel else
+        "validation/rigorous/config/vdp_box_v1.json")
+    if parameter_box.get("path") != expected_box_relative:
         errors.append("certificate does not bind the canonical phase-1 box path")
     if parameter_box.get("sha256") != sha256_file(box_path):
         errors.append("certificate parameter-box hash does not match the frozen box")
+    if parameter_box.get("box_id") != box.get("box_id"):
+        errors.append("certificate parameter-box identifier changed")
     if parameter_box.get("variables") != box.get("variables"):
         errors.append("certificate parameter endpoints differ from the frozen box")
 
@@ -2002,8 +2082,10 @@ def semantic_errors(certificate: dict[str, Any],
         "V2_P2_JETS_KERNEL": P2_JETS_REQUIRED_BINDINGS,
         "V2_P2_KATO_KERNEL": P2_KATO_REQUIRED_BINDINGS,
     }
-    required_bindings = required_bindings_by_scope.get(
-        scope, BASE_REQUIRED_BINDINGS)
+    required_bindings = (
+        V2_KERNEL_REQUIRED_BINDINGS
+        if v2_kernel else
+        required_bindings_by_scope.get(scope, BASE_REQUIRED_BINDINGS))
     missing_bindings = required_bindings - seen_paths
     if missing_bindings:
         errors.append(f"required source bindings missing: {sorted(missing_bindings)}")
@@ -2042,7 +2124,7 @@ def semantic_errors(certificate: dict[str, Any],
 
     required_by_scope = {
         "PREFLIGHT": P0_IDS,
-        "V1_V2_1_KERNEL": KERNEL_IDS,
+        "V1_V2_1_KERNEL": V2_KERNEL_IDS if v2_kernel else KERNEL_IDS,
         "V2_LOCAL_GRAPH_KERNEL": LOCAL_GRAPH_IDS,
         "V2_H10_C01_KERNEL": H10_C01_IDS,
         "V2_P2_JETS_KERNEL": P2_JETS_IDS,
@@ -2063,6 +2145,7 @@ def semantic_errors(certificate: dict[str, Any],
         "V2_P2_KATO_KERNEL": P2_KATO_SCOPE_NONCLAIM,
     }
     expected_nonclaims = COMMON_NONCLAIMS + [
+        PHASE1_V2_SCOPE_NONCLAIM if v2_kernel else
         scope_nonclaims.get(scope, PHASE1_SCOPE_NONCLAIM)]
     if certificate.get("nonclaims") != expected_nonclaims:
         errors.append("certificate nonclaims differ from the frozen scope boundary")
@@ -2110,7 +2193,7 @@ def semantic_errors(certificate: dict[str, Any],
         "V2_H10_C01_KERNEL": H10_C01_P0_IDS,
         "V2_P2_JETS_KERNEL": P2_JETS_P0_IDS,
         "V2_P2_KATO_KERNEL": P2_KATO_P0_IDS,
-    }.get(scope, P0_IDS)
+    }.get(scope, V2_KERNEL_P0_IDS if v2_kernel else P0_IDS)
     p0_status = combine_verdicts(
         by_id[item]["status"] for item in integrity_ids if item in by_id)
     if len(integrity_ids & set(by_id)) == len(integrity_ids) and \
@@ -2169,6 +2252,87 @@ def semantic_errors(certificate: dict[str, Any],
     if scope == "V1_V2_1_KERNEL":
         if raw_probe.get("exact_characteristic_polynomial") is not True:
             errors.append("kernel does not record the exact characteristic-polynomial identity")
+        expected_raw_keys = {
+            "schema_version", "status", "mathematical_status",
+            "rounding_self_test", "parameter_enclosures",
+            "exact_characteristic_polynomial", "obligations",
+        }
+        if set(raw_probe) != expected_raw_keys:
+            errors.append(
+                "kernel raw-probe field set changed: "
+                f"observed={sorted(raw_probe)}, expected={sorted(expected_raw_keys)}")
+        if raw_probe.get("schema_version") != "rfsn-vdp-phase1-probe/1":
+            errors.append("kernel raw-probe schema version changed")
+        if raw_probe.get("rounding_self_test") != \
+                certificate.get("rounding_self_test"):
+            errors.append("kernel raw/top-level rounding evidence differs")
+
+        raw_parameters = raw_probe.get("parameter_enclosures", {})
+        if not isinstance(raw_parameters, dict) or \
+                set(raw_parameters) != KERNEL_PARAMETER_ENCLOSURES:
+            errors.append(
+                "kernel parameter-enclosure set changed: "
+                f"observed={sorted(raw_parameters) if isinstance(raw_parameters, dict) else raw_parameters!r}, "
+                f"expected={sorted(KERNEL_PARAMETER_ENCLOSURES)}")
+        if isinstance(raw_parameters, dict):
+            for name, enclosure in raw_parameters.items():
+                _check_hex_interval(
+                    f"raw_probe.parameter_enclosures.{name}", enclosure,
+                    errors)
+            variables = box.get("variables", {})
+            for name in ("r", "a2", "epsilon"):
+                try:
+                    exact_lower = fraction(variables[name]["lower"])
+                    exact_upper = fraction(variables[name]["upper"])
+                except (KeyError, TypeError, ValueError, ZeroDivisionError):
+                    continue
+                if not _contains_exact_interval(
+                        raw_parameters.get(name), exact_lower, exact_upper):
+                    errors.append(
+                        f"raw kernel parameter enclosure does not contain "
+                        f"the exact {name} box")
+
+        for identifier, expected_names in KERNEL_ENCLOSURES.items():
+            raw_item = raw_by_id.get(identifier, {})
+            top_item = by_id.get(identifier, {})
+            raw_enclosures = raw_item.get("enclosures", {})
+            top_enclosures = top_item.get("enclosures", {})
+            if set(raw_enclosures) != expected_names:
+                errors.append(
+                    f"raw {identifier} enclosure set changed: "
+                    f"observed={sorted(raw_enclosures)}, "
+                    f"expected={sorted(expected_names)}")
+            if set(top_enclosures) != expected_names:
+                errors.append(
+                    f"top-level {identifier} enclosure set changed: "
+                    f"observed={sorted(top_enclosures)}, "
+                    f"expected={sorted(expected_names)}")
+            if expected_names:
+                margin_verdicts: list[str] = []
+                for name in expected_names & set(raw_enclosures):
+                    verdict = _strict_positive_interval_verdict(
+                        raw_enclosures[name])
+                    if verdict is None:
+                        errors.append(
+                            f"{identifier}.{name} cannot be reduced to a "
+                            "strict-margin verdict")
+                    else:
+                        margin_verdicts.append(verdict)
+                if len(margin_verdicts) == len(expected_names):
+                    expected_status = combine_verdicts(margin_verdicts)
+                    if raw_item.get("status") != expected_status or \
+                            top_item.get("status") != expected_status:
+                        errors.append(
+                            f"{identifier} status is not its strict-margin "
+                            "aggregate")
+
+        positivity = raw_by_id.get(
+            "V2.1.POSITIVITY", {}).get("enclosures", {})
+        if isinstance(raw_parameters, dict) and isinstance(positivity, dict):
+            for name in KERNEL_ENCLOSURES["V2.1.POSITIVITY"]:
+                if raw_parameters.get(name) != positivity.get(name):
+                    errors.append(
+                        f"kernel raw parameter/positivity enclosure differs: {name}")
     if scope == "V2_LOCAL_GRAPH_KERNEL":
         if raw_probe.get("exact_frame_derivation") is not True:
             errors.append("local-graph kernel does not bind the exact frame derivation")
@@ -3593,30 +3757,32 @@ def semantic_errors(certificate: dict[str, Any],
     if probe_source is not None and probe_build.get("source_sha256") != \
             bound_hashes.get(probe_source):
         errors.append("compiled probe source hash differs from its source binding")
-    if scope in {"V2_P2_JETS_KERNEL", "V2_P2_KATO_KERNEL"}:
+    strict_replay_scope = scope in {
+        "V2_P2_JETS_KERNEL", "V2_P2_KATO_KERNEL"} or v2_kernel
+    if strict_replay_scope:
         probe_stdout = probe_build.get("probe_stdout")
         if not isinstance(probe_stdout, str):
-                errors.append("strict P2 probe exact stdout evidence is missing")
+                errors.append("strict probe exact stdout evidence is missing")
         else:
             if sha256_bytes(probe_stdout.encode()) != logs.get(
                     "probe_stdout_sha256"):
                 errors.append(
-                    "strict P2 probe stdout hash differs from its exact evidence")
+                    "strict probe stdout hash differs from its exact evidence")
             try:
                 parsed_stdout = json.loads(probe_stdout)
             except json.JSONDecodeError as error:
                 errors.append(
-                    f"strict P2 probe stdout evidence is invalid JSON: {error}")
+                    f"strict probe stdout evidence is invalid JSON: {error}")
             else:
                 if parsed_stdout != raw_probe:
                     errors.append(
-                        "strict P2 parsed raw_probe differs from its exact "
+                        "strict parsed raw_probe differs from its exact "
                         "stdout evidence")
         for name in ("compile_stdout_sha256", "compile_stderr_sha256",
                      "probe_stderr_sha256"):
             if logs.get(name) != sha256_bytes(b""):
                 errors.append(
-                    f"strict P2 execution emitted unexpected {name}")
+                    f"strict execution emitted unexpected {name}")
     expected_probe_arguments: list[str] = []
     if scope == "V1_V2_1_KERNEL":
         expected_probe_arguments = box_arguments(box)
@@ -3662,7 +3828,7 @@ def semantic_errors(certificate: dict[str, Any],
         errors.append("probe argv is missing")
     elif recorded_probe_argv[1:] != expected_probe_arguments:
         errors.append("probe argv does not match the frozen scope inputs")
-    if scope in {"V2_P2_JETS_KERNEL", "V2_P2_KATO_KERNEL"} and not errors:
+    if strict_replay_scope and not errors:
         errors.extend(_replay_p2_probe(
             certificate, repository, recorded_commit, recorded_dirty))
     if scope == "V2_P2_KATO_KERNEL" and not errors:

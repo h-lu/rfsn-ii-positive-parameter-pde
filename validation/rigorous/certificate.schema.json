@@ -28,6 +28,48 @@
     {
       "if": {
         "properties": {
+          "schema_version": {
+            "const": "rfsn-rigorous-run-certificate/1"
+          }
+        },
+        "required": ["schema_version"]
+      },
+      "then": {
+        "properties": {
+          "parameter_box": {
+            "properties": {
+              "box_id": {"const": "vdp-positive-box-v1"}
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "schema_version": {
+            "const": "rfsn-rigorous-run-certificate/2"
+          }
+        },
+        "required": ["schema_version"]
+      },
+      "then": {
+        "properties": {
+          "scope": {"const": "V1_V2_1_KERNEL"},
+          "parameter_box": {
+            "properties": {
+              "path": {
+                "const": "validation/rigorous/config/vdp_box_v2.json"
+              },
+              "box_id": {"const": "vdp-positive-box-v2"}
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
           "scope": {
             "enum": ["V2_LOCAL_GRAPH_KERNEL", "V2_H10_C01_KERNEL", "V2_P2_JETS_KERNEL", "V2_P2_KATO_KERNEL"]
           }
@@ -135,7 +177,12 @@
     }
   ],
   "properties": {
-    "schema_version": {"const": "rfsn-rigorous-run-certificate/1"},
+    "schema_version": {
+      "enum": [
+        "rfsn-rigorous-run-certificate/1",
+        "rfsn-rigorous-run-certificate/2"
+      ]
+    },
     "certificate_id": {
       "type": "string",
       "pattern": "^[a-z0-9][a-z0-9._-]{2,127}$"
@@ -171,7 +218,9 @@
       "properties": {
         "path": {"$ref": "#/$defs/relativePath"},
         "sha256": {"$ref": "#/$defs/sha256"},
-        "box_id": {"const": "vdp-positive-box-v1"},
+        "box_id": {
+          "enum": ["vdp-positive-box-v1", "vdp-positive-box-v2"]
+        },
         "variables": {
           "type": "object",
           "additionalProperties": false,
