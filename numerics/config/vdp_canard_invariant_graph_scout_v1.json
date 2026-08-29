@@ -1,0 +1,76 @@
+{
+  "schema_version": "vdp-canard-invariant-graph-scout-config/1",
+  "freeze_status": "FROZEN_BEFORE_FIRST_GRAPH_SOLVE",
+  "frozen_from_commit": "6b8c0d2c1d883402c98a22b5ca53f08e9be44117",
+  "parameters": {
+    "epsilon": 1.0,
+    "r": 0.08,
+    "delta": 0.0064,
+    "a2_center": -0.008333333333333333,
+    "a2_finite_difference_steps": [0.001, 0.0005]
+  },
+  "physical_field": {
+    "f": "u^3/3-u",
+    "coordinates": ["u", "p", "v", "q"],
+    "equations": [
+      "u'=p",
+      "p'=f(u)-v",
+      "v'=delta*q",
+      "q'=delta*(u-a)"
+    ]
+  },
+  "graph_equations": [
+    "P_u*P+P_q*delta*(u-a)=f(u)-V",
+    "V_u*P+V_q*delta*(u-a)=delta*q"
+  ],
+  "rectangles": [
+    {
+      "id": "outer_wide",
+      "u_interval": [1.075, 1.14],
+      "q_interval": [-0.05, -0.03],
+      "chebyshev_shape": [29, 25]
+    },
+    {
+      "id": "outer_inner",
+      "u_interval": [1.085, 1.125],
+      "q_interval": [-0.046, -0.033],
+      "chebyshev_shape": [25, 23]
+    }
+  ],
+  "predeclared_overlap": {
+    "u_interval": [1.085, 1.125],
+    "q_interval": [-0.046, -0.033]
+  },
+  "singular_normal_hyperbolicity_gate": {
+    "quantity": "min_(u in rectangle) (u^2-1)",
+    "strict_lower_bound": 0.15
+  },
+  "graph_iteration": {
+    "method": "CHEBYSHEV_FRASER_ROUSSEL_FIXED_POINT",
+    "initial_graph": ["P=delta*q/(u^2-1)", "V=f(u)"],
+    "relaxation": 0.12,
+    "maximum_iterations": 12000,
+    "update_tolerance": 1e-13,
+    "residual_stop": 2e-9,
+    "finite_normal_gap_stop": 0.2
+  },
+  "entry": {
+    "k2_u2": 16.0,
+    "physical_u": 1.1024,
+    "physical_q_bracket": [-0.045, -0.034],
+    "orientation": ["P<0", "q<0"],
+    "energy": "H2=0",
+    "comparison_coordinates": "K2"
+  },
+  "exploratory_comparison_stops": {
+    "entry_state_inf": 0.01,
+    "tangent_ladder_relative": 0.1,
+    "cross_rectangle_tangent_inf": 0.5
+  },
+  "nonclaims": [
+    "The graph candidates are floating-point collocation objects, not validated invariant manifolds.",
+    "Domain agreement does not identify the global intrinsic Wcu branch.",
+    "No C1, C2, maximal-canard, or high-winding claim is closed."
+  ],
+  "claim_bearing": false
+}
