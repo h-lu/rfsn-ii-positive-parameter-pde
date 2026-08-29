@@ -9,7 +9,8 @@ Theorem V2(5) requires, in one transported Kato phase lift,
 \]
 
 The already selected P2c homoclinic branch was reevaluated by the bound
-CAPD/FILIB executable on one cell of the pre-registered rational grid,
+CAPD/FILIB executable on one exact cell of the previously archived P2c
+rational grid,
 
 \[
  r\in[31/400,2/25],\qquad
@@ -60,7 +61,10 @@ common phase convention, and strict interval comparison.  On 2026-08-29 the
 bound strict binary was rerun locally and reproduced the archived stdout
 byte for byte.
 
-This result stops full P2e and P3--P5 computation for
+The target box and comparison bridge were frozen before interval validation;
+the P2c grid evidence itself was frozen retrospectively before its local
+certificate, as its own configuration records.  This result stops full P2e
+and P3--P5 computation for
 `vdp-positive-box-v1`.  It does **not** contradict the analytic theorem for
 sufficiently small positive \(r\), and it does not authorize silently
 shrinking the box.  A replacement v2 box or a theorem with changed event

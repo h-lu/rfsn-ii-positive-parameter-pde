@@ -50,7 +50,7 @@ interface.  Their executable refinements are:
 | P2e | `V2.ATLAS.*` | Machine-readable physical event faces, incidences, priority, margins, connected box complex, complete first-event census, transported traces, and the three phase gaps. |
 
 For `vdp-positive-box-v1`, P2e stops before construction of the full atlas.
-On one cell of the pre-registered grid,
+On one exact cell of the previously archived P2c rational grid,
 
 \[
  [31/400,2/25]\times[-1/4,-63/256]\times[11/10,6/5],
