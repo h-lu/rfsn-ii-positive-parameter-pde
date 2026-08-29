@@ -1,8 +1,13 @@
 {
   "schema_version": "rfsn-vdp-p2e-bret-scout-config/1",
   "configuration_id": "vdp-p2e-bret-scout-v2",
-  "status": "PREFROZEN_BEFORE_FIRST_BRET_RUN",
+  "status": "PREFROZEN_BEFORE_FIRST_RETAINED_BRET_STABLE_RUN",
   "evidence_status": "COMPUTED_E1_ONLY",
+  "design_run_disclosure": {
+    "status": "UNRETAINED_INTERFACE_AUDIT_AFTER_INITIAL_PREFREEZE",
+    "finding": "The unrestricted rho_s level has a remote projection crossing, while the P2d-bound physical face is its restriction to the local block. Reverser composition with the existing nonlinear-Wu/Kato inverse supplies an application-owned stable coordinate on that restricted face.",
+    "changes_after_finding": "Only the already-bound local-block containment and stable-label formula were made explicit. The parameter point, phase center, stencil, integration choices, thresholds, and no-retry policy are unchanged."
+  },
   "parameter_point": {
     "r": "3/200",
     "a2": "0",
@@ -45,6 +50,7 @@
     "B.RET_candidate": {
       "function": "rho_s-1/100, rho_s=norm2(pi_s(E_mu^-1 Z)) in the same algebraic/Kato moving frame as the source provider",
       "orientation": "d(rho_s)/dxi<0",
+      "required_local_block_containment": "rho_u<=1/100",
       "physical_slide_binding": {
         "path": "validation/rigorous/config/vdp_p2d_physical_slides_v1.json",
         "sha256": "fa7daa1273b508951e081378d938342f985271722bf4871669a30f4ab44a8f16"
@@ -62,8 +68,12 @@
       "orientation": "P<0"
     },
     "stable_cut": {
-      "status": "OMITTED_NO_APPLICATION_OWNED_PHYSICAL_EMBEDDING",
-      "forbidden_substitute": "deep_stable_cut/stable_cut_proxy from the independent linear numerical source section"
+      "status": "APPLICATION_OWNED_NUMERICAL_LABEL_CANDIDATE",
+      "function": "c_stable(Z)=nu(R Z) on B.RET, where R is the central reverser and nu is invert_kato_darboux_source_coordinates on the same finite-horizon nonlinear-Wu/Kato outgoing section",
+      "zero_set": "reverser image of the computed nonlinear-Wu spine inside the B.RET candidate",
+      "clock_role": "LABEL_ONLY_NOT_A_SEPARATE_EVENT_TIME",
+      "forbidden_substitute": "deep_stable_cut/stable_cut_proxy from the independent linear numerical source section",
+      "scope": "application-owned E1 numerical stable-manifold cut candidate; not the frozen exact-Moser stable cut"
     }
   },
   "integration": {
@@ -81,7 +91,9 @@
     "cooriented_event_speed_lower": "1e-6",
     "sampled_hamiltonian_drift_upper": "1e-9",
     "variational_surface_tangency_residual_abs_upper": "1e-8",
-    "incoming_radius_residual_abs_upper": "1e-9"
+    "incoming_radius_residual_abs_upper": "1e-9",
+    "stable_cut_center_abs_upper": "1e-9",
+    "stable_inverse_reconstruction_defect_upper": "1e-9"
   },
   "classification_policy": {
     "first_qualifying_event": "minimum forward time among B.RET_candidate, oriented algebraic, and pole x=10 carrier",
