@@ -1,0 +1,706 @@
+{
+  "ca_carrier_candidate": {
+    "first_sampled_competing_pole_offset": 0.01,
+    "left_sampled_same_outcome_buffer": 0.04,
+    "outcome_transition_bracket_in_offset": [
+      0.0,
+      0.01
+    ],
+    "right_sampled_same_outcome_buffer": 0.0,
+    "sampled_oriented_algebraic_offset_span": [
+      -0.04,
+      0.0
+    ],
+    "selected_phase_is_oriented_algebraic_hit": true,
+    "two_sided_sampled_aperture_certified": false,
+    "verdict": "The selected phase supports a transverse C.A carrier germ and a one-sided sampled algebraic trace, but this fixed stencil does not supply a two-sided same-outcome aperture."
+  },
+  "claim_bearing": false,
+  "event_counts": {
+    "algebraic": 4,
+    "pole_x10_carrier": 3
+  },
+  "event_definitions": {
+    "algebraic": {
+      "carrier": "U=-4",
+      "coorientation": "dU/dxi=P<0",
+      "required_sign_stratum": "P<0 and Q<0",
+      "warning": "This current numerical seam is not a frozen V2 theorem face."
+    },
+    "integration_guard": {
+      "maximum_time": 40.0,
+      "role": "numerical stop only; never classified as an event",
+      "state_norm": 60.0
+    },
+    "pole": {
+      "binding": "vdp_p2e_channel_scout_v2.json pole.central_gate_U=-10; CENTRAL_CORE_IMPORT.md equations (13)-(14)",
+      "carrier": "x=-U=10, equivalently central U=-10",
+      "coorientation": "d(x-10)/dxi=-P>0",
+      "sign_correction": "The task shorthand U=+10 was corrected to the repository's frozen physical definition x=-U=10."
+    },
+    "return_or_stable_cut": {
+      "status": "OMITTED_NO_COMPATIBLE_ACTUAL_DEFINITION",
+      "unique_missing_object": "An application-owned physical B.RET return-section and stable-cut embedding pulled back to this same nonlinear-Wu/Kato source convention.",
+      "why_existing_code_is_not_reused": "vdp_return_coding.integrate_first_event uses an independent linear numerical zero-energy source section and explicitly labels its deep cut stable_cut_proxy; substituting it would change the source/event definition."
+    }
+  },
+  "evidence_status": "COMPUTED/E1_QA_NON_RIGOROUS",
+  "nonclaim": "Seven floating-point source phases and two competing carriers do not freeze C.A, validate a two-sided aperture, materialize the return block, or constitute V2.EVENT_ATLAS.",
+  "parameter_point": {
+    "a2": 0.0,
+    "epsilon": 1.0,
+    "r": 0.015
+  },
+  "parameter_point_exact": {
+    "a2": "0",
+    "epsilon": "1",
+    "r": "3/200"
+  },
+  "phase_monotonicity": {
+    "algebraic": {
+      "sampled_P_hit_strictly_increases_with_phase": true,
+      "sampled_Q_hit_strictly_decreases_with_phase": true,
+      "sampled_hit_time_strictly_increases_with_phase": true,
+      "scope": "Pointwise and sampled E1 monotonicity on four phases; not a uniform derivative enclosure on the intervening phase interval.",
+      "variational_d_Q_hit_d_phase_negative_at_every_sample": true,
+      "variational_d_hit_time_d_phase_positive_at_every_sample": true
+    },
+    "pole": {
+      "sampled_hit_time_strictly_decreases_with_phase": true,
+      "scope": "The sampled pole hit times are ordered, but the pointwise variational derivatives do not retain one sign.",
+      "variational_d_hit_time_has_one_sign_at_every_sample": false
+    }
+  },
+  "points": [
+    {
+      "algebraic_surface_crossings": [
+        {
+          "algebraic_orientation_P_negative": true,
+          "algebraic_orientation_Q_negative": true,
+          "central_U_speed": -4.319775202406368,
+          "state": [
+            -3.999999999999998,
+            -4.319775202406368,
+            -6.620814766812094,
+            -5.380586331168291
+          ],
+          "time": 8.495833732914486
+        }
+      ],
+      "classification": "ALGEBRAIC_ORIENTED_FIRST",
+      "first_qualifying_event": "algebraic",
+      "hamiltonian": {
+        "sampled_abs_max_to_first_event": 2.790389447282493e-14,
+        "sampled_drift_to_first_event": 2.8551647672644606e-14
+      },
+      "hit_function_residual_abs": 2.220446049250313e-15,
+      "hit_speed": {
+        "central_dU_dxi": -4.319775202406368,
+        "cooriented_minus_dU_dxi": 4.319775202406368
+      },
+      "hit_state": [
+        -3.999999999999998,
+        -4.319775202406368,
+        -6.620814766812094,
+        -5.380586331168291
+      ],
+      "hit_time": 8.495833732914486,
+      "inactive_carrier_gap_at_hit": {
+        "kind": "abs(U-pole_U)",
+        "value": 6.000000000000002
+      },
+      "inactive_event_time_gap": {
+        "gap": 0.5780484821333634,
+        "kind": "later_pole_surface_crossing"
+      },
+      "offset": -0.04,
+      "offset_exact": "-1/25",
+      "phase": 5.716767223284979,
+      "rejected_algebraic_crossings_before_first_event": [],
+      "solver": {
+        "integration_guard_reached": true,
+        "steps": 619,
+        "success": true
+      },
+      "source_energy_abs": 2.065613144448925e-18,
+      "source_phase_tangent": {
+        "difference_step": 2e-05,
+        "method": "centered finite difference of the same nonlinear-Wu/Kato provider, followed by the analytic central variational ODE",
+        "norm": 0.014142162369925706
+      },
+      "source_state": [
+        0.008443906590518845,
+        0.009751339609091143,
+        -0.005374445916316026,
+        0.002174246981413598
+      ],
+      "variational_hit_derivative": {
+        "d_P_hit_d_phase": 15.287258868910968,
+        "d_Q_hit_d_phase": -19.17002605232077,
+        "d_V_hit_d_phase": -42.29587547998632,
+        "d_hit_state_d_phase": [
+          0.0,
+          15.287258868910968,
+          -42.29587547998632,
+          -19.17002605232077
+        ],
+        "d_hit_time_d_phase": 9.23530115991432,
+        "fixed_surface_tangency_residual_abs": 0.0
+      }
+    },
+    {
+      "algebraic_surface_crossings": [
+        {
+          "algebraic_orientation_P_negative": true,
+          "algebraic_orientation_Q_negative": true,
+          "central_U_speed": -3.8906731358284112,
+          "state": [
+            -3.9999999999999996,
+            -3.8906731358284112,
+            -7.817376813064599,
+            -5.916086991222074
+          ],
+          "time": 8.742135458601862
+        }
+      ],
+      "classification": "ALGEBRAIC_ORIENTED_FIRST",
+      "first_qualifying_event": "algebraic",
+      "hamiltonian": {
+        "sampled_abs_max_to_first_event": 3.172375556692586e-14,
+        "sampled_drift_to_first_event": 3.367862629402585e-14
+      },
+      "hit_function_residual_abs": 4.440892098500626e-16,
+      "hit_speed": {
+        "central_dU_dxi": -3.8906731358284112,
+        "cooriented_minus_dU_dxi": 3.8906731358284112
+      },
+      "hit_state": [
+        -3.9999999999999996,
+        -3.8906731358284112,
+        -7.817376813064599,
+        -5.916086991222074
+      ],
+      "hit_time": 8.742135458601862,
+      "inactive_carrier_gap_at_hit": {
+        "kind": "abs(U-pole_U)",
+        "value": 6.0
+      },
+      "inactive_event_time_gap": {
+        "gap": 0.6134937297207674,
+        "kind": "later_pole_surface_crossing"
+      },
+      "offset": -0.02,
+      "offset_exact": "-1/50",
+      "phase": 5.736767223284979,
+      "rejected_algebraic_crossings_before_first_event": [],
+      "solver": {
+        "integration_guard_reached": true,
+        "steps": 638,
+        "success": true
+      },
+      "source_energy_abs": 2.6836279448071237e-18,
+      "source_phase_tangent": {
+        "difference_step": 2e-05,
+        "method": "centered finite difference of the same nonlinear-Wu/Kato provider, followed by the analytic central variational ODE",
+        "norm": 0.014142162575045204
+      },
+      "source_state": [
+        0.008549743925432885,
+        0.009705562945095633,
+        -0.00520494696605885,
+        0.0023691076974355226
+      ],
+      "variational_hit_derivative": {
+        "d_P_hit_d_phase": 31.245673820633982,
+        "d_Q_hit_d_phase": -38.81329870994725,
+        "d_V_hit_d_phase": -87.79738883228345,
+        "d_hit_state_d_phase": [
+          0.0,
+          31.245673820633982,
+          -87.79738883228345,
+          -38.81329870994725
+        ],
+        "d_hit_time_d_phase": 17.03023665981009,
+        "fixed_surface_tangency_residual_abs": 0.0
+      }
+    },
+    {
+      "algebraic_surface_crossings": [
+        {
+          "algebraic_orientation_P_negative": true,
+          "algebraic_orientation_Q_negative": true,
+          "central_U_speed": -3.456351641659139,
+          "state": [
+            -3.9999999999999996,
+            -3.456351641659139,
+            -9.046845802403944,
+            -6.45328338315967
+          ],
+          "time": 8.967410441528362
+        }
+      ],
+      "classification": "ALGEBRAIC_ORIENTED_FIRST",
+      "first_qualifying_event": "algebraic",
+      "hamiltonian": {
+        "sampled_abs_max_to_first_event": 1.1963954132943044e-14,
+        "sampled_drift_to_first_event": 2.1984150611054076e-14
+      },
+      "hit_function_residual_abs": 4.440892098500626e-16,
+      "hit_speed": {
+        "central_dU_dxi": -3.456351641659139,
+        "cooriented_minus_dU_dxi": 3.456351641659139
+      },
+      "hit_state": [
+        -3.9999999999999996,
+        -3.456351641659139,
+        -9.046845802403944,
+        -6.45328338315967
+      ],
+      "hit_time": 8.967410441528362,
+      "inactive_carrier_gap_at_hit": {
+        "kind": "abs(U-pole_U)",
+        "value": 6.0
+      },
+      "inactive_event_time_gap": {
+        "gap": 0.6564294020144619,
+        "kind": "later_pole_surface_crossing"
+      },
+      "offset": -0.01,
+      "offset_exact": "-1/100",
+      "phase": 5.746767223284979,
+      "rejected_algebraic_crossings_before_first_event": [],
+      "solver": {
+        "integration_guard_reached": true,
+        "steps": 656,
+        "success": true
+      },
+      "source_energy_abs": 2.985865594426838e-18,
+      "source_phase_tangent": {
+        "difference_step": 2e-05,
+        "method": "centered finite difference of the same nonlinear-Wu/Kato provider, followed by the analytic central variational ODE",
+        "norm": 0.014142162646262583
+      },
+      "source_state": [
+        0.008601383169904421,
+        0.009681215812891386,
+        -0.00511941466003017,
+        0.002466188796940522
+      ],
+      "variational_hit_derivative": {
+        "d_P_hit_d_phase": 62.58464997834679,
+        "d_Q_hit_d_phase": -77.08877884706675,
+        "d_V_hit_d_phase": -178.4475733142919,
+        "d_hit_state_d_phase": [
+          0.0,
+          62.58464997834679,
+          -178.4475733142919,
+          -77.08877884706675
+        ],
+        "d_hit_time_d_phase": 30.909142635570717,
+        "fixed_surface_tangency_residual_abs": 0.0
+      }
+    },
+    {
+      "algebraic_surface_crossings": [
+        {
+          "algebraic_orientation_P_negative": true,
+          "algebraic_orientation_Q_negative": true,
+          "central_U_speed": -1.1543688668798282,
+          "state": [
+            -3.9999999999999996,
+            -1.1543688668798282,
+            -15.8383067547379,
+            -9.239196656206534
+          ],
+          "time": 9.895162060961566
+        }
+      ],
+      "classification": "ALGEBRAIC_ORIENTED_FIRST",
+      "first_qualifying_event": "algebraic",
+      "hamiltonian": {
+        "sampled_abs_max_to_first_event": 3.7734572411185496e-14,
+        "sampled_drift_to_first_event": 4.823311888779713e-14
+      },
+      "hit_function_residual_abs": 4.440892098500626e-16,
+      "hit_speed": {
+        "central_dU_dxi": -1.1543688668798282,
+        "cooriented_minus_dU_dxi": 1.1543688668798282
+      },
+      "hit_state": [
+        -3.9999999999999996,
+        -1.1543688668798282,
+        -15.8383067547379,
+        -9.239196656206534
+      ],
+      "hit_time": 9.895162060961566,
+      "inactive_carrier_gap_at_hit": {
+        "kind": "abs(U-pole_U)",
+        "value": 6.0
+      },
+      "inactive_event_time_gap": {
+        "gap": null,
+        "kind": "not_observed"
+      },
+      "offset": 0.0,
+      "offset_exact": "0",
+      "phase": 5.756767223284979,
+      "rejected_algebraic_crossings_before_first_event": [],
+      "solver": {
+        "integration_guard_reached": true,
+        "steps": 828,
+        "success": true
+      },
+      "source_energy_abs": 3.4143188234397965e-18,
+      "source_phase_tangent": {
+        "difference_step": 2e-05,
+        "method": "centered finite difference of the same nonlinear-Wu/Kato provider, followed by the analytic central variational ODE",
+        "norm": 0.014142162696317172
+      },
+      "source_state": [
+        0.008652162510263827,
+        0.009655899437317973,
+        -0.0050333717876216,
+        0.0025630240883976144
+      ],
+      "variational_hit_derivative": {
+        "d_P_hit_d_phase": 2483.1578381054687,
+        "d_Q_hit_d_phase": -2960.485624713981,
+        "d_V_hit_d_phase": -7554.747246115627,
+        "d_hit_state_d_phase": [
+          0.0,
+          2483.1578381054687,
+          -7554.747246115627,
+          -2960.485624713981
+        ],
+        "d_hit_time_d_phase": 835.0459053161409,
+        "fixed_surface_tangency_residual_abs": 0.0
+      }
+    },
+    {
+      "algebraic_surface_crossings": [
+        {
+          "algebraic_orientation_P_negative": true,
+          "algebraic_orientation_Q_negative": false,
+          "central_U_speed": -8.202927011070056,
+          "state": [
+            -3.9999999999999956,
+            -8.202927011070056,
+            -3.9312380105799125,
+            7.487432735385055
+          ],
+          "time": 14.342731654880646
+        }
+      ],
+      "classification": "POLE_X10_CARRIER_AFTER_Q_POSITIVE_U_MINUS4_PASS",
+      "first_qualifying_event": "pole_x10_carrier",
+      "hamiltonian": {
+        "sampled_abs_max_to_first_event": 7.166212068199229e-13,
+        "sampled_drift_to_first_event": 9.434397707508424e-13
+      },
+      "hit_function_residual_abs": 7.105427357601002e-15,
+      "hit_speed": {
+        "central_dU_dxi": -25.782919391442068,
+        "cooriented_minus_dU_dxi": 25.782919391442068
+      },
+      "hit_state": [
+        -10.000000000000007,
+        -25.782919391442068,
+        -1.2532816954899906,
+        4.773143575122245
+      ],
+      "hit_time": 14.765545262775257,
+      "inactive_carrier_gap_at_hit": {
+        "kind": "abs(U-algebraic_U)",
+        "value": 6.000000000000007
+      },
+      "inactive_event_time_gap": {
+        "gap": 0.42281360789461075,
+        "kind": "prior_Q_positive_algebraic_surface_pass"
+      },
+      "offset": 0.01,
+      "offset_exact": "1/100",
+      "phase": 5.766767223284979,
+      "pole_x10_coordinates": {
+        "D": 48.74671830451008,
+        "H": 262.60233748954306,
+        "q": -4.773143575122245,
+        "w": 1.2532816954899906,
+        "x": 10.000000000000007,
+        "y": 25.782919391442068
+      },
+      "rejected_algebraic_crossings_before_first_event": [
+        {
+          "algebraic_orientation_P_negative": true,
+          "algebraic_orientation_Q_negative": false,
+          "central_U_speed": -8.202927011070056,
+          "state": [
+            -3.9999999999999956,
+            -8.202927011070056,
+            -3.9312380105799125,
+            7.487432735385055
+          ],
+          "time": 14.342731654880646
+        }
+      ],
+      "solver": {
+        "integration_guard_reached": true,
+        "steps": 998,
+        "success": true
+      },
+      "source_energy_abs": 3.756285317249647e-18,
+      "source_phase_tangent": {
+        "difference_step": 2e-05,
+        "method": "centered finite difference of the same nonlinear-Wu/Kato provider, followed by the analytic central variational ODE",
+        "norm": 0.014142162725319976
+      },
+      "source_state": [
+        0.008702076837407677,
+        0.00962961640721434,
+        -0.0049468269033355675,
+        0.0026596038752758747
+      ],
+      "variational_hit_derivative": {
+        "d_P_hit_d_phase": -244.35458303948462,
+        "d_Q_hit_d_phase": 100.45568247680689,
+        "d_V_hit_d_phase": 582.0685122037488,
+        "d_hit_state_d_phase": [
+          0.0,
+          -244.35458303948462,
+          582.0685122037488,
+          100.45568247680689
+        ],
+        "d_hit_time_d_phase": -39.290171994517095,
+        "fixed_surface_tangency_residual_abs": 0.0
+      }
+    },
+    {
+      "algebraic_surface_crossings": [
+        {
+          "algebraic_orientation_P_negative": true,
+          "algebraic_orientation_Q_negative": false,
+          "central_U_speed": -10.14245656119815,
+          "state": [
+            -3.999999999999991,
+            -10.14245656119815,
+            0.4132445246545308,
+            7.542360521208779
+          ],
+          "time": 14.198502399071087
+        }
+      ],
+      "classification": "POLE_X10_CARRIER_AFTER_Q_POSITIVE_U_MINUS4_PASS",
+      "first_qualifying_event": "pole_x10_carrier",
+      "hamiltonian": {
+        "sampled_abs_max_to_first_event": 7.351341757555474e-13,
+        "sampled_drift_to_first_event": 1.2733841758816311e-12
+      },
+      "hit_function_residual_abs": 3.552713678800501e-15,
+      "hit_speed": {
+        "central_dU_dxi": -27.383843185196678,
+        "cooriented_minus_dU_dxi": 27.383843185196678
+      },
+      "hit_state": [
+        -10.000000000000004,
+        -27.383843185196678,
+        2.8159446104360284,
+        5.149204668301144
+      ],
+      "hit_time": 14.5667605112251,
+      "inactive_carrier_gap_at_hit": {
+        "kind": "abs(U-algebraic_U)",
+        "value": 6.0000000000000036
+      },
+      "inactive_event_time_gap": {
+        "gap": 0.36825811215401316,
+        "kind": "prior_Q_positive_algebraic_surface_pass"
+      },
+      "offset": 0.02,
+      "offset_exact": "1/50",
+      "phase": 5.7767672232849785,
+      "pole_x10_coordinates": {
+        "D": 52.81594461043606,
+        "H": 278.98763652026804,
+        "q": -5.149204668301144,
+        "w": -2.8159446104360284,
+        "x": 10.000000000000004,
+        "y": 27.383843185196678
+      },
+      "rejected_algebraic_crossings_before_first_event": [
+        {
+          "algebraic_orientation_P_negative": true,
+          "algebraic_orientation_Q_negative": false,
+          "central_U_speed": -10.14245656119815,
+          "state": [
+            -3.999999999999991,
+            -10.14245656119815,
+            0.4132445246545308,
+            7.542360521208779
+          ],
+          "time": 14.198502399071087
+        }
+      ],
+      "solver": {
+        "integration_guard_reached": true,
+        "steps": 984,
+        "success": true
+      },
+      "source_energy_abs": 4.181484086486972e-18,
+      "source_phase_tangent": {
+        "difference_step": 2e-05,
+        "method": "centered finite difference of the same nonlinear-Wu/Kato provider, followed by the analytic central variational ODE",
+        "norm": 0.014142162733007276
+      },
+      "source_state": [
+        0.00875112112885276,
+        0.009602369408093211,
+        -0.004859788611742748,
+        0.002755918486416346
+      ],
+      "variational_hit_derivative": {
+        "d_P_hit_d_phase": -106.86428492020173,
+        "d_Q_hit_d_phase": 5.586427021047996,
+        "d_V_hit_d_phase": 289.7589164257063,
+        "d_hit_state_d_phase": [
+          0.0,
+          -106.86428492020173,
+          289.7589164257063,
+          5.586427021047996
+        ],
+        "d_hit_time_d_phase": -9.483579454761957,
+        "fixed_surface_tangency_residual_abs": 0.0
+      }
+    },
+    {
+      "algebraic_surface_crossings": [
+        {
+          "algebraic_orientation_P_negative": true,
+          "algebraic_orientation_Q_negative": false,
+          "central_U_speed": -11.37122982475868,
+          "state": [
+            -3.999999999999996,
+            -11.37122982475868,
+            4.544887682990304,
+            7.090098701491565
+          ],
+          "time": 14.179974586937378
+        }
+      ],
+      "classification": "POLE_X10_CARRIER_AFTER_Q_POSITIVE_U_MINUS4_PASS",
+      "first_qualifying_event": "pole_x10_carrier",
+      "hamiltonian": {
+        "sampled_abs_max_to_first_event": 2.1033452757279747e-12,
+        "sampled_drift_to_first_event": 2.6591784330065593e-12
+      },
+      "hit_function_residual_abs": 1.7763568394002505e-15,
+      "hit_speed": {
+        "central_dU_dxi": -28.693887447945265,
+        "cooriented_minus_dU_dxi": 28.693887447945265
+      },
+      "hit_state": [
+        -10.000000000000002,
+        -28.693887447945265,
+        6.623112052929929,
+        4.882137764349687
+      ],
+      "hit_time": 14.517850659178519,
+      "inactive_carrier_gap_at_hit": {
+        "kind": "abs(U-algebraic_U)",
+        "value": 6.000000000000002
+      },
+      "inactive_event_time_gap": {
+        "gap": 0.3378760722411407,
+        "kind": "prior_Q_positive_algebraic_surface_pass"
+      },
+      "offset": 0.04,
+      "offset_exact": "1/25",
+      "phase": 5.796767223284979,
+      "pole_x10_coordinates": {
+        "D": 56.62311205292995,
+        "H": 291.8210122438024,
+        "q": -4.882137764349687,
+        "w": -6.623112052929929,
+        "x": 10.000000000000002,
+        "y": 28.693887447945265
+      },
+      "rejected_algebraic_crossings_before_first_event": [
+        {
+          "algebraic_orientation_P_negative": true,
+          "algebraic_orientation_Q_negative": false,
+          "central_U_speed": -11.37122982475868,
+          "state": [
+            -3.999999999999996,
+            -11.37122982475868,
+            4.544887682990304,
+            7.090098701491565
+          ],
+          "time": 14.179974586937378
+        }
+      ],
+      "solver": {
+        "integration_guard_reached": true,
+        "steps": 980,
+        "success": true
+      },
+      "source_energy_abs": 5.140992716985796e-18,
+      "source_phase_tangent": {
+        "difference_step": 2e-05,
+        "method": "centered finite difference of the same nonlinear-Wu/Kato provider, followed by the analytic central variational ODE",
+        "norm": 0.014142162684742266
+      },
+      "source_state": [
+        0.008846579950894658,
+        0.009544994726459144,
+        -0.004684266470213382,
+        0.0029477136295399014
+      ],
+      "variational_hit_derivative": {
+        "d_P_hit_d_phase": -39.65752336276452,
+        "d_Q_hit_d_phase": -24.927766400785025,
+        "d_V_hit_d_phase": 125.96293015615126,
+        "d_hit_state_d_phase": [
+          0.0,
+          -39.65752336276452,
+          125.96293015615126,
+          -24.927766400785025
+        ],
+        "d_hit_time_d_phase": 2.1668688038152344,
+        "fixed_surface_tangency_residual_abs": 0.0
+      }
+    }
+  ],
+  "predeclared_offsets": [
+    -0.04,
+    -0.02,
+    -0.01,
+    0.0,
+    0.01,
+    0.02,
+    0.04
+  ],
+  "predeclared_offsets_exact": [
+    "-1/25",
+    "-1/50",
+    "-1/100",
+    "0",
+    "1/100",
+    "1/50",
+    "1/25"
+  ],
+  "qa": {
+    "all_hit_speeds_transverse": true,
+    "all_seven_classified_by_a_physical_gate": true,
+    "all_variational_surface_residuals_below_1e_minus_8": true,
+    "positive_offsets_pass_Q_positive_stratum_before_pole": true,
+    "selected_phase_hits_oriented_algebraic_carrier": true
+  },
+  "schema_version": "rfsn-vdp-p2e-ca-two-gate-census/1",
+  "selected_algebraic_phase": 5.756767223284979,
+  "source_binding": {
+    "graph_boundary_tolerance": 1e-09,
+    "graph_horizon": 10.0,
+    "provider": "direct finite-horizon nonlinear W^u in the P2bK algebraic frame with R_chi",
+    "source_radius": 0.01,
+    "unique_provider_evaluations": 21
+  },
+  "status": "TWO_GATE_CENSUS_COMPLETE_CA_APERTURE_PARTIAL"
+}
