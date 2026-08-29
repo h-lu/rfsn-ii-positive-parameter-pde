@@ -51,3 +51,12 @@ and its focused tests with:
 python3 -m numerics.vdp_p2e_algebraic_coordinate_diagnosis
 python3 -m unittest numerics.test_vdp_p2e_algebraic_coordinate_diagnosis -v
 ```
+
+## Subsequent resolution
+
+The next, separately frozen calculation replaces the defective central
+collocation leg and explicitly restores the missing `q1` row.  It succeeds at
+the same parameter point; see
+[`P2E_V2_ENERGY_MATCHED_REPORT.md`](P2E_V2_ENERGY_MATCHED_REPORT.md).  This
+follow-up does not alter the historical STOP or the rejected intermediate
+candidate recorded above.

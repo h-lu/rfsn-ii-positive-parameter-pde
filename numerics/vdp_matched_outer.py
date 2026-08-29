@@ -340,8 +340,50 @@ def resolved_k1_energy_root(
     return np.sqrt(radicand)
 
 
+def resolved_k1_energy_equation_residual(
+    r1: ArrayLike,
+    pi_scaled: ArrayLike,
+    omega_scaled: ArrayLike,
+    q1: ArrayLike,
+    parameters: OuterParameters,
+    *,
+    energy_h: float = 0.0,
+) -> FloatArray:
+    """Residual of the exact resolved-``K1`` energy equation V5(34)."""
+
+    r1_array, pi_array, omega_array, q1_array = np.broadcast_arrays(
+        _as_float_array(r1),
+        _as_float_array(pi_scaled),
+        _as_float_array(omega_scaled),
+        _as_float_array(q1),
+    )
+    sigma = parameters.r / r1_array
+    sqrt_epsilon = np.sqrt(parameters.epsilon)
+    a2 = parameters.a2
+    right = (
+        8.0
+        + 3.0 * sqrt_epsilon * r1_array**2
+        - 12.0 * omega_array * sigma**2
+        - (
+            4.0 * sqrt_epsilon * a2 * r1_array**3
+            + 12.0 * a2 * r1_array
+        )
+        * sigma**3
+        + 6.0 * sqrt_epsilon * pi_array**2 * sigma**4
+        + 12.0 * omega_array * a2 * r1_array * sigma**5
+        + 12.0 * energy_h * sigma**6
+        + 4.0 * a2**3 * r1_array**3 * sigma**9
+        + sqrt_epsilon * a2**4 * r1_array**6 * sigma**12
+    )
+    return 6.0 * sqrt_epsilon * q1_array**2 - right
+
+
 def resolved_k1_rhs_r1(
-    r1: ArrayLike, state: ArrayLike, parameters: OuterParameters
+    r1: ArrayLike,
+    state: ArrayLike,
+    parameters: OuterParameters,
+    *,
+    energy_h: float = 0.0,
 ) -> FloatArray:
     """Resolved V5 ``K1`` equations with ``r1`` as independent variable."""
 
@@ -353,7 +395,11 @@ def resolved_k1_rhs_r1(
     sigma = parameters.r / r1_array
     sqrt_epsilon = np.sqrt(parameters.epsilon)
     q1 = resolved_k1_energy_root(
-        r1_array, pi_scaled, omega_scaled, parameters
+        r1_array,
+        pi_scaled,
+        omega_scaled,
+        parameters,
+        energy_h=energy_h,
     )
     r1_speed = (
         0.5 * sqrt_epsilon * sigma**2 * pi_scaled * r1_array
@@ -426,6 +472,7 @@ def resolved_k1_to_outer_normal(
     parameters: OuterParameters,
     *,
     outer_r1: float,
+    energy_h: float = 0.0,
 ) -> FloatArray:
     """Map ``(Pi,Omega)`` at ``r1=R`` to unscaled ``(beta,alpha)``."""
 
@@ -435,7 +482,11 @@ def resolved_k1_to_outer_normal(
     pi_scaled, omega_scaled = values
     z_r, _q_r = outer_seam_coordinates(parameters, outer_r1=outer_r1)
     q1 = resolved_k1_energy_root(
-        outer_r1, pi_scaled, omega_scaled, parameters
+        outer_r1,
+        pi_scaled,
+        omega_scaled,
+        parameters,
+        energy_h=energy_h,
     )
     chi = (
         z_r**2
@@ -490,6 +541,7 @@ def finite_horizon_gamma_continuation(
     tolerance: float = 2.0e-8,
     max_nodes: int = 50_000,
     positive_pi: bool = False,
+    energy: float = 0.0,
 ) -> FiniteHorizonGammaContinuation:
     """Continue the artificial finite-horizon graph over initial ``beta``.
 
@@ -526,7 +578,10 @@ def finite_horizon_gamma_continuation(
         else:
             if positive_pi:
                 previous_normal = positive_pi_outer_state(
-                    mesh, previous_solution.sol(mesh), parameters
+                    mesh,
+                    previous_solution.sol(mesh),
+                    parameters,
+                    energy=energy,
                 )[:2]
                 predictor_normal = np.vstack(previous_normal)
             else:
@@ -535,7 +590,9 @@ def finite_horizon_gamma_continuation(
                 np.maximum(parameters.stable_rate_q * (mesh - q_start), -700.0)
             )
         predictor = (
-            normal_to_positive_pi_state(mesh, predictor_normal, parameters)
+            normal_to_positive_pi_state(
+                mesh, predictor_normal, parameters, energy=energy
+            )
             if positive_pi
             else predictor_normal
         )
@@ -544,10 +601,10 @@ def finite_horizon_gamma_continuation(
             if not positive_pi:
                 return np.array([left[0] - beta0, right[1]], dtype=np.float64)
             left_beta = positive_pi_outer_state(
-                q_start, left, parameters
+                q_start, left, parameters, energy=energy
             )[0]
             right_alpha = positive_pi_outer_state(
-                q_end, right, parameters
+                q_end, right, parameters, energy=energy
             )[1]
             return np.array(
                 [left_beta / parameters.delta - beta0 / parameters.delta,
@@ -557,9 +614,13 @@ def finite_horizon_gamma_continuation(
 
         solution = solve_bvp(
             lambda coordinate, state: (
-                positive_pi_outer_rhs_q(coordinate, state, parameters)
+                positive_pi_outer_rhs_q(
+                    coordinate, state, parameters, energy=energy
+                )
                 if positive_pi
-                else normal_outer_rhs_q(coordinate, state, parameters)
+                else normal_outer_rhs_q(
+                    coordinate, state, parameters, energy=energy
+                )
             ),
             boundary,
             mesh,
@@ -576,15 +637,15 @@ def finite_horizon_gamma_continuation(
             )
         if positive_pi:
             beta, alpha, chi, pi, _w = positive_pi_outer_state(
-                output_q, solution.sol(output_q), parameters, energy=0.0
+                output_q, solution.sol(output_q), parameters, energy=energy
             )
         else:
             beta, alpha = solution.sol(output_q)
             chi, pi, _w = normal_outer_state(
-                output_q ** (-0.5), beta, alpha, parameters, energy=0.0
+                output_q ** (-0.5), beta, alpha, parameters, energy=energy
             )
         energy_residual = energy_equation_residual(
-            output_q ** (-0.5), beta, alpha, chi, parameters, energy=0.0
+            output_q ** (-0.5), beta, alpha, chi, parameters, energy=energy
         )
         samples.append(
             FiniteHorizonGammaSample(
@@ -1422,6 +1483,7 @@ __all__ = [
     "matched_outer_refinement",
     "outer_seam_coordinates",
     "resolved_k1_energy_root",
+    "resolved_k1_energy_equation_residual",
     "resolved_k1_rhs_r1",
     "resolved_k1_to_outer_normal",
     "true_wu_source_state_provider",
