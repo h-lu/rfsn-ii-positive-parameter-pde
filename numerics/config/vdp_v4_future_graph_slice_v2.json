@@ -32,7 +32,13 @@
       25.002
     ],
     "rate_Q_cuts": [25.00025, 25.0005, 25.00075, 25.001],
-    "rate_Q_difference_step": 2.5e-5
+    "rate_Q_difference_step": 2.5e-5,
+    "slice_interpolation_degree": 2,
+    "jacobian_central_difference_steps": {
+      "z": 1.0e-6,
+      "beta": 1.0e-9,
+      "alpha": 1.0e-9
+    }
   },
   "collocation_construction": {
     "coordinates": "eta=log(pi/delta), omega=w/delta",
