@@ -98,11 +98,21 @@ remaining physical time from the gate is uniformly less than
 This proves finite-time pole formation from the stated cone entry.  It does
 not prove that the source family reaches that entry.
 
-At the exact-formula level the regular-singular boundary spectrum remains
+At the exact-formula level the desingularized-flow boundary spectrum is
 
 \[
  \{-1,-4,0,0,1\},
 \]
+
+whereas the corresponding normalized power spectrum is
+
+\[
+ \{-1,0,0,1,4\}.
+\]
+
+The conversion is \(\lambda\mapsto\sigma^{-\lambda}\); thus the admissible
+positive power roots are (1) and (4).  These two spectra are related but
+must not be identified.
 
 and on the v2 box
 

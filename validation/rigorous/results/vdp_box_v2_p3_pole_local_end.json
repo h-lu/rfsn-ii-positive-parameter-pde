@@ -1,0 +1,217 @@
+{
+  "analytic_majorant": {
+    "contraction_margin_to_one_half": {
+      "endpoint_format": "OUTWARD_BINARY64_HEX",
+      "lower_hex": "0x1.ffffffffffffap-2",
+      "upper_hex": "0x1.ffffffffffffcp-2"
+    },
+    "contraction_upper": {
+      "endpoint_format": "OUTWARD_BINARY64_HEX",
+      "lower_hex": "0x1.59e05f3686212p-52",
+      "upper_hex": "0x1.59e05f3686214p-52"
+    },
+    "displayed_jet_sup": {
+      "endpoint_format": "OUTWARD_BINARY64_HEX",
+      "lower_hex": "0x1.33721bc942ac2p-56",
+      "upper_hex": "0x1.33721bc942ac4p-56"
+    },
+    "green_operator_exact_majorant": {
+      "endpoint_format": "OUTWARD_BINARY64_HEX",
+      "lower_hex": "0x1.e84bda12f684bp-1",
+      "upper_hex": "0x1.e84bda12f684dp-1"
+    },
+    "green_operator_norm_upper": {
+      "endpoint_format": "OUTWARD_BINARY64_HEX",
+      "lower_hex": "0x1.fffffffffffffp-1",
+      "upper_hex": "0x1.0000000000001p+0"
+    },
+    "label_remainder_input_norms": {
+      "W0": {
+        "endpoint_format": "OUTWARD_BINARY64_HEX",
+        "lower_hex": "0x1.fca055c0079a5p+22",
+        "upper_hex": "0x1.fca055c0079a7p+22"
+      },
+      "Z0": {
+        "endpoint_format": "OUTWARD_BINARY64_HEX",
+        "lower_hex": "0x1.211ede8616d49p+63",
+        "upper_hex": "0x1.211ede8616d4bp+63"
+      },
+      "c4": {
+        "endpoint_format": "OUTWARD_BINARY64_HEX",
+        "lower_hex": "0x1.a36e2f09ba69dp-14",
+        "upper_hex": "0x1.a36e2f09ba69fp-14"
+      }
+    },
+    "log_sigma_interval": {
+      "endpoint_format": "OUTWARD_BINARY64_HEX",
+      "lower_hex": "-0x1.ba18a998fffa1p+4",
+      "upper_hex": "-0x1.ba18a998fff9fp+4"
+    },
+    "normalized_residual_upper": {
+      "endpoint_format": "OUTWARD_BINARY64_HEX",
+      "lower_hex": "0x1.211ede997c9abp+63",
+      "upper_hex": "0x1.211ede997c9adp+63"
+    },
+    "self_map_margin": {
+      "endpoint_format": "OUTWARD_BINARY64_HEX",
+      "lower_hex": "0x1.93e59399f6bc8p+99",
+      "upper_hex": "0x1.93e59399f6bcap+99"
+    },
+    "self_map_rhs_upper": {
+      "endpoint_format": "OUTWARD_BINARY64_HEX",
+      "lower_hex": "0x1.2121004bdf9e8p+63",
+      "upper_hex": "0x1.2121004bdf9eap+63"
+    }
+  },
+  "atoms": [
+    {
+      "id": "V3.POLE_TAIL.LOCAL_C0_SELF_MAP",
+      "status": "PASS"
+    },
+    {
+      "id": "V3.POLE_TAIL.LOCAL_C0_CONTRACTION",
+      "status": "PASS"
+    },
+    {
+      "id": "V3.POLE_TAIL.LOCAL_C1_LABEL_JETS",
+      "status": "PASS"
+    },
+    {
+      "id": "V3.POLE_TAIL.LOCAL_COORDINATE_JACOBIAN",
+      "status": "PASS"
+    }
+  ],
+  "claim_bearing": false,
+  "configuration_id": "vdp-p3-pole-local-end-v2",
+  "configuration_sha256": "61373503bee76d0302a76edc2d412f8b580d9d68dd06a6c700ac4a7d7a5fa212",
+  "frozen_domain": {
+    "label_rectangle": {
+      "W0": {
+        "lower": {
+          "denominator": "4",
+          "numerator": "-1"
+        },
+        "upper": {
+          "denominator": "4",
+          "numerator": "1"
+        }
+      },
+      "Z0": {
+        "lower": {
+          "denominator": "1",
+          "numerator": "-1"
+        },
+        "upper": {
+          "denominator": "2",
+          "numerator": "-1"
+        }
+      },
+      "c4": {
+        "lower": {
+          "denominator": "1",
+          "numerator": "0"
+        },
+        "upper": {
+          "denominator": "1",
+          "numerator": "1000000000000000"
+        }
+      }
+    },
+    "remainder_C0_radius": {
+      "endpoint_format": "OUTWARD_BINARY64_HEX",
+      "lower_hex": "0x1.93e5939a08ce9p+99",
+      "upper_hex": "0x1.93e5939a08cebp+99"
+    },
+    "sigma0": {
+      "endpoint_format": "OUTWARD_BINARY64_HEX",
+      "lower_hex": "0x1.19799812dea10p-40",
+      "upper_hex": "0x1.19799812dea12p-40"
+    }
+  },
+  "full_coordinate_jacobian": {
+    "absolute_lower": {
+      "endpoint_format": "OUTWARD_BINARY64_HEX",
+      "lower_hex": "0x1.3fffffffffcabp+2",
+      "upper_hex": "0x1.3fffffffffcadp+2"
+    },
+    "interval": {
+      "endpoint_format": "OUTWARD_BINARY64_HEX",
+      "lower_hex": "0x1.3fffffffffcabp+2",
+      "upper_hex": "0x1.4000000000355p+2"
+    },
+    "normalization": "det D_(sigma,c4,Z0,W0)(u,p,v,q)/(ell^2*delta)",
+    "required_strict_lower": {
+      "endpoint_format": "OUTWARD_BINARY64_HEX",
+      "lower_hex": "0x1.47ae147ae147ap-7",
+      "upper_hex": "0x1.47ae147ae147cp-7"
+    },
+    "status": "PASS"
+  },
+  "mathematical_status": "PARTIAL_LOCAL_PASS",
+  "nonclaims": [
+    "This local end block is conditional on membership in the frozen label rectangle.",
+    "No source-to-label arrival, mixed parameter C2 remainder, or action finite-part tail is passed.",
+    "The parent V3.POLE_TAIL obligation remains INCONCLUSIVE even when every local atom passes."
+  ],
+  "parent_obligations": [
+    {
+      "id": "V3.SOURCE_TO_POLE",
+      "status": "INCONCLUSIVE"
+    },
+    {
+      "id": "V3.POLE_TAIL",
+      "reason": "The local block does not yet enclose mixed parameter two-jets or the C2 action-density remainder, and no global source image is shown to arrive in the frozen label rectangle.",
+      "status": "INCONCLUSIVE"
+    }
+  ],
+  "regular_singular_spectra": {
+    "admissible_positive_power_roots": [
+      "1",
+      "4"
+    ],
+    "conversion": "a desingularized-flow eigenvalue lambda corresponds to the power sigma^(-lambda)",
+    "desingularized_flow_spectrum": [
+      "-1",
+      "-4",
+      "0",
+      "0",
+      "+1"
+    ],
+    "normalized_power_spectrum": [
+      "-1",
+      "0",
+      "0",
+      "1",
+      "4"
+    ]
+  },
+  "schema_version": "rfsn-vdp-p3-pole-local-end-result/1",
+  "section_enclosures": {
+    "D2_h": {
+      "endpoint_format": "OUTWARD_BINARY64_HEX",
+      "lower_hex": "0x1.3372170457fe6p-58",
+      "upper_hex": "0x1.33721baa3c3adp-54"
+    },
+    "D_h": {
+      "endpoint_format": "OUTWARD_BINARY64_HEX",
+      "lower_hex": "0x1.33721896d10cdp-59",
+      "upper_hex": "0x1.33721ba970c96p-55"
+    },
+    "W": {
+      "endpoint_format": "OUTWARD_BINARY64_HEX",
+      "lower_hex": "-0x1.fffffffff8f6ap-3",
+      "upper_hex": "0x1.0000000005472p-2"
+    },
+    "Z": {
+      "endpoint_format": "OUTWARD_BINARY64_HEX",
+      "lower_hex": "-0x1.000000000046cp+0",
+      "upper_hex": "-0x1.fffffffffee6bp-2"
+    },
+    "h": {
+      "endpoint_format": "OUTWARD_BINARY64_HEX",
+      "lower_hex": "0x1.337219a10cb50p-60",
+      "upper_hex": "0x1.33721ba90a792p-56"
+    }
+  },
+  "status": "LOCAL_C1_BLOCK_PASS"
+}
