@@ -1,0 +1,243 @@
+{
+  "array_shapes": {
+    "Jost_section_normal": [
+      4
+    ],
+    "K1_endpoint_raw_row": [
+      2
+    ],
+    "K1_jacobian_samples": [
+      401,
+      2,
+      2
+    ],
+    "K1_r1": [
+      401
+    ],
+    "K1_state_Pi_Omega": [
+      2,
+      401
+    ],
+    "adjoint_angle_log_raw_norm": [
+      401
+    ],
+    "adjoint_angle_unit_row": [
+      2,
+      401
+    ],
+    "adjoint_log_raw_norm": [
+      401
+    ],
+    "adjoint_r1_descending": [
+      401
+    ],
+    "adjoint_unit_row": [
+      2,
+      401
+    ],
+    "central_endpoint_recomputed": [
+      4
+    ],
+    "central_intrinsic_unit_row": [
+      4
+    ],
+    "central_section_jacobian": [
+      2,
+      4
+    ],
+    "endpoint_incoming_tangent_T_plus": [
+      6
+    ],
+    "endpoint_left_row_ell_plus": [
+      6
+    ],
+    "frozen_Jost_row": [
+      4
+    ],
+    "frozen_growing_complement": [
+      4
+    ],
+    "jost_growing": [
+      4,
+      401
+    ],
+    "jost_recessive": [
+      4,
+      401
+    ],
+    "jost_symplectic_pairing": [
+      401
+    ],
+    "jost_t": [
+      401
+    ],
+    "matching_jacobian": [
+      2,
+      2
+    ],
+    "matching_jacobian_finite_difference": [
+      2,
+      2
+    ],
+    "matching_singular_values": [
+      2
+    ],
+    "outer_graph_tangent": [
+      2
+    ],
+    "outer_map_jacobian_exact": [
+      2,
+      2
+    ],
+    "outer_map_jacobian_finite_difference": [
+      2,
+      2
+    ],
+    "outer_raw_row_beta_alpha": [
+      2
+    ],
+    "outer_seam_alpha": [
+      3
+    ],
+    "outer_seam_beta": [
+      3
+    ],
+    "positive_Jost_row": [
+      4
+    ],
+    "source_phase_tangent_finite_difference": [
+      4
+    ],
+    "source_phase_tangent_initial": [
+      4
+    ],
+    "source_phase_tangent_variational": [
+      4
+    ],
+    "source_state": [
+      4
+    ],
+    "time_tangent_exact": [
+      4
+    ],
+    "time_tangent_finite_difference": [
+      4
+    ]
+  },
+  "central_flight_time": 9.895162060961962,
+  "claim_bearing": false,
+  "configuration_path": "numerics/config/vdp_v5_endpoint_exchange_v2.json",
+  "data_path": "numerics/results/vdp_v5_endpoint_exchange_v2/adjoint.npz",
+  "diagnostics": {
+    "Jost_normalization_denominator": -1387.7145204804594,
+    "Jost_row_frozen_row_cosine": 0.9992816934947093,
+    "Jost_row_on_section_normal": 1.0,
+    "K1_saved_base_invariance_residual_inf": 7.142242366420248e-07,
+    "adjoint": {
+      "angle_solver_evaluations": 452780,
+      "central_direction_norm_defect": 3.219646771412954e-15,
+      "central_log_raw_row_norm": 93162.241498868,
+      "direction_crosscheck_max": 8.645698738648874e-09,
+      "log_scale_crosscheck_max": 5.369656719267368e-09,
+      "normalized_solver_evaluations": 452159
+    },
+    "central_endpoint_recompute_residual_inf": 4.440892098500626e-16,
+    "central_intrinsic_flow_pairing_relative": 1.41427870197845e-17,
+    "central_section_speed": -1.1543688668786538,
+    "determinant_factorization_relative": 6.253431424815061e-16,
+    "endpoint_compatibility_ell_plus_T_plus": 1.6378989811192777e-16,
+    "endpoint_compatibility_interpretation": "The vanishing V5(50) is checked separately and is not the exchange coefficient.",
+    "endpoint_graph_tangent_pairing_abs": 4.9659884746881084e-15,
+    "frozen_B2B3_identity_error": 0.0,
+    "frozen_Jost_pairing_drift": 1.0516032489249483e-12,
+    "frozen_exchange": 249.4153162899183,
+    "frozen_exchange_identity_error": 0.0,
+    "gamma_beta_at_outer_seam": 0.010201028954390597,
+    "matching_condition_number": 523383.2294849193,
+    "matching_determinant": -1.7753821049664578,
+    "matching_jacobian_crosscheck_inf": 4.5680963012273423e-08,
+    "matching_section_speed_times_incidence": -1.7753821049664589,
+    "matching_singular_values": [
+      963.9529136150126,
+      0.0018417726425122068
+    ],
+    "outer_map_jacobian_crosscheck_inf": 3.700918694768407e-14,
+    "phase_section_derivative": 963.9509955168572,
+    "positive_exchange": 251.5292460323932,
+    "positive_exchange_relative_deviation": 0.008475541012957144,
+    "source": {
+      "phase_finite_difference_refinement_relative": 1.5682110843720137e-06,
+      "phase_tangent_crosscheck_relative": 4.70961575321296e-11,
+      "source_provider_unique_evaluations": 5,
+      "time_tangent_crosscheck_relative": 3.254552481771729e-11
+    },
+    "source_phase_incidence": 1.5379677639496538
+  },
+  "energy_H": 1.6531401306609465e-14,
+  "evidence_status": "COMPUTED/E1_NON_RIGOROUS_WITH_QA",
+  "mathematical_status": "INCONCLUSIVE",
+  "nonclaim": "One endpoint-anchored adjoint line, Jost-normalized exchange, and two-by-two matching derivative at the center do not prove a uniform positive exchange, operator inverse bound, matched-tube uniqueness, or the Issue #7 parameter-box theorem.",
+  "normalization": {
+    "B2": "Gamma(3/4)*96^(5/8)/(8*sqrt(pi))",
+    "B3": "Gamma(1/4)*96^(7/8)/(16*sqrt(pi))",
+    "central_algebraic_parameter": "t_c=2*sqrt(3*M)",
+    "frozen_comparison": "24*B2*B3=144*sqrt(3)",
+    "growing_continuation": "u_mu is the constant fixed-universal-chart continuation of frozen u(t_c)",
+    "positive_row": "L_c^J=L_c^raw/L_c^raw(N_J)",
+    "section_normal": "N_J is the section-tangent Euclidean Riesz vector of psi, normalized by psi(N_J)=1",
+    "symplectic_row": "psi=omega(s,.)=(s_P,-s_U,-s_Q,s_V)"
+  },
+  "parameter_point": {
+    "a2": "0",
+    "epsilon": "1",
+    "r": "3/200"
+  },
+  "qa": {
+    "Jost_pairing_conservation": true,
+    "adjoint_projective_crosscheck": true,
+    "central_section_transverse": true,
+    "determinant_factorization": true,
+    "endpoint_graph_tangent_annihilation": true,
+    "exchange_near_frozen_comparison": true,
+    "frozen_B2B3_identity": true,
+    "frozen_exchange_identity": true,
+    "intrinsic_row_annihilates_flow": true,
+    "matching_condition_number": true,
+    "matching_sigma_min": true,
+    "outer_map_jacobian_crosscheck": true,
+    "positive_exchange": true,
+    "source_phase_incidence_nonzero": true,
+    "source_tangent_crosscheck": true,
+    "time_tangent_crosscheck": true
+  },
+  "schema_version": "rfsn-vdp-v5-endpoint-exchange-v2/1",
+  "sections_and_clocks": {
+    "M": 4.0,
+    "central_clock": "xi",
+    "central_section": "h_c=U+M=0",
+    "outer_Q": 25.0,
+    "outer_clock": "tau with d/dtau=r1*z*d/dy1 on the overlap",
+    "outer_r1": 2.0,
+    "resolved_K1_clock": "r1 with dr1/dy1=(sqrt(epsilon)/2)*sigma^2*Pi*r1"
+  },
+  "source_phase": 5.756767223284979,
+  "status": "V5_ENDPOINT_EXCHANGE_COMPUTED",
+  "thresholds": {
+    "Jost_pairing_drift_abs_upper": 1e-08,
+    "adjoint_projective_angle_difference_upper": 1e-07,
+    "central_section_speed_abs_lower": 0.5,
+    "determinant_factorization_relative_upper": 1e-12,
+    "endpoint_graph_tangent_pairing_abs_upper": 1e-10,
+    "frozen_B2B3_identity_abs_upper": 1e-12,
+    "frozen_exchange_identity_abs_upper": 1e-09,
+    "intrinsic_flow_pairing_relative_upper": 1e-10,
+    "matching_condition_number_upper": 100000000.0,
+    "matching_sigma_min_lower": 1e-06,
+    "outer_map_jacobian_crosscheck_inf_upper": 1e-09,
+    "positive_exchange_lower": 124.70765814495917,
+    "positive_exchange_relative_deviation_from_frozen_upper": 0.5,
+    "source_phase_incidence_abs_lower": 1e-06,
+    "source_tangent_crosscheck_relative_upper": 2e-05,
+    "time_tangent_crosscheck_relative_upper": 1e-07
+  }
+}
