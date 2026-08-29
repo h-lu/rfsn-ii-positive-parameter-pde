@@ -298,6 +298,120 @@ def normal_outer_rhs_q(
     return np.vstack((beta_dot / (2.0 * pi), alpha_dot / (2.0 * pi)))
 
 
+def positive_pi_outer_state(
+    compact_q: ArrayLike,
+    state: ArrayLike,
+    parameters: OuterParameters,
+    *,
+    energy: float = 0.0,
+) -> tuple[FloatArray, FloatArray, FloatArray, FloatArray, FloatArray]:
+    """Recover ``(beta, alpha, chi, pi, w)`` in a positive-``pi`` chart.
+
+    The state is ``(eta, omega)`` with
+
+    ``pi = delta*exp(eta)`` and ``w = delta*omega``.
+
+    Thus every finite state lies in the same exact ``pi>0`` component on
+    which ``Q=z^{-2}`` is a forward coordinate.  This is only a coordinate
+    change: ``chi`` is still the positive root of the exact energy equation.
+    """
+
+    compact_q_array = _as_float_array(compact_q)
+    if np.any(compact_q_array <= 0.0):
+        raise ValueError("Q must be positive")
+    values = _as_float_array(state)
+    if values.shape[0] != 2:
+        raise ValueError("positive-pi state order is (eta, omega)")
+    eta, omega = values
+    scaled_pi = np.exp(eta)
+    pi = parameters.delta * scaled_pi
+    w = parameters.delta * omega
+    z = compact_q_array ** (-0.5)
+    epsilon = parameters.epsilon
+    a = parameters.a
+    radicand = (
+        epsilon / 2.0
+        - 2.0 * a * epsilon * z / 3.0
+        - epsilon * (2.0 * w + 1.0) * z**2
+        + 2.0 * a * epsilon * (w + 1.0) * z**3
+        + (
+            epsilon * pi * pi
+            + 2.0 * energy
+            + 2.0 * epsilon * shifted_energy_polynomial(a)
+        )
+        * z**4
+    )
+    if np.any(radicand <= 0.0):
+        raise ValueError("the positive-pi chart left the positive-chi energy branch")
+    chi = np.sqrt(radicand)
+    beta = 0.5 * (pi - parameters.delta * chi - w)
+    alpha = 0.5 * (pi - parameters.delta * chi + w)
+    return beta, alpha, chi, pi, w
+
+
+def normal_to_positive_pi_state(
+    compact_q: ArrayLike,
+    state: ArrayLike,
+    parameters: OuterParameters,
+    *,
+    energy: float = 0.0,
+) -> FloatArray:
+    """Map exact normal coordinates ``(beta,alpha)`` to ``(eta,omega)``."""
+
+    compact_q_array = _as_float_array(compact_q)
+    values = _as_float_array(state)
+    if values.shape[0] != 2:
+        raise ValueError("normal state order is (beta, alpha)")
+    beta, alpha = values
+    z = compact_q_array ** (-0.5)
+    _chi, pi, w = normal_outer_state(
+        z, beta, alpha, parameters, energy=energy
+    )
+    if np.any(pi <= 0.0):
+        raise ValueError("normal state is outside the positive-pi chart")
+    return np.vstack((
+        np.log(pi / parameters.delta),
+        w / parameters.delta,
+    )) if values.ndim > 1 else np.array(
+        [float(np.log(pi / parameters.delta)), float(w / parameters.delta)],
+        dtype=np.float64,
+    )
+
+
+def positive_pi_outer_rhs_q(
+    compact_q: ArrayLike,
+    state: ArrayLike,
+    parameters: OuterParameters,
+    *,
+    energy: float = 0.0,
+) -> FloatArray:
+    """Exact V5A reduced equations in the positive-``pi`` chart.
+
+    These equations are algebraically conjugate to
+    :func:`normal_outer_rhs_q`; unlike a collocation solve in
+    ``(beta,alpha)``, all finite Newton iterates retain ``pi>0``.
+    """
+
+    compact_q_array = _as_float_array(compact_q)
+    values = _as_float_array(state)
+    if values.shape[0] != 2:
+        raise ValueError("positive-pi state order is (eta, omega)")
+    eta, omega = values
+    scaled_pi = np.exp(eta)
+    _beta, _alpha, chi, _pi, _w = positive_pi_outer_state(
+        compact_q_array, values, parameters, energy=energy
+    )
+    z = compact_q_array ** (-0.5)
+    delta = parameters.delta
+    eta_q = omega / (2.0 * delta * scaled_pi**2)
+    omega_q = (
+        (1.0 - z**2) * scaled_pi
+        - chi
+        - delta * scaled_pi * omega * z**2
+    ) / (2.0 * delta * scaled_pi)
+    return np.vstack((eta_q, omega_q))
+
+
 def outer_physical_densities(
     compact_q: ArrayLike,
     beta: ArrayLike,
@@ -765,10 +879,13 @@ __all__ = [
     "matching_determinant_proxy",
     "normal_outer_rhs_q",
     "normal_outer_state",
+    "normal_to_positive_pi_state",
     "numerical_cut_balance",
     "outer_asymptotic_diagnostics",
     "outer_physical_densities",
     "positive_energy_root",
+    "positive_pi_outer_rhs_q",
+    "positive_pi_outer_state",
     "reference_change_balance",
     "reference_subtracted_integrals",
     "shifted_energy_polynomial",

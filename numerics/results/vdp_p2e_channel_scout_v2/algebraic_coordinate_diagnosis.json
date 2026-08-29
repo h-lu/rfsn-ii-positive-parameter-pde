@@ -1,0 +1,32 @@
+{
+  "candidate": {
+    "accepted_as_matched_channel": false,
+    "boundary_and_interface_residual_inf": 8.881784197001252e-16,
+    "central_energy_residual_inf": 0.0001497189839951285,
+    "central_flight_time": 16.95355638854237,
+    "central_k1_q1_interface_residual": -3.4708200277733154,
+    "k1_energy_residual_inf": 0.004150390625,
+    "same_section_root_residual": 0.0,
+    "solver_nodes": 999.0,
+    "solver_rms_residual_max": 4.941758449123197e-05,
+    "source_phase": 5.756850585799922
+  },
+  "claim_bearing": false,
+  "coordinate_diagnosis": {
+    "chart": "eta=log(pi/delta), omega=w/delta",
+    "exact_coordinate_change_only": true,
+    "minimum_outer_pi": 0.00013693063937936708,
+    "old_failure_is_a_newton_domain_escape": true,
+    "outer_energy_residual_inf": 2.220446049250313e-16
+  },
+  "evidence_status": "COMPUTED/E1_NON_EVIDENTIARY",
+  "next_missing_object": "An energy-preserving, scaled central--K1 coupling that includes the q1 seam equation; the current two-coordinate seam lets the small-r collocation residual amplify into an O(1) q1 defect.",
+  "nonclaim": "The positive-pi outer solve removes the recorded coordinate exception, but the rejected central--K1 seam is not an algebraic centerline, matched orbit, V5 connection, or V2 atlas.",
+  "parameter_point": {
+    "a2": "0",
+    "epsilon": "1",
+    "r": "3/200"
+  },
+  "schema_version": "rfsn-vdp-p2e-algebraic-coordinate-diagnosis/1",
+  "status": "OUTER_COORDINATE_REPAIRED_MATCHED_CANDIDATE_REJECTED"
+}

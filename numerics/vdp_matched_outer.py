@@ -30,9 +30,12 @@ from numerics.vdp_bridge import BridgeParameters, central_to_physical, cubic_f
 from numerics.vdp_outer import (
     OuterParameters,
     energy_equation_residual,
+    normal_to_positive_pi_state,
     normal_outer_rhs_q,
     normal_outer_state,
     outer_physical_densities,
+    positive_pi_outer_rhs_q,
+    positive_pi_outer_state,
 )
 from numerics.vdp_pole import PoleParameters
 from numerics.vdp_return_coding import (
@@ -460,6 +463,23 @@ def _endpoint_clustered_grid(start: float, end: float, points: int) -> FloatArra
     return start + 0.5 * (end - start) * (1.0 - np.cos(np.pi * phase))
 
 
+def _positive_pi_bvp_grid(
+    start: float,
+    end: float,
+    points: int,
+    layer_width: float,
+) -> FloatArray:
+    """Resolve the two ``O(delta)`` end layers without roundoff-scale cells."""
+
+    if not start < end:
+        raise ValueError("require start < end")
+    phase = np.linspace(0.0, 1.0, points)
+    base = start + 0.5 * (end - start) * (1.0 - np.cos(np.pi * phase))
+    layer = layer_width * np.logspace(-2.0, 2.0, 48)
+    layer = layer[layer < end - start]
+    return np.unique(np.concatenate((base, start + layer, end - layer)))
+
+
 def finite_horizon_gamma_continuation(
     parameters: OuterParameters,
     beta_values: Iterable[float],
@@ -469,6 +489,7 @@ def finite_horizon_gamma_continuation(
     points: int = 601,
     tolerance: float = 2.0e-8,
     max_nodes: int = 50_000,
+    positive_pi: bool = False,
 ) -> FiniteHorizonGammaContinuation:
     """Continue the artificial finite-horizon graph over initial ``beta``.
 
@@ -476,6 +497,8 @@ def finite_horizon_gamma_continuation(
     ``beta(Q_start)=beta0`` and ``alpha(Q_end)=0``.  The previous collocation
     solution supplies the next predictor, so this is a genuine beta
     continuation rather than a collection of unrelated shooting orbits.
+    The opt-in positive-``pi`` chart changes only the collocation coordinates;
+    the default keeps archived replay behavior unchanged.
     """
 
     requested = tuple(float(value) for value in beta_values)
@@ -483,7 +506,13 @@ def finite_horizon_gamma_continuation(
         raise ValueError("beta_values must be nonempty")
     if any(not np.isfinite(value) for value in requested):
         raise ValueError("beta continuation values must be finite")
-    mesh = _endpoint_clustered_grid(q_start, q_end, max(121, points // 2))
+    mesh = (
+        _positive_pi_bvp_grid(
+            q_start, q_end, max(121, points // 2), parameters.delta
+        )
+        if positive_pi
+        else _endpoint_clustered_grid(q_start, q_end, max(121, points // 2))
+    )
     output_q = _endpoint_clustered_grid(q_start, q_end, points)
     previous_solution = None
     previous_beta = 0.0
@@ -493,19 +522,44 @@ def finite_horizon_gamma_continuation(
             predictor_beta = beta0 * np.exp(
                 np.maximum(parameters.stable_rate_q * (mesh - q_start), -700.0)
             )
-            predictor = np.vstack((predictor_beta, np.zeros_like(mesh)))
+            predictor_normal = np.vstack((predictor_beta, np.zeros_like(mesh)))
         else:
-            predictor = previous_solution.sol(mesh)
-            predictor[0] += (beta0 - previous_beta) * np.exp(
+            if positive_pi:
+                previous_normal = positive_pi_outer_state(
+                    mesh, previous_solution.sol(mesh), parameters
+                )[:2]
+                predictor_normal = np.vstack(previous_normal)
+            else:
+                predictor_normal = previous_solution.sol(mesh)
+            predictor_normal[0] += (beta0 - previous_beta) * np.exp(
                 np.maximum(parameters.stable_rate_q * (mesh - q_start), -700.0)
             )
+        predictor = (
+            normal_to_positive_pi_state(mesh, predictor_normal, parameters)
+            if positive_pi
+            else predictor_normal
+        )
 
         def boundary(left: FloatArray, right: FloatArray) -> FloatArray:
-            return np.array([left[0] - beta0, right[1]], dtype=np.float64)
+            if not positive_pi:
+                return np.array([left[0] - beta0, right[1]], dtype=np.float64)
+            left_beta = positive_pi_outer_state(
+                q_start, left, parameters
+            )[0]
+            right_alpha = positive_pi_outer_state(
+                q_end, right, parameters
+            )[1]
+            return np.array(
+                [left_beta / parameters.delta - beta0 / parameters.delta,
+                 right_alpha / parameters.delta],
+                dtype=np.float64,
+            )
 
         solution = solve_bvp(
-            lambda coordinate, state: normal_outer_rhs_q(
-                coordinate, state, parameters
+            lambda coordinate, state: (
+                positive_pi_outer_rhs_q(coordinate, state, parameters)
+                if positive_pi
+                else normal_outer_rhs_q(coordinate, state, parameters)
             ),
             boundary,
             mesh,
@@ -520,10 +574,15 @@ def finite_horizon_gamma_continuation(
                 f"finite-horizon beta continuation failed at {beta0}: "
                 f"{solution.message}"
             )
-        beta, alpha = solution.sol(output_q)
-        chi, pi, _w = normal_outer_state(
-            output_q ** (-0.5), beta, alpha, parameters, energy=0.0
-        )
+        if positive_pi:
+            beta, alpha, chi, pi, _w = positive_pi_outer_state(
+                output_q, solution.sol(output_q), parameters, energy=0.0
+            )
+        else:
+            beta, alpha = solution.sol(output_q)
+            chi, pi, _w = normal_outer_state(
+                output_q ** (-0.5), beta, alpha, parameters, energy=0.0
+            )
         energy_residual = energy_equation_residual(
             output_q ** (-0.5), beta, alpha, chi, parameters, energy=0.0
         )
@@ -546,6 +605,11 @@ def finite_horizon_gamma_continuation(
                         np.max(np.abs(energy_residual))
                     ),
                     "minimum_pi": float(np.min(pi)),
+                    "outer_coordinate_chart": (
+                        "eta=log(pi/delta), omega=w/delta"
+                        if positive_pi
+                        else "normal (beta,alpha)"
+                    ),
                 },
             )
         )
@@ -714,8 +778,13 @@ def compute_matched_outer_candidate(
     config: MatchedOuterConfig = MatchedOuterConfig(),
     *,
     source_state_provider: SourceStateProvider | None = None,
+    positive_pi_outer: bool = False,
 ) -> MatchedOuterCandidate:
-    """Solve one coupled central--K1--outer finite-horizon candidate."""
+    """Solve one coupled central--K1--outer finite-horizon candidate.
+
+    ``positive_pi_outer`` is opt-in so archived calculations retain their
+    original replay path.  It changes only the two outer unknowns and mesh.
+    """
 
     z_r, q_r = outer_seam_coordinates(
         parameters, outer_r1=config.outer_r1
@@ -746,7 +815,16 @@ def compute_matched_outer_candidate(
     central_seed, central_time_seed = _central_seed_orbit(
         parameters, config, provider
     )
-    mesh = np.linspace(0.0, 1.0, config.mesh_points)
+    mesh = (
+        _positive_pi_bvp_grid(
+            0.0,
+            1.0,
+            config.mesh_points,
+            parameters.delta / (config.q_end - q_r),
+        )
+        if positive_pi_outer
+        else np.linspace(0.0, 1.0, config.mesh_points)
+    )
     central_guess = central_seed.sol(mesh * central_time_seed)
     k1_r1_mesh = r1_cut + (config.outer_r1 - r1_cut) * mesh
     k1_guess = k1_center_graph_leading_guess(k1_r1_mesh, parameters)
@@ -763,15 +841,21 @@ def compute_matched_outer_candidate(
         points=max(301, config.output_points // 2),
         tolerance=min(2.0e-8, 0.1 * config.tolerance),
         max_nodes=config.max_nodes,
+        positive_pi=positive_pi_outer,
     )
     leading_gamma_alpha = leading_gamma.samples[-1].gamma
     outer_seed = leading_gamma.samples[-1]
     q_mesh = q_r + (config.q_end - q_r) * mesh
-    outer_guess = np.vstack(
+    outer_normal_guess = np.vstack(
         (
             np.interp(q_mesh, outer_seed.compact_q, outer_seed.beta),
             np.interp(q_mesh, outer_seed.compact_q, outer_seed.alpha),
         )
+    )
+    outer_guess = (
+        normal_to_positive_pi_state(q_mesh, outer_normal_guess, parameters)
+        if positive_pi_outer
+        else outer_normal_guess
     )
     initial_guess = np.vstack((central_guess, k1_guess, outer_guess))
 
@@ -791,7 +875,15 @@ def compute_matched_outer_candidate(
                 (config.outer_r1 - r1_cut)
                 * resolved_k1_rhs_r1(r1, state[4:6], parameters),
                 (config.q_end - q_r)
-                * normal_outer_rhs_q(compact_q, state[6:8], parameters),
+                * (
+                    positive_pi_outer_rhs_q(
+                        compact_q, state[6:8], parameters
+                    )
+                    if positive_pi_outer
+                    else normal_outer_rhs_q(
+                        compact_q, state[6:8], parameters
+                    )
+                ),
             )
         )
 
@@ -799,16 +891,34 @@ def compute_matched_outer_candidate(
         left: FloatArray, right: FloatArray, unknown: FloatArray
     ) -> FloatArray:
         source = provider(float(unknown[0]))
+        outer_left_normal = resolved_k1_to_outer_normal(
+            right[4:6], parameters, outer_r1=config.outer_r1
+        )
+        outer_left = (
+            normal_to_positive_pi_state(
+                q_r, outer_left_normal, parameters
+            )
+            if positive_pi_outer
+            else outer_left_normal
+        )
+        outer_right_alpha = (
+            positive_pi_outer_state(
+                config.q_end, right[6:8], parameters
+            )[1]
+            if positive_pi_outer
+            else right[7]
+        )
         return np.concatenate(
             (
                 left[:4] - source,
                 np.array([right[0] + config.section_m]),
                 left[4:6] - central_to_resolved_k1(right[:4], parameters),
-                left[6:8]
-                - resolved_k1_to_outer_normal(
-                    right[4:6], parameters, outer_r1=config.outer_r1
-                ),
-                np.array([right[7]]),
+                left[6:8] - outer_left,
+                np.array([
+                    outer_right_alpha / parameters.delta
+                    if positive_pi_outer
+                    else outer_right_alpha
+                ]),
             )
         )
 
@@ -839,9 +949,17 @@ def compute_matched_outer_candidate(
     state = solution.sol(normalized)
     central_state = state[:4]
     k1_state = state[4:6]
-    outer_state = state[6:8]
     k1_r1 = r1_cut + (config.outer_r1 - r1_cut) * normalized
     compact_q = q_r + (config.q_end - q_r) * normalized
+    outer_state = (
+        np.vstack(
+            positive_pi_outer_state(
+                compact_q, state[6:8], parameters
+            )[:2]
+        )
+        if positive_pi_outer
+        else state[6:8]
+    )
     source_phase = float(solution.p[0])
     central_flight_time = float(np.exp(solution.p[1]))
     boundary_residual = boundary(state[:, 0], state[:, -1], solution.p)
@@ -856,6 +974,7 @@ def compute_matched_outer_candidate(
         points=max(301, config.output_points // 2),
         tolerance=min(2.0e-8, 0.1 * config.tolerance),
         max_nodes=config.max_nodes,
+        positive_pi=positive_pi_outer,
     )
     independent_gamma = root_gamma.samples[-1].gamma
     short_horizon = max(q_r + 20.0, 0.5 * (q_r + config.q_end))
@@ -869,6 +988,7 @@ def compute_matched_outer_candidate(
         points=max(241, config.output_points // 3),
         tolerance=min(4.0e-8, 0.2 * config.tolerance),
         max_nodes=config.max_nodes,
+        positive_pi=positive_pi_outer,
     ).samples[0].gamma
 
     label_beta = float(np.interp(config.q_label, compact_q, outer_state[0]))
@@ -994,6 +1114,11 @@ def compute_matched_outer_candidate(
         "scaled_arrival_margin_passed": bool(scaled_arrival_ok),
         "unscaled_arrival_margin_passed": bool(unscaled_arrival_ok),
         "finite_horizon_only": True,
+        "outer_coordinate_chart": (
+            "eta=log(pi/delta), omega=w/delta"
+            if positive_pi_outer
+            else "normal (beta,alpha)"
+        ),
     }
     return MatchedOuterCandidate(
         parameters=parameters,
