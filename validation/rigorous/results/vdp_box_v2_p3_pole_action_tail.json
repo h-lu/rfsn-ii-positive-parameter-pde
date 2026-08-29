@@ -1,0 +1,249 @@
+{
+  "action_tail": {
+    "absolute_upper": {
+      "endpoint_format": "OUTWARD_BINARY64_HEX",
+      "lower_hex": "0x1.468c151db9653p-9",
+      "upper_hex": "0x1.468c151db9655p-9"
+    },
+    "definition": "T_action(sigma0)=integral_0^sigma0 rho_reg(t) dt",
+    "finiteness_status": "PASS",
+    "quality_gate_status": "FAIL_BY_WITNESS",
+    "required_strict_upper": {
+      "endpoint_format": "OUTWARD_BINARY64_HEX",
+      "lower_hex": "0x1.0c6f7a0b5ed8cp-20",
+      "upper_hex": "0x1.0c6f7a0b5ed8ep-20"
+    }
+  },
+  "atoms": [
+    {
+      "id": "V3.POLE_TAIL.ACTION_DENSITY_C0_INTEGRABLE",
+      "status": "PASS"
+    },
+    {
+      "id": "V3.POLE_TAIL.ACTION_TAIL_C0_FINITE",
+      "status": "PASS"
+    },
+    {
+      "id": "V3.POLE_TAIL.ACTION_DENSITY_FROZEN_QUALITY",
+      "status": "FAIL"
+    },
+    {
+      "id": "V3.POLE_TAIL.ACTION_TAIL_FROZEN_QUALITY",
+      "status": "FAIL"
+    },
+    {
+      "id": "V3.POLE_TAIL.ACTION_TAIL_LABEL_C1",
+      "status": "PASS"
+    },
+    {
+      "id": "V3.POLE_TAIL.MOVING_CUT",
+      "status": "PASS"
+    }
+  ],
+  "claim_bearing": false,
+  "configuration_id": "vdp-p3-pole-action-tail-v2",
+  "configuration_sha256": "f460f3d3fb5408d292768f5311528b232fd6f3dc41e8c4480f653a4822f4b7be",
+  "decision_disclosure": {
+    "initial_coarse_output_retained_then_replaced": true,
+    "initial_error": "The ambient radius 1e30 was used as the actual fixed-point remainder although the bound prerequisite already certified the sharper image radius.",
+    "initial_status": "INCONCLUSIVE",
+    "parameters_expression_and_gates_changed": false
+  },
+  "domain": {
+    "label_rectangle": {
+      "W0": {
+        "lower": {
+          "denominator": "4",
+          "numerator": "-1"
+        },
+        "upper": {
+          "denominator": "4",
+          "numerator": "1"
+        }
+      },
+      "Z0": {
+        "lower": {
+          "denominator": "1",
+          "numerator": "-1"
+        },
+        "upper": {
+          "denominator": "2",
+          "numerator": "-1"
+        }
+      },
+      "c4": {
+        "lower": {
+          "denominator": "1",
+          "numerator": "0"
+        },
+        "upper": {
+          "denominator": "1",
+          "numerator": "1000000000000000"
+        }
+      }
+    },
+    "parameter_box": "vdp-positive-box-v2",
+    "sigma0": {
+      "endpoint_format": "OUTWARD_BINARY64_HEX",
+      "lower_hex": "0x1.19799812dea10p-40",
+      "upper_hex": "0x1.19799812dea12p-40"
+    }
+  },
+  "label_C1": {
+    "W0": {
+      "density_coefficient_upper": {
+        "endpoint_format": "OUTWARD_BINARY64_HEX",
+        "lower_hex": "0x1.3a4395810c961p+12",
+        "upper_hex": "0x1.3a4395810c963p+12"
+      },
+      "density_required_strict_upper": {
+        "endpoint_format": "OUTWARD_BINARY64_HEX",
+        "lower_hex": "0x1.387ffffffffffp+13",
+        "upper_hex": "0x1.3880000000001p+13"
+      },
+      "status": "PASS",
+      "tail_derivative_abs_upper": {
+        "endpoint_format": "OUTWARD_BINARY64_HEX",
+        "lower_hex": "0x1.30083114d2af9p-18",
+        "upper_hex": "0x1.30083114d2afbp-18"
+      },
+      "tail_required_strict_upper": {
+        "endpoint_format": "OUTWARD_BINARY64_HEX",
+        "lower_hex": "0x1.4f8b588e368f0p-17",
+        "upper_hex": "0x1.4f8b588e368f2p-17"
+      }
+    },
+    "Z0": {
+      "density_coefficient_upper": {
+        "endpoint_format": "OUTWARD_BINARY64_HEX",
+        "lower_hex": "0x1.1374bca4438ccp-4",
+        "upper_hex": "0x1.1374bca4438cep-4"
+      },
+      "density_required_strict_upper": {
+        "endpoint_format": "OUTWARD_BINARY64_HEX",
+        "lower_hex": "0x1.387ffffffffffp+13",
+        "upper_hex": "0x1.3880000000001p+13"
+      },
+      "status": "PASS",
+      "tail_derivative_abs_upper": {
+        "endpoint_format": "OUTWARD_BINARY64_HEX",
+        "lower_hex": "0x1.0a7ccf3a49b62p-34",
+        "upper_hex": "0x1.0a7ccf3a49b64p-34"
+      },
+      "tail_required_strict_upper": {
+        "endpoint_format": "OUTWARD_BINARY64_HEX",
+        "lower_hex": "0x1.4f8b588e368f0p-17",
+        "upper_hex": "0x1.4f8b588e368f2p-17"
+      }
+    },
+    "c4": {
+      "density_coefficient_upper": {
+        "endpoint_format": "OUTWARD_BINARY64_HEX",
+        "lower_hex": "0x1.7bfdc07fdfbfep-29",
+        "upper_hex": "0x1.7bfdc07fdfc00p-29"
+      },
+      "density_required_strict_upper": {
+        "endpoint_format": "OUTWARD_BINARY64_HEX",
+        "lower_hex": "0x1.387ffffffffffp+13",
+        "upper_hex": "0x1.3880000000001p+13"
+      },
+      "status": "PASS",
+      "tail_derivative_abs_upper": {
+        "endpoint_format": "OUTWARD_BINARY64_HEX",
+        "lower_hex": "0x1.6f9e85de59b5ap-59",
+        "upper_hex": "0x1.6f9e85de59b5cp-59"
+      },
+      "tail_required_strict_upper": {
+        "endpoint_format": "OUTWARD_BINARY64_HEX",
+        "lower_hex": "0x1.4f8b588e368f0p-17",
+        "upper_hex": "0x1.4f8b588e368f2p-17"
+      }
+    }
+  },
+  "mathematical_status": "PARTIAL_LOCAL_PASS_WITH_STRICT_QUALITY_FAIL",
+  "moving_cut_identity": {
+    "identity": "A_fp,C0=integral_C0^C1(lambda_delta)+A_fp,C1",
+    "reason": "Both finite parts use the same sigma0, F_div, and local tail; these cancel exactly, leaving ordinary line-integral additivity.",
+    "status": "PASS_EXACT_ADDITIVITY"
+  },
+  "nonclaims": [
+    "No mixed mu-C2 or source-phase-C2 action bound is asserted.",
+    "The finite compact action from a global source cut to sigma0 is not enclosed here.",
+    "The parent V3.POLE_TAIL obligation remains INCONCLUSIVE."
+  ],
+  "parent_obligations": [
+    {
+      "id": "V3.SOURCE_TO_POLE",
+      "status": "INCONCLUSIVE"
+    },
+    {
+      "id": "V3.POLE_TAIL",
+      "reason": "The local density is integrable and has finite C0/label-C1 tail bounds, but the frozen 1e-6 quality gate is strictly false on the full c4 rectangle; mixed external-parameter C2 bounds and global arrival also remain unproved.",
+      "status": "INCONCLUSIVE"
+    }
+  ],
+  "regularized_density": {
+    "C0_coefficient_upper": {
+      "endpoint_format": "OUTWARD_BINARY64_HEX",
+      "lower_hex": "0x1.5189746d3e37fp+21",
+      "upper_hex": "0x1.5189746d3e381p+21"
+    },
+    "bound": "abs(rho_reg(sigma)) <= C0*(1+abs(log(sigma)))^2",
+    "formula": "rho_reg=6*epsilon*delta^3*sigma^(-4)*(Y^2-1+2*x2*sigma^2+4*x3*sigma^3)-delta^(-1)*(W-ell*epsilon*log(sigma))^2",
+    "integrability_status": "PASS",
+    "quality_gate_status": "FAIL_BY_WITNESS",
+    "required_strict_upper": {
+      "endpoint_format": "OUTWARD_BINARY64_HEX",
+      "lower_hex": "0x1.f3fffffffffffp+9",
+      "upper_hex": "0x1.f400000000001p+9"
+    }
+  },
+  "remainder_binding": {
+    "ambient_C0_ball_radius": {
+      "endpoint_format": "OUTWARD_BINARY64_HEX",
+      "lower_hex": "0x1.93e5939a08ce9p+99",
+      "upper_hex": "0x1.93e5939a08cebp+99"
+    },
+    "authenticated_fixed_point_image_radius": {
+      "endpoint_format": "OUTWARD_BINARY64_HEX",
+      "lower_hex": "0x1.2121004bdf9e9p+63",
+      "upper_hex": "0x1.2121004bdf9ebp+63"
+    },
+    "justification": "R=T(R) and the passed self-map certificate bounds T on the complete ambient ball by this image radius."
+  },
+  "schema_version": "rfsn-vdp-p3-pole-action-tail-result/1",
+  "status": "STRICT_NEGATIVE_FROZEN_ACTION_QUALITY_GATES",
+  "strict_negative_witness": {
+    "density_gate_status": "FAIL",
+    "density_interval_at_sigma0": {
+      "endpoint_format": "OUTWARD_BINARY64_HEX",
+      "lower_hex": "-0x1.51722cad24dc2p+21",
+      "upper_hex": "-0x1.516ea2aee7c68p+21"
+    },
+    "normalized_density_absolute_lower": {
+      "endpoint_format": "OUTWARD_BINARY64_HEX",
+      "lower_hex": "0x1.9adb55268b243p+11",
+      "upper_hex": "0x1.9adb55268b245p+11"
+    },
+    "parameter_label_point": {
+      "W0": "0",
+      "Z0": "-3/4",
+      "a2": "0",
+      "c4": "1000000000000000",
+      "epsilon": "6/5",
+      "r": "1/50"
+    },
+    "tail_absolute_lower": {
+      "endpoint_format": "OUTWARD_BINARY64_HEX",
+      "lower_hex": "0x1.730293704074bp-19",
+      "upper_hex": "0x1.730293704074dp-19"
+    },
+    "tail_gate_status": "FAIL",
+    "tail_interval": {
+      "endpoint_format": "OUTWARD_BINARY64_HEX",
+      "lower_hex": "-0x1.7306beaa12da6p-19",
+      "upper_hex": "-0x1.730293704074bp-19"
+    },
+    "unique_dominant_term": "-36*epsilon*delta^3*c4 in the integrable sigma^0 density coefficient"
+  }
+}
