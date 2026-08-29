@@ -185,13 +185,31 @@ This is a local outward-rounded mathematical `PASS`, so a full Evans/Bloch
 validation is not needed for this target.  It remains non-claim-bearing under
 the repository policy only because the independent-machine replay is pending.
 
+The same scalar mechanism now closes the frozen whole-line `pulse_1` target,
+with the two corrections required on \(\mathbb R\): the stationary PDE itself
+supplies the trial-direction inverse of \(-\partial_x^2\), and the far-field
+Fourier symbol gives a uniform positive essential-spectrum edge for the
+self-adjoint pencil.  The [whole-line theorem and application](van-der-pol/PULSE_1_SPECTRAL_INSTABILITY.md)
+and its [target validator](validation/pulse_1/README.md) prove
+
+\[
+ M_{0.01}\in[-8.876883,-8.777882]\times10^{-7}<0,
+ \qquad \lambda_*\in(0.01,2).
+\]
+
+The target-point Krawczyk image is explicitly contained in the already
+selected P2c grid-cell uniqueness tube, so this is the true P2c primary
+homoclinic represented by `pulse_1`, not an unrelated near-seed orbit.  This
+local mathematical `PASS` has the same remaining release boundary:
+independent-machine replay.
+
 ### Evidence layers at a glance
 
 | Layer | Current status | Boundary and detailed record |
 |---|---|---|
 | Analytic applications | B1--B2 are **Proved**; V1 is **Derived**; V2--V7 are **Proved**, relative to the frozen inputs named in the claim register | These are existential positive-parameter results, not certification of the displayed numerical box.  The publication-facing import crosswalk, conditional compact-family/pole-interface audit, and exact frozen evidence snapshot are versioned with the companion release. |
 | Floating atlas | `COMPUTED/E1` and `COMPUTED/QA` | Finite explanatory samples only; they do not prove a uniform census, temporal stability, Turing-branch selection, or canard identification.  See the [numerical report](numerics/VAN_DER_POL_NUMERICAL_REPORT.md). |
-| A2 periodic spectral instability (#11) | Local mathematical `PASS`; `claim_bearing=false` | A true A2-near periodic profile and \(M_{0.01}<0\) are enclosed with CAPD/FILIB, giving \(\lambda_*\in(0.01,2)\).  Independent replay is pending; nonzero Bloch phases, nonlinear instability, pattern selection, and `pulse_1` are not covered.  See the [A2 validation record](validation/a2_periodic/README.md). |
+| A2 and `pulse_1` spectral instability (#11) | Two local mathematical `PASS` results; `claim_bearing=false` | The true A2-near periodic profile has a positive co-periodic eigenvalue, and the P2c selected primary homoclinic represented by `pulse_1` has a positive whole-line \(L^2\) eigenvalue; both lie in \((0.01,2)\).  Independent replay is pending; nonlinear instability and pattern selection are not covered.  See the [A2](validation/a2_periodic/README.md) and [`pulse_1`](validation/pulse_1/README.md) records. |
 | Explicit-box validation (#7) | `INCONCLUSIVE`, `claim_bearing=false` | The frozen box is \([0.04,0.08]\times[-0.25,0.25]\times[0.8,1.2]\).  P1--P2c, all seven P2d chart children, and the local parent `V2.EXACT_CHART` pass mathematically on their declared domains, including (D12) with \(C_{\rm phys}=7\).  P2e and the later theorem inputs remain pending, and independent replay is 1/2, so the aggregate is not claim-bearing.  See the [chart-overlap report](validation/rigorous/P2D_CHART_OVERLAPS_REPORT.md). |
 
 Closing an analytic construction issue records completion under the current
@@ -211,6 +229,7 @@ experimental realization.
 - [Research contract](RESEARCH_CONTRACT.md)
 - [Continuation and publication plan](CONTINUATION_PLAN.md)
 - [Current exact-chart overlap validation](validation/rigorous/P2D_CHART_OVERLAPS_REPORT.md)
+- [`pulse_1` whole-line spectral-instability proof and validation](van-der-pol/PULSE_1_SPECTRAL_INSTABILITY.md)
 - [Claim register](CLAIM_REGISTER.md)
 - [Proof-seam audit](proof-audit/SEAM_AUDIT_2026-08-27.md)
 - [Van der Pol publication proof audit](proof-audit/VDP_PUBLICATION_PROOF_AUDIT_2026-08-28.md)
@@ -250,7 +269,7 @@ experimental realization.
 - [#8: explanatory numerical atlas and dynamics prescreen](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/8) — open; numerical evidence remains separate from theorem status.
 - [#9: independent expert cold read](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/9) — open; the neutral review packet is public, but no human report is claimed before one is returned.
 - [#10: explicit-box and post-existence research roadmap](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/10) — open; records execution order, mathematical dependencies, and stop rules.
-- [#11: rigorous temporal spectral instability](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/11) — the periodic `A2` target has a local outward-rounded mathematical `PASS`; independent replay remains before claim-bearing release.  The separate whole-line `pulse_1` target has not started.
+- [#11: rigorous temporal spectral instability](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/11) — both the periodic `A2` target and the whole-line `pulse_1` target have local outward-rounded mathematical `PASS` results; independent replay remains before claim-bearing release.
 - [#12: classical stationary Turing exclusion](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/12) — exact theorem task, mathematically independent of #7.
 - [#13: finite-parameter maximal-canard curve and high-winding connection](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/13) — staged local curve and global same-orbit connection or separation problem.
 

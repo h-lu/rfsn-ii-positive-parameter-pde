@@ -1,0 +1,82 @@
+{
+  "schema_version": "vdp-pulse-1-spectral-contract/1",
+  "frozen_at": "2026-08-29",
+  "issue": 11,
+  "scope": "pulse_1 whole-line linear temporal spectral instability only",
+  "evidence_status": "S0_FROZEN_CONTRACT_WITH_COMPUTED_E1_SEED",
+  "claim_bearing": false,
+  "profile_seed": {
+    "path": "numerics/results/vdp_v1_v7/v7_multipulses.npz",
+    "array_prefix": "pulse_1_",
+    "sha256": "28303dc49bdf1fa69b828fd6f6ccb955f4418adbfe0c789985d1332a58bac340",
+    "saved_physical_window": [-2.08, 2.08],
+    "identity_boundary": "pulse_1 is the saved floating representative of the primary symmetric homoclinic selected by P2c; the NPZ truncation is not itself the proof object"
+  },
+  "parameters": {
+    "r": 0.08,
+    "a2": 0.0,
+    "epsilon": 1.0,
+    "a": 1.0,
+    "d": 0.00004096
+  },
+  "true_profile_import": {
+    "certificate": "validation/rigorous/results/vdp_bridge_v1_p2c_homoclinic.json",
+    "certificate_sha256": "38709fac54569f190f3663df95baedbdb6e0c646d3ec372385a1373dfaf34d34",
+    "configuration": "validation/rigorous/config/vdp_p2_homoclinic_v1.json",
+    "configuration_sha256": "a1aca97d2fcf76f336dc06734c1ced25aeb9bd6b1bfa69b9dc8a6545846ce9ac",
+    "selected_object": "the P2c primary first-hit symmetric homoclinic at (r,a2,epsilon)=(2/25,0,1)",
+    "mathematical_status": "LOCAL_PASS",
+    "release_boundary": "independent-machine replay pending"
+  },
+  "whole_line_linearization": {
+    "space": "L^2(R;C)^2",
+    "domain": "H^2(R;C)^2",
+    "operator": "L(phi,psi)=(d*phi_xx-f'(U)*phi+psi,-epsilon*phi+psi_xx)",
+    "translation_mode": "L(U',V')=0"
+  },
+  "operator_pencil": {
+    "A": "-partial_xx",
+    "K_lambda": "d*A+f'(U)+lambda+epsilon*(lambda+A)^(-1)",
+    "lambda_lower": 0.01,
+    "lambda_upper": 2.0,
+    "essential_spectrum_lower_edge": "0.0128+0.99995904*lambda for lambda in [0.01,2]",
+    "uniform_essential_gap": 0.0227995904,
+    "large_endpoint_bound": "K_2 >= I"
+  },
+  "central_augmented_integral": {
+    "coordinate_relation": "U_physical-a=-r^2*U_central and dx=r*d_xi",
+    "density": "G(U)=0.01*U^2-r^2*U^3+(2/3)*r^4*U^4",
+    "physical_identity": "M_0.01=2*r^5*integral_0^infinity G(U_central(xi))*d_xi",
+    "saved_candidate_half_moment": -0.134694823722036,
+    "required_full_half_moment_upper_bound": -0.13,
+    "required_physical_moment_upper_bound": -8e-7
+  },
+  "tail_import": {
+    "evidence": "validation/rigorous/design/p2c_tail_composition_v1.json",
+    "evidence_sha256": "0999f97a65fd5c58258a7aeec0ec820e272306a5e89acacafe09ea0183350eef",
+    "usable_bounds": "|Gamma(xi)| <= 1.082*exp(-|xi|/5) outside the source-to-symmetry compact segment and source-to-symmetry time > 9.6",
+    "required_absolute_half_tail_upper_bound": 0.001
+  },
+  "completion_rule": {
+    "minimal_inputs": [
+      "the P2c true selected homoclinic at the frozen parameter point",
+      "an outward-rounded integral on the same P2c Krawczyk root",
+      "the imported P2c exponential tail bound",
+      "the whole-line operator-pencil theorem with an explicit essential-spectrum gap"
+    ],
+    "not_required": [
+      "Evans-function contour",
+      "finite-window spectral discretization",
+      "nonlinear instability",
+      "dynamic pattern selection",
+      "Turing selection",
+      "canard identification"
+    ]
+  },
+  "nonclaims": [
+    "The saved finite-window pulse arrays are not an enclosure of the true whole-line profile.",
+    "The conclusion is a positive real L2 point eigenvalue, not a full spectral census.",
+    "The background essential spectrum touches the imaginary axis at plus or minus i; no nonlinear instability theorem is asserted.",
+    "Independent replay is required before promotion to a public computer-assisted claim."
+  ]
+}

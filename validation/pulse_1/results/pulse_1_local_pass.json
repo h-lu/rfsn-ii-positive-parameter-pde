@@ -1,0 +1,147 @@
+{
+  "schema_version": "rfsn-vdp-pulse-1-local-result/1",
+  "record_kind": "curated local run record; not a release certificate",
+  "run_date": "2026-08-29",
+  "evidence_status": "LOCAL_OUTWARD_ROUNDED_MATHEMATICAL_PASS",
+  "mathematical_status": "PASS",
+  "claim_bearing": false,
+  "claim_boundary": "Independent-machine replay required by CLAIM_REGISTER.md is pending.",
+  "scope": "The P2c selected primary homoclinic at the frozen target has a real positive whole-line L2 temporal eigenvalue in (0.01,2).",
+  "parameters": {
+    "r": "2/25",
+    "a2": "0",
+    "epsilon": "1",
+    "a": "1",
+    "d": "(2/25)^4",
+    "lambda_lower": "1/100",
+    "lambda_upper": "2"
+  },
+  "source": {
+    "path": "validation/pulse_1/pulse_1_capd.cpp",
+    "sha256": "932bbe3646047cef9ef24ee81d769555f3d73669c57b5b20200797fa622d7c1d",
+    "included_p2c_path": "validation/rigorous/design/p2c_homoclinic_multishoot_scout.cpp",
+    "included_p2c_sha256": "7f1947f4d8ca7eaa74194a5060911a167982e6e5038c585be7609e5e36a98493",
+    "forced_h10_path": "frozen-imports/rfsn-ii-d54add098545063d5efe8f1d6f062d4cfc116a0d/source/validation/origin-algebraic-heteroclinic/unstable_graph_terms.hpp",
+    "forced_h10_sha256": "d617587ea1b9037c1c7575ccdde5029529ec5b736dee259baff9a2a162001e96",
+    "contract": "numerics/config/vdp_pulse_1_spectral_v1.json",
+    "contract_sha256": "c5bf5cb341e7ec359a38fad06b3d5b406226aab151108c52d22690419ec0559a",
+    "output_schema": "rfsn-vdp-pulse-1-capd/1"
+  },
+  "profile_and_tail_imports": {
+    "p2c_certificate": "validation/rigorous/results/vdp_bridge_v1_p2c_homoclinic.json",
+    "p2c_certificate_sha256": "38709fac54569f190f3663df95baedbdb6e0c646d3ec372385a1373dfaf34d34",
+    "p2c_tail_evidence": "validation/rigorous/design/p2c_tail_composition_v1.json",
+    "p2c_tail_evidence_sha256": "0999f97a65fd5c58258a7aeec0ec820e272306a5e89acacafe09ea0183350eef",
+    "tail_fields_used": [
+      "tail_weight_one_fifth_constants.normalized_parameters.C0",
+      "compact_local_pre_source_segment.weight_one_fifth_compact_constants.normalized_parameters.C0"
+    ],
+    "common_C0_exact_fraction": "77938802883885303/72057594037927936",
+    "common_C0_decimal": "1.0816181684176376",
+    "weakened_C0": "541/500",
+    "weakened_half_time_lower": "48/5"
+  },
+  "toolchain": {
+    "lock": "validation/rigorous/dependency.lock.json",
+    "lock_sha256": "4d486a63cddf0902cc9fc4dedacc5a172527f6e167e2d311afa680c077a45b68",
+    "capd_commit": "731079217a9254ea2948d742df2b170895effe7f",
+    "capd_tree": "f83b177786fa322240b24f21173eaf9b32496d48",
+    "compiler": "g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+    "compiler_sha256": "e6718f7e0c7d057c3ff77b550c603da9bc4030e3ede3c053705acce1293dbe4d",
+    "libcapd_sha256": "bf888737d3aab53e66c3bf5ee0199b6eb9f6747b2b567f3c5aa9c7ac0ae1267a",
+    "libfilib_sha256": "f0105bda942524bc7a1c3c9ad39a0f34e031e26afdc15017704cdd3878fc3d5c",
+    "local_binary_sha256": "ee28bc369277fbdcd7c66e06992548e93a7f36264c5ac1078da85534a141acd9",
+    "local_raw_stdout_sha256": "212a6cec4e2603e4946f8982e90e315e896a760486cc2e40646413c4151f2c91",
+    "compiler_argv": [
+      "/usr/bin/g++",
+      "validation/pulse_1/pulse_1_capd.cpp",
+      "-include",
+      "/home/hblu/Documents/Codex/2026-08-27/rfsn-ii-positive-parameter-pde/frozen-imports/rfsn-ii-d54add098545063d5efe8f1d6f062d4cfc116a0d/source/validation/origin-algebraic-heteroclinic/unstable_graph_terms.hpp",
+      "-I/tmp/rfsn-vdp-capd-strict-7310792/capdDynSys/include",
+      "-I/tmp/rfsn-vdp-capd-strict-7310792/capdAlg/include",
+      "-I/tmp/rfsn-vdp-capd-strict-7310792/capdAux/include",
+      "-I/tmp/rfsn-vdp-capd-strict-7310792/capdExt/include",
+      "-I/tmp/rfsn-vdp-capd-strict-7310792/capdExt/filibsrc",
+      "-std=c++17",
+      "-O2",
+      "-frounding-math",
+      "-D__USE_FILIB__",
+      "-O2",
+      "-frounding-math",
+      "-DFILIB_EXTENDED",
+      "-DFILIB_HAVE_SSE",
+      "-DNDEBUG",
+      "-fno-fast-math",
+      "-ffp-contract=off",
+      "-fno-tree-vectorize",
+      "-fno-ipa-pure-const",
+      "-L/tmp/rfsn-vdp-capd-strict-7310792/build-strict",
+      "-L/tmp/rfsn-vdp-capd-strict-7310792/build-strict/capdExt/filibsrc",
+      "-lcapd",
+      "-lfilib",
+      "-o",
+      "/tmp/rfsn-pulse-1-capd-locked"
+    ],
+    "process_policy": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "LC_ALL": "C.UTF-8"
+    }
+  },
+  "checks": {
+    "complete_rounding_self_test": "PASS",
+    "fixed_parameter_homoclinic_root": "PASS",
+    "selected_p2c_grid_cell_31_64_2": "PASS",
+    "point_root_into_selected_cell_uniqueness_box": "PASS",
+    "point_root_to_selected_cell_max_ratio": 0.33311716340064657,
+    "krawczyk_max_inclusion_ratio": 0.76034508383926735,
+    "krawczyk_max_contraction_ratio": 0.76034474442317446,
+    "compact_moment_below_minus_0_13": "PASS",
+    "imported_absolute_half_tail_below_0_001": "PASS",
+    "full_half_moment_below_minus_0_13": "PASS",
+    "physical_moment_below_minus_8e_7": "PASS",
+    "frozen_seed_centre_and_time_selection": "PASS"
+  },
+  "enclosures": {
+    "endpoint_format": "IEEE754_BINARY64_HEX",
+    "shooting_determinant": {
+      "lower_hex": "0x1.22e17020180b1p+7",
+      "upper_hex": "0x1.47025e1d530b3p+7"
+    },
+    "compact_source_to_centre_moment": {
+      "lower_hex": "-0x1.1406e83eafb5ap-3",
+      "upper_hex": "-0x1.13af3641cf5bcp-3"
+    },
+    "imported_absolute_half_tail": {
+      "lower_hex": "0x0p+0",
+      "upper_hex": "0x1.6026bf62935ep-11"
+    },
+    "full_half_moment": {
+      "lower_hex": "-0x1.15670efe1249p-3",
+      "upper_hex": "-0x1.124f0f826cc86p-3"
+    },
+    "physical_full_line_moment_M_0_01": {
+      "lower_hex": "-0x1.dc92f10e330bep-21",
+      "upper_hex": "-0x1.d7424ca8f583fp-21"
+    },
+    "source_to_symmetry_time": {
+      "lower_hex": "0x1.34e1b7a3cbb8bp+3",
+      "upper_hex": "0x1.34e321ac98e73p+3"
+    },
+    "symmetry_centre_U": {
+      "lower_hex": "0x1.3b39f8fc581a2p+2",
+      "upper_hex": "0x1.3b3eff9e22abbp+2"
+    },
+    "symmetry_centre_V": {
+      "lower_hex": "-0x1.00c3378d5d0cep+3",
+      "upper_hex": "-0x1.00bb1d374bf9fp+3"
+    }
+  },
+  "mathematical_conclusion": "The selected true pulse has a real whole-line L2 temporal eigenvalue lambda_* in (0.01,2).",
+  "nonclaims": [
+    "No complete whole-line spectral census or Evans contour is asserted.",
+    "No nonlinear instability or dynamical pattern-selection theorem is asserted.",
+    "No Turing bifurcation or canard identification is asserted.",
+    "The finite-window floating eigenvalue is not used in the proof."
+  ]
+}

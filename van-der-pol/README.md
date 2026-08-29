@@ -225,3 +225,23 @@ orbit in the frozen shooting box and the strict interval moment, hence a real
 co-periodic eigenvalue \(\lambda_*\in(0.01,2)\).  This is a local mathematical
 `PASS`; independent replay remains before claim-bearing release.  It supplies
 neither nonlinear instability nor temporal selection.
+
+The corresponding whole-line result is
+[`PULSE_1_SPECTRAL_INSTABILITY.md`](PULSE_1_SPECTRAL_INSTABILITY.md).  It
+repairs the two points that differ from the periodic proof: on
+\(\mathbb R\), \((-\partial_x^2)^{-1}\) is not bounded, and a zero of the
+self-adjoint pencil must be separated from its essential spectrum.  The
+stationary PDE supplies the needed inverse only on the profile direction,
+while the frozen target has the explicit pencil gap
+\(m_\infty(\lambda)\ge0.0227995904\) for
+\(\lambda\in[0.01,2]\).  The target-point
+[`pulse_1` validator](../validation/pulse_1/README.md) identifies its root with
+the selected P2c primary homoclinic and proves
+
+\[
+ M_{0.01}\in[-8.876883,-8.777882]\times10^{-7}<0.
+\]
+
+Thus this true localized stationary profile has a positive real whole-line
+\(L^2\) eigenvalue in \((0.01,2)\).  This too is a local mathematical `PASS`
+pending independent replay and does not assert nonlinear selection.

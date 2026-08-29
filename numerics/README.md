@@ -173,6 +173,22 @@ proof of a real A2 co-periodic eigenvalue in \((0.01,2)\).  Independent replay
 is still pending before claim-bearing release; a rigorous Fourier/Bloch
 truncation is not needed for this target.
 
+For the one-pulse target, the separate
+[whole-line operator-pencil note](../van-der-pol/PULSE_1_SPECTRAL_INSTABILITY.md)
+adds the essential-spectrum argument that is absent on a periodic domain.
+The saved arrays give the floating candidate
+\(M_{0.01}\approx-8.82736\times10^{-7}\), but the proof instead uses the
+true selected P2c homoclinic.  Its
+[`pulse_1` CAPD validator](../validation/pulse_1/README.md) proves
+
+\[
+ M_{0.01}\in[-8.876883,-8.777882]\times10^{-7}<0,
+\]
+
+and hence a real whole-line \(L^2\) eigenvalue in \((0.01,2)\).  This local
+mathematical `PASS` is independent of the finite-window matrix and awaits
+only independent-machine replay before claim-bearing release.
+
 The same run records positive-fold passages and the FSN-II degeneracy of the
 singular reduced problem.  It does not compute an intersection of the relevant
 finite-parameter slow manifolds, so it does **not** identify a maximal canard.
