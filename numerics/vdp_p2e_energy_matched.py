@@ -1,9 +1,9 @@
 """Energy-preserving small-r central--K1--outer matched centerline.
 
-This floating-point solve removes the central collocation leg.  A true central
-IVP supplies the common cut, while the reduced K1 and positive-pi outer BVP
-solves simultaneously for source phase and energy.  The missing q1 seam
-equation is an explicit boundary condition.
+This floating-point solve removes the central collocation leg.  A direct
+high-accuracy central IVP supplies the common cut, while the reduced K1 and
+positive-pi outer BVP solves simultaneously for source phase and energy.  The
+missing q1 seam equation is an explicit boundary condition.
 """
 
 from __future__ import annotations

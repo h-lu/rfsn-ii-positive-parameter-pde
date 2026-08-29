@@ -18,10 +18,10 @@ fixed `H=0` and expected the omitted `q1` row to follow automatically from
 energy conservation.  A central collocation residual of order `1e-4` broke
 that implication and amplified to an order-one `q1` seam error.
 
-The repaired system removes the central collocation leg.  A high-accuracy
-true central IVP reaches `U=-4`, and a four-state reduced `K1`--outer BVP
-solves for two scalar parameters `(source phase,H)`.  Its six boundary rows
-are exactly
+The repaired system removes the central collocation leg.  A direct
+high-accuracy central IVP reaches `U=-4`, and a four-state reduced
+`K1`--outer BVP solves for two scalar parameters `(source phase,H)`.  Its six
+boundary rows are exactly
 
 1. central--`K1` matching of `Pi`, `Omega`, and `q1`;
 2. `K1`--outer matching of the two positive-`pi` coordinates;
