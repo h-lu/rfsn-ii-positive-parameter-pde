@@ -41,8 +41,10 @@ remain authoritative.
 - Post-existence work has begun under separate issues.  #11 now gives local
   positive temporal eigenvalues for A2 and `pulse_1` and a proved nonlinear
   orbital-instability bridge; #12 proves exact classical stationary Turing
-  exclusion; #13 has a fixed-parameter formal-entry splitting scout that is
-  candidate-only because the invariant slow-manifold entry is missing.
+  exclusion; #13 now has a central-localized frozen-boundary A.3-compatible
+  half-orbit candidate at \(a_2\approx-0.008338195267\).  It remains
+  candidate-only because the intrinsic \(W^{cu}\) entry and simple-zero graph
+  are missing.
   Temporal stability, dynamic pattern selection, and maximal-canard
   identification remain open.  An independent human expert report is requested
   in Issue #9 and is not claimed before it is returned.

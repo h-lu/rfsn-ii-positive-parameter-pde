@@ -2,29 +2,31 @@
 
 ## Outcome
 
-The formal-entry scout has now been replaced, on the frozen slice
+The formal-entry scout has now been replaced, at
 
 \[
- (r,\epsilon,a_2)=(0.08,1,-1/120),
+ (r,\epsilon)=(0.08,1),
 \]
 
 by collocation solutions of the exact finite-\(r\) central-chart field.  The
-calculation follows the saddle-slow-manifold construction in Appendix A.2 of
-the published
+calculation uses Appendix A.2 of the published
 [Vo--Doelman--Kaper paper](https://doi.org/10.1137/24M1690722) and continues
-the endpoint family through its reversible representative by a weighted
-pseudo-arclength condition.
+its half-orbit as the seed for an A.3-compatible, central-localized
+zero-energy BVP in which \(a_2\) is an unknown.  The older endpoint-family
+pseudo-arclength root is retained separately as a wrong-branch diagnostic.
 
 The strongest honest status is
 
 ```text
-COMPUTED/E1_BOUNDARY_SELECTED_A2_COINCIDENCE_CANDIDATE
+COMPUTED/E1_FINITE_BOUNDARY_A3_COMPATIBLE_PRIMARY_CANDIDATE
 INCONCLUSIVE_INTRINSIC_SLOW_TRACE_AND_TARGET_BRANCH_NOT_VALIDATED
 ```
 
 This is a real advance over the projected formal jet: the saved entry and
-coincidence candidate lie on collocation solutions of the exact finite-
-\(r\) vector field.  It is not yet a finite-parameter maximal-canard result.
+central-localized candidate lie on a collocation solution of the exact
+finite-\(r\) vector field and satisfy the six A.3-compatible boundary
+conditions.  It is still a finite-boundary candidate, not a finite-parameter
+maximal-canard result.
 
 ## Finite-\(r\) BVP solved numerically
 
@@ -43,6 +45,73 @@ with
  H_2=\frac12(p_2^2-q_2^2)+(u_2-ra_2)v_2
       -\frac13u_2^3-\frac{r^2}{12}u_2^4.
 \]
+
+## Strongest computed object: frozen-boundary A.3 half orbit
+
+Freeze the outer data
+
+\[
+ u_*=16.64508336484338,
+ \qquad q_*=-80,
+ \qquad g_r(u)=u^2+\frac{r^2}{3}u^3.
+\]
+
+Here \(u_*\) is an explicit value taken from the previously computed A.2
+half orbit; it is not recomputed as \(a_2\) varies.  For the half orbit
+\(z_s=T F_{K_2}(z;r,a_2)\), the unknowns are the function \(z\) and the two
+scalars \((T,a_2)\).  The six boundary conditions are
+
+\[
+ u_L=u_*,\qquad v_L=g_r(u_L),\qquad q_L=q_*,
+ \qquad p_R=0,\qquad q_R=0,\qquad H_2(z_L;r,a_2)=0.
+\]
+
+Starting from the A.2 half-orbit shape and \(a_2=-1/120\), the solve gives
+
+\[
+ T=14.2905556259,
+ \qquad
+ a_2=-0.0083381952670,
+\]
+
+and reaches the reverser at
+
+\[
+ z_R\approx
+ (-0.0006670525,0,-0.1666684089,0).
+\]
+
+The maximum boundary residual is \(5.41\times10^{-13}\), the maximum
+mesh-interval RMS relative residual is \(2.00\times10^{-8}\), and the sampled
+Hamiltonian drift is \(5.70\times10^{-10}\).  On the sampled open half orbit,
+both \(p_2\) and \(q_2\) stay negative.  At the reverser,
+
+\[
+ p_2'=g_r(u_2)-v_2\approx0.166669>0,
+\]
+
+so \(p_2=0\) is the well-conditioned event section; \(q_2=0\) would be
+nearly tangent because \(q_2'=u_2-ra_2\approx3.1\times10^{-9}\).
+
+The order-three Appendix-C formal state at the computed \(a_2\) differs from
+the endpoint by only
+
+\[
+ (1.98\times10^{-7},0,-1.45\times10^{-6},0),
+\]
+
+and
+
+\[
+ \frac{a_2+5r/48}{r^3}\approx-0.009496.
+\]
+
+Reflection gives a full reversible segment of flight time \(2T\); it is not
+called a periodic orbit.  These diagnostics identify the intended
+central/no-loop candidate at floating level, but do not prove intrinsic
+slow-manifold membership, boundary independence, or uniqueness.
+
+## A.2 saddle-slow seed
 
 The outside A.2 family uses the frozen boundary \(q_2=-80\), starts on the
 \(p_2\)-nullcline
@@ -81,7 +150,7 @@ This is a branch-identified finite-boundary saddle-slow entry candidate.  Its
 energy is \(H_2\approx-1.116\times10^{-4}\), so it is not the desired
 zero-energy trace.
 
-## Pseudo-arclength and the zero-energy BVP candidate
+## Legacy endpoint-family wrong-branch diagnostic
 
 Directly varying an endpoint at the reversible representative is singular.
 The code therefore solves the linearized BVP for the endpoint-family tangent,
@@ -141,36 +210,41 @@ entry at
  \qquad p_2'\approx0.39936.
 \]
 
-Thus the boundary-selected BVP has a numerically closed, apparently reversible
-coincidence candidate.  Unlike the old scout, its zero splitting is not
-produced by projecting a formal entry.
+Thus the older boundary-selected endpoint family has a numerically closed,
+apparently reversible coincidence candidate.  Unlike the original formal
+scout, its zero splitting is not produced by projection, but its central
+endpoint shows that it follows the wrong A.2 branch for the primary canard.
 
 ## Why Issue #13 remains open
 
-The coincidence above is not automatically the maximal canard of Lemma 6.4.
-The order-three published algebraic-canard jet has central point
+The legacy endpoint-family coincidence is not the maximal canard of Lemma
+6.4.  The order-three published algebraic-canard jet has central point
 
 \[
  (-6.67\times10^{-4},0,-0.166667,0),
 \]
 
-whereas the computed root hits the reverser at
+whereas that legacy root hits the reverser at
 \((0.77309,0,0.19930,0)\).  It therefore fails the frozen central-localization
 diagnostic by an \(O(1)\) margin.  This is a branch warning, not a rigorous
 separation theorem, because the formal jet is asymptotic and not an interval
 enclosure.
 
-More importantly, Appendix A.2 selects a finite-boundary representative.  To
-complete C1 and C2 one must still isolate the symmetry-breaking slow-sheet
-direction, prove or validate independence from that finite boundary, transport
-the resulting \(H_2=0\) trace to \(u_2=16\), and then evaluate
+The new A.3-compatible root avoids the observed wrong-branch diagnostic, but it freezes the
+outer value \(u_*\).  Independence from that choice has not been established,
+so it does not by itself define the intrinsic \(W^{cu}\) trace.  A first
+strict step can enclose this frozen-boundary root with CAPD multiple shooting,
+using \(p_2=0\) as its terminal Poincare section.  To complete intrinsic C1
+and C2 one must anchor the relevant \(W^{cu}\) disk at the equator, transport
+its \(H_2=0\) trace through the K1--K2 transition, and then evaluate
 
 \[
  S(r,a_2)=q_2\big|_{\text{first increasing }p_2=0}
 \]
 
-as a genuine two-parameter splitting.  A simple zero of this function, with
-\(\partial_{a_2}S\ne0\), has not yet been computed or enclosed.
+as a genuine two-parameter splitting on the primary no-loop branch continued
+from \(\Gamma_0\).  A simple zero of this function, with
+\(\partial_{a_2}S\ne0\), has not yet been enclosed.
 
 Consequently this record does not classify \(a_2=0\), enclose the remainder in
 \(a_{2,c}(r)\), or connect the frozen high-winding target to a canard.

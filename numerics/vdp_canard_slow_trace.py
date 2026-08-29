@@ -3,25 +3,29 @@
 This module replaces the formal-entry projection used by
 ``vdp_canard_splitting_scout`` with solutions of the exact central-chart
 vector field selected by the Appendix-A.2 boundary-value construction of
-Vo--Doelman--Kaper.  It has two deliberately separate outputs.
+Vo--Doelman--Kaper.  It has three deliberately separate outputs.
 
 1.  A primary finite-r saddle-slow representative is continued from the
     outside A.2 family to its reversible fold representative.  Its crossing
     of the fixed section ``u2=16`` is an actual point of the computed BVP
     orbit, not a projected formal jet.
-2.  The endpoint family through that reversible representative is continued
+2.  A frozen-outer-boundary A.3-compatible half-orbit treats the flight time
+    and ``a2`` as unknowns and imposes zero energy together with a central
+    reverser endpoint.  This selects the central-localized primary candidate
+    near the Appendix-C formal canard.
+3.  The endpoint family through the reversible A.2 representative is
+    continued
     along its linearized family tangent by a weighted pseudo-arclength
     condition.  The boundary condition ``H2=0`` is then imposed in a
     collocation solve and the resulting first increasing ``p2=0`` hit is
     recorded.
 
-The second object is a genuine *boundary-selected BVP coincidence candidate*.
-It is not yet the intrinsic ``W^cu(P_-)=W^cs(P_+)`` coincidence required by
-Issue #13: the A.2 boundary representative has not been proved independent
-of its finite boundary, and the zero-energy BVP candidate found on the frozen
-slice does not pass the frozen localization diagnostic for the published
-algebraic RFSN-II canard.  These distinctions are part of the generated
-report.
+The second object is the strongest computed candidate, but it is still a
+*finite-boundary* BVP object rather than the intrinsic
+``W^cu(P_-)=W^cs(P_+)`` coincidence required by Issue #13.  The third object
+is retained as a branch-selection warning: its zero-energy root is reversible
+but misses the published central canard by an order-one amount.  These
+distinctions are part of the generated report.
 """
 
 from __future__ import annotations
@@ -56,11 +60,14 @@ CONFIG_PATH = (
     / "vdp_canard_slow_trace_v1.json"
 )
 
-EVIDENCE_STATUS = "COMPUTED/E1_BOUNDARY_SELECTED_A2_COINCIDENCE_CANDIDATE"
+EVIDENCE_STATUS = (
+    "COMPUTED/E1_FINITE_BOUNDARY_A3_COMPATIBLE_PRIMARY_CANDIDATE"
+)
 ENTRY_STATUS = "COMPUTED/E1_BOUNDARY_SELECTED_FINITE_R_SADDLE_SLOW_ENTRY"
 COINCIDENCE_STATUS = (
     "COMPUTED/E1_BOUNDARY_SELECTED_ZERO_ENERGY_BVP_CANDIDATE"
 )
+A3_CANDIDATE_STATUS = EVIDENCE_STATUS
 MAXIMAL_CANARD_STATUS = (
     "INCONCLUSIVE_INTRINSIC_SLOW_TRACE_AND_TARGET_BRANCH_NOT_VALIDATED"
 )
@@ -74,6 +81,8 @@ class SlowTraceConfiguration:
     r: float
     a2: float
     outer_q_boundary: float
+    a3_outer_u2_boundary: float
+    a3_candidate_a2_interval: tuple[float, float]
     entry_section_u2: float
     natural_start_u2: float
     natural_geometric: tuple[float, float, int]
@@ -114,6 +123,10 @@ def load_configuration(path: Path = CONFIG_PATH) -> SlowTraceConfiguration:
         r=float(data["r"]),
         a2=float(data["a2"]),
         outer_q_boundary=float(data["outer_q_boundary"]),
+        a3_outer_u2_boundary=float(data["a3_outer_u2_boundary"]),
+        a3_candidate_a2_interval=tuple(
+            float(value) for value in data["a3_candidate_a2_interval"]
+        ),
         entry_section_u2=float(data["entry_section_u2"]),
         natural_start_u2=float(data["natural_start_u2"]),
         natural_geometric=triple(continuation["geometric"]),
@@ -165,9 +178,16 @@ def vectorized_central_field(
     )
 
 
-def _hamiltonian(state: Array, configuration: SlowTraceConfiguration) -> float:
+def _hamiltonian(
+    state: Array,
+    configuration: SlowTraceConfiguration,
+    *,
+    a2: float | None = None,
+) -> float:
     return central_hamiltonian(
-        state, r=configuration.r, a2=configuration.a2
+        state,
+        r=configuration.r,
+        a2=configuration.a2 if a2 is None else a2,
     )
 
 
@@ -258,6 +278,55 @@ def _outside_half(configuration: SlowTraceConfiguration) -> Any:
             tol=configuration.continuation_tolerance,
             max_nodes=configuration.max_nodes,
             label=f"outside A.2 terminal-q continuation to q2={target}",
+        )
+    return solution
+
+
+def _localized_a3_half(
+    configuration: SlowTraceConfiguration, initialization_half: Any
+) -> Any:
+    """Solve the frozen-boundary A.3-compatible zero-energy half BVP."""
+
+    r = configuration.r
+    outer_u = configuration.a3_outer_u2_boundary
+    outer_q = configuration.outer_q_boundary
+    mesh = np.linspace(0.0, 1.0, configuration.half_mesh_points)
+
+    def field(_s: Array, state: Array, parameter: Array) -> Array:
+        flight_time, a2 = parameter
+        return flight_time * vectorized_central_field(
+            state, r=r, a2=float(a2)
+        )
+
+    def boundary(left: Array, right: Array, parameter: Array) -> Array:
+        a2 = float(parameter[1])
+        return np.asarray(
+            [
+                left[0] - outer_u,
+                left[2] - critical_graph(left[0], r=r),
+                left[3] - outer_q,
+                right[1],
+                right[3],
+                central_hamiltonian(left, r=r, a2=a2),
+            ]
+        )
+
+    solution = _solve_or_raise(
+        field,
+        boundary,
+        mesh,
+        initialization_half.sol(mesh),
+        p=[float(initialization_half.p[0]), configuration.a2],
+        tol=configuration.root_tolerance,
+        max_nodes=configuration.max_nodes,
+        label="frozen-boundary A.3-compatible half-orbit candidate",
+    )
+    a2_candidate = float(solution.p[1])
+    lower, upper = configuration.a3_candidate_a2_interval
+    if not lower <= a2_candidate <= upper:
+        raise RuntimeError(
+            "A.3-compatible candidate left its frozen posterior branch gate: "
+            f"{a2_candidate} not in [{lower}, {upper}]"
         )
     return solution
 
@@ -632,6 +701,18 @@ def _state_record(state: Array) -> list[float]:
     return [float(value) for value in state]
 
 
+def _reflected_half_states(solution: Any, sample: Array) -> Array:
+    """Reflect one half orbit into a full normalized reversible segment."""
+
+    result = np.empty((4, sample.size), dtype=np.float64)
+    first = sample <= 0.5
+    result[:, first] = solution.sol(2.0 * sample[first])
+    result[:, ~first] = solution.sol(2.0 * (1.0 - sample[~first]))
+    result[1, ~first] *= -1.0
+    result[3, ~first] *= -1.0
+    return result
+
+
 def compute_candidate(
     configuration: SlowTraceConfiguration | None = None,
 ) -> tuple[dict[str, Any], dict[str, Array]]:
@@ -640,6 +721,7 @@ def compute_candidate(
         raise ValueError("the v1 A.2 computation is frozen to epsilon=1")
 
     half = _outside_half(config)
+    a3_half = _localized_a3_half(config, half)
     primary = _reflected_primary(config, half)
     half_entry_s, half_entry = _fixed_section_state(
         half, config.entry_section_u2
@@ -677,15 +759,87 @@ def compute_candidate(
     )[:, 0]
     negative, positive = bracket
 
+    a3_a2 = float(a3_half.p[1])
+    a3_half_time = float(a3_half.p[0])
+    a3_sample = np.linspace(0.0, 1.0, 4001)
+    a3_states = np.asarray(a3_half.sol(a3_sample), dtype=np.float64)
+    a3_energies = np.asarray(
+        [
+            _hamiltonian(a3_states[:, index], config, a2=a3_a2)
+            for index in range(a3_sample.size)
+        ]
+    )
+    a3_left = np.asarray(a3_half.sol(0.0), dtype=np.float64)
+    a3_right = np.asarray(a3_half.sol(1.0), dtype=np.float64)
+    a3_boundary_residuals = {
+        "left_u2_minus_frozen": float(
+            a3_left[0] - config.a3_outer_u2_boundary
+        ),
+        "left_v2_minus_p_nullcline": float(
+            a3_left[2] - critical_graph(a3_left[0], r=config.r)
+        ),
+        "left_q2_minus_outer": float(
+            a3_left[3] - config.outer_q_boundary
+        ),
+        "right_p2": float(a3_right[1]),
+        "right_q2": float(a3_right[3]),
+        "left_hamiltonian": _hamiltonian(
+            a3_left, config, a2=a3_a2
+        ),
+    }
+    a3_boundary_residual_inf = max(
+        abs(value) for value in a3_boundary_residuals.values()
+    )
+    a3_field_at_right = vectorized_central_field(
+        a3_right[:, None], r=config.r, a2=a3_a2
+    )[:, 0]
+    a3_open = a3_states[:, 1:-1]
+    a3_open_max_p = float(np.max(a3_open[1]))
+    a3_open_max_q = float(np.max(a3_open[3]))
+    a3_no_loop_sample_pass = bool(
+        a3_open_max_p < 0.0 and a3_open_max_q < 0.0
+    )
+    a3_formal = formal_canard_jet(
+        0.0, r=config.r, a2=a3_a2, order=3
+    )
+    a3_formal_difference = a3_right - a3_formal
+    a3_localization_passes = bool(
+        abs(a3_formal_difference[0])
+        <= config.central_localization_u2_tolerance
+        and abs(a3_formal_difference[2])
+        <= config.central_localization_v2_tolerance
+    )
+    a3_full_sample = np.linspace(0.0, 1.0, 4001)
+    a3_full_states = _reflected_half_states(a3_half, a3_full_sample)
+    reverser = np.asarray([1.0, -1.0, 1.0, -1.0])[:, None]
+    a3_full_parity_residual = float(
+        np.max(np.abs(a3_full_states - reverser * a3_full_states[:, ::-1]))
+    )
+    a3_midpoint = a3_full_states[:, a3_full_sample.size // 2]
+    a3_midpoint_fix_residual = float(
+        np.max(np.abs(a3_midpoint[[1, 3]]))
+    )
+    a3_endpoint_reverser_residual = float(
+        np.max(
+            np.abs(
+                a3_full_states[:, -1]
+                - reverser[:, 0] * a3_full_states[:, 0]
+            )
+        )
+    )
+    published_leading = -5.0 * config.r / 48.0
+
     report: dict[str, Any] = {
-        "schema_version": "vdp-canard-slow-trace/1",
+        "schema_version": "vdp-canard-slow-trace/2",
         "evidence_status": EVIDENCE_STATUS,
         "claim_bearing": False,
         "parameters": {
             "epsilon": config.epsilon,
             "r": config.r,
             "a2": config.a2,
-            "published_leading_a2": -5.0 * config.r / 48.0,
+            "a2_initial_guess": config.a2,
+            "a2_candidate": a3_a2,
+            "published_leading_a2": published_leading,
         },
         "exact_k2_field": [
             "u2'=p2",
@@ -703,6 +857,28 @@ def compute_candidate(
             "p_nullcline": "v2=u2^2+r^2*u2^3/3",
             "outside_right_boundary": ["p2=0", "u2=0"],
             "fixed_entry_section": f"u2={config.entry_section_u2}, p2<0, q2<0",
+        },
+        "a3_boundary_selection": {
+            "method": (
+                "A.3-compatible half-orbit with frozen Appendix-A.2 outer "
+                "u2 coordinate and unknown (flight_time,a2)"
+            ),
+            "frozen_outer_u2": config.a3_outer_u2_boundary,
+            "frozen_outer_q2": config.outer_q_boundary,
+            "boundary_conditions": [
+                "u2(left)=frozen_outer_u2",
+                "v2(left)=u2(left)^2+r^2*u2(left)^3/3",
+                "q2(left)=frozen_outer_q2",
+                "p2(right)=0",
+                "q2(right)=0",
+                "H2(left;r,a2)=0",
+            ],
+            "unknown_parameters": ["half_flight_time", "a2"],
+            "interpretation": (
+                "The outer u2 value is frozen, not recomputed along the a2 "
+                "solve. This selects a finite-boundary candidate and does "
+                "not define an intrinsic slow manifold."
+            ),
         },
         "primary_saddle_slow_representative": {
             "status": ENTRY_STATUS,
@@ -724,8 +900,69 @@ def compute_candidate(
             ),
         },
         "endpoint_family_tangent": kernel_record,
+        "finite_boundary_a3_compatible_half_candidate": {
+            "status": A3_CANDIDATE_STATUS,
+            "half_flight_time": a3_half_time,
+            "a2_candidate": a3_a2,
+            "left_state": _state_record(a3_left),
+            "reverser_state": _state_record(a3_right),
+            "boundary_residuals": a3_boundary_residuals,
+            "boundary_residual_inf": a3_boundary_residual_inf,
+            "max_interval_rms_relative_residual": float(
+                np.max(a3_half.rms_residuals)
+            ),
+            "hamiltonian_abs_at_left": abs(
+                _hamiltonian(a3_left, config, a2=a3_a2)
+            ),
+            "hamiltonian_drift": float(np.ptp(a3_energies)),
+            "u2_minus_r_a2_at_reverser": float(
+                a3_right[0] - config.r * a3_a2
+            ),
+            "v2_plus_one_sixth_at_reverser": float(
+                a3_right[2] + 1.0 / 6.0
+            ),
+            "event_p2_derivative": float(a3_field_at_right[1]),
+            "open_half_max_p2": a3_open_max_p,
+            "open_half_max_q2": a3_open_max_q,
+            "no_loop_sample_pass": a3_no_loop_sample_pass,
+            "formal_order_3_reverser_state": _state_record(a3_formal),
+            "candidate_minus_formal_reverser": _state_record(
+                a3_formal_difference
+            ),
+            "central_localization_diagnostic": {
+                "u2_tolerance": config.central_localization_u2_tolerance,
+                "v2_tolerance": config.central_localization_v2_tolerance,
+                "passes": a3_localization_passes,
+                "status": (
+                    "PASSES_SAMPLED_FORMAL_LOCALIZATION_DIAGNOSTIC"
+                    if a3_localization_passes
+                    else "DOES_NOT_PASS_SAMPLED_FORMAL_LOCALIZATION_DIAGNOSTIC"
+                ),
+            },
+            "a2_minus_published_leading": a3_a2 - published_leading,
+            "scaled_r3_remainder_candidate": (
+                a3_a2 - published_leading
+            ) / config.r**3,
+            "interpretation": (
+                "Central-localized, sampled no-loop solution of the exact "
+                "finite-r field with the six frozen-boundary A.3-compatible "
+                "conditions. It is not an intrinsic Wcu/Wcs trace, a "
+                "simple-zero graph, or a uniqueness result."
+            ),
+        },
+        "reflected_a3_full_segment": {
+            "total_flight_time": 2.0 * a3_half_time,
+            "midpoint_fix_reverser_residual_inf": a3_midpoint_fix_residual,
+            "endpoint_reverser_residual_inf": a3_endpoint_reverser_residual,
+            "sampled_parity_residual_inf": a3_full_parity_residual,
+            "interpretation": (
+                "Exact algebraic reflection of the computed half segment; "
+                "this is not called a periodic orbit or a period."
+            ),
+        },
         "zero_energy_coincidence_candidate": {
             "status": COINCIDENCE_STATUS,
+            "role": "LEGACY_A2_ENDPOINT_FAMILY_WRONG_BRANCH_DIAGNOSTIC",
             "period": float(root.p[0]),
             "left_state": _state_record(left),
             "right_state": _state_record(right),
@@ -771,6 +1008,7 @@ def compute_candidate(
             },
         },
         "target_branch_diagnostic": {
+            "role": "LEGACY_A2_ENDPOINT_FAMILY_WRONG_BRANCH_DIAGNOSTIC",
             "published_order_3_formal_midpoint": _state_record(formal_midpoint),
             "candidate_minus_formal_midpoint": _state_record(central_difference),
             "frozen_u2_tolerance": config.central_localization_u2_tolerance,
@@ -794,17 +1032,17 @@ def compute_candidate(
             "finite_parameter_maximal_canard_status": MAXIMAL_CANARD_STATUS,
             "current_sample_a2_zero_classification": "INCONCLUSIVE",
             "surrogate_upgrade": (
-                "The formal projected entry has been replaced by collocation "
-                "solutions of the exact finite-r field on a boundary-selected "
-                "A.2 branch. An H2=0 condition is imposed in the candidate "
-                "BVP, whose numerically observed reversibility does not yet "
-                "identify the intrinsic Wcu/Wcs maximal-canard branch."
+                "A frozen-boundary A.3-compatible half BVP now solves for "
+                "(T,a2), imposes H2=0 and p2=q2=0 at the reverser, and lands "
+                "on the Appendix-C central branch. It remains a finite-"
+                "boundary candidate rather than an intrinsic Wcu/Wcs trace."
             ),
             "next_mathematical_object": (
-                "Resolve the symmetry-breaking/slow-sheet direction "
-                "independently of the endpoint family, transport its "
-                "H2=0 trace to u2=16, and evaluate q2 at the first increasing "
-                "p2=0 hit as a function of (r,a2)."
+                "First promote the frozen-boundary root with a CAPD "
+                "multiple-shooting/Poincare enclosure on p2=0. For intrinsic "
+                "C1/C2, anchor a Wcu disk at the equator, transport its H2=0 "
+                "trace through K1-K2, and validate the primary no-loop simple-"
+                "zero tube as a function of (r,a2)."
             ),
         },
         "nonclaims": [
@@ -815,6 +1053,10 @@ def compute_candidate(
             (
                 "The zero-energy BVP candidate is not identified with the "
                 "Lemma-6.4 maximal canard."
+            ),
+            (
+                "The A.3-compatible candidate depends on one frozen outer "
+                "boundary coordinate and is not a boundary-independent trace."
             ),
             "The localization diagnostic is not an interval separation result.",
             "No simple-zero a2,c(r) graph or parameter derivative is validated.",
@@ -838,6 +1080,11 @@ def compute_candidate(
         "continuation_hamiltonian": np.asarray(
             [row["hamiltonian"] for row in continuation]
         ),
+        "a3_half_s": a3_sample,
+        "a3_half_states": a3_states,
+        "a3_half_hamiltonian": a3_energies,
+        "a3_full_s": a3_full_sample,
+        "a3_full_states": a3_full_states,
     }
     return report, arrays
 

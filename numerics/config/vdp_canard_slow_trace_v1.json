@@ -1,9 +1,12 @@
 {
-  "schema_version": "vdp-canard-slow-trace-config/1",
+  "schema_version": "vdp-canard-slow-trace-config/2",
   "epsilon": 1.0,
   "r": 0.08,
   "a2": -0.008333333333333333,
   "outer_q_boundary": -80.0,
+  "a3_outer_u2_boundary": 16.64508336484338,
+  "a3_outer_u2_boundary_source": "Frozen from the Appendix-A.2 q2=-80 half-orbit in commit e7e7294; it is not recomputed as a2 varies.",
+  "a3_candidate_a2_interval": [-0.00835, -0.00832],
   "entry_section_u2": 16.0,
   "natural_start_u2": 0.001,
   "natural_u2_continuation": {

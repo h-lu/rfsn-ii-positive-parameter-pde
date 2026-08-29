@@ -1,4 +1,22 @@
 {
+  "a3_boundary_selection": {
+    "boundary_conditions": [
+      "u2(left)=frozen_outer_u2",
+      "v2(left)=u2(left)^2+r^2*u2(left)^3/3",
+      "q2(left)=frozen_outer_q2",
+      "p2(right)=0",
+      "q2(right)=0",
+      "H2(left;r,a2)=0"
+    ],
+    "frozen_outer_q2": -80.0,
+    "frozen_outer_u2": 16.64508336484338,
+    "interpretation": "The outer u2 value is frozen, not recomputed along the a2 solve. This selects a finite-boundary candidate and does not define an intrinsic slow manifold.",
+    "method": "A.3-compatible half-orbit with frozen Appendix-A.2 outer u2 coordinate and unknown (flight_time,a2)",
+    "unknown_parameters": [
+      "half_flight_time",
+      "a2"
+    ]
+  },
   "boundary_selection": {
     "fixed_entry_section": "u2=16.0, p2<0, q2<0",
     "method": "published Appendix A.2 outside BVP followed by full-orbit boundary continuation through a reversible representative",
@@ -157,8 +175,8 @@
     "C2_coincidence_curve": "INCOMPLETE_NO_SIMPLE_ZERO_GRAPH_IN_A2",
     "current_sample_a2_zero_classification": "INCONCLUSIVE",
     "finite_parameter_maximal_canard_status": "INCONCLUSIVE_INTRINSIC_SLOW_TRACE_AND_TARGET_BRANCH_NOT_VALIDATED",
-    "next_mathematical_object": "Resolve the symmetry-breaking/slow-sheet direction independently of the endpoint family, transport its H2=0 trace to u2=16, and evaluate q2 at the first increasing p2=0 hit as a function of (r,a2).",
-    "surrogate_upgrade": "The formal projected entry has been replaced by collocation solutions of the exact finite-r field on a boundary-selected A.2 branch. An H2=0 condition is imposed in the candidate BVP, whose numerically observed reversibility does not yet identify the intrinsic Wcu/Wcs maximal-canard branch."
+    "next_mathematical_object": "First promote the frozen-boundary root with a CAPD multiple-shooting/Poincare enclosure on p2=0. For intrinsic C1/C2, anchor a Wcu disk at the equator, transport its H2=0 trace through K1-K2, and validate the primary no-loop simple-zero tube as a function of (r,a2).",
+    "surrogate_upgrade": "A frozen-boundary A.3-compatible half BVP now solves for (T,a2), imposes H2=0 and p2=q2=0 at the reverser, and lands on the Appendix-C central branch. It remains a finite-boundary candidate rather than an intrinsic Wcu/Wcs trace."
   },
   "endpoint_family_tangent": {
     "max_abs_raw_state_components": [
@@ -178,16 +196,73 @@
     ],
     "weighted_norm": 184.25239899421013
   },
-  "evidence_status": "COMPUTED/E1_BOUNDARY_SELECTED_A2_COINCIDENCE_CANDIDATE",
+  "evidence_status": "COMPUTED/E1_FINITE_BOUNDARY_A3_COMPATIBLE_PRIMARY_CANDIDATE",
   "exact_k2_field": [
     "u2'=p2",
     "p2'=u2^2-v2+r^2*u2^3/3",
     "v2'=q2",
     "q2'=u2-r*a2"
   ],
+  "finite_boundary_a3_compatible_half_candidate": {
+    "a2_candidate": -0.00833819526697979,
+    "a2_minus_published_leading": -4.861933646457123e-06,
+    "boundary_residual_inf": 5.400124791776761e-13,
+    "boundary_residuals": {
+      "left_hamiltonian": 5.400124791776761e-13,
+      "left_q2_minus_outer": 0.0,
+      "left_u2_minus_frozen": 0.0,
+      "left_v2_minus_p_nullcline": 0.0,
+      "right_p2": -1.7347347463126531e-19,
+      "right_q2": -1.3234889800848443e-23
+    },
+    "candidate_minus_formal_reverser": [
+      1.9758635334994612e-07,
+      -1.7347347463126531e-19,
+      -1.453786703492499e-06,
+      -1.3234889800848443e-23
+    ],
+    "central_localization_diagnostic": {
+      "passes": true,
+      "status": "PASSES_SAMPLED_FORMAL_LOCALIZATION_DIAGNOSTIC",
+      "u2_tolerance": 0.1,
+      "v2_tolerance": 0.1
+    },
+    "event_p2_derivative": 0.16666885388545466,
+    "formal_order_3_reverser_state": [
+      -0.0006672500987042414,
+      0.0,
+      -0.16666695514033014,
+      0.0
+    ],
+    "half_flight_time": 14.290555625888304,
+    "hamiltonian_abs_at_left": 5.400124791776761e-13,
+    "hamiltonian_drift": 5.697771143786667e-10,
+    "interpretation": "Central-localized, sampled no-loop solution of the exact finite-r field with the six frozen-boundary A.3-compatible conditions. It is not an intrinsic Wcu/Wcs trace, a simple-zero graph, or a uniqueness result.",
+    "left_state": [
+      16.64508336484338,
+      -2.2563450829460465,
+      286.89702278614516,
+      -80.0
+    ],
+    "max_interval_rms_relative_residual": 1.9984627646831774e-08,
+    "no_loop_sample_pass": true,
+    "open_half_max_p2": -0.0005954476302040902,
+    "open_half_max_q2": -1.277798042598842e-09,
+    "reverser_state": [
+      -0.0006670525123508914,
+      -1.7347347463126531e-19,
+      -0.16666840892703363,
+      -1.3234889800848443e-23
+    ],
+    "scaled_r3_remainder_candidate": -0.009495964153236567,
+    "status": "COMPUTED/E1_FINITE_BOUNDARY_A3_COMPATIBLE_PRIMARY_CANDIDATE",
+    "u2_minus_r_a2_at_reverser": 3.1090074917739657e-09,
+    "v2_plus_one_sixth_at_reverser": -1.7422603669769998e-06
+  },
   "nonclaims": [
     "The finite A.2 boundary representative is not a proved intrinsic saddle slow manifold.",
     "The zero-energy BVP candidate is not identified with the Lemma-6.4 maximal canard.",
+    "The A.3-compatible candidate depends on one frozen outer boundary coordinate and is not a boundary-independent trace.",
     "The localization diagnostic is not an interval separation result.",
     "No simple-zero a2,c(r) graph or parameter derivative is validated.",
     "No classification of a2=0 or connection to the frozen high-winding edge is made.",
@@ -195,6 +270,8 @@
   ],
   "parameters": {
     "a2": -0.008333333333333333,
+    "a2_candidate": -0.00833819526697979,
+    "a2_initial_guess": -0.008333333333333333,
     "epsilon": 1.0,
     "published_leading_a2": -0.008333333333333333,
     "r": 0.08
@@ -232,7 +309,14 @@
     ],
     "status": "COMPUTED/E1_BOUNDARY_SELECTED_FINITE_R_SADDLE_SLOW_ENTRY"
   },
-  "schema_version": "vdp-canard-slow-trace/1",
+  "reflected_a3_full_segment": {
+    "endpoint_reverser_residual_inf": 0.0,
+    "interpretation": "Exact algebraic reflection of the computed half segment; this is not called a periodic orbit or a period.",
+    "midpoint_fix_reverser_residual_inf": 1.7347347463126531e-19,
+    "sampled_parity_residual_inf": 1.7053025658242404e-13,
+    "total_flight_time": 28.58111125177661
+  },
+  "schema_version": "vdp-canard-slow-trace/2",
   "target_branch_diagnostic": {
     "candidate_minus_formal_midpoint": [
       0.773758487290978,
@@ -250,6 +334,7 @@
       -0.16666695555555555,
       0.0
     ],
+    "role": "LEGACY_A2_ENDPOINT_FAMILY_WRONG_BRANCH_DIAGNOSTIC",
     "status": "DOES_NOT_PASS_RFSNII_CENTRAL_LOCALIZATION_DIAGNOSTIC"
   },
   "zero_energy_coincidence_candidate": {
@@ -299,6 +384,7 @@
       286.89702278614504,
       79.99999860400123
     ],
+    "role": "LEGACY_A2_ENDPOINT_FAMILY_WRONG_BRANCH_DIAGNOSTIC",
     "splitting_q2": 7.631279573967014e-17,
     "status": "COMPUTED/E1_BOUNDARY_SELECTED_ZERO_ENERGY_BVP_CANDIDATE"
   }
