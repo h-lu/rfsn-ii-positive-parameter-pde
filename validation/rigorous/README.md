@@ -438,16 +438,15 @@ unchanged constants and status `RESTRICTED_LOCAL_MATHEMATICAL_PASS`.  On v2,
 only the P2d anchor chart is nonempty, so the chart transition obligation is
 vacuous; this does not manufacture a v2-internal two-chart overlap.  The lane
 does not validate P1 or P2e and remains `final_status=INCONCLUSIVE`,
-`claim_bearing=false`, and replay 1/2.  No final restriction result is archived
-at the source-freeze stage.
+`claim_bearing=false`, and replay 1/2.  Its deterministic clean-source result
+is archived at
+[`results/vdp_bridge_v2_p2_restriction.json`](results/vdp_bridge_v2_p2_restriction.json).
 
-Build and check a disposable restriction preview with
+Check the archived restriction result with
 
 ```bash
-python3 -B validation/rigorous/p2_v2_restriction.py build \
-  > /tmp/vdp-p2-v2-restriction-preview.json
 python3 -B validation/rigorous/p2_v2_restriction.py check \
-  /tmp/vdp-p2-v2-restriction-preview.json
+  validation/rigorous/results/vdp_bridge_v2_p2_restriction.json
 python3 -B -m unittest \
   validation.rigorous.tests.test_p2_v2_restriction -v
 ```

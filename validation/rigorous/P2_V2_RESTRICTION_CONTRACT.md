@@ -92,17 +92,18 @@ of the two required independent-machine replays.
 
 This lane does not establish P1 on `vdp-positive-box-v2`, P2e phase order or
 the complete event atlas, sharper v2 constants, or a new interval/ODE run.
-No result certificate is checked in at this source-freeze stage.
+The deterministic certificate generated from clean source commit
+`c3fbb99148d05ca8c2eb0ac8e8ec6e356fcc3bb3` is archived at
+[`results/vdp_bridge_v2_p2_restriction.json`](results/vdp_bridge_v2_p2_restriction.json),
+SHA-256 `54fdb8c7f9e992291b4711a91c687324695fbaa5978537ab05f1891b3da3e683`.
 
 ## Deterministic check
 
-Build a disposable preview and validate it by exact reconstruction:
+Reconstruct and validate the archived result:
 
 ```bash
-python3 -B validation/rigorous/p2_v2_restriction.py build \
-  > /tmp/vdp-p2-v2-restriction-preview.json
 python3 -B validation/rigorous/p2_v2_restriction.py check \
-  /tmp/vdp-p2-v2-restriction-preview.json
+  validation/rigorous/results/vdp_bridge_v2_p2_restriction.json
 python3 -B -m unittest \
   validation.rigorous.tests.test_p2_v2_restriction -v
 ```
