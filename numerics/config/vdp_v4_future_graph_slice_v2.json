@@ -1,0 +1,84 @@
+{
+  "schema_version": "rfsn-vdp-v4-future-graph-slice-v2-config/1",
+  "configuration_id": "vdp-v4-future-graph-slice-v2-center",
+  "status": "PREDECLARED_FLOATING_POINT_SLICE",
+  "evidence_status": "COMPUTED/E1_NON_RIGOROUS",
+  "claim_bearing": false,
+  "parameter_point": {
+    "r": "3/200",
+    "a2": "0",
+    "epsilon": "1"
+  },
+  "matched_centerline_binding": {
+    "report_path": "numerics/results/vdp_p2e_channel_scout_v2/energy_matched_centerline.json",
+    "report_sha256": "a6ea8deb1804ccad6db196e52705ae737e0311bc87b1b4565658d5e0cc7bf3ff",
+    "data_path": "numerics/results/vdp_p2e_channel_scout_v2/energy_matched_centerline.npz",
+    "data_sha256": "f95758d8bfb0872e34c23faa1c303a3f31a6f71b2edc55cdde5775a3a0e9bc94",
+    "seam_Q": 25.0,
+    "seam_beta_center": 2.7385502869454753e-6,
+    "energy_H": 2.1287391499046257e-14,
+    "outer_energy_relation": "E=epsilon^(5/2)*r^6*H"
+  },
+  "slice": {
+    "beta_offsets": [-1.0e-6, 0.0, 1.0e-6],
+    "collocation_Q_end_ladder": [60.0, 100.0, 200.0],
+    "common_Q_cuts": [
+      25.0,
+      25.00025,
+      25.0005,
+      25.00075,
+      25.001,
+      25.0015,
+      25.002
+    ],
+    "rate_Q_cuts": [25.00025, 25.0005, 25.00075, 25.001],
+    "rate_Q_difference_step": 2.5e-5
+  },
+  "collocation_construction": {
+    "coordinates": "eta=log(pi/delta), omega=w/delta",
+    "terminal_condition": "alpha_dot(Q_end,beta,alpha)=0 exact normal nullcline",
+    "mesh_base_points": 241,
+    "tolerance": 2.0e-8,
+    "boundary_tolerance": 1.0e-10,
+    "maximum_nodes": 60000
+  },
+  "shooting_construction": {
+    "coordinates": "eta=log(pi/delta), omega=w/delta",
+    "Q_end": 25.002,
+    "terminal_condition": "alpha_dot(Q_end,beta,alpha)=0 exact normal nullcline",
+    "initial_alpha_bracket_about_nullcline": 2.0e-8,
+    "integrator": "DOP853",
+    "rtol": 2.0e-12,
+    "atol": 2.0e-14,
+    "maximum_Q_step": 1.0e-5,
+    "root_xtol": 1.0e-19,
+    "root_rtol": 1.0e-12,
+    "root_maximum_iterations": 80
+  },
+  "sampled_corridor": {
+    "z_values": [0.0, 0.05, 0.1, 0.15, 0.2],
+    "beta_half_width": 1.0e-5,
+    "alpha_half_width": 1.0e-5,
+    "cross_values": [-1.0e-5, 0.0, 1.0e-5],
+    "interpretation": "Fixed sampled face proxy only; these are not the non-explicit V4 theorem corridor constants."
+  },
+  "qa_thresholds": {
+    "collocation_rms_residual_upper": 3.0e-8,
+    "collocation_boundary_residual_upper": 1.0e-10,
+    "horizon_seam_gamma_spread_upper": 1.0e-12,
+    "shooting_terminal_residual_upper": 1.0e-12,
+    "method_seam_gamma_difference_upper": 5.0e-11,
+    "method_common_state_difference_upper": 2.0e-9,
+    "energy_residual_upper": 1.0e-12,
+    "minimum_pi_lower": 1.0e-5,
+    "graph_face_clearance_lower": 5.0e-6,
+    "sampled_oriented_face_margin_lower": 1.0e-8,
+    "invariance_residual_upper": 1.0e-8,
+    "third_order_bunching_rate_lower": 0.5
+  },
+  "nonclaims": [
+    "The exact normal nullcline is an asymptotically compatible finite terminal condition, not the theorem graph at finite Q.",
+    "Agreement of collocation, short-window shooting, and the horizon ladder is floating-point evidence for one fixed-energy slice only.",
+    "Sampled face signs and quotient-rate proxies do not validate the non-explicit uniform V4 corridor, maximality, uniqueness, parameter jets, or Issue #7."
+  ]
+}
