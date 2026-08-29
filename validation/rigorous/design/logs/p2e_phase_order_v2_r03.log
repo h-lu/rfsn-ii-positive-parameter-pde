@@ -1,0 +1,20 @@
+mode mu-grid-root-jets-slab
+scope selected_true_source_root_C2
+grid 32 128 4 radius_factor 3
+r_index 3 r_cell [0.0074999999999999997, 0.01]
+cells 512/512
+phase_hull [5.8475976475618232, 5.8753436333749995] half_time_hull [9.6292748018551872, 9.6461112702327849] return_time_hull [0.079274801855186719, 0.096111270232783208]
+event_minimum_U 4.8637718445868003 event_maximum_abs_Q 0.039224667602417163
+maximum_weighted_inverse_contraction 0.10884548846870253 worst_a2_index 0 worst_epsilon_index 3
+maximum_unweighted_inverse_contraction 1.3577759927602107
+maximum_solve_inclusion 0.9966066184749286 worst_a2_index 127 worst_epsilon_index 3
+normalized_first_abs theta_r root 10.485263619529027 phase 0.66485229643548471 half_time 0.72025942071838567 original_root 262.1315904882257 original_phase 16.62130741088712 original_half_time 18.006485517959643
+normalized_first_abs theta_a root 10.197969075899438 phase 0.62240733168436557 half_time 0.70019889546371017 original_root 40.791876303597753 original_phase 2.4896293267374623 original_half_time 2.8007955818548407
+normalized_first_abs theta_epsilon root 10.075029103053041 phase 0.60754979842461443 half_time 0.6916403648839079 original_root 50.375145515265203 original_phase 3.0377489921230723 original_half_time 3.4582018244195396
+normalized_second_abs theta_r theta_r root 244.97014833222752 phase 9.2634659230492229 half_time 18.416536846957431 original_root 153106.34270764221 original_phase 5789.6662019057649 original_half_time 11510.335529348395
+normalized_second_abs theta_r theta_a root 236.85468707982776 phase 8.8646435124398657 half_time 17.860459434811268 original_root 23685.468707982778 original_phase 886.46435124398658 original_half_time 1786.0459434811269
+normalized_second_abs theta_r theta_epsilon root 233.2897122954941 phase 8.6506090578099659 half_time 17.599628902848142 original_root 29161.214036936763 original_phase 1081.3261322262458 original_half_time 2199.953612856018
+normalized_second_abs theta_a theta_a root 225.95352994386403 phase 8.3389247952270242 half_time 17.051451917239341 original_root 3615.2564791018244 original_phase 133.42279672363239 original_half_time 272.82323067582945
+normalized_second_abs theta_a theta_epsilon root 222.62679298128216 phase 8.1846164832921886 half_time 16.812968027003095 original_root 4452.5358596256438 original_phase 163.69232966584377 original_half_time 336.25936054006189
+normalized_second_abs theta_epsilon theta_epsilon root 218.59232209972862 phase 8.0172722627807342 half_time 16.513248315856142 original_root 5464.8080524932157 original_phase 200.43180656951836 original_half_time 412.83120789640355
+PASS mu-grid true-source root C2 jet slab
