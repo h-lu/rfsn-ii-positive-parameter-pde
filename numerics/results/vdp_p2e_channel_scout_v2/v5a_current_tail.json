@@ -1,0 +1,433 @@
+{
+  "array_shapes": {
+    "actual_action_density": [
+      51201
+    ],
+    "actual_alpha": [
+      51201
+    ],
+    "actual_beta": [
+      51201
+    ],
+    "actual_chi": [
+      51201
+    ],
+    "actual_length_density": [
+      51201
+    ],
+    "actual_pi": [
+      51201
+    ],
+    "alternate_reference_action_density": [
+      51201
+    ],
+    "alternate_reference_alpha": [
+      51201
+    ],
+    "alternate_reference_beta": [
+      51201
+    ],
+    "alternate_reference_length_density": [
+      51201
+    ],
+    "cumulative_reference_action": [
+      102409
+    ],
+    "cumulative_reference_length": [
+      102409
+    ],
+    "cumulative_relative_action": [
+      102409
+    ],
+    "cumulative_relative_length": [
+      102409
+    ],
+    "cutoff_Q": [
+      11
+    ],
+    "cutoff_relative_action": [
+      11
+    ],
+    "cutoff_relative_length": [
+      11
+    ],
+    "gauge_actual_density": [
+      102409
+    ],
+    "gauge_reference_density": [
+      102409
+    ],
+    "grid_ladder_points": [
+      4
+    ],
+    "grid_ladder_relative_action": [
+      4
+    ],
+    "grid_ladder_relative_length": [
+      4
+    ],
+    "integration_Q": [
+      102409
+    ],
+    "integration_delta_action_density": [
+      102409
+    ],
+    "integration_delta_length_density": [
+      102409
+    ],
+    "outer_Q": [
+      51201
+    ],
+    "reference_action_density": [
+      51201
+    ],
+    "reference_alpha": [
+      51201
+    ],
+    "reference_beta": [
+      51201
+    ],
+    "reference_chi": [
+      51201
+    ],
+    "reference_length_density": [
+      51201
+    ],
+    "reference_pi": [
+      51201
+    ],
+    "saved_chi_pi_reconstruction_delta": [
+      2,
+      219
+    ],
+    "saved_comparison_Q": [
+      219
+    ],
+    "saved_state_reconstruction_delta": [
+      2,
+      219
+    ]
+  },
+  "claim_bearing": false,
+  "current_centerline_reconstruction": {
+    "chi_pi_residual_inf": 2.220446049250313e-16,
+    "reason_for_reconstruction": "The archived 401-node state binds the orbit but under-resolves the terminal O(delta) layer; quadrature uses the independently resolved exact BVP after agreement at every archived node.",
+    "saved_nodes_compared": 219,
+    "state_beta_alpha_residual_inf": 1.7714635300639624e-17
+  },
+  "data_path": "numerics/results/vdp_p2e_channel_scout_v2/v5a_current_tail.npz",
+  "evidence_status": "COMPUTED/E1_NON_RIGOROUS",
+  "finite_covariance": {
+    "coordinate": {
+      "reason": "No independent admissible compactifying-coordinate realization is present in the current saved centerline.",
+      "status": "NOT_COMPUTED"
+    },
+    "cut": [
+      {
+        "action_balance_residual": -2.152238754259885e-16,
+        "length_balance_residual": -9.252522045813178e-24,
+        "q_cut": 110.17114220546152
+      },
+      {
+        "action_balance_residual": -4.3842080581003273e-16,
+        "length_balance_residual": -4.6467563687813295e-24,
+        "q_cut": 140.17114220546154
+      },
+      {
+        "action_balance_residual": -2.9575372963245574e-16,
+        "length_balance_residual": 1.9115399381846468e-23,
+        "q_cut": 180.17114220546154
+      }
+    ],
+    "gauge": {
+      "balance_residual": 1.0127220242961421e-11,
+      "coefficient_w": 0.03,
+      "coefficient_z": 0.1,
+      "endpoint_correction": 2.2138639600363663e-08,
+      "gauge": "psi=coefficient_z*z+coefficient_w*w",
+      "original_relative_action": 2.1444632649693727,
+      "transformed_relative_action": 2.1444632871181395
+    },
+    "reference": {
+      "action_balance_residual": -4.440892098500626e-16,
+      "alternate_reference_beta_at_q_star": 3.6990473503486427e-07,
+      "length_balance_residual": 0.0
+    },
+    "scope": "These are finite-grid identities on actual computed tails, not covariance of an improper limit."
+  },
+  "finite_cut_reference_subtraction": {
+    "cutoff_ladder": [
+      {
+        "q_cut": 100.17214220546153,
+        "relative_action": 2.0700766637526025,
+        "relative_length": -1.0913624825872852e-07
+      },
+      {
+        "q_cut": 100.18114220546153,
+        "relative_action": 2.1444632650879165,
+        "relative_length": -1.1305788976570435e-07
+      },
+      {
+        "q_cut": 100.27114220546152,
+        "relative_action": 2.1444632650876825,
+        "relative_length": -1.1305788976567944e-07
+      },
+      {
+        "q_cut": 101.17114220546152,
+        "relative_action": 2.1444632650890756,
+        "relative_length": -1.1305788976581052e-07
+      },
+      {
+        "q_cut": 105.17114220546152,
+        "relative_action": 2.1444632650932167,
+        "relative_length": -1.1305788976592375e-07
+      },
+      {
+        "q_cut": 110.17114220546152,
+        "relative_action": 2.1444632651104447,
+        "relative_length": -1.1305788976641174e-07
+      },
+      {
+        "q_cut": 120.17114220546152,
+        "relative_action": 2.144463265088892,
+        "relative_length": -1.1305788976594692e-07
+      },
+      {
+        "q_cut": 140.17114220546154,
+        "relative_action": 2.144463265083922,
+        "relative_length": -1.1305788976699908e-07
+      },
+      {
+        "q_cut": 160.17114220546154,
+        "relative_action": 2.144463265060404,
+        "relative_length": -1.1305788976620757e-07
+      },
+      {
+        "q_cut": 180.17114220546154,
+        "relative_action": 2.144463265067124,
+        "relative_length": -1.1305788976666477e-07
+      },
+      {
+        "q_cut": 200.0,
+        "relative_action": 2.144463264969249,
+        "relative_length": -1.1305788976506688e-07
+      }
+    ],
+    "grid_ladder": [
+      {
+        "relative_action_at_q_end": 2.144468084664312,
+        "relative_length_at_q_end": -1.1305814387086834e-07,
+        "requested_points_per_component": 6401,
+        "union_grid_points": 12801
+      },
+      {
+        "relative_action_at_q_end": 2.1444644167998246,
+        "relative_length_at_q_end": -1.1305795049522912e-07,
+        "requested_points_per_component": 12801,
+        "union_grid_points": 25601
+      },
+      {
+        "relative_action_at_q_end": 2.144463494837637,
+        "relative_length_at_q_end": -1.1305790188601686e-07,
+        "requested_points_per_component": 25601,
+        "union_grid_points": 51201
+      },
+      {
+        "relative_action_at_q_end": 2.1444632649697475,
+        "relative_length_at_q_end": -1.1305788976507168e-07,
+        "requested_points_per_component": 51201,
+        "union_grid_points": 102401
+      }
+    ],
+    "last_grid_action_change_abs": 2.2986788961176785e-07,
+    "last_grid_length_change_abs": 1.2120945178150847e-14,
+    "post_start_layer_action_change_abs": 1.1866729821008448e-10,
+    "post_start_layer_length_change_abs": 6.374717021476661e-19,
+    "reference_raw_action_at_q_end": -272782153.4529811,
+    "reference_raw_length_at_q_end": 6.1997614021934,
+    "relative_action_at_q_end": 2.144463264969249,
+    "relative_length_at_q_end": -1.1305788976506688e-07
+  },
+  "input_binding": {
+    "centerline_json": "numerics/results/vdp_p2e_channel_scout_v2/energy_matched_centerline.json",
+    "centerline_json_sha256": "c66a9750a632f6066da4133830b1f85ab2f6519919c369ed30ca9bbbffd5bdb4",
+    "centerline_npz": "numerics/results/vdp_p2e_channel_scout_v2/energy_matched_centerline.npz",
+    "centerline_npz_sha256": "d5fe5897604de1975aa8895a2a3c42413e488975a360f6504dd3e761e0af2fbf",
+    "centerline_status": "ENERGY_PRESERVING_MATCHED_CENTERLINE_SUCCESS",
+    "frozen_config": "numerics/config/vdp_v5a_current_tail.json",
+    "frozen_config_sha256": "0d8aa58956e00ee7898a43edb1fcbe3bf2ec52c00384d1ed708a645086d23495"
+  },
+  "normalization": {
+    "actual_alpha_at_q_star_saved": 7.398259104056952e-07,
+    "actual_beta_at_q_star": 7.398094700697285e-07,
+    "alternate_reference_beta_at_q_star": 3.6990473503486427e-07,
+    "energy_h_chart": 1.6531401306609465e-14,
+    "outer_energy_from_current_centerline": 1.883029930080984e-25,
+    "q_end": 200.0,
+    "reference_beta_at_q_star": 0.0,
+    "selected_physical_q_star": 100.17114220546152,
+    "selected_saved_q_star_index": 182,
+    "target_q_star": 100.0,
+    "terminal_condition": "alpha(q_end)=0"
+  },
+  "parameter_point": {
+    "a2": "0.0",
+    "epsilon": "1.0",
+    "r": "0.015"
+  },
+  "parameter_point_exact": {
+    "a2": "0",
+    "epsilon": "1",
+    "r": "3/200"
+  },
+  "qa": {
+    "boundary_residual": true,
+    "cut_action_covariance": true,
+    "cut_length_covariance": true,
+    "energy_residual": true,
+    "gauge_action_covariance": true,
+    "grid_action_change": true,
+    "grid_length_change": true,
+    "input_status": true,
+    "positive_pi": true,
+    "post_layer_action_change": true,
+    "post_layer_length_change": true,
+    "reference_action_covariance": true,
+    "reference_length_covariance": true,
+    "saved_node_chi_pi_reconstruction": true,
+    "saved_node_state_reconstruction": true,
+    "solver_residual": true
+  },
+  "same_q_shadowing": {
+    "ladder": [
+      {
+        "alpha_gap": 6.433774397489657e-11,
+        "beta_gap": 2.5661927816542072e-08,
+        "euclidean_normal_gap": 2.566200846790281e-08,
+        "q": 100.17214220546153
+      },
+      {
+        "alpha_gap": -1.376428539288238e-21,
+        "beta_gap": 1.2705494208814505e-21,
+        "euclidean_normal_gap": 1.8731928236754863e-21,
+        "q": 100.18114220546153
+      },
+      {
+        "alpha_gap": 2.4352197233561135e-21,
+        "beta_gap": -9.529120656610879e-22,
+        "euclidean_normal_gap": 2.6150213203538335e-21,
+        "q": 100.27114220546152
+      },
+      {
+        "alpha_gap": 1.0587911840678754e-22,
+        "beta_gap": -1.0587911840678754e-22,
+        "euclidean_normal_gap": 1.4973568522298576e-22,
+        "q": 101.17114220546152
+      },
+      {
+        "alpha_gap": -1.4928955695357043e-20,
+        "beta_gap": -1.2281977735187355e-20,
+        "euclidean_normal_gap": 1.9331857004477645e-20,
+        "q": 105.17114220546152
+      },
+      {
+        "alpha_gap": -7.411538288475128e-22,
+        "beta_gap": -1.376428539288238e-21,
+        "euclidean_normal_gap": 1.5632864490497194e-21,
+        "q": 110.17114220546152
+      },
+      {
+        "alpha_gap": 8.999725064576941e-21,
+        "beta_gap": 1.0270274485458392e-20,
+        "euclidean_normal_gap": 1.3655533283055336e-20,
+        "q": 120.17114220546152
+      },
+      {
+        "alpha_gap": -1.2705494208814505e-20,
+        "beta_gap": -1.249373597200093e-20,
+        "euclidean_normal_gap": 1.7819175671963305e-20,
+        "q": 140.17114220546154
+      },
+      {
+        "alpha_gap": 1.5881867761018131e-22,
+        "beta_gap": -1.5881867761018131e-22,
+        "euclidean_normal_gap": 2.246035278344786e-22,
+        "q": 160.17114220546154
+      },
+      {
+        "alpha_gap": -5.293955920339377e-22,
+        "beta_gap": -2.4881592825595072e-21,
+        "euclidean_normal_gap": 2.5438546161783706e-21,
+        "q": 180.17114220546154
+      },
+      {
+        "alpha_gap": 0.0,
+        "beta_gap": 0.0,
+        "euclidean_normal_gap": 0.0,
+        "q": 200.0
+      }
+    ],
+    "nonclaim": "Finite-Q decay to the common artificial terminal condition is not a proof of exponential flatness on the half-line.",
+    "status": "FINITE_HORIZON_SAME_Q_GAPS_COMPUTED"
+  },
+  "schema_version": "rfsn-vdp-v5a-current-tail/1",
+  "solver_diagnostics": {
+    "chart": "eta=log(pi/delta), omega=w/delta",
+    "maximum_boundary_residual": 8.576208590949791e-21,
+    "maximum_energy_residual": 5.551115123125783e-17,
+    "maximum_rms_residual": 1.9998968680637307e-09,
+    "minimum_pi": 0.000147475099540287,
+    "samples": {
+      "actual": {
+        "boundary_residual_inf": 8.576208590949791e-21,
+        "energy_residual_inf": 5.551115123125783e-17,
+        "minimum_pi": 0.0001482167661147635,
+        "outer_coordinate_chart": "eta=log(pi/delta), omega=w/delta",
+        "solver_nodes": 26627.0,
+        "solver_rms_residual_max": 1.999619750304762e-09,
+        "solver_success": true
+      },
+      "alternate_reference": {
+        "boundary_residual_inf": 8.576208590949791e-21,
+        "energy_residual_inf": 5.551115123125783e-17,
+        "minimum_pi": 0.00014784593282775695,
+        "outer_coordinate_chart": "eta=log(pi/delta), omega=w/delta",
+        "solver_nodes": 27575.0,
+        "solver_rms_residual_max": 1.999619750304762e-09,
+        "solver_success": true
+      },
+      "reference": {
+        "boundary_residual_inf": 8.576208590949791e-21,
+        "energy_residual_inf": 5.551115123125783e-17,
+        "minimum_pi": 0.000147475099540287,
+        "outer_coordinate_chart": "eta=log(pi/delta), omega=w/delta",
+        "solver_nodes": 27689.0,
+        "solver_rms_residual_max": 1.9998968680637307e-09,
+        "solver_success": true
+      }
+    }
+  },
+  "status": "CURRENT_CENTERLINE_V5A_FINITE_Q_OBJECT_COMPUTED",
+  "strict_scope": {
+    "conclusion": "The actual V5A finite-Q numerical object now exists, while Theorem V5A remains numerically INCONCLUSIVE.",
+    "resolved": "One current-centerline outer member, one beta=0 reference, one real alternate reference, same-Q density differences, finite-cut integrals, and finite cut/reference/gauge balances.",
+    "unresolved": "Q to infinity, removal of the artificial terminal condition, exponential flatness, mixed two-jets, uniform parameter-box bounds, and coordinate covariance."
+  },
+  "theorem_status": "INCONCLUSIVE",
+  "thresholds": {
+    "boundary_residual_inf": 1e-12,
+    "cut_balance_action_abs": 1e-08,
+    "cut_balance_length_abs": 1e-15,
+    "energy_residual_inf": 1e-14,
+    "gauge_balance_action_abs": 1e-08,
+    "last_grid_action_change_abs": 1e-06,
+    "last_grid_length_change_abs": 1e-12,
+    "post_layer_action_change_abs": 1e-05,
+    "post_layer_length_change_abs": 1e-11,
+    "reference_balance_action_abs": 1e-08,
+    "reference_balance_length_abs": 1e-15,
+    "saved_node_chi_pi_reconstruction_inf": 1e-12,
+    "saved_node_state_reconstruction_inf": 1e-12,
+    "solver_rms_residual_max": 2.1e-09
+  }
+}
