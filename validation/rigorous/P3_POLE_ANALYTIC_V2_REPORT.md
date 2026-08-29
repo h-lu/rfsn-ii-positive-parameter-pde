@@ -71,7 +71,7 @@ There is also a useful exact conditional result.  If an interval event tube
 supplies the paper's gate state inequalities
 
 \[
- x=10,quad y\ge13,quad D\ge26,quad K\ge131,
+ x=10,\quad y\ge13,\quad D\ge26,\quad K\ge131,
 \]
 
 then the actual v2 coefficient bounds imply
