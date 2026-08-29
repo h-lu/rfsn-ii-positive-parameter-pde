@@ -20,6 +20,8 @@ certificate.
 | V5A | The matched positive-parameter algebraic end has reference-normalized physical length and action finite parts with mixed two-jets, strict V5-arrival containment, admissible-coordinate covariance, and strict finite-branch composition. | Proved | [Theorem V5A, fixed-\(Q\) flat shadowing, arrival-label estimate, and reference-tail subtraction](van-der-pol/OUTER_ALGEBRAIC_FINITE_PART.md) |
 | V6 | The positive-parameter van der Pol system has an exhaustive physical high-winding return/first-exit relation with finite-atlas mixed data and two compatible action finite parts. | Proved | [Theorem V6 and the whole-cell pullback, finite-atlas descent, stratification, and exact-action proof](van-der-pol/TWO_END_RETURN_EXIT_AND_PDE.md), using T2 and the strictly bounded [frozen modular import](van-der-pol/RETURN_EXIT_CODING_IMPORT.md) |
 | V7 | In every local marking, bounded V6 itineraries yield stationary periodic, multipulse, or aperiodic spatial PDE patterns; the physical profiles and closed observables agree on marking overlaps. | Proved | [Theorem V7, finite-atlas covariance, completed-section coding, and exact inverse PDE scaling](van-der-pol/TWO_END_RETURN_EXIT_AND_PDE.md), using V6, the frozen coding module, and the V1 inverse scaling |
+| V8 | Any smooth periodic stationary van der Pol profile satisfying the strict moment inequality (6) has a real positive co-periodic temporal eigenvalue; for the frozen choice \(\lambda_0=0.01\), the eigenvalue lies in \((0.01,2)\). | Proved | [Self-adjoint operator-pencil reduction and moment criterion](van-der-pol/A2_PERIODIC_SPECTRAL_INSTABILITY.md) |
+| V8A | At \((r,a_2,\epsilon)=(0.08,0,1)\), a true periodic stationary profile in the frozen A2 shooting box satisfies the V8 moment inequality and is therefore co-periodically spectrally unstable, with a real eigenvalue \(\lambda_*\in(0.01,2)\). | Local mathematical PASS; non-claim-bearing | The [CAPD multiple-shooting and interval-moment validator](validation/a2_periodic/README.md) proves the two mathematical inputs locally.  Independent-machine replay is still required before promotion to `Computer-assisted` under this register. |
 | S1 | One or more patterns from B2 or V7 are temporally stable under the PDE flow. | Deferred | Bloch/Evans spectral analysis and nonlinear stability theorem |
 | E1 | A predicted pattern is observed in a calibrated physical or chemical experiment. | Deferred | Dimensional model calibration, preregistered observable, and experimental data |
 
@@ -28,6 +30,9 @@ certificate.
 - A formal asymptotic calculation is not a proof of existence or entry into an
   end channel.
 - A non-rigorous computation may change a status only to Numerically observed.
+- A local mathematical PASS records an outward-rounded proof on the locked
+  current-machine toolchain, but is not a public computer-assisted claim until
+  the required independent replay is archived.
 - Computer-assisted means that every claim-bearing computation is interval
   rigorous, fixed to an immutable source version, and independently replayable.
 - A result imported from the flagship paper must retain all of its hypotheses;

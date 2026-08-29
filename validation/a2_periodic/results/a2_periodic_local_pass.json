@@ -1,0 +1,146 @@
+{
+  "schema_version": "rfsn-vdp-a2-periodic-local-result/1",
+  "record_kind": "curated local run record; not a release certificate",
+  "run_date": "2026-08-29",
+  "evidence_status": "LOCAL_OUTWARD_ROUNDED_MATHEMATICAL_PASS",
+  "mathematical_status": "PASS",
+  "claim_bearing": false,
+  "claim_boundary": "Independent-machine replay required by CLAIM_REGISTER.md is pending.",
+  "scope": "One true A2-near periodic stationary profile and its co-periodic temporal spectral instability at the frozen parameter point.",
+  "parameters": {
+    "r": "2/25",
+    "a2": "0",
+    "epsilon": "1",
+    "a": "1",
+    "d": "(2/25)^4",
+    "lambda_lower": "1/100"
+  },
+  "preselection": {
+    "seed_s_exact_decimal_box": [
+      "4.92556665",
+      "4.92556669"
+    ],
+    "central_half_period_exact_decimal_box": [
+      "13.49788",
+      "13.49789"
+    ],
+    "lifted_unknown_dimension": 53,
+    "seed_radius": 2e-12,
+    "node_radius": 1e-07
+  },
+  "source": {
+    "path": "validation/a2_periodic/a2_periodic_capd.cpp",
+    "sha256": "bb68d3d29e05a622bb6d98327837f50a7799202001af9729bfccd6e2457d156c",
+    "contract": "numerics/config/vdp_a2_periodic_spectral_v1.json",
+    "contract_sha256": "172e2323ea766a58f409b997d99be4b25c5bbae21e2e47e1a5ebc98da19bf29b",
+    "output_schema": "rfsn-vdp-a2-periodic-capd/1"
+  },
+  "toolchain": {
+    "lock": "validation/rigorous/dependency.lock.json",
+    "lock_sha256": "4d486a63cddf0902cc9fc4dedacc5a172527f6e167e2d311afa680c077a45b68",
+    "capd_commit": "731079217a9254ea2948d742df2b170895effe7f",
+    "capd_tree": "f83b177786fa322240b24f21173eaf9b32496d48",
+    "compiler": "g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0",
+    "compiler_sha256": "e6718f7e0c7d057c3ff77b550c603da9bc4030e3ede3c053705acce1293dbe4d",
+    "libcapd_sha256": "bf888737d3aab53e66c3bf5ee0199b6eb9f6747b2b567f3c5aa9c7ac0ae1267a",
+    "libfilib_sha256": "f0105bda942524bc7a1c3c9ad39a0f34e031e26afdc15017704cdd3878fc3d5c",
+    "local_binary_sha256": "da8372fecc4b415ad1e191ed83c3abf90e44e0e442b638412824b2d533658ad7",
+    "local_raw_stdout_sha256": "bbd525dd7dcdaa18f3de2549f87aeab386186ad6882be80cb651d69bfd299f13",
+    "compiler_argv": [
+      "/usr/bin/g++",
+      "validation/a2_periodic/a2_periodic_capd.cpp",
+      "-I/tmp/rfsn-vdp-capd-strict-7310792/capdDynSys/include",
+      "-I/tmp/rfsn-vdp-capd-strict-7310792/capdAlg/include",
+      "-I/tmp/rfsn-vdp-capd-strict-7310792/capdAux/include",
+      "-I/tmp/rfsn-vdp-capd-strict-7310792/capdExt/include",
+      "-I/tmp/rfsn-vdp-capd-strict-7310792/capdExt/filibsrc",
+      "-std=c++17",
+      "-O2",
+      "-frounding-math",
+      "-D__USE_FILIB__",
+      "-O2",
+      "-frounding-math",
+      "-DFILIB_EXTENDED",
+      "-DFILIB_HAVE_SSE",
+      "-DNDEBUG",
+      "-fno-fast-math",
+      "-ffp-contract=off",
+      "-fno-tree-vectorize",
+      "-fno-ipa-pure-const",
+      "-L/tmp/rfsn-vdp-capd-strict-7310792/build-strict",
+      "-L/tmp/rfsn-vdp-capd-strict-7310792/build-strict/capdExt/filibsrc",
+      "-lcapd",
+      "-lfilib",
+      "-o",
+      "/tmp/rfsn-a2-periodic-capd-v2"
+    ],
+    "process_policy": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "LC_ALL": "C.UTF-8"
+    }
+  },
+  "checks": {
+    "strict_gates": {
+      "krawczyk_image_strictly_inside_outer_box": true,
+      "krawczyk_defect_infinity_norm_upper": "< 1",
+      "last_node_q": "> 0",
+      "final_section_u": "< 0",
+      "half_moment_z": "< -1/10",
+      "physical_moment_M_0_01": "< -5/10000000"
+    },
+    "complete_rounding_self_test": "PASS",
+    "krawczyk_inclusion": "PASS",
+    "krawczyk_contraction": "PASS",
+    "krawczyk_defect_infinity_norm_upper_hex": "0x1.5232af799e8b4p-6",
+    "seed_preselection": "PASS",
+    "half_period_preselection": "PASS",
+    "last_node_q_positive": "PASS",
+    "final_section_u_negative": "PASS",
+    "half_moment_below_minus_one_tenth": "PASS",
+    "physical_moment_below_minus_five_e_minus_seven": "PASS"
+  },
+  "enclosures": {
+    "endpoint_format": "IEEE754_BINARY64_HEX",
+    "seed_s": {
+      "lower_hex": "0x1.3b3c7bf852ad2p+2",
+      "upper_hex": "0x1.3b3c7bf852b84p+2"
+    },
+    "final_flight_time": {
+      "lower_hex": "0x1.fdd486ca1bae5p-2",
+      "upper_hex": "0x1.fdd4ca89272ddp-2"
+    },
+    "central_half_period_T": {
+      "lower_hex": "0x1.afeea43650dd7p+3",
+      "upper_hex": "0x1.afeea65449397p+3"
+    },
+    "physical_period_L": {
+      "lower_hex": "0x1.146fc5417b6efp+1",
+      "upper_hex": "0x1.146fc69c57d2ep+1"
+    },
+    "last_node_q": {
+      "lower_hex": "0x1.58ab67808ee83p-11",
+      "upper_hex": "0x1.58ab84b9e7a6fp-11"
+    },
+    "final_section_u": {
+      "lower_hex": "-0x1.5a4d1b21cd636p-10",
+      "upper_hex": "-0x1.5a4d07f52e2eap-10"
+    },
+    "half_moment_z": {
+      "lower_hex": "-0x1.13dad91e4550bp-3",
+      "upper_hex": "-0x1.13dad91e436ep-3"
+    },
+    "physical_moment_M_0_01": {
+      "lower_hex": "-0x1.d9ea41dbc15cp-21",
+      "upper_hex": "-0x1.d9ea41dbbe1ep-21"
+    }
+  },
+  "uniqueness_scope": "Strict inclusion and contraction prove one unique root in the hard-coded lifted outer box X. K(X) is the smaller root enclosure used for the moment bound; no uniqueness claim is made for the entire S0 preselection box.",
+  "mathematical_conclusion": "The enclosed true periodic stationary profile has a real co-periodic temporal eigenvalue lambda_* in (0.01,2).",
+  "nonclaims": [
+    "No nonzero-Bloch-phase spectral enclosure is asserted.",
+    "No nonlinear instability or dynamical pattern-selection theorem is asserted.",
+    "No V6-cell or V7-symbolic-edge identity is certified.",
+    "The pulse_1 target, Turing selection, and canard identification are not treated."
+  ]
+}

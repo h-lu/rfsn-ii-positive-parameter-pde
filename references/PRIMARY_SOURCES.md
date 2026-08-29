@@ -163,6 +163,9 @@ The closest general homoclinic and Brusselator references are:
 - L. Yu. Glebsky and L. M. Lerman, *Instability of small stationary localized
   solutions to a class of reversible 1+1 PDEs*, Nonlinearity **10** (1997),
   389--407, DOI <https://doi.org/10.1088/0951-7715/10/2/005>;
+- R. A. Gardner, *Spectral analysis of long wavelength periodic waves and
+  applications*, Journal für die reine und angewandte Mathematik **491**
+  (1997), 149--182, DOI <https://doi.org/10.1515/crll.1997.491.149>;
 - E. Villar-Sepúlveda and A. R. Champneys, *Degenerate Turing Bifurcation
   and the Birth of Localized Patterns in Activator-Inhibitor Systems*, SIAM
   Journal on Applied Dynamical Systems **22** (2023), 1673--1709, DOI
@@ -177,6 +180,18 @@ the inspected statements supplies the all-small-\(d\), fixed-\(A=B=1\),
 positive-profile theorem and scale laws proved here relative to the frozen
 Core Lemma. This is a narrow strengthening claim, not a claim of first
 Brusselator localization.
+
+For the van der Pol A2 temporal problem, the same Glebsky--Lerman paper does
+not directly apply: its periodic theorem concerns a local small-amplitude
+reversible-Hopf/Turing family and an Eckhaus band, whereas A2 is a frozen
+numerically selected homoclinic-shadowing seed whose branch has not been
+identified with that normal form.  Section 11 of Vo--Doelman--Kaper contains
+direct PDE simulations, not an A2 Bloch theorem.  Gardner's long-period theorem would
+transfer an already isolated homoclinic eigenvalue to all sufficiently long
+periodic waves, but it supplies neither that pulse eigenvalue nor a quantitative
+threshold covering winding two.  The target-specific literature audit and the
+shorter self-adjoint-pencil route are recorded in
+[`A2_PERIODIC_SPECTRAL_INSTABILITY.md`](../van-der-pol/A2_PERIODIC_SPECTRAL_INSTABILITY.md).
 
 Two apparent typesetting errors in the published version are not imported.
 Equation (5.6) writes the \(K_1\) scaling of \(V\) with \(P_1\) where the

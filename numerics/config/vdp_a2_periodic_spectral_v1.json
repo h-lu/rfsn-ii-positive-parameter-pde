@@ -1,0 +1,96 @@
+{
+  "schema_version": "vdp-a2-periodic-spectral-contract/1",
+  "frozen_at": "2026-08-29",
+  "issue": 11,
+  "scope": "A2 co-periodic linear temporal spectral instability only",
+  "evidence_status": "S0_FROZEN_CONTRACT_WITH_COMPUTED_E1_SEED",
+  "claim_bearing": false,
+  "profile_seed": {
+    "path": "numerics/results/vdp_v1_v7/v7_periodic.npz",
+    "array_prefix": "A2_",
+    "sha256": "9004fb1611d213129cab7d93c785b291ea5d6292843ca29002589c006ec38270",
+    "saved_physical_period": 2.159661039071366,
+    "saved_point_count_with_duplicate_endpoint": 6001,
+    "identity_boundary": "A2 is a numerical family/relative-winding label, not yet a certified V6 cell or V7 edge word"
+  },
+  "parameters": {
+    "r": 0.08,
+    "a2": 0.0,
+    "epsilon": 1.0,
+    "a": 1.0,
+    "d": 0.00004096
+  },
+  "physical_pde": {
+    "f": "f(u)=u^3/3-u",
+    "u_equation": "u_t=v-f(u)+d*u_xx",
+    "v_equation": "v_t=epsilon*(a-u)+v_xx"
+  },
+  "periodic_profile_enclosure_target": {
+    "central_ode": "U'=P; P'=-V-U^2+(r^2/3)*U^3; V'=Q; Q'=U",
+    "reverser": "R(U,P,V,Q)=(U,-P,V,-Q)",
+    "central_initial_state": "(s,0,V0(s),0), with V0(s) fixed by the zero-energy equation",
+    "shooting_map": "F(s,T)=(P(T;s),Q(T;s))",
+    "phase_condition": "x=0 lies in Fix(R): P(0)=Q(0)=0; s is restricted to the declared non-equilibrium box",
+    "central_initial_u_preselection_box": [4.92556665, 4.92556669],
+    "central_half_period_preselection_box": [13.49788, 13.49789],
+    "required_method": "outward-rounded interval Newton or Krawczyk enclosure of one unique zero in an explicit lifted multiple-shooting subbox contained in the preselection boxes; no uniqueness assertion for the entire preselection box",
+    "required_identity": "target-specific true periodic orbit near the frozen seed; V6/V7 symbolic edge binding is not required for the spectral theorem"
+  },
+  "exact_inverse_scaling_at_target": {
+    "x": "x=r*xi",
+    "u_physical": "u=1-r^2*U",
+    "v_physical": "v=f(1)-r^4*V",
+    "physical_period": "L=2*r*T"
+  },
+  "co_periodic_linearization": {
+    "space": "L^2_per(0,L;R)^2",
+    "domain": "H^2_per(0,L;R)^2",
+    "operator": "L(U,V)=(d*U_xx-(u_*^2-1)*U+V, -epsilon*U+V_xx)",
+    "bloch_phase": 0.0,
+    "translation_mode": "L(u_*',v_*')=0"
+  },
+  "variational_instability_target": {
+    "trial_function": "w=u_*-a",
+    "lambda_lower": 0.01,
+    "lambda_upper": 2.0,
+    "moment_identity": "q_0[w]=a*integral(w^3)+(2/3)*integral(w^4)",
+    "lambda_lower_upper_bound": "q_lambda_lower[w] <= q_0[w]+lambda_lower*integral(w^2)",
+    "required_strict_upper_bound": -5e-7,
+    "conclusion_if_validated": "one real co-periodic eigenvalue lambda_* in (0.01,2), separated from the translation eigenvalue zero"
+  },
+  "central_augmented_integral": {
+    "central_coordinate_relation": "u_physical-a=-r^2*U_central and dx=r*d_xi at epsilon=1",
+    "half_orbit_equation": "z'=0.01*U_central^2-r^2*U_central^3+(2/3)*r^4*U_central^4, z(0)=0",
+    "physical_identity": "M_0.01=2*r^5*z(T)",
+    "saved_candidate_z_at_half_period": -0.13469476340882486,
+    "required_interval_upper_bound": -0.1,
+    "validation_note": "augment the same multiple-shooting orbit; this single scalar gate replaces a rigorous spectral discretization"
+  },
+  "floating_spectral_crosscheck": {
+    "method": "127-point Fourier collocation at theta=0",
+    "candidate_eigenvalue": 0.02138145204436229,
+    "candidate_only": true
+  },
+  "completion_rule": {
+    "minimal_claim_bearing_inputs": [
+      "one true reversible periodic shooting root in the frozen (s,T) box",
+      "an outward-rounded enclosure of the augmented physical moments proving the frozen strict upper bound"
+    ],
+    "not_required": [
+      "full Bloch-phase continuum",
+      "Evans-function winding",
+      "Fourier spectral tail enclosure",
+      "algebraic multiplicity of the positive eigenvalue",
+      "nonlinear instability",
+      "pulse_1 whole-line instability",
+      "Turing selection",
+      "canard identification"
+    ]
+  },
+  "nonclaims": [
+    "The saved NPZ arrays are not an enclosure of a true periodic profile.",
+    "The floating moment and Fourier calculations are not interval proofs.",
+    "The A2 metadata do not certify a V6 return cell or a V7 symbolic edge.",
+    "Co-periodic spectral instability is not nonlinear instability or dynamical pattern selection."
+  ]
+}

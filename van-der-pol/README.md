@@ -213,3 +213,15 @@ genuine outer algebraic end and its finite part.
 Periodic or localized spatial orbits are stationary solutions of the original
 PDE.  Spatial symbolic dynamics and spatial entropy do not imply temporal
 chaos, and existence does not imply temporal stability.
+
+The first post-existence temporal result is now isolated in
+[the A2 co-periodic instability note](A2_PERIODIC_SPECTRAL_INSTABILITY.md).
+It proves a general centered-moment criterion for a real positive temporal
+eigenvalue.  The frozen A2 arrays pass that criterion numerically with
+\(M_{0.01}\approx-8.83\times10^{-7}\), consistently with the independent
+Fourier candidate \(\lambda\approx0.02138145\).  A target-specific
+[CAPD enclosure](../validation/a2_periodic/README.md) now proves a true periodic
+orbit in the frozen shooting box and the strict interval moment, hence a real
+co-periodic eigenvalue \(\lambda_*\in(0.01,2)\).  This is a local mathematical
+`PASS`; independent replay remains before claim-bearing release.  It supplies
+neither nonlinear instability nor temporal selection.

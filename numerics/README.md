@@ -146,6 +146,33 @@ instability theorem.  Short-time residual-subtracted perturbation evolution
 checks the leading pulse modes but is not an unmodified full-PDE selection
 experiment.
 
+For the frozen A2 periodic target, the follow-up
+[operator-pencil note](../van-der-pol/A2_PERIODIC_SPECTRAL_INSTABILITY.md)
+now replaces a prospective full Evans calculation by one exact moment
+criterion.  Its minimal floating calculation is reproduced by
+
+```bash
+python3 -B numerics/vdp_a2_variational_instability.py \
+  --output numerics/results/vdp_a2_spectral_instability/variational_report.json
+python3 -B -m unittest numerics.test_vdp_a2_variational_instability -v
+```
+
+The saved arrays give
+\(M_{0.01}=-8.827356014760763\times10^{-7}\) and the equivalent central
+half-orbit value \(z(T)=-0.13469476340882486\).  This script remains
+`COMPUTED/E1`, but the independent target-specific
+[CAPD calculation](../validation/a2_periodic/README.md) now supplies the true
+multiple-shooting root and proves
+
+\[
+ z(T)\in[-0.1346947634090,-0.1346947634087]<-0.1.
+\]
+
+Together with the analytic moment criterion, that is a local mathematical
+proof of a real A2 co-periodic eigenvalue in \((0.01,2)\).  Independent replay
+is still pending before claim-bearing release; a rigorous Fourier/Bloch
+truncation is not needed for this target.
+
 The same run records positive-fold passages and the FSN-II degeneracy of the
 singular reduced problem.  It does not compute an intersection of the relevant
 finite-parameter slow manifolds, so it does **not** identify a maximal canard.
