@@ -1,0 +1,130 @@
+{
+  "schema_version": "rfsn-vdp-p2e-source-patch-census-config/1",
+  "configuration_id": "vdp-p2e-source-patch-census-v2",
+  "status": "PREFROZEN_BEFORE_FIRST_RETAINED_SOURCE_PATCH_RUN",
+  "evidence_status": "COMPUTED_E1_ONLY",
+  "parameter_point": {
+    "r": "3/200",
+    "a2": "0",
+    "epsilon": "1"
+  },
+  "source": {
+    "source_radius": "1/100",
+    "graph_horizon": "10",
+    "graph_boundary_tolerance": "1e-9",
+    "phase_difference_step": "1/50000",
+    "maximum_abs_nu": "1/100000",
+    "meaning": "The finite-horizon nonlinear-Wu Kato-compatible numerical zero-energy section used by the existing C.A and B.RET scouts; it is not identified with the exact nonlinear Moser chart."
+  },
+  "patches": [
+    {
+      "id": "A",
+      "center": "5.756767223284979",
+      "center_role": "energy-preserving matched algebraic centerline",
+      "phase_offsets": [
+        "-1/25",
+        "-1/50",
+        "-1/100",
+        "0",
+        "1/200",
+        "1/100",
+        "1/50",
+        "1/25"
+      ]
+    },
+    {
+      "id": "H",
+      "center": "5.861458108702215",
+      "center_role": "P2c-selected floating homoclinic centerline",
+      "phase_offsets": [
+        "-1/500",
+        "-1/1000",
+        "-1/2000",
+        "0",
+        "1/2000",
+        "1/1000",
+        "1/500"
+      ]
+    },
+    {
+      "id": "P",
+      "center": "0",
+      "center_role": "center of the inherited pole-gate phase cover",
+      "phase_offsets": [
+        "-1/5",
+        "-1/10",
+        "0",
+        "1/10",
+        "1/5"
+      ]
+    }
+  ],
+  "nu_values": [
+    "-1/125000",
+    "-1/250000",
+    "0",
+    "1/250000",
+    "1/125000"
+  ],
+  "event_definitions": {
+    "return": "rho_s=1/100 with decreasing rho_s and rho_u<=1/100 in the calibrated algebraic/Kato frame",
+    "algebraic": "U=-4 with P<0 and Q<0",
+    "pole": "x=-U=10, equivalently U=-10, with decreasing U",
+    "stable_label": "On a return hit, c_stable is the recovered nu of the reflected state in the same numerical Kato-compatible source chart.",
+    "unresolved": "No qualifying event before the frozen time/guard stop; this is retained as unresolved rather than relabelled as a lateral."
+  },
+  "integration": {
+    "method": "DOP853",
+    "rtol": "1e-11",
+    "atol": "1e-13",
+    "max_step": "3/200",
+    "maximum_central_time": "40",
+    "state_norm_guard": "60",
+    "energy_samples": 401
+  },
+  "qa_thresholds": {
+    "source_energy_abs_upper": "2e-11",
+    "source_nu_roundtrip_abs_upper": "5e-12",
+    "event_hit_residual_abs_upper": "1e-8",
+    "event_speed_abs_lower": "1e-7",
+    "sampled_hamiltonian_drift_upper": "2e-8",
+    "return_inverse_reconstruction_defect_upper": "2e-8"
+  },
+  "source_bindings": [
+    {
+      "path": "numerics/config/vdp_p2e_channel_scout_v2.json",
+      "sha256": "4395ab486b226f2ad5ace891077f738b3d2d8b76cd39b2459edb9f9efbc373eb"
+    },
+    {
+      "path": "numerics/config/vdp_p2e_bret_scout_v2.json",
+      "sha256": "0aae3d9aec4099b944fd0d78663426c3b424149ae5c005f6d2a5536d7b0f6936"
+    },
+    {
+      "path": "numerics/results/vdp_p2e_channel_scout_v2/axis_continuation.json",
+      "sha256": "0720c6a13b2fee5122b42d827d66aca41105063b5e0d767acbfb75e1f0a8a824"
+    },
+    {
+      "path": "validation/rigorous/config/vdp_box_v2.json",
+      "sha256": "43ff2ee14db2e9d42abe484e9d415176cc92836fb2956a27cb6b9f72a751b1ed"
+    }
+  ],
+  "retained_run_policy": {
+    "allowed_runs": 1,
+    "no_grid_retry": true,
+    "no_threshold_retry": true,
+    "preserve_inconclusive_source_points": true,
+    "preserve_unresolved_or_guarded_trajectories": true
+  },
+  "output": {
+    "result_path": "numerics/results/vdp_p2e_source_patch_census_v2/result.json",
+    "array_path": "numerics/results/vdp_p2e_source_patch_census_v2/trajectories.npz",
+    "report_path": "numerics/P2E_V2_SOURCE_PATCH_CENSUS_REPORT.md"
+  },
+  "nonclaims": [
+    "The three finite source patches are not an exhaustive source circle or a V2 event atlas.",
+    "The numerical Kato-compatible source coordinates are not the proof-bound exact Moser coordinates.",
+    "A sampled outcome cell or boundary bracket is not an interval enclosure, an incidence theorem, or a positive m0 bound.",
+    "The state-norm guard is not a physical lateral face.",
+    "No canard, temporal-stability, Turing-selection, or PDE-selection conclusion is produced."
+  ]
+}
