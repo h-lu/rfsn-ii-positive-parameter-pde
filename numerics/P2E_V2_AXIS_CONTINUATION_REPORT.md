@@ -13,6 +13,15 @@ predictor.  The negative `a2` endpoint used the symmetric secant predictor
 from the already successful center and positive `a2` endpoint; this changed
 only the Newton initial value, not a target or acceptance threshold.
 
+The center file used here is the exact-coordinate replay in which the
+resolved-`K1` unknown `Pi` was replaced by its conjugate `log(Pi)` coordinate.
+It superseded the earlier center file: `H` changed from
+`2.1287391499046257e-14` to `1.6531401306609465e-14`, and the six-row boundary
+residual changed from `1.2938469740042535e-12` to
+`1.4701573292086323e-12`.  These are noise/residual-scale differences only;
+the physical target, equations, sections, outer leaf, `Q_end`, solver
+tolerance, and acceptance thresholds did not change.
+
 The narrow phase bracket stored by the original one-point scout is recorded
 at every endpoint but is not used as an axis acceptance test: phase is a
 solved output, and that bracket froze only the center calculation's Newton

@@ -31,6 +31,24 @@ The resolved `K1` energy root uses the solved `H` at every collocation point;
 the outer root uses the same physical energy.  No physical parameter, phase
 bracket, section, outer leaf, or terminal condition was changed.
 
+## Positive-Pi coordinate replay
+
+The archived centerline was subsequently replayed using the exactly
+conjugate `log(Pi)` coordinate on the resolved-`K1` leg, and that replay
+replaced the earlier numerical JSON/NPZ pair.  This enforces `Pi>0` in the
+Newton coordinates without changing the physical target or orbit equations.
+The old and replayed diagnostics were
+
+| diagnostic | original `Pi` coordinate | replayed `log(Pi)` coordinate |
+|---|---:|---:|
+| solved `H` | `2.1287391499046257e-14` | `1.6531401306609465e-14` |
+| six-row boundary residual | `1.2938469740042535e-12` | `1.4701573292086323e-12` |
+
+Thus the changes are respectively `4.76e-15` and `1.76e-13`, at the floating
+energy-noise and residual scales.  The parameter point, physical target, six
+boundary equations, sections, outer leaf, `Q_end`, solver tolerance, and all
+acceptance thresholds remained unchanged.
+
 ## Result
 
 - source phase: `5.756767223284979`;

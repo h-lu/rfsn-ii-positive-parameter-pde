@@ -19,6 +19,15 @@ EXPECTED = {
     "epsilon_lower",
     "epsilon_upper",
 }
+EXPECTED_EXACT_PARAMETERS = {
+    "center": {"r": "3/200", "a2": "0", "epsilon": "1"},
+    "r_lower": {"r": "1/100", "a2": "0", "epsilon": "1"},
+    "r_upper": {"r": "1/50", "a2": "0", "epsilon": "1"},
+    "a2_lower": {"r": "3/200", "a2": "-1/4", "epsilon": "1"},
+    "a2_upper": {"r": "3/200", "a2": "1/4", "epsilon": "1"},
+    "epsilon_lower": {"r": "3/200", "a2": "0", "epsilon": "4/5"},
+    "epsilon_upper": {"r": "3/200", "a2": "0", "epsilon": "6/5"},
+}
 
 
 class SevenPointAxisContinuationTests(unittest.TestCase):
@@ -36,6 +45,13 @@ class SevenPointAxisContinuationTests(unittest.TestCase):
         self.assertEqual(set(self.result["points"]), EXPECTED)
         self.assertEqual(set(self.result["successful_points"]), EXPECTED)
         self.assertFalse(self.result["claim_bearing"])
+
+    def test_every_point_retains_its_exact_rational_parameter_labels(self) -> None:
+        for point, labels in EXPECTED_EXACT_PARAMETERS.items():
+            self.assertEqual(
+                self.result["points"][point]["parameter_point_exact"],
+                labels,
+            )
 
     def test_every_point_passes_fixed_residual_and_positive_branch_qa(self) -> None:
         for row in self.result["points"].values():

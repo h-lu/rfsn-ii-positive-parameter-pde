@@ -82,6 +82,11 @@
     "epsilon": "1.0",
     "r": "0.015"
   },
+  "parameter_point_exact": {
+    "a2": "0",
+    "epsilon": "1",
+    "r": "3/200"
+  },
   "qa": {
     "algebraic_orientation": true,
     "boundary_residual": true,

@@ -53,6 +53,11 @@ DEFAULT_DATA = (
 )
 ENERGY_H_HALF_WIDTH = 1.0
 SOLVER_TOLERANCE = 1.0e-6
+CENTER_PARAMETER_POINT_EXACT = {
+    "r": "3/200",
+    "a2": "0",
+    "epsilon": "1",
+}
 THRESHOLDS = {
     "boundary_residual_inf": 1.0e-9,
     "central_energy_abs": 1.0e-10,
@@ -146,6 +151,7 @@ def compute_energy_matched_centerline(
     initial_phase: float | None = None,
     raise_on_qa: bool = True,
 ) -> tuple[dict[str, Any], dict[str, Array]]:
+    using_default_parameter_point = parameters is None
     frozen = _load_config(DEFAULT_CONFIG)
     config = _candidate_config(frozen)
     source = frozen["common_source_convention"]
@@ -492,6 +498,8 @@ def compute_energy_matched_centerline(
             "not a parameter-box channel, V5 theorem validation, or V2 atlas."
         ),
     }
+    if using_default_parameter_point:
+        report["parameter_point_exact"] = dict(CENTER_PARAMETER_POINT_EXACT)
     arrays = {
         "central_xi": central_xi,
         "central_state": central_state,

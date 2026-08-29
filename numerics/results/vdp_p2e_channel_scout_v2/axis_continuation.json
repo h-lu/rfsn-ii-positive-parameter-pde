@@ -61,6 +61,11 @@
         "epsilon": 1.0,
         "r": 0.015
       },
+      "parameter_point_exact": {
+        "a2": "-1/4",
+        "epsilon": "1",
+        "r": "3/200"
+      },
       "phase_order_diagnostic": {
         "algebraic_phase": 5.73508661903433,
         "algebraic_to_homoclinic_gap": 0.10602254492704155,
@@ -122,6 +127,11 @@
         "a2": 0.25,
         "epsilon": 1.0,
         "r": 0.015
+      },
+      "parameter_point_exact": {
+        "a2": "1/4",
+        "epsilon": "1",
+        "r": "3/200"
       },
       "phase_order_diagnostic": {
         "algebraic_phase": 5.778380037185768,
@@ -185,6 +195,11 @@
         "epsilon": 1.0,
         "r": 0.015
       },
+      "parameter_point_exact": {
+        "a2": "0",
+        "epsilon": "1",
+        "r": "3/200"
+      },
       "phase_order_diagnostic": {
         "algebraic_phase": 5.756767223284979,
         "algebraic_to_homoclinic_gap": 0.10469088541723615,
@@ -246,6 +261,11 @@
         "a2": 0.0,
         "epsilon": 0.8,
         "r": 0.015
+      },
+      "parameter_point_exact": {
+        "a2": "0",
+        "epsilon": "4/5",
+        "r": "3/200"
       },
       "phase_order_diagnostic": {
         "algebraic_phase": 5.756759219106182,
@@ -309,6 +329,11 @@
         "epsilon": 1.2,
         "r": 0.015
       },
+      "parameter_point_exact": {
+        "a2": "0",
+        "epsilon": "6/5",
+        "r": "3/200"
+      },
       "phase_order_diagnostic": {
         "algebraic_phase": 5.7567744593827355,
         "algebraic_to_homoclinic_gap": 0.1046791171305923,
@@ -371,6 +396,11 @@
         "epsilon": 1.0,
         "r": 0.01
       },
+      "parameter_point_exact": {
+        "a2": "0",
+        "epsilon": "1",
+        "r": "1/100"
+      },
       "phase_order_diagnostic": {
         "algebraic_phase": 5.756725099876434,
         "algebraic_to_homoclinic_gap": 0.10475938666778184,
@@ -432,6 +462,11 @@
         "a2": 0.0,
         "epsilon": 1.0,
         "r": 0.02
+      },
+      "parameter_point_exact": {
+        "a2": "0",
+        "epsilon": "1",
+        "r": "1/50"
       },
       "phase_order_diagnostic": {
         "algebraic_phase": 5.7568261834642085,

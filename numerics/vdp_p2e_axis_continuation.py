@@ -36,6 +36,15 @@ POINTS = (
     ("epsilon_lower", 3.0 / 200.0, 0.0, 4.0 / 5.0),
     ("epsilon_upper", 3.0 / 200.0, 0.0, 6.0 / 5.0),
 )
+POINT_PARAMETER_EXACT = {
+    "center": {"r": "3/200", "a2": "0", "epsilon": "1"},
+    "r_lower": {"r": "1/100", "a2": "0", "epsilon": "1"},
+    "r_upper": {"r": "1/50", "a2": "0", "epsilon": "1"},
+    "a2_upper": {"r": "3/200", "a2": "1/4", "epsilon": "1"},
+    "a2_lower": {"r": "3/200", "a2": "-1/4", "epsilon": "1"},
+    "epsilon_lower": {"r": "3/200", "a2": "0", "epsilon": "4/5"},
+    "epsilon_upper": {"r": "3/200", "a2": "0", "epsilon": "6/5"},
+}
 
 
 def _homoclinic_configuration(config: dict[str, Any]) -> P2CScoutConfiguration:
@@ -112,6 +121,7 @@ def compute_axis_continuation() -> tuple[dict[str, Any], dict[str, np.ndarray]]:
             rows[point_id] = {
                 "status": "FAIL",
                 "parameter_point": {"r": r, "a2": a2, "epsilon": epsilon},
+                "parameter_point_exact": dict(POINT_PARAMETER_EXACT[point_id]),
                 "failure": {
                     "exception_type": type(error).__name__,
                     "message": str(error),
@@ -169,6 +179,7 @@ def compute_axis_continuation() -> tuple[dict[str, Any], dict[str, np.ndarray]]:
             "status": "SUCCESS" if success else "FAIL",
             "centerline_status": result["status"],
             "parameter_point": {"r": r, "a2": a2, "epsilon": epsilon},
+            "parameter_point_exact": dict(POINT_PARAMETER_EXACT[point_id]),
             "source_phase": algebraic_phase,
             "initial_phase_predictor": result["initial_phase_predictor"],
             "source_phase_in_center_scout_bracket": diagnostics[

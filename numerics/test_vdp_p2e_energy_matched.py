@@ -39,6 +39,12 @@ class EnergyPreservingMatchedCenterlineTests(unittest.TestCase):
         self.assertEqual(count["boundary_equations"], 6)
         self.assertIn("central_to_K1_q1", count["rows"])
 
+    def test_center_retains_exact_rational_parameter_labels(self) -> None:
+        self.assertEqual(
+            self.result["parameter_point_exact"],
+            {"r": "3/200", "a2": "0", "epsilon": "1"},
+        )
+
     def test_all_predeclared_qa_passes_without_promoting_the_claim(self) -> None:
         self.assertEqual(
             self.result["status"],
