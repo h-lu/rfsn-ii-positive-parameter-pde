@@ -1,0 +1,223 @@
+{
+  "claim_bearing": false,
+  "comparison": {
+    "successive_pairs": [
+      {
+        "a2_candidate_abs": 1.25673350300122e-06,
+        "entry_state_inf": 0.026403608363636977,
+        "from_q2": -80.0,
+        "reverser_state_inf": 1.0196904648006756e-07,
+        "to_q2": -100.0
+      }
+    ],
+    "three_slice_convergence_status": "NOT_TESTED_MISSING_SLICE"
+  },
+  "configuration": {
+    "freeze_status": "FROZEN_BEFORE_FIRST_THREE_BOUNDARY_RUN",
+    "path": "numerics/config/vdp_canard_boundary_convergence_v1.json",
+    "sha256": "7f23b4c1f969f2132cbf687facedafebb59cfd8fd74f890e193e07cf1c89e82c"
+  },
+  "decision": {
+    "intrinsic_canard": "NOT_CLAIMED_FINITE_BOUNDARY_OBJECTS_ONLY",
+    "splitting_derivative": "NOT_COMPUTED_PERTURBED_COLLOCATION_FAILED",
+    "status": "PARTIAL_Q60_A2_CONTINUATION_FAILED"
+  },
+  "evidence_status": "COMPUTED/E1_PARTIAL_THREE_BOUNDARY_SCOUT",
+  "nonclaims": [
+    "All candidates remain finite-boundary Appendix-A.2/A.3 objects.",
+    "Boundary convergence does not identify an intrinsic Wcu trace.",
+    "No rigorous, maximal-canard, C1, C2, or high-winding claim is made."
+  ],
+  "parameters": {
+    "a2_candidate_interval": [
+      -0.0086,
+      -0.0081
+    ],
+    "epsilon": 1.0,
+    "initial_a2": -0.008333333333333333,
+    "r": 0.08
+  },
+  "schema_version": "vdp-canard-boundary-convergence-report/1",
+  "slices": [
+    {
+      "a2_candidate": null,
+      "common_section_entry": null,
+      "failure": "outside A.2 natural continuation to u2=14.0: The maximum number of mesh nodes is exceeded.",
+      "outer_entry_pair": null,
+      "outer_q2": -60.0,
+      "reverser_endpoint": null,
+      "splitting_a2_derivative": null,
+      "status": "FAILED_A2_PRIMARY_BRANCH_CONTINUATION"
+    },
+    {
+      "a2_candidate": -0.008338195267063859,
+      "boundary_residual_inf": 3.339550858072471e-13,
+      "central_localization_difference_from_formal_diagnostic": [
+        1.9758595221704318e-07,
+        -7.806368720070307e-20,
+        -1.4537862740859886e-06,
+        0.0
+      ],
+      "central_localization_pass": true,
+      "common_section_entry": [
+        15.999999999994845,
+        -2.2342799684634715,
+        264.617407008356,
+        -75.31620228721872
+      ],
+      "common_section_entry_hamiltonian": -8.739675649849232e-13,
+      "common_section_entry_source": "A3_HALF_BVP_INTERPOLANT",
+      "half_flight_time": 14.29055562589188,
+      "hamiltonian_drift": 5.681428660864185e-10,
+      "max_interval_rms_relative_residual": 1.9984434989008052e-08,
+      "outer_entry_pair": {
+        "q_star": -80.0,
+        "u_star": 16.645083364843376
+      },
+      "outer_q2": -80.0,
+      "primary_no_loop_sample_pass": true,
+      "reverser_endpoint": [
+        -0.0006670525127621126,
+        -7.806368720070307e-20,
+        -0.16666840892660423,
+        0.0
+      ],
+      "splitting_a2_derivative": {
+        "attempts": [
+          {
+            "a2": -0.008358195267063858,
+            "a2_step": 2e-05,
+            "max_interval_rms_relative_residual": 1.0560347505408792e+21,
+            "mesh_nodes": 2401,
+            "message": "A singular Jacobian encountered when solving the collocation system.",
+            "sign": -1,
+            "success": false,
+            "warnings": []
+          },
+          {
+            "a2": -0.00831819526706386,
+            "a2_step": 2e-05,
+            "max_interval_rms_relative_residual": 150129561449343.44,
+            "mesh_nodes": 7201,
+            "message": "A singular Jacobian encountered when solving the collocation system.",
+            "sign": 1,
+            "success": false,
+            "warnings": []
+          },
+          {
+            "a2": -0.008348195267063858,
+            "a2_step": 1e-05,
+            "max_interval_rms_relative_residual": 53555066441.38339,
+            "mesh_nodes": 2401,
+            "message": "A singular Jacobian encountered when solving the collocation system.",
+            "sign": -1,
+            "success": false,
+            "warnings": []
+          },
+          {
+            "a2": -0.008328195267063859,
+            "a2_step": 1e-05,
+            "max_interval_rms_relative_residual": 9.5216775347941e+28,
+            "mesh_nodes": 2401,
+            "message": "A singular Jacobian encountered when solving the collocation system.",
+            "sign": 1,
+            "success": false,
+            "warnings": [
+              "overflow encountered in dot",
+              "overflow encountered in dot",
+              "overflow encountered in dot",
+              "overflow encountered in dot",
+              "overflow encountered in dot"
+            ]
+          }
+        ],
+        "definition": "At fixed (u_star,q0), impose left H2=0 and terminal p2=0; S(a2)=terminal q2.",
+        "derivative_candidates": [],
+        "status": "NOT_COMPUTED_PERTURBED_COLLOCATION_FAILED"
+      },
+      "status": "COMPUTED/E1_FINITE_BOUNDARY_A3_CANDIDATE"
+    },
+    {
+      "a2_candidate": -0.008336938533560857,
+      "boundary_residual_inf": 9.379164112033322e-13,
+      "central_localization_difference_from_formal_diagnostic": [
+        1.487469783368776e-07,
+        -9.541119945371726e-20,
+        -1.4015012760326684e-06,
+        6.617444900424222e-24
+      ],
+      "central_localization_pass": true,
+      "common_section_entry": [
+        16.0,
+        -2.238753566208429,
+        264.59100339999236,
+        -75.31072522308276
+      ],
+      "common_section_entry_hamiltonian": -4.692850552601158e-10,
+      "common_section_entry_source": "A3_HALF_BVP_INTERPOLANT",
+      "half_flight_time": 15.40470778231979,
+      "hamiltonian_drift": 8.924061489778978e-10,
+      "max_interval_rms_relative_residual": 1.9648095895509287e-08,
+      "outer_entry_pair": {
+        "q_star": -100.0,
+        "u_star": 19.277356213456283
+      },
+      "outer_q2": -100.0,
+      "primary_no_loop_sample_pass": true,
+      "reverser_endpoint": [
+        -0.0006669505437156326,
+        -9.541119945371726e-20,
+        -0.16666835674900066,
+        6.617444900424222e-24
+      ],
+      "splitting_a2_derivative": {
+        "attempts": [
+          {
+            "a2": -0.008356938533560856,
+            "a2_step": 2e-05,
+            "max_interval_rms_relative_residual": 6.591172085701576e+16,
+            "mesh_nodes": 2401,
+            "message": "A singular Jacobian encountered when solving the collocation system.",
+            "sign": -1,
+            "success": false,
+            "warnings": []
+          },
+          {
+            "a2": -0.008316938533560858,
+            "a2_step": 2e-05,
+            "max_interval_rms_relative_residual": 2.7055842998651908e+16,
+            "mesh_nodes": 7201,
+            "message": "A singular Jacobian encountered when solving the collocation system.",
+            "sign": 1,
+            "success": false,
+            "warnings": []
+          },
+          {
+            "a2": -0.008346938533560857,
+            "a2_step": 1e-05,
+            "max_interval_rms_relative_residual": 1.5023103976134823e+36,
+            "mesh_nodes": 2401,
+            "message": "A singular Jacobian encountered when solving the collocation system.",
+            "sign": -1,
+            "success": false,
+            "warnings": []
+          },
+          {
+            "a2": -0.008326938533560858,
+            "a2_step": 1e-05,
+            "max_interval_rms_relative_residual": 25237031.754126973,
+            "mesh_nodes": 2401,
+            "message": "A singular Jacobian encountered when solving the collocation system.",
+            "sign": 1,
+            "success": false,
+            "warnings": []
+          }
+        ],
+        "definition": "At fixed (u_star,q0), impose left H2=0 and terminal p2=0; S(a2)=terminal q2.",
+        "derivative_candidates": [],
+        "status": "NOT_COMPUTED_PERTURBED_COLLOCATION_FAILED"
+      },
+      "status": "COMPUTED/E1_FINITE_BOUNDARY_A3_CANDIDATE"
+    }
+  ]
+}

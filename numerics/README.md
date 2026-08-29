@@ -234,6 +234,14 @@ numerical `STOP`: without inflow/gauge/branch data it emits neither an
 intrinsic \(W^{cu}\) entry nor an \(a_2\) tangent.  This does not show that
 \(W^{cu}\) is absent.
 
+The next [three-boundary comparison](VDP_CANARD_BOUNDARY_CONVERGENCE.md)
+predeclares \(q_0=-60,-80,-100\) and reuses the same A.2/A.3 computation.
+The \(-80\) and \(-100\) primary no-loop candidates succeed and can be
+compared on \(u_2=16\), while \(-60\) exhausts the frozen A.2 mesh budget.
+All fixed-boundary symmetric splitting resolves have singular collocation
+Jacobians, so no \(a_2\) derivative is reported and no boundary-convergence
+or intrinsic-canard conclusion is made.
+
 The proposed Issue #7 box
 
 \[
