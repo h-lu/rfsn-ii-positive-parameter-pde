@@ -1387,6 +1387,92 @@ remaining items of Theorem~\ref{thm:main}.
 
 \section{Consequences and scope}\label{sec:scope}
 
+\subsection{An exact temporal Fourier obstruction}
+
+The existence proof above uses global spatial dynamics and does not identify
+the resulting profiles with a local classical Turing branch.  The following
+exact calculation separates those two mechanisms at the frozen parameters.
+
+\begin{proposition}[No classical stationary Turing onset]
+\label{prop:turing-exclusion}
+Let $d,\epsilon>0$, let $\alpha=f'(a)=a^2-1$, and put $q=k^2$.  The
+homogeneous mode of \eqref{eq:pde} is strictly spectrally stable if and only
+if $\alpha>0$; in that case all Fourier modes are strictly stable.  A
+stationary zero eigenvalue at some $k>0$ exists if and only if
+\[
+ \alpha\leq-2\sqrt{d\epsilon}<0.
+\]
+Hence \eqref{eq:pde} admits no classical stationary Turing onset from a
+stable homogeneous equilibrium.
+
+Moreover, throughout the explicit box
+\begin{equation}\label{eq:turing-box}
+ \frac1{25}\le r\le\frac2{25},\qquad
+ |a_2|\le\frac14,\qquad
+ \frac45\le\epsilon\le\frac65,
+\end{equation}
+there is no positive-wavenumber stationary zero.  When
+$2r^2\sqrt\epsilon<1$, the two stationary-neutral branches are
+\begin{equation}\label{eq:turing-neutral-branch}
+ a_{2,\mathrm T}^{\pm}(r,\epsilon)
+ =\frac{\pm\sqrt{1-2r^2\sqrt\epsilon}-1}
+        {\sqrt\epsilon\,r^3},
+ \qquad k_c=\frac{\epsilon^{1/4}}r.
+\end{equation}
+The positive-fold branch is $a_{2,\mathrm T}^{+}$; throughout
+\eqref{eq:turing-box} it satisfies
+$a_{2,\mathrm T}^{+}<-1/r\le-25/2$, while the minus branch is still more
+negative.  Thus neither branch meets the frozen $a_2$ interval, and both lie
+on a homogeneously unstable background.
+\end{proposition}
+
+\begin{proof}
+The Fourier symbol at $(a,f(a))$ is
+\[
+ L(k)=\begin{pmatrix}-\alpha-dq&1\\-\epsilon&-q\end{pmatrix},
+ \qquad
+ \operatorname{tr}L=-\alpha-(1+d)q,
+ \qquad
+ \det L=dq^2+\alpha q+\epsilon.
+\]
+At $q=0$, the Routh--Hurwitz criterion gives strict stability precisely for
+$\alpha>0$, which also makes the trace negative and determinant positive for
+every $q\ge0$.  A stationary zero at $q>0$ is a zero of the convex quadratic
+$dq^2+\alpha q+\epsilon$.  Its minimizer is positive and its minimum is
+nonpositive precisely when
+$\alpha\le-2\sqrt{d\epsilon}$.
+If $\alpha=0$, the zero mode is $\lambda=\pm i\sqrt\epsilon$, while every
+$q>0$ is strictly stable.  If $\alpha<0$, the zero mode is already unstable,
+so any finite-$q$ stationary zero occurs on an unstable homogeneous
+background rather than at a classical onset.
+
+In the cusp coordinates \eqref{eq:cusp},
+\[
+ \alpha+2r^2\sqrt\epsilon
+ =\sqrt\epsilon\,r^2
+  \left(2+2ra_2+\sqrt\epsilon\,r^4a_2^2\right),
+\]
+and the bracket in \eqref{eq:turing-box} is at least
+$2-1/25=49/25$.  This proves the strict box separation.  Equality in the
+quadratic criterion has $q_c=\sqrt\epsilon/r^2$; solving it for $a_2$ gives
+\eqref{eq:turing-neutral-branch}.  The branch estimate follows from
+$\sqrt{1-y}<1-y/2$ for $0<y<1$, which applies throughout the box because
+$2r^2\sqrt\epsilon\le(8/625)\sqrt{6/5}<1$.
+\end{proof}
+
+\begin{remark}[Terminology and claim boundary]
+Vo, Doelman, and Kaper call the corresponding spatial reversible $1{:}1$
+curve a singular Turing bifurcation \cite{VoDoelmanKaper2025}.  The
+proposition uses the narrower classical temporal definition in which
+diffusion destabilizes a homogeneous state with stable reaction kinetics.
+The terms are compatible: on the spatial $1{:}1$ curve here, the temporal
+homogeneous mode is already unstable.  The proposition does not exclude a
+branch born outside \eqref{eq:turing-box} and globally continued into it,
+finite-wavenumber growth on an already unstable background, an oscillatory
+or nonlinear mechanism, wavelength selection, or temporal selection of a
+nonconstant profile.
+\end{remark}
+
 The model-specific contribution is to continue two finite singular gates in
 the full positive-diffusion van der Pol system.  The invariant pole cone and
 regular-singular analysis construct the finite-distance end; the outer
@@ -1401,14 +1487,15 @@ periodic and bounded aperiodic profiles, while its boundary-completed finite
 words yield multipulses.  Thus first-event exhaustiveness is not confused
 with the mechanism producing stationary patterns.
 
-The result remains conditional on Hypothesis~\ref{hyp:H}, local to a
+The stationary existence result remains conditional on
+Hypothesis~\ref{hyp:H}, local to a
 sufficiently high-winding source collar, and uniform only on the existential
 annulus \eqref{eq:PV}.  It gives neither an explicit validated parameter box
 nor uniformity at $r=0$.  The independent variable here is the spatial
 coordinate $\mathsf x$: spatial entropy or an aperiodic stationary profile is
 not temporal chaos for the parabolic PDE.  Temporal spectral or nonlinear
-stability, selection from a Turing bifurcation, canard tracking, and
-experimental observability remain separate questions.
+stability, nonlinear temporal selection, canard tracking, and experimental
+observability remain separate questions.
 
 \subsection*{Data and supplementary material}
 

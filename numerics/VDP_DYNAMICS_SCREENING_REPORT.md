@@ -65,6 +65,10 @@ PDE 中呈现什么候选谱信号”“它们是否来自经典静止 Turing �
 
 ## 2. 齐次 Fourier/Turing 结论
 
+下述结论已提升为 companion 稿件中的精确命题；扫描只用于展示不同参数区
+的谱形状，不承担证明。完整自包含证明见
+[`CLASSICAL_STATIONARY_TURING_EXCLUSION.md`](../van-der-pol/CLASSICAL_STATIONARY_TURING_EXCLUSION.md)。
+
 齐次平衡为 \((a,f(a))\)。令
 
 \[

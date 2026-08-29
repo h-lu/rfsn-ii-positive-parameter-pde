@@ -270,7 +270,7 @@ experimental realization.
 - [#9: independent expert cold read](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/9) — open; the neutral review packet is public, but no human report is claimed before one is returned.
 - [#10: explicit-box and post-existence research roadmap](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/10) — open; records execution order, mathematical dependencies, and stop rules.
 - [#11: rigorous temporal spectral instability](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/11) — both the periodic `A2` target and the whole-line `pulse_1` target have local outward-rounded mathematical `PASS` results; independent replay remains before claim-bearing release.
-- [#12: classical stationary Turing exclusion](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/12) — exact theorem task, mathematically independent of #7.
+- [#12: classical stationary Turing exclusion](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/12) — exact theorem and frozen-box corollary proved; mathematically independent of #7.
 - [#13: finite-parameter maximal-canard curve and high-winding connection](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/13) — staged local curve and global same-orbit connection or separation problem.
 
 The source theory was developed in the historical repository
