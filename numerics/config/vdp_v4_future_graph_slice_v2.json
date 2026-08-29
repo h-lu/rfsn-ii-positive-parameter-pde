@@ -16,6 +16,7 @@
     "data_sha256": "d5fe5897604de1975aa8895a2a3c42413e488975a360f6504dd3e761e0af2fbf",
     "seam_Q": 25.0,
     "seam_beta_center": 2.7385502869454787e-6,
+    "seam_alpha_center": 2.738675286945456e-6,
     "energy_H": 1.6531401306609465e-14,
     "outer_energy_relation": "E=epsilon^(5/2)*r^6*H"
   },
@@ -108,6 +109,7 @@
     "collocation_rms_residual_upper": 3.0e-8,
     "collocation_boundary_residual_upper": 1.0e-10,
     "horizon_seam_gamma_spread_upper": 1.0e-12,
+    "matched_centerline_seam_alpha_difference_upper": 5.0e-11,
     "shooting_terminal_residual_upper": 1.0e-12,
     "method_seam_gamma_difference_upper": 5.0e-11,
     "method_common_state_difference_upper": 2.0e-9,
@@ -120,7 +122,7 @@
   },
   "nonclaims": [
     "The exact normal nullcline is an asymptotically compatible finite terminal condition, not the theorem graph at finite Q.",
-    "Agreement of collocation, short-window shooting, and the horizon ladder is floating-point evidence for one fixed-energy slice only.",
+    "Agreement of collocation, short-window shooting, and the horizon ladder is a shared-implementation floating-point cross-method check for one fixed-energy slice only.",
     "Sampled face signs and quotient-rate proxies do not validate the non-explicit uniform V4 corridor, maximality, uniqueness, parameter jets, or Issue #7."
   ]
 }

@@ -45,6 +45,26 @@ class V4FutureGraphSliceTests(unittest.TestCase):
             sha256(REPOSITORY / binding["data_path"]),
             binding["data_sha256"],
         )
+        centerline = np.load(REPOSITORY / binding["data_path"])
+        centerline_report = json.loads(
+            (REPOSITORY / binding["report_path"]).read_text(encoding="utf-8")
+        )
+        self.assertEqual(
+            centerline_report["parameter_point_exact"],
+            self.config["parameter_point"],
+        )
+        self.assertEqual(
+            float(centerline_report["energy_h"]), float(binding["energy_H"])
+        )
+        self.assertEqual(centerline_report["data_path"], binding["data_path"])
+        self.assertEqual(
+            float(centerline["outer_state_beta_alpha"][0, 0]),
+            float(binding["seam_beta_center"]),
+        )
+        self.assertEqual(
+            float(centerline["outer_state_beta_alpha"][1, 0]),
+            float(binding["seam_alpha_center"]),
+        )
 
     def test_status_remains_nonclaiming(self) -> None:
         self.assertEqual(
@@ -98,6 +118,30 @@ class V4FutureGraphSliceTests(unittest.TestCase):
         )
         self.assertEqual(self.data["collocation_alpha"].shape, (3, 3, 7))
         self.assertEqual(self.data["shooting_alpha"].shape, (3, 7))
+
+    def test_matched_centerline_seam_lies_on_computed_slice(self) -> None:
+        diagnostics = self.result["diagnostics"]
+        thresholds = self.result["thresholds"]
+        self.assertTrue(
+            self.result["qa"]["matched_centerline_seam_coincidence"]
+        )
+        self.assertLessEqual(
+            abs(diagnostics["matched_centerline_seam_alpha_difference"]),
+            thresholds["matched_centerline_seam_alpha_difference_upper"],
+        )
+        np.testing.assert_array_equal(
+            self.data["matched_centerline_seam_beta_alpha"],
+            np.array(
+                [
+                    self.config["matched_centerline_binding"][
+                        "seam_beta_center"
+                    ],
+                    self.config["matched_centerline_binding"][
+                        "seam_alpha_center"
+                    ],
+                ]
+            ),
+        )
 
     def test_saved_states_satisfy_exact_energy_relation(self) -> None:
         parameters = OuterParameters(r=3.0 / 200.0, a2=0.0, epsilon=1.0)

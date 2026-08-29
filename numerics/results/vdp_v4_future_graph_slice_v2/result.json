@@ -46,6 +46,12 @@
     "common_Q": [
       7
     ],
+    "matched_centerline_seam_alpha_difference": [
+      1
+    ],
+    "matched_centerline_seam_beta_alpha": [
+      2
+    ],
     "method_alpha_difference": [
       3,
       7
@@ -334,7 +340,11 @@
       0.0
     ],
     "horizon_seam_gamma_spread_max": 5.505714157152952e-21,
+    "horizon_seam_spread_interpretation": "BELOW_FLOATING_SOLVER_RESOLUTION_NOT_A_RESOLVED_RATE",
     "invariance_residual_inf": 5.2092301033195587e-20,
+    "matched_centerline_seam_alpha": 2.738675286945456e-06,
+    "matched_centerline_seam_alpha_difference": -1.6940658945086007e-21,
+    "matched_centerline_seam_graph_alpha": 2.738675286945458e-06,
     "method_common_state_difference_inf": 3.608591670853259e-11,
     "method_seam_gamma_difference": [
       -1.5619825413290805e-14,
@@ -412,12 +422,13 @@
   "qa": {
     "collocation_boundary": true,
     "collocation_residual": true,
+    "cross_method_common_state_agreement": true,
+    "cross_method_seam_agreement": true,
     "energy": true,
     "graph_inside_sampled_faces": true,
-    "horizon_convergence": true,
-    "independent_common_state_agreement": true,
-    "independent_seam_agreement": true,
+    "horizon_terminal_insensitivity_at_float_resolution": true,
     "invariance": true,
+    "matched_centerline_seam_coincidence": true,
     "positive_pi": true,
     "sampled_face_orientation": true,
     "shooting_terminal": true,
@@ -434,6 +445,7 @@
     "graph_face_clearance_lower": 5e-06,
     "horizon_seam_gamma_spread_upper": 1e-12,
     "invariance_residual_upper": 1e-08,
+    "matched_centerline_seam_alpha_difference_upper": 5e-11,
     "method_common_state_difference_upper": 2e-09,
     "method_seam_gamma_difference_upper": 5e-11,
     "minimum_pi_lower": 1e-05,

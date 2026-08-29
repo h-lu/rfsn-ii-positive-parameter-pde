@@ -1,8 +1,10 @@
 """One floating-point V4 future-staying graph slice at the v2 center.
 
-The selected object is the zero-energy slice ``alpha=Gamma(z,beta)`` at
-``(r,a2,epsilon)=(3/200,0,1)`` through the previously computed matched
-centerline seam.  Two independent numerical formulations are compared:
+The selected object is the matched fixed-energy slice
+``alpha=Gamma(z,E,beta)`` at ``(r,a2,epsilon)=(3/200,0,1)`` through the
+previously computed matched centerline seam.  (Its floating energy is near,
+but not identically equal to, zero.)  Two algorithmically distinct numerical
+formulations are compared:
 
 * positive-``pi`` horizon collocation on a frozen ``Q_end`` ladder; and
 * positive-``pi`` initial-alpha shooting across a short, stiff outer window.
@@ -10,7 +12,9 @@ centerline seam.  Two independent numerical formulations are compared:
 Both formulations use the exact normal nullcline ``alpha_dot=0`` as an
 asymptotically compatible terminal condition.  This removes the older
 artificial condition ``alpha(Q_end)=0``, but it does not turn a finite floating
-calculation into the maximal V4 graph or an Issue #7 interval proof.
+calculation into the maximal V4 graph or an Issue #7 interval proof.  They
+share the same exact field and coordinate implementation, so their agreement
+is a cross-method check rather than an independent implementation replay.
 """
 
 from __future__ import annotations
@@ -69,15 +73,32 @@ def _load_configuration(path: Path = DEFAULT_CONFIG) -> dict[str, Any]:
             raise GraphSliceError(
                 f"matched-centerline binding changed: {binding[path_key]}"
             )
+    bound_report = json.loads(
+        (REPOSITORY / binding["report_path"]).read_text(encoding="utf-8")
+    )
+    if (
+        bound_report.get("status")
+        != "ENERGY_PRESERVING_MATCHED_CENTERLINE_SUCCESS"
+    ):
+        raise GraphSliceError("bound centerline does not have success status")
+    if bound_report.get("parameter_point_exact") != data["parameter_point"]:
+        raise GraphSliceError("bound centerline parameter point does not match")
+    if float(bound_report["energy_h"]) != float(binding["energy_H"]):
+        raise GraphSliceError("bound centerline energy does not match")
+    if bound_report.get("data_path") != binding["data_path"]:
+        raise GraphSliceError("bound centerline report points to different data")
     archive = np.load(REPOSITORY / binding["data_path"])
     seam_q = float(archive["outer_Q"][0])
     seam_beta = float(archive["outer_state_beta_alpha"][0, 0])
+    seam_alpha = float(archive["outer_state_beta_alpha"][1, 0])
     if not np.isclose(
         seam_q, float(binding["seam_Q"]), rtol=0.0, atol=8.0 * np.spacing(25.0)
     ):
         raise GraphSliceError("bound seam Q does not match the raw centerline")
     if seam_beta != float(binding["seam_beta_center"]):
         raise GraphSliceError("bound seam beta does not match the raw centerline")
+    if seam_alpha != float(binding["seam_alpha_center"]):
+        raise GraphSliceError("bound seam alpha does not match the raw centerline")
     return data
 
 
@@ -690,6 +711,7 @@ def compute_graph_slice(
     energy_h = float(binding["energy_H"])
     energy = parameters.epsilon**2.5 * parameters.r**6 * energy_h
     beta_center = float(binding["seam_beta_center"])
+    alpha_centerline = float(binding["seam_alpha_center"])
     beta_values = beta_center + np.asarray(
         configuration["slice"]["beta_offsets"], dtype=np.float64
     )
@@ -786,6 +808,9 @@ def compute_graph_slice(
     horizon_spread = np.ptp(horizon_seam_gamma, axis=0)
     selected_beta = collocation_beta[-1]
     selected_alpha = collocation_alpha[-1]
+    matched_seam_alpha_difference = float(
+        alpha_centerline - selected_alpha[1, 0]
+    )
     method_beta_difference = selected_beta[:, : shooting_q.size] - shooting_beta
     method_alpha_difference = selected_alpha[:, : shooting_q.size] - shooting_alpha
     method_state_difference = np.maximum(
@@ -821,6 +846,14 @@ def compute_graph_slice(
         "shooting": shooting_diagnostics,
         "horizon_seam_gamma_spread": horizon_spread.tolist(),
         "horizon_seam_gamma_spread_max": float(np.max(horizon_spread)),
+        "horizon_seam_spread_interpretation": (
+            "BELOW_FLOATING_SOLVER_RESOLUTION_NOT_A_RESOLVED_RATE"
+        ),
+        "matched_centerline_seam_alpha": alpha_centerline,
+        "matched_centerline_seam_graph_alpha": float(selected_alpha[1, 0]),
+        "matched_centerline_seam_alpha_difference": (
+            matched_seam_alpha_difference
+        ),
         "method_seam_gamma_difference": (
             selected_alpha[:, 0] - shooting_alpha[:, 0]
         ).tolist(),
@@ -855,17 +888,23 @@ def compute_graph_slice(
         <= float(thresholds["collocation_rms_residual_upper"]),
         "collocation_boundary": max_collocation_boundary
         <= float(thresholds["collocation_boundary_residual_upper"]),
-        "horizon_convergence": diagnostics["horizon_seam_gamma_spread_max"]
+        "horizon_terminal_insensitivity_at_float_resolution": diagnostics[
+            "horizon_seam_gamma_spread_max"
+        ]
         <= float(thresholds["horizon_seam_gamma_spread_upper"]),
+        "matched_centerline_seam_coincidence": abs(
+            matched_seam_alpha_difference
+        )
+        <= float(thresholds["matched_centerline_seam_alpha_difference_upper"]),
         "shooting_terminal": max(
             abs(item["terminal_residual"]) for item in shooting_diagnostics
         )
         <= float(thresholds["shooting_terminal_residual_upper"]),
-        "independent_seam_agreement": diagnostics[
+        "cross_method_seam_agreement": diagnostics[
             "method_seam_gamma_difference_abs_max"
         ]
         <= float(thresholds["method_seam_gamma_difference_upper"]),
-        "independent_common_state_agreement": diagnostics[
+        "cross_method_common_state_agreement": diagnostics[
             "method_common_state_difference_inf"
         ]
         <= float(thresholds["method_common_state_difference_upper"]),
@@ -1014,6 +1053,12 @@ def compute_graph_slice(
         "binding_seam_beta_superseded_current": np.array(
             [binding_update["seam_beta_center"]["superseded"], beta_center],
             dtype=np.float64,
+        ),
+        "matched_centerline_seam_beta_alpha": np.array(
+            [beta_center, alpha_centerline], dtype=np.float64
+        ),
+        "matched_centerline_seam_alpha_difference": np.array(
+            [matched_seam_alpha_difference], dtype=np.float64
         ),
         "binding_headline_metrics_superseded_current": np.column_stack(
             (metric_old, metric_current)
