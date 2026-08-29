@@ -1,4 +1,44 @@
 {
+  "action_decomposition": {
+    "action": {
+      "central": -0.000270633060906725,
+      "outer_qr_to_qstar": -1904299.69658154,
+      "resolved_k1": -49978.805173803,
+      "truncated_total_to_qstar": -1954278.502025976
+    },
+    "claim_bearing": false,
+    "cuts": {
+      "central_k1_xi": 9.912617982288234,
+      "central_start_xi": 0.0,
+      "k1_outer_r1": 2.0,
+      "k1_start_r1": 0.16,
+      "outer_start_q_r": 24.999999999999996,
+      "terminal_q_star": 100.0
+    },
+    "diagnostics": {
+      "central_density_pullback_relative_defect": 1.2860305442942745e-09,
+      "central_k1_physical_interface_defect_inf": 1.7185905476502228e-14,
+      "finite_horizon_only": true,
+      "k1_action_direct_vs_central_pullback_absolute_defect": -0.006698467499518301,
+      "k1_action_direct_vs_central_pullback_relative_defect": 1.3402616321506992e-07,
+      "k1_density_pullback_relative_defect": 1.8783711781904017e-09,
+      "k1_outer_physical_interface_defect_inf": 5.329070518200751e-15,
+      "outer_density_physical_relative_defect": 7.173797563603514e-11,
+      "q_end_not_integrated_by_v5": 200.0,
+      "q_r": 24.999999999999996,
+      "q_star": 100.0,
+      "terminal_is_fixed_v5a_normalization_cut": true
+    },
+    "physical_length": {
+      "central": 0.7930094385830587,
+      "outer_qr_to_qstar": 7.823122045878981,
+      "resolved_k1": 8.692674331177379,
+      "truncated_total_to_qstar": 17.30880581563942
+    },
+    "scope": "Finite central--K1--outer action and length on one matched candidate, ending at Q_*.  No endpoint adjoint, uniform matching theorem, or infinite-tail finite part is claimed.",
+    "status": "COMPUTED/E1_V5_FINITE_ACTION_DECOMPOSITION",
+    "validation_status": "NOT_INTERVAL_VALIDATED"
+  },
   "central_flight_time": 9.912617982288234,
   "claim_bearing": false,
   "configuration": {
@@ -66,7 +106,7 @@
     "seam_beta_bracket_upper": 0.0004,
     "seam_beta_in_bracket": true,
     "solver_nodes": 508.0,
-    "solver_rms_residual_max": 1.6278961086638112e-05,
+    "solver_rms_residual_max": 1.6278961086637723e-05,
     "solver_rms_residual_passed": true,
     "solver_rms_residual_tolerance": 2e-05,
     "solver_success": true,
@@ -75,7 +115,7 @@
     "source_phase_bracket_margin": 5.2512291957462764e-05,
     "source_phase_bracket_upper": 5.7588913957499095,
     "source_phase_in_bracket": true,
-    "source_provider_unique_evaluations": 9.0,
+    "source_provider_unique_evaluations": 10.0,
     "unscaled_arrival_margin_passed": true,
     "z_r": 0.2
   },

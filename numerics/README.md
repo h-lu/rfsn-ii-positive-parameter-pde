@@ -42,7 +42,7 @@ The model-specific master run follows the analytic order V1, V2, V3, V4,
 V5, V5A, V6, and V7 at the frozen exploratory parameters in
 [`config/vdp_v1_v7.json`](config/vdp_v1_v7.json).  It computes exact symbolic
 checks, finite parameter slices and local-passage experiments, and the
-following configuration-v4 candidate objects:
+following configuration-v5 candidate objects:
 
 - a finite-horizon nonlinear-\(W^u\) source window and one connected physical
   source--gate--pole orbit, including orbit-fitted pole labels and a

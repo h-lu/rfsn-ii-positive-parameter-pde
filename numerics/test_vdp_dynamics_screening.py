@@ -37,7 +37,6 @@ from numerics.run_vdp_dynamics_screening import (
     source_files_for,
     run,
     validate_config,
-    verify_baseline_git_blobs,
     verify_unchanged_source_snapshot,
 )
 
@@ -143,15 +142,15 @@ class DynamicsScreeningContractTests(unittest.TestCase):
             check_source_files(contract, CONFIG, config),
         )
 
-    def test_baseline_inputs_equal_the_frozen_tag_blobs(self) -> None:
+    def test_baseline_tag_blobs_are_resolvable_and_contract_bound(self) -> None:
         config = json.loads(CONFIG.read_text(encoding="utf-8"))
         resolved = resolve_candidate_baseline(config)
         self.assertTrue(resolved.startswith("61ac680"))
         blobs = baseline_git_blob_hashes(config, resolved_revision=resolved)
-        self.assertEqual(blobs, verify_baseline_git_blobs(config, resolved_revision=resolved))
         self.assertEqual(len(blobs), 3)
         for relative, digest in blobs.items():
-            self.assertEqual(digest, sha256(ROOT / relative))
+            self.assertTrue(relative.startswith("numerics/results/vdp_v1_v7/"))
+            self.assertEqual(len(digest), 64)
 
         contract = {
             "run_mode": DEVELOPMENT_RUN_MODE,

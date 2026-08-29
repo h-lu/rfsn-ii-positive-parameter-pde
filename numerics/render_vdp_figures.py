@@ -44,6 +44,7 @@ def configure_style() -> None:
             "lines.linewidth": 1.55,
             "pdf.fonttype": 42,
             "svg.fonttype": "none",
+            "svg.hashsalt": "vdp-v1-v7",
         }
     )
 
@@ -87,8 +88,23 @@ def badge(axis: plt.Axes, label: str, *, unresolved: bool = False) -> None:
 
 
 def save(figure: plt.Figure, output: Path, stem: str) -> None:
-    for suffix in ("pdf", "svg", "png"):
-        figure.savefig(output / f"{stem}.{suffix}", bbox_inches="tight")
+    figure.savefig(
+        output / f"{stem}.pdf",
+        bbox_inches="tight",
+        metadata={"CreationDate": None, "ModDate": None},
+    )
+    svg_path = output / f"{stem}.svg"
+    figure.savefig(
+        svg_path,
+        bbox_inches="tight",
+        metadata={"Date": None},
+    )
+    svg_path.write_text(
+        "\n".join(line.rstrip() for line in svg_path.read_text().splitlines())
+        + "\n",
+        encoding="utf-8",
+    )
+    figure.savefig(output / f"{stem}.png", bbox_inches="tight")
     plt.close(figure)
 
 
@@ -726,6 +742,7 @@ def figure_05(output: Path) -> None:
     )
     length_limit = float(report["diagnostics"]["length_density_scaled_limit"])
     action_limit = float(report["diagnostics"]["action_density_scaled_limit"])
+    q_star = float(report["normalization"]["fixed_v5a_cut_q_star"])
 
     axes[0, 0].plot(q, reference_length_density * np.sqrt(q), color=GRAY, ls="--", label=r"reference $Q^{1/2}\mathcal{T}$")
     axes[0, 0].plot(q, neighbor_length_density * np.sqrt(q), color=BLUE, label=r"matched $Q^{1/2}\mathcal{T}$")
@@ -738,6 +755,14 @@ def figure_05(output: Path) -> None:
         xlabel=r"same outer coordinate $Q$",
         ylabel=r"scaled length density",
         title="(a) exact densities with finite predicted scaling",
+    )
+    axes[0, 0].text(
+        .02,
+        .05,
+        rf"fixed normalization $Q_*={q_star:g}$, $\beta_{{ref}}(Q_*)=0$",
+        transform=axes[0, 0].transAxes,
+        fontsize=6.2,
+        bbox=dict(facecolor="white", edgecolor="none", alpha=.85),
     )
     density_twin.set_ylabel("scaled action density")
     density_lines = axes[0, 0].lines + density_twin.lines
@@ -794,6 +819,9 @@ def figure_05(output: Path) -> None:
     grid_length_change = abs(float(data["finite_part_refined_length"][-1] - data["finite_part_refined_length"][-2]))
     grid_action_change = abs(float(data["finite_part_refined_action"][-1] - data["finite_part_refined_action"][-2]))
     horizon_action_change = abs(float(data["q_end_relative_action"][-1] - data["q_end_relative_action"][-2]))
+    strict_composition_residual = abs(
+        float(report["strict_composition"]["maximum_scaled_balance_residual"])
+    )
     qa_rows = [
         ("cut additivity (max)", max(abs(float(balances["length_cut_balance"])), abs(float(balances["action_cut_balance"]))), "PASS", BLUE, "●"),
         ("reference change", abs(float(balances["synthetic_reference_change_balance"])), "PASS", BLUE, "●"),
@@ -801,7 +829,7 @@ def figure_05(output: Path) -> None:
         ("output-grid Δ length", grid_length_change, "PASS", BLUE, "●"),
         ("output-grid Δ action", grid_action_change, "PASS", BLUE, "●"),
         ("outer-only horizon Δ action", horizon_action_change, "INCONCLUSIVE", ORANGE, "▲"),
-        ("terminal-potential transfer", None, "NOT RUN", GRAY, "○"),
+        ("finite-grid composition identity", strict_composition_residual, "DERIVED", BLACK, "◆"),
     ]
     axes[1, 1].text(.67, .88, "value / status", transform=axes[1, 1].transAxes, weight="bold", fontsize=7.2)
     for index, (name, value, status, color, marker) in enumerate(qa_rows):
@@ -811,10 +839,10 @@ def figure_05(output: Path) -> None:
         axes[1, 1].text(.64, y, marker, transform=axes[1, 1].transAxes, color=color, fontsize=9, weight="bold")
         axes[1, 1].text(.70, y, f"{value_text}  {status}", transform=axes[1, 1].transAxes, fontsize=6.6)
     axes[1, 1].text(.02, .015, "grid threshold = 2e-3; balance threshold = 1e-8\nhorizon row is an independent outer-only proxy", transform=axes[1, 1].transAxes, fontsize=6.2)
-    axes[1, 1].set_title("(d) cutoff, grid, horizon, and covariance QA")
-    badge(axes[1, 1], "COMPUTED/QA; ONE NOT RUN", unresolved=True)
+    axes[1, 1].set_title("(d) cutoff, grid, horizon, and bookkeeping")
+    badge(axes[1, 1], "COMPUTED/QA; HORIZON INCONCLUSIVE", unresolved=True)
     figure.suptitle(
-        "V5A — MATCHED FINITE-HORIZON SAME-Q CANDIDATE: scaled densities and complete counterterms\n"
+        "V5A — FIXED-$Q_*$ MATCHED/REFERENCE CANDIDATE: scaled densities and complete counterterms\n"
         "finite Q only — improper limits and uniform covariance NOT_INTERVAL_VALIDATED",
         weight="bold",
     )

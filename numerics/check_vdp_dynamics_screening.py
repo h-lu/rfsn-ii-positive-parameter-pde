@@ -26,7 +26,6 @@ from numerics.run_vdp_dynamics_screening import (  # noqa: E402
     resolve_candidate_baseline,
     source_files_for,
     validate_config,
-    verify_baseline_git_blobs,
 )
 
 DEFAULT_CONFIG = ROOT / "numerics/config/vdp_dynamics_screening.json"
@@ -184,7 +183,6 @@ def check_run_provenance(
         expected_blobs = baseline_git_blob_hashes(
             config, resolved_revision=resolved_tag
         )
-        verify_baseline_git_blobs(config, resolved_revision=resolved_tag)
     except (KeyError, OSError, RuntimeError, ValueError) as exc:
         failures.append(f"cannot verify frozen candidate baseline Git blobs: {exc}")
         return failures

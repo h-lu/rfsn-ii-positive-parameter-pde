@@ -397,6 +397,37 @@ existential: it is not the current numerical candidate box, it is not uniform
 down to the cusp tip $r=0$, and its image in $(d,a,\epsilon)$ is a cusp rather
 than a rectangular box.
 
+Figure~\ref{fig:computed-profiles} gives a separate, nonrigorous realization
+of the stationary objects in the original PDE variables.  It uses the single
+exploratory parameter point
+$(r,a_2,\epsilon)=(0.08,0,1)$, equivalently
+$(d,a,\epsilon)=(4.096\times10^{-5},1,1)$.  The maximum saved finite-difference
+stationary residual is $6.81\times10^{-7}$ for the periodic profiles and
+$1.28\times10^{-6}$ for the one- through four-pulse profiles.  These
+computations illustrate the output of the theorem chain, but the parameter
+point has not been placed in a certified explicit existence box, and the
+numerical A/B and pulse-count labels have not been identified with exact
+edges or words of the marked V6--V7 relation.
+
+\begin{figure}[t]
+ \centering
+ \includegraphics[width=\textwidth]{computed_stationary_profiles.pdf}
+ \caption{\textbf{COMPUTED/E1.}  Finite-domain numerical
+ candidates for stationary profiles of the original van der Pol PDE at
+ $(r,a_2,\epsilon)=(0.08,0,1)$.  (a) Two full-ODE periodic candidates,
+ distinguished by both color and line style.  (b) Full-ODE one- through
+ four-pulse homoclinic candidates reconstructed in the physical coordinate.
+ All curves show $u-a$; the dotted horizontal line is the homogeneous state.
+ The periodic candidates have closure, energy, step-refinement, and
+ stationary-residual checks; the localized candidates have collocation,
+ boundary, tail, energy, and stationary-residual checks, all archived with
+ the numerical atlas.  The family and pulse-count labels in this panel
+ are numerical labels, not certified V6/V7 edge itineraries.  The figure is
+ non-claim-bearing and makes no temporal-stability, Turing-selection, or
+ canard claim.}
+ \label{fig:computed-profiles}
+\end{figure}
+
 For completeness, the quantitative high-winding consequence is stated next.
 Let
 \begin{equation}\label{eq:alpha-beta}

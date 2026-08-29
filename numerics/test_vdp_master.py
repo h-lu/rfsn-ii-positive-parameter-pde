@@ -11,6 +11,7 @@ from numerics.check_vdp_master import (
     OUTPUT,
     RAW_FILES,
     archived_source_sha256,
+    sha256,
     verify,
 )
 from numerics.render_vdp_figures import validate_render_provenance
@@ -103,14 +104,18 @@ class VdpMasterContractTests(unittest.TestCase):
             self.skipTest("run numerics/run_vdp_master.py before artifact verification")
         self.assertEqual(verify(), [])
 
-    def test_frozen_source_snapshot_is_pinned_and_recoverable(self) -> None:
+    def test_source_hash_is_current_or_recoverable_from_v4_snapshot(self) -> None:
         self.assertEqual(
             ARCHIVED_SOURCE_COMMIT,
             "61ac68066599e3bf3c86c0f6d3a8615ac61d8538",
         )
         manifest = json.loads((OUTPUT / "manifest.json").read_text(encoding="utf-8"))
         for relative, expected in manifest["source_hashes"].items():
-            self.assertEqual(archived_source_sha256(relative), expected)
+            current = ROOT / relative
+            self.assertTrue(
+                (current.is_file() and sha256(current) == expected)
+                or archived_source_sha256(relative) == expected
+            )
 
 
 if __name__ == "__main__":

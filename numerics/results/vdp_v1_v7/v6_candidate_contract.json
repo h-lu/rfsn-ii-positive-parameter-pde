@@ -13,7 +13,7 @@
       "record": {
         "path": "numerics/results/vdp_v1_v7/v6_complete_vdp-B1-complete-return-candidate-v3.json",
         "role": "vdp-B1-complete-return-candidate-v3 candidate record",
-        "sha256": "25be246afcd348b308755de6d8786349d3ef64639ef951a90f2c51c854aa4441"
+        "sha256": "079c21e6586e57ccda2a7fa414349259d98b3ddaa8542232f315ee769fb2281e"
       }
     },
     {
@@ -29,7 +29,7 @@
       "record": {
         "path": "numerics/results/vdp_v1_v7/v6_complete_vdp-A2-complete-return-candidate-v3.json",
         "role": "vdp-A2-complete-return-candidate-v3 candidate record",
-        "sha256": "18312f151c9534472065e4cfa1a881f2db8e5fbb66721d7ae2ad32c77c71de40"
+        "sha256": "2b593cb6a60965f1b1b2d27b2ac62facfc2c603bd5d9e14c5bd86e2e0eed8750"
       }
     }
   ],
@@ -56,22 +56,22 @@
         {
           "path": "numerics/results/vdp_v1_v7/v3_pole.json",
           "role": "candidate evidence 1",
-          "sha256": "5c82d8a46eb14d43a5576f040a3bf4e0bd2360e27df712123cb1a9ea41e53855"
+          "sha256": "37fe80f074ab421895377a0eb71636b68f3a9bc20af0947401d525f8a0b20001"
         },
         {
           "path": "numerics/results/vdp_v1_v7/v4_v5_matched_candidate.json",
           "role": "candidate evidence 2",
-          "sha256": "065f1442fadb7489675e9fe53eb730b9061be68d0cb5691224a9bb2664bc468f"
+          "sha256": "1a10be8f2fb12d12484d5606906e276b9f945659d5f81f6b1772847d270df3c5"
         },
         {
           "path": "numerics/results/vdp_v1_v7/v5a_outer_finite_part.json",
           "role": "candidate evidence 3",
-          "sha256": "7efec460324a09bc11b52ab327a71313b5806e680b6d823bb6d4ee3d197130b7"
+          "sha256": "bbd516ebff8f8f60bdb23cda9696e56747a6ddaf6596bdd627bed63ab98b4b77"
         },
         {
           "path": "numerics/results/vdp_v1_v7/v6_events.json",
           "role": "candidate evidence 4",
-          "sha256": "7ac54b26748780e18e26f6f8dd8ba2324cc100bbaf73c4cc9f39c063d6005b1f"
+          "sha256": "7616a4b60c2a653ca071bff730870b2c9d9ffcff62f71ee0d2aab4f23d5720dc"
         }
       ],
       "id": "V6.candidate_replay_inputs",
@@ -138,7 +138,7 @@
     {
       "path": "numerics/config/vdp_v1_v7.json",
       "role": "candidate configuration",
-      "sha256": "333501d13ea1506fe02c98077ce7de36316b3a1d5aca248a436a0ddbe5f53bab"
+      "sha256": "a84d16c805e806184aa5942bd2b4fb2f4b01865b44cce06b5f971e78ccf06529"
     },
     {
       "path": "numerics/rfsn_numerics.py",
@@ -148,7 +148,7 @@
     {
       "path": "numerics/vdp_return_coding.py",
       "role": "candidate generator source 2",
-      "sha256": "1cd619bca097a9157e8f8c6a3d78bda6ce939c434b946c47c69997c2ea33e3b1"
+      "sha256": "77b473155a80d1fbbbb172ac40f76f0239f9bc8e1698b25473547bcec818208e"
     },
     {
       "path": "numerics/vdp_complete_branches.py",
@@ -158,19 +158,19 @@
     {
       "path": "numerics/run_vdp_master.py",
       "role": "candidate generator source 4",
-      "sha256": "2fbceddfed44d5408d83b24aa39c6c6671861c4ec990f8ded495786ccb9a3d86"
+      "sha256": "53be906313c4520621d0f4513fded75615d47773524583ce363a3385049d1e54"
     }
   ],
   "schema_version": "rfsn-candidate-validation-contract/2",
   "source_revision": {
-    "commit": "e7e7294cf30950a8ad6ab95e09a3ac2bffd674a8",
+    "commit": "0fc5aa43468257df56acface9150ebf32fe31bf5",
     "ignored_paths": [
       "numerics/results/vdp_v1_v7/v6_candidate_contract.json"
     ],
     "note": "Dirty status excludes only the generated contract path and was sampled before writing it; it is historical metadata and need not equal the status of a later checkout.  A dirty source commit is not a complete snapshot of generation-time changes; only the listed hash-bound inputs are replayable.",
     "repository": "h-lu/rfsn-ii-positive-parameter-pde",
-    "repository_dirty": false,
-    "reproducibility_status": "CLEAN_BASE_COMMIT"
+    "repository_dirty": true,
+    "reproducibility_status": "DIRTY_BASE_COMMIT_WITH_HASH_BOUND_REPLAY_INPUTS_ONLY"
   },
   "status": "DRAFT_CANDIDATE_ONLY",
   "theorem_target": "V6",

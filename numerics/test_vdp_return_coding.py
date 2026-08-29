@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import unittest
+from pathlib import Path
 
 import numpy as np
 
@@ -11,6 +12,7 @@ from numerics.rfsn_numerics import (
     vdp_hamiltonian,
 )
 from numerics.vdp_return_coding import (
+    extract_numerical_section_itinerary,
     homoclinic_source_anchor,
     integrate_first_event,
     numerical_source_coordinates,
@@ -24,6 +26,92 @@ R = 0.08
 A2 = 0.0
 EPSILON = 1.0
 SOURCE_RADIUS = 0.01
+
+
+class NumericalSectionItineraryTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls) -> None:
+        archive = (
+            Path(__file__).resolve().parent
+            / "results/vdp_v1_v7/v7_periodic.npz"
+        )
+        cls.periodic = np.load(archive)
+
+    def extract(self, label: str) -> dict[str, object]:
+        return extract_numerical_section_itinerary(
+            self.periodic[f"{label}_xi"],
+            self.periodic[f"{label}_state"],
+            r=R,
+            a2=A2,
+            epsilon=EPSILON,
+            source_radius=SOURCE_RADIUS,
+            stable_width=SOURCE_RADIUS,
+            cyclic=True,
+        )
+
+    def test_a0_and_b0_do_not_reach_the_numerical_source_face(self) -> None:
+        for label in ("A0", "B0"):
+            with self.subTest(label=label):
+                itinerary = self.extract(label)
+                self.assertEqual(itinerary["status"], "NOT_NUMERICALLY_RESOLVED")
+                self.assertEqual(itinerary["reason"], "NO_OUTGOING_CROSSING")
+                self.assertEqual(itinerary["outgoing_crossing_count"], 0)
+                self.assertEqual(itinerary["edges"], [])
+                self.assertFalse(itinerary["exact_v6_word_binding"])
+                self.assertIsNone(itinerary["absolute_winding_n"])
+                self.assertFalse(itinerary["claim_bearing"])
+
+    def test_a1_crossings_are_rejected_by_the_stable_width(self) -> None:
+        itinerary = self.extract("A1")
+
+        self.assertEqual(itinerary["status"], "NOT_NUMERICALLY_RESOLVED")
+        self.assertEqual(itinerary["reason"], "STABLE_WIDTH_EXCEEDED")
+        self.assertEqual(itinerary["outgoing_crossing_count"], 1)
+        self.assertEqual(itinerary["incoming_crossing_count"], 1)
+        self.assertEqual(itinerary["edges"], [])
+        self.assertEqual(
+            itinerary["rejections"][0]["reason"], "STABLE_WIDTH_EXCEEDED"
+        )
+        self.assertGreater(
+            itinerary["rejections"][0]["maximum_complementary_radius"],
+            SOURCE_RADIUS,
+        )
+
+    def test_b1_and_a2_each_give_one_signed_numerical_edge(self) -> None:
+        expected = {
+            "B1": ("negative", (0.24, 0.27)),
+            "A2": ("positive", (0.74, 0.77)),
+        }
+        for label, (sign, turns) in expected.items():
+            with self.subTest(label=label):
+                itinerary = self.extract(label)
+                self.assertEqual(
+                    itinerary["coordinate_status"],
+                    "numerical_linear_reversible_eigenframe_not_exact_V2_chart",
+                )
+                self.assertEqual(
+                    itinerary["status"],
+                    "COMPUTED/E1_NUMERICAL_SECTION_ITINERARY",
+                )
+                self.assertEqual(itinerary["reason"], "WORD_UNRESOLVED")
+                self.assertFalse(itinerary["exact_v6_word_binding"])
+                self.assertIsNone(itinerary["absolute_winding_n"])
+                self.assertFalse(itinerary["claim_bearing"])
+                self.assertEqual(len(itinerary["edges"]), 1)
+
+                edge = itinerary["edges"][0]
+                self.assertEqual(edge["source"]["transverse_sign_proxy"], sign)
+                self.assertEqual(edge["target"]["transverse_sign_proxy"], sign)
+                self.assertLess(edge["source_rho_u_face_residual"], 1.0e-10)
+                self.assertLess(edge["incoming_rho_s_face_residual"], 1.0e-10)
+                self.assertLess(edge["target_rho_u_face_residual"], 1.0e-10)
+                self.assertLess(edge["incoming_event_speed"], -1.0e-4)
+                self.assertGreater(edge["target_event_speed"], 1.0e-4)
+                self.assertGreater(edge["local_residence_turns_proxy"], turns[0])
+                self.assertLess(edge["local_residence_turns_proxy"], turns[1])
+                self.assertLess(edge["energy_drift"], 1.0e-10)
+                self.assertFalse(edge["exact_v6_word_binding"])
+                self.assertIsNone(edge["absolute_winding_n"])
 
 
 class VdpReturnCodingTests(unittest.TestCase):

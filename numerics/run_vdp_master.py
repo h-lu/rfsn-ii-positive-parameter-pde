@@ -68,19 +68,25 @@ from numerics.vdp_pole import (
     PoleParameters,
 )
 from numerics.vdp_source_to_pole import (
+    KATO_DARBOUX_SECTION_STATUS,
+    KatoSourceParameters,
+    compute_kato_darboux_source_point,
     compute_pole_window_candidate,
     compute_source_to_pole_connection,
+    invert_kato_darboux_source_coordinates,
     same_orbit_moving_cut_balance,
 )
 from numerics.vdp_matched_outer import (
     MatchedOuterConfig,
     compute_matched_outer_candidate,
     finite_horizon_gamma_continuation,
+    matched_action_decomposition,
     true_wu_source_state_provider,
 )
 from numerics.vdp_complete_branches import integrate_complete_return_branch
 from numerics.vdp_return_coding import (
     event_sample_record,
+    extract_numerical_section_itinerary,
     finite_window_approximants,
     homoclinic_source_anchor,
     integrate_first_event,
@@ -151,6 +157,12 @@ FROZEN_INTERFACE_KEYS = {
         "finite_part_grid_difference",
         "event_hit_residual",
         "matched_bvp_rms_residual_factor",
+        "v5_action_interface_defect",
+        "v5_action_central_density_relative_defect",
+        "v5_action_end_density_relative_defect",
+        "v5_action_k1_integral_relative_defect",
+        "v5_action_grid_relative_difference",
+        "v5a_strict_composition_scaled_residual",
         "complete_return_min_abs_event_speed",
         "complete_return_action_quadrature_difference",
         "multipulse_solver_rms_residual_factor",
@@ -287,12 +299,24 @@ def matched_candidate_payload(candidate: Any) -> dict[str, np.ndarray]:
     }
 
 
-def matched_outer_tail_pair(candidate: Any) -> OuterTailPair:
-    """Attach V5A same-Q densities to the computed V4--V5 candidate."""
+def matched_outer_tail_pair(
+    candidate: Any, *, q_start: float | None = None
+) -> OuterTailPair:
+    """Attach the fixed-``Q_*`` V5A reference to a matched candidate.
+
+    The V4/V5 seam ``Q_R`` is an internal chart interface.  The V5A
+    normalization is instead imposed at the later fixed physical cut
+    ``Q_*=z_*^{-2}``, represented by ``candidate.config.q_label``.  Keeping
+    these two cuts distinct is part of Theorem V5A's normalization, not a
+    plotting convention.
+    """
 
     parameters = candidate.parameters
-    q_start = float(candidate.compact_q[0])
+    q_start = float(candidate.config.q_label if q_start is None else q_start)
+    q_seam = float(candidate.compact_q[0])
     q_end = float(candidate.compact_q[-1])
+    if not q_seam < q_start < q_end:
+        raise ValueError("V5A requires Q_R < Q_* < Q_end")
     reference_sample = finite_horizon_gamma_continuation(
         parameters,
         (0.0,),
@@ -359,10 +383,151 @@ def matched_outer_tail_pair(candidate: Any) -> OuterTailPair:
     neighboring = build_tail(
         neighboring_beta,
         neighboring_alpha,
-        beta0=float(candidate.seam_beta),
-        source="same coupled central-K1-outer candidate",
+        beta0=float(neighboring_beta[0]),
+        source=(
+            "same coupled central-K1-outer candidate restricted to the "
+            "fixed V5A cut Q_*"
+        ),
     )
     return OuterTailPair(reference=reference, neighboring=neighboring)
+
+
+def strict_v5a_composition(
+    action_decomposition: Any, pair: OuterTailPair
+) -> dict[str, Any]:
+    """Test V5/V5A composition while moving the terminal split.
+
+    Moving the split from ``Q_*`` to ``Q_c`` transfers the actual orbit
+    segment into the finite V5 term.  The terminal V5A potential must then
+    include the negative reference-segment endpoint correction.  Omitting
+    that correction would test a different, false identity.
+    """
+
+    q = np.asarray(pair.reference.compact_q, dtype=np.float64)
+    if not np.array_equal(q, np.asarray(pair.neighboring.compact_q)):
+        raise ValueError("strict composition requires one common Q grid")
+    if abs(float(q[0]) - float(action_decomposition.outer_q[-1])) > 1.0e-10:
+        raise ValueError("V5 terminal cut and V5A reference cut do not agree")
+
+    actual_action = scipy.integrate.cumulative_trapezoid(
+        pair.neighboring.action_density, x=q, initial=0.0
+    )
+    reference_action = scipy.integrate.cumulative_trapezoid(
+        pair.reference.action_density, x=q, initial=0.0
+    )
+    relative_action = scipy.integrate.cumulative_trapezoid(
+        pair.neighboring.action_density - pair.reference.action_density,
+        x=q,
+        initial=0.0,
+    )
+    actual_length = scipy.integrate.cumulative_trapezoid(
+        pair.neighboring.length_density, x=q, initial=0.0
+    )
+    reference_length = scipy.integrate.cumulative_trapezoid(
+        pair.reference.length_density, x=q, initial=0.0
+    )
+    relative_length = scipy.integrate.cumulative_trapezoid(
+        pair.neighboring.length_density - pair.reference.length_density,
+        x=q,
+        initial=0.0,
+    )
+
+    v5_action = float(action_decomposition.total_action)
+    v5_length = float(action_decomposition.total_length)
+    action_target = v5_action + float(relative_action[-1])
+    length_target = v5_length + float(relative_length[-1])
+    cut_indices = sorted(
+        set(
+            int(round(fraction * (q.size - 1)))
+            for fraction in (0.25, 0.5, 0.75)
+        )
+    )
+    rows: list[dict[str, float]] = []
+    for index in cut_indices:
+        finite_action_at_cut = v5_action + float(actual_action[index])
+        terminal_action_at_cut = float(
+            relative_action[-1]
+            - relative_action[index]
+            - reference_action[index]
+        )
+        finite_length_at_cut = v5_length + float(actual_length[index])
+        terminal_length_at_cut = float(
+            relative_length[-1]
+            - relative_length[index]
+            - reference_length[index]
+        )
+        rows.append(
+            {
+                "q_cut": float(q[index]),
+                "finite_action_source_to_cut": finite_action_at_cut,
+                "terminal_action_with_reference_endpoint_correction": (
+                    terminal_action_at_cut
+                ),
+                "action_balance_residual": float(
+                    finite_action_at_cut + terminal_action_at_cut - action_target
+                ),
+                "action_balance_without_reference_endpoint_correction": float(
+                    finite_action_at_cut
+                    + relative_action[-1]
+                    - relative_action[index]
+                    - action_target
+                ),
+                "finite_length_source_to_cut": finite_length_at_cut,
+                "terminal_length_with_reference_endpoint_correction": (
+                    terminal_length_at_cut
+                ),
+                "length_balance_residual": float(
+                    finite_length_at_cut + terminal_length_at_cut - length_target
+                ),
+                "length_balance_without_reference_endpoint_correction": float(
+                    finite_length_at_cut
+                    + relative_length[-1]
+                    - relative_length[index]
+                    - length_target
+                ),
+            }
+        )
+    action_scale = max(abs(action_target), 1.0)
+    length_scale = max(abs(length_target), 1.0)
+    maximum_scaled_residual = max(
+        max(abs(row["action_balance_residual"]) / action_scale for row in rows),
+        max(abs(row["length_balance_residual"]) / length_scale for row in rows),
+    )
+    minimum_scaled_residual_without_correction = min(
+        min(
+            abs(row["action_balance_without_reference_endpoint_correction"])
+            / action_scale
+            for row in rows
+        ),
+        min(
+            abs(row["length_balance_without_reference_endpoint_correction"])
+            / length_scale
+            for row in rows
+        ),
+    )
+    return {
+        "status": "EXACT/DERIVED_FINITE_GRID_BOOKKEEPING",
+        "validation_status": "NOT_INTERVAL_VALIDATED",
+        "claim_bearing": False,
+        "q_star": float(q[0]),
+        "q_end": float(q[-1]),
+        "v5_action_to_q_star": v5_action,
+        "v5_length_to_q_star": v5_length,
+        "normalized_action_at_q_end": action_target,
+        "normalized_length_at_q_end": length_target,
+        "cut_rows": rows,
+        "maximum_scaled_balance_residual": float(maximum_scaled_residual),
+        "minimum_scaled_residual_without_reference_endpoint_correction": float(
+            minimum_scaled_residual_without_correction
+        ),
+        "reference_endpoint_correction_included": True,
+        "scope": (
+            "Finite-grid algebraic bookkeeping on one floating-point "
+            "candidate.  Because the balance rearranges the same cumulative "
+            "arrays, it is not independent numerical evidence for covariance "
+            "of the improper limit or for a uniform theorem."
+        ),
+    }
 
 
 def complete_branches_payload(branches: list[Any]) -> dict[str, np.ndarray]:
@@ -476,6 +641,73 @@ def main() -> None:
         incoming_stable_radius=float(central_config["passage_radius"]),
         outgoing_difference_radius=0.015,
     )
+    source_config = config["source_manifold"]
+    kato_parameters = KatoSourceParameters(r=r, a2=a2, epsilon=epsilon)
+    kato_phase = float(config["pole_connection"]["representative_phase"])
+    kato_nu_probe = float(min(abs(value) for value in central_config["passage_nu"]))
+    kato_points = [
+        compute_kato_darboux_source_point(
+            kato_parameters,
+            kato_phase,
+            nu,
+            source_radius=float(source_config["source_radius"]),
+            graph_horizon=float(source_config["graph_horizon_ladder"][-1]),
+            graph_boundary_tolerance=float(
+                source_config["graph_boundary_tolerance"]
+            ),
+        )
+        for nu in (-kato_nu_probe, 0.0, kato_nu_probe)
+    ]
+    kato_short_horizon = compute_kato_darboux_source_point(
+        kato_parameters,
+        kato_phase,
+        0.0,
+        source_radius=float(source_config["source_radius"]),
+        graph_horizon=float(source_config["graph_horizon_ladder"][-2]),
+        graph_boundary_tolerance=float(source_config["graph_boundary_tolerance"]),
+    )
+    kato_plus_inverse = (
+        invert_kato_darboux_source_coordinates(
+            kato_points[-1].state,
+            kato_parameters,
+            source_radius=float(source_config["source_radius"]),
+            graph_horizon=float(source_config["graph_horizon_ladder"][-1]),
+            graph_boundary_tolerance=float(
+                source_config["graph_boundary_tolerance"]
+            ),
+        )
+        if kato_points[-1].state is not None
+        else None
+    )
+    kato_horizon_state_defect = (
+        float(np.linalg.norm(kato_points[1].state - kato_short_horizon.state))
+        if kato_points[1].state is not None
+        and kato_short_horizon.state is not None
+        else float("inf")
+    )
+    kato_section_report = {
+        "status": (
+            KATO_DARBOUX_SECTION_STATUS
+            if all(point.status == KATO_DARBOUX_SECTION_STATUS for point in kato_points)
+            and kato_short_horizon.status == KATO_DARBOUX_SECTION_STATUS
+            and kato_plus_inverse is not None
+            and kato_plus_inverse.status == KATO_DARBOUX_SECTION_STATUS
+            else "INCONCLUSIVE/E1_KATO_COMPATIBLE_DARBOUX_SECTION"
+        ),
+        "claim_bearing": False,
+        "raw_chart_identical": False,
+        "phase": kato_phase,
+        "nu_probe": kato_nu_probe,
+        "points": json_ready(kato_points),
+        "positive_nu_inverse": json_ready(kato_plus_inverse),
+        "graph_horizon_state_defect": kato_horizon_state_defect,
+        "scope": (
+            "Finite-horizon nonlinear-Wu, zero-energy source points in the "
+            "P2bK Kato phase convention with a first-order Darboux transverse "
+            "orientation.  This is not the theorem's raw exact Moser chart, "
+            "an exact V2 action coordinate, or interval validation."
+        ),
+    }
     v1_report = {
         "status": "EXACT/DERIVED plus COMPUTED/QA",
         "symbolic": symbolic.as_json_dict(),
@@ -490,6 +722,7 @@ def main() -> None:
         ),
         "parameter_slices": parameter_slices,
         "passage": passage.as_json_dict(),
+        "kato_compatible_source_section": kato_section_report,
     }
     write_json(output / "v1_structure.json", v1_report)
     write_json(output / "v2_central.json", v2_report)
@@ -521,10 +754,30 @@ def main() -> None:
     np.savez_compressed(
         output / "v2_homoclinics.npz", **continuation.as_npz_payload(points=2001)
     )
-    np.savez_compressed(output / "v2_passage.npz", **passage.as_npz_payload())
+    np.savez_compressed(
+        output / "v2_passage.npz",
+        **passage.as_npz_payload(),
+        kato_nu=np.array([point.nu for point in kato_points]),
+        kato_state=np.stack(
+            [
+                point.state
+                if point.state is not None
+                else np.full(4, np.nan, dtype=np.float64)
+                for point in kato_points
+            ]
+        ),
+        kato_true_wu_state=np.stack(
+            [
+                point.true_wu_state
+                if point.true_wu_state is not None
+                else np.full(4, np.nan, dtype=np.float64)
+                for point in kato_points
+            ]
+        ),
+        kato_graph_horizon_state_defect=np.array([kato_horizon_state_defect]),
+    )
 
     print("[V3] nonlinear-Wu source window, connected pole, and action", flush=True)
-    source_config = config["source_manifold"]
     connection_config = config["pole_connection"]
     pole_parameters = PoleParameters(r=r, a2=a2, epsilon=epsilon)
     window_phases = np.linspace(
@@ -701,6 +954,7 @@ def main() -> None:
     matched_candidate = None
     matched_pair = None
     finite_parts = None
+    action_decomposition = None
     for output_points in matched_config_data["finite_part_output_ladder"]:
         candidate_on_grid = compute_matched_outer_candidate(
             outer_parameters,
@@ -710,6 +964,7 @@ def main() -> None:
         pair_on_grid = matched_outer_tail_pair(candidate_on_grid)
         arrays_on_grid = reference_subtracted_integrals(pair_on_grid)
         diagnostics_on_grid = outer_asymptotic_diagnostics(pair_on_grid)
+        decomposition_on_grid = matched_action_decomposition(candidate_on_grid)
         finite_part_refinement.append(
             {
                 "output_points": float(output_points),
@@ -725,14 +980,30 @@ def main() -> None:
                 "relative_action_tail_change": float(
                     diagnostics_on_grid["renormalized_action_tail_change"]
                 ),
+                "v5_central_action": float(
+                    decomposition_on_grid.central_action[-1]
+                ),
+                "v5_k1_action": float(decomposition_on_grid.k1_action[-1]),
+                "v5_outer_action": float(
+                    decomposition_on_grid.outer_action[-1]
+                ),
+                "v5_total_action": float(decomposition_on_grid.total_action),
+                "v5_total_length": float(decomposition_on_grid.total_length),
+                "v5_k1_direct_vs_pullback_relative_defect": float(
+                    decomposition_on_grid.diagnostics[
+                        "k1_action_direct_vs_central_pullback_relative_defect"
+                    ]
+                ),
             }
         )
         matched_candidate = candidate_on_grid
         matched_pair = pair_on_grid
         finite_parts = arrays_on_grid
+        action_decomposition = decomposition_on_grid
     assert matched_candidate is not None
     assert matched_pair is not None
     assert finite_parts is not None
+    assert action_decomposition is not None
     beta_grid_lower = float(matched_config_data["beta_grid"][0])
     beta_grid_upper = float(matched_config_data["beta_grid"][1])
     beta_grid_count = int(matched_config_data["beta_grid"][2])
@@ -862,6 +1133,9 @@ def main() -> None:
             "uniform-parameter, or interval conclusion is claimed."
         ),
     }
+    v5a_strict_composition = strict_v5a_composition(
+        action_decomposition, matched_pair
+    )
     chart = central_section_to_k1(
         outer_parameters, **outer_config["chart_probe"]
     )
@@ -876,6 +1150,7 @@ def main() -> None:
     matching = v5_matching_status(outer_parameters)
     matched_report = matched_candidate_report(matched_candidate)
     matched_report["independent_gamma_grid"] = gamma_grid_report
+    matched_report["action_decomposition"] = action_decomposition.as_json_dict()
     v4_v5_report = {
         "v4_status": "COMPUTED/E1_FINITE_HORIZON_GRAPH_CANDIDATE",
         "v4_uniform_graph_validation_status": "NOT_INTERVAL_VALIDATED",
@@ -898,9 +1173,18 @@ def main() -> None:
         "validation_status": "NOT_INTERVAL_VALIDATED",
         "claim_bearing": False,
         "matched_tail_status": matched_candidate.evidence_status,
+        "normalization": {
+            "internal_v4_v5_seam_q_r": float(matched_candidate.compact_q[0]),
+            "fixed_v5a_cut_q_star": float(matched_pair.reference.compact_q[0]),
+            "q_end": float(matched_pair.reference.compact_q[-1]),
+            "reference_beta_at_q_star": float(matched_pair.reference.beta[0]),
+            "arrival_beta_at_q_star": float(matched_pair.neighboring.beta[0]),
+            "theorem_normalization": "beta_ref(Q_*)=0 after all V5 matching cuts",
+        },
         "diagnostics": outer_diagnostics,
         "finite_part_output_refinement": finite_part_refinement,
         "balances": v5a_balances,
+        "strict_composition": v5a_strict_composition,
         "scope": (
             "The neighboring tail is the actual saved outer segment of the "
             "coupled candidate.  Finite Q does not validate V5A's improper "
@@ -913,6 +1197,7 @@ def main() -> None:
     np.savez_compressed(
         output / "v4_v5_matched_candidate.npz",
         **matched_candidate_payload(matched_candidate),
+        **action_decomposition.as_npz_payload(),
         gamma_beta0=gamma_beta0,
         gamma_alpha0=gamma_alpha0,
         gamma_solver_rms_residual=gamma_solver_rms,
@@ -921,6 +1206,24 @@ def main() -> None:
         gamma_horizon_q_end=gamma_horizon_q_end,
         gamma_horizon_at_seam=gamma_horizon_at_seam,
         gamma_horizon_difference_from_candidate=gamma_horizon_difference,
+        v5_refinement_output_points=np.array(
+            [row["output_points"] for row in finite_part_refinement]
+        ),
+        v5_refinement_central_action=np.array(
+            [row["v5_central_action"] for row in finite_part_refinement]
+        ),
+        v5_refinement_k1_action=np.array(
+            [row["v5_k1_action"] for row in finite_part_refinement]
+        ),
+        v5_refinement_outer_action=np.array(
+            [row["v5_outer_action"] for row in finite_part_refinement]
+        ),
+        v5_refinement_total_action=np.array(
+            [row["v5_total_action"] for row in finite_part_refinement]
+        ),
+        v5_refinement_total_length=np.array(
+            [row["v5_total_length"] for row in finite_part_refinement]
+        ),
     )
     np.savez_compressed(
         output / "v4_v5a_outer.npz",
@@ -1293,6 +1596,46 @@ def main() -> None:
             + "; ".join(contract_failures)
         )
 
+    periodic_itineraries = {
+        f"{orbit.family}{orbit.relative_winding}": (
+            extract_numerical_section_itinerary(
+                orbit.xi,
+                orbit.state,
+                r=r,
+                a2=a2,
+                epsilon=epsilon,
+                source_radius=source_radius,
+                stable_width=source_radius,
+                uncertain_margin=float(event_config["uncertain_margin"]),
+                event_hit_tolerance=float(acceptance["event_hit_residual"]),
+                minimum_event_speed=float(
+                    acceptance["complete_return_min_abs_event_speed"]
+                ),
+                cyclic=True,
+            )
+        )
+        for orbit in periodic_orbits
+    }
+    multipulse_itineraries = {
+        f"pulse_{orbit.pulse_count_requested}": (
+            extract_numerical_section_itinerary(
+                orbit.xi,
+                orbit.state,
+                r=r,
+                a2=a2,
+                epsilon=epsilon,
+                source_radius=source_radius,
+                stable_width=source_radius,
+                uncertain_margin=float(event_config["uncertain_margin"]),
+                event_hit_tolerance=float(acceptance["event_hit_residual"]),
+                minimum_event_speed=float(
+                    acceptance["complete_return_min_abs_event_speed"]
+                ),
+                cyclic=False,
+            )
+        )
+        for orbit in multipulses
+    }
     expected_period_slope = float(
         2.0 * np.pi * r / (epsilon**0.25 * passage.beta)
     )
@@ -1307,12 +1650,56 @@ def main() -> None:
         ),
         "multipulses": multipulse_reports,
         "finite_window_approximants": finite_windows,
+        "numerical_section_itineraries": periodic_itineraries,
+        "multipulse_section_diagnostics": multipulse_itineraries,
+        "numerical_section_itinerary_scope": (
+            "B1 and A2 each produce one accepted source--incoming--source "
+            "loop proxy in the frozen linear numerical section.  These are "
+            "not exact V6 edge words "
+            "and carry no absolute winding integer."
+        ),
         "bi_infinite_orbit_status": "NOT_NUMERICALLY_RESOLVED",
     }
     write_json(output / "v7_patterns.json", v7_report)
     np.savez_compressed(output / "v7_periodic.npz", **periodic_payload(periodic_orbits))
     np.savez_compressed(output / "v7_multipulses.npz", **multipulse_payload(multipulses))
 
+    expected_loop_signs = {"B1": "negative", "A2": "positive"}
+    numerical_loop_gate = all(
+        periodic_itineraries[label]["status"]
+        == "COMPUTED/E1_NUMERICAL_SECTION_ITINERARY"
+        and periodic_itineraries[label]["exact_v6_word_binding"] is False
+        and periodic_itineraries[label]["absolute_winding_n"] is None
+        and len(periodic_itineraries[label]["edges"]) == 1
+        and periodic_itineraries[label]["edges"][0]["source"][
+            "transverse_sign_proxy"
+        ]
+        == sign
+        and periodic_itineraries[label]["edges"][0]["target"][
+            "transverse_sign_proxy"
+        ]
+        == sign
+        for label, sign in expected_loop_signs.items()
+    )
+    v5_refinement_fields = (
+        "v5_central_action",
+        "v5_k1_action",
+        "v5_outer_action",
+        "v5_total_action",
+        "v5_total_length",
+    )
+    v5_action_grid_relative_difference = max(
+        abs(
+            finite_part_refinement[-1][field]
+            - finite_part_refinement[-2][field]
+        )
+        / max(
+            abs(finite_part_refinement[-1][field]),
+            abs(finite_part_refinement[-2][field]),
+            1.0,
+        )
+        for field in v5_refinement_fields
+    )
     qa_checks = {
         "v1_symbolic_exact": bool(symbolic.passed),
         "v1_bridge_roundtrip": bridge["roundtrip_state_defect_inf"] < 1.0e-9,
@@ -1339,6 +1726,12 @@ def main() -> None:
             for value in passage.fitted_phase_slopes.values()
         )
         < 0.02,
+        "v2_kato_compatible_source_section": bool(
+            kato_section_report["status"] == KATO_DARBOUX_SECTION_STATUS
+            and kato_section_report["raw_chart_identical"] is False
+            and kato_horizon_state_defect
+            <= float(acceptance["independent_difference"])
+        ),
         "v3_field_crosscheck": pole.diagnostics[
             "max_physical_compact_field_relative_defect"
         ]
@@ -1457,6 +1850,48 @@ def main() -> None:
             float(matched_candidate.diagnostics["outer_energy_residual_inf"]),
         )
         < 1.0e-6,
+        "v5_action_physical_interfaces": max(
+            float(
+                action_decomposition.diagnostics[
+                    "central_k1_physical_interface_defect_inf"
+                ]
+            ),
+            float(
+                action_decomposition.diagnostics[
+                    "k1_outer_physical_interface_defect_inf"
+                ]
+            ),
+        )
+        <= float(acceptance["v5_action_interface_defect"]),
+        "v5_action_density_pullbacks": bool(
+            float(
+                action_decomposition.diagnostics[
+                    "central_density_pullback_relative_defect"
+                ]
+            )
+            <= float(acceptance["v5_action_central_density_relative_defect"])
+            and max(
+                float(
+                    action_decomposition.diagnostics[
+                        "k1_density_pullback_relative_defect"
+                    ]
+                ),
+                float(
+                    action_decomposition.diagnostics[
+                        "outer_density_physical_relative_defect"
+                    ]
+                ),
+            )
+            <= float(acceptance["v5_action_end_density_relative_defect"])
+        ),
+        "v5_action_k1_integral_pullback": float(
+            action_decomposition.diagnostics[
+                "k1_action_direct_vs_central_pullback_relative_defect"
+            ]
+        )
+        <= float(acceptance["v5_action_k1_integral_relative_defect"]),
+        "v5_action_grid_refinement": v5_action_grid_relative_difference
+        <= float(acceptance["v5_action_grid_relative_difference"]),
         "v5_arrival_margins": bool(
             matched_candidate.diagnostics["scaled_arrival_margin_passed"]
             and matched_candidate.diagnostics["unscaled_arrival_margin_passed"]
@@ -1559,11 +1994,24 @@ def main() -> None:
             report["diagnostics"]["closure_residual"] for report in periodic_reports
         )
         < float(acceptance["closure_residual"]),
+        "v7_numerical_section_loop_proxies": numerical_loop_gate,
         "v7_multipulse_residual_gates": all(
             bool(orbit.diagnostics.get("residual_gate_passed", True))
             for orbit in multipulses
         ),
         "v7_biinfinite_orbit_not_claimed": True,
+    }
+    derived_checks = {
+        "v5a_finite_grid_composition_bookkeeping": float(
+            v5a_strict_composition["maximum_scaled_balance_residual"]
+        )
+        <= float(acceptance["v5a_strict_composition_scaled_residual"]),
+        "v5a_reference_endpoint_correction_is_nontrivial": float(
+            v5a_strict_composition[
+                "minimum_scaled_residual_without_reference_endpoint_correction"
+            ]
+        )
+        > 1.0e-6,
     }
 
     def qa_metric(
@@ -1634,6 +2082,19 @@ def main() -> None:
         ),
     )
     qa_metrics = {
+        "v2_kato_source_energy_residual": qa_metric(
+            max(
+                float(point.diagnostics.get("central_energy_abs", float("inf")))
+                for point in kato_points
+            ),
+            2.0e-11,
+            "<=",
+        ),
+        "v2_kato_source_horizon_state_defect": qa_metric(
+            kato_horizon_state_defect,
+            float(acceptance["independent_difference"]),
+            "<=",
+        ),
         "v3_source_graph_boundary_residual": qa_metric(
             max(
                 float(
@@ -1698,6 +2159,61 @@ def main() -> None:
             0.0,
             ">=",
         ),
+        "v5_action_interface_defect": qa_metric(
+            max(
+                float(
+                    action_decomposition.diagnostics[
+                        "central_k1_physical_interface_defect_inf"
+                    ]
+                ),
+                float(
+                    action_decomposition.diagnostics[
+                        "k1_outer_physical_interface_defect_inf"
+                    ]
+                ),
+            ),
+            float(acceptance["v5_action_interface_defect"]),
+            "<=",
+        ),
+        "v5_action_central_density_pullback_relative_defect": qa_metric(
+            float(
+                action_decomposition.diagnostics[
+                    "central_density_pullback_relative_defect"
+                ]
+            ),
+            float(acceptance["v5_action_central_density_relative_defect"]),
+            "<=",
+        ),
+        "v5_action_end_density_pullback_relative_defect": qa_metric(
+            max(
+                float(
+                    action_decomposition.diagnostics[
+                        "k1_density_pullback_relative_defect"
+                    ]
+                ),
+                float(
+                    action_decomposition.diagnostics[
+                        "outer_density_physical_relative_defect"
+                    ]
+                ),
+            ),
+            float(acceptance["v5_action_end_density_relative_defect"]),
+            "<=",
+        ),
+        "v5_action_k1_integral_pullback_relative_defect": qa_metric(
+            float(
+                action_decomposition.diagnostics[
+                    "k1_action_direct_vs_central_pullback_relative_defect"
+                ]
+            ),
+            float(acceptance["v5_action_k1_integral_relative_defect"]),
+            "<=",
+        ),
+        "v5_action_endpoint_grid_relative_difference": qa_metric(
+            v5_action_grid_relative_difference,
+            float(acceptance["v5_action_grid_relative_difference"]),
+            "<=",
+        ),
         "v6_complete_face_residual": qa_metric(
             maximum_complete_face_residual,
             float(acceptance["event_hit_residual"]),
@@ -1725,14 +2241,37 @@ def main() -> None:
             float(acceptance["finite_part_grid_difference"]),
             "<=",
         ),
+        "v7_itinerary_face_residual": qa_metric(
+            max(
+                max(
+                    float(edge["source_rho_u_face_residual"]),
+                    float(edge["incoming_rho_s_face_residual"]),
+                    float(edge["target_rho_u_face_residual"]),
+                )
+                for label in expected_loop_signs
+                for edge in periodic_itineraries[label]["edges"]
+            ),
+            float(acceptance["event_hit_residual"]),
+            "<=",
+        ),
+        "v7_itinerary_energy_drift": qa_metric(
+            max(
+                float(edge["energy_drift"])
+                for label in expected_loop_signs
+                for edge in periodic_itineraries[label]["edges"]
+            ),
+            float(acceptance["energy_drift"]),
+            "<=",
+        ),
     }
     qa = {
         "status": (
             "PASS_WITH_EXPLICIT_UNRESOLVED_THEOREM_OBJECTS"
-            if all(qa_checks.values())
+            if all(qa_checks.values()) and all(derived_checks.values())
             else "FAIL_OR_INCONCLUSIVE"
         ),
         "checks": qa_checks,
+        "derived_checks": derived_checks,
         "metrics": qa_metrics,
         "frozen_configuration_interface": {
             section: sorted(keys)

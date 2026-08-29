@@ -68,6 +68,509 @@
     }
   ],
   "itinerary_status": "NOT_NUMERICALLY_RESOLVED",
+  "multipulse_section_diagnostics": {
+    "pulse_1": {
+      "absolute_winding_n": null,
+      "claim_bearing": false,
+      "coordinate_status": "numerical_linear_reversible_eigenframe_not_exact_V2_chart",
+      "cyclic": false,
+      "cyclic_closure_residual_inf": 1.8740345111560888e-07,
+      "edges": [],
+      "exact_v6_word_binding": false,
+      "incoming_crossing_count": 1,
+      "incoming_crossings": [
+        {
+          "complementary_radius": 4.420939831085441e-06,
+          "event_hit_gate_passed": true,
+          "event_speed": -0.0070528814924698145,
+          "face_residual": 0.0,
+          "rho_s": 0.01,
+          "rho_u": 4.420939831085441e-06,
+          "stable_width_exceeded": false,
+          "state": [
+            0.005071703064989838,
+            -0.007067299082940177,
+            -0.004931640759949885,
+            -0.00010025294187945438
+          ],
+          "time_xi": 10.144743367834584,
+          "transverse_speed_gate_passed": true
+        }
+      ],
+      "outgoing_crossing_count": 1,
+      "outgoing_crossings": [
+        {
+          "complementary_radius": 4.420939831085441e-06,
+          "event_hit_gate_passed": true,
+          "event_speed": 0.0070528814924698145,
+          "face_residual": 0.0,
+          "rho_s": 4.420939831085441e-06,
+          "rho_u": 0.01,
+          "stable_width_exceeded": false,
+          "state": [
+            0.005071703064989838,
+            0.007067299082940178,
+            -0.004931640759949885,
+            0.00010025294187945438
+          ],
+          "time_xi": -10.144743367834584,
+          "transverse_speed_gate_passed": true
+        }
+      ],
+      "reason": "WORD_UNRESOLVED",
+      "rejections": [
+        {
+          "edge_index": 0,
+          "reason": "NO_TARGET_OUTGOING_CROSSING"
+        }
+      ],
+      "source_radius": 0.01,
+      "stable_width": 0.01,
+      "status": "NOT_NUMERICALLY_RESOLVED",
+      "word_binding_status": "WORD_UNRESOLVED"
+    },
+    "pulse_2": {
+      "absolute_winding_n": null,
+      "claim_bearing": false,
+      "coordinate_status": "numerical_linear_reversible_eigenframe_not_exact_V2_chart",
+      "cyclic": false,
+      "cyclic_closure_residual_inf": 4.834180420423639e-08,
+      "edges": [],
+      "exact_v6_word_binding": false,
+      "incoming_crossing_count": 2,
+      "incoming_crossings": [
+        {
+          "complementary_radius": 0.048504392939191635,
+          "event_hit_gate_passed": true,
+          "event_speed": -0.006522220939589374,
+          "face_residual": 3.469446951953614e-18,
+          "rho_s": 0.010000000000000004,
+          "rho_u": 0.048504392939191635,
+          "stable_width_exceeded": true,
+          "state": [
+            0.02788446346565577,
+            -0.008539193265040972,
+            0.019994413497515476,
+            0.03467619412370197
+          ],
+          "time_xi": 1.1568105131384974,
+          "transverse_speed_gate_passed": true
+        },
+        {
+          "complementary_radius": 4.420945473653657e-06,
+          "event_hit_gate_passed": true,
+          "event_speed": -0.0070528814762442675,
+          "face_residual": 4.562322741819003e-16,
+          "rho_s": 0.010000000000000456,
+          "rho_u": 4.420945473653657e-06,
+          "stable_width_exceeded": false,
+          "state": [
+            0.005071705344000517,
+            -0.007067299032961749,
+            -0.0049316384214415435,
+            -0.0001002562081072399
+          ],
+          "time_xi": 19.199802675883753,
+          "transverse_speed_gate_passed": true
+        }
+      ],
+      "outgoing_crossing_count": 2,
+      "outgoing_crossings": [
+        {
+          "complementary_radius": 4.42094547365522e-06,
+          "event_hit_gate_passed": true,
+          "event_speed": 0.007052881476244268,
+          "face_residual": 4.562322741819003e-16,
+          "rho_s": 4.42094547365522e-06,
+          "rho_u": 0.010000000000000456,
+          "stable_width_exceeded": false,
+          "state": [
+            0.0050717053440005174,
+            0.007067299032961749,
+            -0.004931638421441544,
+            0.00010025620810723989
+          ],
+          "time_xi": -19.199802675883753,
+          "transverse_speed_gate_passed": true
+        },
+        {
+          "complementary_radius": 0.048504392939191635,
+          "event_hit_gate_passed": true,
+          "event_speed": 0.006522220939589374,
+          "face_residual": 0.0,
+          "rho_s": 0.048504392939191635,
+          "rho_u": 0.01,
+          "stable_width_exceeded": true,
+          "state": [
+            0.02788446346565577,
+            0.008539193265040972,
+            0.019994413497515476,
+            -0.03467619412370197
+          ],
+          "time_xi": -1.1568105131384974,
+          "transverse_speed_gate_passed": true
+        }
+      ],
+      "reason": "WORD_UNRESOLVED",
+      "rejections": [
+        {
+          "edge_index": 0,
+          "reason": "NO_TARGET_OUTGOING_CROSSING"
+        },
+        {
+          "edge_index": 1,
+          "reason": "NO_TARGET_OUTGOING_CROSSING"
+        }
+      ],
+      "source_radius": 0.01,
+      "stable_width": 0.01,
+      "status": "NOT_NUMERICALLY_RESOLVED",
+      "word_binding_status": "WORD_UNRESOLVED"
+    },
+    "pulse_3": {
+      "absolute_winding_n": null,
+      "claim_bearing": false,
+      "coordinate_status": "numerical_linear_reversible_eigenframe_not_exact_V2_chart",
+      "cyclic": false,
+      "cyclic_closure_residual_inf": 5.0233561333064685e-08,
+      "edges": [],
+      "exact_v6_word_binding": false,
+      "incoming_crossing_count": 3,
+      "incoming_crossings": [
+        {
+          "complementary_radius": 0.04850438477761815,
+          "event_hit_gate_passed": true,
+          "event_speed": -0.0065222213728778865,
+          "face_residual": 3.469446951953614e-18,
+          "rho_s": 0.010000000000000004,
+          "rho_u": 0.04850438477761815,
+          "stable_width_exceeded": true,
+          "state": [
+            0.02788445243483236,
+            -0.008539202903735409,
+            0.01999441606383269,
+            0.03467618772443123
+          ],
+          "time_xi": -7.898249055367895,
+          "transverse_speed_gate_passed": true
+        },
+        {
+          "complementary_radius": 0.048504385078485285,
+          "event_hit_gate_passed": true,
+          "event_speed": -0.006522220813337158,
+          "face_residual": 0.0,
+          "rho_s": 0.01,
+          "rho_u": 0.048504385078485285,
+          "stable_width_exceeded": true,
+          "state": [
+            0.027884466300037995,
+            -0.008539187572231387,
+            0.01999440774708942,
+            0.03467618556665961
+          ],
+          "time_xi": 10.21186981807921,
+          "transverse_speed_gate_passed": true
+        },
+        {
+          "complementary_radius": 4.4209452104525026e-06,
+          "event_hit_gate_passed": true,
+          "event_speed": -0.00705288147632179,
+          "face_residual": 1.734723475976807e-18,
+          "rho_s": 0.010000000000000002,
+          "rho_u": 4.4209452104525026e-06,
+          "stable_width_exceeded": false,
+          "state": [
+            0.005071705333067302,
+            -0.00706729903335644,
+            -0.004931638432436658,
+            -0.0001002561924574664
+          ],
+          "time_xi": 28.25486221425169,
+          "transverse_speed_gate_passed": true
+        }
+      ],
+      "outgoing_crossing_count": 3,
+      "outgoing_crossings": [
+        {
+          "complementary_radius": 4.420945210453345e-06,
+          "event_hit_gate_passed": true,
+          "event_speed": 0.00705288147632179,
+          "face_residual": 0.0,
+          "rho_s": 4.420945210453345e-06,
+          "rho_u": 0.01,
+          "stable_width_exceeded": false,
+          "state": [
+            0.005071705333067302,
+            0.007067299033356439,
+            -0.004931638432436657,
+            0.0001002561924574664
+          ],
+          "time_xi": -28.25486221425169,
+          "transverse_speed_gate_passed": true
+        },
+        {
+          "complementary_radius": 0.04850438507848528,
+          "event_hit_gate_passed": true,
+          "event_speed": 0.0065222208133371585,
+          "face_residual": 1.734723475976807e-18,
+          "rho_s": 0.04850438507848528,
+          "rho_u": 0.009999999999999998,
+          "stable_width_exceeded": true,
+          "state": [
+            0.027884466300037995,
+            0.008539187572231387,
+            0.01999440774708942,
+            -0.03467618556665961
+          ],
+          "time_xi": -10.21186981807921,
+          "transverse_speed_gate_passed": true
+        },
+        {
+          "complementary_radius": 0.04850438477761814,
+          "event_hit_gate_passed": true,
+          "event_speed": 0.0065222213728778865,
+          "face_residual": 0.0,
+          "rho_s": 0.04850438477761814,
+          "rho_u": 0.01,
+          "stable_width_exceeded": true,
+          "state": [
+            0.027884452434832365,
+            0.008539202903735409,
+            0.01999441606383269,
+            -0.03467618772443122
+          ],
+          "time_xi": 7.898249055367895,
+          "transverse_speed_gate_passed": true
+        }
+      ],
+      "reason": "STABLE_WIDTH_EXCEEDED",
+      "rejections": [
+        {
+          "edge_index": 0,
+          "faces": [
+            "incoming",
+            "target"
+          ],
+          "maximum_complementary_radius": 0.04850438477761815,
+          "reason": "STABLE_WIDTH_EXCEEDED",
+          "stable_width": 0.01
+        },
+        {
+          "edge_index": 1,
+          "faces": [
+            "source",
+            "incoming",
+            "target"
+          ],
+          "maximum_complementary_radius": 0.04850438507848528,
+          "reason": "STABLE_WIDTH_EXCEEDED",
+          "stable_width": 0.01
+        },
+        {
+          "edge_index": 2,
+          "reason": "NO_TARGET_OUTGOING_CROSSING"
+        }
+      ],
+      "source_radius": 0.01,
+      "stable_width": 0.01,
+      "status": "NOT_NUMERICALLY_RESOLVED",
+      "word_binding_status": "WORD_UNRESOLVED"
+    },
+    "pulse_4": {
+      "absolute_winding_n": null,
+      "claim_bearing": false,
+      "coordinate_status": "numerical_linear_reversible_eigenframe_not_exact_V2_chart",
+      "cyclic": false,
+      "cyclic_closure_residual_inf": 5.212011704920801e-08,
+      "edges": [],
+      "exact_v6_word_binding": false,
+      "incoming_crossing_count": 4,
+      "incoming_crossings": [
+        {
+          "complementary_radius": 0.04850442166120977,
+          "event_hit_gate_passed": true,
+          "event_speed": -0.006522221460746307,
+          "face_residual": 0.0,
+          "rho_s": 0.01,
+          "rho_u": 0.04850442166120977,
+          "stable_width_exceeded": true,
+          "state": [
+            0.027884450248735867,
+            -0.008539230461066437,
+            0.019994452915664446,
+            0.03467621303934853
+          ],
+          "time_xi": -16.953306792743227,
+          "transverse_speed_gate_passed": true
+        },
+        {
+          "complementary_radius": 0.04850442674865414,
+          "event_hit_gate_passed": true,
+          "event_speed": -0.006522221362174577,
+          "face_residual": 3.469446951953614e-18,
+          "rho_s": 0.010000000000000004,
+          "rho_u": 0.04850442674865414,
+          "stable_width_exceeded": true,
+          "state": [
+            0.027884452388832897,
+            -0.008539234411198304,
+            0.019994460120869948,
+            0.03467621330733817
+          ],
+          "time_xi": 1.156811002414735,
+          "transverse_speed_gate_passed": true
+        },
+        {
+          "complementary_radius": 0.048504421949232025,
+          "event_hit_gate_passed": true,
+          "event_speed": -0.006522220892125819,
+          "face_residual": 1.0408340855860843e-17,
+          "rho_s": 0.01000000000000001,
+          "rho_u": 0.048504421949232025,
+          "stable_width_exceeded": true,
+          "state": [
+            0.027884464338726447,
+            -0.008539214870994431,
+            0.019994444449623602,
+            0.03467621083263482
+          ],
+          "time_xi": 19.266928669951735,
+          "transverse_speed_gate_passed": true
+        },
+        {
+          "complementary_radius": 4.420944986498795e-06,
+          "event_hit_gate_passed": true,
+          "event_speed": -0.007052881476546875,
+          "face_residual": 1.3877787807814457e-17,
+          "rho_s": 0.010000000000000014,
+          "rho_u": 4.420944986498795e-06,
+          "stable_width_exceeded": false,
+          "state": [
+            0.0050717053014546,
+            -0.00706729903414954,
+            -0.004931638464730287,
+            -0.0001002561472120251
+          ],
+          "time_xi": 37.309919989592196,
+          "transverse_speed_gate_passed": true
+        }
+      ],
+      "outgoing_crossing_count": 4,
+      "outgoing_crossings": [
+        {
+          "complementary_radius": 4.4209449864996374e-06,
+          "event_hit_gate_passed": true,
+          "event_speed": 0.007052881476546875,
+          "face_residual": 1.214306433183765e-17,
+          "rho_s": 4.4209449864996374e-06,
+          "rho_u": 0.010000000000000012,
+          "stable_width_exceeded": false,
+          "state": [
+            0.0050717053014546,
+            0.007067299034149539,
+            -0.004931638464730286,
+            0.0001002561472120251
+          ],
+          "time_xi": -37.309919989592196,
+          "transverse_speed_gate_passed": true
+        },
+        {
+          "complementary_radius": 0.048504421949232025,
+          "event_hit_gate_passed": true,
+          "event_speed": 0.0065222208921258224,
+          "face_residual": 6.938893903907228e-18,
+          "rho_s": 0.048504421949232025,
+          "rho_u": 0.010000000000000007,
+          "stable_width_exceeded": true,
+          "state": [
+            0.027884464338726447,
+            0.008539214870994433,
+            0.019994444449623606,
+            -0.03467621083263482
+          ],
+          "time_xi": -19.266928669951735,
+          "transverse_speed_gate_passed": true
+        },
+        {
+          "complementary_radius": 0.04850442674865413,
+          "event_hit_gate_passed": true,
+          "event_speed": 0.00652222136217458,
+          "face_residual": 0.0,
+          "rho_s": 0.04850442674865413,
+          "rho_u": 0.01,
+          "stable_width_exceeded": true,
+          "state": [
+            0.027884452388832894,
+            0.008539234411198299,
+            0.019994460120869938,
+            -0.034676213307338166
+          ],
+          "time_xi": -1.1568110024147347,
+          "transverse_speed_gate_passed": true
+        },
+        {
+          "complementary_radius": 0.048504421661209766,
+          "event_hit_gate_passed": true,
+          "event_speed": 0.006522221460746307,
+          "face_residual": 1.734723475976807e-18,
+          "rho_s": 0.048504421661209766,
+          "rho_u": 0.009999999999999998,
+          "stable_width_exceeded": true,
+          "state": [
+            0.027884450248735867,
+            0.008539230461066437,
+            0.019994452915664446,
+            -0.03467621303934852
+          ],
+          "time_xi": 16.953306792743227,
+          "transverse_speed_gate_passed": true
+        }
+      ],
+      "reason": "STABLE_WIDTH_EXCEEDED",
+      "rejections": [
+        {
+          "edge_index": 0,
+          "faces": [
+            "incoming",
+            "target"
+          ],
+          "maximum_complementary_radius": 0.04850442674865413,
+          "reason": "STABLE_WIDTH_EXCEEDED",
+          "stable_width": 0.01
+        },
+        {
+          "edge_index": 1,
+          "faces": [
+            "source",
+            "incoming",
+            "target"
+          ],
+          "maximum_complementary_radius": 0.04850442674865413,
+          "reason": "STABLE_WIDTH_EXCEEDED",
+          "stable_width": 0.01
+        },
+        {
+          "edge_index": 2,
+          "faces": [
+            "source",
+            "incoming",
+            "target"
+          ],
+          "maximum_complementary_radius": 0.04850442674865414,
+          "reason": "STABLE_WIDTH_EXCEEDED",
+          "stable_width": 0.01
+        },
+        {
+          "edge_index": 3,
+          "reason": "NO_TARGET_OUTGOING_CROSSING"
+        }
+      ],
+      "source_radius": 0.01,
+      "stable_width": 0.01,
+      "status": "NOT_NUMERICALLY_RESOLVED",
+      "word_binding_status": "WORD_UNRESOLVED"
+    }
+  },
   "multipulses": [
     {
       "diagnostics": {
@@ -192,6 +695,350 @@
       "pulse_count_requested": 4
     }
   ],
+  "numerical_section_itineraries": {
+    "A0": {
+      "absolute_winding_n": null,
+      "claim_bearing": false,
+      "coordinate_status": "numerical_linear_reversible_eigenframe_not_exact_V2_chart",
+      "cyclic": true,
+      "cyclic_closure_residual_inf": 0.0,
+      "edges": [],
+      "exact_v6_word_binding": false,
+      "incoming_crossing_count": 0,
+      "incoming_crossings": [],
+      "outgoing_crossing_count": 0,
+      "outgoing_crossings": [],
+      "reason": "NO_OUTGOING_CROSSING",
+      "rejections": [],
+      "source_radius": 0.01,
+      "stable_width": 0.01,
+      "status": "NOT_NUMERICALLY_RESOLVED",
+      "word_binding_status": "WORD_UNRESOLVED"
+    },
+    "A1": {
+      "absolute_winding_n": null,
+      "claim_bearing": false,
+      "coordinate_status": "numerical_linear_reversible_eigenframe_not_exact_V2_chart",
+      "cyclic": true,
+      "cyclic_closure_residual_inf": 0.0,
+      "edges": [],
+      "exact_v6_word_binding": false,
+      "incoming_crossing_count": 1,
+      "incoming_crossings": [
+        {
+          "complementary_radius": 0.048504346634863936,
+          "event_hit_gate_passed": true,
+          "event_speed": -0.006522221176471863,
+          "face_residual": 1.734723475976807e-18,
+          "rho_s": 0.010000000000000002,
+          "rho_u": 0.048504346634863936,
+          "stable_width_exceeded": true,
+          "state": [
+            0.02788445701745707,
+            -0.00853917461248194,
+            0.01999438005405803,
+            0.034676158416238355
+          ],
+          "time_xi": 10.211869742438429,
+          "transverse_speed_gate_passed": true
+        }
+      ],
+      "outgoing_crossing_count": 1,
+      "outgoing_crossings": [
+        {
+          "complementary_radius": 0.04850434663486393,
+          "event_hit_gate_passed": true,
+          "event_speed": 0.006522221176471865,
+          "face_residual": 1.734723475976807e-18,
+          "rho_s": 0.04850434663486393,
+          "rho_u": 0.009999999999999998,
+          "stable_width_exceeded": true,
+          "state": [
+            0.02788445701745707,
+            0.00853917461248194,
+            0.01999438005405803,
+            -0.034676158416238355
+          ],
+          "time_xi": 7.898250158334965,
+          "transverse_speed_gate_passed": true
+        }
+      ],
+      "reason": "STABLE_WIDTH_EXCEEDED",
+      "rejections": [
+        {
+          "edge_index": 0,
+          "faces": [
+            "source",
+            "incoming",
+            "target"
+          ],
+          "maximum_complementary_radius": 0.048504346634863936,
+          "reason": "STABLE_WIDTH_EXCEEDED",
+          "stable_width": 0.01
+        }
+      ],
+      "source_radius": 0.01,
+      "stable_width": 0.01,
+      "status": "NOT_NUMERICALLY_RESOLVED",
+      "word_binding_status": "WORD_UNRESOLVED"
+    },
+    "A2": {
+      "absolute_winding_n": null,
+      "claim_bearing": false,
+      "coordinate_status": "numerical_linear_reversible_eigenframe_not_exact_V2_chart",
+      "cyclic": true,
+      "cyclic_closure_residual_inf": 0.0,
+      "edges": [
+        {
+          "absolute_winding_n": null,
+          "claim_bearing": false,
+          "edge_index": 0,
+          "energy_abs_max": 3.8191672047105385e-14,
+          "energy_drift": 5.562217353372034e-14,
+          "exact_v6_word_binding": false,
+          "incoming": {
+            "event_speed": -0.007052565506240058,
+            "rho_s": 0.01,
+            "rho_s_face_residual": 0.0,
+            "rho_u": 8.642287991191938e-05,
+            "state": [
+              0.00511557130411547,
+              -0.007066361933304964,
+              -0.004889117632353214,
+              -3.817003057991866e-05
+            ],
+            "time_xi": 37.14056214242444
+          },
+          "incoming_event_speed": -0.007052565506240058,
+          "incoming_rho_s_face_residual": 0.0,
+          "local_residence_time_xi": 6.706164680327333,
+          "local_residence_turns_proxy": 0.7547086850668996,
+          "source": {
+            "event_speed": 0.007052565506240052,
+            "phase": 5.511809315621463,
+            "rho_s": 8.642287991191886e-05,
+            "rho_u": 0.00999999999999999,
+            "rho_u_face_residual": 1.0408340855860843e-17,
+            "state": [
+              0.005115571304115437,
+              0.007066361933304941,
+              -0.004889117632353214,
+              3.8170030579895037e-05
+            ],
+            "time_xi": 16.8509638343597,
+            "transverse_coordinate_proxy": 8.631335008304771e-05,
+            "transverse_sign_proxy": "positive"
+          },
+          "source_rho_u_face_residual": 1.0408340855860843e-17,
+          "source_to_incoming_time_xi": 20.289598308064743,
+          "status": "COMPUTED/E1_NUMERICAL_SECTION_EDGE",
+          "target": {
+            "event_speed": 0.007052565506240052,
+            "phase": 5.511809315621465,
+            "rho_s": 8.642287991191886e-05,
+            "rho_u": 0.00999999999999999,
+            "rho_u_face_residual": 1.0408340855860843e-17,
+            "state": [
+              0.005115571304115462,
+              0.007066361933304959,
+              -0.004889117632353214,
+              3.817003057991321e-05
+            ],
+            "time_xi": 43.846726822751776,
+            "transverse_coordinate_proxy": 8.631335008304742e-05,
+            "transverse_sign_proxy": "positive"
+          },
+          "target_event_speed": 0.007052565506240052,
+          "target_rho_u_face_residual": 1.0408340855860843e-17
+        }
+      ],
+      "exact_v6_word_binding": false,
+      "incoming_crossing_count": 1,
+      "incoming_crossings": [
+        {
+          "complementary_radius": 8.642287991191938e-05,
+          "event_hit_gate_passed": true,
+          "event_speed": -0.007052565506240058,
+          "face_residual": 0.0,
+          "rho_s": 0.01,
+          "rho_u": 8.642287991191938e-05,
+          "stable_width_exceeded": false,
+          "state": [
+            0.005115571304115445,
+            -0.007066361933304947,
+            -0.004889117632353214,
+            -3.8170030579900485e-05
+          ],
+          "time_xi": 10.144799154032373,
+          "transverse_speed_gate_passed": true
+        }
+      ],
+      "outgoing_crossing_count": 1,
+      "outgoing_crossings": [
+        {
+          "complementary_radius": 8.642287991191886e-05,
+          "event_hit_gate_passed": true,
+          "event_speed": 0.007052565506240052,
+          "face_residual": 1.0408340855860843e-17,
+          "rho_s": 8.642287991191886e-05,
+          "rho_u": 0.00999999999999999,
+          "stable_width_exceeded": false,
+          "state": [
+            0.005115571304115437,
+            0.007066361933304941,
+            -0.004889117632353214,
+            3.8170030579895037e-05
+          ],
+          "time_xi": 16.8509638343597,
+          "transverse_speed_gate_passed": true
+        }
+      ],
+      "reason": "WORD_UNRESOLVED",
+      "rejections": [],
+      "source_radius": 0.01,
+      "stable_width": 0.01,
+      "status": "COMPUTED/E1_NUMERICAL_SECTION_ITINERARY",
+      "word_binding_status": "WORD_UNRESOLVED"
+    },
+    "B0": {
+      "absolute_winding_n": null,
+      "claim_bearing": false,
+      "coordinate_status": "numerical_linear_reversible_eigenframe_not_exact_V2_chart",
+      "cyclic": true,
+      "cyclic_closure_residual_inf": 0.0,
+      "edges": [],
+      "exact_v6_word_binding": false,
+      "incoming_crossing_count": 0,
+      "incoming_crossings": [],
+      "outgoing_crossing_count": 0,
+      "outgoing_crossings": [],
+      "reason": "NO_OUTGOING_CROSSING",
+      "rejections": [],
+      "source_radius": 0.01,
+      "stable_width": 0.01,
+      "status": "NOT_NUMERICALLY_RESOLVED",
+      "word_binding_status": "WORD_UNRESOLVED"
+    },
+    "B1": {
+      "absolute_winding_n": null,
+      "claim_bearing": false,
+      "coordinate_status": "numerical_linear_reversible_eigenframe_not_exact_V2_chart",
+      "cyclic": true,
+      "cyclic_closure_residual_inf": 0.0,
+      "edges": [
+        {
+          "absolute_winding_n": null,
+          "claim_bearing": false,
+          "edge_index": 0,
+          "energy_abs_max": 7.349676423018536e-14,
+          "energy_drift": 7.249756350802272e-14,
+          "exact_v6_word_binding": false,
+          "incoming": {
+            "event_speed": -0.007059440057192156,
+            "rho_s": 0.009999999999999993,
+            "rho_s_face_residual": 6.938893903907228e-18,
+            "rho_u": 0.0020154050272778207,
+            "state": [
+              0.004055402082850709,
+              -0.00709093937847962,
+              -0.0059140443580620984,
+              -0.001535652770644155
+            ],
+            "time_xi": 32.69639227676062
+          },
+          "incoming_event_speed": -0.007059440057192156,
+          "incoming_rho_s_face_residual": 6.938893903907228e-18,
+          "local_residence_time_xi": 2.265834188172917,
+          "local_residence_turns_proxy": 0.2549959361648333,
+          "source": {
+            "event_speed": 0.007059440057192164,
+            "phase": 5.513442718303201,
+            "rho_s": 0.0020154050272778194,
+            "rho_u": 0.010000000000000004,
+            "rho_u_face_residual": 3.469446951953614e-18,
+            "state": [
+              0.004055402082850747,
+              0.0070909393784796505,
+              -0.005914044358062091,
+              0.0015356527706441765
+            ],
+            "time_xi": 12.409353551035485,
+            "transverse_coordinate_proxy": -0.002015399155475399,
+            "transverse_sign_proxy": "negative"
+          },
+          "source_rho_u_face_residual": 3.469446951953614e-18,
+          "source_to_incoming_time_xi": 20.287038725725132,
+          "status": "COMPUTED/E1_NUMERICAL_SECTION_EDGE",
+          "target": {
+            "event_speed": 0.007059440057192164,
+            "phase": 5.513442718303203,
+            "rho_s": 0.0020154050272778194,
+            "rho_u": 0.010000000000000004,
+            "rho_u_face_residual": 3.469446951953614e-18,
+            "state": [
+              0.00405540208285076,
+              0.007090939378479661,
+              -0.005914044358062088,
+              0.0015356527706441836
+            ],
+            "time_xi": 34.962226464933536,
+            "transverse_coordinate_proxy": -0.0020153991554753966,
+            "transverse_sign_proxy": "negative"
+          },
+          "target_event_speed": 0.007059440057192164,
+          "target_rho_u_face_residual": 3.469446951953614e-18
+        }
+      ],
+      "exact_v6_word_binding": false,
+      "incoming_crossing_count": 1,
+      "incoming_crossings": [
+        {
+          "complementary_radius": 0.0020154050272778207,
+          "event_hit_gate_passed": true,
+          "event_speed": -0.007059440057192156,
+          "face_residual": 6.938893903907228e-18,
+          "rho_s": 0.009999999999999993,
+          "rho_u": 0.0020154050272778207,
+          "stable_width_exceeded": false,
+          "state": [
+            0.004055402082850735,
+            -0.007090939378479641,
+            -0.005914044358062093,
+            -0.0015356527706441693
+          ],
+          "time_xi": 10.143519362862566,
+          "transverse_speed_gate_passed": true
+        }
+      ],
+      "outgoing_crossing_count": 1,
+      "outgoing_crossings": [
+        {
+          "complementary_radius": 0.0020154050272778194,
+          "event_hit_gate_passed": true,
+          "event_speed": 0.007059440057192164,
+          "face_residual": 3.469446951953614e-18,
+          "rho_s": 0.0020154050272778194,
+          "rho_u": 0.010000000000000004,
+          "stable_width_exceeded": false,
+          "state": [
+            0.004055402082850747,
+            0.0070909393784796505,
+            -0.005914044358062091,
+            0.0015356527706441765
+          ],
+          "time_xi": 12.409353551035485,
+          "transverse_speed_gate_passed": true
+        }
+      ],
+      "reason": "WORD_UNRESOLVED",
+      "rejections": [],
+      "source_radius": 0.01,
+      "stable_width": 0.01,
+      "status": "COMPUTED/E1_NUMERICAL_SECTION_ITINERARY",
+      "word_binding_status": "WORD_UNRESOLVED"
+    }
+  },
+  "numerical_section_itinerary_scope": "B1 and A2 each produce one accepted source--incoming--source loop proxy in the frozen linear numerical section.  These are not exact V6 edge words and carry no absolute winding integer.",
   "period_fit": {
     "families": [
       "A",

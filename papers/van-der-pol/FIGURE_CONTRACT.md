@@ -31,3 +31,31 @@
 - **Placement:** before the main theorem at full text width.
 - **Checks:** arrow orientation, distinct end types, grayscale legibility,
   readable labels at manuscript size, explicit `schematic` disclosure.
+
+# Figure contract: computed stationary profiles
+
+- **Reader question and result served:** What do representative periodic and
+  localized stationary solutions produced by the V1--V7 chain look like after
+  returning to the original PDE variables?
+- **Status:** `COMPUTED/E1`, non-claim-bearing.
+- **System, parameters, and coordinates:** the physical van der Pol PDE at
+  \((r,a_2,\epsilon)=(0.08,0,1)\), equivalently
+  \((d,a,\epsilon)=(4.096\times10^{-5},1,1)\); horizontal coordinate
+  \(\mathsf x\), vertical coordinate \(u-a\).
+- **Objects and panels:** panel (a) shows the saved B1 and A2 numerical-family
+  periodic profiles over one physical period; panel (b) shows the saved
+  one- through four-pulse full-ODE candidates on their truncated physical
+  domains.
+- **Encoding:** every family is distinguished by line style as well as color;
+  the horizontal dotted line is the homogeneous state, not a separatrix.
+- **Must not imply:** placement of the parameter point in a certified theorem
+  box, exact V6/V7 word identification, temporal stability, Turing selection,
+  canard tracking, uniqueness, or experimental observability.
+- **Production and data:**
+  `figures/computed_stationary_profiles.py`, reading
+  `numerics/results/vdp_v1_v7/v7_periodic.npz` and
+  `v7_multipulses.npz`; reproduce with `make figure`.
+- **Placement:** after the interpretation of the main theorem, at full text
+  width.
+- **Checks:** saved full-state closure/energy and stationary-PDE residuals;
+  vector PDF; grayscale-redundant line styles; final manuscript-page render.

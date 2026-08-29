@@ -6,6 +6,7 @@
     "v1_independent_clock_refinement": true,
     "v1_symbolic_exact": true,
     "v2_all_slice_solvers": true,
+    "v2_kato_compatible_source_section": true,
     "v2_passage_phase_slopes": true,
     "v2_passage_time_slopes": true,
     "v3_action_density_crosscheck": true,
@@ -18,6 +19,10 @@
     "v3_source_window_cone_margins": true,
     "v4_energy_equation": true,
     "v4_independent_gamma_grid_residuals": true,
+    "v5_action_density_pullbacks": true,
+    "v5_action_grid_refinement": true,
+    "v5_action_k1_integral_pullback": true,
+    "v5_action_physical_interfaces": true,
     "v5_arrival_margins": true,
     "v5_coupled_bvp_rms_residual": true,
     "v5_coupled_candidate_energy": true,
@@ -39,7 +44,12 @@
     "v6_refined_labels_stable": true,
     "v7_biinfinite_orbit_not_claimed": true,
     "v7_multipulse_residual_gates": true,
+    "v7_numerical_section_loop_proxies": true,
     "v7_periodic_closure": true
+  },
+  "derived_checks": {
+    "v5a_finite_grid_composition_bookkeeping": true,
+    "v5a_reference_endpoint_correction_is_nontrivial": true
   },
   "frozen_configuration_interface": {
     "acceptance": [
@@ -55,7 +65,13 @@
       "multipulse_hamiltonian_drift",
       "multipulse_physical_fd_residual",
       "multipulse_solver_rms_residual_factor",
-      "multipulse_tail_norm"
+      "multipulse_tail_norm",
+      "v5_action_central_density_relative_defect",
+      "v5_action_end_density_relative_defect",
+      "v5_action_grid_relative_difference",
+      "v5_action_interface_defect",
+      "v5_action_k1_integral_relative_defect",
+      "v5a_strict_composition_scaled_residual"
     ],
     "events": [
       "escape_norm",
@@ -106,6 +122,20 @@
     ]
   },
   "metrics": {
+    "v2_kato_source_energy_residual": {
+      "comparator": "<=",
+      "measured": 1.2827038246662359e-11,
+      "passed": true,
+      "ratio": 0.641351912333118,
+      "threshold": 2e-11
+    },
+    "v2_kato_source_horizon_state_defect": {
+      "comparator": "<=",
+      "measured": 1.1395317418791082e-12,
+      "passed": true,
+      "ratio": 1.1395317418791083e-06,
+      "threshold": 1e-06
+    },
     "v3_gate_energy_drift": {
       "comparator": "<=",
       "measured": 1.6653345369377348e-16,
@@ -122,9 +152,9 @@
     },
     "v3_source_graph_boundary_residual": {
       "comparator": "<=",
-      "measured": 1.007999276902245e-15,
+      "measured": 3.2955045010702073e-16,
       "passed": true,
-      "ratio": 5.039996384511225e-06,
+      "ratio": 1.6477522505351037e-06,
       "threshold": 2e-10
     },
     "v4_gamma_boundary_residual": {
@@ -148,6 +178,41 @@
       "ratio": 0.9998828552056463,
       "threshold": 2e-08
     },
+    "v5_action_central_density_pullback_relative_defect": {
+      "comparator": "<=",
+      "measured": 1.2860305442942745e-09,
+      "passed": true,
+      "ratio": 0.06430152721471373,
+      "threshold": 2e-08
+    },
+    "v5_action_end_density_pullback_relative_defect": {
+      "comparator": "<=",
+      "measured": 1.8783711781904017e-09,
+      "passed": true,
+      "ratio": 0.0009391855890952008,
+      "threshold": 2e-06
+    },
+    "v5_action_endpoint_grid_relative_difference": {
+      "comparator": "<=",
+      "measured": 3.654049998556759e-07,
+      "passed": true,
+      "ratio": 0.018270249992783795,
+      "threshold": 2e-05
+    },
+    "v5_action_interface_defect": {
+      "comparator": "<=",
+      "measured": 1.7185905476502228e-14,
+      "passed": true,
+      "ratio": 0.00017185905476502228,
+      "threshold": 1e-10
+    },
+    "v5_action_k1_integral_pullback_relative_defect": {
+      "comparator": "<=",
+      "measured": 1.3402616321506992e-07,
+      "passed": true,
+      "ratio": 0.06701308160753497,
+      "threshold": 2e-06
+    },
     "v5_beta_bracket_margin": {
       "comparator": ">=",
       "measured": 7.784773805063898e-05,
@@ -157,9 +222,9 @@
     },
     "v5_coupled_bvp_rms_residual": {
       "comparator": "<=",
-      "measured": 1.6278961086638112e-05,
+      "measured": 1.6278961086637723e-05,
       "passed": true,
-      "ratio": 0.8139480543319055,
+      "ratio": 0.8139480543318861,
       "threshold": 2e-05
     },
     "v5_phase_bracket_margin": {
@@ -178,9 +243,9 @@
     },
     "v5a_endpoint_grid_difference": {
       "comparator": "<=",
-      "measured": 0.0011897375415687028,
+      "measured": 0.001703760877720839,
       "passed": true,
-      "ratio": 0.5948687707843514,
+      "ratio": 0.8518804388604195,
       "threshold": 0.002
     },
     "v6_complete_action_quadrature_difference": {
@@ -210,6 +275,20 @@
       "passed": true,
       "ratio": 70.52541045972752,
       "threshold": 0.0001
+    },
+    "v7_itinerary_energy_drift": {
+      "comparator": "<=",
+      "measured": 7.249756350802272e-14,
+      "passed": true,
+      "ratio": 7.249756350802272e-06,
+      "threshold": 1e-08
+    },
+    "v7_itinerary_face_residual": {
+      "comparator": "<=",
+      "measured": 1.0408340855860843e-17,
+      "passed": true,
+      "ratio": 1.0408340855860843e-09,
+      "threshold": 1e-08
     }
   },
   "status": "PASS_WITH_EXPLICIT_UNRESOLVED_THEOREM_OBJECTS",

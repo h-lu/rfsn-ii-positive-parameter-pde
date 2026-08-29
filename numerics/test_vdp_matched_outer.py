@@ -6,6 +6,7 @@ import unittest
 
 import numpy as np
 
+from numerics.run_vdp_master import matched_outer_tail_pair, strict_v5a_composition
 from numerics.rfsn_numerics import vdp_hamiltonian
 from numerics.vdp_matched_outer import (
     COMPUTED_E1_MATCHED_CANDIDATE,
@@ -15,6 +16,7 @@ from numerics.vdp_matched_outer import (
     compute_matched_outer_candidate,
     finite_horizon_gamma_continuation,
     k1_center_graph_leading_guess,
+    matched_action_decomposition,
     matched_outer_refinement,
     outer_seam_coordinates,
     resolved_k1_to_outer_normal,
@@ -186,6 +188,67 @@ class MatchedCandidateTests(unittest.TestCase):
         self.assertTrue(np.isnan(refinement.consecutive_state_difference[0]))
         self.assertTrue(np.isfinite(refinement.consecutive_state_difference[1]))
         self.assertLess(refinement.consecutive_state_difference[1], 1e-7)
+
+    def test_v5a_reference_is_normalized_at_the_later_fixed_cut(self) -> None:
+        pair = matched_outer_tail_pair(self.candidate)
+        q_star = float(self.config.q_label)
+        self.assertAlmostEqual(pair.reference.compact_q[0], q_star)
+        self.assertAlmostEqual(pair.neighboring.compact_q[0], q_star)
+        self.assertAlmostEqual(pair.reference.beta[0], 0.0, places=14)
+        self.assertAlmostEqual(
+            pair.neighboring.beta[0],
+            float(self.candidate.diagnostics["label_beta"]),
+            places=14,
+        )
+        self.assertAlmostEqual(
+            pair.neighboring.beta0, pair.neighboring.beta[0], places=14
+        )
+        self.assertGreater(q_star, float(self.candidate.diagnostics["q_r"]))
+
+    def test_finite_v5_action_uses_all_three_matched_segments(self) -> None:
+        decomposition = matched_action_decomposition(self.candidate)
+        diagnostics = decomposition.diagnostics
+        self.assertAlmostEqual(decomposition.outer_q[-1], self.config.q_label)
+        self.assertTrue(diagnostics["terminal_is_fixed_v5a_normalization_cut"])
+        self.assertLess(
+            diagnostics["central_k1_physical_interface_defect_inf"], 1e-10
+        )
+        self.assertLess(
+            diagnostics["k1_outer_physical_interface_defect_inf"], 1e-10
+        )
+        self.assertLess(
+            diagnostics["central_density_pullback_relative_defect"], 2e-7
+        )
+        self.assertLess(diagnostics["k1_density_pullback_relative_defect"], 2e-6)
+        self.assertLess(
+            diagnostics["outer_density_physical_relative_defect"], 2e-5
+        )
+        self.assertLess(
+            diagnostics[
+                "k1_action_direct_vs_central_pullback_relative_defect"
+            ],
+            1e-4,
+        )
+        self.assertTrue(np.isfinite(decomposition.total_action))
+        self.assertGreater(decomposition.total_length, 0.0)
+
+    def test_v5a_strict_composition_keeps_reference_endpoint_correction(self) -> None:
+        decomposition = matched_action_decomposition(self.candidate)
+        pair = matched_outer_tail_pair(self.candidate)
+        report = strict_v5a_composition(decomposition, pair)
+        self.assertTrue(report["reference_endpoint_correction_included"])
+        self.assertAlmostEqual(report["q_star"], self.config.q_label)
+        self.assertEqual(len(report["cut_rows"]), 3)
+        self.assertLess(report["maximum_scaled_balance_residual"], 1e-12)
+        self.assertGreater(
+            report[
+                "minimum_scaled_residual_without_reference_endpoint_correction"
+            ],
+            1e-6,
+        )
+        self.assertEqual(
+            report["status"], "EXACT/DERIVED_FINITE_GRID_BOOKKEEPING"
+        )
 
 
 if __name__ == "__main__":

@@ -9,12 +9,18 @@ from numerics.rfsn_numerics import CORE_SOURCE_STATE
 from numerics.vdp_pole import PoleParameters, pole_energy_from_labels
 from numerics.vdp_source_to_pole import (
     CORE_HOMOCLINIC_PHASE,
+    KATO_DARBOUX_INCONCLUSIVE_STATUS,
+    KATO_DARBOUX_SECTION_STATUS,
     SOURCE_TO_POLE_CANDIDATE_STATUS,
     THEOREM_VALIDATION_STATUS,
     WINDOW_CANDIDATE_STATUS,
+    KatoSourceParameters,
+    calibrated_source_frame,
+    compute_kato_darboux_source_point,
     compute_pole_window_candidate,
     compute_source_to_pole_connection,
     finite_horizon_unstable_graph_state,
+    invert_kato_darboux_source_coordinates,
     physical_action_density,
     same_orbit_moving_cut_balance,
 )
@@ -41,6 +47,33 @@ class VdpSourceToPoleTests(unittest.TestCase):
             graph_boundary_tolerance=2.0e-10,
             gate_section_x=10.0,
         )
+        cls.kato_parameters = KatoSourceParameters(
+            r=0.08, a2=-0.25, epsilon=1.2
+        )
+        cls.kato_phase = 0.7
+        cls.kato_zero = compute_kato_darboux_source_point(
+            cls.kato_parameters,
+            cls.kato_phase,
+            0.0,
+            graph_horizon=8.0,
+        )
+        cls.kato_plus = compute_kato_darboux_source_point(
+            cls.kato_parameters,
+            cls.kato_phase,
+            1.0e-6,
+            graph_horizon=8.0,
+        )
+        cls.kato_minus = compute_kato_darboux_source_point(
+            cls.kato_parameters,
+            cls.kato_phase,
+            -1.0e-6,
+            graph_horizon=8.0,
+        )
+        cls.kato_plus_inverse = invert_kato_darboux_source_coordinates(
+            cls.kato_plus.state,
+            cls.kato_parameters,
+            graph_horizon=8.0,
+        )
 
     def test_core_true_unstable_graph_bvp_recovers_frozen_anchor(self) -> None:
         coordinates = 0.01 * np.array(
@@ -58,6 +91,155 @@ class VdpSourceToPoleTests(unittest.TestCase):
         self.assertLess(diagnostics["source_coordinate_residual_inf"], 1.0e-12)
         self.assertLess(diagnostics["central_energy_abs"], 1.0e-11)
         self.assertIn("nonlinear W^u", diagnostics["scope_note"])
+
+    def test_kato_core_phase_recovers_the_frozen_true_wu_anchor(self) -> None:
+        point = compute_kato_darboux_source_point(
+            KatoSourceParameters(r=0.0, a2=0.0, epsilon=1.0),
+            CORE_HOMOCLINIC_PHASE,
+            0.0,
+            graph_horizon=8.0,
+        )
+        self.assertEqual(point.status, KATO_DARBOUX_SECTION_STATUS)
+        self.assertFalse(point.raw_chart_identical)
+        self.assertTrue(
+            point.diagnostics["nu_zero_is_finite_horizon_nonlinear_Wu"]
+        )
+        self.assertLess(np.linalg.norm(point.state - CORE_SOURCE_STATE), 1.0e-9)
+        self.assertLess(abs(point.diagnostics["kato_phase_error"]), 1.0e-12)
+        self.assertAlmostEqual(point.diagnostics["chi"], 0.0, places=15)
+
+    def test_exact_kato_frame_formula_and_phase_orientation(self) -> None:
+        parameters = self.kato_parameters
+        frame = calibrated_source_frame(
+            parameters.r, parameters.a2, parameters.epsilon
+        )
+        expected_c = (
+            2.0 * parameters.r * parameters.a2
+            + np.sqrt(parameters.epsilon)
+            * parameters.r**4
+            * parameters.a2**2
+        )
+        expected_alpha = 0.5 * np.sqrt(2.0 + expected_c)
+        expected_beta = 0.5 * np.sqrt(2.0 - expected_c)
+        expected_y = -expected_c / (
+            np.sqrt(2.0 - expected_c)
+            * (np.sqrt(2.0) + np.sqrt(2.0 + expected_c))
+        )
+        expected_normalizer = np.sqrt(
+            6.0 * expected_alpha**2
+            - 4.0 * np.sqrt(2.0) * expected_alpha
+            + 3.0
+        )
+        expected_change = np.array(
+            [[1.0, -expected_y], [expected_y, 1.0]]
+        ) / expected_normalizer
+        self.assertAlmostEqual(frame.c, expected_c, places=15)
+        self.assertAlmostEqual(frame.alpha, expected_alpha, places=15)
+        self.assertAlmostEqual(frame.beta, expected_beta, places=15)
+        self.assertAlmostEqual(frame.y, expected_y, places=15)
+        np.testing.assert_allclose(
+            frame.kato_unstable,
+            frame.unstable @ expected_change,
+            rtol=0.0,
+            atol=2.0e-15,
+        )
+        self.assertGreater(np.linalg.det(frame.phase_rotation), 0.0)
+        coordinates = frame.coordinates(self.kato_zero.state)[:2]
+        recovered = frame.kato_phase_from_algebraic(coordinates)
+        self.assertLess(
+            abs(
+                ((recovered - self.kato_phase + np.pi) % (2.0 * np.pi))
+                - np.pi
+            ),
+            1.0e-12,
+        )
+
+    def test_kato_darboux_section_has_zero_energy_and_honest_status(self) -> None:
+        for point in (self.kato_zero, self.kato_plus, self.kato_minus):
+            self.assertEqual(point.status, KATO_DARBOUX_SECTION_STATUS)
+            self.assertFalse(point.raw_chart_identical)
+            self.assertFalse(point.diagnostics["claim_bearing"])
+            self.assertLess(point.diagnostics["central_energy_abs"], 2.0e-11)
+            self.assertLess(
+                point.diagnostics["unstable_coordinate_defect"], 2.0e-11
+            )
+            self.assertEqual(
+                point.diagnostics["theorem_validation_status"],
+                THEOREM_VALIDATION_STATUS,
+            )
+
+    def test_kato_darboux_stop_rule_reports_inconclusive(self) -> None:
+        unresolved = compute_kato_darboux_source_point(
+            self.kato_parameters,
+            self.kato_phase,
+            1.0e-6,
+            graph_horizon=8.0,
+            maximum_energy_correction=1.0e-12,
+        )
+        self.assertEqual(
+            unresolved.status, KATO_DARBOUX_INCONCLUSIVE_STATUS
+        )
+        self.assertFalse(unresolved.diagnostics["section_gates_passed"])
+        self.assertFalse(
+            unresolved.diagnostics["local_energy_correction_passed"]
+        )
+        self.assertEqual(
+            unresolved.diagnostics["energy_correction_stop_reason"],
+            "energy_correction_left_local_domain",
+        )
+
+    def test_kato_darboux_inverse_roundtrip_and_nu_sign(self) -> None:
+        inverse = self.kato_plus_inverse
+        self.assertEqual(inverse.status, KATO_DARBOUX_SECTION_STATUS)
+        self.assertFalse(inverse.raw_chart_identical)
+        self.assertLess(
+            abs(
+                ((inverse.phase - self.kato_phase + np.pi) % (2.0 * np.pi))
+                - np.pi
+            ),
+            1.0e-12,
+        )
+        self.assertAlmostEqual(inverse.nu, 1.0e-6, places=15)
+        self.assertLess(
+            np.linalg.norm(inverse.reconstructed_state - self.kato_plus.state),
+            2.0e-10,
+        )
+        minus_inverse = invert_kato_darboux_source_coordinates(
+            self.kato_minus.state,
+            self.kato_parameters,
+            graph_horizon=8.0,
+        )
+        self.assertLess(minus_inverse.nu, 0.0)
+        self.assertGreater(inverse.nu, 0.0)
+        self.assertAlmostEqual(
+            self.kato_plus.diagnostics["canonical_orientation_pairing"],
+            1.0,
+            places=12,
+        )
+        self.assertLess(
+            abs(
+                self.kato_plus.diagnostics[
+                    "energy_correction_kernel_pairing"
+                ]
+            ),
+            1.0e-12,
+        )
+
+    def test_kato_true_wu_section_refines_with_graph_horizon(self) -> None:
+        shorter = compute_kato_darboux_source_point(
+            self.kato_parameters,
+            self.kato_phase,
+            0.0,
+            graph_horizon=7.0,
+        )
+        self.assertEqual(shorter.status, KATO_DARBOUX_SECTION_STATUS)
+        self.assertLess(
+            np.linalg.norm(shorter.state - self.kato_zero.state), 2.0e-11
+        )
+        self.assertLess(
+            self.kato_zero.diagnostics["graph_boundary_residual_inf"],
+            2.0e-10,
+        )
 
     def test_v2_moving_source_horizon_and_energy_residuals(self) -> None:
         diagnostics = self.connection.source.diagnostics

@@ -147,12 +147,18 @@ def verify(output: Path = OUTPUT) -> list[str]:
     if not all(bool(value) for value in qa.get("checks", {}).values()):
         failures.append("one or more qa.json checks are false")
     required_qa_checks = {
+        "v2_kato_compatible_source_section",
         "v3_source_graph_boundary_residuals",
         "v3_gate_event_and_energy",
         "v4_independent_gamma_grid_residuals",
         "v5_coupled_bvp_rms_residual",
         "v5_frozen_phase_and_beta_brackets",
         "v5_same_section_root_residual",
+        "v5_action_physical_interfaces",
+        "v5_action_density_pullbacks",
+        "v5_action_k1_integral_pullback",
+        "v5_action_grid_refinement",
+        "v7_numerical_section_loop_proxies",
         "v6_complete_return_face_residuals",
         "v6_complete_return_event_transversality",
         "v6_complete_return_energy",
@@ -162,7 +168,21 @@ def verify(output: Path = OUTPUT) -> list[str]:
     missing_checks = required_qa_checks - set(qa.get("checks", {}))
     if missing_checks:
         failures.append(f"missing substantive QA checks: {sorted(missing_checks)}")
+    required_derived_checks = {
+        "v5a_finite_grid_composition_bookkeeping",
+        "v5a_reference_endpoint_correction_is_nontrivial",
+    }
+    derived_checks = qa.get("derived_checks", {})
+    missing_derived = required_derived_checks - set(derived_checks)
+    if missing_derived:
+        failures.append(
+            f"missing derived bookkeeping checks: {sorted(missing_derived)}"
+        )
+    if not all(bool(value) for value in derived_checks.values()):
+        failures.append("one or more qa.json derived bookkeeping checks are false")
     required_metrics = {
+        "v2_kato_source_energy_residual",
+        "v2_kato_source_horizon_state_defect",
         "v3_source_graph_boundary_residual",
         "v3_gate_residual",
         "v3_gate_energy_drift",
@@ -173,6 +193,13 @@ def verify(output: Path = OUTPUT) -> list[str]:
         "v5_same_section_root_residual",
         "v5_phase_bracket_margin",
         "v5_beta_bracket_margin",
+        "v5_action_interface_defect",
+        "v5_action_central_density_pullback_relative_defect",
+        "v5_action_end_density_pullback_relative_defect",
+        "v5_action_k1_integral_pullback_relative_defect",
+        "v5_action_endpoint_grid_relative_difference",
+        "v7_itinerary_face_residual",
+        "v7_itinerary_energy_drift",
         "v6_complete_face_residual",
         "v6_complete_min_abs_event_speed",
         "v6_complete_energy_defect",
@@ -228,15 +255,22 @@ def verify(output: Path = OUTPUT) -> list[str]:
             failures.append(f"cannot read {name}: {error}")
 
     v3 = json.loads((output / "v3_pole.json").read_text(encoding="utf-8"))
+    v2 = json.loads((output / "v2_central.json").read_text(encoding="utf-8"))
     v4v5 = json.loads(
         (output / "v4_v5_outer_matching.json").read_text(encoding="utf-8")
     )
     matched = json.loads(
         (output / "v4_v5_matched_candidate.json").read_text(encoding="utf-8")
     )
+    v5a = json.loads(
+        (output / "v5a_outer_finite_part.json").read_text(encoding="utf-8")
+    )
     v6 = json.loads((output / "v6_events.json").read_text(encoding="utf-8"))
     v7 = json.loads((output / "v7_patterns.json").read_text(encoding="utf-8"))
     computed_expectations = {
+        "V2 Kato-compatible source section": v2.get(
+            "kato_compatible_source_section", {}
+        ).get("status"),
         "V3 connected source-to-pole orbit": v3.get("status"),
         "V3 source window": v3.get("global_source_window_status"),
         "V4 finite-horizon graph candidate": v4v5.get("v4_status"),
@@ -272,6 +306,50 @@ def verify(output: Path = OUTPUT) -> list[str]:
     if gamma_report.get("claim_bearing") is not False:
         failures.append("independent Gamma(beta) grid must be non-claim-bearing")
 
+    kato_report = v2.get("kato_compatible_source_section", {})
+    if kato_report.get("claim_bearing") is not False:
+        failures.append("V2 Kato-compatible source section must be non-claim-bearing")
+    if kato_report.get("raw_chart_identical") is not False:
+        failures.append("V2 Kato-compatible source section must reject raw-chart identity")
+    with np.load(output / "v2_passage.npz", allow_pickle=False) as archive:
+        required_kato_arrays = {
+            "kato_nu",
+            "kato_state",
+            "kato_true_wu_state",
+            "kato_graph_horizon_state_defect",
+        }
+        missing_kato_arrays = required_kato_arrays - set(archive.files)
+        if missing_kato_arrays:
+            failures.append(
+                f"V2 passage NPZ missing Kato source evidence: {sorted(missing_kato_arrays)}"
+            )
+        elif (
+            archive["kato_nu"].shape != (3,)
+            or archive["kato_state"].shape != (3, 4)
+            or archive["kato_true_wu_state"].shape != (3, 4)
+            or not np.all(np.isfinite(archive["kato_state"]))
+        ):
+            failures.append("V2 Kato source arrays have invalid shape or values")
+
+    action_report = matched.get("action_decomposition", {})
+    if not str(action_report.get("status", "")).startswith("COMPUTED/E1"):
+        failures.append("V5 action decomposition lost its COMPUTED/E1 status")
+    if action_report.get("claim_bearing") is not False:
+        failures.append("V5 action decomposition must be non-claim-bearing")
+    action_cuts = action_report.get("cuts", {})
+    q_r = float(action_cuts.get("outer_start_q_r", float("nan")))
+    q_star = float(action_cuts.get("terminal_q_star", float("nan")))
+    q_end = float(config["matched_outer"]["candidate_q_end"])
+    if not q_r < q_star < q_end:
+        failures.append("V5 action cuts do not satisfy Q_R < Q_* < Q_end")
+    if not np.isclose(
+        q_star,
+        float(config["matched_outer"]["label_q"]),
+        rtol=0.0,
+        atol=1.0e-12,
+    ):
+        failures.append("V5 action terminal cut differs from frozen Q_label")
+
     with np.load(output / "v4_v5_matched_candidate.npz", allow_pickle=False) as archive:
         required_gamma_arrays = {
             "gamma_beta0",
@@ -298,6 +376,82 @@ def verify(output: Path = OUTPUT) -> list[str]:
             != len(config["matched_outer"]["gamma_horizon_ladder"])
         ):
             failures.append("Gamma horizon size differs from frozen ladder")
+        required_action_arrays = {
+            "v5_central_xi",
+            "v5_central_action",
+            "v5_central_length",
+            "v5_k1_r1",
+            "v5_k1_action",
+            "v5_k1_action_central_pullback",
+            "v5_k1_length",
+            "v5_outer_q",
+            "v5_outer_action",
+            "v5_outer_length",
+            "v5_refinement_output_points",
+            "v5_refinement_central_action",
+            "v5_refinement_k1_action",
+            "v5_refinement_outer_action",
+            "v5_refinement_total_action",
+            "v5_refinement_total_length",
+        }
+        missing_action_arrays = required_action_arrays - set(archive.files)
+        if missing_action_arrays:
+            failures.append(
+                "matched NPZ missing V5 action evidence: "
+                f"{sorted(missing_action_arrays)}"
+            )
+        else:
+            for name in (
+                "v5_central_action",
+                "v5_central_length",
+                "v5_k1_action",
+                "v5_k1_action_central_pullback",
+                "v5_k1_length",
+                "v5_outer_action",
+                "v5_outer_length",
+            ):
+                if not np.isclose(archive[name][0], 0.0, rtol=0.0, atol=1.0e-14):
+                    failures.append(f"V5 cumulative array does not start at zero: {name}")
+            for name in ("v5_central_xi", "v5_k1_r1", "v5_outer_q"):
+                if np.any(np.diff(archive[name]) <= 0.0):
+                    failures.append(f"V5 action grid is not strictly increasing: {name}")
+            if not np.isclose(archive["v5_outer_q"][0], q_r, rtol=0.0, atol=1.0e-10):
+                failures.append("V5 outer action grid does not start at Q_R")
+            if not np.isclose(archive["v5_outer_q"][-1], q_star, rtol=0.0, atol=1.0e-10):
+                failures.append("V5 outer action grid does not end at Q_*")
+            action_values = action_report.get("action", {})
+            length_values = action_report.get("physical_length", {})
+            endpoint_checks = {
+                "central action": (
+                    archive["v5_central_action"][-1],
+                    action_values.get("central"),
+                ),
+                "K1 action": (
+                    archive["v5_k1_action"][-1],
+                    action_values.get("resolved_k1"),
+                ),
+                "outer action": (
+                    archive["v5_outer_action"][-1],
+                    action_values.get("outer_qr_to_qstar"),
+                ),
+                "central length": (
+                    archive["v5_central_length"][-1],
+                    length_values.get("central"),
+                ),
+                "K1 length": (
+                    archive["v5_k1_length"][-1],
+                    length_values.get("resolved_k1"),
+                ),
+                "outer length": (
+                    archive["v5_outer_length"][-1],
+                    length_values.get("outer_qr_to_qstar"),
+                ),
+            }
+            for label, (array_value, json_value) in endpoint_checks.items():
+                if json_value is None or not np.isclose(
+                    array_value, float(json_value), rtol=2.0e-13, atol=1.0e-12
+                ):
+                    failures.append(f"V5 JSON/NPZ endpoint mismatch: {label}")
 
     unresolved_expectations = {
         "V7 itinerary": v7.get("itinerary_status"),
@@ -306,6 +460,44 @@ def verify(output: Path = OUTPUT) -> list[str]:
     for label, status in unresolved_expectations.items():
         if status != "NOT_NUMERICALLY_RESOLVED":
             failures.append(f"{label} lost its stop-rule status: {status}")
+    v5a_normalization = v5a.get("normalization", {})
+    if not np.isclose(
+        float(v5a_normalization.get("fixed_v5a_cut_q_star", float("nan"))),
+        float(config["matched_outer"]["label_q"]),
+        rtol=0.0,
+        atol=1.0e-12,
+    ):
+        failures.append("V5A normalization is not fixed at Q_label")
+    if not np.isclose(
+        float(v5a_normalization.get("reference_beta_at_q_star", float("nan"))),
+        0.0,
+        rtol=0.0,
+        atol=1.0e-14,
+    ):
+        failures.append("V5A reference does not satisfy beta_ref(Q_*)=0")
+    strict_composition = v5a.get("strict_composition", {})
+    if strict_composition.get("status") != "EXACT/DERIVED_FINITE_GRID_BOOKKEEPING":
+        failures.append("V5A strict composition lost its derived-bookkeeping status")
+    if strict_composition.get("claim_bearing") is not False:
+        failures.append("V5A finite-grid bookkeeping must be non-claim-bearing")
+
+    numerical_itineraries = v7.get("numerical_section_itineraries", {})
+    for label, sign in {"B1": "negative", "A2": "positive"}.items():
+        itinerary = numerical_itineraries.get(label, {})
+        edges = itinerary.get("edges", [])
+        if (
+            itinerary.get("exact_v6_word_binding") is not False
+            or itinerary.get("absolute_winding_n") is not None
+            or itinerary.get("claim_bearing") is not False
+            or len(edges) != 1
+        ):
+            failures.append(f"V7 numerical loop proxy contract failed: {label}")
+            continue
+        if (
+            edges[0].get("source", {}).get("transverse_sign_proxy") != sign
+            or edges[0].get("target", {}).get("transverse_sign_proxy") != sign
+        ):
+            failures.append(f"V7 numerical loop proxy sign mismatch: {label}")
     if not any(name.startswith("return") for name in v6.get("event_counts", {})):
         failures.append("V6 atlas contains no completed numerical return sample")
 

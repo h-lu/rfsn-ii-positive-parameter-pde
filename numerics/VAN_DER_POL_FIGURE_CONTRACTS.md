@@ -30,7 +30,7 @@ does not satisfy the contract.
 - **Evidence labels.**  Every panel carries one visible badge:
   `EXACT/DERIVED`, `COMPUTED/E1`, `COMPUTED/QA`, `MIXED`, or
   `NOT NUMERICALLY RESOLVED`.  `COMPUTED/E1` means explanatory
-  floating-point evidence; every configuration-v4 end or return candidate
+  floating-point evidence; every configuration-v5 end or return candidate
   also carries `NOT_INTERVAL_VALIDATED`.  A successful schema check remains
   `claim_bearing: false` and is not the interval validation of Issue #7.
 - **Common visual vocabulary.**  Exact formulas and predicted asymptotic
@@ -376,8 +376,10 @@ parameter jets.
 **Output stem:** `figure_05_v5a_algebraic_finite_part`
 
 **Mathematical claim.**  On a common finite \(Q\)-grid, the neighboring tail is
-the actual saved outer leg of the configuration-v4 coupled V4/V5 candidate;
-the reference is an independently solved finite-horizon \(\beta=0\) tail.
+the actual saved outer leg of the configuration-v5 coupled V4/V5 candidate;
+the reference is an independently solved finite-horizon \(\beta=0\) tail
+normalized at the fixed post-matching cut \(Q_*=Q_{\rm label}=100\), not at
+the internal seam \(Q_R=25\).
 Their exact physical length/action densities, complete reference
 counterterms, same-\(Q\) differences, and finite-cut balances are evaluated.
 This upgrades the calculation from a disconnected proxy to a candidate-based
@@ -395,8 +397,10 @@ finite subtraction, but it does not verify the infinite V5A limits.
 - Diagnostics and covariance checks: `outer_asymptotic_diagnostics()`,
   `numerical_cut_balance()`, `reference_change_balance()`,
   `gauge_composition_balance()`, and `terminal_potential_transfer()`.
+- Full finite V5 action split and reference-corrected composition:
+  `matched_action_decomposition()` and `strict_v5a_composition()`.
 - Frozen \(Q\)-ladder: `numerics/config/vdp_v1_v7.json` under
-  `cutoff_ladders.outer_Q`.
+  `matched_outer.finite_part_output_ladder` and `matched_outer.candidate_q_end`.
 - Saved arrays and status: `numerics/results/vdp_v1_v7/v4_v5a_outer.npz` and
   `v5a_outer_finite_part.json`.
 
@@ -427,7 +431,8 @@ vertical line.  A hatched continuation beyond it is labeled “not computed.”
 **Acceptance test.**
 
 - Reference and neighboring tails share exactly the same physical \(Q\)-grid,
-  use the same parameter tuple, and maintain \(\pi>0\) and small energy/BVP
+  begin at \(Q_*=Q_{\rm label}>Q_R\), use the same parameter tuple, satisfy
+  \(\beta_{\rm ref}(Q_*)=0\), and maintain \(\pi>0\) and small energy/BVP
   residuals.
 - Scaled reference densities approach
   \(1/(2q_*)\) and \(-q_*/(2\delta)\), respectively, and the raw counterterms
@@ -435,9 +440,12 @@ vertical line.  A hatched continuation beyond it is labeled “not computed.”
 - Same-\(Q\) density gaps decrease across the tail; the final changes of both
   reference-subtracted integrals decrease on the frozen \(Q\)-ladder and
   under a larger finite horizon.
-- Every finite-cut covariance or composition residual closes within the
-  combined quadrature and floating-point tolerance.  Failed balances remain
-  visible as `FAIL` or `INCONCLUSIVE`.
+- Independent density pullbacks, the resolved-\(K_1\) pullback integral, and
+  the output-grid ladder satisfy their declared numerical tolerances.
+  Finite-cut composition on the same cumulative arrays is shown only as
+  `EXACT/DERIVED` bookkeeping.  It includes the reference endpoint correction
+  beyond \(Q_*\), together with a nonzero omitted-correction control; it is not
+  presented as independent evidence for covariance of an improper limit.
 - The caption states `MATCHED FINITE-HORIZON SAME-Q CANDIDATE` and
   `NOT_INTERVAL_VALIDATED`; the plot cannot be counted as V5A's improper-limit
   computation until an infinite graph/tail enclosure is supplied.

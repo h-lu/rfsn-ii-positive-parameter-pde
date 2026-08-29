@@ -396,6 +396,441 @@ def periodic_source_anchor(
     }
 
 
+def extract_numerical_section_itinerary(
+    xi: Array,
+    state: Array,
+    *,
+    r: float,
+    a2: float,
+    epsilon: float,
+    source_radius: float = 0.01,
+    stable_width: float = 0.01,
+    uncertain_margin: float = 1.0e-6,
+    event_hit_tolerance: float = 1.0e-8,
+    minimum_event_speed: float = 1.0e-4,
+    cyclic: bool = False,
+) -> dict[str, object]:
+    """Extract finite numerical source--incoming--source itineraries.
+
+    The two event faces are defined in the deterministic linear reversible
+    saddle frame: an outgoing hit has ``rho_u=source_radius`` with positive
+    radial speed, while an incoming hit has ``rho_s=source_radius`` with
+    negative radial speed.  Cubic splines of the supplied trajectory and
+    bracketed scalar root solves locate the hits between saved mesh points.
+
+    A candidate edge is retained only when the complementary radius is at
+    most ``stable_width`` on its source, incoming, and target faces.  The
+    resulting phases and transverse signs are numerical-coordinate proxies;
+    this routine deliberately does not attach an exact V6 word or an integer
+    absolute winding label.
+    """
+
+    coordinate_status = (
+        "numerical_linear_reversible_eigenframe_not_exact_V2_chart"
+    )
+    base: dict[str, object] = {
+        "coordinate_status": coordinate_status,
+        "exact_v6_word_binding": False,
+        "absolute_winding_n": None,
+        "claim_bearing": False,
+        "word_binding_status": "WORD_UNRESOLVED",
+        "source_radius": float(source_radius),
+        "stable_width": float(stable_width),
+        "cyclic": bool(cyclic),
+    }
+
+    times = np.asarray(xi, dtype=float)
+    values = np.asarray(state, dtype=float)
+    if times.ndim != 1 or times.size < 4:
+        raise ValueError(
+            "xi must be a one-dimensional array with at least four points"
+        )
+    if values.shape != (4, times.size):
+        raise ValueError("state must have shape (4, len(xi))")
+    if not np.all(np.isfinite(times)) or not np.all(np.isfinite(values)):
+        raise ValueError("xi and state must contain only finite values")
+    if not np.all(np.diff(times) > 0.0):
+        raise ValueError("xi must be strictly increasing")
+    if not (r > 0.0 and epsilon > 0.0):
+        raise ValueError("r and epsilon must be positive")
+    if source_radius <= 0.0 or stable_width < 0.0:
+        raise ValueError("source_radius must be positive and stable_width nonnegative")
+    if uncertain_margin < 0.0:
+        raise ValueError("uncertain_margin must be nonnegative")
+    if event_hit_tolerance <= 0.0 or minimum_event_speed < 0.0:
+        raise ValueError(
+            "event_hit_tolerance must be positive and minimum_event_speed nonnegative"
+        )
+
+    period = float(times[-1] - times[0])
+    closure_residual = float(np.max(np.abs(values[:, -1] - values[:, 0])))
+    base["cyclic_closure_residual_inf"] = closure_residual
+    if cyclic and closure_residual > event_hit_tolerance:
+        return {
+            **base,
+            "status": "NOT_NUMERICALLY_RESOLVED",
+            "reason": "CYCLIC_CLOSURE_EXCEEDED",
+            "outgoing_crossings": [],
+            "incoming_crossings": [],
+            "edges": [],
+            "rejections": [
+                {
+                    "reason": "CYCLIC_CLOSURE_EXCEEDED",
+                    "closure_residual_inf": closure_residual,
+                    "tolerance": float(event_hit_tolerance),
+                }
+            ],
+        }
+
+    frame = reversible_saddle_frame(r, a2, epsilon)
+    spline = CubicSpline(times, values, axis=1)
+
+    def sampled_state(time: float) -> Array:
+        evaluation_time = float(time)
+        if cyclic:
+            evaluation_time = float(
+                times[0] + ((evaluation_time - times[0]) % period)
+            )
+            # Preserve the stored right endpoint when it is requested exactly;
+            # the two endpoint values already passed the closure gate above.
+            if abs(time - times[-1]) <= 4.0 * np.finfo(float).eps * max(1.0, period):
+                evaluation_time = float(times[-1])
+        return np.asarray(spline(evaluation_time), dtype=float)
+
+    linear_values = frame.inverse @ values
+    sampled_rho_u = np.linalg.norm(linear_values[:2], axis=0)
+    sampled_rho_s = np.linalg.norm(linear_values[2:], axis=0)
+
+    def radial_data(time: float, *, unstable: bool) -> tuple[float, float, float, Array]:
+        point = sampled_state(time)
+        coordinates = frame.coordinates(point)
+        velocity = frame.inverse @ vdp_field_point(
+            float(time), point, r=r, a2=a2, epsilon=epsilon
+        )
+        block = slice(0, 2) if unstable else slice(2, 4)
+        radius = float(np.linalg.norm(coordinates[block]))
+        if radius == 0.0:
+            speed = 0.0
+        else:
+            speed = float(coordinates[block] @ velocity[block] / radius)
+        complementary = float(
+            np.linalg.norm(coordinates[2:])
+            if unstable
+            else np.linalg.norm(coordinates[:2])
+        )
+        return radius, complementary, speed, point
+
+    def locate_crossings(*, unstable: bool, direction: int) -> list[dict[str, object]]:
+        sampled_radius = sampled_rho_u if unstable else sampled_rho_s
+        signed = sampled_radius - source_radius
+        if direction > 0:
+            brackets = np.flatnonzero(
+                (signed[:-1] <= 0.0) & (signed[1:] > 0.0)
+            )
+        else:
+            brackets = np.flatnonzero(
+                (signed[:-1] >= 0.0) & (signed[1:] < 0.0)
+            )
+        crossings: list[dict[str, object]] = []
+        for index_value in brackets:
+            index = int(index_value)
+
+            def face(time: float) -> float:
+                radius, _complementary, _speed, _point = radial_data(
+                    time, unstable=unstable
+                )
+                return radius - source_radius
+
+            left = float(times[index])
+            right = float(times[index + 1])
+            if signed[index] == 0.0:
+                root_time = left
+            elif signed[index + 1] == 0.0:
+                root_time = right
+            else:
+                root = root_scalar(
+                    face,
+                    bracket=(left, right),
+                    method="brentq",
+                    xtol=min(1.0e-12, event_hit_tolerance / 10.0),
+                    rtol=4.0 * np.finfo(float).eps,
+                )
+                if not root.converged:
+                    continue
+                root_time = float(root.root)
+            radius, complementary, speed, point = radial_data(
+                root_time, unstable=unstable
+            )
+            crossings.append(
+                {
+                    "time_xi": root_time,
+                    "state": point.tolist(),
+                    "rho_u": radius if unstable else complementary,
+                    "rho_s": complementary if unstable else radius,
+                    "face_residual": abs(radius - source_radius),
+                    "event_speed": speed,
+                    "complementary_radius": complementary,
+                    "stable_width_exceeded": bool(complementary > stable_width),
+                    "transverse_speed_gate_passed": bool(
+                        speed >= minimum_event_speed
+                        if direction > 0
+                        else speed <= -minimum_event_speed
+                    ),
+                    "event_hit_gate_passed": bool(
+                        abs(radius - source_radius) <= event_hit_tolerance
+                    ),
+                }
+            )
+        return crossings
+
+    outgoing = locate_crossings(unstable=True, direction=1)
+    incoming = locate_crossings(unstable=False, direction=-1)
+    base.update(
+        {
+            "outgoing_crossing_count": len(outgoing),
+            "incoming_crossing_count": len(incoming),
+            "outgoing_crossings": outgoing,
+            "incoming_crossings": incoming,
+        }
+    )
+    if not outgoing:
+        return {
+            **base,
+            "status": "NOT_NUMERICALLY_RESOLVED",
+            "reason": "NO_OUTGOING_CROSSING",
+            "edges": [],
+            "rejections": [],
+        }
+    if not incoming:
+        return {
+            **base,
+            "status": "NOT_NUMERICALLY_RESOLVED",
+            "reason": "WORD_UNRESOLVED",
+            "edges": [],
+            "rejections": [{"reason": "NO_INCOMING_CROSSING"}],
+        }
+
+    def shifted(event: Mapping[str, object], shift: float) -> dict[str, object]:
+        shifted_event = dict(event)
+        shifted_event["time_xi"] = float(event["time_xi"]) + shift
+        return shifted_event
+
+    if cyclic:
+        incoming_pool = [
+            shifted(event, shift)
+            for shift in (0.0, period, 2.0 * period)
+            for event in incoming
+        ]
+        outgoing_pool = [
+            shifted(event, shift)
+            for shift in (0.0, period, 2.0 * period)
+            for event in outgoing
+        ]
+    else:
+        incoming_pool = [dict(event) for event in incoming]
+        outgoing_pool = [dict(event) for event in outgoing]
+    incoming_pool.sort(key=lambda event: float(event["time_xi"]))
+    outgoing_pool.sort(key=lambda event: float(event["time_xi"]))
+
+    def sign_proxy(value: float) -> str:
+        if value > uncertain_margin:
+            return "positive"
+        if value < -uncertain_margin:
+            return "negative"
+        return "cut_band"
+
+    edges: list[dict[str, object]] = []
+    rejections: list[dict[str, object]] = []
+    separation = max(8.0 * np.finfo(float).eps * max(1.0, period), 1.0e-14)
+    for edge_index, source_event in enumerate(outgoing):
+        source_time = float(source_event["time_xi"])
+        incoming_event = next(
+            (
+                event
+                for event in incoming_pool
+                if float(event["time_xi"]) > source_time + separation
+            ),
+            None,
+        )
+        if incoming_event is None:
+            rejections.append(
+                {"edge_index": edge_index, "reason": "NO_INCOMING_CROSSING"}
+            )
+            continue
+        incoming_time = float(incoming_event["time_xi"])
+        target_event = next(
+            (
+                event
+                for event in outgoing_pool
+                if float(event["time_xi"]) > incoming_time + separation
+            ),
+            None,
+        )
+        if target_event is None:
+            rejections.append(
+                {"edge_index": edge_index, "reason": "NO_TARGET_OUTGOING_CROSSING"}
+            )
+            continue
+
+        width_events = {
+            "source": source_event,
+            "incoming": incoming_event,
+            "target": target_event,
+        }
+        exceeded = [
+            name
+            for name, event in width_events.items()
+            if float(event["complementary_radius"]) > stable_width
+        ]
+        if exceeded:
+            rejections.append(
+                {
+                    "edge_index": edge_index,
+                    "reason": "STABLE_WIDTH_EXCEEDED",
+                    "faces": exceeded,
+                    "maximum_complementary_radius": max(
+                        float(event["complementary_radius"])
+                        for event in width_events.values()
+                    ),
+                    "stable_width": float(stable_width),
+                }
+            )
+            continue
+        failed_hit = [
+            name
+            for name, event in width_events.items()
+            if not bool(event["event_hit_gate_passed"])
+        ]
+        if failed_hit:
+            rejections.append(
+                {
+                    "edge_index": edge_index,
+                    "reason": "EVENT_HIT_RESIDUAL_EXCEEDED",
+                    "faces": failed_hit,
+                }
+            )
+            continue
+        failed_speed = [
+            name
+            for name, event in width_events.items()
+            if not bool(event["transverse_speed_gate_passed"])
+        ]
+        if failed_speed:
+            rejections.append(
+                {
+                    "edge_index": edge_index,
+                    "reason": "EVENT_SPEED_TOO_SMALL",
+                    "faces": failed_speed,
+                }
+            )
+            continue
+
+        target_time = float(target_event["time_xi"])
+        source_point = sampled_state(source_time)
+        incoming_point = sampled_state(incoming_time)
+        target_point = sampled_state(target_time)
+        source_coordinates = numerical_source_coordinates(
+            source_point, frame=frame, r=r, a2=a2, epsilon=epsilon
+        )
+        target_coordinates = numerical_source_coordinates(
+            target_point, frame=frame, r=r, a2=a2, epsilon=epsilon
+        )
+        source_transverse = float(source_coordinates["transverse_coordinate"])
+        target_transverse = float(target_coordinates["transverse_coordinate"])
+
+        if cyclic:
+            archived_times = np.concatenate(
+                tuple(times + shift for shift in (0.0, period, 2.0 * period))
+            )
+            archived_state = np.concatenate((values, values, values), axis=1)
+        else:
+            archived_times = times
+            archived_state = values
+        on_edge = (archived_times >= source_time) & (archived_times <= target_time)
+        energy_state = np.column_stack(
+            (
+                source_point,
+                archived_state[:, on_edge],
+                incoming_point,
+                target_point,
+            )
+        )
+        energy = vdp_hamiltonian(energy_state, r, a2, epsilon)
+        local_residence_time = target_time - incoming_time
+        edges.append(
+            {
+                "edge_index": edge_index,
+                "status": "COMPUTED/E1_NUMERICAL_SECTION_EDGE",
+                "claim_bearing": False,
+                "exact_v6_word_binding": False,
+                "absolute_winding_n": None,
+                "source": {
+                    "time_xi": source_time,
+                    "state": source_point.tolist(),
+                    "phase": float(source_coordinates["phase"]),
+                    "transverse_coordinate_proxy": source_transverse,
+                    "transverse_sign_proxy": sign_proxy(source_transverse),
+                    "rho_u": float(source_event["rho_u"]),
+                    "rho_s": float(source_event["rho_s"]),
+                    "rho_u_face_residual": float(source_event["face_residual"]),
+                    "event_speed": float(source_event["event_speed"]),
+                },
+                "incoming": {
+                    "time_xi": incoming_time,
+                    "state": incoming_point.tolist(),
+                    "rho_u": float(incoming_event["rho_u"]),
+                    "rho_s": float(incoming_event["rho_s"]),
+                    "rho_s_face_residual": float(incoming_event["face_residual"]),
+                    "event_speed": float(incoming_event["event_speed"]),
+                },
+                "target": {
+                    "time_xi": target_time,
+                    "state": target_point.tolist(),
+                    "phase": float(target_coordinates["phase"]),
+                    "transverse_coordinate_proxy": target_transverse,
+                    "transverse_sign_proxy": sign_proxy(target_transverse),
+                    "rho_u": float(target_event["rho_u"]),
+                    "rho_s": float(target_event["rho_s"]),
+                    "rho_u_face_residual": float(target_event["face_residual"]),
+                    "event_speed": float(target_event["event_speed"]),
+                },
+                "source_to_incoming_time_xi": incoming_time - source_time,
+                "local_residence_time_xi": local_residence_time,
+                "local_residence_turns_proxy": float(
+                    frame.beta * local_residence_time / (2.0 * pi)
+                ),
+                "energy_drift": float(np.ptp(energy)),
+                "energy_abs_max": float(np.max(np.abs(energy))),
+                "incoming_event_speed": float(incoming_event["event_speed"]),
+                "target_event_speed": float(target_event["event_speed"]),
+                "source_rho_u_face_residual": float(source_event["face_residual"]),
+                "incoming_rho_s_face_residual": float(incoming_event["face_residual"]),
+                "target_rho_u_face_residual": float(target_event["face_residual"]),
+            }
+        )
+
+    if edges:
+        return {
+            **base,
+            "status": "COMPUTED/E1_NUMERICAL_SECTION_ITINERARY",
+            "reason": "WORD_UNRESOLVED",
+            "edges": edges,
+            "rejections": rejections,
+        }
+    reason = (
+        "STABLE_WIDTH_EXCEEDED"
+        if any(item.get("reason") == "STABLE_WIDTH_EXCEEDED" for item in rejections)
+        else "WORD_UNRESOLVED"
+    )
+    return {
+        **base,
+        "status": "NOT_NUMERICALLY_RESOLVED",
+        "reason": reason,
+        "edges": [],
+        "rejections": rejections,
+    }
+
+
 def _pole_gate_coordinates(state: Array) -> dict[str, float]:
     u, p, v, q = (float(value) for value in state)
     x = -u

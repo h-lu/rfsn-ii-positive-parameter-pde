@@ -86,7 +86,7 @@
     }
   },
   "provenance": {
-    "configuration_version": 4,
+    "configuration_version": 5,
     "family": "A",
     "relative_winding_is_not_V6_label": true,
     "relative_winding_metadata": 2,

@@ -25,6 +25,7 @@ from scipy.optimize import root
 
 from numerics.rfsn_numerics import (
     CORE_SOURCE_STATE,
+    vdp_coefficients,
     vdp_field_point,
     vdp_hamiltonian,
 )
@@ -47,14 +48,30 @@ from numerics.vdp_pole import (
     pole_energy_from_labels,
     realize_local_pole,
 )
-from numerics.vdp_return_coding import reversible_saddle_frame
-
-
 Array = NDArray[np.float64]
 
 SOURCE_TO_POLE_CANDIDATE_STATUS = "COMPUTED/E1_SOURCE_TO_POLE"
 WINDOW_CANDIDATE_STATUS = "COMPUTED/E1_V2_SOURCE_WINDOW_TO_POLE_GATE"
+KATO_DARBOUX_SECTION_STATUS = (
+    "COMPUTED/E1_KATO_COMPATIBLE_DARBOUX_SECTION"
+)
+KATO_DARBOUX_INCONCLUSIVE_STATUS = (
+    "INCONCLUSIVE/E1_KATO_COMPATIBLE_DARBOUX_SECTION"
+)
 THEOREM_VALIDATION_STATUS = "NOT_INTERVAL_VALIDATED (#7)"
+
+# The physical coordinate order is (U,P,V,Q).  This is the matrix in
+# CENTRAL_CONTINUATION.md, Section 5, so ``omega(v,w)=v.T@OMEGA@w``.
+CENTRAL_SYMPLECTIC_MATRIX = np.array(
+    [
+        [0.0, -1.0, 0.0, 0.0],
+        [1.0, 0.0, 0.0, 0.0],
+        [0.0, 0.0, 0.0, 1.0],
+        [0.0, 0.0, -1.0, 0.0],
+    ],
+    dtype=np.float64,
+)
+CENTRAL_REVERSER_MATRIX = np.diag([1.0, -1.0, 1.0, -1.0])
 
 CORE_HOMOCLINIC_PHASE = 0.5 * (
     5.8615055856447817 + 5.8615055856450482
@@ -75,20 +92,99 @@ def _json_ready(value: Any) -> Any:
 
 @dataclass(frozen=True)
 class SourceFrame:
-    """Phase-calibrated real saddle frame.
+    """Exact-formula algebraic and normalized-Kato saddle frames.
 
-    At the universal core this is exactly the frame in V2's imported linear
-    coordinates: a coordinate circle of radius ``0.01`` is therefore the
-    frozen source circle, rather than the radius-``0.01`` circle in an
-    orthonormalized eigenspace.
+    ``unstable`` is the algebraic frame ``E`` used by the true unstable graph.
+    ``kato_unstable`` is ``K=E C_AK``, where the matrix ``C_AK`` and its
+    phase rotation are exactly the formulas audited in
+    ``vdp_p2_kato_probe.cpp``.  Thus this is not the independently
+    phase-fixed numerical eigenframe from :mod:`numerics.vdp_return_coding`.
     """
 
     unstable: Array
     stable: Array
     inverse: Array
+    kato_unstable: Array
+    kato_stable: Array
+    kato_to_algebraic: Array
+    phase_rotation: Array
+    c: float
+    alpha: float
+    beta: float
+    y: float
+    chi: float
+    radial_scale: float
 
     def coordinates(self, state: Array) -> Array:
         return self.inverse @ np.asarray(state, dtype=np.float64)
+
+    def kato_phase_from_algebraic(self, coordinates: Array) -> float:
+        """Invert the degree-one ``R_chi`` source-phase convention."""
+
+        rotated = self.phase_rotation.T @ np.asarray(
+            coordinates, dtype=np.float64
+        )
+        return float(np.arctan2(rotated[1], rotated[0]) % (2.0 * np.pi))
+
+
+@dataclass(frozen=True)
+class KatoSourceParameters:
+    """Central source parameters, including the theorem's ``r=0`` face."""
+
+    r: float
+    a2: float
+    epsilon: float
+
+    def __post_init__(self) -> None:
+        if not np.isfinite(self.r) or self.r < 0.0:
+            raise ValueError("r must be finite and nonnegative")
+        if not np.isfinite(self.a2):
+            raise ValueError("a2 must be finite")
+        if not np.isfinite(self.epsilon) or self.epsilon <= 0.0:
+            raise ValueError("epsilon must be finite and positive")
+
+
+def _as_kato_source_parameters(
+    parameters: KatoSourceParameters | PoleParameters,
+) -> KatoSourceParameters:
+    return KatoSourceParameters(
+        r=float(parameters.r),
+        a2=float(parameters.a2),
+        epsilon=float(parameters.epsilon),
+    )
+
+
+@dataclass(frozen=True)
+class KatoDarbouxSourcePoint:
+    """One finite-horizon, zero-energy Kato-compatible source point.
+
+    The construction uses the exact Kato phase convention and a numerically
+    canonical transverse coordinate along the computed nonlinear ``W^u``
+    spine.  It is deliberately *not* identified with the paper's existential
+    nonlinear Moser/Darboux chart; see ``raw_chart_identical``.
+    """
+
+    phase: float
+    nu: float
+    state: Array | None
+    true_wu_state: Array | None
+    status: str
+    raw_chart_identical: bool
+    diagnostics: dict[str, float | str | bool]
+
+
+@dataclass(frozen=True)
+class KatoDarbouxSourceCoordinates:
+    """Numerical inverse coordinates on the Kato-compatible source section."""
+
+    phase: float
+    nu: float
+    energy_correction_coordinate: float
+    source_radius: float
+    reconstructed_state: Array
+    status: str
+    raw_chart_identical: bool
+    diagnostics: dict[str, float | str | bool]
 
 
 @dataclass(frozen=True)
@@ -321,15 +417,73 @@ class PoleWindowCandidate:
 
 
 def calibrated_source_frame(r: float, a2: float, epsilon: float) -> SourceFrame:
-    """Return the deterministic saddle frame scaled to the core coordinates."""
+    """Evaluate the P2bK algebraic/Kato frame formulas in binary64.
 
-    normalized = reversible_saddle_frame(r, a2, epsilon)
-    scale = np.sqrt(2.0)
-    unstable = scale * normalized.unstable
-    stable = scale * normalized.stable
+    With ``c=2*r*a2+sqrt(epsilon)*r**4*a2**2``, this implements
+
+    ``alpha=.5*sqrt(2+c)``, ``beta=.5*sqrt(2-c)``,
+    ``chi=atan(y)``, and ``K=E C_AK``
+
+    with the same sign and column order as
+    ``validation/rigorous/src/vdp_p2_kato_probe.cpp``.  The matrix
+    ``C_AK=sigma R_chi`` maps normalized Kato coordinates to algebraic
+    unstable coordinates.  The source circle itself uses ``R_chi`` (without
+    ``sigma``), exactly as equation (28) of ``CENTRAL_CONTINUATION.md``.
+    """
+
+    if epsilon <= 0.0:
+        raise ValueError("epsilon must be positive")
+    c, _quadratic, _cubic = vdp_coefficients(r, a2, epsilon)
+    if abs(c) >= 2.0:
+        raise ValueError("the Kato saddle-focus frame requires |c| < 2")
+    alpha = 0.5 * np.sqrt(2.0 + c)
+    beta = 0.5 * np.sqrt(2.0 - c)
+    root_two = np.sqrt(2.0)
+    y = -c / (
+        np.sqrt(2.0 - c) * (root_two + np.sqrt(2.0 + c))
+    )
+    chi = float(np.arctan(y))
+    normalizer = np.sqrt(
+        6.0 * alpha * alpha - 4.0 * root_two * alpha + 3.0
+    )
+    rotation_denominator = np.sqrt(1.0 + y * y)
+    phase_rotation = np.array(
+        [[1.0, -y], [y, 1.0]], dtype=np.float64
+    ) / rotation_denominator
+    kato_to_algebraic = np.array(
+        [[1.0, -y], [y, 1.0]], dtype=np.float64
+    ) / normalizer
+    radial_scale = float(rotation_denominator / normalizer)
+    h = 2.0 * alpha * beta
+    unstable = np.array(
+        [
+            [1.0, 0.0],
+            [alpha, -beta],
+            [0.5 * c, h],
+            [alpha, beta],
+        ],
+        dtype=np.float64,
+    )
+    stable = CENTRAL_REVERSER_MATRIX @ unstable
     basis = np.column_stack((unstable, stable))
     inverse = np.linalg.inv(basis)
-    return SourceFrame(unstable=unstable, stable=stable, inverse=inverse)
+    kato_unstable = unstable @ kato_to_algebraic
+    kato_stable = CENTRAL_REVERSER_MATRIX @ kato_unstable
+    return SourceFrame(
+        unstable=unstable,
+        stable=stable,
+        inverse=inverse,
+        kato_unstable=kato_unstable,
+        kato_stable=kato_stable,
+        kato_to_algebraic=kato_to_algebraic,
+        phase_rotation=phase_rotation,
+        c=float(c),
+        alpha=float(alpha),
+        beta=float(beta),
+        y=float(y),
+        chi=chi,
+        radial_scale=radial_scale,
+    )
 
 
 def _integrate_central(
@@ -465,6 +619,541 @@ def finite_horizon_unstable_graph_state(
             "graph; not an interval enclosure or a uniform graph theorem."
         ),
     }
+
+
+def _wrapped_phase_difference(left: float, right: float) -> float:
+    return float(((left - right + np.pi) % (2.0 * np.pi)) - np.pi)
+
+
+def _vdp_hamiltonian_gradient(
+    state: Array, *, r: float, a2: float, epsilon: float
+) -> Array:
+    """Gradient of the central Hamiltonian in ``(U,P,V,Q)`` order."""
+
+    u, p, v, q = np.asarray(state, dtype=np.float64)
+    c, quadratic, _cubic = vdp_coefficients(r, a2, epsilon)
+    return np.array(
+        [
+            -v
+            + c * u
+            - quadratic * u * u
+            + np.sqrt(epsilon) * r * r * u**3 / 3.0,
+            -p,
+            -u,
+            q,
+        ],
+        dtype=np.float64,
+    )
+
+
+def _kato_true_wu_source_state(
+    parameters: KatoSourceParameters,
+    phase: float,
+    *,
+    source_radius: float,
+    graph_horizon: float,
+    graph_boundary_tolerance: float,
+    rtol: float,
+    atol: float,
+    max_step: float,
+) -> tuple[Array, SourceFrame, dict[str, float | str | bool]]:
+    """Compute equation (28)'s direct finite-horizon true-``W^u`` source."""
+
+    frame = calibrated_source_frame(
+        parameters.r, parameters.a2, parameters.epsilon
+    )
+    phase_vector = np.array(
+        [np.cos(phase), np.sin(phase)], dtype=np.float64
+    )
+    algebraic_unstable = (
+        source_radius * frame.phase_rotation @ phase_vector
+    )
+    state, graph_diagnostics = finite_horizon_unstable_graph_state(
+        r=parameters.r,
+        a2=parameters.a2,
+        epsilon=parameters.epsilon,
+        unstable_coordinates=algebraic_unstable,
+        horizon=graph_horizon,
+        boundary_tolerance=graph_boundary_tolerance,
+        rtol=rtol,
+        atol=atol,
+        max_step=max_step,
+    )
+    state_coordinates = frame.coordinates(state)
+    recovered_phase = frame.kato_phase_from_algebraic(
+        state_coordinates[:2]
+    )
+    return state, frame, {
+        "graph_boundary_residual_inf": float(
+            graph_diagnostics["boundary_residual_inf"]
+        ),
+        "graph_source_coordinate_residual_inf": float(
+            graph_diagnostics["source_coordinate_residual_inf"]
+        ),
+        "graph_backward_endpoint_norm": float(
+            graph_diagnostics["backward_endpoint_norm"]
+        ),
+        "graph_energy_abs": float(graph_diagnostics["central_energy_abs"]),
+        "algebraic_unstable_radius": float(
+            np.linalg.norm(state_coordinates[:2])
+        ),
+        "source_radius_error": float(
+            np.linalg.norm(state_coordinates[:2]) - source_radius
+        ),
+        "recovered_kato_phase": recovered_phase,
+        "kato_phase_error": _wrapped_phase_difference(
+            recovered_phase, phase
+        ),
+        "c": frame.c,
+        "alpha": frame.alpha,
+        "beta": frame.beta,
+        "y": frame.y,
+        "chi": frame.chi,
+        "radial_scale_sigma": frame.radial_scale,
+    }
+
+
+def _kato_wu_section_geometry(
+    parameters: KatoSourceParameters,
+    phase: float,
+    *,
+    source_radius: float,
+    graph_horizon: float,
+    phase_difference_step: float,
+    graph_boundary_tolerance: float,
+    rtol: float,
+    atol: float,
+    max_step: float,
+) -> tuple[
+    Array,
+    SourceFrame,
+    Array,
+    Array,
+    Array,
+    dict[str, float | str | bool],
+]:
+    """Return the true-``W^u`` spine and its canonical stable directions.
+
+    If ``t=dS/dphi`` and ``E_s`` is the Kato stable plane, let
+    ``g=t^T Omega E_s``.  We choose ``n`` and ``m`` in that plane so that
+
+    ``omega(t,n)=1`` and ``omega(t,m)=0``.
+
+    Hence ``nu=omega(t,z-S(phi))`` has the positive Kato orientation at the
+    nonlinear unstable spine.  The second direction is reserved for the
+    scalar zero-energy correction.
+    """
+
+    if phase_difference_step <= 0.0:
+        raise ValueError("phase_difference_step must be positive")
+    state, frame, diagnostics = _kato_true_wu_source_state(
+        parameters,
+        phase,
+        source_radius=source_radius,
+        graph_horizon=graph_horizon,
+        graph_boundary_tolerance=graph_boundary_tolerance,
+        rtol=rtol,
+        atol=atol,
+        max_step=max_step,
+    )
+    plus, _plus_frame, plus_diagnostics = _kato_true_wu_source_state(
+        parameters,
+        phase + phase_difference_step,
+        source_radius=source_radius,
+        graph_horizon=graph_horizon,
+        graph_boundary_tolerance=graph_boundary_tolerance,
+        rtol=rtol,
+        atol=atol,
+        max_step=max_step,
+    )
+    minus, _minus_frame, minus_diagnostics = _kato_true_wu_source_state(
+        parameters,
+        phase - phase_difference_step,
+        source_radius=source_radius,
+        graph_horizon=graph_horizon,
+        graph_boundary_tolerance=graph_boundary_tolerance,
+        rtol=rtol,
+        atol=atol,
+        max_step=max_step,
+    )
+    phase_tangent = (plus - minus) / (2.0 * phase_difference_step)
+    pairings = phase_tangent @ CENTRAL_SYMPLECTIC_MATRIX @ frame.kato_stable
+    pairing_norm = float(np.linalg.norm(pairings))
+    if not np.isfinite(pairing_norm) or pairing_norm <= 1.0e-12:
+        raise RuntimeError(
+            "Kato source tangent does not resolve a stable Darboux direction"
+        )
+    normal_direction = frame.kato_stable @ (
+        pairings / (pairing_norm * pairing_norm)
+    )
+    kernel_direction = frame.kato_stable @ (
+        np.array([-pairings[1], pairings[0]], dtype=np.float64)
+        / pairing_norm
+    )
+    orientation_pairing = float(
+        phase_tangent @ CENTRAL_SYMPLECTIC_MATRIX @ normal_direction
+    )
+    kernel_pairing = float(
+        phase_tangent @ CENTRAL_SYMPLECTIC_MATRIX @ kernel_direction
+    )
+    diagnostics.update(
+        {
+            "phase_difference_step": float(phase_difference_step),
+            "phase_tangent_norm": float(np.linalg.norm(phase_tangent)),
+            "phase_tangent_symplectic_stable_pairing_norm": pairing_norm,
+            "canonical_orientation_pairing": orientation_pairing,
+            "energy_correction_kernel_pairing": kernel_pairing,
+            "maximum_tangent_graph_boundary_residual_inf": float(
+                max(
+                    diagnostics["graph_boundary_residual_inf"],
+                    plus_diagnostics["graph_boundary_residual_inf"],
+                    minus_diagnostics["graph_boundary_residual_inf"],
+                )
+            ),
+        }
+    )
+    return (
+        state,
+        frame,
+        phase_tangent,
+        normal_direction,
+        kernel_direction,
+        diagnostics,
+    )
+
+
+def compute_kato_darboux_source_point(
+    parameters: KatoSourceParameters | PoleParameters,
+    phase: float,
+    nu: float,
+    *,
+    source_radius: float = 0.01,
+    graph_horizon: float = 8.0,
+    phase_difference_step: float = 2.0e-5,
+    graph_boundary_tolerance: float = 2.0e-10,
+    energy_tolerance: float = 2.0e-11,
+    maximum_abs_nu: float | None = None,
+    maximum_energy_correction: float = 0.1,
+    rtol: float = 2.0e-11,
+    atol: float = 2.0e-13,
+    max_step: float = 0.03,
+) -> KatoDarbouxSourcePoint:
+    """Construct a minimal Kato-compatible numerical source section.
+
+    ``nu=0`` is the direct finite-horizon nonlinear unstable graph from
+    equation (28), not a linear zero-energy proxy.  For small nonzero ``nu``
+    we move in the stable direction normalized by
+    ``omega(dS/dphi,dz/dnu)=+1`` and solve one scalar equation in the
+    symplectic-orthogonal stable direction to restore ``H=0``.
+
+    This is a reproducible E1 section and inverse-coordinate convention.  It
+    does not integrate or identify the paper's existential exact nonlinear
+    Moser chart, so ``raw_chart_identical`` is always ``False``.  Failure of
+    the local energy solve returns an explicit ``INCONCLUSIVE`` status.
+    """
+
+    parameters = _as_kato_source_parameters(parameters)
+    if source_radius <= 0.0:
+        raise ValueError("source_radius must be positive")
+    if graph_horizon <= 0.0:
+        raise ValueError("graph_horizon must be positive")
+    if energy_tolerance <= 0.0:
+        raise ValueError("energy_tolerance must be positive")
+    phase = float(phase)
+    nu = float(nu)
+    if not np.isfinite(phase) or not np.isfinite(nu):
+        raise ValueError("phase and nu must be finite")
+    if maximum_abs_nu is None:
+        maximum_abs_nu = 0.1 * source_radius * source_radius
+    if maximum_abs_nu <= 0.0:
+        raise ValueError("maximum_abs_nu must be positive")
+    if abs(nu) > maximum_abs_nu:
+        raise ValueError(
+            f"|nu|={abs(nu):.3e} exceeds the local source bound "
+            f"{maximum_abs_nu:.3e}"
+        )
+
+    try:
+        (
+            wu_state,
+            frame,
+            phase_tangent,
+            normal_direction,
+            kernel_direction,
+            geometry_diagnostics,
+        ) = _kato_wu_section_geometry(
+            parameters,
+            phase,
+            source_radius=source_radius,
+            graph_horizon=graph_horizon,
+            phase_difference_step=phase_difference_step,
+            graph_boundary_tolerance=graph_boundary_tolerance,
+            rtol=rtol,
+            atol=atol,
+            max_step=max_step,
+        )
+    except RuntimeError as error:
+        return KatoDarbouxSourcePoint(
+            phase=phase,
+            nu=nu,
+            state=None,
+            true_wu_state=None,
+            status=KATO_DARBOUX_INCONCLUSIVE_STATUS,
+            raw_chart_identical=False,
+            diagnostics={
+                "reason": str(error),
+                "claim_bearing": False,
+                "theorem_validation_status": THEOREM_VALIDATION_STATUS,
+                "raw_chart_identical": False,
+            },
+        )
+
+    correction = 0.0
+    state = np.asarray(wu_state, dtype=np.float64).copy()
+    newton_iterations = 0
+    newton_reason = "nu_zero_true_Wu_spine"
+    if nu != 0.0:
+        base_state = wu_state + nu * normal_direction
+        correction = 0.0
+        newton_reason = "maximum_iterations_reached"
+        for iteration in range(16):
+            newton_iterations = iteration + 1
+            state = base_state + correction * kernel_direction
+            energy = float(
+                vdp_hamiltonian(
+                    state[:, None],
+                    parameters.r,
+                    parameters.a2,
+                    parameters.epsilon,
+                )[0]
+            )
+            if abs(energy) <= energy_tolerance:
+                newton_reason = "energy_tolerance_reached"
+                break
+            derivative = float(
+                _vdp_hamiltonian_gradient(
+                    state,
+                    r=parameters.r,
+                    a2=parameters.a2,
+                    epsilon=parameters.epsilon,
+                )
+                @ kernel_direction
+            )
+            if not np.isfinite(derivative) or abs(derivative) <= 1.0e-13:
+                newton_reason = "energy_correction_derivative_unresolved"
+                break
+            correction -= energy / derivative
+            if (
+                not np.isfinite(correction)
+                or abs(correction) > maximum_energy_correction
+            ):
+                newton_reason = "energy_correction_left_local_domain"
+                break
+        state = base_state + correction * kernel_direction
+
+    energy = float(
+        vdp_hamiltonian(
+            state[:, None],
+            parameters.r,
+            parameters.a2,
+            parameters.epsilon,
+        )[0]
+    )
+    coordinates = frame.coordinates(state)
+    expected_unstable = source_radius * frame.phase_rotation @ np.array(
+        [np.cos(phase), np.sin(phase)], dtype=np.float64
+    )
+    unstable_coordinate_defect = float(
+        np.linalg.norm(coordinates[:2] - expected_unstable)
+    )
+    recovered_nu = float(
+        phase_tangent
+        @ CENTRAL_SYMPLECTIC_MATRIX
+        @ (state - wu_state)
+    )
+    local_correction_passed = bool(
+        np.isfinite(correction)
+        and abs(correction) <= maximum_energy_correction
+        and newton_reason
+        not in {
+            "energy_correction_derivative_unresolved",
+            "energy_correction_left_local_domain",
+            "maximum_iterations_reached",
+        }
+    )
+    gates_passed = bool(
+        abs(energy) <= energy_tolerance
+        and local_correction_passed
+        and unstable_coordinate_defect <= 2.0e-11
+        and abs(recovered_nu - nu) <= max(2.0e-13, 2.0e-8 * abs(nu))
+        and geometry_diagnostics["graph_boundary_residual_inf"]
+        <= graph_boundary_tolerance
+        and geometry_diagnostics["canonical_orientation_pairing"] > 0.0
+    )
+    status = (
+        KATO_DARBOUX_SECTION_STATUS
+        if gates_passed
+        else KATO_DARBOUX_INCONCLUSIVE_STATUS
+    )
+    diagnostics: dict[str, float | str | bool] = {
+        **geometry_diagnostics,
+        "status": status,
+        "theorem_validation_status": THEOREM_VALIDATION_STATUS,
+        "claim_bearing": False,
+        "raw_chart_identical": False,
+        "nu_zero_is_finite_horizon_nonlinear_Wu": bool(nu == 0.0),
+        "central_energy_abs": abs(energy),
+        "central_energy_tolerance": float(energy_tolerance),
+        "energy_correction_coordinate": float(correction),
+        "maximum_energy_correction": float(maximum_energy_correction),
+        "local_energy_correction_passed": local_correction_passed,
+        "energy_correction_newton_iterations": float(newton_iterations),
+        "energy_correction_stop_reason": newton_reason,
+        "unstable_coordinate_defect": unstable_coordinate_defect,
+        "recovered_nu": recovered_nu,
+        "nu_roundtrip_defect": float(recovered_nu - nu),
+        "section_gates_passed": gates_passed,
+        "coordinate_semantics": (
+            "Kato phase from u=R R_chi e_phi; nu is the first-order "
+            "Darboux coordinate omega(dS/dphi,z-S(phi)) on the computed "
+            "finite-horizon nonlinear-Wu spine."
+        ),
+        "scope_note": (
+            "Kato-compatible numerical zero-energy section; not the raw "
+            "Moser chart, not an exact-action certificate, and not interval "
+            "validation."
+        ),
+    }
+    return KatoDarbouxSourcePoint(
+        phase=phase,
+        nu=nu,
+        state=np.asarray(state, dtype=np.float64),
+        true_wu_state=np.asarray(wu_state, dtype=np.float64),
+        status=status,
+        raw_chart_identical=False,
+        diagnostics=diagnostics,
+    )
+
+
+def invert_kato_darboux_source_coordinates(
+    state: Sequence[float],
+    parameters: KatoSourceParameters | PoleParameters,
+    *,
+    source_radius: float = 0.01,
+    graph_horizon: float = 8.0,
+    phase_difference_step: float = 2.0e-5,
+    graph_boundary_tolerance: float = 2.0e-10,
+    energy_tolerance: float = 2.0e-11,
+    rtol: float = 2.0e-11,
+    atol: float = 2.0e-13,
+    max_step: float = 0.03,
+) -> KatoDarbouxSourceCoordinates:
+    """Invert the numerical source section to common Kato ``(phi,nu)``.
+
+    The unstable algebraic coordinate recovers ``phi`` through
+    ``R_chi^{-1}``; the symplectic pairing with the finite-difference
+    nonlinear-``W^u`` tangent recovers ``nu``.  The returned reconstruction
+    defect checks, rather than assumes, membership in this numerical chart.
+    """
+
+    parameters = _as_kato_source_parameters(parameters)
+    if energy_tolerance <= 0.0:
+        raise ValueError("energy_tolerance must be positive")
+    state_array = np.asarray(state, dtype=np.float64)
+    if state_array.shape != (4,) or not np.all(np.isfinite(state_array)):
+        raise ValueError("state must be a finite four-vector")
+    frame = calibrated_source_frame(
+        parameters.r, parameters.a2, parameters.epsilon
+    )
+    coordinates = frame.coordinates(state_array)
+    rotated_unstable = frame.phase_rotation.T @ coordinates[:2]
+    recovered_radius = float(np.linalg.norm(rotated_unstable))
+    if recovered_radius <= 0.0:
+        raise ValueError("state has zero unstable source radius")
+    phase = float(
+        np.arctan2(rotated_unstable[1], rotated_unstable[0])
+        % (2.0 * np.pi)
+    )
+    (
+        wu_state,
+        _geometry_frame,
+        phase_tangent,
+        normal_direction,
+        kernel_direction,
+        geometry_diagnostics,
+    ) = _kato_wu_section_geometry(
+        parameters,
+        phase,
+        source_radius=source_radius,
+        graph_horizon=graph_horizon,
+        phase_difference_step=phase_difference_step,
+        graph_boundary_tolerance=graph_boundary_tolerance,
+        rtol=rtol,
+        atol=atol,
+        max_step=max_step,
+    )
+    displacement = state_array - wu_state
+    nu = float(
+        phase_tangent @ CENTRAL_SYMPLECTIC_MATRIX @ displacement
+    )
+    stable_basis = np.column_stack((normal_direction, kernel_direction))
+    stable_coefficients, _residuals, _rank, _singular = np.linalg.lstsq(
+        stable_basis, displacement, rcond=None
+    )
+    correction = float(stable_coefficients[1])
+    reconstructed = (
+        wu_state + nu * normal_direction + correction * kernel_direction
+    )
+    reconstruction_defect = float(
+        np.linalg.norm(reconstructed - state_array)
+    )
+    coefficient_nu_defect = float(stable_coefficients[0] - nu)
+    energy_abs = abs(
+        float(
+            vdp_hamiltonian(
+                state_array[:, None],
+                parameters.r,
+                parameters.a2,
+                parameters.epsilon,
+            )[0]
+        )
+    )
+    radius_error = recovered_radius - source_radius
+    gates_passed = bool(
+        abs(radius_error) <= 2.0e-11
+        and energy_abs <= energy_tolerance
+        and reconstruction_defect <= 2.0e-10
+        and abs(coefficient_nu_defect) <= 2.0e-10
+        and geometry_diagnostics["canonical_orientation_pairing"] > 0.0
+    )
+    status = (
+        KATO_DARBOUX_SECTION_STATUS
+        if gates_passed
+        else KATO_DARBOUX_INCONCLUSIVE_STATUS
+    )
+    return KatoDarbouxSourceCoordinates(
+        phase=phase,
+        nu=nu,
+        energy_correction_coordinate=correction,
+        source_radius=float(source_radius),
+        reconstructed_state=np.asarray(reconstructed, dtype=np.float64),
+        status=status,
+        raw_chart_identical=False,
+        diagnostics={
+            **geometry_diagnostics,
+            "status": status,
+            "theorem_validation_status": THEOREM_VALIDATION_STATUS,
+            "claim_bearing": False,
+            "raw_chart_identical": False,
+            "recovered_source_radius": recovered_radius,
+            "source_radius_error": float(radius_error),
+            "stable_plane_reconstruction_defect": reconstruction_defect,
+            "stable_coefficient_nu_defect": coefficient_nu_defect,
+            "central_energy_abs": energy_abs,
+            "central_energy_tolerance": float(energy_tolerance),
+            "inverse_gates_passed": gates_passed,
+        },
+    )
 
 
 def _flow_central_state(
@@ -1342,7 +2031,13 @@ def compute_pole_window_candidate(
 
 
 __all__ = [
+    "CENTRAL_SYMPLECTIC_MATRIX",
     "CORE_HOMOCLINIC_PHASE",
+    "KATO_DARBOUX_INCONCLUSIVE_STATUS",
+    "KATO_DARBOUX_SECTION_STATUS",
+    "KatoDarbouxSourceCoordinates",
+    "KatoDarbouxSourcePoint",
+    "KatoSourceParameters",
     "PoleEndFit",
     "PoleGateHit",
     "PoleWindowCandidate",
@@ -1356,8 +2051,10 @@ __all__ = [
     "calibrated_source_frame",
     "compute_pole_window_candidate",
     "compute_source_to_pole_connection",
+    "compute_kato_darboux_source_point",
     "compute_v2_source_candidate",
     "finite_horizon_unstable_graph_state",
+    "invert_kato_darboux_source_coordinates",
     "physical_action_density",
     "same_orbit_moving_cut_balance",
 ]

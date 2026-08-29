@@ -22,14 +22,17 @@ from typing import Callable, Iterable, Mapping
 
 import numpy as np
 from numpy.typing import ArrayLike, NDArray
-from scipy.integrate import solve_bvp, solve_ivp
+from scipy.integrate import cumulative_trapezoid, solve_bvp, solve_ivp
+from scipy.interpolate import CubicSpline
 
 from numerics.rfsn_numerics import vdp_field, vdp_hamiltonian
+from numerics.vdp_bridge import BridgeParameters, central_to_physical, cubic_f
 from numerics.vdp_outer import (
     OuterParameters,
     energy_equation_residual,
     normal_outer_rhs_q,
     normal_outer_state,
+    outer_physical_densities,
 )
 from numerics.vdp_pole import PoleParameters
 from numerics.vdp_return_coding import (
@@ -188,6 +191,94 @@ class MatchedOuterRefinement:
     candidates: tuple[MatchedOuterCandidate, ...]
     evidence_status: str = COMPUTED_E1_MATCHED_CANDIDATE
     validation_status: str = NOT_INTERVAL_VALIDATED
+
+
+@dataclass(frozen=True)
+class MatchedActionDecomposition:
+    """Finite V5 action/length split on one computed matched orbit.
+
+    The three cumulative arrays end at the fixed V5A normalization cut.
+    They realize V5(61)--(62) and the exact outer density on one floating-
+    point candidate; they are not an improper finite part or a uniform
+    parameter statement.
+    """
+
+    central_xi: FloatArray
+    central_action: FloatArray
+    central_length: FloatArray
+    k1_r1: FloatArray
+    k1_action: FloatArray
+    k1_action_central_pullback: FloatArray
+    k1_length: FloatArray
+    outer_q: FloatArray
+    outer_action: FloatArray
+    outer_length: FloatArray
+    diagnostics: Mapping[str, float | bool | str]
+    evidence_status: str = "COMPUTED/E1_V5_FINITE_ACTION_DECOMPOSITION"
+    validation_status: str = NOT_INTERVAL_VALIDATED
+
+    @property
+    def total_action(self) -> float:
+        return float(
+            self.central_action[-1]
+            + self.k1_action[-1]
+            + self.outer_action[-1]
+        )
+
+    @property
+    def total_length(self) -> float:
+        return float(
+            self.central_length[-1]
+            + self.k1_length[-1]
+            + self.outer_length[-1]
+        )
+
+    def as_json_dict(self) -> dict[str, object]:
+        return {
+            "status": self.evidence_status,
+            "validation_status": self.validation_status,
+            "claim_bearing": False,
+            "cuts": {
+                "central_start_xi": float(self.central_xi[0]),
+                "central_k1_xi": float(self.central_xi[-1]),
+                "k1_start_r1": float(self.k1_r1[0]),
+                "k1_outer_r1": float(self.k1_r1[-1]),
+                "outer_start_q_r": float(self.outer_q[0]),
+                "terminal_q_star": float(self.outer_q[-1]),
+            },
+            "action": {
+                "central": float(self.central_action[-1]),
+                "resolved_k1": float(self.k1_action[-1]),
+                "outer_qr_to_qstar": float(self.outer_action[-1]),
+                "truncated_total_to_qstar": self.total_action,
+            },
+            "physical_length": {
+                "central": float(self.central_length[-1]),
+                "resolved_k1": float(self.k1_length[-1]),
+                "outer_qr_to_qstar": float(self.outer_length[-1]),
+                "truncated_total_to_qstar": self.total_length,
+            },
+            "diagnostics": dict(self.diagnostics),
+            "scope": (
+                "Finite central--K1--outer action and length on one matched "
+                "candidate, ending at Q_*.  No endpoint adjoint, uniform "
+                "matching theorem, or infinite-tail finite part is claimed."
+            ),
+        }
+
+    def as_npz_payload(self) -> dict[str, FloatArray]:
+        return {
+            "v5_central_xi": self.central_xi,
+            "v5_central_action": self.central_action,
+            "v5_central_length": self.central_length,
+            "v5_k1_r1": self.k1_r1,
+            "v5_k1_action": self.k1_action,
+            "v5_k1_action_central_pullback": self.k1_action_central_pullback,
+            "v5_k1_length": self.k1_length,
+            "v5_outer_q": self.outer_q,
+            "v5_outer_action": self.outer_action,
+            "v5_outer_length": self.outer_length,
+        }
 
 
 def _as_float_array(value: ArrayLike) -> FloatArray:
@@ -919,6 +1010,189 @@ def compute_matched_outer_candidate(
     )
 
 
+def matched_action_decomposition(
+    candidate: MatchedOuterCandidate, *, terminal_q: float | None = None
+) -> MatchedActionDecomposition:
+    """Compute the finite V5 central--``K1``--outer observables.
+
+    The default terminal cut is the fixed V5A normalization
+    ``Q_*=candidate.config.q_label``.  In particular, this function does not
+    integrate the V5 segment to the artificial finite-horizon condition at
+    ``Q_end``.
+    """
+
+    parameters = candidate.parameters
+    q_star = float(candidate.config.q_label if terminal_q is None else terminal_q)
+    q_r = float(candidate.compact_q[0])
+    q_end = float(candidate.compact_q[-1])
+    if not q_r < q_star < q_end:
+        raise ValueError("V5 action decomposition requires Q_R < Q_* < Q_end")
+
+    normalized = np.asarray(candidate.normalized_grid, dtype=np.float64)
+    central = np.asarray(candidate.central_state, dtype=np.float64)
+    central_xi = candidate.central_flight_time * normalized
+    action_scale = float(parameters.epsilon**2.25 * parameters.r**5)
+    central_action_density = action_scale * (
+        central[1] ** 2 - central[3] ** 2
+    )
+    central_action = cumulative_trapezoid(
+        central_action_density, x=central_xi, initial=0.0
+    )
+    central_length = (
+        parameters.r * parameters.epsilon ** (-0.25) * central_xi
+    )
+
+    r1 = np.asarray(candidate.k1_r1, dtype=np.float64)
+    pi_scaled, omega_scaled = np.asarray(candidate.k1_state, dtype=np.float64)
+    sigma = parameters.r / r1
+    delta1 = sigma**2
+    sqrt_epsilon = np.sqrt(parameters.epsilon)
+    q1 = resolved_k1_energy_root(
+        r1, pi_scaled, omega_scaled, parameters
+    )
+    p1 = delta1 * pi_scaled
+    v1 = 1.0 + sqrt_epsilon * r1**2 / 3.0 - delta1 * omega_scaled
+    omega_r1 = resolved_k1_rhs_r1(
+        r1, candidate.k1_state, parameters
+    )[1]
+    v1_r1 = (
+        2.0 * sqrt_epsilon * r1 / 3.0
+        + 2.0 * delta1 * omega_scaled / r1
+        - delta1 * omega_r1
+    )
+    k1_action_density = parameters.epsilon**2.5 * r1**4 * (
+        2.0 * p1
+        - 4.0 * q1 * v1 / delta1
+        - r1 * q1 * v1_r1 / delta1
+    )
+    k1_action = cumulative_trapezoid(
+        k1_action_density, x=r1, initial=0.0
+    )
+    k1_length_density = 2.0 / (sqrt_epsilon * pi_scaled)
+    k1_length = cumulative_trapezoid(
+        k1_length_density, x=r1, initial=0.0
+    )
+
+    k1_central = _k1_to_central_state(r1, candidate.k1_state, parameters)
+    k1_action_central_pullback = action_scale * (
+        cumulative_trapezoid(k1_central[1], x=k1_central[0], initial=0.0)
+        - cumulative_trapezoid(k1_central[3], x=k1_central[2], initial=0.0)
+    )
+
+    full_q = np.asarray(candidate.compact_q, dtype=np.float64)
+    lower = full_q < q_star
+    outer_q = np.concatenate((full_q[lower], np.array([q_star])))
+    outer_beta = np.interp(outer_q, full_q, candidate.outer_state[0])
+    outer_alpha = np.interp(outer_q, full_q, candidate.outer_state[1])
+    outer_length_density, outer_action_density, outer_chi, outer_pi, outer_w = (
+        outer_physical_densities(
+            outer_q, outer_beta, outer_alpha, parameters
+        )
+    )
+    outer_action = cumulative_trapezoid(
+        outer_action_density, x=outer_q, initial=0.0
+    )
+    outer_length = cumulative_trapezoid(
+        outer_length_density, x=outer_q, initial=0.0
+    )
+
+    # Independent pullback checks use spline derivatives of the saved state,
+    # rather than the densities just integrated above.
+    central_u_s = CubicSpline(normalized, central[0]).derivative()(normalized)
+    central_v_s = CubicSpline(normalized, central[2]).derivative()(normalized)
+    central_pullback_density = action_scale * (
+        central[1] * central_u_s - central[3] * central_v_s
+    )
+    k1_u_r = CubicSpline(r1, k1_central[0]).derivative()(r1)
+    k1_v_r = CubicSpline(r1, k1_central[2]).derivative()(r1)
+    k1_pullback_density = action_scale * (
+        k1_central[1] * k1_u_r - k1_central[3] * k1_v_r
+    )
+    outer_z = outer_q ** (-0.5)
+    outer_u = 1.0 / outer_z
+    outer_v = cubic_f(outer_u) - outer_w / outer_z
+    outer_q_physical = outer_chi / outer_z**2
+    outer_physical_density = (
+        parameters.epsilon
+        * outer_pi
+        * CubicSpline(outer_q, outer_u).derivative()(outer_q)
+        - parameters.delta**-1
+        * outer_q_physical
+        * CubicSpline(outer_q, outer_v).derivative()(outer_q)
+    )
+
+    def scaled_density_defect(first: FloatArray, second: FloatArray) -> float:
+        scale = max(float(np.max(np.abs(first))), float(np.max(np.abs(second))))
+        return float(np.max(np.abs(first - second)) / max(scale, np.finfo(float).tiny))
+
+    bridge = BridgeParameters(
+        r=parameters.r, a2=parameters.a2, epsilon=parameters.epsilon
+    )
+    central_k1_interface = float(
+        np.max(
+            np.abs(
+                central_to_physical(central[:, -1], bridge)
+                - central_to_physical(k1_central[:, 0], bridge)
+            )
+        )
+    )
+    k1_physical_end = central_to_physical(k1_central[:, -1], bridge)
+    outer_physical_start = np.array(
+        [
+            outer_u[0],
+            outer_pi[0],
+            outer_v[0],
+            outer_q_physical[0],
+        ],
+        dtype=np.float64,
+    )
+    k1_outer_interface = float(
+        np.max(np.abs(k1_physical_end - outer_physical_start))
+    )
+
+    diagnostics: dict[str, float | bool | str] = {
+        "q_r": q_r,
+        "q_star": q_star,
+        "q_end_not_integrated_by_v5": q_end,
+        "central_density_pullback_relative_defect": scaled_density_defect(
+            candidate.central_flight_time * central_action_density,
+            central_pullback_density,
+        ),
+        "k1_density_pullback_relative_defect": scaled_density_defect(
+            k1_action_density, k1_pullback_density
+        ),
+        "outer_density_physical_relative_defect": scaled_density_defect(
+            outer_action_density, outer_physical_density
+        ),
+        "k1_action_direct_vs_central_pullback_absolute_defect": float(
+            k1_action[-1] - k1_action_central_pullback[-1]
+        ),
+        "k1_action_direct_vs_central_pullback_relative_defect": float(
+            abs(k1_action[-1] - k1_action_central_pullback[-1])
+            / max(abs(float(k1_action[-1])), np.finfo(float).tiny)
+        ),
+        "central_k1_physical_interface_defect_inf": central_k1_interface,
+        "k1_outer_physical_interface_defect_inf": k1_outer_interface,
+        "terminal_is_fixed_v5a_normalization_cut": bool(
+            abs(q_star - candidate.config.q_label) <= 1.0e-12
+        ),
+        "finite_horizon_only": True,
+    }
+    return MatchedActionDecomposition(
+        central_xi=np.asarray(central_xi),
+        central_action=np.asarray(central_action),
+        central_length=np.asarray(central_length),
+        k1_r1=r1,
+        k1_action=np.asarray(k1_action),
+        k1_action_central_pullback=np.asarray(k1_action_central_pullback),
+        k1_length=np.asarray(k1_length),
+        outer_q=np.asarray(outer_q),
+        outer_action=np.asarray(outer_action),
+        outer_length=np.asarray(outer_length),
+        diagnostics=diagnostics,
+    )
+
+
 def matched_outer_refinement(
     q_end_values: Iterable[float],
     parameters: OuterParameters = OuterParameters(r=0.08, a2=0.0, epsilon=1.0),
@@ -1009,6 +1283,7 @@ __all__ = [
     "NOT_INTERVAL_VALIDATED",
     "FiniteHorizonGammaContinuation",
     "FiniteHorizonGammaSample",
+    "MatchedActionDecomposition",
     "MatchedOuterCandidate",
     "MatchedOuterConfig",
     "MatchedOuterRefinement",
@@ -1018,6 +1293,7 @@ __all__ = [
     "default_source_state_provider",
     "finite_horizon_gamma_continuation",
     "k1_center_graph_leading_guess",
+    "matched_action_decomposition",
     "matched_outer_refinement",
     "outer_seam_coordinates",
     "resolved_k1_energy_root",

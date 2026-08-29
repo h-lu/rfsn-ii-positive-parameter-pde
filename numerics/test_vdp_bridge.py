@@ -25,7 +25,9 @@ class VanDerPolBridgeTests(unittest.TestCase):
         self.assertLess(float(np.max(np.abs(reconstructed - state))), 2.0e-12)
 
     def test_field_energy_clock_and_action_scaling(self) -> None:
-        parameters = BridgeParameters(r=0.08, a2=0.0, epsilon=1.0)
+        # Non-unit epsilon and nonzero a2 keep the scaling regression from
+        # becoming tautological at the primary exploratory point.
+        parameters = BridgeParameters(r=0.08, a2=0.2, epsilon=1.1)
         xi = np.linspace(-0.8, 0.8, 801)
         initial = np.array([0.1, 0.03, -0.02, 0.04])
         # A short RK-quality sample is enough: bridge_diagnostics compares the
