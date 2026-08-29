@@ -1,0 +1,225 @@
+{
+  "schema_version": "rfsn-vdp-p2e-event-atlas-structure-gate/1",
+  "scope": "V2_P2E_EXECUTABLE_EVENT_ATLAS_STRUCTURE_GATE_V2",
+  "box_id": "vdp-positive-box-v2",
+  "comparison_bridge_id": "vdp-core-to-positive-bridge-v2",
+  "status": "STRUCTURAL_GATE_FROZEN_PENDING_MATERIALIZATION",
+  "base_revision": "8ba7ffc0bb2cdced0c904ff6dfa319e4a5bd9b2b",
+  "gate_semantics": {
+    "structure_verdict": "READY_TO_SCOUT_NON_EVIDENTIARY",
+    "structure_verdict_is_not_claim_bearing": true,
+    "current_verdict": "STOP_BEFORE_FULL_RUN",
+    "current_mathematical_status": "INCONCLUSIVE",
+    "stop_reason": "MISSING_EXECUTABLE_CORE_ATLAS_AND_NUMERIC_M0",
+    "ready_verdict": "READY_FOR_FIRST_FULL_RUN",
+    "ready_is_not_a_mathematical_pass": true,
+    "full_capd_run_in_scope": false,
+    "purpose": "Freeze the complete application-owned atlas instance and its numerical execution choices before, but do not perform, the first full event-atlas run."
+  },
+  "source_bindings": [
+    {
+      "role": "CORE_IMPORT",
+      "path": "van-der-pol/CENTRAL_CORE_IMPORT.md",
+      "sha256": "037abc2fc9e54ebd8ec645489a5d62ba8e3cd06013360dfad82351e6eb442a56"
+    },
+    {
+      "role": "V2_THEOREM",
+      "path": "van-der-pol/CENTRAL_CONTINUATION.md",
+      "sha256": "e02d067595f89ea7f19dfac81a7eba84ea0bdda17e4bbe12f569e776ba775026"
+    },
+    {
+      "role": "P2_CONTRACT",
+      "path": "validation/rigorous/P2_VALIDATION_CONTRACT.md",
+      "sha256": "4216cd677e766637705b08edd58af1a768b4822fe1eebdf2dd19fa3ce376e02b"
+    },
+    {
+      "role": "TARGET_BOX",
+      "path": "validation/rigorous/config/vdp_box_v2.json",
+      "sha256": "43ff2ee14db2e9d42abe484e9d415176cc92836fb2956a27cb6b9f72a751b1ed"
+    },
+    {
+      "role": "COMPARISON_BRIDGE",
+      "path": "validation/rigorous/config/vdp_bridge_v2.json",
+      "sha256": "ee45e35157075805f89e12d9eb89a82e9203167d22109d4f2b9e83ee2bd12de9"
+    },
+    {
+      "role": "PHASE_GAP_CONTRACT",
+      "path": "validation/rigorous/config/vdp_p2e_phase_order_v2.json",
+      "sha256": "3abc9b0ae0a6d2d383798954231dc255fefcc8eda426237c47383b0d0fb8ea7d"
+    },
+    {
+      "role": "PHYSICAL_SADDLE_FACE_CONTRACT",
+      "path": "validation/rigorous/config/vdp_p2d_physical_slides_v1.json",
+      "sha256": "fa7daa1273b508951e081378d938342f985271722bf4871669a30f4ab44a8f16"
+    },
+    {
+      "role": "DEPENDENCY_LOCK",
+      "path": "validation/rigorous/dependency.lock.json",
+      "sha256": "4d486a63cddf0902cc9fc4dedacc5a172527f6e167e2d311afa680c077a45b68"
+    },
+    {
+      "role": "FLAGSHIP_IMPORT_LOCK",
+      "path": "validation/rigorous/flagship_import.lock.json",
+      "sha256": "6c1752d6ee78d4b670c74ecb85e776eddcb4459e0b0e7f7ae14cae2325e0476e"
+    }
+  ],
+  "read_only_theory_design_reference": {
+    "repository": "https://github.com/h-lu/reversible-rfsn-ii-waves",
+    "commit": "fe992556dd5398ee1dd71aed0482cd1a1705394a",
+    "path": "papers/paper-a/focused/sections/02_setting_and_theorem.tex",
+    "sha256": "91bb0bb12e798d8a31150025221f3a2bd47222e028181189a7d196ed9875dce3",
+    "role": "READ_ONLY_B1_B5_AND_FUNCTION_INVENTORY_DESIGN_REFERENCE_NOT_AN_EXECUTABLE_ATLAS_IMPORT"
+  },
+  "parameter_cover": {
+    "status": "FROZEN",
+    "axes": [
+      {
+        "id": "r",
+        "face_formula": "i/400",
+        "index_range_inclusive": [0, 8],
+        "cells": 8
+      },
+      {
+        "id": "a2",
+        "face_formula": "-1/4+j/256",
+        "index_range_inclusive": [0, 128],
+        "cells": 128
+      },
+      {
+        "id": "epsilon",
+        "face_formula": "4/5+k/10",
+        "index_range_inclusive": [0, 4],
+        "cells": 4
+      }
+    ],
+    "bridge_cell_count": 4096,
+    "target_r_cell_indices": [4, 5, 6, 7],
+    "base_census_policy": "ONE_COMPLETE_R0_CENSUS_THEN_UNIFORM_NEAT_ISOTOPY_ON_THE_BRIDGE"
+  },
+  "inventory_contract": {
+    "carrier_specs": [
+      {"id": "C.H", "dimension": 3, "coordinates": ["x_h_1", "x_h_2", "t_h"], "role": "HOMOCLINIC_CHANNEL_FLOWBOX"},
+      {"id": "C.A", "dimension": 3, "coordinates": ["x_a_1", "x_a_2", "t_a"], "role": "ALGEBRAIC_CHANNEL_FLOWBOX"},
+      {"id": "C.P", "dimension": 3, "coordinates": ["x_p_1", "x_p_2", "t_p"], "role": "POLE_CHANNEL_FLOWBOX"},
+      {"id": "B.OUT", "dimension": 2, "coordinates": ["psi_u", "nu_u"], "role": "OUTGOING_AND_PRE_EVENT_BAND"},
+      {"id": "B.RET", "dimension": 2, "coordinates": ["psi_r", "nu_r"], "role": "RETURN_AND_PRE_EVENT_BAND"},
+      {"id": "Z.PLUS", "dimension": 2, "coordinates": ["phi", "theta_bar"], "role": "POSITIVE_SOURCE_SIGN_CELL"},
+      {"id": "Z.MINUS", "dimension": 2, "coordinates": ["phi", "theta_bar"], "role": "NEGATIVE_SOURCE_SIGN_CELL"},
+      {"id": "Z.HOM.PLUS", "dimension": 2, "coordinates": ["phi", "theta_bar"], "role": "POSITIVE_RESTRICTED_HOMOCLINIC_PULLBACK"},
+      {"id": "Z.HOM.MINUS", "dimension": 2, "coordinates": ["phi", "theta_bar"], "role": "NEGATIVE_RESTRICTED_HOMOCLINIC_PULLBACK"}
+    ],
+    "function_specs": [
+      {"id": "g_h", "role": "SELECTED_TERMINAL", "clock_role": "PHYSICAL_FACE"},
+      {"id": "g_alg", "role": "SELECTED_TERMINAL", "clock_role": "PHYSICAL_FACE"},
+      {"id": "g_pole", "role": "SELECTED_TERMINAL", "clock_role": "PHYSICAL_FACE"},
+      {"id": "w_alg", "role": "ALGEBRAIC_INTERNAL_LABEL", "clock_role": "LABEL_ONLY"},
+      {"id": "h_side_h", "role": "AUXILIARY_LATERAL_FACE", "clock_role": "PHYSICAL_FACE"},
+      {"id": "h_side_alg", "role": "AUXILIARY_LATERAL_FACE", "clock_role": "PHYSICAL_FACE"},
+      {"id": "h_side_pole", "role": "AUXILIARY_LATERAL_FACE", "clock_role": "PHYSICAL_FACE"},
+      {"id": "a_h", "role": "OUTGOING_APERTURE", "clock_role": "PHYSICAL_FACE"},
+      {"id": "a_alg", "role": "OUTGOING_APERTURE", "clock_role": "PHYSICAL_FACE"},
+      {"id": "a_pole", "role": "OUTGOING_APERTURE", "clock_role": "PHYSICAL_FACE"},
+      {"id": "a_ret", "role": "RETURN_APERTURE", "clock_role": "PHYSICAL_FACE"},
+      {"id": "c_stable", "role": "STABLE_MANIFOLD_CUT", "clock_role": "LABEL_ONLY"},
+      {"id": "q_h", "role": "PAIRWISE_EVENT_TIME_DIFFERENCE", "clock_role": "TIME_DIFFERENCE"},
+      {"id": "q_alg", "role": "PAIRWISE_EVENT_TIME_DIFFERENCE", "clock_role": "TIME_DIFFERENCE"},
+      {"id": "q_pole", "role": "PAIRWISE_EVENT_TIME_DIFFERENCE", "clock_role": "TIME_DIFFERENCE"},
+      {"id": "q_ret", "role": "PAIRWISE_EVENT_TIME_DIFFERENCE", "clock_role": "TIME_DIFFERENCE"}
+    ],
+    "time_difference_bindings": [
+      {"function_id": "q_h", "side_occurrence_id": "u_h", "associated_terminal_function_id": "g_h"},
+      {"function_id": "q_alg", "side_occurrence_id": "u_alg", "associated_terminal_function_id": "g_alg"},
+      {"function_id": "q_pole", "side_occurrence_id": "u_pole", "associated_terminal_function_id": "g_pole"},
+      {"function_id": "q_ret", "side_occurrence_id": "u_r", "associated_terminal_function_id": "a_ret"}
+    ],
+    "ambient_list_specs": [
+      {"id": "L.C.H", "carrier_id": "C.H", "required_functions": ["g_h", "h_side_h", "a_ret", "c_stable"], "maximum_time_difference_functions": 0},
+      {"id": "L.C.A", "carrier_id": "C.A", "required_functions": ["g_alg", "w_alg", "h_side_alg"], "maximum_time_difference_functions": 0},
+      {"id": "L.C.P", "carrier_id": "C.P", "required_functions": ["g_pole", "h_side_pole"], "maximum_time_difference_functions": 0},
+      {"id": "L.B.OUT.H", "carrier_id": "B.OUT", "required_functions": ["a_h", "a_alg", "a_pole", "w_alg", "q_h"], "maximum_time_difference_functions": 1},
+      {"id": "L.B.OUT.A", "carrier_id": "B.OUT", "required_functions": ["a_h", "a_alg", "a_pole", "w_alg", "q_alg"], "maximum_time_difference_functions": 1},
+      {"id": "L.B.OUT.P", "carrier_id": "B.OUT", "required_functions": ["a_h", "a_alg", "a_pole", "w_alg", "q_pole"], "maximum_time_difference_functions": 1},
+      {"id": "L.B.RET", "carrier_id": "B.RET", "required_functions": ["a_ret", "c_stable", "q_ret"], "maximum_time_difference_functions": 1},
+      {"id": "L.Z.PLUS.H", "carrier_id": "Z.PLUS", "required_functions": ["a_h", "a_alg", "a_pole", "w_alg", "q_h"], "maximum_time_difference_functions": 1},
+      {"id": "L.Z.PLUS.A", "carrier_id": "Z.PLUS", "required_functions": ["a_h", "a_alg", "a_pole", "w_alg", "q_alg"], "maximum_time_difference_functions": 1},
+      {"id": "L.Z.PLUS.P", "carrier_id": "Z.PLUS", "required_functions": ["a_h", "a_alg", "a_pole", "w_alg", "q_pole"], "maximum_time_difference_functions": 1},
+      {"id": "L.Z.MINUS.H", "carrier_id": "Z.MINUS", "required_functions": ["a_h", "a_alg", "a_pole", "w_alg", "q_h"], "maximum_time_difference_functions": 1},
+      {"id": "L.Z.MINUS.A", "carrier_id": "Z.MINUS", "required_functions": ["a_h", "a_alg", "a_pole", "w_alg", "q_alg"], "maximum_time_difference_functions": 1},
+      {"id": "L.Z.MINUS.P", "carrier_id": "Z.MINUS", "required_functions": ["a_h", "a_alg", "a_pole", "w_alg", "q_pole"], "maximum_time_difference_functions": 1},
+      {"id": "L.Z.HOM.PLUS", "carrier_id": "Z.HOM.PLUS", "required_functions": ["a_ret", "c_stable", "q_ret"], "maximum_time_difference_functions": 1},
+      {"id": "L.Z.HOM.MINUS", "carrier_id": "Z.HOM.MINUS", "required_functions": ["a_ret", "c_stable", "q_ret"], "maximum_time_difference_functions": 1}
+    ],
+    "allowed_outcomes": ["return", "alg", "pole", "lat", "cut"],
+    "priority_rules": [
+      "STABLE_CUT_HAS_OUTCOME_CUT",
+      "SELECTED_TERMINAL_OR_RETURN_PRECEDES_AUXILIARY_LATERAL",
+      "DECLARED_PAIRWISE_TIME_TIE_SELECTS_ITS_BOUND_PHYSICAL_TERMINAL",
+      "SELECTED_PHYSICAL_CHANNEL_TIES_ARE_EMPTY",
+      "SIMULTANEOUS_ACTIVE_FACE_SET_IS_RETAINED"
+    ],
+    "required_margin_categories": [
+      "ACTIVE_CONORMAL_RANK",
+      "EVENT_SPEED",
+      "EMPTY_INCIDENCE",
+      "INACTIVE_FACE",
+      "EARLIER_EVENT_EXCLUSION",
+      "STRICT_ORDER_AWAY_FROM_DECLARED_TIES",
+      "FLOW_DOMAIN_BUFFER",
+      "CONTAINMENT",
+      "APERTURE_SEPARATION",
+      "ANCHOR_TO_BOUNDARY",
+      "PROPER_PHASE_CUT"
+    ]
+  },
+  "materialization": {
+    "carriers": {"status": "MISSING", "records": []},
+    "physical_event_faces": {"status": "MISSING", "records": []},
+    "defining_functions": {"status": "MISSING", "records": []},
+    "ambient_function_lists": {"status": "MISSING", "records": []},
+    "incidence_complex": {"status": "MISSING", "records": []},
+    "corner_priority": {"status": "MISSING", "records": []},
+    "first_event_census": {"status": "MISSING", "records": [], "cell_complexes": [], "exhaustion": null},
+    "normalization": {"status": "MISSING", "carrier_metrics": [], "function_scales": [], "time_scales": [], "phase_scale": null},
+    "numeric_m0": {"status": "MISSING", "value": null, "margin_lowers": [], "bridge_half_bound": null, "simultaneous_tie_policy": null},
+    "transported_traces": {"status": "MISSING", "records": [], "phase_gap_certificate_binding": null, "proper_phase_arc": null},
+    "numerical_method": {
+      "status": "MISSING",
+      "carrier_domains": [],
+      "state_partition": null,
+      "ode_taylor_order": null,
+      "precision": {
+        "backend": "FILIB",
+        "format": "IEEE_754_BINARY64",
+        "significand_bits": 53,
+        "multiprecision": false,
+        "source": "validation/rigorous/dependency.lock.json"
+      },
+      "high_winding_N_policy": "NOT_A_P2E_V2_4_5_MATERIALIZATION_CHOICE",
+      "legacy_ambiguous_fields_forbidden": ["D", "N", "precision"]
+    }
+  },
+  "full_run_gate": {
+    "status": "PROHIBITED_BEFORE_MATERIALIZATION_FREEZE",
+    "all_required_sections_must_equal": "FROZEN",
+    "frozen_before_first_full_run": false,
+    "first_full_run_started": false,
+    "materialization_commit": null,
+    "authorized_binary_sha256": null,
+    "budget_exhaustion_verdict": "INCONCLUSIVE"
+  },
+  "obligations": [
+    {"id": "V2.ATLAS.CORE_MANIFEST", "status": "PENDING"},
+    {"id": "V2.ATLAS.INCIDENCE_COMPLEX", "status": "PENDING"},
+    {"id": "V2.ATLAS.FIRST_EVENT_CENSUS", "status": "PENDING"},
+    {"id": "V2.ATLAS.TRANSPORTED_TRACES", "status": "PENDING"},
+    {"id": "V2.EVENT_ATLAS", "status": "PENDING"}
+  ],
+  "nonclaims": [
+    "This structural gate contains no numerical carrier, event-face, incidence, census, or m0 certificate.",
+    "READY_FOR_FIRST_FULL_RUN, if reached later, authorizes only a prospectively frozen computation and is not a mathematical PASS.",
+    "The three phase-gap subatoms cannot pass V2.EVENT_ATLAS without the complete transported traces and event census.",
+    "The frozen flagship prose proves existence of a suitable atlas but does not serialize the application-owned atlas required here.",
+    "The return-side occurrence is represented on return and pullback lists only through q_ret bound to the distinct occurrence u_r; it is not h_side_h and is not duplicated as a second side-hit function.",
+    "No sampled orbit, affine proxy event, temporal-stability, Turing-selection, or canard conclusion is in scope."
+  ]
+}
