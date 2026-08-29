@@ -40,6 +40,11 @@ The first clean local kernel certificate is archived at
 [`results/vdp_box_v1_phase1.json`](results/vdp_box_v1_phase1.json) and explained
 in [`PHASE1_REPORT.md`](PHASE1_REPORT.md).  It records integrity `PASS`,
 mathematical `PASS`, aggregate `INCONCLUSIVE`, and `claim_bearing: false`.
+The separately versioned v2 clean P1 certificate is archived at
+[`results/vdp_box_v2_phase1.json`](results/vdp_box_v2_phase1.json) and explained
+in [`P1_V2_REPORT.md`](P1_V2_REPORT.md).  It likewise has local integrity and
+mathematical `PASS`, but remains aggregate `INCONCLUSIVE` and non-claim-bearing
+at independent replay 1/2.
 
 The P2 obligation map, exact moving frame, non-circular graph bootstrap, and
 the boundary between the staged local-graph obligations are frozen in

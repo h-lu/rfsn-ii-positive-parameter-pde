@@ -1,9 +1,10 @@
 # Issue #7 v2 P1 interval-kernel report
 
-**Evidence status:** implementation and freeze semantics complete; the clean
-source-bound certificate is generated only after this checker revision is
-committed.  A dirty development run has passed and is not retained as
-mathematical evidence.
+**Evidence status:** local rigorous mathematical `PASS`; aggregate
+`INCONCLUSIVE`, `claim_bearing=false`, and `release_eligible=false` while
+independent replay remains 1/2.  The retained clean-run certificate is
+[`results/vdp_box_v2_phase1.json`](results/vdp_box_v2_phase1.json), SHA-256
+`cf70e8f68d926639d01a699e937a91f194cf99bb84e1fc3f9be1c103bdc4fc92`.
 
 ## Scope
 
@@ -69,6 +70,28 @@ matching, V6, temporal stability, Turing selection, or canard identification.
 Until a second independent machine is archived, the final status remains
 `INCONCLUSIVE`, `claim_bearing=false`, and `release_eligible=false`.
 
+## Retained clean result
+
+The formal run observed a clean source revision
+`d75e164b419a9b8a71d9ac44ee73439167e2cabe`.  Source, compiler,
+CAPD/FILIB, rounding, v2 freeze, and exact-output integrity atoms all pass.
+The outward-rounded lower bounds include
+
+\[
+\begin{aligned}
+1-2Ar-\sqrt\epsilon A^2r^4&>0.9899999890,\\
+\tfrac12-\sqrt\epsilon Ar^3&>0.4999978091,\\
+a&>0.9999978091,\\
+\alpha-\tfrac12&>0.2053367989,\\
+\beta-\tfrac12&>0.2053367970,\\
+2-c&>1.9899999890,\qquad 2+c>1.99.
+\end{aligned}
+\]
+
+The direct checker then reconstructed the recorded strict compile command,
+recompiled the source from the recorded commit, reran the exact 12 rational
+arguments, and matched stdout byte for byte.  The checker result is `VALID`.
+
 ## Reproduction
 
 After committing the source lane, run from a clean checkout:
@@ -84,4 +107,3 @@ python3 -B validation/rigorous/run_validation.py kernel \
 python3 -B validation/rigorous/check_certificate.py \
   validation/rigorous/results/vdp_box_v2_phase1.json
 ```
-
