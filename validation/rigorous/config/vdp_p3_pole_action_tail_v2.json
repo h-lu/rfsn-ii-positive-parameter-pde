@@ -1,0 +1,33 @@
+{
+  "schema_version": "rfsn-vdp-p3-pole-action-tail-config/1",
+  "configuration_id": "vdp-p3-pole-action-tail-v2",
+  "status": "FROZEN_BEFORE_FIRST_ACTION_TAIL_DECISION_RUN",
+  "freeze_date": "2026-08-30",
+  "domain": "the complete frozen v2 parameter box and vdp-p3-pole-local-end-v2 sigma0/label block",
+  "regularized_density": "rho_reg=6*epsilon*delta^3*sigma^(-4)*(Y^2-1+2*x2*sigma^2+4*x3*sigma^3)-delta^(-1)*(W-ell*epsilon*log(sigma))^2",
+  "tail": "T_action(sigma0)=integral_0^sigma0 rho_reg(t) dt",
+  "acceptance_gates": {
+    "C0_density_coefficient_strict_upper": {"numerator": "1000", "denominator": "1"},
+    "C0_tail_abs_strict_upper": {"numerator": "1", "denominator": "1000000"},
+    "each_label_C1_density_coefficient_strict_upper": {"numerator": "10000", "denominator": "1"},
+    "each_label_C1_tail_abs_strict_upper": {"numerator": "1", "denominator": "100000"}
+  },
+  "bindings": {
+    "local_end_config": {
+      "path": "validation/rigorous/config/vdp_p3_pole_local_end_v2.json",
+      "sha256": "61373503bee76d0302a76edc2d412f8b580d9d68dd06a6c700ac4a7d7a5fa212"
+    },
+    "local_end_result": {
+      "path": "validation/rigorous/results/vdp_box_v2_p3_pole_local_end.json",
+      "sha256": "1fdd0fff88c1c66877acaf3528122321364618582d6867d666687e51d582a475",
+      "required_status": "LOCAL_C1_BLOCK_PASS"
+    },
+    "theorem": {
+      "path": "van-der-pol/POSITIVE_POLE_FINITE_PART.md",
+      "sha256": "f6655e4f6ac6f54e55445dd2a5f4c8b293fcefeef109e687de059f6de914a0d0",
+      "equations": ["45", "46", "48", "49", "50"]
+    }
+  },
+  "one_shot_policy": "Do not change the density expression or any acceptance gate after the first retained action-tail decision output.",
+  "claim_boundary": "A PASS is a local C0/label-C1 Laurent-log action-tail bound plus exact moving-cut additivity. It is not mixed-mu-C2 regularity, source arrival, or a PASS of the parent V3.POLE_TAIL obligation."
+}
