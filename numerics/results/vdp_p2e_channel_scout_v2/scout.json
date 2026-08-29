@@ -1,0 +1,285 @@
+{
+  "algebraic": {
+    "attempts_allowed": 1,
+    "attempts_used": 1,
+    "claim_bearing": false,
+    "evidence_status": "NON_EVIDENTIARY",
+    "failure": {
+      "call_chain": [
+        "_algebraic_matched_attempt",
+        "compute_matched_outer_candidate",
+        "finite_horizon_gamma_continuation",
+        "solve_bvp",
+        "estimate_rms_residuals",
+        "fun_p",
+        "<lambda>",
+        "normal_outer_rhs_q"
+      ],
+      "exception_type": "ValueError",
+      "message": "Q is not a forward coordinate when pi is nonpositive",
+      "origin_function": "normal_outer_rhs_q"
+    },
+    "nonclaim": "No algebraic/matched centerline, channel, terminal face, or theorem failure follows from this numerical solver stop.",
+    "solver": "compute_matched_outer_candidate",
+    "source_model": "direct finite-horizon nonlinear W^u in the P2bK algebraic frame with R_chi; NON_EVIDENTIARY",
+    "status": "ALGEBRAIC_CHANNEL_STOP",
+    "stop_reason": "The existing leading outer construction reaches nonpositive pi at the frozen v2 point and therefore cannot use Q as its forward coordinate; no retuning or second attempt is authorized in this scout."
+  },
+  "atlas_materialization_status": "NOT_STARTED",
+  "channel_status": {
+    "algebraic": "ALGEBRAIC_CHANNEL_STOP",
+    "homoclinic": "HOMOCLINIC_CHANNEL_SCOUT_SUCCESS",
+    "pole": "POLE_CHANNEL_SCOUT_SUCCESS"
+  },
+  "claim_bearing": false,
+  "configuration": {
+    "configuration_id": "vdp-p2e-minimal-channel-scout-v2",
+    "path": "numerics/config/vdp_p2e_channel_scout_v2.json",
+    "sha256": "4395ab486b226f2ad5ace891077f738b3d2d8b76cd39b2459edb9f9efbc373eb"
+  },
+  "data": {
+    "array_shapes": {
+      "hom_centered_xi": [
+        1601
+      ],
+      "hom_central_state": [
+        4,
+        1601
+      ],
+      "pole_central_state": [
+        4,
+        801
+      ],
+      "pole_central_time": [
+        801
+      ],
+      "pole_physical_state": [
+        4,
+        801
+      ],
+      "pole_physical_x": [
+        801
+      ]
+    },
+    "path": "numerics/results/vdp_p2e_channel_scout_v2/centerlines.npz",
+    "sha256": "831550c4b9e20d2b4abb6fdc20ade82621507cfc65fd508ff7ef3f86319d9aea"
+  },
+  "evidence_status": "NON_EVIDENTIARY",
+  "homoclinic": {
+    "claim_bearing": false,
+    "evidence_status": "NON_EVIDENTIARY",
+    "first_hit_segments": [
+      {
+        "id": "P_positive_0_to_1_55",
+        "relation": ">0",
+        "sampled_signed_margin": 0.0028599546210255487,
+        "time_interval": [
+          0.0,
+          1.55
+        ]
+      },
+      {
+        "id": "Q_positive_1_55_to_1_90",
+        "relation": ">0",
+        "sampled_signed_margin": 0.029630977275228003,
+        "time_interval": [
+          1.55,
+          1.9
+        ]
+      },
+      {
+        "id": "P_negative_1_90_to_7_35",
+        "relation": "<0",
+        "sampled_signed_margin": 0.005832885047271344,
+        "time_interval": [
+          1.9,
+          7.35
+        ]
+      },
+      {
+        "id": "Q_negative_7_35_to_9_55",
+        "relation": "<0",
+        "sampled_signed_margin": 0.42750298785234536,
+        "time_interval": [
+          7.35,
+          9.55
+        ]
+      },
+      {
+        "id": "U_positive_9_55_to_endpoint",
+        "relation": ">0",
+        "sampled_signed_margin": 4.819112607691593,
+        "time_interval": [
+          9.55,
+          9.637968053355097
+        ]
+      }
+    ],
+    "half_time": 9.637968053355097,
+    "integration_endpoint_defect": 0.0,
+    "kato_source_state_defect": 3.903127820947816e-18,
+    "kato_source_status": "COMPUTED/E1_KATO_COMPATIBLE_DARBOUX_SECTION",
+    "nonclaim": "This sampled source-to-source reversible centerline and its real P=Q=0 symmetry hit are not a theorem tube or event-atlas face.",
+    "parameters": {
+      "a2": 0.0,
+      "epsilon": 1.0,
+      "r": 0.015
+    },
+    "qa": {
+      "kato_source_identity_passed": true,
+      "positive_terminal_speed_passed": true,
+      "sampled_energy_drift_passed": true,
+      "sampled_first_hit_partition_passed": true,
+      "shooting_residual_passed": true,
+      "source_energy_passed": true
+    },
+    "sampled_energy_abs_max": 2.2168031299507618e-14,
+    "sampled_energy_drift": 3.9311436050848414e-14,
+    "sampled_state_bounds_not_a_tube": {
+      "P": [
+        -5.600568011718256,
+        5.600568011718256
+      ],
+      "Q": [
+        -3.1412983844041356,
+        3.1412983844041356
+      ],
+      "U": [
+        -1.2120118347822844,
+        4.880147079283146
+      ],
+      "V": [
+        -7.936432623851145,
+        0.11135792752253652
+      ]
+    },
+    "shooting_determinant": 149.73125631736255,
+    "shooting_residual": [
+      -8.631984016460592e-15,
+      3.823330541052883e-15
+    ],
+    "shooting_residual_inf": 8.631984016460592e-15,
+    "source_algebraic_coordinates": [
+      0.009123832954590414,
+      -0.0040933692988453846,
+      7.095034997505259e-06,
+      -1.0723281996453775e-05
+    ],
+    "source_energy_abs": 9.081270717776166e-18,
+    "source_phase": 5.861458108702215,
+    "source_radius_error": 0.0,
+    "source_state": [
+      0.009130927989587919,
+      0.00933337388894281,
+      -0.004104092580841839,
+      0.003559640521546557
+    ],
+    "status": "HOMOCLINIC_CHANNEL_SCOUT_SUCCESS",
+    "terminal_hit_functions": {
+      "P": -8.631984016460592e-15,
+      "Q": 3.823330541052883e-15
+    },
+    "terminal_joint_event_speed": 16.604051032078655,
+    "terminal_state": [
+      4.880147079283146,
+      -8.631984016460592e-15,
+      -7.936432623851145,
+      3.823330541052883e-15
+    ]
+  },
+  "mathematical_status": "INCONCLUSIVE",
+  "nonclaims": [
+    "No sampled centerline, section, state hull, or QA threshold is a theorem face, tube, interval enclosure, or atlas certificate.",
+    "No artificial lateral, incidence complex, first-event census, normalization, numeric m0, temporal-stability, Turing-selection, or canard claim is produced.",
+    "A successful homoclinic or pole scout does not pass V2.EVENT_ATLAS, and the algebraic STOP prevents a three-channel materialization."
+  ],
+  "parameter_point": {
+    "a2": "0",
+    "epsilon": "1",
+    "r": "3/200",
+    "required_relation": "STRICT_INTERIOR_OF_VDP_POSITIVE_BOX_V2"
+  },
+  "pole": {
+    "claim_bearing": false,
+    "event_speed_physical": 0.40709711771684287,
+    "evidence_status": "NON_EVIDENTIARY",
+    "gate_central_state": [
+      -10.000000000000378,
+      -27.13980784778953,
+      3.4613027023442,
+      -0.5490438991203579
+    ],
+    "gate_central_time": 11.170411515277005,
+    "gate_energy_defect": 0.0,
+    "gate_function": "g_pole=U_central-(-10), equivalently u_physical-(a+10*sqrt(epsilon)*r^2)",
+    "gate_physical_state": [
+      1.00225,
+      9.159685148628965e-05,
+      -0.666666841895116,
+      1.8530231595312075e-06
+    ],
+    "gate_physical_x": 0.16755617272915507,
+    "gate_residual": 3.7836400679225335e-13,
+    "nonclaim": "This is one sampled true-ODE source-to-gate centerline, not a uniform pole window, theorem face, or basin-entry certificate.",
+    "parameters": {
+      "a2": 0.0,
+      "epsilon": 1.0,
+      "r": 0.015
+    },
+    "pre_gate_sampled_maximum": -8.304779898793413e-05,
+    "qa": {
+      "energy_drift_passed": true,
+      "gate_residual_passed": true,
+      "positive_event_speed_passed": true,
+      "source_section_passed": true,
+      "strictly_pre_gate_samples_passed": true
+    },
+    "sampled_central_state_bounds_not_a_tube": {
+      "P": [
+        -27.13980784778953,
+        2.5165360590064507
+      ],
+      "Q": [
+        -1.202594732458866,
+        3.389657510148624
+      ],
+      "U": [
+        -10.000000000000378,
+        2.9002890997068915
+      ],
+      "V": [
+        -2.812266140126583,
+        3.4771190963548793
+      ]
+    },
+    "sampled_energy_drift": 1.6653345369377348e-16,
+    "source_energy_abs": 7.208110412942886e-17,
+    "source_nu": 0.0,
+    "source_phase": 0.0,
+    "source_state": [
+      0.010010028431992071,
+      0.007052156041807859,
+      -1.671684971189284e-05,
+      0.007075797237390571
+    ],
+    "source_status": "COMPUTED/E1_KATO_COMPATIBLE_DARBOUX_SECTION",
+    "status": "POLE_CHANNEL_SCOUT_SUCCESS"
+  },
+  "qa": {
+    "algebraic_stop_preserved": true,
+    "contains_artificial_lateral": false,
+    "contains_incidence_census": false,
+    "contains_numeric_m0": false,
+    "homoclinic_all_passed": true,
+    "pole_all_passed": true,
+    "theorem_faces_claimed": false
+  },
+  "schema_version": "rfsn-vdp-p2e-minimal-channel-scout-result/1",
+  "state_coordinate_order": [
+    "U",
+    "P",
+    "V",
+    "Q"
+  ],
+  "status": "PARTIAL_SCOUT_SUCCESS"
+}

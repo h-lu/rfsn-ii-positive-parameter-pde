@@ -1,0 +1,119 @@
+{
+  "schema_version": "rfsn-vdp-p2e-minimal-channel-scout-config/1",
+  "configuration_id": "vdp-p2e-minimal-channel-scout-v2",
+  "status": "PREFROZEN_FOR_ONE_RECORDED_NON_EVIDENTIARY_REPLAY",
+  "evidence_status": "NON_EVIDENTIARY",
+  "selection_provenance": "The same choices were inspected in one interactive dry run before this replay configuration was committed; no confirmatory or claim-bearing interpretation is allowed.",
+  "parameter_point": {
+    "r": "3/200",
+    "a2": "0",
+    "epsilon": "1",
+    "required_relation": "STRICT_INTERIOR_OF_VDP_POSITIVE_BOX_V2"
+  },
+  "source_bindings": [
+    {
+      "role": "V2_BOX",
+      "path": "validation/rigorous/config/vdp_box_v2.json",
+      "sha256": "43ff2ee14db2e9d42abe484e9d415176cc92836fb2956a27cb6b9f72a751b1ed",
+      "use": "EXACT_DOMAIN_CHECK"
+    },
+    {
+      "role": "V2_BRIDGE",
+      "path": "validation/rigorous/config/vdp_bridge_v2.json",
+      "sha256": "ee45e35157075805f89e12d9eb89a82e9203167d22109d4f2b9e83ee2bd12de9",
+      "use": "EXACT_DOMAIN_CHECK"
+    },
+    {
+      "role": "P2C_SELECTED_HOMOCLINIC_STRICT_OUTPUT",
+      "path": "validation/rigorous/results/vdp_bridge_v1_p2c_homoclinic.json",
+      "sha256": "38709fac54569f190f3663df95baedbdb6e0c646d3ec372385a1373dfaf34d34",
+      "use": "STRICT_ANCHOR_AND_V2_DOMAIN_RESTRICTION_NOT_CENTERLINE_DATA"
+    },
+    {
+      "role": "LEGACY_SAME_ORBIT_POLE_OBJECT",
+      "path": "numerics/results/vdp_v1_v7/v3_pole.json",
+      "sha256": "37fe80f074ab421895377a0eb71636b68f3a9bc20af0947401d525f8a0b20001",
+      "use": "R_0P08_DESIGN_TEMPLATE_ONLY_NOT_V2_DATA"
+    },
+    {
+      "role": "LEGACY_MATCHED_ALGEBRAIC_OBJECT",
+      "path": "numerics/results/vdp_v1_v7/v4_v5_matched_candidate.json",
+      "sha256": "1a10be8f2fb12d12484d5606906e276b9f945659d5f81f6b1772847d270df3c5",
+      "use": "R_0P08_DESIGN_TEMPLATE_ONLY_NOT_V2_DATA"
+    },
+    {
+      "role": "CORE_ALGEBRAIC_ANCHOR",
+      "path": "frozen-imports/rfsn-ii-d54add098545063d5efe8f1d6f062d4cfc116a0d/source/validation/origin-algebraic-heteroclinic/certificate.json",
+      "sha256": "60882ee1d3b2b18264b85764288505ae8b47d00bc826a2bddec152898f690fbe",
+      "use": "CORE_PHASE_SEED_ONLY"
+    },
+    {
+      "role": "CORE_POLE_WINDOW_ANCHOR",
+      "path": "frozen-imports/rfsn-ii-d54add098545063d5efe8f1d6f062d4cfc116a0d/source/validation/origin-unstable-pole-entry/certificate.json",
+      "sha256": "7f325a87810f8b0dda2542aed90263b39f9a9f4bd2e8ebb3abcc238d032eb6e2",
+      "use": "CORE_PHASE_SEED_ONLY"
+    }
+  ],
+  "common_source_convention": {
+    "source_radius": 0.01,
+    "graph_horizon": 10.0,
+    "graph_boundary_tolerance": 1e-9,
+    "definition": "Direct finite-horizon nonlinear W^u in the P2bK algebraic frame with Kato phase b(phi)=R R_chi (cos(phi),sin(phi)); nu=0.",
+    "raw_moser_chart_identified": false
+  },
+  "homoclinic": {
+    "core_seed": [5.861505585644915, 9.63744206789648],
+    "half_centerline_points": 801,
+    "rtol": 1e-11,
+    "atol": 1e-13,
+    "max_step": 0.015
+  },
+  "pole": {
+    "phase": 0.0,
+    "nu": 0.0,
+    "central_gate_U": -10.0,
+    "maximum_physical_x": 1.0,
+    "centerline_points": 801,
+    "rtol": 2e-11,
+    "atol": 2e-13,
+    "max_step_physical_x": 0.0003
+  },
+  "algebraic_matched_single_attempt": {
+    "core_phase_midpoint": 5.756691395749909,
+    "source_phase_seed_offset": 0.0004,
+    "source_phase_offset_bracket": [0.0, 0.001],
+    "central_section_m": 4.0,
+    "outer_r1": 2.0,
+    "q_label": 100.0,
+    "q_end": 200.0,
+    "seam_beta_bracket": [0.0, 0.0004],
+    "scaled_beta_collar": 0.25,
+    "mesh_points": 201,
+    "output_points": 401,
+    "tolerance": 5e-5,
+    "boundary_tolerance": 1e-8,
+    "same_section_root_tolerance": 1e-10,
+    "max_nodes": 60000,
+    "allowed_attempts": 1,
+    "failure_verdict": "ALGEBRAIC_CHANNEL_STOP"
+  },
+  "qa_thresholds": {
+    "homoclinic_shooting_residual_inf_upper": 1e-10,
+    "homoclinic_source_energy_abs_upper": 1e-12,
+    "homoclinic_kato_source_defect_upper": 1e-12,
+    "homoclinic_sampled_energy_drift_upper": 1e-10,
+    "pole_gate_residual_abs_upper": 1e-10,
+    "pole_energy_drift_upper": 1e-12,
+    "pole_pre_gate_function_must_be_negative": true,
+    "event_speeds_must_be_positive": true
+  },
+  "output": {
+    "data_path": "numerics/results/vdp_p2e_channel_scout_v2/centerlines.npz",
+    "report_path": "numerics/results/vdp_p2e_channel_scout_v2/scout.json"
+  },
+  "nonclaims": [
+    "No sampled centerline, section, state hull, or QA threshold is a theorem face, tube, interval enclosure, or atlas certificate.",
+    "No artificial lateral, incidence complex, first-event census, normalization, numeric m0, temporal-stability, Turing-selection, or canard claim is produced.",
+    "A successful homoclinic or pole scout does not pass V2.EVENT_ATLAS, and the algebraic STOP prevents a three-channel materialization."
+  ]
+}
