@@ -1,7 +1,8 @@
 # Issue #7 P2 validation contract
 
-**Status:** frozen implementation contract; no P2 parent obligation is marked
-complete by this document.
+**Status:** frozen v1 implementation contract.  P2a--P2d pass locally, but a
+strict P2e fail-fast cell disproves the required V2(5) phase order on this
+box; no P2 parent obligation is marked complete by this document.
 
 P2 turns the qualitative small-parameter continuation in Theorem V2 into an
 explicit certificate on the target box.  The target is
@@ -47,6 +48,21 @@ interface.  Their executable refinements are:
 | P2d | `V2.CHART.PHYSICAL_SLIDES` | Exact auxiliary and physical faces, event-free slides, first-hit speed/uniqueness, residence-time correction, and state-\(C^3\)/parameter-\(C^2\) bounds are certified. |
 | P2d | `V2.CHART.OVERLAPS` | A finite cover has common chart/inverse domains, exact-symplectic overlap gauges, signed-axis preservation, oriented-blow-up extensions, state-\(C^3\)/parameter-\(C^2\) mixed bounds, and phase-boundary degree \(+1\). |
 | P2e | `V2.ATLAS.*` | Machine-readable physical event faces, incidences, priority, margins, connected box complex, complete first-event census, transported traces, and the three phase gaps. |
+
+For `vdp-positive-box-v1`, P2e stops before construction of the full atlas.
+On one cell of the pre-registered grid,
+
+\[
+ [31/400,2/25]\times[-1/4,-63/256]\times[11/10,6/5],
+\]
+
+the selected P2c branch has
+\(\sup\phi_h=5.7566768761372131\), whereas the immutable algebraic
+anchor has \(\inf\phi_a=5.7566913947049203\).  Thus the complete cell has
+\(\phi_h<\phi_a\), contrary to the required
+\(\phi_h-\phi_a>0.052407\).  The bound result and its evidence are recorded in
+[`P2E_PHASE_ORDER_FAIL_REPORT.md`](P2E_PHASE_ORDER_FAIL_REPORT.md).  Under the
+frozen-target stop rule, full P2e and P3--P5 v1 computation must not continue.
 
 The parent `V2.WU_GRAPH` may pass only after both P2a and P2b pass.  Likewise,
 partial success in P2c, P2d, or P2e does not pass its parent obligation.  In
@@ -112,9 +128,11 @@ from
 its proof-bound checker, and
 [`P2D_CHART_OVERLAPS_REPORT.md`](P2D_CHART_OVERLAPS_REPORT.md).  Since all seven
 children pass locally, the parent `V2.EXACT_CHART` also has a local
-mathematical `PASS`.  The repository aggregate remains `INCONCLUSIVE` and
-non-claim-bearing: P2e and later obligations remain open, and independent
-replay is still 1 of 2.
+mathematical `PASS`.  The frozen v1 box nevertheless has mathematical status
+`FAIL` because the P2e phase-order predicate fails strictly on the cell above.
+That negative result is non-claim-bearing until independent replay; it does
+not erase the scoped P2a--P2d passes or contradict the sufficiently-small-
+parameter analytic theorem.
 
 ## 2. Exact moving eigenframe for P2a
 

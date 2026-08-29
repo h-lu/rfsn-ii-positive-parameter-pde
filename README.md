@@ -228,7 +228,7 @@ independent-machine replay.
 | A2 and `pulse_1` spectral/nonlinear orbital instability (#11) | Two local mathematical `PASS` results; `claim_bearing=false` | Each true target has a positive real temporal eigenvalue in \((0.01,2)\).  The general semilinear bridge therefore gives A2 co-periodic and `pulse_1` whole-line localized nonlinear orbital instability.  Independent replay is pending, and no pattern-selection conclusion is made.  See the [nonlinear theorem](van-der-pol/NONLINEAR_ORBITAL_INSTABILITY.md), [A2](validation/a2_periodic/README.md), and [`pulse_1`](validation/pulse_1/README.md) records. |
 | Canard splitting scout (#13) | `COMPUTED/E1`; `claim_bearing=false` | Exact central-chart integration and first-hit root finding work at \((r,\epsilon)=(0.08,1)\), but the entry uses a projected finite formal jet, not a computed invariant slow manifold.  It is a candidate generator, not a maximal-canard identification.  See the [scout record](numerics/VDP_CANARD_SPLITTING_SCOUT.md). |
 | A.2 boundary-selected canard BVP (#13) | `COMPUTED/E1`; `claim_bearing=false` | Collocation orbits of the exact finite-\(r\) A.2 field, an endpoint-family pseudo-arclength continuation, and an \(H_2=0\) BVP candidate are computed.  The candidate fails the frozen RFSN-II central-localization diagnostic, while boundary independence and the intrinsic slow-sheet direction remain unresolved.  See the [BVP record](numerics/VDP_CANARD_SLOW_TRACE.md). |
-| Explicit-box validation (#7) | `INCONCLUSIVE`, `claim_bearing=false` | The frozen box is \([0.04,0.08]\times[-0.25,0.25]\times[0.8,1.2]\).  P1--P2c, all seven P2d chart children, and the local parent `V2.EXACT_CHART` pass mathematically on their declared domains, including (D12) with \(C_{\rm phys}=7\).  P2e and the later theorem inputs remain pending, and independent replay is 1/2, so the aggregate is not claim-bearing.  See the [chart-overlap report](validation/rigorous/P2D_CHART_OVERLAPS_REPORT.md). |
+| Explicit-box validation (#7) | v1 mathematical `FAIL`, `claim_bearing=false` | The frozen box is \([0.04,0.08]\times[-0.25,0.25]\times[0.8,1.2]\).  P1--P2c, all seven P2d chart children, and the local parent `V2.EXACT_CHART` pass on their declared domains.  A strict P2e cell then reverses the required algebraic/homoclinic phase order by at least \(1.45185677072\times10^{-5}\), so the frozen v1 box fails and its P2e/P3--P5 run stops.  This does not contradict the sufficiently-small-parameter analytic theorem or certify a replacement box.  See the [fail-fast report](validation/rigorous/P2E_PHASE_ORDER_FAIL_REPORT.md). |
 
 Closing an analytic construction issue records completion under the current
 frozen-import repository contract.  Public availability of that contract does
@@ -274,6 +274,7 @@ experimental realization.
 - [Issue #7 P2d weighted-Kato-passage report](validation/rigorous/P2D_WEIGHTED_PASSAGE_REPORT.md)
 - [Issue #7 P2d physical-slide report](validation/rigorous/P2D_PHYSICAL_SLIDES_REPORT.md)
 - [Issue #7 P2d finite chart-overlap report](validation/rigorous/P2D_CHART_OVERLAPS_REPORT.md)
+- [Issue #7 frozen-v1 P2e phase-order failure](validation/rigorous/P2E_PHASE_ORDER_FAIL_REPORT.md)
 
 ## Issue map
 
@@ -283,7 +284,7 @@ experimental realization.
 - [#4: central--outer matching theorem](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/4) — V4--V5 matching construction complete; publication dependency audit remains separate.
 - [#5: outer algebraic action finite part](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/5) — V5A construction complete.
 - [#6: exhaustive two-end theorem](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/6) — V6--V7 construction complete under the pinned modular imports.
-- [#7: rigorous explicit-box validation](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/7) — open; aggregate status remains non-claim-bearing and inconclusive.
+- [#7: rigorous explicit-box validation](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/7) — open; the frozen v1 box has a strict non-claim-bearing phase-order `FAIL`, so any replacement must be a new explicit target.
 - [#8: explanatory numerical atlas and dynamics prescreen](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/8) — open; numerical evidence remains separate from theorem status.
 - [#9: independent expert cold read](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/9) — open; the neutral review packet is public, but no human report is claimed before one is returned.
 - [#10: explicit-box and post-existence research roadmap](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/10) — open; records execution order, mathematical dependencies, and stop rules.

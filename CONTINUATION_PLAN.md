@@ -34,8 +34,10 @@ remain authoritative.
   separated into a supplement.
 - Issue #7 interval validation has reached local mathematical `PASS` through
   P2c and all seven P2d chart children, including the local parent
-  `V2.EXACT_CHART`; P2e and later obligations remain open, and the aggregate
-  remains non-claim-bearing at independent replay 1/2.
+  `V2.EXACT_CHART`.  A strict P2e fail-fast cell reverses the required
+  algebraic/homoclinic phase order, so `vdp-positive-box-v1` has mathematical
+  status `FAIL` and its P2e/P3--P5 computation has stopped.  The negative
+  result remains non-claim-bearing at independent replay 1/2.
 - Post-existence work has begun under separate issues.  #11 now gives local
   positive temporal eigenvalues for A2 and `pulse_1` and a proved nonlinear
   orbital-instability bridge; #12 proves exact classical stationary Turing
@@ -104,7 +106,7 @@ release.
 | Analytic claims B1--B2 and V1--V7 | statuses recorded by the repository; several conclusions depend on frozen imported RFSN-II theorems and certificates | `CLAIM_REGISTER.md` and the cited proof dossiers |
 | Floating numerical atlas | explanatory candidate evidence only | `numerics/` |
 | Staged interval work | local mathematical passes for completed atoms; aggregate remains non-claim-bearing | `validation/rigorous/` |
-| Explicit box `vdp-positive-box-v1` | frozen validation candidate, not a certified theorem box | Issue #7 and `validation/` |
+| Explicit box `vdp-positive-box-v1` | strict mathematical `FAIL` at the P2e phase-order gate; not a certified theorem box | Issue #7 and `validation/rigorous/P2E_PHASE_ORDER_FAIL_REPORT.md` |
 | Temporal PDE stability | deferred | S1 |
 | Experimental realization | deferred | E1 |
 
@@ -434,6 +436,13 @@ connection or separation) distinct from their actual mathematical
 dependencies.  No downstream issue is a completion condition for #7.
 
 Continue the interval lane only under the existing fail-closed policy:
+
+- retain the strict `vdp-positive-box-v1` failure permanently; do not relabel
+  it `INCONCLUSIVE`, overwrite the box, or continue its downstream P2e/P3--P5
+  run;
+- before further positive-box work, choose explicitly between a new versioned
+  smaller target and a revised application theorem allowing the observed
+  event-order change;
 
 - first refactor the Issue #7 obligation map around the hypotheses of the
   publication-facing analytic propositions, preserving every archived

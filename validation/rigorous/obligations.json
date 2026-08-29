@@ -47,7 +47,7 @@
     {
       "phase": "P2",
       "title": "Central continuation",
-      "status": "P2D_ALL_SEVEN_CHILDREN_AND_PARENT_LOCAL_PASS_P2E_PENDING",
+      "status": "P2D_LOCAL_PASS_P2E_PHASE_ORDER_FAIL_V1",
       "obligations": [
         {"id": "V2.WU.FRAME_BLOCK", "theorem_clause": "Theorem V2(1); P2 validation contract Sections 2--3", "predicate": "The closed-form moving eigenframe is nonsingular and its radius-1/100 block has strict unstable/stable face and difference-cone margins on the full continuation bridge."},
         {"id": "V2.WU.COARSE_GRAPH", "theorem_clause": "Theorem V2(1)--(2); P2 validation contract Section 3", "predicate": "The non-circular graph-transform bootstrap gives true reversible local graphs with Lipschitz constant at most one, quadratic value coefficient below one quarter, and backward coordinate decay above two thirds on the full continuation bridge."},
@@ -79,6 +79,7 @@
         {"id": "V2.CHART.PHYSICAL_SLIDES", "theorem_clause": "Theorem V2(3) physical saddle faces; P2 validation contract Section 5.5", "predicate": "Locally passed P2d gate on the complete frozen bridge and |nu|<=25/2^58: the exact auxiliary sections reach the inherited radius-1/100 physical faces through event-free invariant-cone slides, with unique first hits, normalized hit speed above 4/3, each slide time below 19, a positive no-recross margin, and a complete state-C3/parameter-C2 rectangle. The two bounded slide corrections close the physical winding/residence comparison (D12) with C_phys=7. Only the local event-support restriction is certified; the complete event-cell census remains P2e."},
         {"id": "V2.CHART.OVERLAPS", "theorem_clause": "Theorem V2(3) finite marked cover; P2 validation contract Section 5.5", "predicate": "Locally passed P2d gate: a two-member finite parameter cover has common chart and inverse domains, identity exact-symplectic transitions and primitive-gauge differences, signed-axis preservation, state-C3/parameter-C2 oriented-blow-up extensions, and degree +1 physical source markings whose map and inverse have mixed bounds through total order three, with parameter order at most two."},
         {"id": "V2.EXACT_CHART", "theorem_clause": "Theorem V2(3)", "predicate": "Locally passed P2d parent: all seven V2.CHART atoms pass on their declared common domain. This does not pass the P2e event atlas, later validation obligations, or the repository replay policy."},
+        {"id": "V2.ATLAS.PHASE_GAP_AH", "theorem_clause": "Theorem V2(5)", "predicate": "In the common transported Kato phase lift, the selected homoclinic source follows the algebraic-directed source by more than 0.052407 on the complete target box."},
         {"id": "V2.EVENT_ATLAS", "theorem_clause": "Theorem V2(4)--(5)", "predicate": "The complete compact event arrangement, phase order, every incidence, and every strict margin are covered without gaps."}
       ]
     },

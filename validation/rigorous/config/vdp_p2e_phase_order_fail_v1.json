@@ -1,0 +1,88 @@
+{
+  "schema_version": "rfsn-vdp-p2e-phase-order-fail-config/1",
+  "scope": "V2_P2E_PHASE_ORDER_FAIL_FAST",
+  "box_id": "vdp-positive-box-v1",
+  "atom_id": "V2.ATLAS.PHASE_GAP_AH",
+  "theorem_clause": "van-der-pol/CENTRAL_CONTINUATION.md, Theorem V2(5)",
+  "required_predicate": "phi_h - phi_a > 0.052407 in the common transported Kato source-phase lift",
+  "required_gap_lower": "0.052407",
+  "theorem_binding": {
+    "path": "van-der-pol/CENTRAL_CONTINUATION.md",
+    "sha256": "e02d067595f89ea7f19dfac81a7eba84ea0bdda17e4bbe12f569e776ba775026",
+    "phase_convention_start": "We also freeze one phase convention.",
+    "phase_convention_end": "distance under arbitrary phase reparametrizations.",
+    "phase_convention_excerpt_sha256": "27b970b802f5d7fe13dae04a67f51938e22f17421ad578853dae285c0aef59a4",
+    "phase_order_start": "5. **Source phases and order.**",
+    "phase_order_end": "cut gap at least \\(m_0/2\\).",
+    "phase_order_excerpt_sha256": "e17de82d1a7e97accc6c9264556d15b328148e8cfeb22598508955747d34d00e"
+  },
+  "target_box_binding": {
+    "path": "validation/rigorous/config/vdp_box_v1.json",
+    "sha256": "ce84e84e4e2e53563125497df4ad2df98a533437b04b35bee042e9b04ea1c735"
+  },
+  "p2c_config_binding": {
+    "path": "validation/rigorous/config/vdp_p2_homoclinic_v1.json",
+    "sha256": "a1aca97d2fcf76f336dc06734c1ced25aeb9bd6b1bfa69b9dc8a6545846ce9ac"
+  },
+  "kato_config_binding": {
+    "path": "validation/rigorous/config/vdp_p2_kato_v1.json",
+    "sha256": "676de23609a66b9a6fa35d2cc476878018bc84b4615460719f9c2f87eb1823e3",
+    "required_embedding_formula": "phi_algebraic=phi+chi(c(theta))"
+  },
+  "counterexample_cell": {
+    "grid_indices": [31, 0, 3],
+    "r": ["31/400", "2/25"],
+    "a2": ["-1/4", "-63/256"],
+    "epsilon": ["11/10", "6/5"],
+    "shooting_radius_factor": "3"
+  },
+  "strict_root_evidence": {
+    "source_commit": "c1b8c815a1ffd0b690c46d1631b383f16b11fce4",
+    "source_path": "validation/rigorous/design/p2c_homoclinic_multishoot_scout.cpp",
+    "source_sha256": "7f1947f4d8ca7eaa74194a5060911a167982e6e5038c585be7609e5e36a98493",
+    "frozen_h10_path": "frozen-imports/rfsn-ii-d54add098545063d5efe8f1d6f062d4cfc116a0d/source/validation/origin-algebraic-heteroclinic/unstable_graph_terms.hpp",
+    "frozen_h10_sha256": "d617587ea1b9037c1c7575ccdde5029529ec5b736dee259baff9a2a162001e96",
+    "capd_commit": "731079217a9254ea2948d742df2b170895effe7f",
+    "strict_binary_sha256": "1d5b8092148d2a9cf1892e0880c01bd122edf03421f168142585818a5f3e9c7e",
+    "argv": ["mu-grid-root-jets", "3", "31", "0", "3"],
+    "stdout_path": "validation/rigorous/design/logs/p2e_phase_order_fail_v1.log",
+    "stdout_sha256": "610e8551bdd8ce9f98f9d558ecc927e187aa5d7c2efb822a36cc681112ace90a",
+    "expected_printed_parameter_cell": [
+      "[0.077499999999999999, 0.080000000000000002]",
+      "[-0.25, -0.24609375]",
+      "[1.0999999999999999, 1.2000000000000002]"
+    ],
+    "expected_phase_hull": ["5.7499112495191298", "5.7566768761372131"],
+    "required_terminal_line": "PASS mu-grid true-source root C2 jets"
+  },
+  "p2c_prerequisite": {
+    "path": "validation/rigorous/results/vdp_bridge_v1_p2c_homoclinic.json",
+    "sha256": "38709fac54569f190f3663df95baedbdb6e0c646d3ec372385a1373dfaf34d34",
+    "required_mathematical_status": "PASS",
+    "required_atom": "V2.HOM.BRANCH"
+  },
+  "algebraic_anchor": {
+    "path": "frozen-imports/rfsn-ii-d54add098545063d5efe8f1d6f062d4cfc116a0d/source/validation/origin-algebraic-heteroclinic/certificate.json",
+    "sha256": "60882ee1d3b2b18264b85764288505ae8b47d00bc826a2bddec152898f690fbe",
+    "json_path": ["robust_multiple_shooting", "source_phase"],
+    "expected_phase_hull": ["5.7566913947049203", "5.7566913967948983"]
+  },
+  "phase_interface": {
+    "homoclinic_phase": "absolute transported Kato source label phi returned by the P2c selected-root solve",
+    "algebraic_phase": "the frozen algebraic-directed anchor label, continued with the same transported Kato label on S_mu",
+    "coordinate_embedding": "phi_algebraic=phi+chi(c) embeds the Kato label in the algebraic graph coordinates; it is not the phase quantity compared here",
+    "common_lift": "TRANSPORTED_KATO_SOURCE_PHASE"
+  },
+  "failure_propagation": {
+    "V2.ATLAS.PHASE_GAP_AH": "FAIL",
+    "vdp-positive-box-v1": "FAIL",
+    "P2e_full_v1": "STOPPED_BY_FAILED_PREREQUISITE",
+    "P3_P5_v1": "STOPPED_BY_FAILED_PREREQUISITE"
+  },
+  "nonclaims": [
+    "This does not contradict the analytic sufficiently-small-r existence theorem.",
+    "This does not certify any replacement parameter box.",
+    "This does not complete the event atlas, P3--P5, temporal stability, Turing selection, or canard identification.",
+    "Independent-machine replay remains pending, so the result is not release-claim-bearing."
+  ]
+}

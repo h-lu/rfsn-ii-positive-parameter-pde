@@ -29,10 +29,12 @@ The compiled runner has six executable scopes:
    frozen for P2c.
 
 The mathematical result of a local kernel run can be `PASS`, `FAIL`, or
-`INCONCLUSIVE`.  The aggregate `final_status` remains `INCONCLUSIVE` while the
-independent-machine replay required by the repository policy is pending.
-Consequently every current local certificate has `claim_bearing: false`, even
-when its mathematical obligations all pass.
+`INCONCLUSIVE`.  For a local mathematical `PASS`, the aggregate
+`final_status` remains `INCONCLUSIVE` while the independent-machine replay
+required by the repository policy is pending.  A mathematical `FAIL` remains
+`FAIL`; missing replay affects release eligibility and claim-bearing status,
+not the negative verdict.  Every current local certificate has
+`claim_bearing: false`.
 
 The first clean local kernel certificate is archived at
 [`results/vdp_box_v1_phase1.json`](results/vdp_box_v1_phase1.json) and explained
@@ -113,6 +115,17 @@ The archived verdict and exact claim boundary are summarized in
 [`P2C_CERTIFICATE_REPORT.md`](P2C_CERTIFICATE_REPORT.md), with the
 machine-readable certificate in
 [`results/vdp_bridge_v1_p2c_homoclinic.json`](results/vdp_bridge_v1_p2c_homoclinic.json).
+
+The first P2e gate is now decisive for the frozen v1 target.  On one exact
+rational cell at the upper `r` boundary, the selected P2c source phase lies
+strictly before the immutable algebraic source phase, reversing the order
+required by Theorem V2(5).  Therefore `V2.ATLAS.PHASE_GAP_AH` and
+`vdp-positive-box-v1` have mathematical status `FAIL`; full P2e and P3--P5
+v1 computation stops.  The minimal raw evidence, audit, certificate, and
+interpretation are in
+[`P2E_PHASE_ORDER_FAIL_REPORT.md`](P2E_PHASE_ORDER_FAIL_REPORT.md).  This is
+a failed explicit box, not a failure of the analytic sufficiently-small-
+parameter theorem and not a certificate for any replacement box.
 
 The full-grid binary endpoints and exact rational composition are archived in
 [`design/p2c_middle_jet_summary_v1.json`](design/p2c_middle_jet_summary_v1.json).
@@ -230,8 +243,10 @@ common chart and inverse domains, identity exact-symplectic transitions and
 gauge differences, signed-axis preservation, regular oriented-blow-up
 extensions, and degree \(+1\) physical source markings.  All seven P2d chart
 children therefore give the local parent `V2.EXACT_CHART` mathematical
-`PASS`.  The aggregate remains `INCONCLUSIVE` and `claim_bearing=false`
-because P2e and later obligations remain open and independent replay is 1/2.
+`PASS`.  That scoped P2d certificate remains `INCONCLUSIVE` and
+`claim_bearing=false` because independent replay is 1/2.  The larger frozen-v1
+aggregate is instead mathematical `FAIL` at the subsequent P2e phase-order
+gate, so its full P2e and P3--P5 computations have stopped.
 See
 [`P2D_NORMAL_FORM_REPORT.md`](P2D_NORMAL_FORM_REPORT.md),
 [`P2D_ZERO_ENERGY_REPORT.md`](P2D_ZERO_ENERGY_REPORT.md),
