@@ -15,6 +15,15 @@ A.3-compatible zero-energy reversible half-BVP to each returned outer pair
 `COMPUTED/E1_PARTIAL_THREE_BOUNDARY_SCOUT`, not a maximal- or intrinsic-canard
 claim.
 
+> **Later shadowing check.**  The subsequent
+> [direct-IVP calculation](VDP_CANARD_DIRECT_SPLITTING.md) starts from the
+> unique negative \(H_2=0\) root at each saved outer pair.  At both
+> \(q_0=-80\) and \(-100\), the first increasing \(p_2=0\) hit has \(q_2\)
+> far from zero; a tighter replay reaches the same fail-closed conclusion.
+> Consequently these two objects are retained only as collocation candidates
+> and numerical seeds.  Their small collocation residuals must not be read as
+> evidence for a reliably shadowed nearby orbit.
+
 The \(q_0=-60\) slice failed during the frozen A.2 continuation at
 \(u_2=14\): the collocation solver exceeded its 220,000-node limit.  It was
 not retargeted.  The other two slices succeeded:
@@ -58,6 +67,10 @@ Thus the actual new information is limited but useful: the \(-80\) and
 reverser endpoints, but their common-section entries have not stabilized to
 the same accuracy, the third slice failed, and the local splitting graph has
 not been shown to be well posed.
+
+The direct-IVP failure is not an absence result for a finite-boundary or
+intrinsic canard.  It shows only that the saved collocation candidates do not
+authenticate such an orbit at their present accuracy.
 
 The frozen configuration is
 [`vdp_canard_boundary_convergence_v1.json`](config/vdp_canard_boundary_convergence_v1.json),

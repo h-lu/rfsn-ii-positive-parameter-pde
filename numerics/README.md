@@ -242,6 +242,14 @@ All fixed-boundary symmetric splitting resolves have singular collocation
 Jacobians, so no \(a_2\) derivative is reported and no boundary-convergence
 or intrinsic-canard conclusion is made.
 
+A subsequent [direct-IVP check](VDP_CANARD_DIRECT_SPLITTING.md) removes that
+collocation singularity from the definition of the splitting: at fixed outer
+data, the negative zero-energy root is integrated to the first increasing
+\(p_2=0\) event.  Both saved BVP parameter values give \(S=q_2\) far from zero,
+and their event-corrected variational derivatives fail both predeclared
+symmetric-difference checks.  This is a reproducible nonshadowing diagnostic,
+not evidence that an exact finite-boundary or intrinsic canard is absent.
+
 The proposed Issue #7 box
 
 \[

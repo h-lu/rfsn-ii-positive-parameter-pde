@@ -28,6 +28,15 @@ finite-\(r\) vector field and satisfy the six A.3-compatible boundary
 conditions.  It is still a finite-boundary candidate, not a finite-parameter
 maximal-canard result.
 
+> **Superseded for orbit shadowing.**  A later
+> [direct-IVP check](VDP_CANARD_DIRECT_SPLITTING.md) starts from the unique
+> negative zero-energy root at the same frozen outer data and does not reach
+> the reverser candidate: its first increasing \(p_2=0\) hit has \(q_2\) far
+> from zero, and the tighter replay also fails.  The low collocation residual
+> therefore does not validate a nearby IVP orbit.  This object remains useful
+> as a BVP numerical seed, but is no longer classified as a reliable orbit
+> candidate; the failure does not prove that a canard is absent.
+
 ## Finite-\(r\) BVP solved numerically
 
 For \(\epsilon=1\), the translated central system is
