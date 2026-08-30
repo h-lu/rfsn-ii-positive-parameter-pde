@@ -1,6 +1,8 @@
-# P2e event-atlas type audit and corrected minimal realization
+# P2e event-atlas type and phase-interface audit
 
-**Status:** application-owned design correction; no atlas atom is passed.
+**Status:** application-owned schema `/3` correction and prospective
+refreeze; no atlas atom is passed.  It supersedes the unmaterialized `/2`
+phase interface at commit `4e2e3f0`.
 
 The first structural gate treated all nine carrier domains as physical
 zero-energy embeddings.  That is not the type of the focused theorem's
@@ -42,17 +44,56 @@ does not duplicate them as carrier-boundary event functions.  The P2e face
 records start with the three channel terminals, three lateral walls, four
 aperture boundaries, and the stable cut.
 
-## Minimal physical realization to freeze
+## Corrected outgoing phase interface
 
-Use transported Kato phase and exact signed action on the P2d physical
-outgoing and incoming faces.  The wide band
+The theorem compares the algebraic, homoclinic, and pole traces in the common
+source phase \(\phi\) carried by the true P2bK source circle.  The exact P2d
+outgoing section instead has coordinates \((\psi,\nu)\).  These markings are
+related by the already proved orientation-preserving circle diffeomorphism
 
 \[
- B^u:\quad 57/10\leq\psi_u\leq13/2,
- \qquad |\nu_u|\leq2^{-54}
+ \phi=\kappa_\mu(\psi),\qquad
+ \psi=\lambda_\mu(\phi)=\kappa_\mu^{-1}(\phi).
 \]
 
-contains three protected phase collars.  Their centers and radii are
+They are not assumed to differ by a constant shift.  Thus the previous
+structural version, which wrote `B.OUT` in \(\psi\) but inserted the direct
+\(\phi\)-labels as aperture centers, did not define one typed object.  It was
+discovered before any full atlas run and did not support an atlas claim.
+
+We retain the P2d exact section and reparameterize only the outgoing carrier:
+
+\[
+ \mathcal E_{\mu}^{u,\mathrm{dir}}(\phi,\nu)
+ =\mathcal E_{\mu}^{u,\mathrm{P2d}}
+   (\lambda_\mu(\phi),\nu).
+\]
+
+For \(\nu\ne0\), \(\phi\) is the product extension of the boundary source
+label along the P2d \(\nu\)-fibres; it is not asserted to equal the Euclidean
+angle of the off-axis unstable coordinate.  Thus this definition needs only
+the boundary map \(\lambda_\mu\), not a new two-variable angular inversion.
+
+Consequently \(I_2^{\rm K}=\nu\) and its sign are unchanged.  In general,
+
+\[
+ (\mathcal E_{\mu}^{u,\mathrm{dir}})^*\omega
+ =\partial_\phi\lambda_\mu(\phi)\,d\phi\wedge d\nu,
+\]
+
+so \((\phi,\nu)\) is a physical carrier chart, not a claimed standard
+Darboux pair.  This is sufficient for the physical embeddings and event
+arrangement in V2(4)--(5); the underlying exact \((\psi,\nu)\) chart remains
+unchanged for V2(3), the local passage, and later cross-form arguments.
+
+The corrected outgoing band is
+
+\[
+ B^u:\quad 57/10\leq\phi_u\leq13/2,
+ \qquad |\nu_u|\leq2^{-54}.
+\]
+
+It contains three protected phase collars.  Their centers and radii are
 
 \[
 \begin{array}{c|c|c}
@@ -63,8 +104,9 @@ contains three protected phase collars.  Their centers and radii are
 \end{array}
 \]
 
-Here \(\phi_{\rm a}^0\) is the fixed transported label of the V2 finite-gate
-anchor, while \(\phi_{\rm h}(\mu)\) is the selected P2c branch.  The strict
+Here \(\phi_{\rm a}^0\) is the fixed direct source label of the V2 finite-gate
+anchor, while \(\phi_{\rm h}(\mu)\) is the selected P2c branch in the same
+lift.  The strict
 phase enclosures prove that the protected collar closures are uniformly
 disjoint and lie inside one proper lifted phase arc.  The algebraic cut
 \(e=(-U)^{-1}=23/400\) is both the frozen core finite gate and the section
@@ -88,7 +130,8 @@ and the common action radius \(R_\nu^{\rm ent}=2^{-55}\).  These choices were
 informed by a non-evidentiary scout; they are not certified margins.
 
 For each channel use normalized entrance coordinates \(x=(x_1,x_2)\) in
-the corresponding phase--action disc.  The algebraic internal label
+the corresponding direct-phase/exact-action disc on
+\(\mathcal E_{\mu}^{u,\mathrm{dir}}\).  The algebraic internal label
 \(w_{\rm alg}\) is a separate pulled-back scalar function and is not
 identified with \(x_2\).  On the larger carrier cylinder
 
@@ -131,12 +174,18 @@ implementation.  The strict run must prove existence and uniqueness of every
 hit, embedding and flow domain, event speed, containment, and disjointness;
 the frozen formulas do not assume those inequalities.
 
+The source-cell maps to `B.OUT` are displayed as
+\((\kappa_\mu,\mathrm{id})\circ\Pi_{\sigma,\infty}^{\rm P2d}\).
+This changes only their target coordinates.  `B.RET` remains in the exact
+P2d incoming coordinates \((\psi_r,\nu_r)\).
+
 ## Consequence for the gate
 
 The gate must accept a `PHYSICAL_ZERO_ENERGY_CARRIER` realization only for
 the five physical carriers and a `NORMALIZED_PULLBACK_DOMAIN` realization
 for the four `Z` domains.  A later full run may still be authorized only
-after the frozen physical faces and carrier maps have interval certificates,
+after the frozen physical faces, the \(\kappa/\lambda\) seam, and carrier
+maps have interval certificates,
 and after incidence/census, normalization, numeric \(m_0\), and transported
 traces are materialized.  The numerical budgets are already prospectively
 frozen.  This audit by itself remains `INCONCLUSIVE`,

@@ -88,6 +88,14 @@ EXPECTED_BINDINGS = {
         "validation/rigorous/config/vdp_p2d_physical_slides_v1.json",
         "fa7daa1273b508951e081378d938342f985271722bf4871669a30f4ab44a8f16",
     ),
+    "PHYSICAL_SOURCE_PHASE_SEAM_PROOF": (
+        "theory/EXPLICIT_FINITE_CHART_OVERLAPS.md",
+        "4afe3faa733eb20bac87978bbaaa8bd746248fd90e52d195c9d1ee4cc551d918",
+    ),
+    "PHYSICAL_SOURCE_PHASE_SEAM_CONTRACT": (
+        "validation/rigorous/config/vdp_p2d_overlaps_v1.json",
+        "698f5979f021e3702fd733169d71178fd06fd103647dff1a2bf87456edad407a",
+    ),
     "DEPENDENCY_LOCK": (
         "validation/rigorous/dependency.lock.json",
         "4d486a63cddf0902cc9fc4dedacc5a172527f6e167e2d311afa680c077a45b68",
@@ -102,7 +110,7 @@ EXPECTED_CARRIERS = {
     "C.H": (3, ["x_h_1", "x_h_2", "t_h"], "HOMOCLINIC_CHANNEL_FLOWBOX"),
     "C.A": (3, ["x_a_1", "x_a_2", "t_a"], "ALGEBRAIC_CHANNEL_FLOWBOX"),
     "C.P": (3, ["x_p_1", "x_p_2", "t_p"], "POLE_CHANNEL_FLOWBOX"),
-    "B.OUT": (2, ["psi_u", "nu_u"], "OUTGOING_AND_PRE_EVENT_BAND"),
+    "B.OUT": (2, ["phi_u", "nu_u"], "OUTGOING_AND_PRE_EVENT_BAND"),
     "B.RET": (2, ["psi_r", "nu_r"], "RETURN_AND_PRE_EVENT_BAND"),
     "Z.PLUS": (2, ["phi", "theta_bar"], "POSITIVE_SOURCE_SIGN_CELL"),
     "Z.MINUS": (2, ["phi", "theta_bar"], "NEGATIVE_SOURCE_SIGN_CELL"),
@@ -121,9 +129,26 @@ PULLBACK_TARGETS = {
 }
 
 EXPECTED_APERTURE_CENTERS = {
-    "ALG": "phi_a^0, the fixed transported V2 finite-gate anchor label",
+    "ALG": (
+        "phi_a^0, the fixed direct P2bK common source-phase label of the "
+        "V2 finite-gate anchor"),
     "HOM": "phi_h(mu), the selected P2c homoclinic source trace",
     "POLE": "2*pi in the fixed lifted phase coordinate",
+}
+
+EXPECTED_PHASE_INTERFACE = {
+    "displayed_coordinates": ["phi_u", "nu_u"],
+    "underlying_exact_section_coordinates": ["psi_u", "nu_u"],
+    "forward_boundary_seam": "phi_u=kappa_mu(psi_u)",
+    "inverse_boundary_seam": (
+        "psi_u=lambda_mu(phi_u)=kappa_mu^(-1)(phi_u)"),
+    "displayed_carrier_embedding": (
+        "E_out_mu^dir(phi_u,nu_u)="
+        "E_out_mu^P2d(lambda_mu(phi_u),nu_u)"),
+    "exact_action_preserved": True,
+    "standard_canonical_pair_claim": False,
+    "return_band_uses_underlying_p2d_coordinates": True,
+    "numeric_seam_materialization_status": "PENDING",
 }
 EXPECTED_ENTRY_PHASE_RADII = {
     "ALG": Fraction(1, 10_000_000),
@@ -204,6 +229,101 @@ REQUIRED_FACE_ROLES = {
     "OUT_POLE_APERTURE": "a_pole",
     "RETURN_APERTURE": "a_ret",
     "STABLE_CUT": "c_stable",
+}
+
+EXPECTED_DIRECT_FLOWBOX_EMBEDDINGS = {
+    "C.H": (
+        "E_H,mu(x,t)=Phi_mu^(t tau_H,mu(x))(E_out_mu^dir("
+        "phi_h(mu)+10^-8 x_h_1,2^-55 x_h_2)); tau_H,mu is the first "
+        "hit of the P2d incoming face and the retained coordinate domain "
+        "is x_h_1^2+x_h_2^2<=5/4"),
+    "C.A": (
+        "E_A,mu(x,t)=Phi_mu^(t tau_A,mu(x))(E_out_mu^dir("
+        "phi_a^0+10^-7 x_a_1,2^-55 x_a_2)); tau_A,mu is the first hit "
+        "of e=(-U)^(-1)=23/400 and the retained coordinate domain is "
+        "x_a_1^2+x_a_2^2<=5/4; w_alg is a separate pulled-back label "
+        "and is not x_a_2"),
+    "C.P": (
+        "E_P,mu(x,t)=Phi_mu^(t tau_P,mu(x))(E_out_mu^dir("
+        "2*pi+10^-5 x_p_1,2^-55 x_p_2)); tau_P,mu is the first hit of "
+        "-U=10 and the retained coordinate domain is "
+        "x_p_1^2+x_p_2^2<=5/4"),
+}
+
+EXPECTED_B_OUT_EMBEDDING = (
+    "E_out_mu^dir(phi_u,nu_u)=E_out_mu^P2d(lambda_mu(phi_u),nu_u), "
+    "the direct common-source-phase reparameterization of the "
+    "Kato-oriented exact P2d outgoing radial section")
+
+EXPECTED_B_RET_EMBEDDING = (
+    "E_in_mu(psi_r,nu_r), the Kato-oriented exact P2d incoming radial "
+    "section with psi_r=0 on the transported stable trace")
+
+EXPECTED_B_OUT_COORDINATE_SEMANTICS = {
+    "displayed_phase": "DIRECT_P2BK_COMMON_SOURCE_PHASE_PHI",
+    "transverse_coordinate": "EXACT_P2D_SIGNED_ACTION_NU",
+    "underlying_exact_section_coordinates": ["psi_u", "nu_u"],
+    "exact_action_preserved": True,
+    "standard_canonical_pair_claim": False,
+}
+
+EXPECTED_DIRECT_SOURCE_PULLBACKS = {
+    "Z.PLUS": (
+        "Pi_{+,infty,mu}^dir=(kappa_mu,id) o "
+        "Pi_{+,infty,mu}^P2d:Z.PLUS->B.OUT in the direct common "
+        "source-phase lift"),
+    "Z.MINUS": (
+        "Pi_{-,infty,mu}^dir=(kappa_mu,id) o "
+        "Pi_{-,infty,mu}^P2d:Z.MINUS->B.OUT in the direct common "
+        "source-phase lift"),
+}
+
+EXPECTED_DIRECT_LIST_PULLBACKS = {
+    "Z.PLUS": (
+        "Pi_{+,infty,mu}^dir=(kappa_mu,id) o "
+        "Pi_{+,infty,mu}^P2d:Z.PLUS->B.OUT"),
+    "Z.MINUS": (
+        "Pi_{-,infty,mu}^dir=(kappa_mu,id) o "
+        "Pi_{-,infty,mu}^P2d:Z.MINUS->B.OUT"),
+}
+
+EXPECTED_DIRECT_FACE_FORMULAS = {
+    "OUT_H_APERTURE": (
+        "((phi_u-phi_h(mu))/10^-8)^2+(nu_u/2^-55)^2-1=0"),
+    "OUT_ALG_APERTURE": (
+        "((phi_u-phi_a^0)/10^-7)^2+(nu_u/2^-55)^2-1=0"),
+    "OUT_POLE_APERTURE": (
+        "((phi_u-2*pi)/10^-5)^2+(nu_u/2^-55)^2-1=0"),
+}
+
+EXPECTED_DIRECT_FUNCTION_FORMULAS = {
+    "w_alg": (
+        "On C.A and B.OUT, w_alg is the transported core algebraic "
+        "finite-gate label pulled back through E_A,mu and E_out,mu^dir; "
+        "on Z domains it is pulled back by Pi_sigma,infty^dir. It is not "
+        "identified with the signed action x_a_2."),
+    "a_h": (
+        "((phi_u-phi_h(mu))/10^-8)^2+(nu_u/2^-55)^2-1, with "
+        "composition by Pi_sigma,infty^dir on Z.PLUS and Z.MINUS"),
+    "a_alg": (
+        "((phi_u-phi_a^0)/10^-7)^2+(nu_u/2^-55)^2-1, with "
+        "composition by Pi_sigma,infty^dir on Z.PLUS and Z.MINUS; "
+        "w_alg remains a separate label function"),
+    "a_pole": (
+        "((phi_u-2*pi)/10^-5)^2+(nu_u/2^-55)^2-1, with "
+        "composition by Pi_sigma,infty^dir on Z.PLUS and Z.MINUS"),
+    "q_h": (
+        "tau_side_h-tau_terminal_h=3-4[((phi_u-phi_h(mu))/10^-8)^2+"
+        "(nu_u/2^-55)^2] on its disjoint competing overlap and after "
+        "Pi_sigma,infty^dir pullback"),
+    "q_alg": (
+        "tau_side_alg-tau_terminal_alg=3-4[((phi_u-phi_a^0)/10^-7)^2+"
+        "(nu_u/2^-55)^2] on its disjoint competing overlap and after "
+        "Pi_sigma,infty^dir pullback"),
+    "q_pole": (
+        "tau_side_pole-tau_terminal_pole=3-4[((phi_u-2*pi)/10^-5)^2+"
+        "(nu_u/2^-55)^2] on its disjoint competing overlap and after "
+        "Pi_sigma,infty^dir pullback"),
 }
 
 REQUIRED_MARGINS = {
@@ -347,26 +467,28 @@ def nonplaceholder(value: Any, label: str) -> str:
 def validate_static_contract(config: dict[str, Any]) -> None:
     exact_keys(config, {
         "schema_version", "scope", "box_id", "comparison_bridge_id",
-        "status", "base_revision", "gate_semantics", "source_bindings",
+        "status", "base_revision", "gate_semantics", "coordinate_correction",
+        "source_bindings",
         "read_only_theory_design_reference", "parameter_cover",
         "inventory_contract", "materialization", "full_run_gate",
         "obligations", "nonclaims",
     }, "top-level configuration")
     require(config["schema_version"] ==
-            "rfsn-vdp-p2e-event-atlas-structure-gate/2",
+            "rfsn-vdp-p2e-event-atlas-structure-gate/3",
             "event-atlas gate schema version changed")
     require(config["scope"] ==
-            "V2_P2E_EXECUTABLE_EVENT_ATLAS_STRUCTURE_GATE_V2",
+            "V2_P2E_EXECUTABLE_EVENT_ATLAS_STRUCTURE_GATE_V3",
             "event-atlas gate scope changed")
     require(config["box_id"] == "vdp-positive-box-v2" and
             config["comparison_bridge_id"] ==
             "vdp-core-to-positive-bridge-v2",
             "event-atlas gate is not bound to the v2 box and bridge")
     require(config["status"] ==
-            "STRUCTURAL_GATE_FROZEN_PENDING_MATERIALIZATION",
+            "STRUCTURAL_GATE_FROZEN_AFTER_PHASE_INTERFACE_CORRECTION_"
+            "PENDING_MATERIALIZATION",
             "structural gate status changed")
     require(config["base_revision"] ==
-            "8ba7ffc0bb2cdced0c904ff6dfa319e4a5bd9b2b",
+            "4e2e3f097fbac75cf2ef2d149d7f002a25b8ea80",
             "structural gate base revision changed")
 
     semantics = config["gate_semantics"]
@@ -375,15 +497,46 @@ def validate_static_contract(config: dict[str, Any]) -> None:
         "structure_verdict_is_not_claim_bearing": True,
         "current_verdict": "STOP_BEFORE_FULL_RUN",
         "current_mathematical_status": "INCONCLUSIVE",
-        "stop_reason": "MISSING_EXECUTABLE_CORE_ATLAS_AND_NUMERIC_M0",
+        "stop_reason": (
+            "MISSING_EXECUTABLE_CORE_ATLAS_NUMERIC_M0_AND_DIRECT_CARRIER_SEAM"),
         "ready_verdict": "READY_FOR_FIRST_FULL_RUN",
         "ready_is_not_a_mathematical_pass": True,
         "full_capd_run_in_scope": False,
         "purpose": (
-            "Freeze the complete application-owned atlas instance and its "
-            "numerical execution choices before, but do not perform, the "
-            "first full event-atlas run."),
+            "Freeze the coordinate-corrected application-owned atlas "
+            "instance and its numerical execution choices before, but do "
+            "not perform, the first full event-atlas run."),
     }, "gate semantics changed")
+
+    require(config["coordinate_correction"] == {
+        "supersedes_schema_version": (
+            "rfsn-vdp-p2e-event-atlas-structure-gate/2"),
+        "supersedes_commit": (
+            "4e2e3f097fbac75cf2ef2d149d7f002a25b8ea80"),
+        "reason": "P2D_PSI_AND_DIRECT_P2BK_PHI_WERE_CONFLATED",
+        "superseded_object": (
+            "B.OUT was written in the exact P2d transported section phase "
+            "psi_u while its three aperture centers and the phase-gap "
+            "certificate were direct P2bK common source-phase labels phi."),
+        "corrected_object": (
+            "B.OUT uses the direct common source phase phi_u and exact P2d "
+            "signed action nu_u through E_out_mu^dir(phi_u,nu_u)="
+            "E_out_mu^P2d(lambda_mu(phi_u),nu_u)."),
+        "underlying_exact_section_coordinates": ["psi_u", "nu_u"],
+        "boundary_seam": (
+            "phi_u=kappa_mu(psi_u), psi_u=lambda_mu(phi_u)"),
+        "exact_action_preserved": True,
+        "standard_canonical_pair_claim": False,
+        "discovered_before_first_full_run": True,
+        "prior_atlas_materialization_executed": False,
+        "prior_atlas_claim_passed": False,
+        "mathematical_certificate_invalidated": False,
+        "phase_gap_result_reused_without_recomputation": True,
+        "reason_phase_gap_is_reusable": (
+            "The retained strict phase-gap certificate already compares "
+            "the direct P2bK common source labels phi_a^0, phi_h(mu), and "
+            "the pole arc."),
+    }, "phase-interface correction record changed")
 
     base = config["base_revision"]
     exists = subprocess.run(
@@ -501,19 +654,24 @@ def validate_static_contract(config: dict[str, Any]) -> None:
         "The three phase-gap subatoms cannot pass V2.EVENT_ATLAS without the complete transported traces and event census.",
         "The frozen flagship prose proves existence of a suitable atlas but does not serialize the application-owned atlas required here.",
         "The return-side occurrence is represented on return and pullback lists only through q_ret bound to the distinct occurrence u_r; it is not h_side_h and is not duplicated as a second side-hit function.",
+        "The corrected B.OUT coordinates (phi_u,nu_u) preserve the exact P2d signed action through lambda_mu but are not claimed to be a standard canonical pair; the seam and physical carrier remain pending materialization.",
+        "The earlier structural /2 gate was corrected before any full run or atlas PASS, so no mathematical certificate is invalidated and the direct-phase scalar gap certificate is retained.",
         "The bound terminal-flowbox scout is non-evidentiary design lineage only; no sampled orbit, affine proxy event, temporal-stability, Turing-selection, or canard conclusion is promoted.",
     ], "event-atlas structural nonclaim boundary changed")
 
 
 def validate_carrier_design_geometry(geometry: dict[str, Any]) -> dict[str, Any]:
     exact_keys(geometry, {
-        "phase_coordinate", "proper_phase_arc", "two_pi_enclosure",
+        "phase_coordinate", "phase_interface", "proper_phase_arc",
+        "two_pi_enclosure",
         "normal_band_half_width", "channel_normal_radius", "apertures",
         "required_relations",
     }, "carrier design geometry")
     require(geometry["phase_coordinate"] ==
-            "TRANSPORTED_KATO_SOURCE_PHASE_LIFT",
+            "DIRECT_P2BK_COMMON_SOURCE_PHASE_LIFT_WITH_P2D_SIGNED_ACTION",
             "carrier apertures use the wrong phase coordinate")
+    require(geometry["phase_interface"] == EXPECTED_PHASE_INTERFACE,
+            "direct/P2d phase interface changed or lost its noncanonical flag")
     phase_arc = exact_interval(geometry["proper_phase_arc"],
                                "proper carrier phase arc")
     two_pi = exact_interval(geometry["two_pi_enclosure"],
@@ -688,10 +846,14 @@ def validate_carriers(section: dict[str, Any]) -> tuple[
         if identifier in PHYSICAL_CARRIERS:
             require(record["kind"] == "PHYSICAL_ZERO_ENERGY_CARRIER",
                     f"physical carrier {identifier} changed type")
-            exact_keys(realization, {
+            expected_realization_keys = {
                 "type", "definition", "certificate_id", "state_coordinates",
                 "zero_energy", "immersion_required", "injectivity_required",
-            }, f"physical carrier {identifier} realization")
+            }
+            if identifier == "B.OUT":
+                expected_realization_keys.add("coordinate_semantics")
+            exact_keys(realization, expected_realization_keys,
+                       f"physical carrier {identifier} realization")
             require(realization["type"] == "PHYSICAL_EMBEDDING",
                     f"physical carrier {identifier} lacks an embedding")
             nonplaceholder(realization["definition"],
@@ -704,6 +866,22 @@ def validate_carriers(section: dict[str, Any]) -> tuple[
                     realization["immersion_required"] is True and
                     realization["injectivity_required"] is True,
                     f"carrier {identifier} weakens its physical embedding claim")
+            if identifier in EXPECTED_DIRECT_FLOWBOX_EMBEDDINGS:
+                require(realization["definition"] ==
+                        EXPECTED_DIRECT_FLOWBOX_EMBEDDINGS[identifier],
+                        f"carrier {identifier} bypasses the direct outgoing face")
+            elif identifier == "B.OUT":
+                require(realization["definition"] == EXPECTED_B_OUT_EMBEDDING,
+                        "B.OUT does not compose the inverse phase seam with P2d")
+                require(realization["certificate_id"] ==
+                        "V2.ATLAS.CARRIER.B.OUT.EMBEDDING_AND_PHASE_SEAM",
+                        "B.OUT phase seam is absent from its certificate obligation")
+                require(realization["coordinate_semantics"] ==
+                        EXPECTED_B_OUT_COORDINATE_SEMANTICS,
+                        "B.OUT action or noncanonical coordinate semantics changed")
+            elif identifier == "B.RET":
+                require(realization["definition"] == EXPECTED_B_RET_EMBEDDING,
+                        "B.RET no longer uses the exact P2d incoming coordinates")
         else:
             require(record["kind"] == "NORMALIZED_PULLBACK_DOMAIN",
                     f"pullback carrier {identifier} changed type")
@@ -725,6 +903,10 @@ def validate_carriers(section: dict[str, Any]) -> tuple[
             require(realization["zero_energy_claim"] is False and
                     realization["injective_embedding_claim"] is False,
                     f"pullback carrier {identifier} was promoted to a physical embedding")
+            if identifier in EXPECTED_DIRECT_SOURCE_PULLBACKS:
+                require(realization["map_definition"] ==
+                        EXPECTED_DIRECT_SOURCE_PULLBACKS[identifier],
+                        f"pullback carrier {identifier} bypasses kappa_mu")
         require(record["parameter_domain_id"] ==
                 "vdp-core-to-positive-bridge-v2",
                 f"carrier {identifier} is not defined on the full v2 bridge")
@@ -767,6 +949,10 @@ def validate_functions(section: dict[str, Any]) -> dict[str, dict[str, Any]]:
                 f"defining function {identifier} changed mathematical role")
         nonplaceholder(record["formula"],
                        f"defining function {identifier} formula")
+        if identifier in EXPECTED_DIRECT_FUNCTION_FORMULAS:
+            require(record["formula"] ==
+                    EXPECTED_DIRECT_FUNCTION_FORMULAS[identifier],
+                    f"defining function {identifier} reintroduces the wrong phase interface")
         require(record["formula_type"] in
                 {"EXACT_EXPRESSION", "CERTIFIED_MAP_COMPOSITION"},
                 f"defining function {identifier} formula type is not exact")
@@ -832,6 +1018,9 @@ def validate_faces(section: dict[str, Any],
         require(record["carrier_id"] in EXPECTED_CARRIERS,
                 f"face {record['id']} has an unknown carrier")
         nonplaceholder(record["formula"], f"face {record['id']} formula")
+        if role in EXPECTED_DIRECT_FACE_FORMULAS:
+            require(record["formula"] == EXPECTED_DIRECT_FACE_FORMULAS[role],
+                    f"face {role} reintroduces the P2d phase in a direct aperture")
         nonplaceholder(record["domain"], f"face {record['id']} domain")
         nonplaceholder(record["coorientation"],
                        f"face {record['id']} coorientation")
@@ -888,6 +1077,10 @@ def validate_lists(section: dict[str, Any],
                     f"ambient list {identifier} omits a carrier boundary stratum")
         nonplaceholder(record["pullback_map"],
                        f"ambient list {identifier} pullback map")
+        if carrier_id in EXPECTED_DIRECT_LIST_PULLBACKS:
+            require(record["pullback_map"] ==
+                    EXPECTED_DIRECT_LIST_PULLBACKS[carrier_id],
+                    f"ambient list {identifier} bypasses the direct phase map")
         require(record["disjoint_competing_overlap"] is (q_count == 1),
                 f"ambient list {identifier} has an incorrect overlap declaration")
         require(record["frozen"] is True,
@@ -1283,6 +1476,9 @@ def validate_traces(section: dict[str, Any]) -> None:
                 f"trace {record['id']} has an unknown carrier")
         nonplaceholder(record["coordinate_lift"],
                        f"trace {record['id']} coordinate lift")
+        require(record["coordinate_lift"] ==
+                "DIRECT_P2BK_COMMON_SOURCE_PHASE_LIFT",
+                f"trace {record['id']} is not in the theorem's common source phase")
         exact_interval(record["exact_enclosure"],
                        f"trace {record['id']} enclosure")
         nonplaceholder(record["certificate_id"],
@@ -1492,9 +1688,11 @@ def audit(config_path: Path = DEFAULT_CONFIG) -> dict[str, Any]:
     verdict = ("READY_FOR_FIRST_FULL_RUN" if full_run_authorized
                else "STOP_BEFORE_FULL_RUN")
     stop_reason = (None if full_run_authorized
-                   else "MISSING_EXECUTABLE_CORE_ATLAS_AND_NUMERIC_M0")
+                   else (
+                       "MISSING_EXECUTABLE_CORE_ATLAS_NUMERIC_M0_AND_"
+                       "DIRECT_CARRIER_SEAM"))
     return {
-        "schema_version": "rfsn-vdp-p2e-event-atlas-structure-gate-result/1",
+        "schema_version": "rfsn-vdp-p2e-event-atlas-structure-gate-result/2",
         "scope": config["scope"],
         "box_id": config["box_id"],
         "comparison_bridge_id": config["comparison_bridge_id"],
@@ -1508,6 +1706,8 @@ def audit(config_path: Path = DEFAULT_CONFIG) -> dict[str, Any]:
         "missing_materialization_sections": missing,
         "stop_reason": stop_reason,
         "parameter_cells": 4096,
+        "outgoing_phase_interface":
+            "DIRECT_P2BK_OVER_P2D_EXACT_SECTION_NONCANONICAL_PAIR",
         "frozen_carrier_geometry": carrier_geometry,
         "obligations": config["obligations"],
         "claim_bearing": False,

@@ -9,6 +9,7 @@ from pathlib import Path
 from validation.rigorous.check_p2e_event_atlas_v2 import (
     AuditError,
     DEFAULT_CONFIG,
+    EXPECTED_DIRECT_FUNCTION_FORMULAS,
     EXPECTED_FUNCTIONS,
     EXPECTED_TIME_DIFFERENCE_BINDINGS,
     EXPECTED_LISTS,
@@ -55,7 +56,8 @@ def frozen_function_records() -> list[dict]:
             "id": identifier,
             "role": role,
             "clock_role": clock_role,
-            "formula": f"exact_formula_{identifier}",
+            "formula": EXPECTED_DIRECT_FUNCTION_FORMULAS.get(
+                identifier, f"exact_formula_{identifier}"),
             "formula_type": "EXACT_EXPRESSION",
             "domain_ids": ["C.A"],
             "coorientation": "POSITIVE_IS_FORWARD",
@@ -105,6 +107,10 @@ class P2eEventAtlasV2StructuralGateTest(unittest.TestCase):
         self.assertEqual(result["status"], "STOP_BEFORE_FULL_RUN")
         self.assertEqual(result["mathematical_status"], "INCONCLUSIVE")
         self.assertEqual(result["integrity_status"], "STRUCTURE_SCHEMA_VALID")
+        self.assertEqual(
+            result["outgoing_phase_interface"],
+            "DIRECT_P2BK_OVER_P2D_EXACT_SECTION_NONCANONICAL_PAIR",
+        )
         self.assertEqual(result["atlas_claim_status"], "PENDING")
         self.assertFalse(result["claim_bearing"])
         self.assertFalse(result["full_run_authorized"])
@@ -114,6 +120,80 @@ class P2eEventAtlasV2StructuralGateTest(unittest.TestCase):
         self.assertNotIn("carriers", result["missing_materialization_sections"])
         self.assertTrue(all(item["status"] == "PENDING"
                             for item in result["obligations"]))
+
+    def test_superseded_phase_interface_schema_is_rejected(self) -> None:
+        config = base_config()
+        config["schema_version"] = (
+            "rfsn-vdp-p2e-event-atlas-structure-gate/2")
+        with self.assertRaisesRegex(AuditError, "schema version changed"):
+            audit_copy(config)
+
+    def test_outgoing_and_return_phase_types_remain_distinct(self) -> None:
+        config = base_config()
+        carriers = {
+            item["id"]: item
+            for item in config["materialization"]["carriers"]["records"]
+        }
+        self.assertEqual(carriers["B.OUT"]["coordinates"],
+                         ["phi_u", "nu_u"])
+        self.assertEqual(carriers["B.RET"]["coordinates"],
+                         ["psi_r", "nu_r"])
+
+    def test_direct_carrier_cannot_claim_a_standard_canonical_pair(self) -> None:
+        config = base_config()
+        geometry = config["materialization"]["carriers"]["design_geometry"]
+        geometry["phase_interface"]["standard_canonical_pair_claim"] = True
+        with self.assertRaisesRegex(AuditError, "noncanonical flag"):
+            audit_copy(config)
+
+    def test_direct_carrier_cannot_drop_lambda_or_exact_action(self) -> None:
+        for key, value, message in (
+                ("displayed_carrier_embedding",
+                 "E_out_mu^P2d(phi_u,nu_u)", "phase interface"),
+                ("exact_action_preserved", False, "phase interface")):
+            with self.subTest(key=key):
+                config = base_config()
+                geometry = config["materialization"]["carriers"][
+                    "design_geometry"]
+                geometry["phase_interface"][key] = value
+                with self.assertRaisesRegex(AuditError, message):
+                    audit_copy(config)
+
+    def test_outgoing_aperture_cannot_reintroduce_p2d_phase(self) -> None:
+        config = base_config()
+        face = next(
+            item for item in config["materialization"][
+                "physical_event_faces"]["records"]
+            if item["id"] == "F.APERTURE.H"
+        )
+        face["formula"] = face["formula"].replace("phi_u", "psi_u")
+        with self.assertRaisesRegex(AuditError, "P2d phase"):
+            audit_copy(config)
+
+    def test_flowbox_and_source_pullback_cannot_bypass_phase_seam(self) -> None:
+        for carrier_id, field, replacement, message in (
+                ("C.H", "definition",
+                 "raw E_out_mu without the inverse seam", "direct outgoing"),
+                ("Z.PLUS", "map_definition",
+                 "Pi_{+,infty,mu}:Z.PLUS->B.OUT", "bypasses kappa_mu")):
+            with self.subTest(carrier_id=carrier_id):
+                config = base_config()
+                carrier = next(
+                    item for item in config["materialization"]["carriers"][
+                        "records"] if item["id"] == carrier_id)
+                carrier["realization"][field] = replacement
+                with self.assertRaisesRegex(AuditError, message):
+                    audit_copy(config)
+
+    def test_phase_seam_source_hash_tamper_is_rejected(self) -> None:
+        config = base_config()
+        binding = next(
+            item for item in config["source_bindings"]
+            if item["role"] == "PHYSICAL_SOURCE_PHASE_SEAM_CONTRACT"
+        )
+        binding["sha256"] = "0" * 64
+        with self.assertRaisesRegex(AuditError, "source binding changed"):
+            audit_copy(config)
 
     def test_source_hash_tamper_is_rejected(self) -> None:
         config = base_config()

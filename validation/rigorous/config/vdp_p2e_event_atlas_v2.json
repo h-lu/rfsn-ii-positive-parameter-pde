@@ -1,20 +1,37 @@
 {
-  "schema_version": "rfsn-vdp-p2e-event-atlas-structure-gate/2",
-  "scope": "V2_P2E_EXECUTABLE_EVENT_ATLAS_STRUCTURE_GATE_V2",
+  "schema_version": "rfsn-vdp-p2e-event-atlas-structure-gate/3",
+  "scope": "V2_P2E_EXECUTABLE_EVENT_ATLAS_STRUCTURE_GATE_V3",
   "box_id": "vdp-positive-box-v2",
   "comparison_bridge_id": "vdp-core-to-positive-bridge-v2",
-  "status": "STRUCTURAL_GATE_FROZEN_PENDING_MATERIALIZATION",
-  "base_revision": "8ba7ffc0bb2cdced0c904ff6dfa319e4a5bd9b2b",
+  "status": "STRUCTURAL_GATE_FROZEN_AFTER_PHASE_INTERFACE_CORRECTION_PENDING_MATERIALIZATION",
+  "base_revision": "4e2e3f097fbac75cf2ef2d149d7f002a25b8ea80",
   "gate_semantics": {
     "structure_verdict": "READY_TO_SCOUT_NON_EVIDENTIARY",
     "structure_verdict_is_not_claim_bearing": true,
     "current_verdict": "STOP_BEFORE_FULL_RUN",
     "current_mathematical_status": "INCONCLUSIVE",
-    "stop_reason": "MISSING_EXECUTABLE_CORE_ATLAS_AND_NUMERIC_M0",
+    "stop_reason": "MISSING_EXECUTABLE_CORE_ATLAS_NUMERIC_M0_AND_DIRECT_CARRIER_SEAM",
     "ready_verdict": "READY_FOR_FIRST_FULL_RUN",
     "ready_is_not_a_mathematical_pass": true,
     "full_capd_run_in_scope": false,
-    "purpose": "Freeze the complete application-owned atlas instance and its numerical execution choices before, but do not perform, the first full event-atlas run."
+    "purpose": "Freeze the coordinate-corrected application-owned atlas instance and its numerical execution choices before, but do not perform, the first full event-atlas run."
+  },
+  "coordinate_correction": {
+    "supersedes_schema_version": "rfsn-vdp-p2e-event-atlas-structure-gate/2",
+    "supersedes_commit": "4e2e3f097fbac75cf2ef2d149d7f002a25b8ea80",
+    "reason": "P2D_PSI_AND_DIRECT_P2BK_PHI_WERE_CONFLATED",
+    "superseded_object": "B.OUT was written in the exact P2d transported section phase psi_u while its three aperture centers and the phase-gap certificate were direct P2bK common source-phase labels phi.",
+    "corrected_object": "B.OUT uses the direct common source phase phi_u and exact P2d signed action nu_u through E_out_mu^dir(phi_u,nu_u)=E_out_mu^P2d(lambda_mu(phi_u),nu_u).",
+    "underlying_exact_section_coordinates": ["psi_u", "nu_u"],
+    "boundary_seam": "phi_u=kappa_mu(psi_u), psi_u=lambda_mu(phi_u)",
+    "exact_action_preserved": true,
+    "standard_canonical_pair_claim": false,
+    "discovered_before_first_full_run": true,
+    "prior_atlas_materialization_executed": false,
+    "prior_atlas_claim_passed": false,
+    "mathematical_certificate_invalidated": false,
+    "phase_gap_result_reused_without_recomputation": true,
+    "reason_phase_gap_is_reusable": "The retained strict phase-gap certificate already compares the direct P2bK common source labels phi_a^0, phi_h(mu), and the pole arc."
   },
   "source_bindings": [
     {
@@ -61,6 +78,16 @@
       "role": "PHYSICAL_SADDLE_FACE_CONTRACT",
       "path": "validation/rigorous/config/vdp_p2d_physical_slides_v1.json",
       "sha256": "fa7daa1273b508951e081378d938342f985271722bf4871669a30f4ab44a8f16"
+    },
+    {
+      "role": "PHYSICAL_SOURCE_PHASE_SEAM_PROOF",
+      "path": "theory/EXPLICIT_FINITE_CHART_OVERLAPS.md",
+      "sha256": "4afe3faa733eb20bac87978bbaaa8bd746248fd90e52d195c9d1ee4cc551d918"
+    },
+    {
+      "role": "PHYSICAL_SOURCE_PHASE_SEAM_CONTRACT",
+      "path": "validation/rigorous/config/vdp_p2d_overlaps_v1.json",
+      "sha256": "698f5979f021e3702fd733169d71178fd06fd103647dff1a2bf87456edad407a"
     },
     {
       "role": "DEPENDENCY_LOCK",
@@ -111,7 +138,7 @@
       {"id": "C.H", "dimension": 3, "coordinates": ["x_h_1", "x_h_2", "t_h"], "role": "HOMOCLINIC_CHANNEL_FLOWBOX"},
       {"id": "C.A", "dimension": 3, "coordinates": ["x_a_1", "x_a_2", "t_a"], "role": "ALGEBRAIC_CHANNEL_FLOWBOX"},
       {"id": "C.P", "dimension": 3, "coordinates": ["x_p_1", "x_p_2", "t_p"], "role": "POLE_CHANNEL_FLOWBOX"},
-      {"id": "B.OUT", "dimension": 2, "coordinates": ["psi_u", "nu_u"], "role": "OUTGOING_AND_PRE_EVENT_BAND"},
+      {"id": "B.OUT", "dimension": 2, "coordinates": ["phi_u", "nu_u"], "role": "OUTGOING_AND_PRE_EVENT_BAND"},
       {"id": "B.RET", "dimension": 2, "coordinates": ["psi_r", "nu_r"], "role": "RETURN_AND_PRE_EVENT_BAND"},
       {"id": "Z.PLUS", "dimension": 2, "coordinates": ["phi", "theta_bar"], "role": "POSITIVE_SOURCE_SIGN_CELL"},
       {"id": "Z.MINUS", "dimension": 2, "coordinates": ["phi", "theta_bar"], "role": "NEGATIVE_SOURCE_SIGN_CELL"},
@@ -185,7 +212,18 @@
     "carriers": {
       "status": "FROZEN",
       "design_geometry": {
-        "phase_coordinate": "TRANSPORTED_KATO_SOURCE_PHASE_LIFT",
+        "phase_coordinate": "DIRECT_P2BK_COMMON_SOURCE_PHASE_LIFT_WITH_P2D_SIGNED_ACTION",
+        "phase_interface": {
+          "displayed_coordinates": ["phi_u", "nu_u"],
+          "underlying_exact_section_coordinates": ["psi_u", "nu_u"],
+          "forward_boundary_seam": "phi_u=kappa_mu(psi_u)",
+          "inverse_boundary_seam": "psi_u=lambda_mu(phi_u)=kappa_mu^(-1)(phi_u)",
+          "displayed_carrier_embedding": "E_out_mu^dir(phi_u,nu_u)=E_out_mu^P2d(lambda_mu(phi_u),nu_u)",
+          "exact_action_preserved": true,
+          "standard_canonical_pair_claim": false,
+          "return_band_uses_underlying_p2d_coordinates": true,
+          "numeric_seam_materialization_status": "PENDING"
+        },
         "proper_phase_arc": ["57/10", "13/2"],
         "two_pi_enclosure": ["103993/16551", "208696/33215"],
         "normal_band_half_width": "1/18014398509481984",
@@ -193,12 +231,12 @@
         "apertures": [
           {
             "id": "ALG",
-            "center_definition": "phi_a^0, the fixed transported V2 finite-gate anchor label",
+            "center_definition": "phi_a^0, the fixed direct P2bK common source-phase label of the V2 finite-gate anchor",
             "center_enclosure": ["5.7566913947049203", "5.7566913967948983"],
             "protected_phase_radius": "1/100",
             "entry_phase_radius": "1/10000000",
             "entry_action_radius": "1/36028797018963968",
-            "entry_map_definition": "The normalized (phase,action) disc is mapped by the exact P2d outgoing section and followed to the finite algebraic gate; the wider protected collar is not the flowbox disc.",
+            "entry_map_definition": "The normalized direct-phase/exact-action disc is mapped by E_out_mu^dir=E_out_mu^P2d o (lambda_mu,id) and followed to the finite algebraic gate; the wider protected collar is not the flowbox disc.",
             "anchor_enclosure": ["5.7566913947049203", "5.7566913967948983"],
             "anchor_source": "PHASE_GAP_RESULT.phase_hulls.algebraic"
           },
@@ -209,7 +247,7 @@
             "protected_phase_radius": "1/100",
             "entry_phase_radius": "1/100000000",
             "entry_action_radius": "1/36028797018963968",
-            "entry_map_definition": "The normalized (phase,action) disc is mapped by the exact P2d outgoing section and followed to the P2d incoming face; the wider protected collar is not the flowbox disc.",
+            "entry_map_definition": "The normalized direct-phase/exact-action disc is mapped by E_out_mu^dir=E_out_mu^P2d o (lambda_mu,id) and followed to the P2d incoming face; the wider protected collar is not the flowbox disc.",
             "anchor_enclosure": ["5.8339105054727822", "5.8888259815044703"],
             "anchor_source": "PHASE_GAP_RESULT.phase_hulls.homoclinic_comparison_bridge_hull"
           },
@@ -220,7 +258,7 @@
             "protected_phase_radius": "3/20",
             "entry_phase_radius": "1/100000",
             "entry_action_radius": "1/36028797018963968",
-            "entry_map_definition": "The normalized (phase,action) disc is mapped by the exact P2d outgoing section and followed to -U=10; the wider protected collar is not the flowbox disc.",
+            "entry_map_definition": "The normalized direct-phase/exact-action disc is mapped by E_out_mu^dir=E_out_mu^P2d o (lambda_mu,id) and followed to -U=10; the wider protected collar is not the flowbox disc.",
             "anchor_enclosure": ["-1/5", "1/5"],
             "anchor_source": "PHASE_GAP_RESULT.phase_hulls.pole_closed_cover_mod_2pi"
           }
@@ -246,7 +284,7 @@
           },
           "realization": {
             "type": "PHYSICAL_EMBEDDING",
-            "definition": "E_H,mu(x,t)=Phi_mu^(t tau_H,mu(x))(E_out_mu(phi_h(mu)+10^-8 x_h_1,2^-55 x_h_2)); tau_H,mu is the first hit of the P2d incoming face and the retained coordinate domain is x_h_1^2+x_h_2^2<=5/4",
+            "definition": "E_H,mu(x,t)=Phi_mu^(t tau_H,mu(x))(E_out_mu^dir(phi_h(mu)+10^-8 x_h_1,2^-55 x_h_2)); tau_H,mu is the first hit of the P2d incoming face and the retained coordinate domain is x_h_1^2+x_h_2^2<=5/4",
             "certificate_id": "V2.ATLAS.CARRIER.C.H.EMBEDDING",
             "state_coordinates": ["U", "P", "V", "Q"],
             "zero_energy": true,
@@ -278,7 +316,7 @@
           },
           "realization": {
             "type": "PHYSICAL_EMBEDDING",
-            "definition": "E_A,mu(x,t)=Phi_mu^(t tau_A,mu(x))(E_out_mu(phi_a^0+10^-7 x_a_1,2^-55 x_a_2)); tau_A,mu is the first hit of e=(-U)^(-1)=23/400 and the retained coordinate domain is x_a_1^2+x_a_2^2<=5/4; w_alg is a separate pulled-back label and is not x_a_2",
+            "definition": "E_A,mu(x,t)=Phi_mu^(t tau_A,mu(x))(E_out_mu^dir(phi_a^0+10^-7 x_a_1,2^-55 x_a_2)); tau_A,mu is the first hit of e=(-U)^(-1)=23/400 and the retained coordinate domain is x_a_1^2+x_a_2^2<=5/4; w_alg is a separate pulled-back label and is not x_a_2",
             "certificate_id": "V2.ATLAS.CARRIER.C.A.EMBEDDING",
             "state_coordinates": ["U", "P", "V", "Q"],
             "zero_energy": true,
@@ -310,7 +348,7 @@
           },
           "realization": {
             "type": "PHYSICAL_EMBEDDING",
-            "definition": "E_P,mu(x,t)=Phi_mu^(t tau_P,mu(x))(E_out_mu(2*pi+10^-5 x_p_1,2^-55 x_p_2)); tau_P,mu is the first hit of -U=10 and the retained coordinate domain is x_p_1^2+x_p_2^2<=5/4",
+            "definition": "E_P,mu(x,t)=Phi_mu^(t tau_P,mu(x))(E_out_mu^dir(2*pi+10^-5 x_p_1,2^-55 x_p_2)); tau_P,mu is the first hit of -U=10 and the retained coordinate domain is x_p_1^2+x_p_2^2<=5/4",
             "certificate_id": "V2.ATLAS.CARRIER.C.P.EMBEDDING",
             "state_coordinates": ["U", "P", "V", "Q"],
             "zero_energy": true,
@@ -334,32 +372,39 @@
           "id": "B.OUT",
           "kind": "PHYSICAL_ZERO_ENERGY_CARRIER",
           "dimension": 2,
-          "coordinates": ["psi_u", "nu_u"],
+          "coordinates": ["phi_u", "nu_u"],
           "coordinate_domain": {
-            "psi_u": ["57/10", "13/2"],
+            "phi_u": ["57/10", "13/2"],
             "nu_u": ["-1/18014398509481984", "1/18014398509481984"]
           },
           "realization": {
             "type": "PHYSICAL_EMBEDDING",
-            "definition": "E_out_mu(psi_u,nu_u), the Kato-oriented exact P2d outgoing radial section restricted to the displayed proper lifted phase arc",
-            "certificate_id": "V2.ATLAS.CARRIER.B.OUT.EMBEDDING",
+            "definition": "E_out_mu^dir(phi_u,nu_u)=E_out_mu^P2d(lambda_mu(phi_u),nu_u), the direct common-source-phase reparameterization of the Kato-oriented exact P2d outgoing radial section",
+            "certificate_id": "V2.ATLAS.CARRIER.B.OUT.EMBEDDING_AND_PHASE_SEAM",
             "state_coordinates": ["U", "P", "V", "Q"],
             "zero_energy": true,
             "immersion_required": true,
-            "injectivity_required": true
+            "injectivity_required": true,
+            "coordinate_semantics": {
+              "displayed_phase": "DIRECT_P2BK_COMMON_SOURCE_PHASE_PHI",
+              "transverse_coordinate": "EXACT_P2D_SIGNED_ACTION_NU",
+              "underlying_exact_section_coordinates": ["psi_u", "nu_u"],
+              "exact_action_preserved": true,
+              "standard_canonical_pair_claim": false
+            }
           },
           "parameter_domain_id": "vdp-core-to-positive-bridge-v2",
-          "boundary_function_ids": ["b_out_psi_minus", "b_out_psi_plus", "b_out_nu_minus", "b_out_nu_plus"],
+          "boundary_function_ids": ["b_out_phi_minus", "b_out_phi_plus", "b_out_nu_minus", "b_out_nu_plus"],
           "boundary_strata": [
             {"id": "INTERIOR", "active_boundary_function_ids": []},
-            {"id": "OUT.PSI.MINUS", "active_boundary_function_ids": ["b_out_psi_minus"]},
-            {"id": "OUT.PSI.PLUS", "active_boundary_function_ids": ["b_out_psi_plus"]},
+            {"id": "OUT.PHI.MINUS", "active_boundary_function_ids": ["b_out_phi_minus"]},
+            {"id": "OUT.PHI.PLUS", "active_boundary_function_ids": ["b_out_phi_plus"]},
             {"id": "OUT.NU.MINUS", "active_boundary_function_ids": ["b_out_nu_minus"]},
             {"id": "OUT.NU.PLUS", "active_boundary_function_ids": ["b_out_nu_plus"]},
-            {"id": "OUT.PSI.MINUS.NU.MINUS", "active_boundary_function_ids": ["b_out_psi_minus", "b_out_nu_minus"]},
-            {"id": "OUT.PSI.MINUS.NU.PLUS", "active_boundary_function_ids": ["b_out_psi_minus", "b_out_nu_plus"]},
-            {"id": "OUT.PSI.PLUS.NU.MINUS", "active_boundary_function_ids": ["b_out_psi_plus", "b_out_nu_minus"]},
-            {"id": "OUT.PSI.PLUS.NU.PLUS", "active_boundary_function_ids": ["b_out_psi_plus", "b_out_nu_plus"]}
+            {"id": "OUT.PHI.MINUS.NU.MINUS", "active_boundary_function_ids": ["b_out_phi_minus", "b_out_nu_minus"]},
+            {"id": "OUT.PHI.MINUS.NU.PLUS", "active_boundary_function_ids": ["b_out_phi_minus", "b_out_nu_plus"]},
+            {"id": "OUT.PHI.PLUS.NU.MINUS", "active_boundary_function_ids": ["b_out_phi_plus", "b_out_nu_minus"]},
+            {"id": "OUT.PHI.PLUS.NU.PLUS", "active_boundary_function_ids": ["b_out_phi_plus", "b_out_nu_plus"]}
           ],
           "boundary_strata_complete": true,
           "frozen": true
@@ -408,7 +453,7 @@
             "type": "PULLBACK_DOMAIN",
             "definition": "The positive-sign closed normalized source cell I_s x [0,1]",
             "target_carrier_id": "B.OUT",
-            "map_definition": "Pi_{+,infty,mu}:Z.PLUS->B.OUT in the fixed transported Kato lift",
+            "map_definition": "Pi_{+,infty,mu}^dir=(kappa_mu,id) o Pi_{+,infty,mu}^P2d:Z.PLUS->B.OUT in the direct common source-phase lift",
             "certificate_id": "V2.ATLAS.PULLBACK.Z.PLUS",
             "zero_energy_claim": false,
             "injective_embedding_claim": false
@@ -439,7 +484,7 @@
             "type": "PULLBACK_DOMAIN",
             "definition": "The negative-sign closed normalized source cell I_s x [0,1]",
             "target_carrier_id": "B.OUT",
-            "map_definition": "Pi_{-,infty,mu}:Z.MINUS->B.OUT in the fixed transported Kato lift",
+            "map_definition": "Pi_{-,infty,mu}^dir=(kappa_mu,id) o Pi_{-,infty,mu}^P2d:Z.MINUS->B.OUT in the direct common source-phase lift",
             "certificate_id": "V2.ATLAS.PULLBACK.Z.MINUS",
             "zero_energy_claim": false,
             "injective_embedding_claim": false
@@ -533,9 +578,9 @@
         {"id": "F.SIDE.H", "role": "HOM_SIDE", "carrier_id": "C.H", "defining_function_id": "h_side_h", "formula": "x_h_1^2+x_h_2^2-1+t_h/4=0", "domain": "C.H cylinder interior", "coorientation": "POSITIVE_OUTWARD_AND_FORWARD", "is_carrier_boundary": false, "physical": true, "frozen": true},
         {"id": "F.SIDE.A", "role": "ALG_SIDE", "carrier_id": "C.A", "defining_function_id": "h_side_alg", "formula": "x_a_1^2+x_a_2^2-1+t_a/4=0", "domain": "C.A cylinder interior", "coorientation": "POSITIVE_OUTWARD_AND_FORWARD", "is_carrier_boundary": false, "physical": true, "frozen": true},
         {"id": "F.SIDE.P", "role": "POLE_SIDE", "carrier_id": "C.P", "defining_function_id": "h_side_pole", "formula": "x_p_1^2+x_p_2^2-1+t_p/4=0", "domain": "C.P cylinder interior", "coorientation": "POSITIVE_OUTWARD_AND_FORWARD", "is_carrier_boundary": false, "physical": true, "frozen": true},
-        {"id": "F.APERTURE.H", "role": "OUT_H_APERTURE", "carrier_id": "B.OUT", "defining_function_id": "a_h", "formula": "((psi_u-phi_h(mu))/10^-8)^2+(nu_u/2^-55)^2-1=0", "domain": "B.OUT interior", "coorientation": "NEGATIVE_INSIDE", "is_carrier_boundary": false, "physical": true, "frozen": true},
-        {"id": "F.APERTURE.A", "role": "OUT_ALG_APERTURE", "carrier_id": "B.OUT", "defining_function_id": "a_alg", "formula": "((psi_u-phi_a^0)/10^-7)^2+(nu_u/2^-55)^2-1=0", "domain": "B.OUT algebraic protected collar", "coorientation": "NEGATIVE_INSIDE", "is_carrier_boundary": false, "physical": true, "frozen": true},
-        {"id": "F.APERTURE.P", "role": "OUT_POLE_APERTURE", "carrier_id": "B.OUT", "defining_function_id": "a_pole", "formula": "((psi_u-2*pi)/10^-5)^2+(nu_u/2^-55)^2-1=0", "domain": "B.OUT interior", "coorientation": "NEGATIVE_INSIDE", "is_carrier_boundary": false, "physical": true, "frozen": true},
+        {"id": "F.APERTURE.H", "role": "OUT_H_APERTURE", "carrier_id": "B.OUT", "defining_function_id": "a_h", "formula": "((phi_u-phi_h(mu))/10^-8)^2+(nu_u/2^-55)^2-1=0", "domain": "B.OUT interior", "coorientation": "NEGATIVE_INSIDE", "is_carrier_boundary": false, "physical": true, "frozen": true},
+        {"id": "F.APERTURE.A", "role": "OUT_ALG_APERTURE", "carrier_id": "B.OUT", "defining_function_id": "a_alg", "formula": "((phi_u-phi_a^0)/10^-7)^2+(nu_u/2^-55)^2-1=0", "domain": "B.OUT algebraic protected collar", "coorientation": "NEGATIVE_INSIDE", "is_carrier_boundary": false, "physical": true, "frozen": true},
+        {"id": "F.APERTURE.P", "role": "OUT_POLE_APERTURE", "carrier_id": "B.OUT", "defining_function_id": "a_pole", "formula": "((phi_u-2*pi)/10^-5)^2+(nu_u/2^-55)^2-1=0", "domain": "B.OUT interior", "coorientation": "NEGATIVE_INSIDE", "is_carrier_boundary": false, "physical": true, "frozen": true},
         {"id": "F.APERTURE.RET", "role": "RETURN_APERTURE", "carrier_id": "B.RET", "defining_function_id": "a_ret", "formula": "(psi_r/(1/25))^2+(nu_r/2^-55)^2-1=0", "domain": "B.RET interior", "coorientation": "NEGATIVE_INSIDE", "is_carrier_boundary": false, "physical": true, "frozen": true},
         {"id": "F.CUT.STABLE", "role": "STABLE_CUT", "carrier_id": "B.RET", "defining_function_id": "c_stable", "formula": "nu_r=0", "domain": "B.RET interior", "coorientation": "POSITIVE_TARGET_ACTION_SIDE", "is_carrier_boundary": false, "physical": true, "frozen": true}
       ]
@@ -583,7 +628,7 @@
           "id": "w_alg",
           "role": "ALGEBRAIC_INTERNAL_LABEL",
           "clock_role": "LABEL_ONLY",
-          "formula": "On C.A and B.OUT, w_alg is the transported core algebraic finite-gate label pulled back through E_A,mu and E_out,mu; on Z domains it is pulled back by Pi_sigma,infty. It is not identified with the signed action x_a_2.",
+          "formula": "On C.A and B.OUT, w_alg is the transported core algebraic finite-gate label pulled back through E_A,mu and E_out,mu^dir; on Z domains it is pulled back by Pi_sigma,infty^dir. It is not identified with the signed action x_a_2.",
           "formula_type": "CERTIFIED_MAP_COMPOSITION",
           "domain_ids": ["C.A", "B.OUT", "Z.PLUS", "Z.MINUS"],
           "coorientation": "POSITIVE_IN_THE_FROZEN_ALGEBRAIC_NORMAL_DIRECTION",
@@ -631,7 +676,7 @@
           "id": "a_h",
           "role": "OUTGOING_APERTURE",
           "clock_role": "PHYSICAL_FACE",
-          "formula": "((psi_u-phi_h(mu))/10^-8)^2+(nu_u/2^-55)^2-1, with composition by Pi_sigma,infty on Z.PLUS and Z.MINUS",
+          "formula": "((phi_u-phi_h(mu))/10^-8)^2+(nu_u/2^-55)^2-1, with composition by Pi_sigma,infty^dir on Z.PLUS and Z.MINUS",
           "formula_type": "CERTIFIED_MAP_COMPOSITION",
           "domain_ids": ["B.OUT", "Z.PLUS", "Z.MINUS"],
           "coorientation": "NEGATIVE_INSIDE_THE_HOMOCLINIC_APERTURE",
@@ -643,7 +688,7 @@
           "id": "a_alg",
           "role": "OUTGOING_APERTURE",
           "clock_role": "PHYSICAL_FACE",
-          "formula": "((psi_u-phi_a^0)/10^-7)^2+(nu_u/2^-55)^2-1, with composition by Pi_sigma,infty on Z.PLUS and Z.MINUS; w_alg remains a separate label function",
+          "formula": "((phi_u-phi_a^0)/10^-7)^2+(nu_u/2^-55)^2-1, with composition by Pi_sigma,infty^dir on Z.PLUS and Z.MINUS; w_alg remains a separate label function",
           "formula_type": "CERTIFIED_MAP_COMPOSITION",
           "domain_ids": ["B.OUT", "Z.PLUS", "Z.MINUS"],
           "coorientation": "NEGATIVE_INSIDE_THE_ALGEBRAIC_APERTURE",
@@ -655,7 +700,7 @@
           "id": "a_pole",
           "role": "OUTGOING_APERTURE",
           "clock_role": "PHYSICAL_FACE",
-          "formula": "((psi_u-2*pi)/10^-5)^2+(nu_u/2^-55)^2-1, with composition by Pi_sigma,infty on Z.PLUS and Z.MINUS",
+          "formula": "((phi_u-2*pi)/10^-5)^2+(nu_u/2^-55)^2-1, with composition by Pi_sigma,infty^dir on Z.PLUS and Z.MINUS",
           "formula_type": "CERTIFIED_MAP_COMPOSITION",
           "domain_ids": ["B.OUT", "Z.PLUS", "Z.MINUS"],
           "coorientation": "NEGATIVE_INSIDE_THE_POLE_APERTURE",
@@ -691,7 +736,7 @@
           "id": "q_h",
           "role": "PAIRWISE_EVENT_TIME_DIFFERENCE",
           "clock_role": "TIME_DIFFERENCE",
-          "formula": "tau_side_h-tau_terminal_h=3-4[((psi_u-phi_h(mu))/10^-8)^2+(nu_u/2^-55)^2] on its disjoint competing overlap and after Pi_sigma,infty pullback",
+          "formula": "tau_side_h-tau_terminal_h=3-4[((phi_u-phi_h(mu))/10^-8)^2+(nu_u/2^-55)^2] on its disjoint competing overlap and after Pi_sigma,infty^dir pullback",
           "formula_type": "CERTIFIED_MAP_COMPOSITION",
           "domain_ids": ["B.OUT", "Z.PLUS", "Z.MINUS"],
           "coorientation": "POSITIVE_MEANS_HOMOCLINIC_TERMINAL_PRECEDES_ITS_SIDE",
@@ -709,7 +754,7 @@
           "id": "q_alg",
           "role": "PAIRWISE_EVENT_TIME_DIFFERENCE",
           "clock_role": "TIME_DIFFERENCE",
-          "formula": "tau_side_alg-tau_terminal_alg=3-4[((psi_u-phi_a^0)/10^-7)^2+(nu_u/2^-55)^2] on its disjoint competing overlap and after Pi_sigma,infty pullback",
+          "formula": "tau_side_alg-tau_terminal_alg=3-4[((phi_u-phi_a^0)/10^-7)^2+(nu_u/2^-55)^2] on its disjoint competing overlap and after Pi_sigma,infty^dir pullback",
           "formula_type": "CERTIFIED_MAP_COMPOSITION",
           "domain_ids": ["B.OUT", "Z.PLUS", "Z.MINUS"],
           "coorientation": "POSITIVE_MEANS_ALGEBRAIC_TERMINAL_PRECEDES_ITS_SIDE",
@@ -727,7 +772,7 @@
           "id": "q_pole",
           "role": "PAIRWISE_EVENT_TIME_DIFFERENCE",
           "clock_role": "TIME_DIFFERENCE",
-          "formula": "tau_side_pole-tau_terminal_pole=3-4[((psi_u-2*pi)/10^-5)^2+(nu_u/2^-55)^2] on its disjoint competing overlap and after Pi_sigma,infty pullback",
+          "formula": "tau_side_pole-tau_terminal_pole=3-4[((phi_u-2*pi)/10^-5)^2+(nu_u/2^-55)^2] on its disjoint competing overlap and after Pi_sigma,infty^dir pullback",
           "formula_type": "CERTIFIED_MAP_COMPOSITION",
           "domain_ids": ["B.OUT", "Z.PLUS", "Z.MINUS"],
           "coorientation": "POSITIVE_MEANS_POLE_TERMINAL_PRECEDES_ITS_SIDE",
@@ -804,7 +849,7 @@
           "carrier_id": "B.OUT",
           "function_ids": ["a_h", "a_alg", "a_pole", "w_alg", "q_h"],
           "function_domains": {"a_h": "FULL_B.OUT", "a_alg": "FULL_B.OUT", "a_pole": "FULL_B.OUT", "w_alg": "FULL_B.OUT_WITH_FIXED_SIGN_EXTENSION_OFF_ALGEBRAIC_COLLAR", "q_h": "HOMOCLINIC_COMPETING_COLLAR_WITH_FIXED_NONZERO_EXTENSION_OFF_THE_COLLAR"},
-          "boundary_strata": ["INTERIOR", "OUT.PSI.MINUS", "OUT.PSI.PLUS", "OUT.NU.MINUS", "OUT.NU.PLUS", "OUT.PSI.MINUS.NU.MINUS", "OUT.PSI.MINUS.NU.PLUS", "OUT.PSI.PLUS.NU.MINUS", "OUT.PSI.PLUS.NU.PLUS"],
+          "boundary_strata": ["INTERIOR", "OUT.PHI.MINUS", "OUT.PHI.PLUS", "OUT.NU.MINUS", "OUT.NU.PLUS", "OUT.PHI.MINUS.NU.MINUS", "OUT.PHI.MINUS.NU.PLUS", "OUT.PHI.PLUS.NU.MINUS", "OUT.PHI.PLUS.NU.PLUS"],
           "pullback_map": "IDENTITY_ON_B.OUT",
           "disjoint_competing_overlap": true,
           "frozen": true
@@ -814,7 +859,7 @@
           "carrier_id": "B.OUT",
           "function_ids": ["a_h", "a_alg", "a_pole", "w_alg", "q_alg"],
           "function_domains": {"a_h": "FULL_B.OUT", "a_alg": "FULL_B.OUT", "a_pole": "FULL_B.OUT", "w_alg": "FULL_B.OUT_WITH_FIXED_SIGN_EXTENSION_OFF_ALGEBRAIC_COLLAR", "q_alg": "ALGEBRAIC_COMPETING_COLLAR_WITH_FIXED_NONZERO_EXTENSION_OFF_THE_COLLAR"},
-          "boundary_strata": ["INTERIOR", "OUT.PSI.MINUS", "OUT.PSI.PLUS", "OUT.NU.MINUS", "OUT.NU.PLUS", "OUT.PSI.MINUS.NU.MINUS", "OUT.PSI.MINUS.NU.PLUS", "OUT.PSI.PLUS.NU.MINUS", "OUT.PSI.PLUS.NU.PLUS"],
+          "boundary_strata": ["INTERIOR", "OUT.PHI.MINUS", "OUT.PHI.PLUS", "OUT.NU.MINUS", "OUT.NU.PLUS", "OUT.PHI.MINUS.NU.MINUS", "OUT.PHI.MINUS.NU.PLUS", "OUT.PHI.PLUS.NU.MINUS", "OUT.PHI.PLUS.NU.PLUS"],
           "pullback_map": "IDENTITY_ON_B.OUT",
           "disjoint_competing_overlap": true,
           "frozen": true
@@ -824,7 +869,7 @@
           "carrier_id": "B.OUT",
           "function_ids": ["a_h", "a_alg", "a_pole", "w_alg", "q_pole"],
           "function_domains": {"a_h": "FULL_B.OUT", "a_alg": "FULL_B.OUT", "a_pole": "FULL_B.OUT", "w_alg": "FULL_B.OUT_WITH_FIXED_SIGN_EXTENSION_OFF_ALGEBRAIC_COLLAR", "q_pole": "POLE_COMPETING_COLLAR_WITH_FIXED_NONZERO_EXTENSION_OFF_THE_COLLAR"},
-          "boundary_strata": ["INTERIOR", "OUT.PSI.MINUS", "OUT.PSI.PLUS", "OUT.NU.MINUS", "OUT.NU.PLUS", "OUT.PSI.MINUS.NU.MINUS", "OUT.PSI.MINUS.NU.PLUS", "OUT.PSI.PLUS.NU.MINUS", "OUT.PSI.PLUS.NU.PLUS"],
+          "boundary_strata": ["INTERIOR", "OUT.PHI.MINUS", "OUT.PHI.PLUS", "OUT.NU.MINUS", "OUT.NU.PLUS", "OUT.PHI.MINUS.NU.MINUS", "OUT.PHI.MINUS.NU.PLUS", "OUT.PHI.PLUS.NU.MINUS", "OUT.PHI.PLUS.NU.PLUS"],
           "pullback_map": "IDENTITY_ON_B.OUT",
           "disjoint_competing_overlap": true,
           "frozen": true
@@ -845,7 +890,7 @@
           "function_ids": ["a_h", "a_alg", "a_pole", "w_alg", "q_h"],
           "function_domains": {"a_h": "FULL_Z.PLUS", "a_alg": "FULL_Z.PLUS", "a_pole": "FULL_Z.PLUS", "w_alg": "FULL_Z.PLUS", "q_h": "PULLBACK_OF_HOMOCLINIC_COMPETING_COLLAR"},
           "boundary_strata": ["INTERIOR", "ZP.PHI.MINUS", "ZP.PHI.PLUS", "ZP.THETA.MINUS", "ZP.THETA.PLUS", "ZP.PHI.MINUS.THETA.MINUS", "ZP.PHI.MINUS.THETA.PLUS", "ZP.PHI.PLUS.THETA.MINUS", "ZP.PHI.PLUS.THETA.PLUS"],
-          "pullback_map": "Pi_{+,infty,mu}:Z.PLUS->B.OUT",
+          "pullback_map": "Pi_{+,infty,mu}^dir=(kappa_mu,id) o Pi_{+,infty,mu}^P2d:Z.PLUS->B.OUT",
           "disjoint_competing_overlap": true,
           "frozen": true
         },
@@ -855,7 +900,7 @@
           "function_ids": ["a_h", "a_alg", "a_pole", "w_alg", "q_alg"],
           "function_domains": {"a_h": "FULL_Z.PLUS", "a_alg": "FULL_Z.PLUS", "a_pole": "FULL_Z.PLUS", "w_alg": "FULL_Z.PLUS", "q_alg": "PULLBACK_OF_ALGEBRAIC_COMPETING_COLLAR"},
           "boundary_strata": ["INTERIOR", "ZP.PHI.MINUS", "ZP.PHI.PLUS", "ZP.THETA.MINUS", "ZP.THETA.PLUS", "ZP.PHI.MINUS.THETA.MINUS", "ZP.PHI.MINUS.THETA.PLUS", "ZP.PHI.PLUS.THETA.MINUS", "ZP.PHI.PLUS.THETA.PLUS"],
-          "pullback_map": "Pi_{+,infty,mu}:Z.PLUS->B.OUT",
+          "pullback_map": "Pi_{+,infty,mu}^dir=(kappa_mu,id) o Pi_{+,infty,mu}^P2d:Z.PLUS->B.OUT",
           "disjoint_competing_overlap": true,
           "frozen": true
         },
@@ -865,7 +910,7 @@
           "function_ids": ["a_h", "a_alg", "a_pole", "w_alg", "q_pole"],
           "function_domains": {"a_h": "FULL_Z.PLUS", "a_alg": "FULL_Z.PLUS", "a_pole": "FULL_Z.PLUS", "w_alg": "FULL_Z.PLUS", "q_pole": "PULLBACK_OF_POLE_COMPETING_COLLAR"},
           "boundary_strata": ["INTERIOR", "ZP.PHI.MINUS", "ZP.PHI.PLUS", "ZP.THETA.MINUS", "ZP.THETA.PLUS", "ZP.PHI.MINUS.THETA.MINUS", "ZP.PHI.MINUS.THETA.PLUS", "ZP.PHI.PLUS.THETA.MINUS", "ZP.PHI.PLUS.THETA.PLUS"],
-          "pullback_map": "Pi_{+,infty,mu}:Z.PLUS->B.OUT",
+          "pullback_map": "Pi_{+,infty,mu}^dir=(kappa_mu,id) o Pi_{+,infty,mu}^P2d:Z.PLUS->B.OUT",
           "disjoint_competing_overlap": true,
           "frozen": true
         },
@@ -875,7 +920,7 @@
           "function_ids": ["a_h", "a_alg", "a_pole", "w_alg", "q_h"],
           "function_domains": {"a_h": "FULL_Z.MINUS", "a_alg": "FULL_Z.MINUS", "a_pole": "FULL_Z.MINUS", "w_alg": "FULL_Z.MINUS", "q_h": "PULLBACK_OF_HOMOCLINIC_COMPETING_COLLAR"},
           "boundary_strata": ["INTERIOR", "ZM.PHI.MINUS", "ZM.PHI.PLUS", "ZM.THETA.MINUS", "ZM.THETA.PLUS", "ZM.PHI.MINUS.THETA.MINUS", "ZM.PHI.MINUS.THETA.PLUS", "ZM.PHI.PLUS.THETA.MINUS", "ZM.PHI.PLUS.THETA.PLUS"],
-          "pullback_map": "Pi_{-,infty,mu}:Z.MINUS->B.OUT",
+          "pullback_map": "Pi_{-,infty,mu}^dir=(kappa_mu,id) o Pi_{-,infty,mu}^P2d:Z.MINUS->B.OUT",
           "disjoint_competing_overlap": true,
           "frozen": true
         },
@@ -885,7 +930,7 @@
           "function_ids": ["a_h", "a_alg", "a_pole", "w_alg", "q_alg"],
           "function_domains": {"a_h": "FULL_Z.MINUS", "a_alg": "FULL_Z.MINUS", "a_pole": "FULL_Z.MINUS", "w_alg": "FULL_Z.MINUS", "q_alg": "PULLBACK_OF_ALGEBRAIC_COMPETING_COLLAR"},
           "boundary_strata": ["INTERIOR", "ZM.PHI.MINUS", "ZM.PHI.PLUS", "ZM.THETA.MINUS", "ZM.THETA.PLUS", "ZM.PHI.MINUS.THETA.MINUS", "ZM.PHI.MINUS.THETA.PLUS", "ZM.PHI.PLUS.THETA.MINUS", "ZM.PHI.PLUS.THETA.PLUS"],
-          "pullback_map": "Pi_{-,infty,mu}:Z.MINUS->B.OUT",
+          "pullback_map": "Pi_{-,infty,mu}^dir=(kappa_mu,id) o Pi_{-,infty,mu}^P2d:Z.MINUS->B.OUT",
           "disjoint_competing_overlap": true,
           "frozen": true
         },
@@ -895,7 +940,7 @@
           "function_ids": ["a_h", "a_alg", "a_pole", "w_alg", "q_pole"],
           "function_domains": {"a_h": "FULL_Z.MINUS", "a_alg": "FULL_Z.MINUS", "a_pole": "FULL_Z.MINUS", "w_alg": "FULL_Z.MINUS", "q_pole": "PULLBACK_OF_POLE_COMPETING_COLLAR"},
           "boundary_strata": ["INTERIOR", "ZM.PHI.MINUS", "ZM.PHI.PLUS", "ZM.THETA.MINUS", "ZM.THETA.PLUS", "ZM.PHI.MINUS.THETA.MINUS", "ZM.PHI.MINUS.THETA.PLUS", "ZM.PHI.PLUS.THETA.MINUS", "ZM.PHI.PLUS.THETA.PLUS"],
-          "pullback_map": "Pi_{-,infty,mu}:Z.MINUS->B.OUT",
+          "pullback_map": "Pi_{-,infty,mu}^dir=(kappa_mu,id) o Pi_{-,infty,mu}^P2d:Z.MINUS->B.OUT",
           "disjoint_competing_overlap": true,
           "frozen": true
         },
@@ -933,7 +978,7 @@
         {"carrier_id": "C.H", "coordinate_domain": {"x_h_1": ["-6/5", "6/5"], "x_h_2": ["-6/5", "6/5"], "t_h": ["-1/8", "9/8"]}, "frozen": true},
         {"carrier_id": "C.A", "coordinate_domain": {"x_a_1": ["-6/5", "6/5"], "x_a_2": ["-6/5", "6/5"], "t_a": ["-1/8", "9/8"]}, "frozen": true},
         {"carrier_id": "C.P", "coordinate_domain": {"x_p_1": ["-6/5", "6/5"], "x_p_2": ["-6/5", "6/5"], "t_p": ["-1/8", "9/8"]}, "frozen": true},
-        {"carrier_id": "B.OUT", "coordinate_domain": {"psi_u": ["57/10", "13/2"], "nu_u": ["-1/18014398509481984", "1/18014398509481984"]}, "frozen": true},
+        {"carrier_id": "B.OUT", "coordinate_domain": {"phi_u": ["57/10", "13/2"], "nu_u": ["-1/18014398509481984", "1/18014398509481984"]}, "frozen": true},
         {"carrier_id": "B.RET", "coordinate_domain": {"psi_r": ["-1/20", "1/20"], "nu_r": ["-1/18014398509481984", "1/18014398509481984"]}, "frozen": true},
         {"carrier_id": "Z.PLUS", "coordinate_domain": {"phi": ["-1/20", "1/20"], "theta_bar": ["0", "1"]}, "frozen": true},
         {"carrier_id": "Z.MINUS", "coordinate_domain": {"phi": ["-1/20", "1/20"], "theta_bar": ["0", "1"]}, "frozen": true},
@@ -980,6 +1025,8 @@
     "The three phase-gap subatoms cannot pass V2.EVENT_ATLAS without the complete transported traces and event census.",
     "The frozen flagship prose proves existence of a suitable atlas but does not serialize the application-owned atlas required here.",
     "The return-side occurrence is represented on return and pullback lists only through q_ret bound to the distinct occurrence u_r; it is not h_side_h and is not duplicated as a second side-hit function.",
+    "The corrected B.OUT coordinates (phi_u,nu_u) preserve the exact P2d signed action through lambda_mu but are not claimed to be a standard canonical pair; the seam and physical carrier remain pending materialization.",
+    "The earlier structural /2 gate was corrected before any full run or atlas PASS, so no mathematical certificate is invalidated and the direct-phase scalar gap certificate is retained.",
     "The bound terminal-flowbox scout is non-evidentiary design lineage only; no sampled orbit, affine proxy event, temporal-stability, Turing-selection, or canard conclusion is promoted."
   ]
 }

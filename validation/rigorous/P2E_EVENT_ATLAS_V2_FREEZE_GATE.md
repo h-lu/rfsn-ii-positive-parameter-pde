@@ -1,4 +1,4 @@
-# P2e v2 event-atlas structural freeze gate
+# P2e v2-box event-atlas structural freeze gate (schema `/3`)
 
 This gate freezes the data model for one application-owned realization of
 `V2.EVENT_ATLAS`.  It is not an event-atlas certificate and it does not run
@@ -15,6 +15,23 @@ mathematical_status  INCONCLUSIVE
 be used to test the frozen compact carriers and artificial lateral faces.
 Neither it nor the later `READY_FOR_FIRST_FULL_RUN` state is a mathematical
 `PASS`.
+
+Schema `/3` supersedes the unmaterialized `/2` structure at commit
+`4e2e3f0`.  The earlier file used the P2d section phase \(\psi_u\) as the
+`B.OUT` coordinate but centered its apertures at direct common-source labels
+\(\phi_{\rm a}^0\), \(\phi_{\rm h}(\mu)\), and \(2\pi\).  The corrected
+carrier is
+
+\[
+ E_{\rm out}^{\rm dir}(\phi_u,\nu_u)
+ =E_{\rm out}^{\rm P2d}(\lambda_\mu(\phi_u),\nu_u).
+\]
+
+It preserves the exact signed action, while the displayed pair is not claimed
+to be Darboux.  `B.RET` remains in the exact P2d coordinates
+\((\psi_r,\nu_r)\).  No full atlas run had begun, so this correction
+invalidates no mathematical certificate; the three strict phase gaps already
+live in the direct \(\phi\)-lift and are retained.
 
 The manifest fixes the v2 comparison bridge and its 4096-cell rational cover,
 the required carrier and function inventories, the complete ambient-domain
@@ -51,24 +68,28 @@ return event `a_ret` while retaining `q_ret` as incidence data.
    normalized pullback domains.  Scout whether their physical embeddings have
    the required flow buffers and disjointness.  This scouting remains
    non-evidentiary.
-3. The terminal/aperture/label/cut functions, the four distinct side
+3. Materialize the \(\kappa_\mu/\lambda_\mu\) seam and the composed direct
+   outgoing carrier before treating any off-zero flowbox as evidence.  The
+   earlier floating flowbox scout uses a design coordinate only and cannot
+   serve as this certificate.
+4. The terminal/aperture/label/cut functions, the four distinct side
    occurrences, all pullback maps, and the per-carrier subdivision and
    Taylor-order budgets are now frozen prospectively.  Run the structural
    checker before each complete rigorous calculation and reject any mutation
    of these objects.
-4. Validate the three narrow channels and artificial laterals on the v2 bridge:
+5. Validate the three narrow channels and artificial laterals on the v2 bridge:
    event speeds, containment and flow-domain buffers, inactive-face gaps,
    conormal rank, and every empty/nonempty sign incidence.  A nonempty
    pairwise-time tie uses conormal rank, never a fictitious positive time gap.
-5. Compute one exhaustive connected-component first-event census at `r=0`,
+6. Compute one exhaustive connected-component first-event census at `r=0`,
    then certify common-face gluing and a uniform neat isotopy across the fixed
    4096 bridge cells.  Any residual, duplicate component, failed box, or budget
    exhaustion yields `INCONCLUSIVE`.
-6. Freeze dimensionless scales and take `m0` only as the minimum of the actual
+7. Freeze dimensionless scales and take `m0` only as the minimum of the actual
    certified positive lower bounds, with the bridge margin at least `m0/2`.
    Finally bind the transported algebraic, homoclinic, pole, and residual traces
    and the proper phase arc.
-7. Only after all sections pass the structural audit may the frozen binary make
+8. Only after all sections pass the structural audit may the frozen binary make
    the first full run.  Its resulting certificates require a separate checker
    before any `V2.EVENT_ATLAS` claim can become `PASS`.
 
