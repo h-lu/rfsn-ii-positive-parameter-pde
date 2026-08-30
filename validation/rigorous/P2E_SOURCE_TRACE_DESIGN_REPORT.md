@@ -127,10 +127,15 @@ proves the existence and regularity of that direct source circle, so a full
 32,768-leaf raw shooting run would duplicate the spine while leaving the
 actual seam and carrier open.
 
-The next claim-bearing computation is instead the finite \(\kappa/\lambda\)
-seam materialization followed by the composed `B.OUT` embedding.  Only if
-that calculation needs direct-spine predictors should the present scout be
-reused.  No full source-trace run is presently warranted.
+The P2d overlap and physical-slide proofs already imply that the finite
+\(\kappa/\lambda\) seam exists with the needed regularity and that the
+composed `B.OUT` is a \(C^2\) zero-energy embedding on the frozen action
+collar.  A standalone numerical seam table would therefore duplicate a
+qualitative conclusion rather than close the next atlas obligation.  The
+next claim-bearing computation is the rigorous physical initial-state
+enclosure on the three entrance discs, followed by their exterior first-hit
+maps.  Only if that local evaluator needs direct-spine predictors should the
+present scout be reused.  No full source-trace run is presently warranted.
 
 The moving HOM target, residual \(+\)/\(-\) templates, proper phase arc,
 physical carriers, incidence complex, first-event census, normalization, and

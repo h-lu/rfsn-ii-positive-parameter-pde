@@ -146,6 +146,22 @@ class P2eEventAtlasV2StructuralGateTest(unittest.TestCase):
         with self.assertRaisesRegex(AuditError, "noncanonical flag"):
             audit_copy(config)
 
+    def test_imported_seam_cannot_be_turned_into_a_numeric_table_obligation(self) -> None:
+        config = base_config()
+        interface = config["materialization"]["carriers"][
+            "design_geometry"]["phase_interface"]
+        interface["standalone_numeric_lambda_table_required"] = True
+        with self.assertRaisesRegex(AuditError, "phase interface"):
+            audit_copy(config)
+
+    def test_composed_initial_state_evaluator_remains_pending(self) -> None:
+        config = base_config()
+        interface = config["materialization"]["carriers"][
+            "design_geometry"]["phase_interface"]
+        interface["composed_physical_initial_state_evaluator_status"] = "PASS"
+        with self.assertRaisesRegex(AuditError, "phase interface"):
+            audit_copy(config)
+
     def test_direct_carrier_cannot_drop_lambda_or_exact_action(self) -> None:
         for key, value, message in (
                 ("displayed_carrier_embedding",

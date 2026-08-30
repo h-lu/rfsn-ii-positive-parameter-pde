@@ -41,8 +41,11 @@ physical carriers, four normalized pullback domains, eleven physical faces,
 sixteen defining functions, fifteen ambient lists, and numerical method are
 now prospectively frozen.  Their type correction and exact flowbox design are
 recorded in [`P2E_EVENT_ATLAS_TYPE_AUDIT.md`](P2E_EVENT_ATLAS_TYPE_AUDIT.md).
-No carrier embedding or physical face has yet received its interval
-certificate.  The
+The `B.OUT` and `B.RET` physical embeddings are already mathematical
+consequences of the proved P2d seam and physical-slide atoms; no separate
+numeric \(\lambda\)-table is required for that qualitative conclusion.  The
+three exterior flowbox embeddings still lack executable physical
+initial-state and interval first-hit certificates.  The
 incidence complex, corner priority, first-event census, normalization,
 transported traces, and numerical `m0` remain absent.  A missing section must
 have an empty payload, all atlas obligations remain `PENDING`, and the checker
@@ -68,10 +71,12 @@ return event `a_ret` while retaining `q_ret` as incidence data.
    normalized pullback domains.  Scout whether their physical embeddings have
    the required flow buffers and disjointness.  This scouting remains
    non-evidentiary.
-3. Materialize the \(\kappa_\mu/\lambda_\mu\) seam and the composed direct
-   outgoing carrier before treating any off-zero flowbox as evidence.  The
-   earlier floating flowbox scout uses a design coordinate only and cannot
-   serve as this certificate.
+3. Import the proved \(\kappa_\mu/\lambda_\mu\) seam and the resulting
+   `B.OUT` embedding.  Do not construct a standalone 4096-cell
+   \(\lambda\)-table.  Before treating an off-zero flowbox as evidence,
+   rigorously enclose the composed physical initial state only on each of the
+   three entrance discs actually integrated.  The earlier floating flowbox
+   scout uses a design coordinate only and cannot serve as this certificate.
 4. The terminal/aperture/label/cut functions, the four distinct side
    occurrences, all pullback maps, and the per-carrier subdivision and
    Taylor-order budgets are now frozen prospectively.  Run the structural

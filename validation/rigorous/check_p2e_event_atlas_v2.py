@@ -148,7 +148,13 @@ EXPECTED_PHASE_INTERFACE = {
     "exact_action_preserved": True,
     "standard_canonical_pair_claim": False,
     "return_band_uses_underlying_p2d_coordinates": True,
-    "numeric_seam_materialization_status": "PENDING",
+    "boundary_seam_mathematical_status": (
+        "PASS_IMPORTED_FROM_P2D_CHART_OVERLAPS"),
+    "direct_carrier_embedding_mathematical_status": (
+        "PASS_DERIVED_BY_C2_REPARAMETERIZATION"),
+    "action_collar_containment": "2^-54=16/2^58<25/2^58",
+    "standalone_numeric_lambda_table_required": False,
+    "composed_physical_initial_state_evaluator_status": "PENDING",
 }
 EXPECTED_ENTRY_PHASE_RADII = {
     "ALG": Fraction(1, 10_000_000),
@@ -498,7 +504,8 @@ def validate_static_contract(config: dict[str, Any]) -> None:
         "current_verdict": "STOP_BEFORE_FULL_RUN",
         "current_mathematical_status": "INCONCLUSIVE",
         "stop_reason": (
-            "MISSING_EXECUTABLE_CORE_ATLAS_NUMERIC_M0_AND_DIRECT_CARRIER_SEAM"),
+            "MISSING_EXECUTABLE_ENTRANCE_MAPS_INCIDENCE_CENSUS_TRACES_"
+            "AND_NUMERIC_M0"),
         "ready_verdict": "READY_FOR_FIRST_FULL_RUN",
         "ready_is_not_a_mathematical_pass": True,
         "full_capd_run_in_scope": False,
@@ -649,12 +656,12 @@ def validate_static_contract(config: dict[str, Any]) -> None:
         {"id": "V2.EVENT_ATLAS", "status": "PENDING"},
     ], "a structural freeze may not pass an atlas obligation")
     require(config["nonclaims"] == [
-        "The carrier and pullback-domain formulas are prospectively frozen, but no physical carrier embedding has an interval certificate and no event-face, incidence, census, or m0 certificate exists.",
+        "The B.OUT and B.RET physical embeddings are imported from the proved P2d seam and physical-slide package, but the three exterior flowbox carriers have no executable initial-state or interval first-hit certificate and no event-face, incidence, census, or m0 certificate exists.",
         "READY_FOR_FIRST_FULL_RUN, if reached later, authorizes only a prospectively frozen computation and is not a mathematical PASS.",
         "The three phase-gap subatoms cannot pass V2.EVENT_ATLAS without the complete transported traces and event census.",
         "The frozen flagship prose proves existence of a suitable atlas but does not serialize the application-owned atlas required here.",
         "The return-side occurrence is represented on return and pullback lists only through q_ret bound to the distinct occurrence u_r; it is not h_side_h and is not duplicated as a second side-hit function.",
-        "The corrected B.OUT coordinates (phi_u,nu_u) preserve the exact P2d signed action through lambda_mu but are not claimed to be a standard canonical pair; the seam and physical carrier remain pending materialization.",
+        "The corrected B.OUT coordinates (phi_u,nu_u) preserve the exact P2d signed action through lambda_mu but are not claimed to be a standard canonical pair; their C2 zero-energy embedding is an imported mathematical PASS, while executable physical initial-state enclosures on the three entrance discs remain pending and no standalone numeric lambda table is required.",
         "The earlier structural /2 gate was corrected before any full run or atlas PASS, so no mathematical certificate is invalidated and the direct-phase scalar gap certificate is retained.",
         "The bound terminal-flowbox scout is non-evidentiary design lineage only; no sampled orbit, affine proxy event, temporal-stability, Turing-selection, or canard conclusion is promoted.",
     ], "event-atlas structural nonclaim boundary changed")
@@ -1689,8 +1696,8 @@ def audit(config_path: Path = DEFAULT_CONFIG) -> dict[str, Any]:
                else "STOP_BEFORE_FULL_RUN")
     stop_reason = (None if full_run_authorized
                    else (
-                       "MISSING_EXECUTABLE_CORE_ATLAS_NUMERIC_M0_AND_"
-                       "DIRECT_CARRIER_SEAM"))
+                       "MISSING_EXECUTABLE_ENTRANCE_MAPS_INCIDENCE_CENSUS_"
+                       "TRACES_AND_NUMERIC_M0"))
     return {
         "schema_version": "rfsn-vdp-p2e-event-atlas-structure-gate-result/2",
         "scope": config["scope"],

@@ -86,6 +86,32 @@ Darboux pair.  This is sufficient for the physical embeddings and event
 arrangement in V2(4)--(5); the underlying exact \((\psi,\nu)\) chart remains
 unchanged for V2(3), the local passage, and later cross-form arguments.
 
+This reparameterization does **not** leave the physical embedding as a new
+numerical prerequisite.  Put
+
+\[
+ F_\mu(\phi,\nu)=(\lambda_\mu(\phi),\nu).
+\]
+
+The P2d chart-overlap atom already proves that \(\lambda_\mu\) is the
+parameter-dependent \(C^2\) inverse of an orientation-preserving circle
+diffeomorphism, while the physical-slide atom proves that
+\(\mathcal E_\mu^{u,\mathrm{P2d}}\) is a \(C^2\) zero-energy embedding.
+Moreover the whole displayed band lies inside the proved P2d collar because
+
+\[
+ 2^{-54}=\frac{16}{2^{58}}<\frac{25}{2^{58}}.
+\]
+
+Hence \(F_\mu\) is a \(C^2\) diffeomorphism on the frozen band and
+\(\mathcal E_\mu^{u,\mathrm{dir}}
+=\mathcal E_\mu^{u,\mathrm{P2d}}\circ F_\mu\) is automatically a \(C^2\)
+zero-energy embedding.  This is an imported mathematical `PASS`; it does not
+require a standalone 4096-cell table of \(\lambda_\mu\).  What remains
+computationally open is narrower and different: a rigorous physical
+initial-state enclosure for each of the three entrance discs, suitable for
+the exterior first-hit integrations.
+
 The corrected outgoing band is
 
 \[
@@ -184,8 +210,8 @@ P2d incoming coordinates \((\psi_r,\nu_r)\).
 The gate must accept a `PHYSICAL_ZERO_ENERGY_CARRIER` realization only for
 the five physical carriers and a `NORMALIZED_PULLBACK_DOMAIN` realization
 for the four `Z` domains.  A later full run may still be authorized only
-after the frozen physical faces, the \(\kappa/\lambda\) seam, and carrier
-maps have interval certificates,
+after the three exterior carrier maps and their physical entrance-state
+evaluators have interval certificates,
 and after incidence/census, normalization, numeric \(m_0\), and transported
 traces are materialized.  The numerical budgets are already prospectively
 frozen.  This audit by itself remains `INCONCLUSIVE`,
