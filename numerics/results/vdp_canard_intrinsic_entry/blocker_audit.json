@@ -10,7 +10,7 @@
       "commit": "8ba7ffc0bb2cdced0c904ff6dfa319e4a5bd9b2b",
       "role": "read-only application audit baseline; the current checkout need not equal this commit"
     },
-    "sha256": "59f4989d0551f624f2d8ad17c624440710784c6a386f53ed32aae7d6a6c759d5"
+    "sha256": "0d89c001547056c0e0203895c02fb815cbb0abe6176a2a9ffe37e9b1dc6955f6"
   },
   "constraint_nonuniqueness_counterexample": {
     "a2": -0.008333333333333333,

@@ -107,7 +107,7 @@ class VdpMasterContractTests(unittest.TestCase):
     def test_source_hash_is_current_or_recoverable_from_v4_snapshot(self) -> None:
         self.assertEqual(
             ARCHIVED_SOURCE_COMMIT,
-            "61ac68066599e3bf3c86c0f6d3a8615ac61d8538",
+            "058ee56c8a7e018dcce24ec62728069de3651e77",
         )
         manifest = json.loads((OUTPUT / "manifest.json").read_text(encoding="utf-8"))
         for relative, expected in manifest["source_hashes"].items():

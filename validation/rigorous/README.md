@@ -424,10 +424,13 @@ containment, strict-margin reductions, stored stdout, and a fresh byte replay
 of the compiled probe.  See [`P1_V2_REPORT.md`](P1_V2_REPORT.md).
 
 P2a--P2d may be restricted only after exact domain and hash checks.  The
-frozen v2 P2e checker can decide only the three scalar phase-gap subatoms; the
-complete event-atlas manifest, its numerical materialization choices,
-Theorem V2(5), and `V2.EVENT_ATLAS` remain pending.  See
-[`P2E_V2_BOX_FREEZE.md`](P2E_V2_BOX_FREEZE.md).
+frozen v2 P2e run has now passed all three scalar phase-gap subatoms on all
+eight slabs under strict binary replay.  Its local status is
+`PASS_THREE_PHASE_GAPS_ONLY`: the complete event-atlas materialization,
+transported residual traces, proper cut, Theorem V2(5), and
+`V2.EVENT_ATLAS` remain pending.  See
+[`P2E_V2_PHASE_ORDER_REPORT.md`](P2E_V2_PHASE_ORDER_REPORT.md) and the
+subsequent [`P2E_EVENT_ATLAS_V2_FREEZE_GATE.md`](P2E_EVENT_ATLAS_V2_FREEZE_GATE.md).
 
 The source-frozen P2 restriction lane is specified in
 [`P2_V2_RESTRICTION_CONTRACT.md`](P2_V2_RESTRICTION_CONTRACT.md).  Its

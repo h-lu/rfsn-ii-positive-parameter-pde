@@ -24,7 +24,8 @@ ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "numerics" / "results" / "vdp_v1_v7"
 CONFIG = ROOT / "numerics" / "config" / "vdp_v1_v7.json"
 ARCHIVED_SOURCE_TAG = "vdp-v4-screening-baseline"
-ARCHIVED_SOURCE_COMMIT = "61ac68066599e3bf3c86c0f6d3a8615ac61d8538"
+ARCHIVED_ARTIFACT_COMMIT = "61ac68066599e3bf3c86c0f6d3a8615ac61d8538"
+ARCHIVED_SOURCE_COMMIT = "058ee56c8a7e018dcce24ec62728069de3651e77"
 
 FIGURE_STEMS = (
     "figure_01_v1_structure",
@@ -73,12 +74,11 @@ def sha256(path: Path) -> str:
 def archived_source_sha256(relative: str) -> str | None:
     """Hash one source blob from the immutable v4 artifact snapshot.
 
-    The original run recorded a dirty base commit because its newly added
-    validation files did not yet exist at that commit.  Commit 61ac680 is the
-    subsequent immutable snapshot containing the exact manifest, outputs, and
-    source blobs.  Current source evolution must therefore be checked against
-    that pinned snapshot, rather than making a historical artifact fail merely
-    because a checker has advanced.
+    The original run recorded a dirty artifact snapshot at 61ac680.  Its
+    manifest was finalized together with the exact generator blobs in the
+    descendant commit 058ee56.  Current source evolution must therefore be
+    checked against that pinned generator snapshot, rather than making a
+    historical artifact fail merely because a checker has advanced.
     """
 
     path = Path(relative)
@@ -92,7 +92,20 @@ def archived_source_sha256(relative: str) -> str | None:
             capture_output=True,
             text=True,
         ).stdout.strip()
-        if resolved != ARCHIVED_SOURCE_COMMIT:
+        if resolved != ARCHIVED_ARTIFACT_COMMIT:
+            return None
+        ancestry = subprocess.run(
+            [
+                "git",
+                "merge-base",
+                "--is-ancestor",
+                ARCHIVED_ARTIFACT_COMMIT,
+                ARCHIVED_SOURCE_COMMIT,
+            ],
+            cwd=ROOT,
+            check=False,
+        )
+        if ancestry.returncode != 0:
             return None
         blob = subprocess.run(
             [
