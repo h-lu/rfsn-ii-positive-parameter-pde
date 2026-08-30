@@ -195,11 +195,14 @@ turn and supports three complementary interval representations of the same
 orbit and terminal event.  The base route uses only the frozen event
 sections.  A light fallback adds exact \(V=1/2,3/4,4/5\) sections after the
 final \(P=0\) maximum.  The strongest fallback reconditions the exact
-zero-energy image at the upward \(U=-1/20\) hit, uses \(U\) as independent
+zero-energy image at the upward \(U=-1/20\) hit and uses \(U\) as independent
 variable through the long upper turn while checking \(P>0\) on every CAPD
-step, and then uses \(V\) as independent variable from \(V=0\) to \(V=4/5\)
-while checking \(Q>0\).  From the first downward \(U=-1/20\) hit, a separate
-guard takes the
+step. At the final \(P=0\) maximum it eliminates \(V\) with \(H=0\), uses
+\(m=-P\) to leave the maximum while checking \(P'<0\), and then uses
+\(x=-U\) as independent variable. At \(U=0\), the strict signs select the
+zero-energy branch \(P=-Q\); the reconditioned enclosure then reaches
+\(x=1/5\) with \(P<0\) on every accepted step. From the first downward
+\(U=-1/20\) hit, a separate guard takes the
 first \(P=0\) minimum, the next \(P=0\) maximum, and the first subsequent
 \(U=-1/5\) hit.  At \(x=-U=1/5\), the kernel verifies a forward-invariant
 positive \((y,D,K)\) cone, which makes \(x\) strictly increasing through
@@ -236,3 +239,10 @@ an exact binary-prefix cover.
 These remain non-claim-bearing design computations.  Even complete axis
 covers do not supply the off-axis event carrier, incidence census, numerical
 \(m_{\rm ax}\), transported traces, or `V2.EVENT_ATLAS`.
+
+The complete pole-axis run now passes all 4096 parent cells, with one parent
+replaced by its eight exact canonical \(r\)-children and no source-Newton or
+additional adaptive subdivision. The compact record is
+[`p2e_pole_axis_full_bridge_summary_v1.json`](p2e_pole_axis_full_bridge_summary_v1.json),
+and the mathematical scope is stated in
+[`../P2E_POLE_AXIS_FIRST_HIT_COVER_REPORT.md`](../P2E_POLE_AXIS_FIRST_HIT_COVER_REPORT.md).

@@ -5,7 +5,7 @@ research and publication plan, not a theorem, certificate, or change to the
 statuses in `CLAIM_REGISTER.md`.  The claim register and research contract
 remain authoritative.
 
-## Execution status on 2026-08-29
+## Execution status through 2026-08-30
 
 - Phase 0 is complete: the snapshot, remote synchronization, candidate
   contract refresh, issue reconciliation, and 181-test pass are recorded on
@@ -40,11 +40,13 @@ remain authoritative.
   result remains non-claim-bearing at independent replay 1/2.  The separately
   versioned v2 target
   \([1/100,1/50]\times[-1/4,1/4]\times[4/5,6/5]\) and its
-  \(r=0\)-to-\(1/50\) comparison bridge are now frozen before the first
-  retained evidentiary v2 output.  That freeze is not a new mathematical
-  verdict: P1 must be
-  rerun, P2a--P2d require exact restriction audits, and the full P2e event
-  manifest remains unmaterialized.
+  \(r=0\)-to-\(1/50\) comparison bridge have since passed P1, the exact
+  P2a--P2d restriction audits, three P2e phase gaps, and the true zero-action
+  source-chart criterion.  The POLE zero-action first-hit bridge also has a
+  complete computed-interval design `PASS` on all 4096 parent cells.  These
+  results remain non-claim-bearing: ALG, the joint incidence/census,
+  \(m_{\rm ax}\), transported traces, and the full P2e event manifest are not
+  yet complete.
 - Post-existence work has begun under separate issues.  #11 now gives local
   positive temporal eigenvalues for A2 and `pulse_1` and a proved nonlinear
   orbital-instability bridge; #12 proves exact classical stationary Turing
@@ -115,7 +117,7 @@ release.
 | Analytic claims B1--B2 and V1--V7 | statuses recorded by the repository; several conclusions depend on frozen imported RFSN-II theorems and certificates | `CLAIM_REGISTER.md` and the cited proof dossiers |
 | Floating numerical atlas | explanatory candidate evidence only | `numerics/` |
 | Staged interval work | local mathematical passes for completed atoms; aggregate remains non-claim-bearing | `validation/rigorous/` |
-| Explicit boxes | `vdp-positive-box-v1` has a strict mathematical `FAIL` at the P2e phase-order gate; the versioned v2 target and bridge are frozen but have no aggregate mathematical verdict | Issue #7, `validation/rigorous/P2E_PHASE_ORDER_FAIL_REPORT.md`, and `validation/rigorous/P2E_V2_BOX_FREEZE.md` |
+| Explicit boxes | `vdp-positive-box-v1` has a strict mathematical `FAIL` at the P2e phase-order gate.  On v2, P1, restricted P2a--P2d, three P2e phase gaps, and the source-chart criterion pass locally; the POLE zero-action first-hit bridge has a complete design-level interval cover.  ALG and the remaining atlas obligations are open, so there is no aggregate mathematical `PASS` | Issue #7, `validation/rigorous/P2E_PHASE_ORDER_FAIL_REPORT.md`, `validation/rigorous/P2E_AXIS_CHART_REPORT.md`, and `validation/rigorous/P2E_POLE_AXIS_FIRST_HIT_COVER_REPORT.md` |
 | Temporal PDE stability | deferred | S1 |
 | Experimental realization | deferred | E1 |
 

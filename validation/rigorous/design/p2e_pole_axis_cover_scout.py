@@ -41,13 +41,15 @@ BASE_LABELS = [
 V_STEPS_LABELS = BASE_LABELS[:7] + [
     "V=.5 UP", "V=.75 UP", "V=.8 UP",
 ] + BASE_LABELS[7:]
-TURN_REDUCED_LABELS = BASE_LABELS[:5] + [
-    "U=2.5 UP", "U=2.75 UP",
-] + BASE_LABELS[5:]
+TURN_REDUCED_LABELS = BASE_LABELS[:4] + BASE_LABELS[5:6] + BASE_LABELS[8:]
 BASE_SIGNS = [-1, -1, 1, 1, 1, -1, 1] + [-1] * 7
 V_STEPS_SIGNS = BASE_SIGNS[:7] + [1, 1, 1] + BASE_SIGNS[7:]
-TURN_REDUCED_SIGNS = BASE_SIGNS[:5] + [1, 1] + \
-    BASE_SIGNS[5:]
+TURN_REDUCED_SIGNS = BASE_SIGNS[:4] + BASE_SIGNS[5:6] + BASE_SIGNS[8:]
+MONOTONE_GUARD_LABELS = [
+    "x=.05->.4 P<0", "P->0 MIN F>0", "P=0->.1 F>0",
+    "U->2.2 P>0", "m=-P->0 MAX F<0", "m=0->.1 F<0",
+    "x=-U POSTMAX->0 P<0", "x=0->.2 P<0",
+]
 
 
 def sha256(path: Path) -> str:
@@ -169,14 +171,34 @@ def require_matching_interval(name: str, observed: Any,
                               expected: Sequence[Any]) -> None:
     observed_lower, observed_upper = interval_pair(observed, name)
     expected_lower, expected_upper = float(expected[0]), float(expected[1])
+    observed_lower_exact = Fraction.from_float(observed_lower)
+    observed_upper_exact = Fraction.from_float(observed_upper)
+    expected_lower_exact = expected[0] if isinstance(
+        expected[0], Fraction) else Fraction.from_float(expected_lower)
+    expected_upper_exact = expected[1] if isinstance(
+        expected[1], Fraction) else Fraction.from_float(expected_upper)
     tolerance = 1024.0 * sys.float_info.epsilon * max(
         1.0, abs(expected_lower), abs(expected_upper))
-    if observed_lower > expected_lower or observed_upper < expected_upper or \
-            expected_lower - observed_lower > tolerance or \
-            observed_upper - expected_upper > tolerance:
+    tolerance_exact = Fraction.from_float(tolerance)
+    if observed_lower_exact > expected_lower_exact \
+            or observed_upper_exact < expected_upper_exact \
+            or expected_lower_exact - observed_lower_exact > tolerance_exact \
+            or observed_upper_exact - expected_upper_exact > tolerance_exact:
         raise ValueError(
             f"{name} does not match the requested interval: "
             f"{observed} versus [{expected_lower},{expected_upper}]")
+
+
+def require_interval_sum(name: str, observed: Any,
+                         *terms: Any) -> None:
+    lower = Fraction(0)
+    upper = Fraction(0)
+    for index, term in enumerate(terms):
+        term_lower, term_upper = interval_pair(
+            term, f"{name} term {index}")
+        lower += Fraction.from_float(term_lower)
+        upper += Fraction.from_float(term_upper)
+    require_matching_interval(name, observed, (lower, upper))
 
 
 def require_interval_subset(name: str, inner: Any, outer: Any) -> None:
@@ -276,6 +298,111 @@ def validate_terminal_response(
         if sign > 0 and speed_pair[0] <= 0.0:
             raise ValueError(f"leg {index} is not strictly upward")
 
+    first_down = value.get("pole_first_down_entry")
+    if not isinstance(first_down, dict) \
+            or first_down.get("applicable") is not True \
+            or first_down.get("passed") is not True:
+        raise ValueError("terminal lacks the first-down entry PASS")
+    require_matching_interval(
+        "first-down target U", first_down.get("target_U"), (-0.05, -0.05))
+    require_matching_interval(
+        "first-down time", first_down.get("first_down_time"), times[0])
+    require_matching_interval(
+        "first-down residual", first_down.get("first_down_section_residual"),
+        residuals[0])
+    require_matching_interval(
+        "first-down P", first_down.get("first_down_P"), speeds[0])
+    first_down_method = first_down.get("method")
+    if first_down_method == "DIRECT_U_MINUS_ONE_TWENTIETH_POINCARE":
+        if first_down.get("fallback_triggered") is not False:
+            raise ValueError("direct first-down entry marks fallback triggered")
+        if first_down.get("h0_branch_identity_kind") != "NOT_APPLICABLE":
+            raise ValueError("direct first-down entry claims an H=0 rebuild")
+        require_matching_interval(
+            "direct first-down anchor U", first_down.get("anchor_U"),
+            (0.001, 0.001))
+        for name in (
+                "anchor_time", "anchor_section_residual", "anchor_P",
+                "pre_zero_clock", "pre_zero_dense_P_hull", "zero_time",
+                "zero_P", "zero_Q", "zero_branch_Q", "post_zero_clock",
+                "post_zero_dense_P_hull"):
+            require_matching_interval(
+                f"direct first-down unused {name}", first_down.get(name),
+                (0.0, 0.0))
+        for name in ("pre_zero_step_count", "post_zero_step_count"):
+            if first_down.get(name) != 0:
+                raise ValueError(
+                    f"direct first-down unused {name} is not zero")
+    elif first_down_method == "U_POSITIVE_ANCHOR_H0_X_TIME":
+        if first_down.get("fallback_triggered") is not True:
+            raise ValueError("reduced first-down entry does not mark fallback")
+        if first_down.get("h0_branch_identity_kind") != \
+                "U_ZERO_P_EQUALS_MINUS_Q_BY_H0_AND_SIGNS":
+            raise ValueError("reduced first-down H=0 identity is not frozen")
+        require_matching_interval(
+            "first-down anchor U", first_down.get("anchor_U"),
+            (0.001, 0.001))
+        anchor_time = interval_pair(
+            first_down.get("anchor_time"), "first-down anchor time")
+        anchor_residual = interval_pair(
+            first_down.get("anchor_section_residual"),
+            "first-down anchor residual")
+        anchor_p = interval_pair(
+            first_down.get("anchor_P"), "first-down anchor P")
+        pre_clock = interval_pair(
+            first_down.get("pre_zero_clock"), "first-down pre-zero clock")
+        pre_p = interval_pair(
+            first_down.get("pre_zero_dense_P_hull"),
+            "first-down pre-zero dense P")
+        zero_time = interval_pair(
+            first_down.get("zero_time"), "first-down zero time")
+        zero_p = interval_pair(
+            first_down.get("zero_P"), "first-down zero P")
+        zero_q = interval_pair(
+            first_down.get("zero_Q"), "first-down zero Q")
+        branch_q = interval_pair(
+            first_down.get("zero_branch_Q"), "first-down zero branch Q")
+        post_clock = interval_pair(
+            first_down.get("post_zero_clock"),
+            "first-down post-zero clock")
+        post_p = interval_pair(
+            first_down.get("post_zero_dense_P_hull"),
+            "first-down post-zero dense P")
+        first_time = interval_pair(
+            first_down.get("first_down_time"), "first-down terminal time")
+        if anchor_time[0] <= 0.0 or not \
+                anchor_residual[0] <= 0.0 <= anchor_residual[1] \
+                or anchor_p[1] >= 0.0:
+            raise ValueError("first-down anchor is not a strict downward hit")
+        if pre_clock[0] <= 0.0 or pre_p[1] >= 0.0 \
+                or zero_time[0] <= anchor_time[1]:
+            raise ValueError("first-down pre-zero passage is not monotone")
+        require_interval_sum(
+            "first-down zero time sum", first_down.get("zero_time"),
+            first_down.get("anchor_time"), first_down.get("pre_zero_clock"))
+        if zero_p[1] >= 0.0 or zero_q[0] <= 0.0 or branch_q[0] <= 0.0:
+            raise ValueError("first-down zero image lacks P<0,Q>0")
+        require_interval_subset(
+            "first-down branch Q versus physical Q",
+            list(branch_q), list(zero_q))
+        require_interval_subset(
+            "first-down branch Q versus minus physical P", list(branch_q),
+            [-zero_p[1], -zero_p[0]])
+        if post_clock[0] <= 0.0 or post_p[1] >= 0.0 \
+                or first_time[0] <= zero_time[1]:
+            raise ValueError("first-down post-zero passage is not monotone")
+        require_interval_sum(
+            "first-down terminal time sum",
+            first_down.get("first_down_time"), first_down.get("zero_time"),
+            first_down.get("post_zero_clock"))
+        for name in ("pre_zero_step_count", "post_zero_step_count"):
+            count = first_down.get(name)
+            if not isinstance(count, int) or isinstance(count, bool) \
+                    or count <= 0:
+                raise ValueError(f"first-down {name} is not positive")
+    else:
+        raise ValueError("first-down entry method is not recognized")
+
     parameter_boxes, phase_box, graph_box = expected_request_boxes(
         parent, path, eta)
     observed_parameters = value.get("parameter_box")
@@ -317,6 +444,75 @@ def validate_terminal_response(
         raise ValueError("guard maximum is not strict")
     if interval_pair(guard["escape_P"], "guard escape P")[1] >= 0.0:
         raise ValueError("guard escape is not strictly downward")
+    guard_method = guard.get("method")
+    if guard_method not in {
+            "DIRECT_SEGMENTED_POINCARE",
+            "H0_RECONDITIONED_MONOTONE_INDEPENDENT_VARIABLES"}:
+        raise ValueError("guard method is not recognized")
+    monotone = guard.get("monotone_passages")
+    if not isinstance(monotone, dict):
+        raise ValueError("guard lacks monotone-passage diagnostics")
+    if guard_method == "H0_RECONDITIONED_MONOTONE_INDEPENDENT_VARIABLES":
+        if monotone.get("applicable") is not True \
+                or monotone.get("passed") is not True:
+            raise ValueError("monotone guard fallback is not PASS")
+        if monotone.get("labels") != MONOTONE_GUARD_LABELS:
+            raise ValueError("monotone guard labels are not frozen")
+        clocks = monotone.get("clocks")
+        steps = monotone.get("step_counts")
+        if not isinstance(clocks, list) or len(clocks) != 8 \
+                or any(interval_pair(clock, "monotone guard clock")[0]
+                       <= 0.0 for clock in clocks):
+            raise ValueError("monotone guard clocks are not all positive")
+        if not isinstance(steps, list) or len(steps) != 8 \
+                or any(not isinstance(step, int) or isinstance(step, bool)
+                       or step <= 0 for step in steps):
+            raise ValueError("monotone guard step counts are not positive")
+        hulls = monotone.get("dense_sign_hulls")
+        if not isinstance(hulls, dict):
+            raise ValueError("monotone guard lacks dense sign hulls")
+        positive_lower = (
+            "minimum_approach_F", "minimum_exit_F", "rise_P",
+            "zero_Q", "zero_branch_Q")
+        negative_upper = (
+            "down_P", "maximum_approach_F", "maximum_exit_F",
+            "post_max_to_zero_P", "zero_P", "escape_x_P")
+        for name in positive_lower:
+            if interval_pair(hulls.get(name),
+                             f"monotone guard {name}")[0] <= 0.0:
+                raise ValueError(f"monotone guard {name} is not positive")
+        for name in negative_upper:
+            if interval_pair(hulls.get(name),
+                             f"monotone guard {name}")[1] >= 0.0:
+                raise ValueError(f"monotone guard {name} is not negative")
+        zero_p = interval_pair(hulls.get("zero_P"),
+                               "monotone guard zero P")
+        zero_q = interval_pair(hulls.get("zero_Q"),
+                               "monotone guard zero Q")
+        branch_q = interval_pair(hulls.get("zero_branch_Q"),
+                                 "monotone guard zero branch Q")
+        if branch_q[0] < zero_q[0] or branch_q[1] > zero_q[1] \
+                or branch_q[0] < -zero_p[1] \
+                or branch_q[1] > -zero_p[0]:
+            raise ValueError(
+                "monotone guard U=0 P=-Q branch is not an intersection")
+        if interval_pair(hulls.get("minimum_approach_U"),
+                         "monotone guard minimum U")[0] <= -1.0:
+            raise ValueError("monotone guard minimum passage can reach U=-1")
+        if interval_pair(hulls.get("maximum_approach_U"),
+                         "monotone guard maximum U")[0] <= 0.0:
+            raise ValueError("monotone guard maximum passage can reach U=0")
+        require_interval_sum(
+            "monotone guard minimum time sum", guard.get("minimum_time"),
+            first_down.get("first_down_time"), clocks[0], clocks[1])
+        require_interval_sum(
+            "monotone guard maximum time sum", guard.get("maximum_time"),
+            guard.get("minimum_time"), clocks[2], clocks[3], clocks[4])
+        require_interval_sum(
+            "monotone guard escape time sum", guard.get("escape_time"),
+            guard.get("maximum_time"), clocks[5], clocks[6], clocks[7])
+    elif monotone.get("applicable") is not False:
+        raise ValueError("direct guard incorrectly marks fallback applicable")
     escape = value["escape_cone_entry"]
     for key, threshold in (("y", 2.0), ("D", 0.0), ("K", 0.0),
                            ("gamma", 0.0),
@@ -339,9 +535,14 @@ def validate_terminal_response(
         require_matching_interval("upper-turn seam U", turn.get("seam_U"),
                                   (-0.05, -0.05))
         require_matching_interval("upper-turn terminal U",
-                                  turn.get("terminal_U"), (2.2, 2.2))
+                                  turn.get("terminal_U"), (2.75, 2.75))
+        require_matching_interval(
+            "upper-turn seam time", turn.get("seam_time"), times[3])
         if interval_pair(turn.get("clock"), "upper-turn clock")[0] <= 0.0:
             raise ValueError("upper-turn clock is not positive")
+        require_interval_sum(
+            "upper-turn terminal time sum", turn.get("terminal_time"),
+            turn.get("seam_time"), turn.get("clock"))
         if interval_pair(turn.get("dense_P_hull"),
                          "upper-turn dense P hull")[0] <= 0.0:
             raise ValueError("upper-turn passage does not keep P>0")
@@ -353,21 +554,84 @@ def validate_terminal_response(
                 or escape_reduced.get("applicable") is not True \
                 or escape_reduced.get("passed") is not True:
             raise ValueError("terminal lacks the escape reduced PASS")
-        require_matching_interval("escape seam V",
-                                  escape_reduced.get("seam_V"), (0.0, 0.0))
+        if escape_reduced.get("method") != \
+                "PMAX_H0_M_TO_U_ZERO_H0_BRANCH_X_TO_ONE_FIFTH":
+            raise ValueError("escape reduced method is not frozen")
+        require_matching_interval("escape seam P",
+                                  escape_reduced.get("seam_P"), (0.0, 0.0))
         require_matching_interval(
-            "escape terminal V", escape_reduced.get("terminal_V"),
-            (0.8, 0.8))
-        if interval_pair(escape_reduced.get("clock"),
-                         "escape reduced clock")[0] <= 0.0:
-            raise ValueError("escape reduced clock is not positive")
-        if interval_pair(escape_reduced.get("dense_Q_hull"),
-                         "escape dense Q hull")[0] <= 0.0:
-            raise ValueError("escape reduced passage does not keep Q>0")
-        escape_steps = escape_reduced.get("dense_step_count")
-        if not isinstance(escape_steps, int) \
-                or isinstance(escape_steps, bool) or escape_steps <= 0:
-            raise ValueError("escape dense step count is not positive")
+            "escape seam time", escape_reduced.get("seam_time"), times[4])
+        if interval_pair(escape_reduced.get("pmax_U"),
+                         "escape Pmax U")[0] <= 0.0:
+            raise ValueError("escape Pmax does not keep U>0")
+        if interval_pair(escape_reduced.get("pmax_Q"),
+                         "escape Pmax Q")[0] <= 0.0:
+            raise ValueError("escape Pmax does not keep Q>0")
+        if interval_pair(escape_reduced.get("pmax_F"),
+                         "escape Pmax F")[1] >= 0.0:
+            raise ValueError("escape Pmax is not a strict maximum")
+        require_matching_interval(
+            "escape m terminal", escape_reduced.get("m_terminal"),
+            (0.1, 0.1))
+        if interval_pair(escape_reduced.get("m_clock"),
+                         "escape m clock")[0] <= 0.0:
+            raise ValueError("escape m clock is not positive")
+        if interval_pair(escape_reduced.get("m_dense_F_hull"),
+                         "escape m dense F hull")[1] >= 0.0:
+            raise ValueError("escape m passage does not keep F<0")
+        m_steps = escape_reduced.get("m_dense_step_count")
+        if not isinstance(m_steps, int) or isinstance(m_steps, bool) \
+                or m_steps <= 0:
+            raise ValueError("escape m dense step count is not positive")
+        require_matching_interval(
+            "escape U terminal", escape_reduced.get("U_terminal"),
+            (0.0, 0.0))
+        if interval_pair(escape_reduced.get("U_clock"),
+                         "escape U clock")[0] <= 0.0:
+            raise ValueError("escape U clock is not positive")
+        if interval_pair(escape_reduced.get("U_dense_P_hull"),
+                         "escape U dense P hull")[1] >= 0.0:
+            raise ValueError("escape U passage does not keep P<0")
+        u_steps = escape_reduced.get("U_dense_step_count")
+        if not isinstance(u_steps, int) or isinstance(u_steps, bool) \
+                or u_steps <= 0:
+            raise ValueError("escape U dense step count is not positive")
+        zero_p = interval_pair(escape_reduced.get("zero_P"),
+                               "escape zero P")
+        zero_q = interval_pair(escape_reduced.get("zero_Q"),
+                               "escape zero Q")
+        branch_q = interval_pair(escape_reduced.get("zero_H0_branch_Q"),
+                                 "escape zero H0 branch Q")
+        if zero_p[1] >= 0.0 or zero_q[0] <= 0.0 or branch_q[0] <= 0.0:
+            raise ValueError("escape U=0 branch lacks P<0<Q")
+        if branch_q[0] < zero_q[0] or branch_q[1] > zero_q[1] \
+                or branch_q[0] < -zero_p[1] \
+                or branch_q[1] > -zero_p[0]:
+            raise ValueError("escape U=0 P=-Q branch is not an intersection")
+        if escape_reduced.get("zero_H0_branch_identity") != \
+                "P_EQUALS_MINUS_Q_BY_H0_AND_STRICT_SIGNS":
+            raise ValueError("escape U=0 H=0 branch identity is not frozen")
+        require_matching_interval(
+            "escape terminal x", escape_reduced.get("terminal_x"),
+            (0.2, 0.2))
+        x_clock = interval_pair(escape_reduced.get("x_clock"),
+                                "escape x clock")
+        if x_clock[0] <= 0.0:
+            raise ValueError("escape x clock is not positive")
+        require_interval_sum(
+            "escape terminal time sum",
+            escape_reduced.get("terminal_time"),
+            escape_reduced.get("seam_time"),
+            escape_reduced.get("m_clock"),
+            escape_reduced.get("U_clock"),
+            escape_reduced.get("x_clock"))
+        if interval_pair(escape_reduced.get("x_dense_P_hull"),
+                         "escape x dense P hull")[1] >= 0.0:
+            raise ValueError("escape x passage does not keep P<0")
+        escape_x_steps = escape_reduced.get("x_dense_step_count")
+        if not isinstance(escape_x_steps, int) \
+                or isinstance(escape_x_steps, bool) or escape_x_steps <= 0:
+            raise ValueError("escape x dense step count is not positive")
 
 
 def parse_source(stdout: str,
@@ -468,6 +732,7 @@ def compact_terminal(value: dict[str, Any]) -> dict[str, Any]:
         "leg_section_residuals": value["leg_section_residuals"],
         "leg_section_speeds": value["leg_section_speeds"],
         "event_sequence_passed": value["event_sequence_passed"],
+        "pole_first_down_entry": value["pole_first_down_entry"],
         "escape_cone_entry": value["escape_cone_entry"],
         "pre_escape_no_pole_guard": value["pre_escape_no_pole_guard"],
         "terminal_U": value["terminal_U"],
@@ -647,11 +912,27 @@ def aggregate(records: Sequence[dict[str, Any]]) -> dict[str, float]:
         })
     if escape_passages:
         result.update({
-            "escape_reduced_Q_lower": min(
-                lower(passage["dense_Q_hull"])
+            "escape_pmax_F_upper": max(
+                upper(passage["pmax_F"])
                 for passage in escape_passages),
-            "escape_reduced_clock_lower": min(
-                lower(passage["clock"]) for passage in escape_passages),
+            "escape_m_F_upper": max(
+                upper(passage["m_dense_F_hull"])
+                for passage in escape_passages),
+            "escape_U_P_upper": max(
+                upper(passage["U_dense_P_hull"])
+                for passage in escape_passages),
+            "escape_zero_branch_Q_lower": min(
+                lower(passage["zero_H0_branch_Q"])
+                for passage in escape_passages),
+            "escape_x_P_upper": max(
+                upper(passage["x_dense_P_hull"])
+                for passage in escape_passages),
+            "escape_m_clock_lower": min(
+                lower(passage["m_clock"]) for passage in escape_passages),
+            "escape_U_clock_lower": min(
+                lower(passage["U_clock"]) for passage in escape_passages),
+            "escape_x_clock_lower": min(
+                lower(passage["x_clock"]) for passage in escape_passages),
         })
     if source_records:
         result.update({
@@ -943,7 +1224,7 @@ def main() -> int:
         record["parent"], -1 if record["r_leaf"] is None
         else record["r_leaf"][0], record["extra_r_path"]))
     document = {
-        "schema_version": "rfsn-vdp-p2e-pole-axis-cover-scout/2",
+        "schema_version": "rfsn-vdp-p2e-pole-axis-cover-scout/3",
         "status": "PASS" if success else "INCONCLUSIVE",
         "mathematical_status": (
             "COMPUTED_INTERVAL_DESIGN_PASS_FULL_BRIDGE"
@@ -981,7 +1262,7 @@ def main() -> int:
                 "sequence, using directed Poincare maps"),
             "terminal_routes": [
                 "BASE", "V_STEPS_AFTER_V_EQUALS_ZERO",
-                "TURN_REDUCED_U_TIME_AND_V_TIME_PASSAGES"],
+                "TURN_REDUCED_U_TIME_PMAX_M_U0_H0_AND_X_TIME_PASSAGES"],
             "response_binding": (
                 "scope, requested cell and split path, route labels, exact "
                 "parameter/phase/eta boxes, terminal section and speed"),

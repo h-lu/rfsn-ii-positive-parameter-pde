@@ -1,0 +1,104 @@
+{
+  "schema_version": "rfsn-vdp-p2e-pole-axis-full-bridge-summary/1",
+  "status": "PASS",
+  "mathematical_status": "COMPUTED_INTERVAL_DESIGN_PASS_FULL_BRIDGE",
+  "claim_bearing": false,
+  "scope": "P2E_AXIS_POLE_TERMINAL_FIRST_HIT_FULL_BRIDGE",
+  "parameter_bridge": {
+    "r": ["0", "1/50"],
+    "a2": ["-1/4", "1/4"],
+    "epsilon": ["4/5", "6/5"]
+  },
+  "zero_action_source_chart": {
+    "direct_phase_centre": "2*pi",
+    "direct_phase_radius": "9/800000",
+    "graph_error_eta": ["-1/200000", "1/200000"],
+    "action": "nu=0"
+  },
+  "terminal_section": {
+    "U": "-10",
+    "direction": "P<0"
+  },
+  "coverage": {
+    "parent_cells": 4096,
+    "coarse_parent_passes": 4095,
+    "refined_parent": [7, 41, 3],
+    "canonical_r_children_of_refined_parent": 8,
+    "accepted_records": 4103,
+    "hard_failures": 0,
+    "coverage_errors": 0,
+    "root_conditioned_source_attempts": 0,
+    "adaptive_extra_r_terminal_attempts": 0
+  },
+  "route_counts": {
+    "BASE": 3661,
+    "TURN_REDUCED": 375,
+    "V_STEPS": 67
+  },
+  "first_down_entry_counts": {
+    "DIRECT_U_MINUS_ONE_TWENTIETH_POINCARE": 4096,
+    "U_POSITIVE_ANCHOR_H0_X_TIME": 7
+  },
+  "no_earlier_hit_guard_counts": {
+    "DIRECT_SEGMENTED_POINCARE": 3796,
+    "H0_RECONDITIONED_MONOTONE_INDEPENDENT_VARIABLES": 307
+  },
+  "aggregate_strict_bounds": {
+    "return_time_lower": 11.10520493880065,
+    "return_time_upper": 11.236065735723914,
+    "escape_pmax_F_upper": -5.6198684752435035,
+    "escape_m_F_upper": -5.619817889673808,
+    "escape_U_P_upper": -0.09999999999983941,
+    "escape_zero_branch_Q_lower": 3.308192493491006,
+    "escape_x_P_upper": -3.3081924934910054,
+    "guard_minimum_U_lower": -0.5270843720050497,
+    "guard_minimum_P_prime_lower": 0.46085493247857584,
+    "guard_maximum_U_lower": 2.8072602565994726,
+    "guard_maximum_P_prime_upper": -5.444771994504214,
+    "escape_y_lower": 2.6362890617604844,
+    "escape_D_lower": 0.1934031454830256,
+    "escape_K_lower": 3.4197688979519114,
+    "escape_gamma_lower": 0.08999956777925718,
+    "escape_K_prime_boundary_margin_lower": 4.470361377132644,
+    "terminal_y_lower": 24.155252449933407,
+    "terminal_D_lower": 53.200381626418384,
+    "terminal_K_lower": 240.67622532224695,
+    "terminal_y_prime_lower": 103.28591863339538,
+    "terminal_K_prime_lower": 1607.1327321392266,
+    "p3_y_margin_lower": 11.155252449933407,
+    "p3_D_margin_lower": 27.200381626418384,
+    "p3_K_margin_lower": 109.67622532224695
+  },
+  "run": {
+    "elapsed_seconds": 262.5659584189998,
+    "workers": 28,
+    "predictor_workers": 16,
+    "max_extra_r_depth": 4,
+    "timeout_seconds": 180,
+    "command": "python3 validation/rigorous/design/p2e_pole_axis_cover_scout.py --terminal-executable /tmp/p2e-axis-terminal-pole-v5 --source-executable /tmp/p2e-source-trace-audit --workers 28 --predictor-workers 16 --max-extra-r-depth 4 --timeout 180 --output /tmp/p2e-pole-axis-full-v5-schema3.json"
+  },
+  "raw_result": {
+    "filename": "p2e-pole-axis-full-v5-schema3.json",
+    "size_bytes": 25959506,
+    "sha256": "0ea67a60b10c987f720b69460da872c1ec1847e5d4cd5907571fc44f313f3315",
+    "committed_to_git": false,
+    "intended_disposition": "immutable release attachment"
+  },
+  "bindings": {
+    "terminal_executable_sha256": "9e7866431d7ce1aa7905d3a55598c7513767d069bfa7db484564a73bd4a33ef7",
+    "terminal_source_sha256": "ffb69e971f1a73faa8ee724be8c83a5382c763e02210c10ddd6b25e2d70f3967",
+    "runner_source_sha256": "b9666f16e989ed5c7caace4882346345da8dea45f1851cb73745f6a72104e551",
+    "runner_test_sha256": "f2ec09d2b9bcad460a14bbe754c6821e191c972dd283b68b8301b73355a175b8",
+    "frozen_H10_header_sha256": "d617587ea1b9037c1c7575ccdde5029529ec5b736dee259baff9a2a162001e96",
+    "source_executable_sha256": "da8f9c80236bf2f0966b78537c04f47d7895f258296c71bb1a656c55dfb6b63d",
+    "source_executable_invocations": 0,
+    "capd_reported_version": "2.5.1"
+  },
+  "nonclaims": [
+    "The run does not authenticate the CAPD/FILIB build and is therefore not promoted to a release certificate.",
+    "The result is restricted to the zero-action pole entrance and does not prove an off-axis action collar.",
+    "It does not prove the complete P2e incidence complex, exhaustive first-event census, transported traces, or a numerical m_ax.",
+    "It does not pass V2.EVENT_ATLAS or the full P3 source-window obligation.",
+    "It makes no temporal-stability, Turing-selection, or canard statement."
+  ]
+}

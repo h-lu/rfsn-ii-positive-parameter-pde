@@ -439,10 +439,12 @@ proper phase arc.  Its exact checker proves \(u_1>41/5000\), authenticates the
 P2b0/P2bK source facts, and proves the compactness criterion that thickens a
 complete strict \(\nu=0\) event skeleton to some uniform
 \(0<\delta_{\rm ent}\le2^{-55}\).  This is a local mathematical `PASS`,
-not a first-hit calculation: ALG/POLE integration, incidence, exhaustive
-census, \(m_{\rm ax}\), transported traces, and `V2.EVENT_ATLAS` remain
-open.  In particular, no claim is made for the whole fixed
-\(|\nu|\le2^{-55}\) disk.
+and the subsequent POLE calculation gives a complete non-claim-bearing
+design-level interval first-hit cover on all 4096 bridge cells; see
+[`P2E_POLE_AXIS_FIRST_HIT_COVER_REPORT.md`](P2E_POLE_AXIS_FIRST_HIT_COVER_REPORT.md).
+ALG, the joint incidence and exhaustive census, \(m_{\rm ax}\), transported
+traces, and `V2.EVENT_ATLAS` remain open.  In particular, no claim is made
+for the whole fixed \(|\nu|\le2^{-55}\) disk.
 
 The source-frozen P2 restriction lane is specified in
 [`P2_V2_RESTRICTION_CONTRACT.md`](P2_V2_RESTRICTION_CONTRACT.md).  Its

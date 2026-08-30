@@ -14,7 +14,7 @@ an exterior first-hit integration and do not pass V2.EVENT_ATLAS.
 | P2b0/P2bK source authentication | PASS | The immutable certificates, their configurations, required local atoms, exact Kato phase facts, and the exact inclusion of the v2 bridge in their proved bridge are authenticated. |
 | P2E.ZERO_ACTION_TRUE_SOURCE_CHART | local mathematical PASS | The true \(\nu=0\) source curve lies in one nonsingular exact zero-energy chart on the full proper phase arc and v2 bridge. |
 | P2E.AXIS_SKELETON_THICKENING_CRITERION | local mathematical PASS | A complete strict zero-action event skeleton with \(m_{\rm ax}>0\) persists on some uniform action subcollar. |
-| Zero-action first-event skeleton | OPEN | ALG and POLE still require rigorous first-hit, incidence, census, and margin calculations; HOM is imported from P2c. |
+| Zero-action first-event skeleton | OPEN | The POLE first-hit component has a complete computed-interval design cover; ALG, the joint incidence/census, and the final margin calculation remain open. HOM is imported from P2c. |
 | V2.EVENT_ATLAS | OPEN | No atlas claim is promoted by this lemma. |
 | Release status | claim_bearing=false | The imported source certificates retain independent replay \(1/2\). |
 
@@ -97,8 +97,9 @@ result does not certify the whole fixed \(2^{-55}\) disk.
 The next calculation is deliberately narrow:
 
 1. import the already validated selected-homoclinic first-hit branch;
-2. rigorously integrate the true-source enclosure above through the
-   algebraic and pole channels at \(\nu=0\);
+2. complete the algebraic channel at \(\nu=0\), using the finished
+   [pole-axis design cover](P2E_POLE_AXIS_FIRST_HIT_COVER_REPORT.md) as the
+   pole component;
 3. certify event speeds, no-earlier-hit gaps, active conormal ranks,
    containment, all incidences and corner priorities;
 4. enumerate every connected first-event component, exclude unnamed

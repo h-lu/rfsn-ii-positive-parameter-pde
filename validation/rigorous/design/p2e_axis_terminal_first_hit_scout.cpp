@@ -1,6 +1,7 @@
 #include <algorithm>
 #include <array>
 #include <cmath>
+#include <cstdint>
 #include <cstdlib>
 #include <iomanip>
 #include <iostream>
@@ -30,10 +31,26 @@ constexpr int kRCells = 8;
 constexpr int kA2Cells = 128;
 constexpr int kEpsilonCells = 4;
 
-interval rationalCell(int leftNumerator, int rightNumerator,
-                      int denominator) {
-  const interval left = interval(leftNumerator) / interval(denominator);
-  const interval right = interval(rightNumerator) / interval(denominator);
+constexpr std::int64_t kLargestExactlyRepresentableInteger =
+    std::int64_t{1} << 53;
+
+interval exactInteger(std::int64_t value) {
+  if (value < -kLargestExactlyRepresentableInteger ||
+      value > kLargestExactlyRepresentableInteger)
+    throw std::overflow_error(
+        "rational-cell integer exceeds exact binary64 range");
+  return interval(static_cast<double>(value));
+}
+
+interval rationalCell(std::int64_t leftNumerator,
+                      std::int64_t rightNumerator,
+                      std::int64_t denominator) {
+  if (denominator <= 0)
+    throw std::invalid_argument("rational-cell denominator must be positive");
+  const interval left = exactInteger(leftNumerator) /
+                        exactInteger(denominator);
+  const interval right = exactInteger(rightNumerator) /
+                         exactInteger(denominator);
   return interval(left.leftBound(), right.rightBound());
 }
 
@@ -507,8 +524,8 @@ int main(int argc, char** argv) {
     interval graphError(-graphRadius.rightBound(), graphRadius.rightBound());
     std::string poleRoute = "BASE";
     std::string splitPath;
-    int rSplitCount = 0;
-    int canonicalRLocalIndex = 0;
+    std::int64_t rLocalIndex = 0;
+    std::int64_t rSubdivisionCount = 1;
     bool sawEtaBox = false;
     bool sawEtaSplit = false;
     bool sawPoleRoute = false;
@@ -561,19 +578,20 @@ int main(int argc, char** argv) {
       if (!splitPath.empty()) splitPath += ",";
       splitPath += splitVariable + ":" + std::to_string(splitHalf);
       if (splitVariable == "r") {
-        ++rSplitCount;
-        canonicalRLocalIndex = 2 * canonicalRLocalIndex + splitHalf;
-        if (rSplitCount == 3) {
-          // The source certificate uses the exact canonical leaf
-          // [i/3200,(i+1)/3200].  Reconstruct that leaf directly instead of
-          // retaining the extra ulps produced by three successive midpoint
-          // splits; otherwise a root-conditioned terminal request can extend
-          // infinitesimally beyond its source certificate.
-          const int globalRLeaf = 8 * rIndex + canonicalRLocalIndex;
-          p.r = rationalCell(globalRLeaf, globalRLeaf + 1, 3200);
-        } else {
-          p.r = halfInterval(p.r, splitHalf);
-        }
+        if (rSubdivisionCount >
+            kLargestExactlyRepresentableInteger / (2 * 400))
+          throw std::invalid_argument(
+              "too many r splits for exact rational-grid reconstruction");
+        rSubdivisionCount *= 2;
+        rLocalIndex = 2 * rLocalIndex + splitHalf;
+        // Reconstruct every binary descendant directly on the exact rational
+        // grid of its parent [rIndex/400,(rIndex+1)/400].  In particular,
+        // extra splits after the three canonical bits never inherit a rounded
+        // binary64 midpoint that can protrude beyond the requested/source box.
+        const std::int64_t globalRLeaf =
+            std::int64_t{rIndex} * rSubdivisionCount + rLocalIndex;
+        const std::int64_t denominator = 400 * rSubdivisionCount;
+        p.r = rationalCell(globalRLeaf, globalRLeaf + 1, denominator);
       }
       else if (splitVariable == "a2") p.a2 = halfInterval(p.a2, splitHalf);
       else if (splitVariable == "epsilon")
@@ -651,6 +669,19 @@ int main(int argc, char** argv) {
     std::vector<interval> algReducedW;
     std::vector<interval> algReducedQ;
     std::unique_ptr<C0HOTripletonSet> firstDownSet;
+    IVector firstDownEvent(9);
+    interval firstDownTime(0.);
+    bool firstDownRecorded = false;
+    bool firstDownEntryPassed = selected.id != "POLE";
+    bool firstDownFallbackTriggered = false;
+    std::string firstDownEntryMethod = "NOT_APPLICABLE";
+    interval firstDownAnchorTime(0.), firstDownAnchorResidual(0.);
+    interval firstDownAnchorP(0.), firstDownPreZeroClock(0.);
+    interval firstDownPreZeroPHull(0.), firstDownZeroTime(0.);
+    interval firstDownZeroP(0.), firstDownZeroQ(0.);
+    interval firstDownZeroBranchQ(0.), firstDownPostZeroClock(0.);
+    interval firstDownPostZeroPHull(0.);
+    int firstDownPreZeroSteps = 0, firstDownPostZeroSteps = 0;
     bool algReducedApplicable = false;
     bool algReducedPassed = true;
     interval algSeamTime(0.), algSeamP(0.), algSeamQ(0.);
@@ -659,13 +690,19 @@ int main(int argc, char** argv) {
     int algDenseSteps = 0;
     bool turnReducedApplicable = false;
     bool turnReducedPassed = true;
-    interval turnSeamV(0.), turnClock(0.), turnDensePHull(0.);
+    interval turnSeamV(0.), turnSeamTime(0.), turnClock(0.);
+    interval turnTerminalTime(0.), turnDensePHull(0.);
     int turnDenseSteps = 0;
     bool escapeReducedApplicable = false;
     bool escapeReducedPassed = true;
-    interval escapeSeamQ(0.), escapeReducedClock(0.);
-    interval escapeDenseQHull(0.);
-    int escapeDenseSteps = 0;
+    interval escapeSeamTime(0.), escapeTerminalTime(0.);
+    interval escapePmaxU(0.), escapePmaxV(0.), escapePmaxQ(0.);
+    interval escapePmaxF(0.), escapeMClock(0.), escapeMDenseFHull(0.);
+    interval escapeUClock(0.), escapeUDensePHull(0.);
+    interval escapeZeroP(0.), escapeZeroQ(0.), escapeZeroBranchQ(0.);
+    interval escapeXClock(0.), escapeXDensePHull(0.);
+    int escapeMDenseSteps = 0, escapeUDenseSteps = 0;
+    int escapeXDenseSteps = 0;
     int legCount = 0;
     const auto hitSection = [&](int coordinate, const interval& target,
                                 const std::string& label,
@@ -699,8 +736,12 @@ int main(int argc, char** argv) {
       } else {
         throw std::runtime_error("unsupported intermediate section");
       }
-      if (label == "U=-.05 DOWN I")
+      if (label == "U=-.05 DOWN I") {
         firstDownSet = std::make_unique<C0HOTripletonSet>(set);
+        firstDownEvent = hit;
+        firstDownTime = hitTime;
+        firstDownRecorded = true;
+      }
       ++legCount;
       return hit;
     };
@@ -709,8 +750,209 @@ int main(int argc, char** argv) {
       // leg.  A naive U=-.5 intermediate section is almost tangent to the
       // first left excursion and causes severe wrapping.  The two Q=0 and
       // two P=0 turns separate that bounded excursion from the final escape.
-      event = hitSection(
-          0, -interval(1.) / interval(20.), "U=-.05 DOWN I", -1);
+      const interval firstDownTargetU =
+          -interval(1.) / interval(20.);
+      try {
+        // Keep the main set and solver untouched until the direct map has
+        // succeeded.  A failed CAPD Poincare call may leave its set near the
+        // problematic section and is not a valid fallback source.
+        C0HOTripletonSet directSet(set);
+        IOdeSolver directSolver(field, 20);
+        directSolver.setAbsoluteTolerance(1.e-13);
+        directSolver.setRelativeTolerance(1.e-13);
+        directSolver.setMaxStep(.02);
+        ICoordinateSection directSection(9, 0, firstDownTargetU);
+        IPoincareMap directMap(
+            directSolver, directSection, poincare::PlusMinus);
+        directMap.setMaxReturnTime(30.);
+        directMap.setBlowUpMaxNorm(1.e8);
+        interval directTime;
+        const IVector directEvent = directMap(directSet, directTime);
+        if (directEvent[1].rightBound() >= 0.)
+          throw std::runtime_error(
+              "direct first-down image lost strict P<0");
+        set = directSet;
+        event = directEvent;
+        firstDownSet = std::make_unique<C0HOTripletonSet>(set);
+        firstDownEvent = event;
+        firstDownTime = directTime;
+        firstDownRecorded = true;
+        firstDownEntryPassed = true;
+        firstDownEntryMethod =
+            "DIRECT_U_MINUS_ONE_TWENTIETH_POINCARE";
+        legTimes.push_back(firstDownTime);
+        legLabels.push_back("U=-.05 DOWN I");
+        legExpectedSigns.push_back(-1);
+        legSectionResiduals.push_back(event[0] - firstDownTargetU);
+        legSectionSpeeds.push_back(event[1]);
+        ++legCount;
+      } catch (const std::exception&) {
+        // Some narrow true-Wu leaves reach the section transversely, but the
+        // ambient energy-normal enclosure wraps before CAPD can validate the
+        // direct U=-1/20 Poincare image.  First hit the nearby positive
+        // section U=1/1000, then use x=-U as the independent variable.  Dense
+        // P<0 on both passages proves that the resulting x=0 and x=1/20
+        // images are their first arrivals after the directed anchor hit.
+        firstDownFallbackTriggered = true;
+        firstDownEntryMethod = "U_POSITIVE_ANCHOR_H0_X_TIME";
+        const interval anchorU = interval(1.) / interval(1000.);
+        if (initial[0].leftBound() <= anchorU.rightBound())
+          throw std::runtime_error(
+              "first-down fallback source is not above U=1/1000");
+
+        C0HOTripletonSet anchorSet(set);
+        IOdeSolver anchorSolver(field, 20);
+        anchorSolver.setAbsoluteTolerance(1.e-13);
+        anchorSolver.setRelativeTolerance(1.e-13);
+        anchorSolver.setMaxStep(.02);
+        ICoordinateSection anchorSection(9, 0, anchorU);
+        IPoincareMap anchorMap(
+            anchorSolver, anchorSection, poincare::PlusMinus);
+        anchorMap.setMaxReturnTime(30.);
+        anchorMap.setBlowUpMaxNorm(1.e8);
+        IVector anchorEvent;
+        try {
+          anchorEvent = anchorMap(anchorSet, firstDownAnchorTime);
+        } catch (const std::exception& error) {
+          throw std::runtime_error(
+              std::string("first-down U=1/1000 anchor: ") + error.what());
+        }
+        firstDownAnchorResidual = anchorEvent[0] - anchorU;
+        firstDownAnchorP = anchorEvent[1];
+        if (!firstDownAnchorResidual.contains(0.) ||
+            firstDownAnchorP.rightBound() >= 0. ||
+            firstDownAnchorTime.leftBound() <= 0.)
+          throw std::runtime_error(
+              "first-down U=1/1000 anchor lacks a strict downward hit");
+
+        IMap firstDownXField(
+            "time:x;par:rc,a2c,epsc;"
+            "var:pp,vv,qq,er,ea,ee,clock;"
+            "fun:((2*(rc+er)*(a2c+ea)+sqrt(epsc+ee)*(rc+er)^4*"
+            "(a2c+ea)^2)*x+vv+(1+sqrt(epsc+ee)*(rc+er)^3*"
+            "(a2c+ea))*x^2+(sqrt(epsc+ee)/3)*(rc+er)^2*x^3)/pp,"
+            "-qq/pp,x/pp,0,0,0,-1/pp;");
+        firstDownXField.setParameter("rc", parameterCentre[0]);
+        firstDownXField.setParameter("a2c", parameterCentre[1]);
+        firstDownXField.setParameter("epsc", parameterCentre[2]);
+
+        IVector preZeroInitial(7);
+        preZeroInitial[0] = anchorEvent[1];
+        preZeroInitial[1] = anchorEvent[2];
+        preZeroInitial[2] = anchorEvent[3];
+        preZeroInitial[3] = anchorEvent[4];
+        preZeroInitial[4] = anchorEvent[5];
+        preZeroInitial[5] = anchorEvent[6];
+        preZeroInitial[6] = interval(0.);
+        C0HOTripletonSet preZeroSet(preZeroInitial);
+        preZeroSet.setCurrentTime(-anchorU);
+        firstDownPreZeroPHull = preZeroInitial[0];
+        IOdeSolver preZeroSolver(firstDownXField, 20);
+        preZeroSolver.setAbsoluteTolerance(1.e-13);
+        preZeroSolver.setRelativeTolerance(1.e-13);
+        preZeroSolver.setMaxStep(1.e-4);
+        ITimeMap preZeroMap(preZeroSolver);
+        preZeroMap.stopAfterStep(true);
+        IVector zeroEvent(7);
+        do {
+          zeroEvent = preZeroMap(interval(0.), preZeroSet);
+          const interval denseP = preZeroSet.getLastEnclosure()[0];
+          firstDownPreZeroPHull = intervalHull(
+              firstDownPreZeroPHull, denseP);
+          ++firstDownPreZeroSteps;
+          if (denseP.rightBound() >= 0.)
+            throw std::runtime_error(
+                "first-down anchor-to-zero x passage lost P<0");
+        } while (!preZeroMap.completed());
+        firstDownPreZeroClock = zeroEvent[6];
+        firstDownZeroTime = firstDownAnchorTime + firstDownPreZeroClock;
+        firstDownZeroP = zeroEvent[0];
+        firstDownZeroQ = zeroEvent[2];
+        if (firstDownPreZeroClock.leftBound() <= 0. ||
+            firstDownZeroTime.leftBound() <=
+                firstDownAnchorTime.rightBound() ||
+            firstDownZeroP.rightBound() >= 0. ||
+            firstDownZeroQ.leftBound() <= 0.)
+          throw std::runtime_error(
+              "first-down U=0 image lost its strict P<0,Q>0 branch");
+
+        // On the zero-energy axis at U=0,
+        //   H=(P^2-Q^2)/2=0.
+        // The strict signs above select P=-Q.  Intersecting the two physical
+        // hulls and then discarding all remaining correlations is a superset
+        // reconditioning of the true H=0 image, not a numerical projection.
+        if (!intersection(firstDownZeroQ, -firstDownZeroP,
+                          firstDownZeroBranchQ))
+          throw std::runtime_error(
+              "first-down U=0 H=0 P=-Q intersection is empty");
+        if (firstDownZeroBranchQ.leftBound() <= 0.)
+          throw std::runtime_error(
+              "first-down U=0 H=0 branch lost Q>0");
+
+        IVector postZeroInitial(7);
+        postZeroInitial[0] = -firstDownZeroBranchQ;
+        postZeroInitial[1] = zeroEvent[1];
+        postZeroInitial[2] = firstDownZeroBranchQ;
+        postZeroInitial[3] = zeroEvent[3];
+        postZeroInitial[4] = zeroEvent[4];
+        postZeroInitial[5] = zeroEvent[5];
+        postZeroInitial[6] = interval(0.);
+        C0HOTripletonSet postZeroSet(postZeroInitial);
+        postZeroSet.setCurrentTime(interval(0.));
+        firstDownPostZeroPHull = postZeroInitial[0];
+        IOdeSolver postZeroSolver(firstDownXField, 20);
+        postZeroSolver.setAbsoluteTolerance(1.e-13);
+        postZeroSolver.setRelativeTolerance(1.e-13);
+        postZeroSolver.setMaxStep(.001);
+        ITimeMap postZeroMap(postZeroSolver);
+        postZeroMap.stopAfterStep(true);
+        IVector postZeroEvent(7);
+        const interval targetX = interval(1.) / interval(20.);
+        do {
+          postZeroEvent = postZeroMap(targetX, postZeroSet);
+          const interval denseP = postZeroSet.getLastEnclosure()[0];
+          firstDownPostZeroPHull = intervalHull(
+              firstDownPostZeroPHull, denseP);
+          ++firstDownPostZeroSteps;
+          if (denseP.rightBound() >= 0.)
+            throw std::runtime_error(
+                "first-down zero-to-one-twentieth x passage lost P<0");
+        } while (!postZeroMap.completed());
+        firstDownPostZeroClock = postZeroEvent[6];
+        firstDownTime = firstDownZeroTime + firstDownPostZeroClock;
+        if (firstDownPostZeroClock.leftBound() <= 0. ||
+            firstDownTime.leftBound() <= firstDownZeroTime.rightBound() ||
+            postZeroEvent[0].rightBound() >= 0.)
+          throw std::runtime_error(
+              "first-down post-zero x passage did not close");
+
+        IVector firstDownPhysical(9);
+        firstDownPhysical[0] = -targetX;
+        firstDownPhysical[1] = postZeroEvent[0];
+        firstDownPhysical[2] = postZeroEvent[1];
+        firstDownPhysical[3] = postZeroEvent[2];
+        firstDownPhysical[4] = postZeroEvent[3];
+        firstDownPhysical[5] = postZeroEvent[4];
+        firstDownPhysical[6] = postZeroEvent[5];
+        // dphi and eta are static flow coordinates.  The independent-variable
+        // product enclosures intentionally discard their correlations, so
+        // their complete anchor hulls must be carried to the physical restart.
+        firstDownPhysical[7] = anchorEvent[7];
+        firstDownPhysical[8] = anchorEvent[8];
+        set = C0HOTripletonSet(firstDownPhysical);
+        set.setCurrentTime(firstDownTime);
+        event = firstDownPhysical;
+        firstDownSet = std::make_unique<C0HOTripletonSet>(set);
+        firstDownEvent = event;
+        firstDownRecorded = true;
+        firstDownEntryPassed = true;
+        legTimes.push_back(firstDownTime);
+        legLabels.push_back("U=-.05 DOWN I");
+        legExpectedSigns.push_back(-1);
+        legSectionResiduals.push_back(event[0] - firstDownTargetU);
+        legSectionSpeeds.push_back(event[1]);
+        ++legCount;
+      }
       event = hitSection(3, interval(0.), "Q=0 DOWN", -1);
       event = hitSection(1, interval(0.), "P=0 MIN", +1);
       event = hitSection(
@@ -733,6 +975,7 @@ int main(int argc, char** argv) {
           throw std::runtime_error(
               "upper-turn physical and zero-energy V enclosures are disjoint");
         turnReducedApplicable = true;
+        turnSeamTime = legTimes.back();
         turnSeamV = turnVIntersection;
         IVector turnInitial(7);
         turnInitial[0] = event[1];
@@ -763,7 +1006,13 @@ int main(int argc, char** argv) {
         turnSolver.setMaxStep(.02);
         ITimeMap turnMap(turnSolver);
         turnMap.stopAfterStep(true);
-        const interval turnTargetU = interval(11.) / interval(5.);
+        // Stay in the well-conditioned U-time representation beyond the
+        // Q=0 crossing.  Returning to the ambient physical flow at U=11/5
+        // and asking it to locate Q=0 reintroduces precisely the wrapping
+        // direction removed at the seam.  U=11/4 is still strictly before
+        // the maximum on this route, so dense P>0 proves the whole passage
+        // is monotone and gives a safe physical restart for the P=0 event.
+        const interval turnTargetU = interval(11.) / interval(4.);
         IVector turnEvent(7);
         do {
           turnEvent = turnMap(turnTargetU, turnSet);
@@ -788,102 +1037,242 @@ int main(int argc, char** argv) {
         turnPhysical[6] = turnEvent[5];
         turnPhysical[7] = event[7];
         turnPhysical[8] = event[8];
-        const interval physicalTurnTime = set.getCurrentTime() + turnClock;
+        // The Poincare set has already been advanced just past its section.
+        // The reduced state, however, is rebuilt from the exact section image,
+        // so its physical base time is the Poincare hit time, not the current
+        // time carried by that post-section set.
+        turnTerminalTime = turnSeamTime + turnClock;
         set = C0HOTripletonSet(turnPhysical);
-        set.setCurrentTime(physicalTurnTime);
+        set.setCurrentTime(turnTerminalTime);
       }
-      event = hitSection(3, interval(0.), "Q=0 UP", +1);
-      if (poleRoute == "TURN_REDUCED") {
-        // P remains positive between Q=0 and the following maximum.
-        event = hitSection(
-            0, interval(5.) / interval(2.), "U=2.5 UP", +1);
-        event = hitSection(
-            0, interval(11.) / interval(4.), "U=2.75 UP", +1);
-      }
+      if (poleRoute != "TURN_REDUCED")
+        event = hitSection(3, interval(0.), "Q=0 UP", +1);
       event = hitSection(1, interval(0.), "P=0 MAX", -1);
-      event = hitSection(2, interval(0.), "V=0 UP", +1);
+      if (poleRoute != "TURN_REDUCED")
+        event = hitSection(2, interval(0.), "V=0 UP", +1);
       if (poleRoute == "TURN_REDUCED") {
-        // On the escaping arc Q>0, so use V as the independent variable from
-        // V=0 to V=4/5.  Reconstruct the positive Q branch from H=0 and
-        // intersect it with the physical Poincare image before starting.
+        // The exact P=0 maximum image lies on H=0.  Eliminate V there before
+        // changing independent variables; this removes the energy-normal
+        // wrapping that made a downstream V=4/5 seam nonuniform across the
+        // bridge box.
         escapeReducedApplicable = true;
-        const interval escapeRadicand = sqr(event[1]) -
-            p.c * sqr(event[0]) + interval(2.) * p.a *
-            integerPower(event[0], 3) / interval(3.) -
-            p.b * integerPower(event[0], 4) / interval(2.);
-        if (escapeRadicand.leftBound() <= 0.)
+        escapeSeamTime = legTimes.back();
+        escapePmaxU = event[0];
+        escapePmaxQ = event[3];
+        if (escapePmaxU.leftBound() <= 0.)
+          throw std::runtime_error("escape P=0 maximum lost U>0");
+        const interval pmaxVIdentity =
+            (sqr(escapePmaxQ) + p.c * sqr(escapePmaxU) -
+             interval(2.) * p.a * integerPower(escapePmaxU, 3) /
+                 interval(3.) +
+             p.b * integerPower(escapePmaxU, 4) / interval(2.)) /
+            (interval(2.) * escapePmaxU);
+        if (!intersection(event[2], pmaxVIdentity, escapePmaxV))
           throw std::runtime_error(
-              "escape seam lost the positive zero-energy Q branch");
-        interval escapeQIntersection;
-        if (!intersection(event[3], sqrt(escapeRadicand),
-                          escapeQIntersection))
+              "escape P=0 maximum physical and H=0 V enclosures are "
+              "disjoint");
+        const auto escapeF = [&](const interval& escapeU,
+                                  const interval& escapeV) {
+          return p.c * escapeU - escapeV - p.a * sqr(escapeU) +
+                 p.b * integerPower(escapeU, 3);
+        };
+        escapePmaxF = escapeF(escapePmaxU, escapePmaxV);
+        if (escapePmaxF.rightBound() >= 0.)
           throw std::runtime_error(
-              "escape physical and zero-energy Q enclosures are disjoint");
-        escapeSeamQ = escapeQIntersection;
-        IVector escapeInitial(7);
-        escapeInitial[0] = event[0];
-        escapeInitial[1] = event[1];
-        escapeInitial[2] = escapeQIntersection;
-        escapeInitial[3] = event[4];
-        escapeInitial[4] = event[5];
-        escapeInitial[5] = event[6];
-        escapeInitial[6] = interval(0.);
-        C0HOTripletonSet escapeSet(escapeInitial);
-        escapeSet.setCurrentTime(interval(0.));
-        escapeDenseQHull = escapeInitial[2];
-        IMap escapeField(
-            "time:vv;par:rc,a2c,epsc;"
-            "var:uu,pp,qq,er,ea,ee,clock;"
-            "fun:pp/qq,((2*(rc+er)*(a2c+ea)+sqrt(epsc+ee)*(rc+er)^4*"
+              "escape P=0 maximum is not strict F<0");
+
+        // Put m=-P.  Since dm/dt=-F>0 after the strict maximum, advance
+        // m from 0 to 1/10 with
+        //   dU/dm=m/F, dV/dm=-Q/F, dQ/dm=-U/F, dt/dm=-1/F.
+        IVector mInitial(7);
+        mInitial[0] = escapePmaxU;
+        mInitial[1] = escapePmaxV;
+        mInitial[2] = escapePmaxQ;
+        mInitial[3] = event[4];
+        mInitial[4] = event[5];
+        mInitial[5] = event[6];
+        mInitial[6] = interval(0.);
+        C0HOTripletonSet mSet(mInitial);
+        mSet.setCurrentTime(interval(0.));
+        escapeMDenseFHull = escapePmaxF;
+        IMap mField(
+            "time:mm;par:rc,a2c,epsc;"
+            "var:uu,vv,qq,er,ea,ee,clock;"
+            "fun:mm/((2*(rc+er)*(a2c+ea)+sqrt(epsc+ee)*(rc+er)^4*"
             "(a2c+ea)^2)*uu-vv-(1+sqrt(epsc+ee)*(rc+er)^3*"
-            "(a2c+ea))*uu^2+(sqrt(epsc+ee)/3)*(rc+er)^2*uu^3)/qq,"
-            "uu/qq,0,0,0,1/qq;");
-        escapeField.setParameter("rc", parameterCentre[0]);
-        escapeField.setParameter("a2c", parameterCentre[1]);
-        escapeField.setParameter("epsc", parameterCentre[2]);
-        IOdeSolver escapeSolver(escapeField, 20);
-        escapeSolver.setAbsoluteTolerance(1.e-13);
-        escapeSolver.setRelativeTolerance(1.e-13);
-        escapeSolver.setMaxStep(.01);
-        ITimeMap escapeMap(escapeSolver);
-        escapeMap.stopAfterStep(true);
-        const interval escapeTargetV = interval(4.) / interval(5.);
-        IVector escapeEvent(7);
+            "(a2c+ea))*uu^2+(sqrt(epsc+ee)/3)*(rc+er)^2*uu^3),"
+            "-qq/((2*(rc+er)*(a2c+ea)+sqrt(epsc+ee)*(rc+er)^4*"
+            "(a2c+ea)^2)*uu-vv-(1+sqrt(epsc+ee)*(rc+er)^3*"
+            "(a2c+ea))*uu^2+(sqrt(epsc+ee)/3)*(rc+er)^2*uu^3),"
+            "-uu/((2*(rc+er)*(a2c+ea)+sqrt(epsc+ee)*(rc+er)^4*"
+            "(a2c+ea)^2)*uu-vv-(1+sqrt(epsc+ee)*(rc+er)^3*"
+            "(a2c+ea))*uu^2+(sqrt(epsc+ee)/3)*(rc+er)^2*uu^3),"
+            "0,0,0,-1/((2*(rc+er)*(a2c+ea)+sqrt(epsc+ee)*(rc+er)^4*"
+            "(a2c+ea)^2)*uu-vv-(1+sqrt(epsc+ee)*(rc+er)^3*"
+            "(a2c+ea))*uu^2+(sqrt(epsc+ee)/3)*(rc+er)^2*uu^3);");
+        mField.setParameter("rc", parameterCentre[0]);
+        mField.setParameter("a2c", parameterCentre[1]);
+        mField.setParameter("epsc", parameterCentre[2]);
+        IOdeSolver mSolver(mField, 20);
+        mSolver.setAbsoluteTolerance(1.e-13);
+        mSolver.setRelativeTolerance(1.e-13);
+        mSolver.setMaxStep(.005);
+        ITimeMap mMap(mSolver);
+        mMap.stopAfterStep(true);
+        const interval smallM = interval(1.) / interval(10.);
+        IVector mEvent(7);
         do {
-          escapeEvent = escapeMap(escapeTargetV, escapeSet);
-          const interval stepQ = escapeSet.getLastEnclosure()[2];
-          escapeDenseQHull = intervalHull(escapeDenseQHull, stepQ);
-          ++escapeDenseSteps;
-          if (stepQ.leftBound() <= 0.)
-            throw std::runtime_error("escape V-time passage lost Q>0");
-        } while (!escapeMap.completed());
-        escapeReducedClock = escapeEvent[6];
-        escapeReducedPassed = escapeReducedClock.leftBound() > 0. &&
-            escapeEvent[2].leftBound() > 0.;
+          mEvent = mMap(smallM, mSet);
+          const IVector dense = mSet.getLastEnclosure();
+          const interval denseF = escapeF(dense[0], dense[1]);
+          escapeMDenseFHull = intervalHull(escapeMDenseFHull, denseF);
+          ++escapeMDenseSteps;
+          if (denseF.rightBound() >= 0.)
+            throw std::runtime_error(
+                "escape m passage lost F<0 at m=" +
+                intervalString(mSet.getCurrentTime()) + " with F=" +
+                intervalString(denseF));
+        } while (!mMap.completed());
+        escapeMClock = mEvent[6];
+        if (escapeMClock.leftBound() <= 0.)
+          throw std::runtime_error("escape m clock is not positive");
+
+        // Recondition H=0 at m=1/10 before the long decreasing-U passage.
+        const interval smallP = -smallM;
+        const interval mVIdentity =
+            (sqr(mEvent[2]) - sqr(smallP) + p.c * sqr(mEvent[0]) -
+             interval(2.) * p.a * integerPower(mEvent[0], 3) /
+                 interval(3.) +
+             p.b * integerPower(mEvent[0], 4) / interval(2.)) /
+            (interval(2.) * mEvent[0]);
+        interval mV;
+        if (!intersection(mEvent[1], mVIdentity, mV))
+          throw std::runtime_error(
+              "escape m=.1 physical and H=0 V enclosures are disjoint");
+
+        // Advance in x=-U from the positive-U image to x=0.  This is the
+        // requested U-time passage in a forward coordinate.  Dense P<0
+        // proves that U decreases strictly throughout it.
+        IMap escapeXField(
+            "time:x;par:rc,a2c,epsc;"
+            "var:pp,vv,qq,er,ea,ee,clock;"
+            "fun:((2*(rc+er)*(a2c+ea)+sqrt(epsc+ee)*(rc+er)^4*"
+            "(a2c+ea)^2)*x+vv+(1+sqrt(epsc+ee)*(rc+er)^3*"
+            "(a2c+ea))*x^2+(sqrt(epsc+ee)/3)*(rc+er)^2*x^3)/pp,"
+            "-qq/pp,x/pp,0,0,0,-1/pp;");
+        escapeXField.setParameter("rc", parameterCentre[0]);
+        escapeXField.setParameter("a2c", parameterCentre[1]);
+        escapeXField.setParameter("epsc", parameterCentre[2]);
+        IVector uInitial(7);
+        uInitial[0] = smallP;
+        uInitial[1] = mV;
+        uInitial[2] = mEvent[2];
+        uInitial[3] = mEvent[3];
+        uInitial[4] = mEvent[4];
+        uInitial[5] = mEvent[5];
+        uInitial[6] = interval(0.);
+        C0HOTripletonSet uSet(uInitial);
+        uSet.setCurrentTime(-mEvent[0]);
+        escapeUDensePHull = smallP;
+        IOdeSolver uSolver(escapeXField, 20);
+        uSolver.setAbsoluteTolerance(1.e-13);
+        uSolver.setRelativeTolerance(1.e-13);
+        uSolver.setMaxStep(.01);
+        ITimeMap uMap(uSolver);
+        uMap.stopAfterStep(true);
+        IVector zeroEvent(7);
+        do {
+          zeroEvent = uMap(interval(0.), uSet);
+          const interval denseP = uSet.getLastEnclosure()[0];
+          escapeUDensePHull = intervalHull(escapeUDensePHull, denseP);
+          ++escapeUDenseSteps;
+          if (denseP.rightBound() >= 0.)
+            throw std::runtime_error(
+                "escape U-to-zero passage lost P<0 at U=" +
+                intervalString(-uSet.getCurrentTime()) + " with P=" +
+                intervalString(denseP));
+        } while (!uMap.completed());
+        escapeUClock = zeroEvent[6];
+        escapeZeroP = zeroEvent[0];
+        escapeZeroQ = zeroEvent[2];
+        if (escapeUClock.leftBound() <= 0. ||
+            escapeZeroP.rightBound() >= 0. ||
+            escapeZeroQ.leftBound() <= 0.)
+          throw std::runtime_error(
+              "escape U=0 image lost positive time or P<0,Q>0");
+
+        // At U=0 the zero-energy identity is P^2=Q^2.  The already proved
+        // signs P<0<Q select P=-Q; intersect the two rigorous hulls and
+        // discard their remaining correlations before the final x passage.
+        if (!intersection(escapeZeroQ, -escapeZeroP,
+                          escapeZeroBranchQ))
+          throw std::runtime_error(
+              "escape U=0 H=0 P=-Q intersection is empty");
+        if (escapeZeroBranchQ.leftBound() <= 0.)
+          throw std::runtime_error(
+              "escape U=0 H=0 branch lost Q>0");
+
+        IVector escapeXInitial(7);
+        escapeXInitial[0] = -escapeZeroBranchQ;
+        escapeXInitial[1] = zeroEvent[1];
+        escapeXInitial[2] = escapeZeroBranchQ;
+        escapeXInitial[3] = zeroEvent[3];
+        escapeXInitial[4] = zeroEvent[4];
+        escapeXInitial[5] = zeroEvent[5];
+        escapeXInitial[6] = interval(0.);
+        C0HOTripletonSet escapeXSet(escapeXInitial);
+        escapeXSet.setCurrentTime(interval(0.));
+        escapeXDensePHull = escapeXInitial[0];
+        IOdeSolver escapeXSolver(escapeXField, 20);
+        escapeXSolver.setAbsoluteTolerance(1.e-13);
+        escapeXSolver.setRelativeTolerance(1.e-13);
+        escapeXSolver.setMaxStep(.005);
+        ITimeMap escapeXMap(escapeXSolver);
+        escapeXMap.stopAfterStep(true);
+        const interval escapeTargetX = interval(1.) / interval(5.);
+        IVector escapeXEvent(7);
+        do {
+          escapeXEvent = escapeXMap(escapeTargetX, escapeXSet);
+          const interval denseP = escapeXSet.getLastEnclosure()[0];
+          escapeXDensePHull = intervalHull(escapeXDensePHull, denseP);
+          ++escapeXDenseSteps;
+          if (denseP.rightBound() >= 0.)
+            throw std::runtime_error(
+                "escape zero-to-.2 x passage lost P<0 at x=" +
+                intervalString(escapeXSet.getCurrentTime()) + " with P=" +
+                intervalString(denseP));
+        } while (!escapeXMap.completed());
+        escapeXClock = escapeXEvent[6];
+        escapeReducedPassed = escapeXClock.leftBound() > 0. &&
+            escapeXEvent[0].rightBound() < 0.;
         if (!escapeReducedPassed)
-          throw std::runtime_error("escape V-time passage did not close");
+          throw std::runtime_error(
+              "escape zero-to-.2 x passage did not close");
         IVector escapePhysical(9);
-        escapePhysical[0] = escapeEvent[0];
-        escapePhysical[1] = escapeEvent[1];
-        escapePhysical[2] = escapeTargetV;
-        escapePhysical[3] = escapeEvent[2];
-        escapePhysical[4] = escapeEvent[3];
-        escapePhysical[5] = escapeEvent[4];
-        escapePhysical[6] = escapeEvent[5];
+        escapePhysical[0] = -escapeTargetX;
+        escapePhysical[1] = escapeXEvent[0];
+        escapePhysical[2] = escapeXEvent[1];
+        escapePhysical[3] = escapeXEvent[2];
+        escapePhysical[4] = escapeXEvent[3];
+        escapePhysical[5] = escapeXEvent[4];
+        escapePhysical[6] = escapeXEvent[5];
         escapePhysical[7] = event[7];
         escapePhysical[8] = event[8];
-        const interval physicalEscapeTime =
-            set.getCurrentTime() + escapeReducedClock;
+        // The ledger begins at the exact P=0 maximum event, not at the
+        // already post-section physical set.
+        escapeTerminalTime = escapeSeamTime + escapeMClock +
+                             escapeUClock + escapeXClock;
         set = C0HOTripletonSet(escapePhysical);
-        set.setCurrentTime(physicalEscapeTime);
+        set.setCurrentTime(escapeTerminalTime);
       } else if (poleRoute == "V_STEPS") {
         event = hitSection(2, interval(1.) / interval(2.), "V=.5 UP", +1);
         event = hitSection(2, interval(3.) / interval(4.), "V=.75 UP", +1);
         event = hitSection(
             2, interval(4.) / interval(5.), "V=.8 UP", +1);
       }
-      event = hitSection(
-          0, -interval(1.) / interval(5.), "U=-.2 DOWN", -1);
+      if (poleRoute != "TURN_REDUCED")
+        event = hitSection(
+            0, -interval(1.) / interval(5.), "U=-.2 DOWN", -1);
       event = hitSection(
           0, -interval(1.) / interval(2.), "U=-.5 DOWN", -1);
       event = hitSection(0, interval(-1.), "U=-1 DOWN", -1);
@@ -1041,10 +1430,27 @@ int main(int argc, char** argv) {
     bool preEscapeGuardPassed = selected.id != "POLE";
     interval guardMinimumU(0.), guardMinimumAcceleration(0.);
     interval guardMaximumU(0.), guardMaximumAcceleration(0.);
-    interval guardFinalP(0.);
+    interval guardFinalP(0.), guardFinalV(0.), guardFinalQ(0.);
     interval guardEscapeResidual(0.);
     interval guardMinimumTime(0.), guardMaximumTime(0.);
     interval guardEscapeTime(0.);
+    std::string guardMethod = "NOT_APPLICABLE";
+    bool guardMonotoneApplicable = false;
+    bool guardMonotonePassed = true;
+    const std::array<std::string, 8> guardSegmentLabels = {
+        "x=.05->.4 P<0", "P->0 MIN F>0", "P=0->.1 F>0",
+        "U->2.2 P>0", "m=-P->0 MAX F<0", "m=0->.1 F<0",
+        "x=-U POSTMAX->0 P<0", "x=0->.2 P<0"};
+    std::array<interval, 8> guardSegmentClocks = {
+        interval(0.), interval(0.), interval(0.), interval(0.),
+        interval(0.), interval(0.), interval(0.), interval(0.)};
+    std::array<int, 8> guardSegmentSteps = {0, 0, 0, 0, 0, 0, 0, 0};
+    interval guardDownPHull(0.), guardMinApproachFHull(0.);
+    interval guardMinApproachUHull(0.), guardMinExitFHull(0.);
+    interval guardRisePHull(0.), guardMaxApproachFHull(0.);
+    interval guardMaxApproachUHull(0.), guardMaxExitFHull(0.);
+    interval guardPostMaxZeroPHull(0.), guardZeroP(0.), guardZeroQ(0.);
+    interval guardZeroBranchQ(0.), guardEscapeXPHull(0.);
     interval escapeY(0.), escapeD(0.), escapeK(0.), escapeGamma(0.);
     interval escapeKPrimeMargin(0.);
     if (selected.id == "POLE") {
@@ -1055,38 +1461,492 @@ int main(int argc, char** argv) {
       // U is respectively decreasing, increasing, and unable to reach -10
       // before crossing -.2.  This excludes an earlier pole gate even though
       // the main enclosure uses Q/V sections for numerical conditioning.
-      if (!firstDownSet)
+      if (!firstDownSet || !firstDownRecorded)
         throw std::runtime_error("missing first-down guard source");
-      C0HOTripletonSet guardSet(*firstDownSet);
-      const auto guardHit = [&](int coordinate, const interval& target,
-                                poincare::CrossingDirection direction,
-                                interval& hitTime) {
-        IOdeSolver guardSolver(field, 20);
-        guardSolver.setAbsoluteTolerance(1.e-13);
-        guardSolver.setRelativeTolerance(1.e-13);
-        guardSolver.setMaxStep(.02);
-        ICoordinateSection guardSection(9, coordinate, target);
-        IPoincareMap guardPoincare(guardSolver, guardSection, direction);
-        guardPoincare.setMaxReturnTime(30.);
-        guardPoincare.setBlowUpMaxNorm(1.e8);
-        return guardPoincare(guardSet, hitTime);
+      const auto acceleration = [&](const interval& guardU,
+                                    const interval& guardV) {
+        return p.c * guardU - guardV - p.a * sqr(guardU) +
+               p.b * integerPower(guardU, 3);
       };
-      const IVector minimum = guardHit(
-          1, interval(0.), poincare::MinusPlus, guardMinimumTime);
-      guardMinimumU = minimum[0];
-      guardMinimumAcceleration = p.c * minimum[0] - minimum[2] -
-          p.a * sqr(minimum[0]) + p.b * integerPower(minimum[0], 3);
-      const IVector maximum = guardHit(
-          1, interval(0.), poincare::PlusMinus, guardMaximumTime);
-      guardMaximumU = maximum[0];
-      guardMaximumAcceleration = p.c * maximum[0] - maximum[2] -
-          p.a * sqr(maximum[0]) + p.b * integerPower(maximum[0], 3);
-      const IVector guardedEscape = guardHit(
-          0, -interval(1.) / interval(5.), poincare::PlusMinus,
-          guardEscapeTime);
-      guardFinalP = guardedEscape[1];
-      guardEscapeResidual = guardedEscape[0] +
-                            interval(1.) / interval(5.);
+      try {
+        // The inexpensive path is retained for cells on which direct
+        // segmented Poincare propagation stays narrow.  If CAPD cannot
+        // enclose one of its crossings, the catch block below restarts from
+        // the already rigorous first-down image and proves the same ordering
+        // through monotone independent-variable passages.
+        guardMethod = "DIRECT_SEGMENTED_POINCARE";
+        C0HOTripletonSet guardSet(*firstDownSet);
+        const auto guardHit = [&](int coordinate, const interval& target,
+                                  poincare::CrossingDirection direction,
+                                  interval& hitTime,
+                                  const std::string& label) {
+          IOdeSolver guardSolver(field, 20);
+          guardSolver.setAbsoluteTolerance(1.e-13);
+          guardSolver.setRelativeTolerance(1.e-13);
+          guardSolver.setMaxStep(.02);
+          ICoordinateSection guardSection(9, coordinate, target);
+          IPoincareMap guardPoincare(guardSolver, guardSection, direction);
+          guardPoincare.setMaxReturnTime(30.);
+          guardPoincare.setBlowUpMaxNorm(1.e8);
+          try {
+            return guardPoincare(guardSet, hitTime);
+          } catch (const std::exception& error) {
+            throw std::runtime_error("GUARD " + label + ": " +
+                                     error.what());
+          }
+        };
+        const IVector minimum = guardHit(
+            1, interval(0.), poincare::MinusPlus, guardMinimumTime,
+            "P=0 MIN");
+        guardMinimumU = minimum[0];
+        guardMinimumAcceleration = acceleration(minimum[0], minimum[2]);
+        const IVector maximum = guardHit(
+            1, interval(0.), poincare::PlusMinus, guardMaximumTime,
+            "P=0 MAX");
+        guardMaximumU = maximum[0];
+        guardMaximumAcceleration = acceleration(maximum[0], maximum[2]);
+        const IVector guardedEscape = guardHit(
+            0, -interval(1.) / interval(5.), poincare::PlusMinus,
+            guardEscapeTime, "U=-.2 DOWN");
+        guardFinalP = guardedEscape[1];
+        guardFinalV = guardedEscape[2];
+        guardFinalQ = guardedEscape[3];
+        guardEscapeResidual = guardedEscape[0] +
+                              interval(1.) / interval(5.);
+        if (guardMinimumU.leftBound() <= -1. ||
+            guardMinimumAcceleration.leftBound() <= 0. ||
+            guardMaximumU.leftBound() <= 0. ||
+            guardMaximumAcceleration.rightBound() >= 0. ||
+            guardFinalP.rightBound() >= 0. ||
+            !guardEscapeResidual.contains(0.) ||
+            guardMinimumTime.leftBound() <= 0. ||
+            guardMaximumTime.leftBound() <= guardMinimumTime.rightBound() ||
+            guardEscapeTime.leftBound() <= guardMaximumTime.rightBound() ||
+            returnTime.leftBound() <= guardEscapeTime.rightBound())
+          throw std::runtime_error(
+              "GUARD direct Poincare margins are inconclusive");
+      } catch (const std::exception&) {
+        guardMethod = "H0_RECONDITIONED_MONOTONE_INDEPENDENT_VARIABLES";
+        guardMonotoneApplicable = true;
+
+        // The exact Hamiltonian identity on H=0 is
+        //   V=(Q^2-P^2+cU^2-2aU^3/3+bU^4/2)/(2U).
+        // Reconditioning only discards correlations and intersects with the
+        // physical enclosure; it never narrows away a true zero-energy
+        // trajectory.
+        const auto zeroEnergyV = [&](const interval& guardU,
+                                     const interval& guardP,
+                                     const interval& guardQ) {
+          return (sqr(guardQ) - sqr(guardP) + p.c * sqr(guardU) -
+                  interval(2.) * p.a * integerPower(guardU, 3) /
+                      interval(3.) +
+                  p.b * integerPower(guardU, 4) / interval(2.)) /
+                 (interval(2.) * guardU);
+        };
+        const auto intersectOrThrow = [&](const interval& physical,
+                                          const interval& identity,
+                                          const std::string& label) {
+          interval result;
+          if (!intersection(physical, identity, result))
+            throw std::runtime_error("GUARD " + label +
+                                     " H=0 intersection is empty");
+          return result;
+        };
+        const auto configure = [&](IOdeSolver& reducedSolver,
+                                   double maxStep) {
+          reducedSolver.setAbsoluteTolerance(1.e-13);
+          reducedSolver.setRelativeTolerance(1.e-13);
+          reducedSolver.setMaxStep(maxStep);
+        };
+
+        const interval firstU = -interval(1.) / interval(20.);
+        if (!firstDownEvent[0].contains(firstU) ||
+            firstDownEvent[1].rightBound() >= 0.)
+          throw std::runtime_error(
+              "GUARD first-down image is not U=-.05 with P<0");
+        const interval firstV = intersectOrThrow(
+            firstDownEvent[2],
+            zeroEnergyV(firstU, firstDownEvent[1], firstDownEvent[3]),
+            "first-down");
+
+        // Segment 0: x=-U grows from .05 to .4.  Every accepted CAPD step
+        // is checked for P<0, so this is the first arrival at U=-.4 and no
+        // pole section U=-1 can have occurred.
+        IVector downInitial(7);
+        downInitial[0] = firstDownEvent[1];
+        downInitial[1] = firstV;
+        downInitial[2] = firstDownEvent[3];
+        downInitial[3] = firstDownEvent[4];
+        downInitial[4] = firstDownEvent[5];
+        downInitial[5] = firstDownEvent[6];
+        downInitial[6] = interval(0.);
+        C0HOTripletonSet downSet(downInitial);
+        downSet.setCurrentTime(interval(1.) / interval(20.));
+        guardDownPHull = downInitial[0];
+        IMap downField(
+            "time:x;par:rc,a2c,epsc;"
+            "var:pp,vv,qq,er,ea,ee,clock;"
+            "fun:((2*(rc+er)*(a2c+ea)+sqrt(epsc+ee)*(rc+er)^4*"
+            "(a2c+ea)^2)*x+vv+(1+sqrt(epsc+ee)*(rc+er)^3*"
+            "(a2c+ea))*x^2+(sqrt(epsc+ee)/3)*(rc+er)^2*x^3)/pp,"
+            "-qq/pp,x/pp,0,0,0,-1/pp;");
+        downField.setParameter("rc", parameterCentre[0]);
+        downField.setParameter("a2c", parameterCentre[1]);
+        downField.setParameter("epsc", parameterCentre[2]);
+        IOdeSolver downSolver(downField, 20);
+        configure(downSolver, .005);
+        ITimeMap downMap(downSolver);
+        downMap.stopAfterStep(true);
+        IVector downEvent(7);
+        const interval downTargetX = interval(2.) / interval(5.);
+        do {
+          downEvent = downMap(downTargetX, downSet);
+          const interval stepP = downSet.getLastEnclosure()[0];
+          guardDownPHull = intervalHull(guardDownPHull, stepP);
+          ++guardSegmentSteps[0];
+          if (stepP.rightBound() >= 0.)
+            throw std::runtime_error(
+                "GUARD x=.05->.4 passage lost P<0");
+        } while (!downMap.completed());
+        guardSegmentClocks[0] = downEvent[6];
+        const interval downU = -downTargetX;
+        const interval downF = acceleration(downU, downEvent[1]);
+        if (downF.leftBound() <= 0.)
+          throw std::runtime_error("GUARD U=-.4 does not have F>0");
+
+        // Segment 1: use P itself as time until P=0.  F>0 on every
+        // accepted step makes this the first minimum; U>-1 is checked on
+        // the complete dense enclosures, not only at the endpoint.
+        const interval downV = intersectOrThrow(
+            downEvent[1], zeroEnergyV(downU, downEvent[0], downEvent[2]),
+            "U=-.4");
+        IVector minInitial(7);
+        minInitial[0] = downU;
+        minInitial[1] = downV;
+        minInitial[2] = downEvent[2];
+        minInitial[3] = downEvent[3];
+        minInitial[4] = downEvent[4];
+        minInitial[5] = downEvent[5];
+        minInitial[6] = interval(0.);
+        C0HOTripletonSet minSet(minInitial);
+        minSet.setCurrentTime(downEvent[0]);
+        guardMinApproachFHull = downF;
+        guardMinApproachUHull = downU;
+        IMap positivePField(
+            "time:pp;par:rc,a2c,epsc;"
+            "var:uu,vv,qq,er,ea,ee,clock;"
+            "fun:pp/((2*(rc+er)*(a2c+ea)+sqrt(epsc+ee)*(rc+er)^4*"
+            "(a2c+ea)^2)*uu-vv-(1+sqrt(epsc+ee)*(rc+er)^3*"
+            "(a2c+ea))*uu^2+(sqrt(epsc+ee)/3)*(rc+er)^2*uu^3),"
+            "qq/((2*(rc+er)*(a2c+ea)+sqrt(epsc+ee)*(rc+er)^4*"
+            "(a2c+ea)^2)*uu-vv-(1+sqrt(epsc+ee)*(rc+er)^3*"
+            "(a2c+ea))*uu^2+(sqrt(epsc+ee)/3)*(rc+er)^2*uu^3),"
+            "uu/((2*(rc+er)*(a2c+ea)+sqrt(epsc+ee)*(rc+er)^4*"
+            "(a2c+ea)^2)*uu-vv-(1+sqrt(epsc+ee)*(rc+er)^3*"
+            "(a2c+ea))*uu^2+(sqrt(epsc+ee)/3)*(rc+er)^2*uu^3),"
+            "0,0,0,1/((2*(rc+er)*(a2c+ea)+sqrt(epsc+ee)*(rc+er)^4*"
+            "(a2c+ea)^2)*uu-vv-(1+sqrt(epsc+ee)*(rc+er)^3*"
+            "(a2c+ea))*uu^2+(sqrt(epsc+ee)/3)*(rc+er)^2*uu^3);");
+        positivePField.setParameter("rc", parameterCentre[0]);
+        positivePField.setParameter("a2c", parameterCentre[1]);
+        positivePField.setParameter("epsc", parameterCentre[2]);
+        IOdeSolver minSolver(positivePField, 20);
+        configure(minSolver, .005);
+        ITimeMap minMap(minSolver);
+        minMap.stopAfterStep(true);
+        IVector minimum(7);
+        do {
+          minimum = minMap(interval(0.), minSet);
+          const IVector dense = minSet.getLastEnclosure();
+          const interval denseF = acceleration(dense[0], dense[1]);
+          guardMinApproachFHull = intervalHull(
+              guardMinApproachFHull, denseF);
+          guardMinApproachUHull = intervalHull(
+              guardMinApproachUHull, dense[0]);
+          ++guardSegmentSteps[1];
+          if (denseF.leftBound() <= 0. || dense[0].leftBound() <= -1.)
+            throw std::runtime_error(
+                "GUARD P->0 minimum passage lost F>0 or U>-1");
+        } while (!minMap.completed());
+        guardSegmentClocks[1] = minimum[6];
+        guardMinimumU = minimum[0];
+        const interval minimumV = intersectOrThrow(
+            minimum[1], zeroEnergyV(minimum[0], interval(0.), minimum[2]),
+            "minimum");
+        guardMinimumAcceleration = acceleration(minimum[0], minimumV);
+
+        // Segment 2: leave the minimum on the fixed P=.1 section while F>0.
+        IVector minExitInitial(7);
+        minExitInitial[0] = minimum[0];
+        minExitInitial[1] = minimumV;
+        minExitInitial[2] = minimum[2];
+        minExitInitial[3] = minimum[3];
+        minExitInitial[4] = minimum[4];
+        minExitInitial[5] = minimum[5];
+        minExitInitial[6] = interval(0.);
+        C0HOTripletonSet minExitSet(minExitInitial);
+        minExitSet.setCurrentTime(interval(0.));
+        guardMinExitFHull = guardMinimumAcceleration;
+        IOdeSolver minExitSolver(positivePField, 20);
+        configure(minExitSolver, .005);
+        ITimeMap minExitMap(minExitSolver);
+        minExitMap.stopAfterStep(true);
+        IVector minExit(7);
+        const interval smallP = interval(1.) / interval(10.);
+        do {
+          minExit = minExitMap(smallP, minExitSet);
+          const IVector dense = minExitSet.getLastEnclosure();
+          const interval denseF = acceleration(dense[0], dense[1]);
+          guardMinExitFHull = intervalHull(guardMinExitFHull, denseF);
+          ++guardSegmentSteps[2];
+          if (denseF.leftBound() <= 0.)
+            throw std::runtime_error(
+                "GUARD minimum exit lost F>0");
+        } while (!minExitMap.completed());
+        guardSegmentClocks[2] = minExit[6];
+
+        // Segment 3: U is the independent variable up to U=11/5.  Dense
+        // P>0 proves that no second turning point occurred on this passage.
+        IVector riseInitial(7);
+        riseInitial[0] = smallP;
+        riseInitial[1] = minExit[1];
+        riseInitial[2] = minExit[2];
+        riseInitial[3] = minExit[3];
+        riseInitial[4] = minExit[4];
+        riseInitial[5] = minExit[5];
+        riseInitial[6] = interval(0.);
+        C0HOTripletonSet riseSet(riseInitial);
+        riseSet.setCurrentTime(minExit[0]);
+        guardRisePHull = smallP;
+        IMap riseField(
+            "time:uu;par:rc,a2c,epsc;"
+            "var:pp,vv,qq,er,ea,ee,clock;"
+            "fun:((2*(rc+er)*(a2c+ea)+sqrt(epsc+ee)*(rc+er)^4*"
+            "(a2c+ea)^2)*uu-vv-(1+sqrt(epsc+ee)*(rc+er)^3*"
+            "(a2c+ea))*uu^2+(sqrt(epsc+ee)/3)*(rc+er)^2*uu^3)/pp,"
+            "qq/pp,uu/pp,0,0,0,1/pp;");
+        riseField.setParameter("rc", parameterCentre[0]);
+        riseField.setParameter("a2c", parameterCentre[1]);
+        riseField.setParameter("epsc", parameterCentre[2]);
+        IOdeSolver riseSolver(riseField, 20);
+        configure(riseSolver, .01);
+        ITimeMap riseMap(riseSolver);
+        riseMap.stopAfterStep(true);
+        IVector rise(7);
+        const interval riseTargetU = interval(11.) / interval(5.);
+        do {
+          rise = riseMap(riseTargetU, riseSet);
+          const interval denseP = riseSet.getLastEnclosure()[0];
+          guardRisePHull = intervalHull(guardRisePHull, denseP);
+          ++guardSegmentSteps[3];
+          if (denseP.leftBound() <= 0.)
+            throw std::runtime_error(
+                "GUARD U->2.2 passage lost P>0");
+        } while (!riseMap.completed());
+        guardSegmentClocks[3] = rise[6];
+        const interval riseF = acceleration(riseTargetU, rise[1]);
+        if (riseF.rightBound() >= 0.)
+          throw std::runtime_error("GUARD U=2.2 does not have F<0");
+
+        // Segments 4 and 5 use m=-P, which increases first to the maximum
+        // (m=0) and then to P=-.1.  F<0 on every accepted enclosure makes
+        // the maximum the first one after the minimum.
+        IMap negativePField(
+            "time:mm;par:rc,a2c,epsc;"
+            "var:uu,vv,qq,er,ea,ee,clock;"
+            "fun:mm/((2*(rc+er)*(a2c+ea)+sqrt(epsc+ee)*(rc+er)^4*"
+            "(a2c+ea)^2)*uu-vv-(1+sqrt(epsc+ee)*(rc+er)^3*"
+            "(a2c+ea))*uu^2+(sqrt(epsc+ee)/3)*(rc+er)^2*uu^3),"
+            "-qq/((2*(rc+er)*(a2c+ea)+sqrt(epsc+ee)*(rc+er)^4*"
+            "(a2c+ea)^2)*uu-vv-(1+sqrt(epsc+ee)*(rc+er)^3*"
+            "(a2c+ea))*uu^2+(sqrt(epsc+ee)/3)*(rc+er)^2*uu^3),"
+            "-uu/((2*(rc+er)*(a2c+ea)+sqrt(epsc+ee)*(rc+er)^4*"
+            "(a2c+ea)^2)*uu-vv-(1+sqrt(epsc+ee)*(rc+er)^3*"
+            "(a2c+ea))*uu^2+(sqrt(epsc+ee)/3)*(rc+er)^2*uu^3),"
+            "0,0,0,-1/((2*(rc+er)*(a2c+ea)+sqrt(epsc+ee)*(rc+er)^4*"
+            "(a2c+ea)^2)*uu-vv-(1+sqrt(epsc+ee)*(rc+er)^3*"
+            "(a2c+ea))*uu^2+(sqrt(epsc+ee)/3)*(rc+er)^2*uu^3);");
+        negativePField.setParameter("rc", parameterCentre[0]);
+        negativePField.setParameter("a2c", parameterCentre[1]);
+        negativePField.setParameter("epsc", parameterCentre[2]);
+        IVector maxInitial(7);
+        maxInitial[0] = riseTargetU;
+        maxInitial[1] = rise[1];
+        maxInitial[2] = rise[2];
+        maxInitial[3] = rise[3];
+        maxInitial[4] = rise[4];
+        maxInitial[5] = rise[5];
+        maxInitial[6] = interval(0.);
+        C0HOTripletonSet maxSet(maxInitial);
+        maxSet.setCurrentTime(-rise[0]);
+        guardMaxApproachFHull = riseF;
+        guardMaxApproachUHull = riseTargetU;
+        IOdeSolver maxSolver(negativePField, 20);
+        configure(maxSolver, .005);
+        ITimeMap maxMap(maxSolver);
+        maxMap.stopAfterStep(true);
+        IVector maximum(7);
+        do {
+          maximum = maxMap(interval(0.), maxSet);
+          const IVector dense = maxSet.getLastEnclosure();
+          const interval denseF = acceleration(dense[0], dense[1]);
+          guardMaxApproachFHull = intervalHull(
+              guardMaxApproachFHull, denseF);
+          guardMaxApproachUHull = intervalHull(
+              guardMaxApproachUHull, dense[0]);
+          ++guardSegmentSteps[4];
+          if (denseF.rightBound() >= 0. || dense[0].leftBound() <= 0.)
+            throw std::runtime_error(
+                "GUARD m->0 maximum passage lost F<0 or U>0");
+        } while (!maxMap.completed());
+        guardSegmentClocks[4] = maximum[6];
+        guardMaximumU = maximum[0];
+        const interval maximumV = intersectOrThrow(
+            maximum[1], zeroEnergyV(maximum[0], interval(0.), maximum[2]),
+            "maximum");
+        guardMaximumAcceleration = acceleration(maximum[0], maximumV);
+
+        IVector maxExitInitial(7);
+        maxExitInitial[0] = maximum[0];
+        maxExitInitial[1] = maximumV;
+        maxExitInitial[2] = maximum[2];
+        maxExitInitial[3] = maximum[3];
+        maxExitInitial[4] = maximum[4];
+        maxExitInitial[5] = maximum[5];
+        maxExitInitial[6] = interval(0.);
+        C0HOTripletonSet maxExitSet(maxExitInitial);
+        maxExitSet.setCurrentTime(interval(0.));
+        guardMaxExitFHull = guardMaximumAcceleration;
+        IOdeSolver maxExitSolver(negativePField, 20);
+        configure(maxExitSolver, .005);
+        ITimeMap maxExitMap(maxExitSolver);
+        maxExitMap.stopAfterStep(true);
+        IVector maxExit(7);
+        do {
+          maxExit = maxExitMap(smallP, maxExitSet);
+          const IVector dense = maxExitSet.getLastEnclosure();
+          const interval denseF = acceleration(dense[0], dense[1]);
+          guardMaxExitFHull = intervalHull(guardMaxExitFHull, denseF);
+          ++guardSegmentSteps[5];
+          if (denseF.rightBound() >= 0.)
+            throw std::runtime_error("GUARD maximum exit lost F<0");
+        } while (!maxExitMap.completed());
+        guardSegmentClocks[5] = maxExit[6];
+
+        // Segment 6: recondition V on H=0 at the strict P=-.1 exit, where
+        // U>0 keeps the Hamiltonian formula regular.  Then advance in the
+        // increasing coordinate x=-U from the positive-U side to x=0.
+        // Dense P<0 proves that this is the first post-maximum U=0 arrival.
+        const interval maxExitV = intersectOrThrow(
+            maxExit[1], zeroEnergyV(maxExit[0], -smallP, maxExit[2]),
+            "post-maximum P=-.1");
+        IVector zeroInitial(7);
+        zeroInitial[0] = -smallP;
+        zeroInitial[1] = maxExitV;
+        zeroInitial[2] = maxExit[2];
+        zeroInitial[3] = maxExit[3];
+        zeroInitial[4] = maxExit[4];
+        zeroInitial[5] = maxExit[5];
+        zeroInitial[6] = interval(0.);
+        C0HOTripletonSet zeroSet(zeroInitial);
+        zeroSet.setCurrentTime(-maxExit[0]);
+        guardPostMaxZeroPHull = zeroInitial[0];
+        IOdeSolver zeroSolver(downField, 20);
+        configure(zeroSolver, .01);
+        ITimeMap zeroMap(zeroSolver);
+        zeroMap.stopAfterStep(true);
+        IVector zeroEvent(7);
+        do {
+          zeroEvent = zeroMap(interval(0.), zeroSet);
+          const interval denseP = zeroSet.getLastEnclosure()[0];
+          guardPostMaxZeroPHull = intervalHull(
+              guardPostMaxZeroPHull, denseP);
+          ++guardSegmentSteps[6];
+          if (denseP.rightBound() >= 0.)
+            throw std::runtime_error(
+                "GUARD post-maximum x=-U passage to zero lost P<0");
+        } while (!zeroMap.completed());
+        guardSegmentClocks[6] = zeroEvent[6];
+        guardZeroP = zeroEvent[0];
+        guardZeroQ = zeroEvent[2];
+        if (guardSegmentClocks[6].leftBound() <= 0. ||
+            guardZeroP.rightBound() >= 0. ||
+            guardZeroQ.leftBound() <= 0.)
+          throw std::runtime_error(
+              "GUARD U=0 image lost P<0 or Q>0");
+
+        // On H=0 at U=0, P^2=Q^2.  The strict signs select P=-Q.
+        // Intersecting the two physical hulls and discarding the remaining
+        // correlations is a rigorous superset reconditioning.
+        if (!intersection(guardZeroQ, -guardZeroP, guardZeroBranchQ))
+          throw std::runtime_error(
+              "GUARD U=0 H=0 P=-Q intersection is empty");
+        if (guardZeroBranchQ.leftBound() <= 0.)
+          throw std::runtime_error("GUARD U=0 branch lost Q>0");
+
+        // Segment 7: continue in x=-U from zero to x=1/5.  Dense P<0 makes
+        // this the first U=-1/5 hit after the maximum and excludes every
+        // earlier U=-10 gate.
+        IVector escapeInitial(7);
+        escapeInitial[0] = -guardZeroBranchQ;
+        escapeInitial[1] = zeroEvent[1];
+        escapeInitial[2] = guardZeroBranchQ;
+        escapeInitial[3] = zeroEvent[3];
+        escapeInitial[4] = zeroEvent[4];
+        escapeInitial[5] = zeroEvent[5];
+        escapeInitial[6] = interval(0.);
+        C0HOTripletonSet escapeSet(escapeInitial);
+        escapeSet.setCurrentTime(interval(0.));
+        guardEscapeXPHull = escapeInitial[0];
+        IOdeSolver escapeSolver(downField, 20);
+        configure(escapeSolver, .005);
+        ITimeMap escapeMap(escapeSolver);
+        escapeMap.stopAfterStep(true);
+        IVector guardedEscape(7);
+        const interval escapeX = interval(1.) / interval(5.);
+        do {
+          guardedEscape = escapeMap(escapeX, escapeSet);
+          const interval denseP = escapeSet.getLastEnclosure()[0];
+          guardEscapeXPHull = intervalHull(guardEscapeXPHull, denseP);
+          ++guardSegmentSteps[7];
+          if (denseP.rightBound() >= 0.)
+            throw std::runtime_error(
+                "GUARD x->.2 escape passage lost P<0");
+        } while (!escapeMap.completed());
+        guardSegmentClocks[7] = guardedEscape[6];
+        guardFinalP = guardedEscape[0];
+        guardFinalV = guardedEscape[1];
+        guardFinalQ = guardedEscape[2];
+        guardEscapeResidual = interval(0.);
+
+        guardMinimumTime = firstDownTime + guardSegmentClocks[0] +
+            guardSegmentClocks[1];
+        guardMaximumTime = guardMinimumTime + guardSegmentClocks[2] +
+            guardSegmentClocks[3] + guardSegmentClocks[4];
+        guardEscapeTime = guardMaximumTime + guardSegmentClocks[5] +
+            guardSegmentClocks[6] + guardSegmentClocks[7];
+        guardMonotonePassed = true;
+        for (std::size_t segment = 0; segment < guardSegmentClocks.size();
+             ++segment) {
+          guardMonotonePassed = guardMonotonePassed &&
+              guardSegmentClocks[segment].leftBound() > 0. &&
+              guardSegmentSteps[segment] > 0;
+        }
+        guardMonotonePassed = guardMonotonePassed &&
+            guardDownPHull.rightBound() < 0. &&
+            guardMinApproachFHull.leftBound() > 0. &&
+            guardMinApproachUHull.leftBound() > -1. &&
+            guardMinExitFHull.leftBound() > 0. &&
+            guardRisePHull.leftBound() > 0. &&
+            guardMaxApproachFHull.rightBound() < 0. &&
+            guardMaxApproachUHull.leftBound() > 0. &&
+            guardMaxExitFHull.rightBound() < 0. &&
+            guardPostMaxZeroPHull.rightBound() < 0. &&
+            guardZeroP.rightBound() < 0. &&
+            guardZeroQ.leftBound() > 0. &&
+            guardZeroBranchQ.leftBound() > 0. &&
+            guardEscapeXPHull.rightBound() < 0.;
+      }
       preEscapeGuardPassed = guardMinimumU.leftBound() > -1. &&
           guardMinimumAcceleration.leftBound() > 0. &&
           guardMaximumU.leftBound() > 0. &&
@@ -1096,15 +1956,16 @@ int main(int argc, char** argv) {
           guardMinimumTime.leftBound() > 0. &&
           guardMaximumTime.leftBound() > guardMinimumTime.rightBound() &&
           guardEscapeTime.leftBound() > guardMaximumTime.rightBound() &&
-          returnTime.leftBound() > guardEscapeTime.rightBound();
+          returnTime.leftBound() > guardEscapeTime.rightBound() &&
+          (!guardMonotoneApplicable || guardMonotonePassed);
 
       // Evaluate the invariant cone on the guard's first U=-1/5 image, not
       // on the separately propagated numerical route.  This joins the
       // no-earlier-hit argument and the escape argument pointwise.
       const interval escapeX = interval(1.) / interval(5.);
-      escapeY = -guardedEscape[1];
-      escapeD = sqr(escapeX) / interval(2.) + guardedEscape[2];
-      escapeK = escapeX * escapeY + guardedEscape[3];
+      escapeY = -guardFinalP;
+      escapeD = sqr(escapeX) / interval(2.) + guardFinalV;
+      escapeK = escapeX * escapeY + guardFinalQ;
       // For x>=1/5 and a>1/2,
       //   y' >= D + gamma*x,
       // gamma=(a-1/2)/5+c.  Hence on the positive (y,D,K) cone,
@@ -1155,7 +2016,8 @@ int main(int argc, char** argv) {
                         eventSequencePassed && preEscapeGuardPassed &&
                         escapeConePassed && conePassed &&
                         p3ZeroActionEntryPassed && algReducedPassed &&
-                        turnReducedPassed && escapeReducedPassed;
+                        turnReducedPassed && escapeReducedPassed &&
+                        firstDownEntryPassed;
 
     std::cout << std::setprecision(17)
               << "{\"status\":\"" << (passed ? "PASS" : "INCONCLUSIVE")
@@ -1199,6 +2061,52 @@ int main(int argc, char** argv) {
     std::cout << "]"
               << ",\"event_sequence_passed\":"
               << (eventSequencePassed ? "true" : "false")
+              << ",\"pole_first_down_entry\":{\"applicable\":"
+              << (selected.id == "POLE" ? "true" : "false")
+              << ",\"passed\":"
+              << (firstDownEntryPassed ? "true" : "false")
+              << ",\"method\":\"" << firstDownEntryMethod << "\""
+              << ",\"fallback_triggered\":"
+              << (firstDownFallbackTriggered ? "true" : "false")
+              << ",\"target_U\":"
+              << intervalString(-interval(1.) / interval(20.))
+              << ",\"anchor_U\":"
+              << intervalString(interval(1.) / interval(1000.))
+              << ",\"anchor_time\":"
+              << intervalString(firstDownAnchorTime)
+              << ",\"anchor_section_residual\":"
+              << intervalString(firstDownAnchorResidual)
+              << ",\"anchor_P\":" << intervalString(firstDownAnchorP)
+              << ",\"pre_zero_clock\":"
+              << intervalString(firstDownPreZeroClock)
+              << ",\"pre_zero_dense_P_hull\":"
+              << intervalString(firstDownPreZeroPHull)
+              << ",\"pre_zero_step_count\":"
+              << firstDownPreZeroSteps
+              << ",\"zero_time\":"
+              << intervalString(firstDownZeroTime)
+              << ",\"zero_P\":" << intervalString(firstDownZeroP)
+              << ",\"zero_Q\":" << intervalString(firstDownZeroQ)
+              << ",\"zero_branch_Q\":"
+              << intervalString(firstDownZeroBranchQ)
+              << ",\"h0_branch_identity_kind\":\""
+              << (firstDownFallbackTriggered
+                      ? "U_ZERO_P_EQUALS_MINUS_Q_BY_H0_AND_SIGNS"
+                      : "NOT_APPLICABLE")
+              << "\""
+              << ",\"post_zero_clock\":"
+              << intervalString(firstDownPostZeroClock)
+              << ",\"post_zero_dense_P_hull\":"
+              << intervalString(firstDownPostZeroPHull)
+              << ",\"post_zero_step_count\":"
+              << firstDownPostZeroSteps
+              << ",\"first_down_time\":"
+              << intervalString(firstDownTime)
+              << ",\"first_down_section_residual\":"
+              << intervalString(
+                     firstDownEvent[0] + interval(1.) / interval(20.))
+              << ",\"first_down_P\":"
+              << intervalString(firstDownEvent[1]) << "}"
               << ",\"escape_cone_entry\":{\"applicable\":"
               << (selected.id == "POLE" ? "true" : "false")
               << ",\"passed\":" << (escapeConePassed ? "true" : "false")
@@ -1224,7 +2132,57 @@ int main(int argc, char** argv) {
               << ",\"escape_time\":" << intervalString(guardEscapeTime)
               << ",\"escape_P\":" << intervalString(guardFinalP)
               << ",\"escape_section_residual\":"
-              << intervalString(guardEscapeResidual) << "}"
+              << intervalString(guardEscapeResidual)
+              << ",\"method\":\"" << guardMethod << "\""
+              << ",\"monotone_passages\":{\"applicable\":"
+              << (guardMonotoneApplicable ? "true" : "false")
+              << ",\"passed\":"
+              << (guardMonotonePassed ? "true" : "false")
+              << ",\"labels\":[";
+    for (std::size_t segment = 0; segment < guardSegmentLabels.size();
+         ++segment) {
+      if (segment) std::cout << ',';
+      std::cout << '\"' << guardSegmentLabels[segment] << '\"';
+    }
+    std::cout << "]"
+              << ",\"clocks\":[";
+    for (std::size_t segment = 0; segment < guardSegmentClocks.size();
+         ++segment) {
+      if (segment) std::cout << ',';
+      std::cout << intervalString(guardSegmentClocks[segment]);
+    }
+    std::cout << "]"
+              << ",\"step_counts\":[";
+    for (std::size_t segment = 0; segment < guardSegmentSteps.size();
+         ++segment) {
+      if (segment) std::cout << ',';
+      std::cout << guardSegmentSteps[segment];
+    }
+    std::cout << "]"
+              << ",\"dense_sign_hulls\":{"
+              << "\"down_P\":" << intervalString(guardDownPHull)
+              << ",\"minimum_approach_F\":"
+              << intervalString(guardMinApproachFHull)
+              << ",\"minimum_approach_U\":"
+              << intervalString(guardMinApproachUHull)
+              << ",\"minimum_exit_F\":"
+              << intervalString(guardMinExitFHull)
+              << ",\"rise_P\":" << intervalString(guardRisePHull)
+              << ",\"maximum_approach_F\":"
+              << intervalString(guardMaxApproachFHull)
+              << ",\"maximum_approach_U\":"
+              << intervalString(guardMaxApproachUHull)
+              << ",\"maximum_exit_F\":"
+              << intervalString(guardMaxExitFHull)
+              << ",\"post_max_to_zero_P\":"
+              << intervalString(guardPostMaxZeroPHull)
+              << ",\"zero_P\":" << intervalString(guardZeroP)
+              << ",\"zero_Q\":" << intervalString(guardZeroQ)
+              << ",\"zero_branch_Q\":"
+              << intervalString(guardZeroBranchQ)
+              << ",\"escape_x_P\":"
+              << intervalString(guardEscapeXPHull)
+              << "}}}"
               << ",\"terminal_U\":" << intervalString(event[0])
               << ",\"terminal_P\":" << intervalString(event[1])
               << ",\"terminal_V\":" << intervalString(event[2])
@@ -1241,8 +2199,11 @@ int main(int argc, char** argv) {
               << ",\"seam_U\":"
               << intervalString(-interval(1.) / interval(20.))
               << ",\"seam_V\":" << intervalString(turnSeamV)
+              << ",\"seam_time\":" << intervalString(turnSeamTime)
               << ",\"terminal_U\":"
-              << intervalString(interval(11.) / interval(5.))
+              << intervalString(interval(11.) / interval(4.))
+              << ",\"terminal_time\":"
+              << intervalString(turnTerminalTime)
               << ",\"clock\":" << intervalString(turnClock)
               << ",\"dense_step_count\":" << turnDenseSteps
               << ",\"dense_P_hull\":" << intervalString(turnDensePHull)
@@ -1251,13 +2212,39 @@ int main(int argc, char** argv) {
               << (escapeReducedApplicable ? "true" : "false")
               << ",\"passed\":"
               << (escapeReducedPassed ? "true" : "false")
-              << ",\"seam_V\":" << intervalString(interval(0.))
-              << ",\"seam_Q\":" << intervalString(escapeSeamQ)
-              << ",\"terminal_V\":"
-              << intervalString(interval(4.) / interval(5.))
-              << ",\"clock\":" << intervalString(escapeReducedClock)
-              << ",\"dense_step_count\":" << escapeDenseSteps
-              << ",\"dense_Q_hull\":" << intervalString(escapeDenseQHull)
+              << ",\"method\":"
+                 "\"PMAX_H0_M_TO_U_ZERO_H0_BRANCH_X_TO_ONE_FIFTH\""
+              << ",\"seam_P\":" << intervalString(interval(0.))
+              << ",\"seam_time\":" << intervalString(escapeSeamTime)
+              << ",\"pmax_U\":" << intervalString(escapePmaxU)
+              << ",\"pmax_V_H0\":" << intervalString(escapePmaxV)
+              << ",\"pmax_Q\":" << intervalString(escapePmaxQ)
+              << ",\"pmax_F\":" << intervalString(escapePmaxF)
+              << ",\"m_terminal\":"
+              << intervalString(interval(1.) / interval(10.))
+              << ",\"m_clock\":" << intervalString(escapeMClock)
+              << ",\"m_dense_step_count\":" << escapeMDenseSteps
+              << ",\"m_dense_F_hull\":"
+              << intervalString(escapeMDenseFHull)
+              << ",\"U_terminal\":" << intervalString(interval(0.))
+              << ",\"U_clock\":" << intervalString(escapeUClock)
+              << ",\"U_dense_step_count\":" << escapeUDenseSteps
+              << ",\"U_dense_P_hull\":"
+              << intervalString(escapeUDensePHull)
+              << ",\"zero_P\":" << intervalString(escapeZeroP)
+              << ",\"zero_Q\":" << intervalString(escapeZeroQ)
+              << ",\"zero_H0_branch_Q\":"
+              << intervalString(escapeZeroBranchQ)
+              << ",\"zero_H0_branch_identity\":"
+                 "\"P_EQUALS_MINUS_Q_BY_H0_AND_STRICT_SIGNS\""
+              << ",\"terminal_x\":"
+              << intervalString(interval(1.) / interval(5.))
+              << ",\"terminal_time\":"
+              << intervalString(escapeTerminalTime)
+              << ",\"x_clock\":" << intervalString(escapeXClock)
+              << ",\"x_dense_step_count\":" << escapeXDenseSteps
+              << ",\"x_dense_P_hull\":"
+              << intervalString(escapeXDensePHull)
               << "}"
               << ",\"alg_reduced_zero_energy_tail\":{\"applicable\":"
               << (algReducedApplicable ? "true" : "false")
