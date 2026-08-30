@@ -111,8 +111,8 @@
     "K1_atol": 2.0e-12,
     "K1_max_step": 0.005,
     "K1_adjoint_representations": [
-      "unit-covector plus logarithmic scale",
-      "projective angle plus logarithmic scale"
+      "three-component unit covector plus logarithmic scale",
+      "Pi-component projective ratio chart plus logarithmic scale"
     ],
     "central_rtol": 2.0e-11,
     "central_atol": 2.0e-13,
@@ -128,7 +128,6 @@
     "graph_energy_sensitivity_finite_difference_relative_upper": 2.0e-6,
     "K1_full_jacobian_energy_column_relative_upper": 1.0e-7,
     "endpoint_graph_tangent_pairing_abs_upper": 1.0e-10,
-    "adjoint_projective_angle_difference_upper": 1.0e-7,
     "full_adjoint_projective_ratio_difference_upper": 1.0e-7,
     "intrinsic_flow_pairing_relative_upper": 1.0e-10,
     "positive_exchange_lower": 124.70765814495917,

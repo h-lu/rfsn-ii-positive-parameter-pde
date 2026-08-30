@@ -75,14 +75,14 @@ class V5EndpointExchangeTests(unittest.TestCase):
         direction_error = np.max(
             np.linalg.norm(
                 self.data["adjoint_unit_row"]
-                - self.data["adjoint_angle_unit_row"],
+                - self.data["adjoint_ratio_unit_row"],
                 axis=0,
             )
         )
         self.assertLessEqual(
             direction_error,
             self.result["thresholds"][
-                "adjoint_projective_angle_difference_upper"
+                "full_adjoint_projective_ratio_difference_upper"
             ],
         )
         self.assertGreater(
@@ -96,8 +96,19 @@ class V5EndpointExchangeTests(unittest.TestCase):
         self.assertLessEqual(
             abs(
                 float(
-                    self.data["outer_raw_row_beta_alpha"]
+                    self.data["outer_raw_row_beta_alpha_H"]
                     @ self.data["outer_graph_tangent"]
+                )
+            ),
+            self.result["thresholds"][
+                "endpoint_graph_tangent_pairing_abs_upper"
+            ],
+        )
+        self.assertLessEqual(
+            abs(
+                float(
+                    self.data["outer_raw_row_beta_alpha_H"]
+                    @ self.data["outer_graph_energy_tangent"]
                 )
             ),
             self.result["thresholds"][
@@ -112,6 +123,19 @@ class V5EndpointExchangeTests(unittest.TestCase):
                 "outer_map_jacobian_crosscheck_inf_upper"
             ],
         )
+
+    def test_full_energy_direction_is_computed_and_reaches_jost_row(self) -> None:
+        diagnostics = self.result["diagnostics"]
+        energy = diagnostics["outer_graph_energy_sensitivity"]
+        self.assertNotEqual(diagnostics["gamma_H_at_outer_seam"], 0.0)
+        self.assertLessEqual(
+            energy["Gamma_H_finite_difference_relative"],
+            self.result["thresholds"][
+                "graph_energy_sensitivity_finite_difference_relative_upper"
+            ],
+        )
+        self.assertGreater(diagnostics["Jost_row_frozen_row_cosine"], 0.999999)
+        self.assertNotEqual(float(self.data["positive_Jost_row"][3]), 0.0)
         self.assertLessEqual(
             self.result["diagnostics"][
                 "central_intrinsic_flow_pairing_relative"

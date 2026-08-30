@@ -4,24 +4,17 @@
       4
     ],
     "K1_endpoint_raw_row": [
-      2
+      3
     ],
     "K1_jacobian_samples": [
       401,
-      2,
-      2
+      3,
+      3
     ],
     "K1_r1": [
       401
     ],
     "K1_state_Pi_Omega": [
-      2,
-      401
-    ],
-    "adjoint_angle_log_raw_norm": [
-      401
-    ],
-    "adjoint_angle_unit_row": [
       2,
       401
     ],
@@ -31,8 +24,15 @@
     "adjoint_r1_descending": [
       401
     ],
+    "adjoint_ratio_log_raw_norm": [
+      401
+    ],
+    "adjoint_ratio_unit_row": [
+      3,
+      401
+    ],
     "adjoint_unit_row": [
-      2,
+      3,
       401
     ],
     "central_endpoint_recomputed": [
@@ -42,7 +42,7 @@
       4
     ],
     "central_section_jacobian": [
-      2,
+      3,
       4
     ],
     "endpoint_incoming_tangent_T_plus": [
@@ -82,19 +82,38 @@
     "matching_singular_values": [
       2
     ],
-    "outer_graph_tangent": [
+    "outer_energy_finite_difference_H": [
       2
+    ],
+    "outer_energy_finite_difference_alpha": [
+      2
+    ],
+    "outer_energy_sensitivity_Q": [
+      1240
+    ],
+    "outer_energy_sensitivity_eta_omega": [
+      2,
+      1240
+    ],
+    "outer_graph_beta_tangent": [
+      3
+    ],
+    "outer_graph_energy_tangent": [
+      3
+    ],
+    "outer_graph_tangent": [
+      3
     ],
     "outer_map_jacobian_exact": [
-      2,
-      2
+      3,
+      3
     ],
     "outer_map_jacobian_finite_difference": [
-      2,
-      2
+      3,
+      3
     ],
-    "outer_raw_row_beta_alpha": [
-      2
+    "outer_raw_row_beta_alpha_H": [
+      3
     ],
     "outer_seam_alpha": [
       3
@@ -129,54 +148,69 @@
   "configuration_path": "numerics/config/vdp_v5_endpoint_exchange_v2.json",
   "data_path": "numerics/results/vdp_v5_endpoint_exchange_v2/adjoint.npz",
   "diagnostics": {
-    "Jost_normalization_denominator": -1387.7145204804594,
-    "Jost_row_frozen_row_cosine": 0.9992816934947093,
-    "Jost_row_on_section_normal": 1.0,
+    "Jost_normalization_denominator": -1399.2425255844526,
+    "Jost_row_frozen_row_cosine": 0.9999999961604145,
+    "Jost_row_on_section_normal": 0.9999999999999999,
+    "K1_full_jacobian_energy_column_relative_error": 1.5877765246260777e-08,
     "K1_saved_base_invariance_residual_inf": 7.142242366420248e-07,
     "adjoint": {
-      "angle_solver_evaluations": 452780,
-      "central_direction_norm_defect": 3.219646771412954e-15,
-      "central_log_raw_row_norm": 93162.241498868,
-      "direction_crosscheck_max": 8.645698738648874e-09,
-      "log_scale_crosscheck_max": 5.369656719267368e-09,
-      "normalized_solver_evaluations": 452159
+      "central_direction_norm_defect": 2.5202062658991053e-14,
+      "central_log_raw_row_norm": 93162.24150952722,
+      "direction_crosscheck_max": 9.372182669972912e-09,
+      "log_scale_crosscheck_max": 7.489688869100064e-09,
+      "normalized_solver_evaluations": 451289,
+      "ratio_coordinate_abs_max": 0.7662368802538609,
+      "ratio_solver_evaluations": 450974
     },
     "central_endpoint_recompute_residual_inf": 4.440892098500626e-16,
-    "central_intrinsic_flow_pairing_relative": 1.41427870197845e-17,
+    "central_intrinsic_flow_pairing_relative": 4.5429146925914165e-18,
     "central_section_speed": -1.1543688668786538,
-    "determinant_factorization_relative": 6.253431424815061e-16,
+    "determinant_factorization_relative": 6.305447068273207e-16,
     "endpoint_compatibility_ell_plus_T_plus": 1.6378989811192777e-16,
     "endpoint_compatibility_interpretation": "The vanishing V5(50) is checked separately and is not the exchange coefficient.",
+    "endpoint_graph_energy_tangent_pairing_abs": 0.0,
     "endpoint_graph_tangent_pairing_abs": 4.9659884746881084e-15,
     "frozen_B2B3_identity_error": 0.0,
     "frozen_Jost_pairing_drift": 1.0516032489249483e-12,
     "frozen_exchange": 249.4153162899183,
     "frozen_exchange_identity_error": 0.0,
+    "gamma_H_at_outer_seam": 6.428815898784465e-16,
     "gamma_beta_at_outer_seam": 0.010201028954390597,
-    "matching_condition_number": 523383.2294849193,
-    "matching_determinant": -1.7753821049664578,
+    "matching_condition_number": 527736.6757093609,
+    "matching_determinant": -1.7607364118738031,
     "matching_jacobian_crosscheck_inf": 4.5680963012273423e-08,
-    "matching_section_speed_times_incidence": -1.7753821049664589,
+    "matching_section_speed_times_incidence": -1.7607364118738043,
     "matching_singular_values": [
-      963.9529136150126,
-      0.0018417726425122068
+      963.9528934563788,
+      0.0018265793109047707
     ],
+    "outer_graph_energy_sensitivity": {
+      "Gamma_H": 6.428815898784465e-16,
+      "Gamma_H_finite_difference_relative": 8.738096312509552e-08,
+      "Gamma_H_large_step_finite_difference": 6.428816460540639e-16,
+      "base_solver_nodes": 1240,
+      "base_solver_rms_residual_max": 7.796271078134167e-09,
+      "fixed_beta_residual": 5.598293162344817e-30,
+      "sensitivity_boundary_residual_inf": 5.598293162344817e-30,
+      "sensitivity_rms_residual_max": 2.6175825550873064e-16,
+      "sensitivity_solver_nodes": 1240
+    },
     "outer_map_jacobian_crosscheck_inf": 3.700918694768407e-14,
     "phase_section_derivative": 963.9509955168572,
-    "positive_exchange": 251.5292460323932,
-    "positive_exchange_relative_deviation": 0.008475541012957144,
+    "positive_exchange": 249.4535908216958,
+    "positive_exchange_relative_deviation": 0.00015345702239472363,
     "source": {
       "phase_finite_difference_refinement_relative": 1.5682110843720137e-06,
       "phase_tangent_crosscheck_relative": 4.70961575321296e-11,
       "source_provider_unique_evaluations": 5,
       "time_tangent_crosscheck_relative": 3.254552481771729e-11
     },
-    "source_phase_incidence": 1.5379677639496538
+    "source_phase_incidence": 1.525280577459381
   },
   "energy_H": 1.6531401306609465e-14,
   "evidence_status": "COMPUTED/E1_NON_RIGOROUS_WITH_QA",
   "mathematical_status": "INCONCLUSIVE",
-  "nonclaim": "One endpoint-anchored adjoint line, Jost-normalized exchange, and two-by-two matching derivative at the center do not prove a uniform positive exchange, operator inverse bound, matched-tube uniqueness, or the Issue #7 parameter-box theorem.",
+  "nonclaim": "One full-energy endpoint-anchored adjoint line for the finite-Q graph proxy, one Jost-normalized exchange candidate, and one two-by-two matching derivative at the center do not prove a uniform positive exchange, operator inverse bound, maximal-graph identification, matched-tube uniqueness, or the Issue #7 parameter-box theorem.",
   "normalization": {
     "B2": "Gamma(3/4)*96^(5/8)/(8*sqrt(pi))",
     "B3": "Gamma(1/4)*96^(7/8)/(16*sqrt(pi))",
@@ -194,13 +228,18 @@
   },
   "qa": {
     "Jost_pairing_conservation": true,
+    "K1_full_jacobian_energy_column": true,
     "adjoint_projective_crosscheck": true,
     "central_section_transverse": true,
     "determinant_factorization": true,
+    "endpoint_graph_energy_tangent_annihilation": true,
     "endpoint_graph_tangent_annihilation": true,
     "exchange_near_frozen_comparison": true,
     "frozen_B2B3_identity": true,
     "frozen_exchange_identity": true,
+    "graph_energy_sensitivity_boundary": true,
+    "graph_energy_sensitivity_finite_difference": true,
+    "graph_energy_sensitivity_ode": true,
     "intrinsic_row_annihilates_flow": true,
     "matching_condition_number": true,
     "matching_sigma_min": true,
@@ -224,12 +263,16 @@
   "status": "V5_ENDPOINT_EXCHANGE_COMPUTED",
   "thresholds": {
     "Jost_pairing_drift_abs_upper": 1e-08,
-    "adjoint_projective_angle_difference_upper": 1e-07,
+    "K1_full_jacobian_energy_column_relative_upper": 1e-07,
     "central_section_speed_abs_lower": 0.5,
     "determinant_factorization_relative_upper": 1e-12,
     "endpoint_graph_tangent_pairing_abs_upper": 1e-10,
     "frozen_B2B3_identity_abs_upper": 1e-12,
     "frozen_exchange_identity_abs_upper": 1e-09,
+    "full_adjoint_projective_ratio_difference_upper": 1e-07,
+    "graph_energy_sensitivity_boundary_residual_upper": 1e-11,
+    "graph_energy_sensitivity_finite_difference_relative_upper": 2e-06,
+    "graph_energy_sensitivity_ode_residual_upper": 1e-09,
     "intrinsic_flow_pairing_relative_upper": 1e-10,
     "matching_condition_number_upper": 100000000.0,
     "matching_sigma_min_lower": 1e-06,

@@ -6,8 +6,8 @@ This computation evaluates the endpoint mechanism of V5(49)--(58) at
  (r,a_2,\epsilon)=(3/200,0,1).
 \]
 
-It is bound to the energy-preserving matched centerline and the passing V4
-future-staying graph slice.  Its status is
+It is bound to the energy-preserving matched centerline and the passing,
+finite-`Q` V4 future-staying graph proxy.  Its status is
 `COMPUTED/E1_NON_RIGOROUS_WITH_QA`: it is one floating-point object, not the
 uniform positive exchange or uniqueness assertion proved in V5.
 
@@ -20,21 +20,36 @@ fit gives
  \partial_B\Gamma=0.010201028954390597.
 \]
 
-The scaled row `L_o=dA-Gamma_B dB`, normalized by
-`L_o(partial_A)=1`, annihilates the fitted graph tangent to
-`4.97e-15`.  It is pulled through the exact V5(37) interface and then
+The first audit of this calculation exposed a missing direction: a fixed-H
+slice cannot determine the full V5 conormal.  The corrected calculation
+differentiates the positive-`pi` two-point BVP, including its terminal
+normal-nullcline equation, at fixed seam beta.  It gives
+
+\[
+ \partial_H\Gamma=6.428815898784465\times10^{-16}.
+\]
+
+The sensitivity BVP has maximum RMS residual `2.62e-16`; its boundary
+residual is `5.60e-30`.  A separate symmetric finite difference agrees to
+relative error `8.74e-8`.  Thus the full scaled row
+`L_o=dA-Gamma_B dB-Gamma_H dH`, normalized by
+`L_o(partial_A)=1`, annihilates both fitted graph tangents (in beta and in
+energy) to `4.97e-15` and zero, respectively.  It is pulled through the
+exact V5(37) interface and then
 backward along the saved resolved-`K1` centerline.  The raw adjoint gains a
 logarithmic norm of `93162.24`, so direct floating-point transport would
 overflow.  The archived calculation transports the same line in two
-independent projective representations:
+projective representations:
 
 - unit covector plus logarithmic scale;
-- projective angle plus logarithmic scale.
+- a fixed-component ratio chart plus logarithmic scale.
 
-Their maximum directional difference is `8.65e-9`; their maximum log-scale
-difference is `5.37e-9`.  After the exact fixed-`U` V5(38) pullback, the
+Their maximum directional difference is `9.37e-9`; their maximum log-scale
+difference is `7.49e-9`.  The exact K1 energy column agrees with two finite
+differences to relative error `1.59e-8`.  After the exact fixed-`U` V5(38)
+pullback, now including `dH` from V5(28), the
 intrinsic V5(54) row pairs with the central flow at relative size
-`1.41e-17`.
+`4.54e-18`.
 
 The singular endpoint identity is also evaluated directly:
 
@@ -70,12 +85,15 @@ normal, exactly as frozen in the configuration.  Its pairing with the
 declared growing continuation is
 
 \[
- L_{c,\mu}^{J}(\mathbf u_\mu)=251.5292460323932>0,
+ L_{c,\mu}^{J}(\mathbf u_\mu)=249.4535908216958>0,
 \]
 
-only `0.8476%` from the frozen comparison.  This is a center-point floating
-exchange check; using the fixed-universal-chart continuation here does not
-supply a parameter-uniform continuation theorem.
+only `0.01535%` from the frozen comparison.  The normalized row has cosine
+`0.9999999962` with the frozen Jost row; this close agreement is lost if the
+energy direction is omitted.  This remains a center-point floating exchange
+candidate for the finite-`Q=200` graph proxy; using the fixed-universal-chart
+continuation here does not identify the maximal graph or supply a
+parameter-uniform continuation theorem.
 
 ## Source-phase/flight-time derivative
 
@@ -85,7 +103,7 @@ flow-constant target extension gives the triangular V5(58) derivative
 \[
  D_{(\phi,t)}\mathcal M=
  \begin{pmatrix}
-  1.5379677639496538 & 0\\
+  1.525280577459381 & 0\\
   963.9509955168572 & -1.1543688668786538
  \end{pmatrix}.
 \]
@@ -93,34 +111,35 @@ flow-constant target extension gives the triangular V5(58) derivative
 Thus the source incidence is nonzero, the section speed is nonzero, and
 
 \[
- \det D\mathcal M=-1.7753821049664578
+ \det D\mathcal M=-1.7607364118738031
  =s_\mu\chi_\mu
 \]
 
-to relative error `6.25e-16`.  The singular values are
+to relative error `6.31e-16`.  The singular values are
 
 \[
- \sigma_{\max}=963.9529136150126,
+ \sigma_{\max}=963.9528934563788,
  \qquad
- \sigma_{\min}=0.0018417726425122068,
+ \sigma_{\min}=0.0018265793109047707,
 \]
 
-with condition number `5.233832294849193e5`.  A forward variational phase
+with condition number `5.277366757093609e5`.  A forward variational phase
 tangent agrees with Richardson finite differences to relative error
 `4.71e-11`; the exact flow time tangent agrees with its finite difference to
 `3.25e-11`.
 
-All sixteen predeclared QA checks pass.  No section, finite-difference step,
+All twenty-one predeclared QA checks pass.  No section, finite-difference step,
 solver tolerance, or QA threshold was altered after the formal run.
 
 ## Scope
 
-This resolves the previously missing *center-point numerical object*: an
-outer-anchored adjoint line, a Jost-normalized positive exchange, and an
-invertible two-variable matching derivative using the paper's chart and clock
-crosswalk.  It does not validate the full graph tube, mixed parameter jets,
-a uniform exchange lower bound, an inverse bound over a parameter box,
-nonlinear uniqueness, or the Issue #7 theorem.
+This resolves the previously missing *full-energy center-point numerical
+object*: an outer-anchored adjoint line, a Jost-normalized positive exchange
+candidate, and an invertible two-variable matching derivative using the
+paper's chart and clock crosswalk.  It does not identify the finite-horizon
+proxy with the maximal graph, validate the full graph tube or mixed parameter
+jets, or prove a uniform exchange lower bound, an inverse bound over a
+parameter box, nonlinear uniqueness, or the Issue #7 theorem.
 
 Reproduce and check with:
 
