@@ -110,7 +110,8 @@ class P2eEventAtlasV2StructuralGateTest(unittest.TestCase):
         self.assertFalse(result["full_run_authorized"])
         self.assertFalse(result["full_capd_executed"])
         self.assertEqual(result["parameter_cells"], 4096)
-        self.assertEqual(len(result["missing_materialization_sections"]), 11)
+        self.assertEqual(len(result["missing_materialization_sections"]), 6)
+        self.assertNotIn("carriers", result["missing_materialization_sections"])
         self.assertTrue(all(item["status"] == "PENDING"
                             for item in result["obligations"]))
 
@@ -146,22 +147,40 @@ class P2eEventAtlasV2StructuralGateTest(unittest.TestCase):
 
     def test_missing_section_cannot_hide_payload(self) -> None:
         config = base_config()
-        config["materialization"]["carriers"]["records"].append({
-            "id": "unreviewed-carrier",
+        config["materialization"]["incidence_complex"]["records"].append({
+            "id": "unreviewed-incidence",
         })
         with self.assertRaisesRegex(AuditError, "unreviewed payload"):
             audit_copy(config)
 
+    def test_normalized_pullback_domain_cannot_be_promoted_to_embedding(self) -> None:
+        config = base_config()
+        carrier = next(
+            item for item in config["materialization"]["carriers"]["records"]
+            if item["id"] == "Z.PLUS"
+        )
+        carrier["realization"]["injective_embedding_claim"] = True
+        with self.assertRaisesRegex(AuditError,
+                                    "promoted to a physical embedding"):
+            audit_copy(config)
+
     def test_faces_cannot_freeze_before_carriers_and_functions(self) -> None:
         config = base_config()
-        config["materialization"]["physical_event_faces"]["status"] = "FROZEN"
+        config["materialization"]["carriers"] = {
+            "status": "MISSING", "design_geometry": None, "records": [],
+        }
         with self.assertRaisesRegex(AuditError,
                                     "before carriers/functions"):
             audit_copy(config)
 
     def test_lists_cannot_freeze_before_carriers_and_functions(self) -> None:
         config = base_config()
-        config["materialization"]["ambient_function_lists"]["status"] = "FROZEN"
+        config["materialization"]["physical_event_faces"] = {
+            "status": "MISSING", "records": [],
+        }
+        config["materialization"]["carriers"] = {
+            "status": "MISSING", "design_geometry": None, "records": [],
+        }
         with self.assertRaisesRegex(AuditError,
                                     "before carriers/functions"):
             audit_copy(config)

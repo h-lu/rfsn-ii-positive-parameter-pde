@@ -12,18 +12,26 @@ mathematical_status  INCONCLUSIVE
 ```
 
 `READY_TO_SCOUT_NON_EVIDENTIARY` means only that exploratory calculations may
-be used to propose compact carriers and artificial lateral faces.  Neither it
-nor the later `READY_FOR_FIRST_FULL_RUN` state is a mathematical `PASS`.
+be used to test the frozen compact carriers and artificial lateral faces.
+Neither it nor the later `READY_FOR_FIRST_FULL_RUN` state is a mathematical
+`PASS`.
 
 The manifest fixes the v2 comparison bridge and its 4096-cell rational cover,
 the required carrier and function inventories, the complete ambient-domain
 lists, the incidence/priority/census fields, the normalization and margin
-categories, and the locked binary64 FILIB execution policy.  Every actual
-carrier, face, incidence row, census component, normalization scale, numerical
-method choice, transported trace, and numerical `m0` remains absent.  A missing
-section must have an empty payload, all atlas obligations remain `PENDING`, and
-the checker refuses to authorize the first full run until every section is
-explicit and prospectively frozen.
+categories, and the locked binary64 FILIB execution policy.  The five
+physical carriers, four normalized pullback domains, eleven physical faces,
+sixteen defining functions, fifteen ambient lists, and numerical method are
+now prospectively frozen.  Their type correction and exact flowbox design are
+recorded in [`P2E_EVENT_ATLAS_TYPE_AUDIT.md`](P2E_EVENT_ATLAS_TYPE_AUDIT.md).
+No carrier embedding or physical face has yet received its interval
+certificate.  The
+incidence complex, corner priority, first-event census, normalization,
+transported traces, and numerical `m0` remain absent.  A missing section must
+have an empty payload, all atlas obligations remain `PENDING`, and the checker
+refuses to authorize the first full run until every section is explicit and
+prospectively frozen.  The bound terminal-flowbox scout records design
+lineage only; it contributes no certified margin.
 
 The return-band interface follows the focused theory inventory.  Its adjustable
 side is the distinct occurrence `u_r`; on the return and homoclinic-pullback
@@ -38,15 +46,16 @@ return event `a_ret` while retaining `q_ret` as incidence data.
    `vdp_p2e_phase_order_v2.json`: the origin--algebraic certificate, the
    origin--pole-entry certificate, and the P2c selected-homoclinic certificate.
    Do not replace them by sampled curves or affine proxy events.
-2. Around those three source trajectories, scout only the smallest useful
-   application carriers `C.A`, `C.P`, and `C.H`.  Choose one artificial
-   transverse lateral graph for each channel, then choose the outgoing and
-   return bands and their pullbacks.  This scouting remains non-evidentiary.
-3. Freeze exact carrier coordinates and rational domains, physical embeddings,
-   boundary strata, terminal/aperture/label/cut functions, the four distinct
-   side occurrences, all pullback maps, and the per-carrier subdivision and
-   Taylor-order budgets.  Run the structural checker again before any complete
-   rigorous calculation.
+2. Use the prospectively frozen minimal carriers in the type audit: the three
+   shrinking flowbox cylinders, the outgoing and return bands, and the four
+   normalized pullback domains.  Scout whether their physical embeddings have
+   the required flow buffers and disjointness.  This scouting remains
+   non-evidentiary.
+3. The terminal/aperture/label/cut functions, the four distinct side
+   occurrences, all pullback maps, and the per-carrier subdivision and
+   Taylor-order budgets are now frozen prospectively.  Run the structural
+   checker before each complete rigorous calculation and reject any mutation
+   of these objects.
 4. Validate the three narrow channels and artificial laterals on the v2 bridge:
    event speeds, containment and flow-domain buffers, inactive-face gaps,
    conormal rank, and every empty/nonempty sign incidence.  A nonempty

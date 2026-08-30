@@ -76,6 +76,14 @@ EXPECTED_BINDINGS = {
         "validation/rigorous/config/vdp_p2e_phase_order_v2.json",
         "3abc9b0ae0a6d2d383798954231dc255fefcc8eda426237c47383b0d0fb8ea7d",
     ),
+    "PHASE_GAP_RESULT": (
+        "validation/rigorous/results/vdp_box_v2_p2e_phase_order.json",
+        "45e55e81817612af8ddbdd44f256ee6309e7e1df6328ff6945cd00a89a1e00ff",
+    ),
+    "FLOWBOX_SCOUT_NON_EVIDENTIARY": (
+        "numerics/results/vdp_p2e_channel_scout_v2/terminal_flowbox_scout.json",
+        "a7617fe8eed0e4dcdc700cb19e9792a33338124960e17cf339211304c87f9d8e",
+    ),
     "PHYSICAL_SADDLE_FACE_CONTRACT": (
         "validation/rigorous/config/vdp_p2d_physical_slides_v1.json",
         "fa7daa1273b508951e081378d938342f985271722bf4871669a30f4ab44a8f16",
@@ -102,6 +110,25 @@ EXPECTED_CARRIERS = {
         2, ["phi", "theta_bar"], "POSITIVE_RESTRICTED_HOMOCLINIC_PULLBACK"),
     "Z.HOM.MINUS": (
         2, ["phi", "theta_bar"], "NEGATIVE_RESTRICTED_HOMOCLINIC_PULLBACK"),
+}
+
+PHYSICAL_CARRIERS = {"C.H", "C.A", "C.P", "B.OUT", "B.RET"}
+PULLBACK_TARGETS = {
+    "Z.PLUS": "B.OUT",
+    "Z.MINUS": "B.OUT",
+    "Z.HOM.PLUS": "B.RET",
+    "Z.HOM.MINUS": "B.RET",
+}
+
+EXPECTED_APERTURE_CENTERS = {
+    "ALG": "phi_a^0, the fixed transported V2 finite-gate anchor label",
+    "HOM": "phi_h(mu), the selected P2c homoclinic source trace",
+    "POLE": "2*pi in the fixed lifted phase coordinate",
+}
+EXPECTED_ENTRY_PHASE_RADII = {
+    "ALG": Fraction(1, 10_000_000),
+    "HOM": Fraction(1, 100_000_000),
+    "POLE": Fraction(1, 100_000),
 }
 
 EXPECTED_FUNCTIONS = {
@@ -166,8 +193,6 @@ EXPECTED_LISTS = {
 }
 
 REQUIRED_FACE_ROLES = {
-    "SADDLE_OUT_BOUNDARY": None,
-    "SADDLE_IN_BOUNDARY": None,
     "HOM_TERMINAL": "g_h",
     "ALG_TERMINAL": "g_alg",
     "POLE_TERMINAL": "g_pole",
@@ -196,7 +221,7 @@ REQUIRED_MARGINS = {
 }
 
 EXPECTED_EMPTY_SECTIONS: dict[str, dict[str, Any]] = {
-    "carriers": {"status": MISSING, "records": []},
+    "carriers": {"status": MISSING, "design_geometry": None, "records": []},
     "physical_event_faces": {"status": MISSING, "records": []},
     "defining_functions": {"status": MISSING, "records": []},
     "ambient_function_lists": {"status": MISSING, "records": []},
@@ -328,7 +353,7 @@ def validate_static_contract(config: dict[str, Any]) -> None:
         "obligations", "nonclaims",
     }, "top-level configuration")
     require(config["schema_version"] ==
-            "rfsn-vdp-p2e-event-atlas-structure-gate/1",
+            "rfsn-vdp-p2e-event-atlas-structure-gate/2",
             "event-atlas gate schema version changed")
     require(config["scope"] ==
             "V2_P2E_EXECUTABLE_EVENT_ATLAS_STRUCTURE_GATE_V2",
@@ -471,25 +496,180 @@ def validate_static_contract(config: dict[str, Any]) -> None:
         {"id": "V2.EVENT_ATLAS", "status": "PENDING"},
     ], "a structural freeze may not pass an atlas obligation")
     require(config["nonclaims"] == [
-        "This structural gate contains no numerical carrier, event-face, incidence, census, or m0 certificate.",
+        "The carrier and pullback-domain formulas are prospectively frozen, but no physical carrier embedding has an interval certificate and no event-face, incidence, census, or m0 certificate exists.",
         "READY_FOR_FIRST_FULL_RUN, if reached later, authorizes only a prospectively frozen computation and is not a mathematical PASS.",
         "The three phase-gap subatoms cannot pass V2.EVENT_ATLAS without the complete transported traces and event census.",
         "The frozen flagship prose proves existence of a suitable atlas but does not serialize the application-owned atlas required here.",
         "The return-side occurrence is represented on return and pullback lists only through q_ret bound to the distinct occurrence u_r; it is not h_side_h and is not duplicated as a second side-hit function.",
-        "No sampled orbit, affine proxy event, temporal-stability, Turing-selection, or canard conclusion is in scope.",
+        "The bound terminal-flowbox scout is non-evidentiary design lineage only; no sampled orbit, affine proxy event, temporal-stability, Turing-selection, or canard conclusion is promoted.",
     ], "event-atlas structural nonclaim boundary changed")
 
 
-def validate_carriers(section: dict[str, Any]) -> dict[str, dict[str, Any]]:
-    exact_keys(section, {"status", "records"}, "carriers section")
+def validate_carrier_design_geometry(geometry: dict[str, Any]) -> dict[str, Any]:
+    exact_keys(geometry, {
+        "phase_coordinate", "proper_phase_arc", "two_pi_enclosure",
+        "normal_band_half_width", "channel_normal_radius", "apertures",
+        "required_relations",
+    }, "carrier design geometry")
+    require(geometry["phase_coordinate"] ==
+            "TRANSPORTED_KATO_SOURCE_PHASE_LIFT",
+            "carrier apertures use the wrong phase coordinate")
+    phase_arc = exact_interval(geometry["proper_phase_arc"],
+                               "proper carrier phase arc")
+    two_pi = exact_interval(geometry["two_pi_enclosure"],
+                            "two-pi enclosure")
+    require(two_pi == (Fraction(103993, 16551), Fraction(208696, 33215)),
+            "the frozen rational two-pi enclosure changed")
+    band_half_width = exact_fraction(
+        geometry["normal_band_half_width"], "normal band half width",
+        positive=True)
+    channel_radius = exact_fraction(
+        geometry["channel_normal_radius"], "channel normal radius",
+        positive=True)
+    require(channel_radius < band_half_width,
+            "channel normal radius is not strictly inside the band")
+    require(geometry["required_relations"] == [
+        "ALG_AND_HOM_ANCHORS_STRICTLY_INSIDE_THEIR_COLLARS",
+        "POLE_COLLAR_STRICTLY_INSIDE_THE_LIFTED_CERTIFIED_OPEN_WINDOW",
+        "COLLAR_CLOSURES_PAIRWISE_DISJOINT",
+        "ALL_COLLARS_STRICTLY_INSIDE_THE_PROPER_PHASE_ARC",
+        "CHANNEL_NORMAL_RADIUS_STRICTLY_INSIDE_THE_BAND",
+    ], "carrier aperture relation inventory changed")
+
+    apertures = unique_records(geometry["apertures"], "carrier aperture")
+    require(set(apertures) == {"ALG", "HOM", "POLE"},
+            "carrier aperture inventory changed")
+    phase_result = load_json(repository_path(
+        "validation/rigorous/results/vdp_box_v2_p2e_phase_order.json"))
+    require(phase_result.get("integrity_status") ==
+            "PASS_STRICT_BINARY_REPLAY" and
+            phase_result.get("local_subatom_status") ==
+            "PASS_THREE_PHASE_GAPS_ONLY",
+            "phase-gap prerequisite is not the retained strict result")
+    source_hulls = {
+        "ALG": phase_result["phase_hulls"]["algebraic"],
+        "HOM": phase_result["phase_hulls"][
+            "homoclinic_comparison_bridge_hull"],
+        "POLE": phase_result["phase_hulls"]["pole_closed_cover_mod_2pi"],
+    }
+    source_names = {
+        "ALG": "PHASE_GAP_RESULT.phase_hulls.algebraic",
+        "HOM": (
+            "PHASE_GAP_RESULT.phase_hulls."
+            "homoclinic_comparison_bridge_hull"),
+        "POLE": "PHASE_GAP_RESULT.phase_hulls.pole_closed_cover_mod_2pi",
+    }
+    collars: dict[str, tuple[Fraction, Fraction]] = {}
+    anchors: dict[str, tuple[Fraction, Fraction]] = {}
+    for identifier, record in apertures.items():
+        exact_keys(record, {
+            "id", "center_definition", "center_enclosure",
+            "protected_phase_radius", "entry_phase_radius",
+            "entry_action_radius", "entry_map_definition",
+            "anchor_enclosure", "anchor_source",
+        }, f"carrier aperture {identifier}")
+        require(record["center_definition"] ==
+                EXPECTED_APERTURE_CENTERS[identifier],
+                f"carrier aperture {identifier} center definition changed")
+        nonplaceholder(record["entry_map_definition"],
+                       f"carrier aperture {identifier} entry map")
+        center = exact_interval(
+            record["center_enclosure"],
+            f"carrier aperture {identifier} center enclosure")
+        radius = exact_fraction(
+            record["protected_phase_radius"],
+            f"carrier aperture {identifier} protected phase radius",
+            positive=True)
+        entry_radius = exact_fraction(
+            record["entry_phase_radius"],
+            f"carrier aperture {identifier} entry phase radius",
+            positive=True)
+        entry_action_radius = exact_fraction(
+            record["entry_action_radius"],
+            f"carrier aperture {identifier} entry action radius",
+            positive=True)
+        require(entry_radius == EXPECTED_ENTRY_PHASE_RADII[identifier] and
+                entry_radius < radius,
+                f"carrier aperture {identifier} entry phase scale changed")
+        require(entry_action_radius == channel_radius,
+                f"carrier aperture {identifier} entry action scale changed")
+        collars[identifier] = (center[0] - radius, center[1] + radius)
+        anchors[identifier] = exact_interval(
+            record["anchor_enclosure"],
+            f"carrier aperture {identifier} anchor")
+        require(anchors[identifier] == exact_interval(
+                    source_hulls[identifier],
+                    f"strict phase-result {identifier} hull") and
+                record["anchor_source"] == source_names[identifier],
+                f"carrier aperture {identifier} is not bound to the strict phase result")
+
+    for identifier in ("ALG", "HOM"):
+        require(exact_interval(
+                    apertures[identifier]["center_enclosure"],
+                    f"{identifier} moving center") == anchors[identifier] and
+                collars[identifier][0] < anchors[identifier][0] and
+                anchors[identifier][1] < collars[identifier][1],
+                f"{identifier} moving anchor is not strictly inside its collar")
+    require(exact_interval(
+                apertures["POLE"]["center_enclosure"],
+                "POLE center") == two_pi,
+            "pole aperture is not centered at the frozen two-pi lift")
+    pole_window_mod = anchors["POLE"]
+    require(collars["POLE"][0] > two_pi[1] + pole_window_mod[0] and
+            collars["POLE"][1] < two_pi[0] + pole_window_mod[1],
+            "pole collar is not uniformly inside the lifted certified window")
+
+    ordered = [collars["ALG"], collars["HOM"], collars["POLE"]]
+    require(all(left[1] < right[0]
+                for left, right in zip(ordered, ordered[1:])),
+            "selected aperture closures are not pairwise disjoint")
+    require(all(phase_arc[0] < collar[0] and collar[1] < phase_arc[1]
+                for collar in ordered),
+            "a selected aperture is not strictly inside the proper phase arc")
+    return {
+        "proper_phase_arc": [str(value) for value in phase_arc],
+        "aperture_phase_intervals": {
+            identifier: [str(value) for value in collars[identifier]]
+            for identifier in ("ALG", "HOM", "POLE")
+        },
+        "anchor_to_collar_margin_lowers": {
+            "ALG": apertures["ALG"]["protected_phase_radius"],
+            "HOM": apertures["HOM"]["protected_phase_radius"],
+            "POLE": str(min(
+                collars["POLE"][0] - (two_pi[1] + pole_window_mod[0]),
+                two_pi[0] + pole_window_mod[1] - collars["POLE"][1])),
+        },
+        "aperture_separation_lowers": {
+            "ALG_HOM": str(collars["HOM"][0] - collars["ALG"][1]),
+            "HOM_POLE": str(collars["POLE"][0] - collars["HOM"][1]),
+        },
+        "proper_arc_boundary_margin_lower": str(min(
+            collars["ALG"][0] - phase_arc[0],
+            phase_arc[1] - collars["POLE"][1])),
+        "normal_band_margin": str(band_half_width - channel_radius),
+        "entry_phase_radii": {
+            identifier: apertures[identifier]["entry_phase_radius"]
+            for identifier in ("ALG", "HOM", "POLE")
+        },
+    }
+
+
+def validate_carriers(section: dict[str, Any]) -> tuple[
+        dict[str, dict[str, Any]], dict[str, Any]]:
+    exact_keys(section, {"status", "design_geometry", "records"},
+               "carriers section")
+    require(isinstance(section["design_geometry"], dict),
+            "carrier design geometry is missing")
+    geometry_summary = validate_carrier_design_geometry(
+        section["design_geometry"])
     records = unique_records(section["records"], "carrier")
     require(set(records) == set(EXPECTED_CARRIERS),
             "frozen carriers do not match the complete required inventory")
     for identifier, (dimension, coordinates, _) in EXPECTED_CARRIERS.items():
         record = records[identifier]
         exact_keys(record, {
-            "id", "dimension", "coordinates", "coordinate_domain",
-            "physical_embedding", "physical_coordinates",
+            "id", "kind", "dimension", "coordinates", "coordinate_domain",
+            "realization",
             "parameter_domain_id", "boundary_function_ids",
             "boundary_strata", "boundary_strata_complete", "frozen",
         }, f"carrier {identifier}")
@@ -502,19 +682,49 @@ def validate_carriers(section: dict[str, Any]) -> dict[str, dict[str, Any]]:
         for coordinate in coordinates:
             exact_interval(domain[coordinate],
                            f"carrier {identifier} coordinate {coordinate}")
-        embedding = record["physical_embedding"]
-        require(isinstance(embedding, dict),
-                f"carrier {identifier} physical embedding is not explicit")
-        exact_keys(embedding, {"definition", "certificate_id", "zero_energy"},
-                   f"carrier {identifier} physical embedding")
-        nonplaceholder(embedding["definition"],
-                       f"carrier {identifier} physical embedding definition")
-        nonplaceholder(embedding["certificate_id"],
-                       f"carrier {identifier} embedding certificate")
-        require(embedding["zero_energy"] is True,
-                f"carrier {identifier} is not bound to the zero-energy surface")
-        require(record["physical_coordinates"] == ["U", "P", "V", "Q"],
-                f"carrier {identifier} does not use physical state coordinates")
+        realization = record["realization"]
+        require(isinstance(realization, dict),
+                f"carrier {identifier} realization is not explicit")
+        if identifier in PHYSICAL_CARRIERS:
+            require(record["kind"] == "PHYSICAL_ZERO_ENERGY_CARRIER",
+                    f"physical carrier {identifier} changed type")
+            exact_keys(realization, {
+                "type", "definition", "certificate_id", "state_coordinates",
+                "zero_energy", "immersion_required", "injectivity_required",
+            }, f"physical carrier {identifier} realization")
+            require(realization["type"] == "PHYSICAL_EMBEDDING",
+                    f"physical carrier {identifier} lacks an embedding")
+            nonplaceholder(realization["definition"],
+                           f"carrier {identifier} embedding definition")
+            nonplaceholder(realization["certificate_id"],
+                           f"carrier {identifier} embedding certificate")
+            require(realization["state_coordinates"] == ["U", "P", "V", "Q"],
+                    f"carrier {identifier} does not use physical state coordinates")
+            require(realization["zero_energy"] is True and
+                    realization["immersion_required"] is True and
+                    realization["injectivity_required"] is True,
+                    f"carrier {identifier} weakens its physical embedding claim")
+        else:
+            require(record["kind"] == "NORMALIZED_PULLBACK_DOMAIN",
+                    f"pullback carrier {identifier} changed type")
+            exact_keys(realization, {
+                "type", "definition", "target_carrier_id", "map_definition",
+                "certificate_id", "zero_energy_claim",
+                "injective_embedding_claim",
+            }, f"pullback carrier {identifier} realization")
+            require(realization["type"] == "PULLBACK_DOMAIN" and
+                    realization["target_carrier_id"] ==
+                    PULLBACK_TARGETS[identifier],
+                    f"pullback carrier {identifier} has the wrong target")
+            nonplaceholder(realization["definition"],
+                           f"pullback carrier {identifier} definition")
+            nonplaceholder(realization["map_definition"],
+                           f"pullback carrier {identifier} map")
+            nonplaceholder(realization["certificate_id"],
+                           f"pullback carrier {identifier} certificate")
+            require(realization["zero_energy_claim"] is False and
+                    realization["injective_embedding_claim"] is False,
+                    f"pullback carrier {identifier} was promoted to a physical embedding")
         require(record["parameter_domain_id"] ==
                 "vdp-core-to-positive-bridge-v2",
                 f"carrier {identifier} is not defined on the full v2 bridge")
@@ -538,7 +748,7 @@ def validate_carriers(section: dict[str, Any]) -> dict[str, dict[str, Any]]:
         require(record["boundary_strata_complete"] is True and
                 record["frozen"] is True,
                 f"carrier {identifier} is not prospectively frozen")
-    return records
+    return records, geometry_summary
 
 
 def validate_functions(section: dict[str, Any]) -> dict[str, dict[str, Any]]:
@@ -1223,13 +1433,15 @@ def audit(config_path: Path = DEFAULT_CONFIG) -> dict[str, Any]:
             missing.append(name)
 
     carriers = None
+    carrier_geometry = None
     functions = None
     lists = None
     incidence = None
     components = None
     priorities = None
     if materialization["carriers"]["status"] == FROZEN:
-        carriers = validate_carriers(materialization["carriers"])
+        carriers, carrier_geometry = validate_carriers(
+            materialization["carriers"])
     if materialization["defining_functions"]["status"] == FROZEN:
         functions = validate_functions(materialization["defining_functions"])
     if materialization["physical_event_faces"]["status"] == FROZEN:
@@ -1296,6 +1508,7 @@ def audit(config_path: Path = DEFAULT_CONFIG) -> dict[str, Any]:
         "missing_materialization_sections": missing,
         "stop_reason": stop_reason,
         "parameter_cells": 4096,
+        "frozen_carrier_geometry": carrier_geometry,
         "obligations": config["obligations"],
         "claim_bearing": False,
         "release_eligible": False,

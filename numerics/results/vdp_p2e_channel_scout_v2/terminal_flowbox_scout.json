@@ -1,0 +1,200 @@
+{
+  "algebraic": {
+    "energy_qa": {
+      "sampled_energy_abs_max": 5.017097848281082e-13,
+      "sampled_energy_drift": 8.374412274747556e-13,
+      "source_energy_abs": 3.3644617278989423e-18
+    },
+    "finite_difference_terminal_map": {
+      "action_step": 1e-08,
+      "candidate_entry_action_radius": 2.7755575615628914e-17,
+      "candidate_entry_phase_radius": 1e-06,
+      "phase_step": 2e-06,
+      "rank_scout_passed": true,
+      "raw_determinant": -840659.560988498,
+      "raw_jacobian": [
+        [
+          -64347.066126266844,
+          5390902.151986054
+        ],
+        [
+          -20661.631385213932,
+          1731014.02228788
+        ]
+      ],
+      "raw_singular_values": [
+        5662402.582435804,
+        0.14846340377841408
+      ],
+      "scaled_jacobian": [
+        [
+          -0.06434706612626684,
+          1.4962759231590556e-10
+        ],
+        [
+          -0.02066163138521393,
+          4.804529058732521e-11
+        ]
+      ],
+      "scaled_singular_values": [
+        0.06758289673102666,
+        3.452499247619695e-16
+      ],
+      "scope": "Centered binary64 differences at one parameter point; the action step is deliberately much larger than the candidate radius and supplies only a tangent-scale diagnostic.",
+      "terminal_coordinates": [
+        "V",
+        "Q"
+      ]
+    },
+    "source_phase": 5.756691395749909,
+    "terminal": {
+      "cooriented_speed": 51.31024263358945,
+      "definition": "U=-17.391304347826086",
+      "section_residual_abs": 3.552713678800501e-15,
+      "state": [
+        -17.391304347826082,
+        -51.31024263358945,
+        -36.72281051019655,
+        -19.996809450203415
+      ],
+      "time": 11.450738467639678
+    }
+  },
+  "algebraic_interface": {
+    "fixed_v2_gate_anchor_phase": 5.756691395749909,
+    "inside_protected_radius_1_over_100": true,
+    "interpretation": "The finite V2 gate anchor and the later V4/V5 matched orbit are distinct objects; this sampled displacement shows only that the latter remains inside the proposed protected collar.",
+    "phase_displacement": 7.582753506962803e-05,
+    "positive_outer_matched_candidate_phase": 5.756767223284979,
+    "remaining_sampled_phase_margin": 0.009924172464930372
+  },
+  "claim_bearing": false,
+  "design_correction": {
+    "candidate_entry_action_radius": 2.7755575615628914e-17,
+    "candidate_entry_phase_radii": {
+      "algebraic": 1e-06,
+      "homoclinic": 1e-07,
+      "pole": 0.0001
+    },
+    "flowbox_definition": "Use a terminal transverse disc and its backward first-hit map to the outgoing band; use the wider phase collars only for channel separation and inactive-face margins.",
+    "protected_phase_collars_are_not_flowbox_entry_discs": true
+  },
+  "evidence_status": "COMPUTED/E1_NON_EVIDENTIARY",
+  "homoclinic": {
+    "candidate_entry_phase_radius": 1e-07,
+    "endpoint_probes": [
+      {
+        "incoming_stable_radial_speed": -0.007060292695766931,
+        "incoming_time": 19.272992473666903,
+        "incoming_unstable_radius": 0.004744225288930145,
+        "source_phase_offset": -1e-07
+      },
+      {
+        "incoming_stable_radial_speed": -0.0069864185327543436,
+        "incoming_time": 19.279964180016187,
+        "incoming_unstable_radius": 0.004757228082296494,
+        "source_phase_offset": 1e-07
+      }
+    ],
+    "incoming_face_radius": 0.01,
+    "maximum_incoming_unstable_radius": 0.004757228082296494,
+    "sampled_containment_margin": 0.005242771917703506,
+    "sampled_containment_passed": true,
+    "scope": "Two phase endpoints at nu=0 only; this is not a transverse disc, interval tube, or uniform first-hit certificate.",
+    "source_phase": 5.861458108702215
+  },
+  "next_mathematical_step": "Freeze terminal-disc charts and backward entrance maps with these separated scales, then validate their full v2 parameter cover by outward-rounded flow and variational enclosures.",
+  "nonclaims": [
+    "No sampled derivative or endpoint is an interval enclosure.",
+    "The action finite-difference step is not the final action radius.",
+    "No carrier embedding, incidence census, numeric m0, or V2 event-atlas atom passes here."
+  ],
+  "parameter_point_exact": {
+    "a2": "0",
+    "epsilon": "1",
+    "r": "3/200"
+  },
+  "pole": {
+    "energy_qa": {
+      "sampled_energy_abs_max": 1.1782241848834474e-13,
+      "sampled_energy_drift": 1.892999645924931e-13,
+      "source_energy_abs": 7.208115706898806e-17
+    },
+    "finite_difference_terminal_map": {
+      "action_step": 1e-08,
+      "candidate_entry_action_radius": 2.7755575615628914e-17,
+      "candidate_entry_phase_radius": 0.0001,
+      "phase_step": 2e-06,
+      "rank_scout_passed": true,
+      "raw_determinant": 1.0000005499575495,
+      "raw_jacobian": [
+        [
+          4.157296684570433,
+          -235.88205084745795
+        ],
+        [
+          0.008586787780817673,
+          -0.24666715892074365
+        ]
+      ],
+      "raw_singular_values": [
+        235.9188121540533,
+        0.004238748664538697
+      ],
+      "scaled_jacobian": [
+        [
+          0.0004157296684570433,
+          -6.547042098666243e-15
+        ],
+        [
+          8.586787780817673e-07,
+          -6.846388981317054e-18
+        ]
+      ],
+      "scaled_singular_values": [
+        0.0004157305552453982,
+        6.676341329694572e-18
+      ],
+      "scope": "Centered binary64 differences at one parameter point; the action step is deliberately much larger than the candidate radius and supplies only a tangent-scale diagnostic.",
+      "terminal_coordinates": [
+        "V",
+        "Q"
+      ]
+    },
+    "source_phase": 6.283185307179586,
+    "terminal": {
+      "cooriented_speed": 27.13980796428052,
+      "definition": "U=-10",
+      "section_residual_abs": 5.5067062021407764e-14,
+      "state": [
+        -9.999999999999945,
+        -27.13980796428052,
+        3.46130302327047,
+        -0.5490439016687143
+      ],
+      "time": 11.170411139414147
+    }
+  },
+  "qa": {
+    "algebraic_terminal_rank_scout": true,
+    "homoclinic_phase_endpoint_containment": true,
+    "matched_algebraic_candidate_inside_protected_collar": true,
+    "pole_terminal_rank_scout": true
+  },
+  "schema_version": "rfsn-vdp-p2e-terminal-flowbox-scout/1",
+  "source_bindings": [
+    {
+      "path": "validation/rigorous/results/vdp_box_v2_p2e_phase_order.json",
+      "sha256": "45e55e81817612af8ddbdd44f256ee6309e7e1df6328ff6945cd00a89a1e00ff"
+    },
+    {
+      "path": "numerics/results/vdp_p2e_channel_scout_v2/scout.json",
+      "sha256": "6f076337aa465de013d9861749a9de834be141a25f79671c1e18a5aa5b386ae8"
+    },
+    {
+      "path": "numerics/results/vdp_p2e_channel_scout_v2/energy_matched_centerline.json",
+      "sha256": "c66a9750a632f6066da4133830b1f85ab2f6519919c369ed30ca9bbbffd5bdb4"
+    }
+  ],
+  "status": "THREE_TERMINAL_CENTER_GERMS_SCOUTED"
+}
