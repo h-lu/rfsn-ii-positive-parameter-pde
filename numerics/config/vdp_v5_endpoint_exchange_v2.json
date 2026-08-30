@@ -57,7 +57,22 @@
     "slope_fit": "quadratic alpha(beta) on the three frozen seam points",
     "raw_scaled_normalization": "L_o=dA-Gamma_B*dB with L_o(partial_A)=1",
     "K1_pullback": "exact derivative of V5(37) on the fixed r1=R, H leaf",
-    "central_pullback": "exact fixed-U derivative of V5(38), followed by intrinsic row reduction V5(54)"
+    "central_pullback": "exact fixed-U derivative of V5(38), including dH from V5(28), followed by intrinsic row reduction V5(54)"
+  },
+  "full_energy_extension": {
+    "graph_horizon_Q_end": 200.0,
+    "graph_sensitivity_method": "linearized positive-pi BVP at fixed seam beta, including the exact H forcing and differentiated terminal normal-nullcline equation",
+    "graph_state_jacobian_steps": {
+      "eta": 1.0e-6,
+      "omega": 1.0e-6
+    },
+    "graph_sensitivity_tolerance": 1.0e-10,
+    "graph_sensitivity_boundary_tolerance": 1.0e-12,
+    "graph_sensitivity_maximum_nodes": 10000,
+    "graph_finite_difference_H_step": 1000000.0,
+    "K1_H_jacobian_step": 1.0e-4,
+    "K1_H_jacobian_half_step": 5.0e-5,
+    "projective_ratio_reference_component": 0
   },
   "jost_normalization": {
     "B2": "Gamma(3/4)*96^(5/8)/(8*sqrt(pi))",
@@ -103,8 +118,13 @@
     "frozen_exchange_identity_abs_upper": 1.0e-9,
     "Jost_pairing_drift_abs_upper": 1.0e-8,
     "outer_map_jacobian_crosscheck_inf_upper": 1.0e-9,
+    "graph_energy_sensitivity_boundary_residual_upper": 1.0e-11,
+    "graph_energy_sensitivity_ode_residual_upper": 1.0e-9,
+    "graph_energy_sensitivity_finite_difference_relative_upper": 2.0e-6,
+    "K1_full_jacobian_energy_column_relative_upper": 1.0e-7,
     "endpoint_graph_tangent_pairing_abs_upper": 1.0e-10,
     "adjoint_projective_angle_difference_upper": 1.0e-7,
+    "full_adjoint_projective_ratio_difference_upper": 1.0e-7,
     "intrinsic_flow_pairing_relative_upper": 1.0e-10,
     "positive_exchange_lower": 124.70765814495917,
     "positive_exchange_relative_deviation_from_frozen_upper": 0.5,
@@ -117,7 +137,7 @@
     "matching_condition_number_upper": 1.0e8
   },
   "nonclaims": [
-    "The positive exchange is one Jost-normalized fixed-center pairing, not a uniform lower bound on the v2 parameter box.",
+    "The positive exchange is one Jost-normalized fixed-center pairing for the finite-Q=200 graph proxy, not a uniform lower bound on the v2 parameter box or the theorem's maximal graph.",
     "The two-by-two Jacobian and its singular values are for the declared flow-constant target extension and Jost row normalization; they do not prove nonlinear uniqueness.",
     "Backward adjoint and forward variational agreement on the saved floating centerline is not interval validation of the resolved matching tube."
   ]
