@@ -186,3 +186,53 @@ Results and the proof boundary are recorded in
 [`../P2C_SCOUT_REPORT.md`](../P2C_SCOUT_REPORT.md).  The H10 header supplied
 at compile time must be extracted from the Git object named by
 `flagship_import.lock.json`, never from the flagship working tree.
+
+`p2e_axis_terminal_first_hit_scout.cpp` and the two axis-cover runners form
+the design lane for the zero-action algebraic and pole entrances.  The
+terminal kernel starts from the exact zero-energy axis chart.  For the pole
+channel it uses directed \((U,P,Q,V)\) sections through the bounded global
+turn and supports three complementary interval representations of the same
+orbit and terminal event.  The base route uses only the frozen event
+sections.  A light fallback adds exact \(V=1/2,3/4,4/5\) sections after the
+final \(P=0\) maximum.  The strongest fallback reconditions the exact
+zero-energy image at the upward \(U=-1/20\) hit, uses \(U\) as independent
+variable through the long upper turn while checking \(P>0\) on every CAPD
+step, and then uses \(V\) as independent variable from \(V=0\) to \(V=4/5\)
+while checking \(Q>0\).  From the first downward \(U=-1/20\) hit, a separate
+guard takes the
+first \(P=0\) minimum, the next \(P=0\) maximum, and the first subsequent
+\(U=-1/5\) hit.  At \(x=-U=1/5\), the kernel verifies a forward-invariant
+positive \((y,D,K)\) cone, which makes \(x\) strictly increasing through
+\(x=10\).  The phase aperture covers the retained disk on its zero-action
+axis; it is not a claim about a larger rectangular carrier.
+
+For the algebraic channel the physical enclosure is reconditioned at its
+first \(U=-4\) hit.  With
+
+\[
+ e=\frac14-\tau=-\frac1U,\qquad
+ w=(P e^{3/2})^2,\qquad q=Qe^{3/2},
+\]
+
+the kernel integrates the exact weighted \((w,q)\) dynamics, carries only
+the three static parameters and physical clock, and checks \(w>0\) on every
+accepted CAPD step through \(e=23/400\).  The negative branch
+\(P=-\sqrt w/e^{3/2}\) and \(dU/d\tau=-e^{-2}<0\) then identify
+\(U=-400/23\) as the first post-seam terminal hit.  The terminal \(V\) is
+reconstructed from the zero-energy identity; a dependency-prone numerical
+energy interval is diagnostic only.
+
+The pole runner first tries the full proved
+\(|\eta|\le1/200000\) graph tube on each frozen bridge cell.  It refines only
+wrapping failures into the eight canonical \(r\)-leaves and invokes the
+root-conditioned true-\(W^u\) source trace only when the broad leaf still
+wraps.  Any further \(r\)-bisections of a root-conditioned canonical leaf
+are checked as an exact binary-prefix cover; phase is never split, so every
+accepted record covers the complete retained phase aperture.  The algebraic
+runner uses the same root-conditioned source binding
+and adaptively bisects only failed \(a_2\) leaves; accepted leaves must form
+an exact binary-prefix cover.
+
+These remain non-claim-bearing design computations.  Even complete axis
+covers do not supply the off-axis event carrier, incidence census, numerical
+\(m_{\rm ax}\), transported traces, or `V2.EVENT_ATLAS`.

@@ -4,10 +4,12 @@
 #include <iomanip>
 #include <iostream>
 #include <limits>
+#include <sstream>
 #include <stdexcept>
 #include <string>
 
 #include "capd/capdlib.h"
+#include "unstable_graph_terms.hpp"
 
 // Design scout for a tight value enclosure of the direct P2bK source point.
 // It propagates the already proved quadratic local-Wu enclosure from a tiny
@@ -42,6 +44,18 @@ interval cell(const char* left, const char* right) {
   return interval(lo.leftBound(), hi.rightBound());
 }
 
+interval midpointInterval(const interval& value) {
+  return interval(midpoint(value));
+}
+
+interval halfInterval(const interval& value, int half) {
+  if (half != 0 && half != 1)
+    throw std::invalid_argument("split half must be 0 or 1");
+  const interval middle = midpointInterval(value);
+  return half == 0 ? interval(value.leftBound(), middle.rightBound())
+                   : interval(middle.leftBound(), value.rightBound());
+}
+
 int index(const char* text, int upperExclusive, const char* name) {
   std::size_t used = 0;
   const std::string input(text);
@@ -71,12 +85,18 @@ std::array<interval, 3> parameterCell(int rLeafIndex, int a2Index,
 }
 
 interval fixedTargetPhase(const std::string& kind) {
-  if (kind == "DIRECT_ALG")
-    return cell("5.7566913947049203", "5.7566913967948983");
+  if (kind == "DIRECT_ALG") {
+    const interval anchor =
+      cell("5.7566913947049203", "5.7566913967948983");
+    const interval radius = interval(9.) / interval(80000000.);
+    return anchor + interval(-radius.rightBound(), radius.rightBound());
+  }
   if (kind == "DIRECT_POLE_CENTER") {
     const interval lo = interval(103993) / interval(16551);
     const interval hi = interval(208696) / interval(33215);
-    return interval(lo.leftBound(), hi.rightBound());
+    const interval radius = interval(9.) / interval(800000.);
+    return interval(lo.leftBound(), hi.rightBound())
+      + interval(-radius.rightBound(), radius.rightBound());
   }
   throw std::invalid_argument(
     "target kind must be DIRECT_ALG or DIRECT_POLE_CENTER; these are "
@@ -86,6 +106,47 @@ interval fixedTargetPhase(const std::string& kind) {
 interval absoluteEnvelope(const interval& x) {
   return interval(0., std::max(std::abs(x.leftBound()),
                                std::abs(x.rightBound())));
+}
+
+interval integerPower(interval value, int exponent) {
+  interval result(1.);
+  for (int index = 0; index < exponent; ++index) result *= value;
+  return result;
+}
+
+int fallingFactorial(int exponent, int derivatives) {
+  int result = 1;
+  for (int index = 0; index < derivatives; ++index)
+    result *= exponent - index;
+  return result;
+}
+
+interval coefficient(const PolynomialTerm& term) {
+  interval result = interval(term.numerator, term.numerator)
+    / interval(term.denominator, term.denominator);
+  if (term.times_sqrt_two) result *= sqrt(interval(2.));
+  return result;
+}
+
+template <std::size_t Size>
+interval polynomial(const PolynomialTerm (&terms)[Size], const interval& x,
+                    const interval& y, int dx = 0, int dy = 0) {
+  interval result(0.);
+  for (const auto& term : terms) {
+    if (term.px < dx || term.py < dy) continue;
+    result += coefficient(term)
+      * interval(static_cast<double>(fallingFactorial(term.px, dx)))
+      * interval(static_cast<double>(fallingFactorial(term.py, dy)))
+      * integerPower(x, term.px - dx)
+      * integerPower(y, term.py - dy);
+  }
+  return result;
+}
+
+std::string intervalString(const interval& value) {
+  std::ostringstream output;
+  output << std::setprecision(17) << value;
+  return output.str();
 }
 
 struct Parameters {
@@ -306,7 +367,7 @@ int run(int rLeafIndex, int a2Index, int epsilonIndex,
         const interval& theta0,
         const std::array<interval, 3>& thetaSlopes,
         const interval& delta, const interval& targetPhase,
-        const std::string& targetKind) {
+        const std::string& targetKind, const std::string& splitPath) {
   if (!delta.contains(0.))
     throw std::invalid_argument("the Newton correction box must contain zero");
   std::array<interval, 3> centre;
@@ -349,6 +410,25 @@ int run(int rLeafIndex, int a2Index, int epsilonIndex,
     newton = -predictorResidual / fullMap.graphPhaseDerivative;
   const bool newtonIncluded = derivativeSeparated
     && strictInterior(newton, delta);
+  const interval newtonCentre(midpoint(newton));
+  const interval newtonRemainder = newton - newtonCentre;
+  const AffineInitialData rootData = initialData(
+    parameterCell, centre, theta0 + newtonCentre, thetaSlopes,
+    newtonRemainder);
+  const MapResult rootMap = propagate(field, rootData, targetPhase);
+  const interval outerAngle = targetPhase + p.chi;
+  const interval outerU1 = outerRadius() * cos(outerAngle);
+  const interval outerU2 = outerRadius() * sin(outerAngle);
+  const interval h10S1 = polynomial(kH1Terms, outerU1, outerU2);
+  const interval rootEta = rootMap.endpoint[2] - h10S1;
+  const interval provedEtaRadius = interval(1.) / interval(200000.);
+  const interval provedEta(-provedEtaRadius.rightBound(),
+                            provedEtaRadius.rightBound());
+  const bool rootConditioned = newtonIncluded
+    && rootMap.rootResidual.contains(0.)
+    && rootMap.sectionResidualBox.contains(0.)
+    && rootMap.returnTime.leftBound() > 0.
+    && subset(rootEta, provedEta);
   const interval rho = outerRadius();
   const interval graphAtRho = sqr(rho) / interval(4.);
   const interval absoluteU = rho + graphAtRho;
@@ -390,7 +470,7 @@ int run(int rLeafIndex, int a2Index, int epsilonIndex,
     && radialLogRate.leftBound() > 0. && radialSectionEnclosed
     && returnResolved;
   const bool success = derivativeSeparated && newtonIncluded && correctBranch
-    && radialFirstHitResolved && returnResolved;
+    && radialFirstHitResolved && returnResolved && rootConditioned;
 
   std::cout << std::setprecision(17)
     << "scope P2bK_direct_source_first_radius_hit_design_scout\n"
@@ -433,7 +513,45 @@ int run(int rLeafIndex, int a2Index, int epsilonIndex,
        << fullMap.graphPhaseDerivative << "\n"
     << "interval_newton " << newton << " inside_delta "
        << (newtonIncluded ? "PASS" : "INCONCLUSIVE") << "\n"
+    << "root_conditioned_endpoint " << rootMap.endpoint << "\n"
+    << "root_conditioned_return_time " << rootMap.returnTime << "\n"
+    << "root_conditioned_phase_residual " << rootMap.rootResidual << "\n"
+    << "root_conditioned_eta " << rootEta << " inside_P2b0_tube "
+       << (subset(rootEta, provedEta) ? "PASS" : "INCONCLUSIVE") << "\n"
     << "phase_derivative_separated " << (derivativeSeparated ? "PASS" : "INCONCLUSIVE") << "\n"
+    << "RESULT_JSON {\"status\":\""
+       << (success ? "PASS" : "INCONCLUSIVE")
+       << "\",\"scope\":\"P2E_DIRECT_SOURCE_ROOT_CONDITIONED_LEAF\""
+       << ",\"claim_bearing\":false"
+       << ",\"target_kind\":\"" << targetKind << "\""
+       << ",\"leaf\":[" << rLeafIndex << ',' << a2Index << ','
+       << epsilonIndex << ']'
+       << ",\"split_path\":\"" << splitPath << "\""
+       << ",\"parameter_box\":{\"r\":" << intervalString(p.r)
+       << ",\"a2\":" << intervalString(p.a2)
+       << ",\"epsilon\":" << intervalString(p.epsilon) << "}"
+       << ",\"target_phase\":" << intervalString(targetPhase)
+       << ",\"theta0\":" << intervalString(theta0)
+       << ",\"theta_parameter_slopes\":["
+       << intervalString(thetaSlopes[0]) << ','
+       << intervalString(thetaSlopes[1]) << ','
+       << intervalString(thetaSlopes[2]) << ']'
+       << ",\"trial_delta\":" << intervalString(delta)
+       << ",\"interval_newton\":" << intervalString(newton)
+       << ",\"phase_derivative\":"
+       << intervalString(fullMap.graphPhaseDerivative)
+       << ",\"log_radial_rate\":" << intervalString(radialLogRate)
+       << ",\"phase_rate\":" << intervalString(phaseRate)
+       << ",\"root_eta\":" << intervalString(rootEta)
+       << ",\"root_stable_coordinates\":["
+       << intervalString(rootMap.endpoint[2]) << ','
+       << intervalString(rootMap.endpoint[3]) << ']'
+       << ",\"root_return_time\":"
+       << intervalString(rootMap.returnTime)
+       << ",\"root_phase_residual\":"
+       << intervalString(rootMap.rootResidual)
+       << ",\"nonclaim\":\"One root-conditioned source leaf does not "
+          "prove a terminal first hit or the P2e event atlas.\"}\n"
     << (success ? "PASS" : "INCONCLUSIVE")
     << " source trace design scout\n";
   return success ? 0 : 20;
@@ -443,24 +561,48 @@ int run(int rLeafIndex, int a2Index, int epsilonIndex,
 
 int main(int argc, char** argv) {
   try {
-    if (argc != 10)
+    if (argc < 10 || (argc - 10) % 2 != 0)
       throw std::invalid_argument(
         "usage: r_leaf_index a2_index epsilon_index theta0 "
-        "theta_r theta_a2 theta_epsilon delta_radius target_kind");
+        "theta_r theta_a2 theta_epsilon delta_radius target_kind "
+        "[r|a2|epsilon split_half]...");
     const int rLeafIndex = index(argv[1], 64, "r leaf");
     const int a2Index = index(argv[2], 128, "a2");
     const int epsilonIndex = index(argv[3], 4, "epsilon");
-    const std::array<interval, 3> cellBox = parameterCell(
+    const std::array<interval, 3> parentBox = parameterCell(
       rLeafIndex, a2Index, epsilonIndex);
+    std::array<interval, 3> cellBox = parentBox;
     const std::array<interval, 3> thetaSlopes = {
       point(argv[5]), point(argv[6]), point(argv[7])};
+    std::string splitPath;
+    for (int argument = 10; argument < argc; argument += 2) {
+      const std::string variable(argv[argument]);
+      const int half = index(argv[argument + 1], 2, "split half");
+      int coordinate = -1;
+      if (variable == "r") coordinate = 0;
+      else if (variable == "a2") coordinate = 1;
+      else if (variable == "epsilon") coordinate = 2;
+      else
+        throw std::invalid_argument(
+          "source split variable must be r, a2, or epsilon");
+      cellBox[coordinate] = halfInterval(cellBox[coordinate], half);
+      if (!splitPath.empty()) splitPath += ",";
+      splitPath += variable + ":" + std::to_string(half);
+    }
+    interval shiftedTheta0 = point(argv[4]);
+    for (int parameter = 0; parameter < 3; ++parameter) {
+      shiftedTheta0 += thetaSlopes[parameter]
+        * (midpointInterval(cellBox[parameter])
+           - midpointInterval(parentBox[parameter]));
+    }
     const interval deltaRadius = point(argv[8]);
     if (deltaRadius.leftBound() <= 0.)
       throw std::invalid_argument("delta radius must be positive");
     const interval delta(-deltaRadius.rightBound(), deltaRadius.rightBound());
     const std::string targetKind(argv[9]);
-    return run(rLeafIndex, a2Index, epsilonIndex, cellBox, point(argv[4]),
-               thetaSlopes, delta, fixedTargetPhase(targetKind), targetKind);
+    return run(rLeafIndex, a2Index, epsilonIndex, cellBox, shiftedTheta0,
+               thetaSlopes, delta, fixedTargetPhase(targetKind), targetKind,
+               splitPath);
   } catch (const std::exception& error) {
     std::cerr << "FAIL: " << error.what() << "\n";
     return 10;
