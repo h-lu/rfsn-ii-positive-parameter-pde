@@ -131,11 +131,18 @@ The P2d overlap and physical-slide proofs already imply that the finite
 \(\kappa/\lambda\) seam exists with the needed regularity and that the
 composed `B.OUT` is a \(C^2\) zero-energy embedding on the frozen action
 collar.  A standalone numerical seam table would therefore duplicate a
-qualitative conclusion rather than close the next atlas obligation.  The
-next claim-bearing computation is the rigorous physical initial-state
-enclosure on the three entrance discs, followed by their exterior first-hit
-maps.  Only if that local evaluator needs direct-spine predictors should the
-present scout be reused.  No full source-trace run is presently warranted.
+qualitative conclusion rather than close the next atlas obligation.
+
+The subsequent proof-bound axis-chart lemma now supplies an exact
+zero-energy interval enclosure of the true \(\nu=0\) source:
+\(s_1=H_{10,1}(u)+\eta\), \(|\eta|<10^{-5}\), with \(s_2\) fixed by the
+Hamiltonian and the true source confined by \(|\eta_\mu|\le5\times10^{-6}\).
+It also proves that a complete strict zero-action event skeleton thickens to
+some positive uniform exact-action subcollar.  Therefore the next
+claim-bearing computation is the exterior ALG/POLE first-hit skeleton, with
+HOM imported from P2c, not a full raw-source trace or a fixed-radius
+off-axis evaluator.  Only interval wrapping of this enclosure would justify
+reusing the direct-spine predictor locally.
 
 The moving HOM target, residual \(+\)/\(-\) templates, proper phase arc,
 physical carriers, incidence complex, first-event census, normalization, and

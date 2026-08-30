@@ -108,9 +108,11 @@ Hence \(F_\mu\) is a \(C^2\) diffeomorphism on the frozen band and
 =\mathcal E_\mu^{u,\mathrm{P2d}}\circ F_\mu\) is automatically a \(C^2\)
 zero-energy embedding.  This is an imported mathematical `PASS`; it does not
 require a standalone 4096-cell table of \(\lambda_\mu\).  What remains
-computationally open is narrower and different: a rigorous physical
-initial-state enclosure for each of the three entrance discs, suitable for
-the exterior first-hit integrations.
+computationally open is narrower and different.  The proof-bound direct chart
+in [`P2E_AXIS_CHART_REPORT.md`](P2E_AXIS_CHART_REPORT.md) now supplies a
+rigorous exact zero-energy enclosure of the true \(\nu=0\) source curve.
+The exterior ALG/POLE first-hit maps, rather than a numerical seam table or a
+pointwise evaluator for the unknown graph, are the next new calculations.
 
 The corrected outgoing band is
 
@@ -154,6 +156,14 @@ safety factor, freeze the entrance phase radii
 
 and the common action radius \(R_\nu^{\rm ent}=2^{-55}\).  These choices were
 informed by a non-evidentiary scout; they are not certified margins.
+
+The action radius in this frozen design is an available upper ceiling, not a
+claim that the entire disc must have one certified event outcome.  The
+axis-skeleton criterion proves that a complete strict \(\nu=0\) arrangement
+with margin \(m_{\rm ax}>0\) persists on some uniform restriction
+\(0<\delta_{\rm ent}\le2^{-55}\).  No numerical value of
+\(\delta_{\rm ent}\), and in particular no equality
+\(\delta_{\rm ent}=2^{-55}\), is asserted.
 
 For each channel use normalized entrance coordinates \(x=(x_1,x_2)\) in
 the corresponding direct-phase/exact-action disc on
@@ -210,10 +220,10 @@ P2d incoming coordinates \((\psi_r,\nu_r)\).
 The gate must accept a `PHYSICAL_ZERO_ENERGY_CARRIER` realization only for
 the five physical carriers and a `NORMALIZED_PULLBACK_DOMAIN` realization
 for the four `Z` domains.  A later full run may still be authorized only
-after the three exterior carrier maps and their physical entrance-state
-evaluators have interval certificates,
-and after incidence/census, normalization, numeric \(m_0\), and transported
-traces are materialized.  The numerical budgets are already prospectively
-frozen.  This audit by itself remains `INCONCLUSIVE`,
+after the zero-action exterior ALG/POLE first-hit maps, incidence/census,
+normalization, numeric \(m_{\rm ax}\), and transported traces are
+materialized.  The proved compactness criterion then supplies an existential
+uniform exact-action subcollar; materializing the entire frozen design radius
+is not a completion condition.  This audit by itself remains `INCONCLUSIVE`,
 `claim_bearing=false`, and does not change the three already validated scalar
 phase gaps.

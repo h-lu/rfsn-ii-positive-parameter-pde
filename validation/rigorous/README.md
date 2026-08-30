@@ -432,6 +432,18 @@ transported residual traces, proper cut, Theorem V2(5), and
 [`P2E_V2_PHASE_ORDER_REPORT.md`](P2E_V2_PHASE_ORDER_REPORT.md) and the
 subsequent [`P2E_EVENT_ATLAS_V2_FREEZE_GATE.md`](P2E_EVENT_ATLAS_V2_FREEZE_GATE.md).
 
+The next proof-bound P2e lemma is now complete.  The direct chart in
+[`P2E_AXIS_CHART_REPORT.md`](P2E_AXIS_CHART_REPORT.md) encloses the true
+zero-action source curve in one exact zero-energy physical chart on the whole
+proper phase arc.  Its exact checker proves \(u_1>41/5000\), authenticates the
+P2b0/P2bK source facts, and proves the compactness criterion that thickens a
+complete strict \(\nu=0\) event skeleton to some uniform
+\(0<\delta_{\rm ent}\le2^{-55}\).  This is a local mathematical `PASS`,
+not a first-hit calculation: ALG/POLE integration, incidence, exhaustive
+census, \(m_{\rm ax}\), transported traces, and `V2.EVENT_ATLAS` remain
+open.  In particular, no claim is made for the whole fixed
+\(|\nu|\le2^{-55}\) disk.
+
 The source-frozen P2 restriction lane is specified in
 [`P2_V2_RESTRICTION_CONTRACT.md`](P2_V2_RESTRICTION_CONTRACT.md).  Its
 deterministic checker recursively authenticates the P2a--P2c certificates,

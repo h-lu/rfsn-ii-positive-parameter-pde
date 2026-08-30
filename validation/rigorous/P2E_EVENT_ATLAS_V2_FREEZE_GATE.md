@@ -44,8 +44,9 @@ recorded in [`P2E_EVENT_ATLAS_TYPE_AUDIT.md`](P2E_EVENT_ATLAS_TYPE_AUDIT.md).
 The `B.OUT` and `B.RET` physical embeddings are already mathematical
 consequences of the proved P2d seam and physical-slide atoms; no separate
 numeric \(\lambda\)-table is required for that qualitative conclusion.  The
-three exterior flowbox embeddings still lack executable physical
-initial-state and interval first-hit certificates.  The
+exact zero-action true-source enclosure is now supplied by
+[`P2E_AXIS_CHART_REPORT.md`](P2E_AXIS_CHART_REPORT.md).  The three
+exterior flowbox embeddings still lack interval first-hit certificates.  The
 incidence complex, corner priority, first-event census, normalization,
 transported traces, and numerical `m0` remain absent.  A missing section must
 have an empty payload, all atlas obligations remain `PENDING`, and the checker
@@ -73,27 +74,31 @@ return event `a_ret` while retaining `q_ret` as incidence data.
    non-evidentiary.
 3. Import the proved \(\kappa_\mu/\lambda_\mu\) seam and the resulting
    `B.OUT` embedding.  Do not construct a standalone 4096-cell
-   \(\lambda\)-table.  Before treating an off-zero flowbox as evidence,
-   rigorously enclose the composed physical initial state only on each of the
-   three entrance discs actually integrated.  The earlier floating flowbox
-   scout uses a design coordinate only and cannot serve as this certificate.
+   \(\lambda\)-table.  Initialize the rigorous \(\nu=0\) integrations with
+   the exact zero-energy true-source enclosure in the axis-chart report.  Its
+   graph-error coordinate is not P2d action and must not be relabelled as
+   \(\nu\).
 4. The terminal/aperture/label/cut functions, the four distinct side
    occurrences, all pullback maps, and the per-carrier subdivision and
    Taylor-order budgets are now frozen prospectively.  Run the structural
    checker before each complete rigorous calculation and reject any mutation
    of these objects.
-5. Validate the three narrow channels and artificial laterals on the v2 bridge:
-   event speeds, containment and flow-domain buffers, inactive-face gaps,
-   conormal rank, and every empty/nonempty sign incidence.  A nonempty
+5. Import the P2c homoclinic channel and validate the ALG/POLE zero-action
+   first hits and the three artificial laterals on the v2 bridge: event
+   speeds, containment and flow-domain buffers, inactive-face gaps, conormal
+   rank, and every empty/nonempty sign incidence.  A nonempty
    pairwise-time tie uses conormal rank, never a fictitious positive time gap.
 6. Compute one exhaustive connected-component first-event census at `r=0`,
    then certify common-face gluing and a uniform neat isotopy across the fixed
    4096 bridge cells.  Any residual, duplicate component, failed box, or budget
    exhaustion yields `INCONCLUSIVE`.
-7. Freeze dimensionless scales and take `m0` only as the minimum of the actual
-   certified positive lower bounds, with the bridge margin at least `m0/2`.
-   Finally bind the transported algebraic, homoclinic, pole, and residual traces
-   and the proper phase arc.
+7. Freeze dimensionless scales and take \(m_{\rm ax}\) only as the minimum of
+   the actual certified positive zero-action bounds.  Apply the proved
+   axis-skeleton criterion to obtain some
+   \(0<\delta_{\rm ent}\le2^{-55}\), with subcollar margins at least
+   \(m_{\rm ax}/2\).  Do not claim \(\delta_{\rm ent}=2^{-55}\).  Finally
+   bind the transported algebraic, homoclinic, pole, and residual traces and
+   the proper phase arc.
 8. Only after all sections pass the structural audit may the frozen binary make
    the first full run.  Its resulting certificates require a separate checker
    before any `V2.EVENT_ATLAS` claim can become `PASS`.

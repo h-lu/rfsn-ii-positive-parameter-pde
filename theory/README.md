@@ -111,6 +111,13 @@ When records differ, use the following order.
   children therefore give the local parent `V2.EXACT_CHART` a mathematical
   `PASS`.  The aggregate remains `INCONCLUSIVE` and non-claim-bearing because
   P2e and later obligations remain open and independent replay is 1/2.
+- [P2E_AXIS_SOURCE_CHART.md](P2E_AXIS_SOURCE_CHART.md) gives a direct
+  zero-energy radial chart containing the complete true \(\nu=0\) source
+  curve on the v2 proper phase arc.  It also proves the compactness criterion
+  that thickens any complete strict zero-action event skeleton to some
+  uniform action subcollar.  Its proof-bound checker gives these two local
+  lemmas mathematical `PASS`; exterior first hits, incidence, census,
+  \(m_{\rm ax}\), and `V2.EVENT_ATLAS` remain open.
 - [COMPACT_FAMILY_FIRST_HIT_THEOREM.md](COMPACT_FAMILY_FIRST_HIT_THEOREM.md)
   proves compact-family persistence and transfer of the already supplied
   passage, selector, cross forms, and physical event arrangement.  It is
