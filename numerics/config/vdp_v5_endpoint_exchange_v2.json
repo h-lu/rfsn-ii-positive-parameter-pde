@@ -31,6 +31,11 @@
       "sha256": "2458b768e991c18c6d52816382cab3e73624de2e093059d399449e3c1c354d0a"
     },
     {
+      "role": "V4_GRAPH_SLICE_CONFIGURATION",
+      "path": "numerics/config/vdp_v4_future_graph_slice_v2.json",
+      "sha256": "042858f5233626a8fcc324ae97eb8c0db363a7c0eedcdf47193a642cee482b34"
+    },
+    {
       "role": "P2E_SOURCE_CONVENTION",
       "path": "numerics/config/vdp_p2e_channel_scout_v2.json",
       "sha256": "4395ab486b226f2ad5ace891077f738b3d2d8b76cd39b2459edb9f9efbc373eb"
