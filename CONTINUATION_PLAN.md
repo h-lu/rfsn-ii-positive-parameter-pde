@@ -51,6 +51,10 @@ remain authoritative.
   \(27/200000=1.35\times10^{-4}\), one representative v2 cell has a strict
   interval-Newton true-source incidence `PASS`, and the eight-group
   candidate-hull kernel passes the disclosed lower, centre, and upper cells.
+  The final candidate full-cover grid is frozen at
+  \(64\times128\times48=393216\) cells with an explicit fast/robust
+  process-level route, but the complete run has not yet been performed and
+  is not counted as evidence.
   These results remain
   non-claim-bearing: the complete-box V5 incidence, the joint incidence/census,
   \(m_{\rm ax}\), transported traces, and the full P2e event manifest are not

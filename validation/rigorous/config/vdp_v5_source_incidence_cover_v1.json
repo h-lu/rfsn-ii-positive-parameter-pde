@@ -1,0 +1,101 @@
+{
+  "schema_version": "rfsn-vdp-v5-source-incidence-cover-config/1",
+  "cover_id": "vdp-v5-source-incidence-cover-v1",
+  "box_id": "vdp-positive-box-v2",
+  "grid": [64, 128, 48],
+  "probe": {
+    "source": "validation/rigorous/src/vdp_v5_source_incidence_probe.cpp",
+    "cell_schema_version": "rfsn-vdp-v5-source-incidence-merged-cell/1",
+    "fast_mode": "incidence-merged-cell",
+    "fallback_mode": "incidence-merged-cell-rect2",
+    "output_modes": {
+      "incidence-merged-cell": "C0_HO_RECT2_FAST",
+      "incidence-merged-cell-rect2": "C0_RECT2_ROBUST"
+    }
+  },
+  "compile": {
+    "compiler": "/usr/bin/g++",
+    "language_standard": "c++17",
+    "flags": [
+      "-O2",
+      "-DNDEBUG",
+      "-fno-fast-math",
+      "-frounding-math",
+      "-ffp-contract=off",
+      "-fno-tree-vectorize",
+      "-fno-ipa-pure-const",
+      "-Wall",
+      "-Wextra",
+      "-Werror",
+      "-Wno-overloaded-virtual"
+    ],
+    "headers": [
+      "validation/rigorous/include/interval_io.hpp",
+      "validation/rigorous/include/rounding_self_test.hpp",
+      "validation/rigorous/include/verdict.hpp",
+      "frozen-imports/rfsn-ii-d54add098545063d5efe8f1d6f062d4cfc116a0d/source/validation/origin-algebraic-heteroclinic/unstable_graph_terms.hpp"
+    ],
+    "default_capd_config": ".cache/capd-731079217a9254ea-strict/build-strict/bin/capd-config"
+  },
+  "provenance_inputs": [
+    "validation/rigorous/config/vdp_box_v2.json",
+    "validation/rigorous/dependency.lock.json"
+  ],
+  "frozen_inputs": {
+    "validation/rigorous/src/vdp_v5_source_incidence_probe.cpp": "373db21023024b236b9cd788d930285bb5b3a7924a183e23b403ef8595998992",
+    "validation/rigorous/include/interval_io.hpp": "6520e6a88f141fbe93dfdd89ba22ac907bcaa6d05296b6f85bbe6a9e3142b9ca",
+    "validation/rigorous/include/rounding_self_test.hpp": "6f648c417c9458b32332fef8cbb780ce0255c66e7646c6c48a7ca6414cd9ccc4",
+    "validation/rigorous/include/verdict.hpp": "b9b308155408e0d1a8a6b2127fd0d111ac546a3cf54ee124b4c249af47b974fa",
+    "frozen-imports/rfsn-ii-d54add098545063d5efe8f1d6f062d4cfc116a0d/source/validation/origin-algebraic-heteroclinic/unstable_graph_terms.hpp": "d617587ea1b9037c1c7575ccdde5029529ec5b736dee259baff9a2a162001e96",
+    "validation/rigorous/config/vdp_box_v2.json": "43ff2ee14db2e9d42abe484e9d415176cc92836fb2956a27cb6b9f72a751b1ed",
+    "validation/rigorous/dependency.lock.json": "4d486a63cddf0902cc9fc4dedacc5a172527f6e167e2d311afa680c077a45b68"
+  },
+  "execution": {
+    "cell_timeout_seconds": 1800,
+    "environment": {
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "LC_ALL": "C.UTF-8"
+    }
+  },
+  "cell_contract": {
+    "target_graph_contract": {
+      "base_half_width": "27/200000",
+      "normal_half_width": "1/12500",
+      "slope_bound": "7/10",
+      "source_slope_limit": "1/2"
+    },
+    "required_gates": [
+      "anchor_interval_newton",
+      "anchor_root_boxes_contain_zero",
+      "exact_source_zero_energy_identity",
+      "theta_coordinate_regular",
+      "complete_graph_error_half_union",
+      "complete_anchor_graph_error_slice_union",
+      "complete_phase_slab_union",
+      "continuation_faces",
+      "phase_monotonicity_on_continuation_cover",
+      "anchor_interval_newton_by_slice",
+      "anchor_root_contains_zero_by_slice",
+      "continuation_faces_by_half",
+      "root_derivatives",
+      "fixed_eta_n_theta_negative",
+      "exterior_seam_P_negative",
+      "source_slope_below_one_half",
+      "graph_slope_contraction",
+      "negative_K1_sheet_patch",
+      "regular_source_to_terminal_passage",
+      "base_budget",
+      "nonempty_candidates"
+    ]
+  },
+  "summary_claim_boundary": {
+    "claim_bearing": false,
+    "conditional_on_graph": true,
+    "established_if_pass": "the complete fixed v2 grid satisfies the true-source incidence kernel against every lower graph obeying the frozen target-graph contract",
+    "open_scope": [
+      "invoke the finite-K1 graph theorem in a claim-bearing composite V5 theorem",
+      "identify the resulting stationary PDE branch"
+    ]
+  }
+}
