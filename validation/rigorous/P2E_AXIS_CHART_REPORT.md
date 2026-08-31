@@ -97,9 +97,11 @@ result does not certify the whole fixed \(2^{-55}\) disk.
 The next calculation is deliberately narrow:
 
 1. import the already validated selected-homoclinic first-hit branch;
-2. complete the algebraic channel at \(\nu=0\), using the finished
-   [pole-axis design cover](P2E_POLE_AXIS_FIRST_HIT_COVER_REPORT.md) as the
-   pole component;
+2. complete the fixed-label `ALG_GATE_V2` finite-gate channel at \(\nu=0\),
+   whose current corner-cell cover is
+   [`INCONCLUSIVE`](P2E_ALG_FIXED_PHASE_OBSTRUCTION_REPORT.md), using the
+   finished [pole-axis design cover](P2E_POLE_AXIS_FIRST_HIT_COVER_REPORT.md)
+   as the pole component;
 3. certify event speeds, no-earlier-hit gaps, active conormal ranks,
    containment, all incidences and corner priorities;
 4. enumerate every connected first-event component, exclude unnamed
@@ -108,6 +110,11 @@ The next calculation is deliberately narrow:
 
 Only failure of the existing \(H_{10}\) graph tube through interval wrapping
 would justify a local raw-\(W^u\) tightening calculation.
+
+This V2 finite-gate task must not be identified with the separate moving V5
+algebraic match \(\mathfrak M_\mu(\phi,t)=0\).  The latter must be validated
+against the future-staying outer graph before it can define the actual V6
+algebraic event.
 
 ## Reproduction
 

@@ -83,8 +83,9 @@ return event `a_ret` while retaining `q_ret` as incidence data.
    Taylor-order budgets are now frozen prospectively.  Run the structural
    checker before each complete rigorous calculation and reject any mutation
    of these objects.
-5. Import the P2c homoclinic channel and validate the ALG/POLE zero-action
-   first hits and the three artificial laterals on the v2 bridge: event
+5. Import the P2c homoclinic channel and validate the fixed-label V2
+   ALG/POLE zero-action first hits and the three artificial laterals on the
+   v2 bridge: event
    speeds, containment and flow-domain buffers, inactive-face gaps, conormal
    rank, and every empty/nonempty sign incidence.  A nonempty
    pairwise-time tie uses conormal rank, never a fictitious positive time gap.
@@ -106,6 +107,12 @@ return event `a_ret` while retaining `q_ret` as incidence data.
 This route constructs the smallest physical van der Pol atlas suggested by the
 three existing rigorous source objects.  It does not attempt to reproduce an
 arbitrary atlas from the abstract existence proof.
+
+The ALG row here is `ALG_GATE_V2`, the fixed transported label at the finite
+gate.  Its current target-corner cover is documented as
+[`INCONCLUSIVE`](P2E_ALG_FIXED_PHASE_OBSTRUCTION_REPORT.md).  It is not the
+moving `ALG_MATCH_V5` source-to-future-graph coincidence used later to define
+the actual algebraic exit.
 
 ## Structural checks
 

@@ -668,6 +668,8 @@ int main(int argc, char** argv) {
     std::vector<interval> algReducedTimes;
     std::vector<interval> algReducedW;
     std::vector<interval> algReducedQ;
+    std::vector<interval> algReducedD;
+    std::vector<interval> algReducedCancellationResiduals;
     std::unique_ptr<C0HOTripletonSet> firstDownSet;
     IVector firstDownEvent(9);
     interval firstDownTime(0.);
@@ -684,6 +686,17 @@ int main(int argc, char** argv) {
     int firstDownPreZeroSteps = 0, firstDownPostZeroSteps = 0;
     bool algReducedApplicable = false;
     bool algReducedPassed = true;
+    bool algFiniteReducedApplicable = false;
+    bool algFiniteReducedPassed = true;
+    interval algFiniteSeamTime(0.), algFiniteSeamP(0.);
+    interval algFiniteSeamEnergy(0.), algFiniteSeamV(0.);
+    interval algFiniteDenseWHull(0.), algFiniteClock(0.);
+    interval algFiniteTerminalEnergy(0.);
+    int algFiniteDenseSteps = 0;
+    std::vector<interval> algFiniteX;
+    std::vector<interval> algFiniteClocks;
+    std::vector<interval> algFiniteW;
+    std::vector<interval> algFiniteQ;
     interval algSeamTime(0.), algSeamP(0.), algSeamQ(0.);
     interval algTerminalEnergy(0.);
     interval algTailClock(0.), algDenseWHull(0.);
@@ -1282,29 +1295,161 @@ int main(int argc, char** argv) {
       event = hitSection(0, selected.terminalU, "U=-10 DOWN", -1);
       returnTime = legTimes.back();
     } else if (selected.id == "ALG") {
-      // The physical four-dimensional enclosure reaches U=-4 reliably, but
-      // its energy-normal wrapping is exponentially amplified on the long
-      // algebraic tail.  At the first U=-4 hit, restrict again to H=0 and use
-      // the exact weighted two-dimensional system
+      // A physical Poincare map is needed only up to U=-1/20.  There P<0
+      // is already separated from zero.  Reimpose the exact conserved
+      // identity H=0, put x=-U and w=P^2, and use x as the independent
+      // variable.  On the negative branch P=-sqrt(w),
       //
-      //   e=-1/U, p=P e^(3/2), q=Q e^(3/2), tau=1/4-e.
+      //   dw/dx = w/x-Q^2/x+c x+(4a/3)x^2+(3b/2)x^3,
+      //   dQ/dx = -x/sqrt(w),       dt/dx = 1/sqrt(w).
       //
-      // The variables r,a2,epsilon and the physical clock are carried as
-      // static/dynamic auxiliaries.  On the negative branch p=-sqrt(w), and
-      // completion while w>0 gives dU/dtau=-e^{-2}<0.  Thus the fixed
-      // terminal gate is the first hit after the U=-4 seam.
-      const std::array<interval, 7> algSections = {
-          -interval(1.) / interval(20.),
-          -interval(1.) / interval(5.),
-          -interval(1.) / interval(2.),
-          interval(-1.), interval(-2.), interval(-3.), interval(-4.)};
-      for (std::size_t index = 0; index < algSections.size(); ++index) {
-        const interval target = algSections[index];
-        event = hitSection(
-            0, interval(target),
-            index + 1 == algSections.size()
-                ? "U=-4 DOWN" : "ALG U STEP DOWN", -1);
+      // Dense w>0 therefore proves P<0 and makes every later fixed-x face
+      // the first such face after the directed U=-1/20 hit.  This finite
+      // reduction prevents the energy-normal wrapping produced by chaining
+      // six additional four-dimensional Poincare maps.
+      const interval finiteStartX = interval(1.) / interval(20.);
+      event = hitSection(
+          0, -finiteStartX, "ALG U STEP DOWN", -1);
+      algFiniteReducedApplicable = true;
+      algFiniteSeamTime = legTimes.back();
+      algFiniteSeamP = event[1];
+      algFiniteSeamEnergy = sqr(event[1]) / interval(2.) -
+          sqr(event[3]) / interval(2.) - p.c * sqr(event[0]) /
+          interval(2.) + event[0] * event[2] +
+          p.a * integerPower(event[0], 3) / interval(3.) -
+          p.b * integerPower(event[0], 4) / interval(4.);
+      if (algFiniteSeamP.rightBound() >= 0. ||
+          !algFiniteSeamEnergy.contains(0.))
+        throw std::runtime_error(
+            "ALG finite seam lacks P<0 or the exact H=0 image");
+      const auto algZeroEnergyV = [&](const interval& algU,
+                                      const interval& algP,
+                                      const interval& algQ) {
+        return (sqr(algQ) - sqr(algP) + p.c * sqr(algU) -
+                interval(2.) * p.a * integerPower(algU, 3) /
+                    interval(3.) +
+                p.b * integerPower(algU, 4) / interval(2.)) /
+               (interval(2.) * algU);
+      };
+      if (!intersection(
+              event[2], algZeroEnergyV(event[0], event[1], event[3]),
+              algFiniteSeamV))
+        throw std::runtime_error(
+            "ALG finite seam H=0 reconstruction misses physical V");
+
+      IVector finiteInitial(6);
+      finiteInitial[0] = sqr(event[1]);
+      finiteInitial[1] = event[3];
+      finiteInitial[2] = event[4];
+      finiteInitial[3] = event[5];
+      finiteInitial[4] = event[6];
+      finiteInitial[5] = interval(0.);
+      algFiniteDenseWHull = finiteInitial[0];
+      if (algFiniteDenseWHull.leftBound() <= 0.)
+        throw std::runtime_error("ALG finite seam lost w>0");
+      IMap finiteField(
+          "time:x;par:rc,a2c,epsc;"
+          "var:w,qq,er,ea,ee,clock;"
+          "fun:w/x-qq^2/x+"
+          "(2*(rc+er)*(a2c+ea)+sqrt(epsc+ee)*(rc+er)^4*"
+          "(a2c+ea)^2)*x+"
+          "4*(1+sqrt(epsc+ee)*(rc+er)^3*(a2c+ea))*x^2/3+"
+          "sqrt(epsc+ee)*(rc+er)^2*x^3/2,"
+          "-x/sqrt(w),0,0,0,1/sqrt(w);");
+      finiteField.setParameter("rc", parameterCentre[0]);
+      finiteField.setParameter("a2c", parameterCentre[1]);
+      finiteField.setParameter("epsc", parameterCentre[2]);
+      IOdeSolver finiteSolver(finiteField, 20);
+      finiteSolver.setAbsoluteTolerance(1.e-13);
+      finiteSolver.setRelativeTolerance(1.e-13);
+      finiteSolver.setMaxStep(.005);
+      ITimeMap finiteMap(finiteSolver);
+      finiteMap.stopAfterStep(true);
+      IVector finiteEvent(6);
+      IVector finiteState = finiteInitial;
+      interval finiteCurrentX = finiteStartX;
+      // The six displayed x-faces are the mathematical event ledger.  Extra
+      // exact restart faces in [3,4] only rebox the Lohner enclosure where W
+      // becomes small near the algebraic corner; they introduce no new
+      // event claim.
+      const std::array<interval, 13> finiteRestartTargets = {
+          interval(1.) / interval(5.), interval(1.) / interval(2.),
+          interval(1.), interval(2.), interval(3.),
+          interval(25.) / interval(8.), interval(26.) / interval(8.),
+          interval(27.) / interval(8.), interval(28.) / interval(8.),
+          interval(29.) / interval(8.), interval(30.) / interval(8.),
+          interval(31.) / interval(8.), interval(4.)};
+      for (std::size_t index = 0; index < finiteRestartTargets.size();
+           ++index) {
+        const interval targetX = finiteRestartTargets[index];
+        // Restart the Lohner representation at each exact x-face.  This
+        // discards correlations but keeps a rigorous interval superset and
+        // prevents a single long coordinate frame from accumulating
+        // artificial wrapping across all six slabs.
+        C0HOTripletonSet finiteSegmentSet(finiteState);
+        finiteSegmentSet.setCurrentTime(finiteCurrentX);
+        do {
+          try {
+            finiteEvent = finiteMap(targetX, finiteSegmentSet);
+          } catch (const std::exception& error) {
+            throw std::runtime_error(
+                "ALG finite x=" + intervalString(targetX) +
+                " from w=" + intervalString(finiteInitial[0]) +
+                ": " + error.what());
+          }
+          const interval stepW = finiteSegmentSet.getLastEnclosure()[0];
+          algFiniteDenseWHull = intervalHull(
+              algFiniteDenseWHull, stepW);
+          ++algFiniteDenseSteps;
+          if (stepW.leftBound() <= 0.)
+            throw std::runtime_error(
+                "ALG finite reduced passage lost w>0");
+        } while (!finiteMap.completed());
+        if (finiteEvent[0].leftBound() <= 0.)
+          throw std::runtime_error(
+              "ALG finite reduced node lost w>0");
+        const bool reportFace = index < 5 ||
+            index + 1 == finiteRestartTargets.size();
+        if (reportFace) {
+          algFiniteX.push_back(targetX);
+          algFiniteClocks.push_back(finiteEvent[5]);
+          algFiniteW.push_back(finiteEvent[0]);
+          algFiniteQ.push_back(finiteEvent[1]);
+          legTimes.push_back(algFiniteSeamTime + finiteEvent[5]);
+          legLabels.push_back(
+              index + 1 == finiteRestartTargets.size()
+                  ? "U=-4 DOWN" : "ALG U STEP DOWN");
+          legExpectedSigns.push_back(-1);
+          legSectionResiduals.push_back(-targetX - (-targetX));
+          legSectionSpeeds.push_back(-sqrt(finiteEvent[0]));
+          ++legCount;
+        }
+        finiteState = finiteEvent;
+        finiteCurrentX = targetX;
       }
+      algFiniteClock = finiteEvent[5];
+      event = IVector(9);
+      event[0] = -finiteRestartTargets.back();
+      event[1] = -sqrt(finiteEvent[0]);
+      event[3] = finiteEvent[1];
+      event[2] = algZeroEnergyV(event[0], event[1], event[3]);
+      event[4] = finiteEvent[2];
+      event[5] = finiteEvent[3];
+      event[6] = finiteEvent[4];
+      event[7] = initial[7];
+      event[8] = initial[8];
+      algFiniteTerminalEnergy = sqr(event[1]) / interval(2.) -
+          sqr(event[3]) / interval(2.) - p.c * sqr(event[0]) /
+          interval(2.) + event[0] * event[2] +
+          p.a * integerPower(event[0], 3) / interval(3.) -
+          p.b * integerPower(event[0], 4) / interval(4.);
+      algFiniteReducedPassed = algFiniteClock.leftBound() > 0. &&
+          algFiniteDenseWHull.leftBound() > 0. &&
+          event[1].rightBound() < 0. &&
+          algFiniteTerminalEnergy.contains(0.);
+      if (!algFiniteReducedPassed)
+        throw std::runtime_error(
+            "ALG finite zero-energy passage did not close");
       algReducedApplicable = true;
       algSeamTime = legTimes.back();
       algSeamP = event[1];
@@ -1314,23 +1459,25 @@ int main(int argc, char** argv) {
       // On the negative branch put w=p^2, where p=P e^(3/2) and e=1/4 at
       // the seam.  The exact (w,q) field regularizes the radial equation;
       // q and the clock retain 1/sqrt(w), so every accepted time step is
-      // checked to stay in w>0.  Start from the rigorous segmented C0
-      // Poincare image; no unverified C1 composition is used here.
-      IVector reducedInitial(6);
+      // checked to stay in w>0.
+      IVector reducedInitial(7);
       reducedInitial[0] = sqr(event[1] / interval(8.));
       reducedInitial[1] = event[3] / interval(8.);
-      reducedInitial[2] = event[4];
-      reducedInitial[3] = event[5];
-      reducedInitial[4] = event[6];
-      reducedInitial[5] = interval(0.);
-      C0HOTripletonSet reducedSet(reducedInitial);
+      reducedInitial[2] = interval(4.) * p.a / interval(3.) -
+                          interval(2.) * reducedInitial[0] -
+                          sqr(reducedInitial[1]);
+      reducedInitial[3] = event[4];
+      reducedInitial[4] = event[5];
+      reducedInitial[5] = event[6];
+      reducedInitial[6] = interval(0.);
       algDenseWHull = reducedInitial[0];
-      if (reducedInitial[0].leftBound() <= 0.)
-        throw std::runtime_error("ALG seam does not enter w>0");
+      if (reducedInitial[0].leftBound() <= 0. ||
+          reducedInitial[1].rightBound() >= 0.)
+        throw std::runtime_error("ALG seam does not enter w>0,q<0");
 
       IMap reducedField(
           "time:tau;par:rc,a2c,epsc;"
-          "var:w,qq,er,ea,ee,clock;"
+          "var:w,qq,dd,er,ea,ee,clock;"
           "fun:-2*w/(0.25-tau)-qq^2/(0.25-tau)"
           "+4*(1+sqrt(epsc+ee)*(rc+er)^3*(a2c+ea))"
           "/(3*(0.25-tau))"
@@ -1339,6 +1486,10 @@ int main(int argc, char** argv) {
           "+3*(sqrt(epsc+ee)*(rc+er)^2/3)"
           "/(2*(0.25-tau)^2),"
           "-1/sqrt(w)-3*qq/(2*(0.25-tau)),"
+          "2*qq/sqrt(w)+3*qq^2/(0.25-tau)-2*dd/(0.25-tau)"
+          "-2*(2*(rc+er)*(a2c+ea)+sqrt(epsc+ee)*(rc+er)^4*"
+          "(a2c+ea)^2)-sqrt(epsc+ee)*(rc+er)^2/"
+          "(0.25-tau)^2,"
           "0,0,0,1/sqrt(w*(0.25-tau));");
       reducedField.setParameter("rc", parameterCentre[0]);
       reducedField.setParameter("a2c", parameterCentre[1]);
@@ -1349,30 +1500,88 @@ int main(int argc, char** argv) {
       reducedSolver.setMaxStep(.002);
       ITimeMap reducedMap(reducedSolver);
       reducedMap.stopAfterStep(true);
-      IVector reducedEvent(6);
+      IVector reducedEvent(7);
+      IVector reducedState = reducedInitial;
+      interval reducedCurrentTau(0.);
+      const auto reducedA = [&](const IVector& reduced) {
+        const interval reducedR = parameterCentre[0] + reduced[3];
+        const interval reducedA2 = parameterCentre[1] + reduced[4];
+        const interval reducedEpsilon = parameterCentre[2] + reduced[5];
+        return interval(1.) + sqrt(reducedEpsilon) *
+               integerPower(reducedR, 3) * reducedA2;
+      };
       constexpr int kAlgTailSlabs = 15;
       for (int slab = 1; slab <= kAlgTailSlabs; ++slab) {
         const interval targetTau = interval(77 * slab) /
                                    interval(400 * kAlgTailSlabs);
+        C0HOTripletonSet reducedSet(reducedState);
+        reducedSet.setCurrentTime(reducedCurrentTau);
         do {
-          reducedEvent = reducedMap(targetTau, reducedSet);
+          try {
+            reducedEvent = reducedMap(targetTau, reducedSet);
+          } catch (const std::exception& error) {
+            throw std::runtime_error(
+                "ALG tail tau=" + intervalString(targetTau) +
+                " from w=" + intervalString(reducedState[0]) +
+                ": " + error.what());
+          }
           const interval stepW = reducedSet.getLastEnclosure()[0];
           algDenseWHull = intervalHull(algDenseWHull, stepW);
           ++algDenseSteps;
           if (stepW.leftBound() <= 0.)
             throw std::runtime_error("ALG reduced tail lost w>0");
         } while (!reducedMap.completed());
+        // The third state is an exactly redundant cancellation coordinate.
+        // Intersect its integrated enclosure with its defining identity, and
+        // then use the same identity in the reverse directions to sharpen w
+        // and the already selected negative q branch.  The half-axis q<0 is
+        // forward invariant here: at q=0 the exact reduced equation gives
+        // q'=-1/sqrt(w)<0.  Every intersection therefore retains the true
+        // trajectory and only removes inconsistent box combinations
+        // introduced by interval wrapping.
+        for (int recondition = 0; recondition < 2; ++recondition) {
+          const interval aAtNode = reducedA(reducedEvent);
+          interval tightened;
+          const interval dIdentity = interval(4.) * aAtNode / interval(3.) -
+              interval(2.) * reducedEvent[0] - sqr(reducedEvent[1]);
+          if (!intersection(reducedEvent[2], dIdentity, tightened))
+            throw std::runtime_error(
+                "ALG tail cancellation identity misses d");
+          reducedEvent[2] = tightened;
+          const interval wIdentity =
+              (interval(4.) * aAtNode / interval(3.) -
+               sqr(reducedEvent[1]) - reducedEvent[2]) / interval(2.);
+          if (!intersection(reducedEvent[0], wIdentity, tightened))
+            throw std::runtime_error(
+                "ALG tail cancellation identity misses w");
+          reducedEvent[0] = tightened;
+          const interval qSquare = interval(4.) * aAtNode / interval(3.) -
+              interval(2.) * reducedEvent[0] - reducedEvent[2];
+          if (qSquare.leftBound() <= 0. ||
+              !intersection(reducedEvent[1], -sqrt(qSquare), tightened))
+            throw std::runtime_error(
+                "ALG tail cancellation identity misses negative q");
+          reducedEvent[1] = tightened;
+        }
         algReducedTimes.push_back(targetTau);
         algReducedW.push_back(reducedEvent[0]);
         algReducedQ.push_back(reducedEvent[1]);
-        if (reducedEvent[0].leftBound() <= 0.)
-          throw std::runtime_error("ALG reduced tail lost w>0");
+        algReducedD.push_back(reducedEvent[2]);
+        algReducedCancellationResiduals.push_back(
+            reducedEvent[2] -
+            (interval(4.) * reducedA(reducedEvent) / interval(3.) -
+             interval(2.) * reducedEvent[0] - sqr(reducedEvent[1])));
+        if (reducedEvent[0].leftBound() <= 0. ||
+            reducedEvent[1].rightBound() >= 0.)
+          throw std::runtime_error("ALG reduced tail lost w>0,q<0");
+        reducedState = reducedEvent;
+        reducedCurrentTau = targetTau;
       }
       const interval terminalE = interval(23.) / interval(400.);
       const interval terminalScale = terminalE * sqrt(terminalE);
-      const interval terminalR = parameterCentre[0] + reducedEvent[2];
-      const interval terminalA2 = parameterCentre[1] + reducedEvent[3];
-      const interval terminalEpsilon = parameterCentre[2] + reducedEvent[4];
+      const interval terminalR = parameterCentre[0] + reducedEvent[3];
+      const interval terminalA2 = parameterCentre[1] + reducedEvent[4];
+      const interval terminalEpsilon = parameterCentre[2] + reducedEvent[5];
       const interval terminalRootEpsilon = sqrt(terminalEpsilon);
       const interval terminalR2 = sqr(terminalR);
       const interval terminalA = interval(1.) + terminalRootEpsilon *
@@ -1396,7 +1605,7 @@ int main(int argc, char** argv) {
       event[6] = terminalEpsilon;
       event[7] = interval(0.);
       event[8] = interval(0.);
-      algTailClock = reducedEvent[5];
+      algTailClock = reducedEvent[6];
       returnTime = algSeamTime + algTailClock;
       algTerminalEnergy = sqr(event[1]) / interval(2.) -
           sqr(event[3]) / interval(2.) -
@@ -2016,6 +2225,7 @@ int main(int argc, char** argv) {
                         eventSequencePassed && preEscapeGuardPassed &&
                         escapeConePassed && conePassed &&
                         p3ZeroActionEntryPassed && algReducedPassed &&
+                        algFiniteReducedPassed &&
                         turnReducedPassed && escapeReducedPassed &&
                         firstDownEntryPassed;
 
@@ -2246,6 +2456,53 @@ int main(int argc, char** argv) {
               << ",\"x_dense_P_hull\":"
               << intervalString(escapeXDensePHull)
               << "}"
+              << ",\"alg_finite_zero_energy_passage\":{\"applicable\":"
+              << (algFiniteReducedApplicable ? "true" : "false")
+              << ",\"passed\":"
+              << (algFiniteReducedPassed ? "true" : "false")
+              << ",\"method\":\"U_MINUS_ONE_TWENTIETH_H0_WQ_X_TIME\""
+              << ",\"seam_x\":"
+              << intervalString(interval(1.) / interval(20.))
+              << ",\"seam_time\":" << intervalString(algFiniteSeamTime)
+              << ",\"seam_P\":" << intervalString(algFiniteSeamP)
+              << ",\"seam_V_H0_intersection\":"
+              << intervalString(algFiniteSeamV)
+              << ",\"seam_energy_diagnostic\":"
+              << intervalString(algFiniteSeamEnergy)
+              << ",\"clock\":" << intervalString(algFiniteClock)
+              << ",\"dense_step_count\":" << algFiniteDenseSteps
+              << ",\"dense_w_hull\":"
+              << intervalString(algFiniteDenseWHull)
+              << ",\"x_nodes\":[";
+    for (std::size_t index = 0; index < algFiniteX.size(); ++index) {
+      if (index) std::cout << ',';
+      std::cout << intervalString(algFiniteX[index]);
+    }
+    std::cout << "]"
+              << ",\"clock_nodes\":[";
+    for (std::size_t index = 0; index < algFiniteClocks.size(); ++index) {
+      if (index) std::cout << ',';
+      std::cout << intervalString(algFiniteClocks[index]);
+    }
+    std::cout << "]"
+              << ",\"w_nodes\":[";
+    for (std::size_t index = 0; index < algFiniteW.size(); ++index) {
+      if (index) std::cout << ',';
+      std::cout << intervalString(algFiniteW[index]);
+    }
+    std::cout << "]"
+              << ",\"q_nodes\":[";
+    for (std::size_t index = 0; index < algFiniteQ.size(); ++index) {
+      if (index) std::cout << ',';
+      std::cout << intervalString(algFiniteQ[index]);
+    }
+    std::cout << "]"
+              << ",\"energy_reconstruction_identity\":"
+              << (algFiniteReducedApplicable ? "true" : "false")
+              << ",\"energy_reconstruction_identity_kind\":"
+                 "\"BY_EXACT_SOURCE_HAMILTONIAN_CONSERVATION\""
+              << ",\"terminal_energy_diagnostic\":"
+              << intervalString(algFiniteTerminalEnergy) << "}"
               << ",\"alg_reduced_zero_energy_tail\":{\"applicable\":"
               << (algReducedApplicable ? "true" : "false")
               << ",\"passed\":" << (algReducedPassed ? "true" : "false")
@@ -2255,6 +2512,8 @@ int main(int argc, char** argv) {
               << ",\"tail_clock\":" << intervalString(algTailClock)
               << ",\"dense_step_count\":" << algDenseSteps
               << ",\"dense_w_hull\":" << intervalString(algDenseWHull)
+              << ",\"coordinate_kind\":"
+                 "\"W_Q_WITH_REDUNDANT_CANCELLATION_D\""
               << ",\"tau_nodes\":[";
     for (std::size_t index = 0; index < algReducedTimes.size(); ++index) {
       if (index) std::cout << ',';
@@ -2273,6 +2532,21 @@ int main(int argc, char** argv) {
       std::cout << intervalString(algReducedQ[index]);
     }
     std::cout << "]"
+              << ",\"d_nodes\":[";
+    for (std::size_t index = 0; index < algReducedD.size(); ++index) {
+      if (index) std::cout << ',';
+      std::cout << intervalString(algReducedD[index]);
+    }
+    std::cout << "]"
+              << ",\"cancellation_residuals\":[";
+    for (std::size_t index = 0;
+         index < algReducedCancellationResiduals.size(); ++index) {
+      if (index) std::cout << ',';
+      std::cout << intervalString(algReducedCancellationResiduals[index]);
+    }
+    std::cout << "]"
+              << ",\"cancellation_reconditioned_at_every_tau_node\":"
+              << (algReducedApplicable ? "true" : "false")
               << ",\"energy_reconstruction_identity\":"
               << (algReducedApplicable ? "true" : "false")
               << ",\"energy_reconstruction_identity_kind\":"

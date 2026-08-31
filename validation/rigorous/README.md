@@ -442,9 +442,15 @@ complete strict \(\nu=0\) event skeleton to some uniform
 and the subsequent POLE calculation gives a complete non-claim-bearing
 design-level interval first-hit cover on all 4096 bridge cells; see
 [`P2E_POLE_AXIS_FIRST_HIT_COVER_REPORT.md`](P2E_POLE_AXIS_FIRST_HIT_COVER_REPORT.md).
-ALG, the joint incidence and exhaustive census, \(m_{\rm ax}\), transported
-traces, and `V2.EVENT_ATLAS` remain open.  In particular, no claim is made
-for the whole fixed \(|\nu|\le2^{-55}\) disk.
+The corresponding fixed-label ALG finite-gate cover is not closed: one
+target-box corner loses the strict \(W>0\) enclosure and therefore has
+status `INCONCLUSIVE`, as recorded in
+[`P2E_ALG_FIXED_PHASE_OBSTRUCTION_REPORT.md`](P2E_ALG_FIXED_PHASE_OBSTRUCTION_REPORT.md).
+This does not refute the V2 gate orbit, and it is distinct from the moving
+V5 source-to-future-graph match.  The ALG match, joint incidence and
+exhaustive census, \(m_{\rm ax}\), transported traces, and
+`V2.EVENT_ATLAS` remain open.  In particular, no claim is made for the whole
+fixed \(|\nu|\le2^{-55}\) disk.
 
 The source-frozen P2 restriction lane is specified in
 [`P2_V2_RESTRICTION_CONTRACT.md`](P2_V2_RESTRICTION_CONTRACT.md).  Its

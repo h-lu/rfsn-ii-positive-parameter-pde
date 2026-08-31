@@ -43,8 +43,11 @@ remain authoritative.
   \(r=0\)-to-\(1/50\) comparison bridge have since passed P1, the exact
   P2a--P2d restriction audits, three P2e phase gaps, and the true zero-action
   source-chart criterion.  The POLE zero-action first-hit bridge also has a
-  complete computed-interval design `PASS` on all 4096 parent cells.  These
-  results remain non-claim-bearing: ALG, the joint incidence/census,
+  complete computed-interval design `PASS` on all 4096 parent cells.  A
+  fixed-label ALG finite-gate corner run is `INCONCLUSIVE` because its
+  interval representation loses \(W>0\); this is not a nonexistence result
+  and is not the moving V5 matched exit.  These results remain
+  non-claim-bearing: the V5 ALG match, the joint incidence/census,
   \(m_{\rm ax}\), transported traces, and the full P2e event manifest are not
   yet complete.
 - Post-existence work has begun under separate issues.  #11 now gives local
@@ -117,7 +120,7 @@ release.
 | Analytic claims B1--B2 and V1--V7 | statuses recorded by the repository; several conclusions depend on frozen imported RFSN-II theorems and certificates | `CLAIM_REGISTER.md` and the cited proof dossiers |
 | Floating numerical atlas | explanatory candidate evidence only | `numerics/` |
 | Staged interval work | local mathematical passes for completed atoms; aggregate remains non-claim-bearing | `validation/rigorous/` |
-| Explicit boxes | `vdp-positive-box-v1` has a strict mathematical `FAIL` at the P2e phase-order gate.  On v2, P1, restricted P2a--P2d, three P2e phase gaps, and the source-chart criterion pass locally; the POLE zero-action first-hit bridge has a complete design-level interval cover.  ALG and the remaining atlas obligations are open, so there is no aggregate mathematical `PASS` | Issue #7, `validation/rigorous/P2E_PHASE_ORDER_FAIL_REPORT.md`, `validation/rigorous/P2E_AXIS_CHART_REPORT.md`, and `validation/rigorous/P2E_POLE_AXIS_FIRST_HIT_COVER_REPORT.md` |
+| Explicit boxes | `vdp-positive-box-v1` has a strict mathematical `FAIL` at the P2e phase-order gate.  On v2, P1, restricted P2a--P2d, three P2e phase gaps, and the source-chart criterion pass locally; the POLE zero-action first-hit bridge has a complete design-level interval cover.  The fixed-label ALG finite-gate corner is `INCONCLUSIVE`, and the moving V5 ALG match and remaining atlas obligations are open, so there is no aggregate mathematical `PASS` | Issue #7, `validation/rigorous/P2E_PHASE_ORDER_FAIL_REPORT.md`, `validation/rigorous/P2E_AXIS_CHART_REPORT.md`, `validation/rigorous/P2E_POLE_AXIS_FIRST_HIT_COVER_REPORT.md`, and `validation/rigorous/P2E_ALG_FIXED_PHASE_OBSTRUCTION_REPORT.md` |
 | Temporal PDE stability | deferred | S1 |
 | Experimental realization | deferred | E1 |
 
@@ -524,13 +527,17 @@ application sound more physical.
 
 ## 12. Current bounded next task
 
-The earlier publication-only handoff has been superseded by the explicit
-post-existence decision recorded in Issues #10--#13.  The next canard object is
-a branch-identified finite-\(r\) saddle-slow zero-energy trace on one fixed
-normally hyperbolic entry section, including its \(a_2\)-derivative.  Only then
-should the first-hit splitting be promoted from a surrogate to a genuine local
-coincidence problem.  A full Evans function is deferred unless a complete
-unstable count, multiplicity, Bloch continuation, or multipulse splitting is
-needed; it is not required for the already proved positive-eigenvalue
-instability consequences.  Dynamic selection remains a separate nonlinear
-evolution problem.
+The current bounded task is the Issue #7 van der Pol explicit-box path.  First
+record the fixed-label `ALG_GATE_V2` finite-gate obstruction without turning
+it into a false nonexistence result.  Then validate the moving V5
+source-to-future-graph coincidence, complete the minimum P2e physical event
+arrangement and uniform margins, and check only the publication-facing
+P3--P5 inputs.  Finish with one immutable aggregate certificate and the
+second genuinely independent-machine replay.
+
+Issues #11 and #12 retain their already obtained instability and Turing
+results under their stated release boundaries.  The branch-identified
+finite-\(r\) saddle-slow trace, maximal-canard coincidence, and high-winding
+connection remain the separate Issue #13 task after the explicit-box path.
+A full Evans function and dynamic pattern selection remain deferred unless a
+later theorem genuinely requires them.

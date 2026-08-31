@@ -209,17 +209,40 @@ positive \((y,D,K)\) cone, which makes \(x\) strictly increasing through
 \(x=10\).  The phase aperture covers the retained disk on its zero-action
 axis; it is not a claim about a larger rectangular carrier.
 
-For the algebraic channel the physical enclosure is reconditioned at its
-first \(U=-4\) hit.  With
+For the algebraic channel the physical enclosure is used only through the
+first directed \(U=-1/20\) hit.  There \(P<0\) is separated from zero and
+the exact zero-energy identity is reimposed.  With
+
+\[
+ x=-U,\qquad W=P^2,
+\]
+
+the kernel uses \(x\) as independent variable and integrates
+
+\[
+ \frac{dW}{dx}=\frac{W-Q^2}{x}+cx+\frac{4a}{3}x^2+\frac{3b}{2}x^3,
+ \qquad
+ \frac{dQ}{dx}=-\frac{x}{\sqrt W},
+ \qquad
+ \frac{d\xi}{dx}=\frac1{\sqrt W}.
+\]
+
+It checks \(W>0\) on every accepted CAPD step through \(x=4\), so
+\(P=-\sqrt W<0\) and all six displayed finite faces are directed first
+hits.  Exact internal restart faces near \(x=4\) rebox the interval
+enclosure but add no event to the ledger.  At \(x=4\), set
 
 \[
  e=\frac14-\tau=-\frac1U,\qquad
  w=(P e^{3/2})^2,\qquad q=Qe^{3/2},
+ \qquad d=\frac{4a}{3}-2w-q^2.
 \]
 
-the kernel integrates the exact weighted \((w,q)\) dynamics, carries only
-the three static parameters and physical clock, and checks \(w>0\) on every
-accepted CAPD step through \(e=23/400\).  The negative branch
+The kernel integrates the exact weighted \((w,q,d)\) dynamics, carries the
+three static parameters and physical clock, and reconditions the redundant
+identity at every exact tail node.  It checks \(w>0\) and \(q<0\) on every
+accepted slab through \(e=23/400\); the latter half-axis is forward
+invariant because \(q'=-1/\sqrt w<0\) at \(q=0\).  The negative branch
 \(P=-\sqrt w/e^{3/2}\) and \(dU/d\tau=-e^{-2}<0\) then identify
 \(U=-400/23\) as the first post-seam terminal hit.  The terminal \(V\) is
 reconstructed from the zero-energy identity; a dependency-prone numerical
@@ -234,7 +257,12 @@ are checked as an exact binary-prefix cover; phase is never split, so every
 accepted record covers the complete retained phase aperture.  The algebraic
 runner uses the same root-conditioned source binding
 and adaptively bisects only failed \(a_2\) leaves; accepted leaves must form
-an exact binary-prefix cover.
+an exact binary-prefix cover.  A target-box corner run remains
+`INCONCLUSIVE` because the present independent interval representation loses
+\(W>0\); see
+[`../P2E_ALG_FIXED_PHASE_OBSTRUCTION_REPORT.md`](../P2E_ALG_FIXED_PHASE_OBSTRUCTION_REPORT.md).
+This fixed-label calculation concerns the V2 finite gate only.  The moving
+V5 matched algebraic exit is a separate source-to-future-graph coincidence.
 
 These remain non-claim-bearing design computations.  Even complete axis
 covers do not supply the off-axis event carrier, incidence census, numerical

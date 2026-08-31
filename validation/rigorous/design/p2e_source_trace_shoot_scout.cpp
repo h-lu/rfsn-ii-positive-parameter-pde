@@ -309,6 +309,16 @@ struct MapResult {
   interval graphPhaseDerivative;
 };
 
+struct C0MapResult {
+  IVector sourceHull;
+  IVector endpoint;
+  interval returnTime;
+  interval sectionResidualBox;
+  interval radius;
+  interval radialSectionResidual;
+  interval rootResidual;
+};
+
 IVector affineHull(const AffineInitialData& data) {
   return data.centre + data.coordinates * data.radii + data.remainder;
 }
@@ -357,6 +367,34 @@ MapResult propagate(IMap& field, const AffineInitialData& data,
           graphPhaseDerivative};
 }
 
+C0MapResult propagateC0(IMap& field, const AffineInitialData& data,
+                        const interval& targetPhase) {
+  IOdeSolver solver(field, 20);
+  solver.setAbsoluteTolerance(1.e-14);
+  solver.setRelativeTolerance(1.e-14);
+  solver.setMaxStep(.02);
+  const interval pi(
+    "3.141592653589793238462643383279502884",
+    "3.141592653589793238462643383279502885");
+  const interval targetUnwrapped = targetPhase + interval(2.) * pi;
+  const interval targetLogRadius = log(outerRadius());
+  INonlinearSection section(
+    "par:TARGET;var:ell,theta,s1,s2,er,ea,ee;fun:ell-TARGET;");
+  section.setParameter("TARGET", targetLogRadius);
+  IPoincareMap map(solver, section, poincare::MinusPlus);
+  map.setMaxReturnTime(25.);
+  C0HOTripletonSet set(
+    data.centre, data.coordinates, data.radii, data.remainder);
+  interval returnTime;
+  const IVector endpoint = map(set, returnTime);
+  const interval sectionResidualBox = endpoint[0] - targetLogRadius;
+  const interval radius = exp(endpoint[0]);
+  const interval radialSectionResidual = radius - outerRadius();
+  const interval rootResidual = endpoint[1] - targetUnwrapped;
+  return {affineHull(data), endpoint, returnTime, sectionResidualBox,
+          radius, radialSectionResidual, rootResidual};
+}
+
 bool strictInterior(const interval& inner, const interval& outer) {
   return outer.leftBound() < inner.leftBound()
     && inner.rightBound() < outer.rightBound();
@@ -392,7 +430,11 @@ int run(int rLeafIndex, int a2Index, int epsilonIndex,
     centre, centre, theta0, thetaSlopes, interval(0.));
   const AffineInitialData fullData = initialData(
     parameterCell, centre, theta0, thetaSlopes, delta);
-  const MapResult pointMap = propagate(field, pointData, targetPhase);
+  // Only the full parameter/delta box needs a C1 Poincare map: its
+  // derivative supplies the interval-Newton denominator and mean-value
+  // predictor.  The point predictor and already contracted root box need
+  // rigorous C0 enclosures only.
+  const C0MapResult pointMap = propagateC0(field, pointData, targetPhase);
   const MapResult fullMap = propagate(field, fullData, targetPhase);
   interval predictorResidual = pointMap.rootResidual;
   for (int parameter = 0; parameter < 3; ++parameter) {
@@ -415,7 +457,7 @@ int run(int rLeafIndex, int a2Index, int epsilonIndex,
   const AffineInitialData rootData = initialData(
     parameterCell, centre, theta0 + newtonCentre, thetaSlopes,
     newtonRemainder);
-  const MapResult rootMap = propagate(field, rootData, targetPhase);
+  const C0MapResult rootMap = propagateC0(field, rootData, targetPhase);
   const interval outerAngle = targetPhase + p.chi;
   const interval outerU1 = outerRadius() * cos(outerAngle);
   const interval outerU2 = outerRadius() * sin(outerAngle);

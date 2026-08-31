@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 """Adaptive nonclaim cover for the P2e algebraic zero-action channel.
 
-The runner first tries each frozen parent with the complete proved graph tube,
-refining only in a2.  Only an uncovered parent is split into its eight exact
-r-leaves and retried with the same tube.  Only a still-uncovered r-leaf invokes
-the DIRECT_ALG true-Wu source trace and is retried with its root_eta enclosure.
-Accepted a2 prefixes must form an exact cover at whichever r level survives.
+The runner first tries each frozen parent with the complete proved graph tube.
+Only an uncovered parent is split into its eight exact r-leaves and retried
+with the same tube.  Only a still-uncovered r-leaf invokes the DIRECT_ALG
+true-Wu source trace and is retried with its root_eta enclosure.  The two H10
+prefilters have independent shallow depths; deep a2 refinement is reserved
+for the root-conditioned stage.  Accepted a2 prefixes must form an exact cover
+at whichever r level survives.
 
 This is a design orchestrator.  It binds every accepted response to its
 request, but it neither authenticates the executable build nor promotes the
@@ -37,6 +39,7 @@ ALG_TERMINAL_U = -Fraction(400, 23)
 ALG_PHASE_LO = Fraction("5.7566913947049203") - Fraction(9, 80_000_000)
 ALG_PHASE_HI = Fraction("5.7566913967948983") + Fraction(9, 80_000_000)
 PROVED_ETA = (-1.0 / 200_000.0, 1.0 / 200_000.0)
+PROVED_ETA_EXACT = (-Fraction(1, 200_000), Fraction(1, 200_000))
 
 
 def sha256(path: Path) -> str:
@@ -123,14 +126,33 @@ def require_matching_interval(name: str, observed: Any,
                               expected: Sequence[Any]) -> None:
     observed_lower, observed_upper = interval_pair(observed, name)
     expected_lower, expected_upper = float(expected[0]), float(expected[1])
+    observed_lower_exact = Fraction.from_float(observed_lower)
+    observed_upper_exact = Fraction.from_float(observed_upper)
+    expected_lower_exact = expected[0] if isinstance(
+        expected[0], Fraction) else Fraction.from_float(expected_lower)
+    expected_upper_exact = expected[1] if isinstance(
+        expected[1], Fraction) else Fraction.from_float(expected_upper)
     tolerance = 1024.0 * sys.float_info.epsilon * max(
         1.0, abs(expected_lower), abs(expected_upper))
-    if observed_lower > expected_lower or observed_upper < expected_upper or \
-            expected_lower - observed_lower > tolerance or \
-            observed_upper - expected_upper > tolerance:
+    tolerance_exact = Fraction.from_float(tolerance)
+    if observed_lower_exact > expected_lower_exact \
+            or observed_upper_exact < expected_upper_exact \
+            or expected_lower_exact - observed_lower_exact > tolerance_exact \
+            or observed_upper_exact - expected_upper_exact > tolerance_exact:
         raise ValueError(
             f"{name} does not match the requested interval: "
             f"{observed} versus [{expected_lower},{expected_upper}]")
+
+
+def require_interval_sum(name: str, observed: Any, *terms: Any) -> None:
+    lower = Fraction(0)
+    upper = Fraction(0)
+    for index, term in enumerate(terms):
+        term_lower, term_upper = interval_pair(
+            term, f"{name} term {index}")
+        lower += Fraction.from_float(term_lower)
+        upper += Fraction.from_float(term_upper)
+    require_matching_interval(name, observed, (lower, upper))
 
 
 def contains_zero(value: Any, name: str) -> tuple[float, float]:
@@ -247,7 +269,8 @@ def validate_source_response(value: dict[str, Any],
                      "source phase rate")[0] <= 0.0:
         raise ValueError("source phase rate is not positive")
     eta = interval_pair(value.get("root_eta"), "source root eta")
-    if eta[0] < PROVED_ETA[0] or eta[1] > PROVED_ETA[1]:
+    if Fraction.from_float(eta[0]) < PROVED_ETA_EXACT[0] \
+            or Fraction.from_float(eta[1]) > PROVED_ETA_EXACT[1]:
         raise ValueError("source root eta leaves the proved graph tube")
     if interval_pair(value.get("root_return_time"),
                      "source root return time")[0] <= 0.0:
@@ -325,7 +348,7 @@ def validate_terminal_response(
         (ALG_PHASE_LO, ALG_PHASE_HI))
     require_matching_interval(
         "terminal eta", value.get("graph_error"),
-        PROVED_ETA if eta is None else eta)
+        PROVED_ETA_EXACT if eta is None else eta)
 
     if value.get("event_sequence_labels") != ALG_LABELS:
         raise ValueError("terminal does not contain the seven frozen ALG legs")
@@ -347,6 +370,65 @@ def validate_terminal_response(
     if value.get("event_sequence_passed") is not True:
         raise ValueError("terminal event sequence is not PASS")
 
+    finite = value.get("alg_finite_zero_energy_passage")
+    if not isinstance(finite, dict) or finite.get("applicable") is not True \
+            or finite.get("passed") is not True:
+        raise ValueError("terminal lacks the finite ALG H=0 passage PASS")
+    if finite.get("method") != "U_MINUS_ONE_TWENTIETH_H0_WQ_X_TIME":
+        raise ValueError("terminal misidentifies the finite ALG passage")
+    if finite.get("energy_reconstruction_identity") is not True \
+            or finite.get("energy_reconstruction_identity_kind") != \
+            "BY_EXACT_SOURCE_HAMILTONIAN_CONSERVATION":
+        raise ValueError("finite ALG passage lacks its exact H=0 identity")
+    require_matching_interval(
+        "finite ALG seam x", finite.get("seam_x"),
+        (Fraction(1, 20), Fraction(1, 20)))
+    require_matching_interval(
+        "finite ALG seam-time ledger", finite.get("seam_time"), times[0])
+    if interval_pair(finite.get("seam_P"), "finite ALG seam P")[1] >= 0.0:
+        raise ValueError("finite ALG seam does not have P<0")
+    interval_pair(finite.get("seam_V_H0_intersection"),
+                  "finite ALG seam H=0 V")
+    contains_zero(finite.get("seam_energy_diagnostic"),
+                  "finite ALG seam energy")
+    contains_zero(finite.get("terminal_energy_diagnostic"),
+                  "finite ALG terminal energy")
+    if interval_pair(finite.get("clock"), "finite ALG clock")[0] <= 0.0:
+        raise ValueError("finite ALG clock is not positive")
+    if interval_pair(finite.get("dense_w_hull"),
+                     "finite ALG dense w hull")[0] <= 0.0:
+        raise ValueError("finite ALG passage does not preserve w>0")
+    finite_steps = finite.get("dense_step_count")
+    if not isinstance(finite_steps, int) or isinstance(finite_steps, bool) \
+            or finite_steps <= 0:
+        raise ValueError("finite ALG dense step count is not positive")
+    x_nodes = finite.get("x_nodes")
+    clock_nodes = finite.get("clock_nodes")
+    finite_w_nodes = finite.get("w_nodes")
+    finite_q_nodes = finite.get("q_nodes")
+    if not all(isinstance(nodes, list) and len(nodes) == 6 for nodes in (
+            x_nodes, clock_nodes, finite_w_nodes, finite_q_nodes)):
+        raise ValueError("finite ALG passage lacks six exact slab nodes")
+    finite_targets = (
+        Fraction(1, 5), Fraction(1, 2), Fraction(1), Fraction(2),
+        Fraction(3), Fraction(4))
+    for index, (target, node, clock, w_node, q_node) in enumerate(zip(
+            finite_targets, x_nodes, clock_nodes, finite_w_nodes,
+            finite_q_nodes), start=1):
+        require_matching_interval(
+            f"finite ALG x node {index}", node, (target, target))
+        if interval_pair(clock, f"finite ALG clock node {index}")[0] <= 0.0:
+            raise ValueError(f"finite ALG clock node {index} is not positive")
+        if interval_pair(w_node, f"finite ALG w node {index}")[0] <= 0.0:
+            raise ValueError(f"finite ALG w node {index} is not positive")
+        interval_pair(q_node, f"finite ALG q node {index}")
+        require_interval_sum(
+            f"finite ALG absolute-time node {index}", times[index],
+            finite.get("seam_time"), clock)
+    require_matching_interval(
+        "finite ALG terminal clock ledger", finite.get("clock"),
+        clock_nodes[-1])
+
     tail = value.get("alg_reduced_zero_energy_tail")
     if not isinstance(tail, dict) or tail.get("applicable") is not True \
             or tail.get("passed") is not True:
@@ -356,9 +438,20 @@ def validate_terminal_response(
     if tail.get("energy_reconstruction_identity_kind") != \
             "BY_EXACT_ZERO_ENERGY_FORMULA_CONSTRUCTION":
         raise ValueError("terminal misidentifies the energy construction")
+    if tail.get("coordinate_kind") != \
+            "W_Q_WITH_REDUNDANT_CANCELLATION_D" \
+            or tail.get("cancellation_reconditioned_at_every_tau_node") \
+            is not True:
+        raise ValueError("ALG tail lacks the redundant cancellation route")
+    require_matching_interval(
+        "ALG seam-time ledger", tail.get("seam_time"), times[-1])
     if interval_pair(tail.get("seam_P"), "ALG seam P")[1] >= 0.0:
         raise ValueError("ALG seam does not have P<0")
-    interval_pair(tail.get("seam_Q"), "ALG seam Q")
+    seam_q = interval_pair(tail.get("seam_Q"), "ALG seam Q")
+    if seam_q[1] >= 0.0:
+        raise ValueError("ALG seam does not have Q<0")
+    require_matching_interval(
+        "finite-to-tail ALG seam Q", tail.get("seam_Q"), finite_q_nodes[-1])
     if interval_pair(tail.get("tail_clock"), "ALG tail clock")[0] <= 0.0:
         raise ValueError("ALG tail clock is not positive")
     if interval_pair(tail.get("dense_w_hull"),
@@ -372,24 +465,30 @@ def validate_terminal_response(
     tau_nodes = tail.get("tau_nodes")
     w_nodes = tail.get("w_nodes")
     q_nodes = tail.get("q_nodes")
+    d_nodes = tail.get("d_nodes")
+    cancellation_residuals = tail.get("cancellation_residuals")
     if not all(isinstance(nodes, list) and len(nodes) == 15
-               for nodes in (tau_nodes, w_nodes, q_nodes)):
-        raise ValueError("ALG tail does not contain 15 tau/w/q nodes")
+               for nodes in (tau_nodes, w_nodes, q_nodes, d_nodes,
+                              cancellation_residuals)):
+        raise ValueError("ALG tail does not contain 15 tau/w/q/d nodes")
     for index, node in enumerate(tau_nodes, start=1):
-        pair = interval_pair(node, f"tau node {index}")
-        expected = float(Fraction(77 * index, 400 * 15))
-        if not pair[0] <= expected <= pair[1]:
-            raise ValueError(f"tau node {index} misses its exact slab target")
+        expected = Fraction(77 * index, 400 * 15)
+        require_matching_interval(
+            f"tau node {index}", node, (expected, expected))
     for index, node in enumerate(w_nodes, start=1):
         if interval_pair(node, f"w node {index}")[0] <= 0.0:
             raise ValueError(f"w node {index} is not positive")
     for index, node in enumerate(q_nodes, start=1):
-        interval_pair(node, f"q node {index}")
+        if interval_pair(node, f"q node {index}")[1] >= 0.0:
+            raise ValueError(f"q node {index} is not negative")
+    for index, node in enumerate(d_nodes, start=1):
+        interval_pair(node, f"d node {index}")
+    for index, residual in enumerate(cancellation_residuals, start=1):
+        contains_zero(residual, f"cancellation residual {index}")
 
-    terminal_u = interval_pair(value.get("terminal_U"), "terminal U")
-    target_u = float(ALG_TERMINAL_U)
-    if not terminal_u[0] <= target_u <= terminal_u[1]:
-        raise ValueError("terminal U does not contain -400/23")
+    require_matching_interval(
+        "terminal U", value.get("terminal_U"),
+        (ALG_TERMINAL_U, ALG_TERMINAL_U))
     if interval_pair(value.get("terminal_P"), "terminal P")[1] >= 0.0:
         raise ValueError("terminal P is not strictly negative")
     contains_zero(value.get("section_residual"),
@@ -399,6 +498,9 @@ def validate_terminal_response(
     if interval_pair(value.get("return_time"), "terminal return time")[0] \
             <= 0.0:
         raise ValueError("terminal return time is not positive")
+    require_interval_sum(
+        "ALG return-time ledger", value.get("return_time"),
+        tail.get("seam_time"), tail.get("tail_clock"))
 
 
 def source_argv(executable: Path, predictor: Sequence[Any]) -> list[str]:
@@ -589,6 +691,8 @@ def compact_terminal(value: dict[str, Any]) -> dict[str, Any]:
         "section_residual": value["section_residual"],
         "terminal_speed_strictly_negative":
             value["terminal_speed_strictly_negative"],
+        "alg_finite_zero_energy_passage":
+            value["alg_finite_zero_energy_passage"],
         "alg_reduced_zero_energy_tail":
             value["alg_reduced_zero_energy_tail"],
     }
@@ -632,6 +736,8 @@ def aggregate(root_sources: Sequence[dict[str, Any]],
                 for source in sources),
         })
     if terminals:
+        finite_passages = [terminal["alg_finite_zero_energy_passage"]
+                           for terminal in terminals]
         tails = [terminal["alg_reduced_zero_energy_tail"]
                  for terminal in terminals]
         result.update({
@@ -639,6 +745,9 @@ def aggregate(root_sources: Sequence[dict[str, Any]],
                 lower(terminal["return_time"]) for terminal in terminals),
             "return_time_upper": max(
                 upper(terminal["return_time"]) for terminal in terminals),
+            "finite_dense_w_hull_lower": min(
+                lower(passage["dense_w_hull"])
+                for passage in finite_passages),
             "seam_P_upper": max(upper(tail["seam_P"]) for tail in tails),
             "tail_clock_lower": min(
                 lower(tail["tail_clock"]) for tail in tails),
@@ -661,6 +770,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--predictor-workers", type=int,
                         default=max(1, min(16, (os.cpu_count() or 2) // 2)))
     parser.add_argument("--timeout", type=float, default=180.0)
+    parser.add_argument("--parent-h10-max-a2-depth", type=int, default=0)
+    parser.add_argument("--r-leaf-h10-max-a2-depth", type=int, default=0)
     parser.add_argument("--max-a2-depth", type=int, default=5)
     parser.add_argument("--parent-r-start", type=int, default=0)
     parser.add_argument("--parent-r-stop", type=int, default=8)
@@ -676,7 +787,9 @@ def parse_args() -> argparse.Namespace:
 def main() -> int:
     args = parse_args()
     if args.workers < 1 or args.predictor_workers < 1 or args.timeout <= 0 \
-            or args.max_a2_depth < 0:
+            or min(args.parent_h10_max_a2_depth,
+                   args.r_leaf_h10_max_a2_depth,
+                   args.max_a2_depth) < 0:
         raise ValueError("workers/timeout must be positive and depth nonnegative")
     for executable in (args.terminal_executable, args.source_executable):
         if not executable.is_file() or not os.access(executable, os.X_OK):
@@ -699,7 +812,7 @@ def main() -> int:
     coarse_domains = [(parent, (), None) for parent in parents]
     coarse_pass, coarse_fail, coarse_stats = adaptive_terminal_cover(
         coarse_domains, args.terminal_executable, args.timeout, args.workers,
-        args.max_a2_depth)
+        args.parent_h10_max_a2_depth)
 
     # Stage 2: only an uncovered parent is replaced by all eight exact
     # canonical r-leaves.  Successful stage-1 records are never duplicated.
@@ -708,7 +821,7 @@ def main() -> int:
         for parent, _empty_path in coarse_fail for local_r in range(8)]
     refined_pass, refined_fail, refined_stats = adaptive_terminal_cover(
         refined_domains, args.terminal_executable, args.timeout, args.workers,
-        args.max_a2_depth) if refined_domains else ({}, {}, {
+        args.r_leaf_h10_max_a2_depth) if refined_domains else ({}, {}, {
             "terminal_attempts": 0, "adaptive_wrapping_failures": 0,
             "adaptive_failure_returncodes": {}})
 
@@ -879,7 +992,7 @@ def main() -> int:
         "r_leaf_root_conditioned": tight_stats,
     }
     document = {
-        "schema_version": "rfsn-vdp-p2e-alg-axis-cover-scout/1",
+        "schema_version": "rfsn-vdp-p2e-alg-axis-cover-scout/3",
         "status": "PASS" if success else "INCONCLUSIVE",
         "mathematical_status": (
             "COMPUTED_INTERVAL_DESIGN_PASS_FULL_BRIDGE"
@@ -904,7 +1017,11 @@ def main() -> int:
             "r_leaf_h10_passes": len(refined_pass),
             "r_leaf_h10_failures_root_conditioned": len(refined_fail),
             "terminal_stage_statistics": stage_stats,
-            "max_a2_bisection_depth": args.max_a2_depth,
+            "a2_bisection_depths": {
+                "parent_h10": args.parent_h10_max_a2_depth,
+                "r_leaf_h10": args.r_leaf_h10_max_a2_depth,
+                "r_leaf_root_conditioned": args.max_a2_depth,
+            },
             "accepted_cover_records": len(records),
             "source_refinement": (
                 "parent H10 tube first; then eight exact r-leaves only for "
@@ -913,8 +1030,9 @@ def main() -> int:
             "terminal_refinement": "a2 binary bisection only",
             "terminal_event_chain": ALG_LABELS,
             "weighted_tail": (
-                "exact H=0 negative branch in (w,q), 15 exact tau slabs "
-                "from U=-4 to U=-400/23"),
+                "exact H=0 finite (W,Q) x-passage followed by a (w,q,d) "
+                "redundant-cancellation tail on 15 exact tau slabs from "
+                "U=-4 to U=-400/23"),
             "response_binding": (
                 "source and terminal scope, cell/leaf, split path, exact "
                 "parameter/phase/eta boxes, seven directions, positive "
