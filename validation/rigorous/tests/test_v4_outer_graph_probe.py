@@ -11,7 +11,7 @@ from pathlib import Path
 
 RIGOROUS = Path(__file__).resolve().parents[1]
 REPOSITORY = RIGOROUS.parents[1]
-SOURCE = RIGOROUS / "src" / "vdp_v4_zero_energy_graph_probe.cpp"
+SOURCE = RIGOROUS / "src" / "vdp_v4_outer_graph_probe.cpp"
 DEFAULT_CAPD_CONFIG = (
     REPOSITORY
     / ".cache/capd-731079217a9254ea-strict/build-strict/bin/capd-config"
@@ -22,7 +22,7 @@ def endpoint(interval: dict[str, str], side: str) -> float:
     return float.fromhex(interval[f"{side}_hex"])
 
 
-class V4ZeroEnergyGraphProbeTests(unittest.TestCase):
+class V4OuterGraphProbeTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         configured = os.environ.get("RFSN_CAPD_CONFIG")
@@ -43,7 +43,7 @@ class V4ZeroEnergyGraphProbeTests(unittest.TestCase):
                 stdout=subprocess.PIPE,
             ).stdout
         )
-        cls.temporary = tempfile.TemporaryDirectory(prefix="vdp-v4-zero-")
+        cls.temporary = tempfile.TemporaryDirectory(prefix="vdp-v4-outer-")
         binary = Path(cls.temporary.name) / "probe"
         compile_command = [
             "/usr/bin/g++", "-std=c++17", f"-I{RIGOROUS / 'include'}",
@@ -72,18 +72,26 @@ class V4ZeroEnergyGraphProbeTests(unittest.TestCase):
     def test_scope_and_gap_free_product_cover_are_explicit(self) -> None:
         self.assertEqual(
             self.result["schema_version"],
-            "rfsn-vdp-v4-zero-energy-graph-probe/1",
+            "rfsn-vdp-v4-outer-graph-probe/1",
         )
         self.assertEqual(self.result["box_id"], "vdp-positive-box-v2")
-        self.assertEqual(self.result["scope"], "ZERO_ENERGY_SLICE_ONLY")
+        self.assertEqual(self.result["scope"], "FULL_ENERGY_COLLAR")
         self.assertFalse(self.result["claim_bearing"])
         boundary = self.result["claim_boundary"]
         self.assertEqual(
-            boundary["parent_obligation"], "V4.OUTER_GRAPH remains PENDING"
+            boundary["parent_obligation"],
+            (
+                "V4.OUTER_GRAPH local mathematical PASS; "
+                "Issue #7 aggregate remains PENDING"
+            ),
         )
         self.assertEqual(
             boundary["open_scope"],
-            ["nonzero-E collar", "V5 incidence", "outer asymptotics"],
+            [
+                "V5 incidence",
+                "outer action finite part",
+                "Issue #7 aggregate and release",
+            ],
         )
         parameter_box = self.result["parameter_box"]
         self.assertLessEqual(endpoint(parameter_box["r"], "lower"), 0.01)
@@ -95,13 +103,13 @@ class V4ZeroEnergyGraphProbeTests(unittest.TestCase):
         self.assertEqual(
             self.result["cover"],
             {"r_slabs": 4, "a2_slabs": 8, "epsilon_slabs": 4,
-             "z_slabs": 64, "cell_count": 8192},
+             "energy_slabs": 2, "z_slabs": 64, "cell_count": 16384},
         )
         corridor = self.result["corridor"]
-        self.assertEqual(endpoint(corridor["E"], "lower"), 0.0)
-        self.assertEqual(endpoint(corridor["E"], "upper"), 0.0)
+        self.assertLessEqual(endpoint(corridor["E"], "lower"), -1e-3)
+        self.assertGreaterEqual(endpoint(corridor["E"], "upper"), 1e-3)
         self.assertLessEqual(endpoint(corridor["z"], "lower"), 0.0)
-        self.assertGreaterEqual(endpoint(corridor["z"], "upper"), 0.2)
+        self.assertGreaterEqual(endpoint(corridor["z"], "upper"), 2.0 / 9.0)
         for coordinate in ("beta", "alpha"):
             self.assertLessEqual(
                 endpoint(corridor[coordinate], "lower"), -1e-5
@@ -117,14 +125,14 @@ class V4ZeroEnergyGraphProbeTests(unittest.TestCase):
         self.assertEqual(
             set(obligations),
             {
-                "V4.ZERO_ENERGY_GRAPH.POSITIVE_BRANCH",
-                "V4.ZERO_ENERGY_GRAPH.CORRIDOR_FACES",
-                "V4.ZERO_ENERGY_GRAPH.GENERATOR_BLOCKS",
-                "V4.ZERO_ENERGY_GRAPH.CONE_AND_BUNCHING",
+                "V4.OUTER_GRAPH.POSITIVE_BRANCH",
+                "V4.OUTER_GRAPH.CORRIDOR_FACES",
+                "V4.OUTER_GRAPH.GENERATOR_BLOCKS",
+                "V4.OUTER_GRAPH.CONE_AND_BUNCHING",
             },
         )
-        root = obligations["V4.ZERO_ENERGY_GRAPH.POSITIVE_BRANCH"]
-        faces = obligations["V4.ZERO_ENERGY_GRAPH.CORRIDOR_FACES"]
+        root = obligations["V4.OUTER_GRAPH.POSITIVE_BRANCH"]
+        faces = obligations["V4.OUTER_GRAPH.CORRIDOR_FACES"]
         self.assertEqual(root["status"], "PASS")
         self.assertEqual(faces["status"], "PASS")
         for key in (
@@ -136,19 +144,19 @@ class V4ZeroEnergyGraphProbeTests(unittest.TestCase):
         self.assertLess(
             endpoint(root["enclosures"]["negative_root"], "upper"), 0.0
         )
-        for key in ("z_dot_at_z_zero", "E_dot_at_E_zero"):
+        for key in ("z_dot_at_z_zero", "E_dot_on_energy_faces"):
             enclosure = faces["enclosures"][key]
             self.assertEqual(endpoint(enclosure, "lower"), 0.0)
             self.assertEqual(endpoint(enclosure, "upper"), 0.0)
         for key, enclosure in faces["enclosures"].items():
-            if key in {"z_dot_at_z_zero", "E_dot_at_E_zero"}:
+            if key in {"z_dot_at_z_zero", "E_dot_on_energy_faces"}:
                 continue
             self.assertGreater(endpoint(enclosure, "lower"), 0.0)
 
     def test_nu_blocks_slope_one_cone_and_third_bunching_pass(self) -> None:
         obligations = {item["id"]: item for item in self.result["obligations"]}
-        blocks = obligations["V4.ZERO_ENERGY_GRAPH.GENERATOR_BLOCKS"]
-        rates = obligations["V4.ZERO_ENERGY_GRAPH.CONE_AND_BUNCHING"]
+        blocks = obligations["V4.OUTER_GRAPH.GENERATOR_BLOCKS"]
+        rates = obligations["V4.OUTER_GRAPH.CONE_AND_BUNCHING"]
         self.assertEqual(blocks["status"], "PASS")
         self.assertEqual(rates["status"], "PASS")
         for key in (

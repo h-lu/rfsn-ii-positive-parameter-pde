@@ -137,17 +137,19 @@ length and action.  The generated Issue #7 schema-v2 contract binds the
 configuration and direct generator sources as well as the candidate data, but
 remains `claim_bearing: false` with `final_status: NOT_RUN`.
 
-A separate strict CAPD/FILIB probe now covers 8,192 exact-rational cells on
-the complete v2 box and verifies the positive-root, face, cone, and
-third-order bunching hypotheses for the invariant $E=0$ outer corridor.
-Together with the proved corridor graph lemma, this establishes the unique
-maximal future-staying graph on that zero-energy slice.  See the
-[strict zero-energy V4 report](validation/rigorous/V4_ZERO_ENERGY_GRAPH_REPORT.md).
+A strict CAPD/FILIB probe now covers 16,384 exact-rational cells on the
+complete v2 box and the full corridor
+$|E|\le10^{-3}$, $0\le z\le2/9$, $|\alpha|,|\beta|\le10^{-5}$.
+The positive-root, face, cone, and third-order bunching obligations all
+pass. Together with the proved corridor graph lemma and its analytic tail
+argument, this establishes the full V4 future-staying graph, mixed
+regularity, algebraic asymptotics, and infinite physical distance on that
+explicit corridor. See the
+[strict V4 outer-graph report](validation/rigorous/V4_OUTER_GRAPH_REPORT.md).
 
-The master run still does not numerically certify the paper's global and
-uniform objects.  The full nonzero-$E$ V4 future-staying graph, uniform V5
-tube/exchange and uniqueness statements, full-base V4/V5 parameter jets,
-exhaustive
+The master run still does not numerically certify the paper's remaining
+global and uniform objects. Uniform V5 tube/exchange and uniqueness
+statements, V5 parameter jets, exhaustive
 V6 cells and cross forms for all windings, and every outward-rounded interval
 obligation remain unresolved.  The computed V7 periodic and multipulse
 stationary profiles are not assigned proved theorem-edge itineraries and do
@@ -244,7 +246,7 @@ independent-machine replay.
 | Canard splitting scout (#13) | `COMPUTED/E1`; `claim_bearing=false` | Exact central-chart integration and first-hit root finding work at \((r,\epsilon)=(0.08,1)\), but the entry uses a projected finite formal jet, not a computed invariant slow manifold.  It is a candidate generator, not a maximal-canard identification.  See the [scout record](numerics/VDP_CANARD_SPLITTING_SCOUT.md). |
 | Finite-boundary A.3-compatible canard coincidence (#13) | `COMPUTED/E1`; `claim_bearing=false` | The six-condition BVP gives \(a_2\approx-0.008338195267\).  An 80-segment exact-IVP multiple-shoot replay independently reduces continuity and endpoint defects below \(1.1\times10^{-11}\), but the frozen simple-zero test fails closed because the fixed-family Jacobian is numerically singular at double precision.  The intrinsic \(W^{cu}\) trace and maximal-canard identification remain unresolved.  See the [BVP](numerics/VDP_CANARD_SLOW_TRACE.md) and [multiple-shoot](numerics/VDP_CANARD_MULTIPLE_SHOOT.md) records. |
 | Intrinsic canard entry gate (#13 C1) | `AUDITED/E1_APPLICATION_INTRINSIC_ENTRY_BLOCKER`; `claim_bearing=false` | The exact K1--K2 interface is checked, existing finite-boundary/formal candidates are rejected as intrinsic entries, and a counterexample shows that section + \(H_2=0\) + orientation do not select \(W^{cu}\).  No \(S\) or \(dS/da_2\) is emitted.  See the [blocker audit](numerics/VDP_CANARD_INTRINSIC_ENTRY_BLOCKER.md). |
-| Explicit-box validation (#7) | v1 mathematical `FAIL`; v2 P1 and restricted P2a--P2d local mathematical `PASS`; three P2e phase gaps and the zero-action source-chart criterion local `PASS`; the POLE zero-action first-hit bridge has a complete computed-interval design `PASS`; aggregate `INCONCLUSIVE`, `claim_bearing=false` | The immutable v1 box is \([0.04,0.08]\times[-0.25,0.25]\times[0.8,1.2]\); its strict P2e phase-order failure remains the verdict for v1. On v2, the true \(\nu=0\) source has a nonsingular exact zero-energy enclosure, and a complete strict axis skeleton would thicken to some positive uniform action subcollar. The POLE first hit is covered on all 4096 bridge cells. A fixed-label ALG finite-gate corner cover is honestly `INCONCLUSIVE`; the distinct moving V5 matched exit has not yet been enclosed. The joint incidence and exhaustive census, \(m_{\rm ax}\), transported traces, and later P3--P5 interval obligations remain pending; the whole fixed \(2^{-55}\) disk is not claimed. See the [ALG finite-gate obstruction](validation/rigorous/P2E_ALG_FIXED_PHASE_OBSTRUCTION_REPORT.md), [pole-axis cover](validation/rigorous/P2E_POLE_AXIS_FIRST_HIT_COVER_REPORT.md), [axis-chart report](validation/rigorous/P2E_AXIS_CHART_REPORT.md), and [v2 phase report](validation/rigorous/P2E_V2_PHASE_ORDER_REPORT.md). |
+| Explicit-box validation (#7) | v1 mathematical `FAIL`; v2 P1, restricted P2a--P2d, and full-energy `V4.OUTER_GRAPH` local mathematical `PASS`; three P2e phase gaps and the zero-action source-chart criterion local `PASS`; the POLE zero-action first-hit bridge has a complete computed-interval design `PASS`; aggregate `INCONCLUSIVE`, `claim_bearing=false` | The immutable v1 box is \([0.04,0.08]\times[-0.25,0.25]\times[0.8,1.2]\); its strict P2e phase-order failure remains the verdict for v1. On v2, the true \(\nu=0\) source has a nonsingular exact zero-energy enclosure, and a complete strict axis skeleton would thicken to some positive uniform action subcollar. The POLE first hit is covered on all 4096 bridge cells. The 16,384-cell V4 cover proves the full corridor \(|E|\le10^{-3}\), \(0\le z\le2/9\), including the \(z\)-location of the parameter-dependent \(R=2\) cut; it covers only that cut's intersection with the displayed \((E,\beta,\alpha)\) collar, not every existing floating V5 candidate. A fixed-label ALG finite-gate corner cover is honestly `INCONCLUSIVE`; the distinct moving V5 matched exit has not yet been enclosed. The joint incidence and exhaustive census, \(m_{\rm ax}\), transported traces, V5 matching, and remaining P3--P5 interval obligations remain pending; the whole fixed \(2^{-55}\) disk is not claimed. See the [V4 outer-graph proof](validation/rigorous/V4_OUTER_GRAPH_REPORT.md), [ALG finite-gate obstruction](validation/rigorous/P2E_ALG_FIXED_PHASE_OBSTRUCTION_REPORT.md), [pole-axis cover](validation/rigorous/P2E_POLE_AXIS_FIRST_HIT_COVER_REPORT.md), [axis-chart report](validation/rigorous/P2E_AXIS_CHART_REPORT.md), and [v2 phase report](validation/rigorous/P2E_V2_PHASE_ORDER_REPORT.md). |
 
 Closing an analytic construction issue records completion under the current
 frozen-import repository contract.  Public availability of that contract does
@@ -293,6 +295,7 @@ experimental realization.
 - [Issue #7 frozen-v1 P2e phase-order failure](validation/rigorous/P2E_PHASE_ORDER_FAIL_REPORT.md)
 - [Issue #7 v2 P2e zero-action source-chart lemma](validation/rigorous/P2E_AXIS_CHART_REPORT.md)
 - [Issue #7 v2 P2e fixed-label ALG finite-gate obstruction](validation/rigorous/P2E_ALG_FIXED_PHASE_OBSTRUCTION_REPORT.md)
+- [Issue #7 V4 full-energy outer-graph report](validation/rigorous/V4_OUTER_GRAPH_REPORT.md)
 
 ## Issue map
 

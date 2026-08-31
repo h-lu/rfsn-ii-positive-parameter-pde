@@ -215,8 +215,8 @@ Interval scalarUpper(double value) { return Interval(value); }
 double mu2GershgorinUpper(
     const std::array<Gradient, kStateDimension>& jacobian) {
   double result = -std::numeric_limits<double>::infinity();
-  // On the invariant E=0 slice the graph base is X=(z,beta).
-  constexpr std::array<std::size_t, 2> base = {0, 2};
+  // The full graph base is X=(z,E,beta).
+  constexpr std::array<std::size_t, 3> base = {0, 1, 2};
   for (const std::size_t row : base) {
     Interval bound = jacobian[row][row];
     for (const std::size_t column : base) {
@@ -233,7 +233,8 @@ double mu2GershgorinUpper(
 double bNormUpper(
     const std::array<Gradient, kStateDimension>& jacobian) {
   Interval sum(0.0);
-  for (const std::size_t row : {std::size_t(0), std::size_t(2)}) {
+  for (const std::size_t row :
+       {std::size_t(0), std::size_t(1), std::size_t(2)}) {
     const Interval absolute = jacobian[row][3].abs();
     sum += sqr(absolute);
   }
@@ -243,7 +244,8 @@ double bNormUpper(
 double dNormUpper(
     const std::array<Gradient, kStateDimension>& jacobian) {
   Interval sum(0.0);
-  for (const std::size_t column : {std::size_t(0), std::size_t(2)}) {
+  for (const std::size_t column :
+       {std::size_t(0), std::size_t(1), std::size_t(2)}) {
     const Interval absolute = jacobian[3][column].abs();
     sum += sqr(absolute);
   }
@@ -386,18 +388,21 @@ std::string obligationJson(const Obligation& obligation) {
 int main() {
   try {
     const auto rounding = rfsn::rigorous::runRoundingSelfTests();
-    const Interval energy(0.0);
+    const Interval energyRadius = rational(1, 1000);
+    const Interval energyCorridor(
+        -energyRadius.rightBound(), energyRadius.rightBound());
     const Interval radius = rational(1, 100000);
     const Interval stateBox(-radius.rightBound(), radius.rightBound());
     const Interval betaPlus = radius;
     const Interval betaMinus = -radius;
     const Interval alphaPlus = radius;
     const Interval alphaMinus = -radius;
-    const Interval zMaximum = rational(1, 5);
+    const Interval zMaximum = rational(2, 9);
 
     constexpr long kRSlabs = 4;
     constexpr long kA2Slabs = 8;
     constexpr long kEpsilonSlabs = 4;
+    constexpr long kEnergySlabs = 2;
     constexpr long kZSlabs = 64;
     Aggregate aggregate;
     bool zFaceInitialized = false;
@@ -423,41 +428,48 @@ int main() {
              ++epsilonIndex) {
           const Interval epsilon = intervalFromRationals(
               8 + epsilonIndex, 10, 9 + epsilonIndex, 10);
-          for (long zIndex = 0; zIndex < kZSlabs; ++zIndex) {
-            const Interval z = intervalFromRationals(
-                zIndex, 5 * kZSlabs, zIndex + 1, 5 * kZSlabs);
-            const Evaluation core = evaluate(
-                r, a2, epsilon, z, energy, stateBox, stateBox);
-            includeCore(aggregate, core);
+          for (long energyIndex = 0; energyIndex < kEnergySlabs;
+               ++energyIndex) {
+            const Interval energy = intervalFromRationals(
+                energyIndex - 1, 1000, energyIndex, 1000);
+            for (long zIndex = 0; zIndex < kZSlabs; ++zIndex) {
+              const Interval z = intervalFromRationals(
+                  2 * zIndex, 9 * kZSlabs,
+                  2 * (zIndex + 1), 9 * kZSlabs);
+              const Evaluation core = evaluate(
+                  r, a2, epsilon, z, energy, stateBox, stateBox);
+              includeCore(aggregate, core);
+              includeFace(aggregate.energyField, energyFieldInitialized,
+                          core.field[1]);
 
-            const Evaluation betaUpper = evaluate(
-                r, a2, epsilon, z, energy, betaPlus, stateBox);
-            includeFace(aggregate.betaPlusMargin, betaPlusInitialized,
-                        -betaUpper.field[2]);
-            const Evaluation betaLower = evaluate(
-                r, a2, epsilon, z, energy, betaMinus, stateBox);
-            includeFace(aggregate.betaMinusMargin, betaMinusInitialized,
-                        betaLower.field[2]);
-            const Evaluation alphaUpper = evaluate(
-                r, a2, epsilon, z, energy, stateBox, alphaPlus);
-            includeFace(aggregate.alphaPlusMargin, alphaPlusInitialized,
-                        alphaUpper.field[3]);
-            const Evaluation alphaLower = evaluate(
-                r, a2, epsilon, z, energy, stateBox, alphaMinus);
-            includeFace(aggregate.alphaMinusMargin, alphaMinusInitialized,
-                        -alphaLower.field[3]);
-            ++cellCount;
+              const Evaluation betaUpper = evaluate(
+                  r, a2, epsilon, z, energy, betaPlus, stateBox);
+              includeFace(aggregate.betaPlusMargin, betaPlusInitialized,
+                          -betaUpper.field[2]);
+              const Evaluation betaLower = evaluate(
+                  r, a2, epsilon, z, energy, betaMinus, stateBox);
+              includeFace(aggregate.betaMinusMargin, betaMinusInitialized,
+                          betaLower.field[2]);
+              const Evaluation alphaUpper = evaluate(
+                  r, a2, epsilon, z, energy, stateBox, alphaPlus);
+              includeFace(aggregate.alphaPlusMargin, alphaPlusInitialized,
+                          alphaUpper.field[3]);
+              const Evaluation alphaLower = evaluate(
+                  r, a2, epsilon, z, energy, stateBox, alphaMinus);
+              includeFace(aggregate.alphaMinusMargin, alphaMinusInitialized,
+                          -alphaLower.field[3]);
+              ++cellCount;
+            }
+
+            const Evaluation zFace = evaluate(
+                r, a2, epsilon, zMaximum, energy, stateBox, stateBox);
+            includeFace(aggregate.zFaceMargin, zFaceInitialized,
+                        -zFace.field[0]);
+            const Evaluation zZero = evaluate(
+                r, a2, epsilon, Interval(0.0), energy, stateBox, stateBox);
+            includeFace(
+                aggregate.zZeroField, zZeroInitialized, zZero.field[0]);
           }
-
-          const Evaluation zFace = evaluate(
-              r, a2, epsilon, zMaximum, energy, stateBox, stateBox);
-          includeFace(aggregate.zFaceMargin, zFaceInitialized,
-                      -zFace.field[0]);
-          const Evaluation zZero = evaluate(
-              r, a2, epsilon, Interval(0.0), energy, stateBox, stateBox);
-          includeFace(aggregate.zZeroField, zZeroInitialized, zZero.field[0]);
-          includeFace(aggregate.energyField, energyFieldInitialized,
-                      zZero.field[1]);
         }
       }
     }
@@ -465,7 +477,7 @@ int main() {
     const Interval nu = rational(1, 32);
     std::vector<Obligation> obligations;
     obligations.push_back({
-        "V4.ZERO_ENERGY_GRAPH.POSITIVE_BRANCH",
+        "V4.OUTER_GRAPH.POSITIVE_BRANCH",
         combine(strictPositive(aggregate.quadraticLeading),
                 combine(strictPositive(aggregate.quadraticConstant),
                 combine(strictPositive(aggregate.discriminant),
@@ -473,7 +485,7 @@ int main() {
                 combine(strictPositive(aggregate.chi),
                 combine(strictPositive(aggregate.rootDerivative),
                         strictPositive(aggregate.pi))))))),
-        "The energy quadratic has one negative and one regular positive chi root, and pi>0, on the full zero-energy corridor",
+        "The energy quadratic has one negative and one regular positive chi root, and pi>0, on the full energy collar",
         {{"quadratic_leading", aggregate.quadraticLeading},
          {"quadratic_constant_D", aggregate.quadraticConstant},
          {"quarter_discriminant", aggregate.discriminant},
@@ -489,10 +501,10 @@ int main() {
     faces = combine(faces, strictPositive(aggregate.alphaPlusMargin));
     faces = combine(faces, strictPositive(aggregate.alphaMinusMargin));
     obligations.push_back({
-        "V4.ZERO_ENERGY_GRAPH.CORRIDOR_FACES", faces,
-        "z=0 and E=0 are invariant, z=1/5 is inward, beta faces are inward, and alpha faces are strict exits",
+        "V4.OUTER_GRAPH.CORRIDOR_FACES", faces,
+        "z=0 and both energy faces are invariant, z=2/9 is inward, beta faces are inward, and alpha faces are strict exits",
         {{"z_dot_at_z_zero", aggregate.zZeroField},
-         {"E_dot_at_E_zero", aggregate.energyField},
+         {"E_dot_on_energy_faces", aggregate.energyField},
          {"minus_z_dot_at_z_max", aggregate.zFaceMargin},
          {"minus_beta_dot_at_beta_plus", aggregate.betaPlusMargin},
          {"beta_dot_at_beta_minus", aggregate.betaMinusMargin},
@@ -518,8 +530,8 @@ int main() {
     blocks = combine(blocks, strictPositive(blockDMargin));
     blocks = combine(blocks, strictPositive(blockAMargin));
     obligations.push_back({
-        "V4.ZERO_ENERGY_GRAPH.GENERATOR_BLOCKS", blocks,
-        "For the E=0 base X=(z,beta), mu2(C), ||B||, ||D|| <= nu=1/32 and a >= 1-nu",
+        "V4.OUTER_GRAPH.GENERATOR_BLOCKS", blocks,
+        "For the full base X=(z,E,beta), mu2(C), ||B||, ||D|| <= nu=1/32 and a >= 1-nu",
         {{"mu2_C_upper", scalarUpper(aggregate.muCUpper)},
          {"B_norm_upper", scalarUpper(aggregate.bNormUpper)},
          {"D_norm_upper", scalarUpper(aggregate.dNormUpper)},
@@ -534,7 +546,7 @@ int main() {
     for (const double gamma : aggregate.gammaLower)
       rates = combine(rates, strictPositive(gamma));
     obligations.push_back({
-        "V4.ZERO_ENERGY_GRAPH.CONE_AND_BUNCHING", rates,
+        "V4.OUTER_GRAPH.CONE_AND_BUNCHING", rates,
         "The slope-one cone, normal rate, and generator gaps gamma_j for j=0,...,3 are strict",
         {{"slope_one_cone_lower", scalarUpper(aggregate.coneLower)},
          {"normal_rate_lower", scalarUpper(aggregate.normalLower)},
@@ -555,18 +567,19 @@ int main() {
     const Verdict status = combine(rounding.status, mathematical);
 
     std::cout
-        << "{\"schema_version\":\"rfsn-vdp-v4-zero-energy-graph-probe/1\","
+        << "{\"schema_version\":\"rfsn-vdp-v4-outer-graph-probe/1\","
         << "\"status\":\"" << verdictName(status) << "\","
         << "\"mathematical_status\":\"" << verdictName(mathematical)
         << "\",\"claim_bearing\":false,"
         << "\"claim_boundary\":{"
-        << "\"parent_obligation\":\"V4.OUTER_GRAPH remains PENDING\","
-        << "\"proved_scope\":\"unique maximal E=0 future-staying graph "
+        << "\"parent_obligation\":\"V4.OUTER_GRAPH local mathematical PASS; "
+           "Issue #7 aggregate remains PENDING\","
+        << "\"proved_scope\":\"unique maximal full-energy future-staying graph "
            "with normal expansion, third-order bunching, and mixed "
            "regularity\","
-        << "\"open_scope\":[\"nonzero-E collar\",\"V5 incidence\","
-           "\"outer asymptotics\"]},"
-        << "\"scope\":\"ZERO_ENERGY_SLICE_ONLY\","
+        << "\"open_scope\":[\"V5 incidence\",\"outer action finite part\","
+           "\"Issue #7 aggregate and release\"]},"
+        << "\"scope\":\"FULL_ENERGY_COLLAR\","
         << "\"box_id\":\"vdp-positive-box-v2\","
         << "\"parameter_box\":{"
         << "\"r\":"
@@ -580,11 +593,12 @@ int main() {
         << "\"cover\":{\"r_slabs\":" << kRSlabs
         << ",\"a2_slabs\":" << kA2Slabs
         << ",\"epsilon_slabs\":" << kEpsilonSlabs
+        << ",\"energy_slabs\":" << kEnergySlabs
         << ",\"z_slabs\":" << kZSlabs
         << ",\"cell_count\":" << cellCount << "},"
         << "\"corridor\":{"
         << "\"z\":" << intervalJson(Interval(0.0, zMaximum.rightBound()))
-        << ",\"E\":" << intervalJson(energy)
+        << ",\"E\":" << intervalJson(energyCorridor)
         << ",\"beta\":" << intervalJson(stateBox)
         << ",\"alpha\":" << intervalJson(stateBox)
         << ",\"nu\":" << intervalJson(nu) << "},"
@@ -596,7 +610,7 @@ int main() {
     std::cout << "]}\n";
     return status == Verdict::Pass ? 0 : 1;
   } catch (const std::exception& error) {
-    std::cerr << "vdp_v4_zero_energy_graph_probe: " << error.what() << '\n';
+    std::cerr << "vdp_v4_outer_graph_probe: " << error.what() << '\n';
     return 2;
   }
 }

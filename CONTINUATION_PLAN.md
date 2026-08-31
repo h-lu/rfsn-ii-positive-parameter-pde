@@ -464,10 +464,11 @@ Continue the interval lane only under the existing fail-closed policy:
 - use the locally passed P2d exact-chart package as the saddle input to the P2e
   finite event atlas, retaining only the event faces and incidences required by
   the common block and marked atlas;
-- validate the model-specific finite inputs that determine the explicit box:
-  the selected homoclinic and its transversality, positive-pole entry and
-  terminal bounds, outer graph cone and bunching, exchange coefficient and
-  matching inverse, and the strict physical-channel arrangement margins;
+- retain the completed local mathematical pass for the explicit full-energy
+  V4 outer graph and its cone/bunching bounds; validate the still-open
+  model-specific inputs: positive-pole entry and terminal bounds, V5 exchange
+  coefficient and matching inverse, and the strict physical-channel
+  arrangement margins;
 - derive cross forms, the retained finite-event census, and coding from the
   proved analytic propositions rather than independently recreating every
   conclusion as a separate interval subsystem;

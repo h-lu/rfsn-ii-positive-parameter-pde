@@ -217,10 +217,14 @@ the analytic constructions.
 - The existing finite event faces are proxies rather than the complete V6
   physical arrangement and finite marked atlas; B1/A2 do not prove a component
   census, cross form, bounded overlap recoding, or every \(n\ge N\).
-- The connected V3 and V5/V5A candidates are explicit floating objects, but
-  the certified source window/parameter box, infinite V4 graph, V5 uniform
-  tube, endpoint adjoint/exchange, matching uniqueness, parameter jets, and
-  infinite finite-part remainders are not interval enclosures.
+- The connected V3 and V5/V5A candidates are explicit floating objects. The
+  full-energy V4 graph now has a local mathematical interval `PASS` on the
+  complete v2 box, including the \(z\)-location of the parameter-dependent
+  \(R=2\) cut and its intersection with the displayed V4 collar, but the
+  certified V3
+  source window, V5 uniform tube, endpoint adjoint/exchange, matching
+  uniqueness, parameter jets, and infinite finite-part remainders are not
+  interval enclosures.
 - P2a/P2b0/P2b now cover the true local graph, its H10-centered
   \(C^0/C^1\) tubes, state derivatives through order three,
   parameter/mixed derivatives through order two, and weighted half-orbit
