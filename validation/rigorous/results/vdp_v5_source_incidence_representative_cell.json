@@ -1,0 +1,159 @@
+{
+  "schema_version": "rfsn-vdp-v5-source-incidence-cell/1",
+  "status": "PASS",
+  "mathematical_status": "PASS",
+  "claim_bearing": false,
+  "box_id": "vdp-positive-box-v2",
+  "cell_index": [
+    32,
+    64,
+    20
+  ],
+  "grid": [
+    64,
+    128,
+    40
+  ],
+  "phase_cover": {
+    "continuation_face": "1/25000",
+    "slab_count": 16,
+    "graph_error_halves": 2,
+    "zero_candidate_evaluations": 20,
+    "zero_candidate_evaluations_by_half": [
+      10,
+      10
+    ],
+    "graph_tube_candidate_evaluations": 20,
+    "graph_tube_candidate_evaluations_by_half": [
+      10,
+      10
+    ],
+    "exterior_evaluations": 20,
+    "terminal_affine_subboxes_per_evaluation": 2048,
+    "terminal_affine_subbox_evaluations": 40960
+  },
+  "derivative_convention": {
+    "parameter_fibre": "fixed_eta_auxiliary_fibre",
+    "coordinate_shift_wedge_invariance": true,
+    "actual_eta_phi_used_only_in_source_slope": true
+  },
+  "enclosures": {
+    "anchor_aligned": {
+      "lower_hex": "-0x1.5278c86f0233cp-18",
+      "upper_hex": "-0x1.089626bcddeb2p-20",
+      "endpoint_format": "IEEE754_BINARY64_HEX"
+    },
+    "fixed_eta_b_on_n_zero_parameter_derivative": [
+      {
+        "lower_hex": "-0x1.93953da45abc8p-7",
+        "upper_hex": "0x1.27a34140aa813p-7",
+        "endpoint_format": "IEEE754_BINARY64_HEX"
+      },
+      {
+        "lower_hex": "-0x1.a3d04f1a1067cp-11",
+        "upper_hex": "0x1.3107b589d5515p-11",
+        "endpoint_format": "IEEE754_BINARY64_HEX"
+      },
+      {
+        "lower_hex": "-0x1.47b222c646bb2p-7",
+        "upper_hex": "0x1.0c32959eec40cp-7",
+        "endpoint_format": "IEEE754_BINARY64_HEX"
+      }
+    ],
+    "fixed_eta_n_theta": {
+      "lower_hex": "-0x1.bf1c5b988ac5dp+10",
+      "upper_hex": "-0x1.ee3fe80e4c362p+9",
+      "endpoint_format": "IEEE754_BINARY64_HEX"
+    },
+    "exterior_seam_P": {
+      "lower_hex": "-0x1.d33ecdb36201dp-4",
+      "upper_hex": "-0x1.d305b1e1e284p-4",
+      "endpoint_format": "IEEE754_BINARY64_HEX"
+    },
+    "source_abs_db_over_minus_dn": {
+      "lower_hex": "0x0p+0",
+      "upper_hex": "0x1.595142732791ep-2",
+      "endpoint_format": "IEEE754_BINARY64_HEX"
+    },
+    "candidate_terminal_Q": {
+      "lower_hex": "-0x1.2c9b28a01b4fcp+3",
+      "upper_hex": "-0x1.238a2cffc8f7ap+3",
+      "endpoint_format": "IEEE754_BINARY64_HEX"
+    },
+    "candidate_source_u1_phase_domain_margin": {
+      "lower_hex": "0x1.1b4e588079148p-7",
+      "upper_hex": "0x1.1b60c3515acc1p-7",
+      "endpoint_format": "IEEE754_BINARY64_HEX"
+    },
+    "candidate_source_U": {
+      "lower_hex": "0x1.1b58c633fa3adp-7",
+      "upper_hex": "0x1.1bbb9f0ce7af9p-7",
+      "endpoint_format": "IEEE754_BINARY64_HEX"
+    },
+    "candidate_seam_P": {
+      "lower_hex": "-0x1.d33f7cc522538p-4",
+      "upper_hex": "-0x1.d3050329eec79p-4",
+      "endpoint_format": "IEEE754_BINARY64_HEX"
+    },
+    "candidate_pre_seam_U_margin": {
+      "lower_hex": "0x1.d47bcfd66e2e1p-6",
+      "upper_hex": "0x1.36d300b4c133cp-4",
+      "endpoint_format": "IEEE754_BINARY64_HEX"
+    },
+    "candidate_dense_W": {
+      "lower_hex": "0x1.aa22bb9b0aa2dp-7",
+      "upper_hex": "0x1.94a4ff7153e4dp+0",
+      "endpoint_format": "IEEE754_BINARY64_HEX"
+    },
+    "parameter_variation_budget": {
+      "lower_hex": "0x0p+0",
+      "upper_hex": "0x1.b8a43a74c6a09p-15",
+      "endpoint_format": "IEEE754_BINARY64_HEX"
+    },
+    "source_excursion_budget": {
+      "lower_hex": "0x1.1d3671ac14c62p-15",
+      "upper_hex": "0x1.1d3671ac14c6bp-15",
+      "endpoint_format": "IEEE754_BINARY64_HEX"
+    },
+    "incidence_base_margin": {
+      "lower_hex": "0x1.1aca60d332dep-17",
+      "upper_hex": "0x1.14d2f5dbb9cffp-14",
+      "endpoint_format": "IEEE754_BINARY64_HEX"
+    }
+  },
+  "gates": {
+    "anchor_faces": true,
+    "exact_source_zero_energy_identity": true,
+    "theta_coordinate_regular": true,
+    "complete_graph_error_half_union": true,
+    "complete_phase_slab_union": true,
+    "continuation_faces": true,
+    "anchor_faces_by_half": [
+      true,
+      true
+    ],
+    "continuation_faces_by_half": [
+      true,
+      true
+    ],
+    "root_derivatives": true,
+    "fixed_eta_n_theta_negative": true,
+    "exterior_seam_P_negative": true,
+    "source_slope_below_17_over_50": true,
+    "graph_slope_contraction": true,
+    "negative_K1_sheet_patch": true,
+    "regular_source_to_terminal_passage": true,
+    "base_budget": true,
+    "nonempty_candidates": true
+  },
+  "rounding_self_test": {
+    "status": "PASS"
+  },
+  "claim_boundary": {
+    "established_if_pass": "one parameter cell has a unique transverse true-source incidence with every admissible V5 lower graph in the prescribed source-phase component",
+    "open_scope": [
+      "complete v2 parameter cover",
+      "claim-bearing composite theorem"
+    ]
+  }
+}

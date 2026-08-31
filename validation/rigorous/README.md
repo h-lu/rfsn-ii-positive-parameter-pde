@@ -447,7 +447,11 @@ target-box corner loses the strict \(W>0\) enclosure and therefore has
 status `INCONCLUSIVE`, as recorded in
 [`P2E_ALG_FIXED_PHASE_OBSTRUCTION_REPORT.md`](P2E_ALG_FIXED_PHASE_OBSTRUCTION_REPORT.md).
 This does not refute the V2 gate orbit, and it is distinct from the moving
-V5 source-to-future-graph match.  The ALG match, joint incidence and
+V5 source-to-future-graph match.  The latter now has a strict
+representative-cell proof of unique transverse true-source incidence; see
+[`V5_SOURCE_INCIDENCE_REPORT.md`](V5_SOURCE_INCIDENCE_REPORT.md).  That
+certificate is deliberately non-claim-bearing until the same gates cover the
+complete v2 parameter box.  The uniform ALG match, joint incidence and
 exhaustive census, \(m_{\rm ax}\), transported traces, and
 `V2.EVENT_ATLAS` remain open.  In particular, no claim is made for the whole
 fixed \(|\nu|\le2^{-55}\) disk.
