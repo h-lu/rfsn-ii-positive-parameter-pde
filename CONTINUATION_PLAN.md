@@ -48,7 +48,7 @@ remain authoritative.
   interval representation loses \(W>0\); this is not a nonexistence result
   and is not the moving V5 matched exit.  The V4 terminal graph now pulls
   back through a finite \(K_1\) tube with base half-width
-  \(1.3\times10^{-4}\), one representative v2 cell has a strict
+  \(27/200000=1.35\times10^{-4}\), one representative v2 cell has a strict
   interval-Newton true-source incidence `PASS`, and the eight-group
   candidate-hull kernel passes the disclosed lower, centre, and upper cells.
   These results remain

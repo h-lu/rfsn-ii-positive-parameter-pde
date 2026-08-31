@@ -16,19 +16,19 @@
   ],
   "phase_cover": {
     "continuation_face": "1/25000",
-    "slab_count": 16,
+    "slab_count": 8,
     "graph_error_halves": 2,
     "anchor_graph_error_slices": 8,
     "anchor_interval_newton_evaluations": 16,
-    "zero_candidate_evaluations": 22,
+    "zero_candidate_evaluations": 12,
     "zero_candidate_evaluations_by_half": [
-      11,
-      11
+      6,
+      6
     ],
-    "graph_tube_candidate_evaluations": 22,
+    "graph_tube_candidate_evaluations": 12,
     "graph_tube_candidate_evaluations_by_half": [
-      11,
-      11
+      6,
+      6
     ],
     "exterior_evaluations": 12,
     "terminal_affine_subboxes_per_evaluation": 2048,
@@ -37,42 +37,26 @@
   "merged_root_exterior": {
     "route": "UNIFORM_PHASE_GROUPS_PER_GRAPH_ERROR_HALF",
     "group_count_per_half": 8,
-    "slabs_per_group": 2,
+    "slabs_per_group": 1,
     "selected_slab_mask_by_half": [
       [
         false,
-        false,
-        false,
         true,
         true,
         true,
         true,
         true,
         true,
-        true,
-        true,
-        true,
-        true,
-        true,
-        false,
         false
       ],
       [
         false,
-        false,
-        false,
         true,
         true,
         true,
         true,
         true,
         true,
-        true,
-        true,
-        true,
-        true,
-        true,
-        false,
         false
       ]
     ],
@@ -80,33 +64,33 @@
       [
         null,
         {
-          "lower_hex": "-0x1.a36e2eb1c4336p-16",
+          "lower_hex": "-0x1.f75104d551d72p-16",
           "upper_hex": "-0x1.4f8b588e368e9p-16",
           "endpoint_format": "IEEE754_BINARY64_HEX"
         },
         {
           "lower_hex": "-0x1.4f8b588e368fdp-16",
-          "upper_hex": "-0x1.4f8b588e368ddp-17",
+          "upper_hex": "-0x1.4f8b588e368dcp-17",
           "endpoint_format": "IEEE754_BINARY64_HEX"
         },
         {
-          "lower_hex": "-0x1.4f8b588e36909p-17",
-          "upper_hex": "0x1.8cp-65",
+          "lower_hex": "-0x1.4f8b588e3690ap-17",
+          "upper_hex": "0x1.58p-65",
           "endpoint_format": "IEEE754_BINARY64_HEX"
         },
         {
-          "lower_hex": "-0x1.06p-64",
-          "upper_hex": "0x1.4f8b588e36911p-17",
+          "lower_hex": "-0x1.2cp-64",
+          "upper_hex": "0x1.4f8b588e3690ep-17",
           "endpoint_format": "IEEE754_BINARY64_HEX"
         },
         {
-          "lower_hex": "0x1.4f8b588e368cbp-17",
+          "lower_hex": "0x1.4f8b588e368cap-17",
           "upper_hex": "0x1.4f8b588e36901p-16",
           "endpoint_format": "IEEE754_BINARY64_HEX"
         },
         {
-          "lower_hex": "0x1.4f8b588e368dbp-16",
-          "upper_hex": "0x1.f75104d551d7dp-16",
+          "lower_hex": "0x1.4f8b588e368ddp-16",
+          "upper_hex": "0x1.f75104d551d7bp-16",
           "endpoint_format": "IEEE754_BINARY64_HEX"
         },
         null
@@ -114,33 +98,33 @@
       [
         null,
         {
-          "lower_hex": "-0x1.a36e2eb1c4336p-16",
+          "lower_hex": "-0x1.f75104d551d72p-16",
           "upper_hex": "-0x1.4f8b588e368e9p-16",
           "endpoint_format": "IEEE754_BINARY64_HEX"
         },
         {
           "lower_hex": "-0x1.4f8b588e368fdp-16",
-          "upper_hex": "-0x1.4f8b588e368ddp-17",
+          "upper_hex": "-0x1.4f8b588e368dcp-17",
           "endpoint_format": "IEEE754_BINARY64_HEX"
         },
         {
-          "lower_hex": "-0x1.4f8b588e36909p-17",
-          "upper_hex": "0x1.8cp-65",
+          "lower_hex": "-0x1.4f8b588e3690ap-17",
+          "upper_hex": "0x1.58p-65",
           "endpoint_format": "IEEE754_BINARY64_HEX"
         },
         {
-          "lower_hex": "-0x1.06p-64",
-          "upper_hex": "0x1.4f8b588e36911p-17",
+          "lower_hex": "-0x1.2cp-64",
+          "upper_hex": "0x1.4f8b588e3690ep-17",
           "endpoint_format": "IEEE754_BINARY64_HEX"
         },
         {
-          "lower_hex": "0x1.4f8b588e368cbp-17",
+          "lower_hex": "0x1.4f8b588e368cap-17",
           "upper_hex": "0x1.4f8b588e36901p-16",
           "endpoint_format": "IEEE754_BINARY64_HEX"
         },
         {
-          "lower_hex": "0x1.4f8b588e368dbp-16",
-          "upper_hex": "0x1.f75104d551d7dp-16",
+          "lower_hex": "0x1.4f8b588e368ddp-16",
+          "upper_hex": "0x1.f75104d551d7bp-16",
           "endpoint_format": "IEEE754_BINARY64_HEX"
         },
         null
@@ -199,30 +183,30 @@
     "actual_eta_phi_used_only_in_source_slope": true
   },
   "target_graph_contract": {
-    "base_half_width": "13/100000",
+    "base_half_width": "27/200000",
     "normal_half_width": "1/10000",
     "slope_bound": "7/10",
     "source_slope_limit": "1/2"
   },
   "enclosures": {
     "anchor_aligned": {
-      "lower_hex": "-0x1.0320483bf39f7p-19",
-      "upper_hex": "-0x1.e012498c02f29p-20",
+      "lower_hex": "-0x1.0343e0d2b72f8p-19",
+      "upper_hex": "-0x1.df7a4223a763ap-20",
       "endpoint_format": "IEEE754_BINARY64_HEX"
     },
     "anchor_root_phase": {
-      "lower_hex": "-0x1.1eb1e869c70dep-27",
-      "upper_hex": "0x1.98e2777ac13e8p-26",
+      "lower_hex": "-0x1.227968e2c5ea2p-27",
+      "upper_hex": "0x1.9e46519faf966p-26",
       "endpoint_format": "IEEE754_BINARY64_HEX"
     },
     "anchor_root_normal": {
-      "lower_hex": "-0x1.f0461281ca9cap-17",
-      "upper_hex": "0x1.9c62024454985p-17",
+      "lower_hex": "-0x1.fe6e724d72f11p-17",
+      "upper_hex": "0x1.a2d23c67c89b7p-17",
       "endpoint_format": "IEEE754_BINARY64_HEX"
     },
     "continuation_n_theta": {
-      "lower_hex": "-0x1.1237ccf212c5ap+11",
-      "upper_hex": "-0x1.df5d6d9c8c8fdp+9",
+      "lower_hex": "-0x1.174b8e8ec13acp+11",
+      "upper_hex": "-0x1.d920c68b9ba24p+9",
       "endpoint_format": "IEEE754_BINARY64_HEX"
     },
     "fixed_eta_b_on_n_zero_parameter_derivative": [
@@ -244,47 +228,47 @@
     ],
     "fixed_eta_n_theta": {
       "lower_hex": "-0x1.f275b9138e31cp+10",
-      "upper_hex": "-0x1.fbeedf6055ec8p+9",
+      "upper_hex": "-0x1.edf86f3f8934ap+9",
       "endpoint_format": "IEEE754_BINARY64_HEX"
     },
     "exterior_seam_P": {
-      "lower_hex": "-0x1.d54a0e6389f81p-4",
+      "lower_hex": "-0x1.d54aa1c3a36a7p-4",
       "upper_hex": "-0x1.d50007f137434p-4",
       "endpoint_format": "IEEE754_BINARY64_HEX"
     },
     "source_abs_db_over_minus_dn": {
       "lower_hex": "0x0p+0",
-      "upper_hex": "0x1.7a5ede89d107dp-2",
+      "upper_hex": "0x1.a80d88b94fdfap-2",
       "endpoint_format": "IEEE754_BINARY64_HEX"
     },
     "candidate_terminal_Q": {
-      "lower_hex": "-0x1.2d27e973b185bp+3",
-      "upper_hex": "-0x1.234bc50768c21p+3",
+      "lower_hex": "-0x1.2d44f81c1eb41p+3",
+      "upper_hex": "-0x1.22cf05eb65d62p+3",
       "endpoint_format": "IEEE754_BINARY64_HEX"
     },
     "candidate_source_u1_phase_domain_margin": {
-      "lower_hex": "0x1.190bb3d8c4036p-7",
+      "lower_hex": "0x1.190b7ca31656dp-7",
       "upper_hex": "0x1.192d9c8077296p-7",
       "endpoint_format": "IEEE754_BINARY64_HEX"
     },
     "candidate_source_U": {
-      "lower_hex": "0x1.191a4dd532f77p-7",
-      "upper_hex": "0x1.1981f3d80413dp-7",
+      "lower_hex": "0x1.191a16825337p-7",
+      "upper_hex": "0x1.1981f3e155feep-7",
       "endpoint_format": "IEEE754_BINARY64_HEX"
     },
     "candidate_seam_P": {
-      "lower_hex": "-0x1.d54acf9509795p-4",
-      "upper_hex": "-0x1.d4ff855095e18p-4",
+      "lower_hex": "-0x1.d54b636a75b1p-4",
+      "upper_hex": "-0x1.d4ff46621488bp-4",
       "endpoint_format": "IEEE754_BINARY64_HEX"
     },
     "candidate_pre_seam_U_margin": {
-      "lower_hex": "0x1.e5cfc1dcdafb2p-6",
-      "upper_hex": "0x1.37ec38a0e1674p-4",
+      "lower_hex": "0x1.e5cfc0be2a9b3p-6",
+      "upper_hex": "0x1.37ec5bef8820ep-4",
       "endpoint_format": "IEEE754_BINARY64_HEX"
     },
     "candidate_dense_W": {
-      "lower_hex": "0x1.adcc6353910b4p-7",
-      "upper_hex": "0x1.95d32acc37a34p+0",
+      "lower_hex": "0x1.adcc62777519dp-7",
+      "upper_hex": "0x1.9d35ef900c53fp+0",
       "endpoint_format": "IEEE754_BINARY64_HEX"
     },
     "parameter_variation_budget": {
@@ -294,12 +278,12 @@
     },
     "source_excursion_budget": {
       "lower_hex": "0x0p+0",
-      "upper_hex": "0x1.35f610017cf42p-15",
+      "upper_hex": "0x1.5b6254f879239p-15",
       "endpoint_format": "IEEE754_BINARY64_HEX"
     },
     "incidence_base_margin": {
-      "lower_hex": "0x1.27f3911e7708p-20",
-      "upper_hex": "0x1.10a137f38c545p-13",
+      "lower_hex": "0x1.b851234a443p-20",
+      "upper_hex": "0x1.1b1d92b7fe08dp-13",
       "endpoint_format": "IEEE754_BINARY64_HEX"
     }
   },

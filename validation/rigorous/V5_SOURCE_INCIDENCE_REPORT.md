@@ -8,7 +8,7 @@ target graph is \(C^1\), in particular for the actual \(C^3\) finite-\(K_1\)
 pullback graph:
 
 \[
- |b|\le B=1.3\times10^{-4},
+ |b|\le B=1.35\times10^{-4}=\frac{27}{200000},
  \qquad |g(b)|<N=10^{-4},
  \qquad \operatorname{Lip}(g)\le \frac7{10}.
  \tag{1}
@@ -231,7 +231,7 @@ argument rather than by fixed narrow phase faces.  Let
  \qquad F(\theta,\eta)=n(\mu_c,\theta,\eta),
 \]
 
-where \(\mu_c\) is the cell centre.  The 16 exact phase slabs and two closed
+where \(\mu_c\) is the cell centre.  The eight exact phase slabs and two closed
 \(\eta\) half-tubes give one enclosure
 
 \[
@@ -270,39 +270,39 @@ coordinate at fixed \((W,Q)\).  Every division in (14)--(15), including
 those in the terminal affine subdivisions, is made only after proving
 \(n_\theta<0\).
 
-The continuation strip \(|\theta|\le1/25000\) is covered by 16 exact slabs
-and both \(\eta\) half-tubes.  Twenty slab/half-tube evaluations meet
-\(n=0\), and twenty meet \(|n|\le N\).  The resulting outward-rounded
+The continuation strip \(|\theta|\le1/25000\) is covered by eight exact slabs
+and both \(\eta\) half-tubes.  Twelve slab/half-tube evaluations meet
+\(n=0\), and the same twelve meet \(|n|\le N\).  The resulting outward-rounded
 enclosures can be summarized conservatively as follows.
 
 | Quantity | Rigorous enclosure or one-sided bound |
 |---|---:|
-| centre-cell anchor \(c=b\) on the Newton root | \([-3.305\times10^{-6},-2.757\times10^{-6}]\) |
-| anchor root phase over all eight \(\eta\)-slices | \([-8.357,8.003]\times10^{-8}\) |
-| \(n_\theta\) on the continuation cover | \([-2078.83,-924.92]\) |
-| \(\partial_r b\) on \(n=0\), fixed \(\eta\) | \([-0.012317,0.009023]\) |
-| \(\partial_{a_2} b\) on \(n=0\), fixed \(\eta\) | \([-0.000801,0.000582]\) |
-| \(\partial_\epsilon b\) on \(n=0\), fixed \(\eta\) | \([-0.010001,0.008185]\) |
-| \(|db/dn|\) along the true source for \(|n|\le N\) | at most \(0.337225<1/2\) |
-| terminal \(Q\) on candidate slabs | \([-9.394,-9.110]\subset(-19/2,-9)\) |
-| parameter-variation budget | at most \(5.253\times10^{-5}\) |
-| source excursion \(\rho_{\rm src}N\) | at most \(3.373\times10^{-5}\) |
-| remaining base margin | at least \(4.044\times10^{-5}>0\) |
+| centre-cell anchor \(c=b\) on the Newton root | \([-3.313\times10^{-6},-2.750\times10^{-6}]\) |
+| anchor root phase over all eight \(\eta\)-slices | \([-8.466,8.108]\times10^{-8}\) |
+| \(n_\theta\) on the continuation cover | \([-2117.29,-912.95]\) |
+| \(\partial_r b\) on \(n=0\), fixed \(\eta\) | \([-0.014693,0.010124]\) |
+| \(\partial_{a_2} b\) on \(n=0\), fixed \(\eta\) | \([-0.000978,0.000703]\) |
+| \(\partial_\epsilon b\) on \(n=0\), fixed \(\eta\) | \([-0.012341,0.009694]\) |
+| \(|db/dn|\) along the true source for \(|n|\le N\) | at most \(0.394739<1/2\) |
+| terminal \(Q\) on candidate slabs | \([-9.418,-9.095]\subset(-19/2,-9)\) |
+| parameter-variation budget | at most \(6.477\times10^{-5}\) |
+| source excursion \(\rho_{\rm src}N\) | at most \(3.948\times10^{-5}\) |
+| remaining base margin | at least \(2.745\times10^{-5}>0\) |
 
 More explicitly, (15) and the half-widths of (2) imply
 
 \[
- \Delta_{\mu}b\le5.253\times10^{-5}.
+ \Delta_{\mu}b\le6.477\times10^{-5}.
 \]
 
 Together with the anchor and source-slope bounds,
 
 \[
  |b|
- \le 3.305\times10^{-6}
-     +5.253\times10^{-5}
-     +0.337225\times10^{-4}
- <1.3\times10^{-4}=B.
+ \le 3.313\times10^{-6}
+     +6.477\times10^{-5}
+     +0.394739\times10^{-4}
+ <1.35\times10^{-4}=B.
  \tag{16}
 \]
 
@@ -317,7 +317,7 @@ segment inside \(|b|\le B\), where \(g\) is defined.  Consequently
 \[
  h_\theta
  \le -(1-\tfrac7{10}\rho_{\rm src})(-n_\theta)<0,
- \qquad \rho_{\rm src}\le0.337225.
+ \qquad \rho_{\rm src}\le0.394739.
  \tag{17}
 \]
 
@@ -335,17 +335,21 @@ The expensive part of the cell proof is the exterior-product propagation
 used in (15).  It need not be repeated on every zero-candidate slab.  For
 each fixed \((\mu,\eta)\), the two continuation-face signs and
 \(n_\theta<0\) give exactly one zero \(\theta_*(\mu,\eta)\).  The complete
-16-slab cover contains that zero in at least one slab.  A valid interval
+eight-slab cover contains that zero in at least one slab.  A valid interval
 evaluation on this slab necessarily contains \(0\) in its image of \(n\), so
 the slab is selected by the test `n.contains(0)`.
 
-The implementation partitions the 16 slabs into eight fixed adjacent groups
-inside each \(\eta\) half-tube.  Within every group it takes the hull of all
-selected slabs and performs (15) once on that hull.  Taking a hull can only
-enlarge the selected set, so the resulting derivative enclosures cover the
-entire root branch.  Groups without a selected slab are skipped.  This is a
-covering argument, not a heuristic root predictor; the phase predictor still
-enters only as the coordinate centring described above.
+The implementation assigns the eight slabs to eight fixed groups inside each
+\(\eta\) half-tube.  Within every group it takes the hull of all selected
+slabs and performs (15) once on that hull.  Taking a hull can only enlarge the
+selected set, so the resulting derivative enclosures cover the entire root
+branch.  Groups without a selected slab are skipped.  With the present
+eight-slab cover each group contains one slab; the grouped representation is
+retained because the proof remains valid if later refinements place several
+adjacent slabs in one group.  No exterior-evaluation reduction is claimed for
+the three certificates below.  This is a covering argument, not a heuristic
+root predictor; the phase predictor still enters only as the coordinate
+centring described above.
 
 The program also re-evaluates (n) on every selected hull and requires its
 interval image to contain zero.  This is a conservative consistency gate,
@@ -358,12 +362,14 @@ The same uniform eight-group rule was run on three disclosed cells:
 
 | cell | exterior evaluations | parameter budget | strict base margin |
 |---|---:|---:|---:|
-| lower \((0,0,0)\) | 12 instead of 22 | \(9.002\times10^{-5}\) | \(1.102\times10^{-6}\) |
-| centre \((32,64,20)\) | 12 instead of 20 | \(5.429\times10^{-5}\) | \(3.869\times10^{-5}\) |
-| upper \((63,127,39)\) | 12 instead of 22 | \(7.082\times10^{-5}\) | \(1.132\times10^{-5}\) |
+| lower \((0,0,0)\) | 12 | \(9.002\times10^{-5}\) | \(1.640\times10^{-6}\) |
+| centre \((32,64,20)\) | 12 | \(6.477\times10^{-5}\) | \(2.745\times10^{-5}\) |
+| upper \((63,127,39)\) | 12 | \(7.082\times10^{-5}\) | \(1.130\times10^{-5}\) |
 
 All local gates pass at all three cells.  In particular, the narrow positive
-margin at the lower corner is retained with outward rounding.  These results
+margin at the lower corner is retained with outward rounding.  Relative to
+the preceding 16-slab implementation, the complete ordinary phase scan has
+been halved while all proof gates remain strict.  These results
 establish the feasibility of the grouped kernel for the next adaptive-cover
 step.  They are three cell-level certificates, not point samples, but the
 cells are disjoint and control no untested cell.  They therefore do not
@@ -382,9 +388,9 @@ The three grouped samples are archived as
 [`centre`](results/vdp_v5_source_incidence_grouped_center_cell.json), and
 [`upper`](results/vdp_v5_source_incidence_grouped_upper_cell.json) cells.
 The current source SHA-256 is
-`a9b61adae0f5e27fa564830566d87bcf38ce6b91af585cc8f4a66bbe549c34a9`.
+`977b7f440aa86d44524d8262cd5f609247deaca9db680722502575d09ae90b6c`.
 The original representative result's pretty-printed SHA-256 is
-`c6cb7275e9e76cf62032856d77a6041cb17dcf6f8343db914d2ce83492b0918d`.
+`8121bccb8ee1bd4e10c062a02f850ba7441c1faafe56d2a8f7ef0d48058396f3`.
 After compiling it against the repository's pinned strict CAPD/FILIB build,
 the representative certificate is generated by
 
@@ -395,9 +401,9 @@ The three grouped-kernel samples are generated by replacing
 `incidence-cell` with `incidence-merged-cell` and using respectively
 `0 0 0`, `32 64 20`, and `63 127 39` as the final indices.  Their archived
 result SHA-256 values are, in that order,
-`662d49f9eba90d5941a7ae0c6f9388c5de676d610544b591534379e959ad532b`,
-`da7f8435a3f0436eb892f0a04519b8b0a5e5fa44db5302f4409904c06529e1b3`,
-and `614366015b9127c05c491e6cdbda44befa54f3bb9bc1e72511e4b778dcf14b6a`.
+`138109aca9053abd52991c4d76d6c8d6dd47034732111dfc1914d38020111770`,
+`4bd649cf9f173603c53e2e14d587d03ba3bde772c7277f9d03b9b866ce9a1f6a`,
+and `e3dce1411e3110bbb9eea033127a2be29c90996b13ea3eb38b34a62b9f344dc9`.
 Each reports schema `rfsn-vdp-v5-source-incidence-merged-cell/1`, eight
 uniform phase groups per error half, and `claim_bearing=false`.
 
@@ -405,8 +411,8 @@ The output must report schema
 `rfsn-vdp-v5-source-incidence-cell/2`, mathematical status `PASS`, a passing
 rounding self-test, all incidence gates true, and `claim_bearing=false`.  Its
 anchor stage proves eight parameterized interval-Newton inclusions.  Its
-continuation stage finds ten zero candidates in each closed error half-tube
-and runs 2,048 terminal affine subboxes on each of the resulting 20 exterior
+continuation stage finds six zero candidates in each closed error half-tube
+and runs 2,048 terminal affine subboxes on each of the resulting 12 exterior
 evaluations.
 
 What is established is precisely the representative-cell statement at the

@@ -98,7 +98,7 @@ class V5SourceIncidenceRepresentativeCellTests(unittest.TestCase):
         self.assertEqual(self.result["rounding_self_test"]["status"], "PASS")
 
         phase_cover = self.result["phase_cover"]
-        self.assertEqual(phase_cover["slab_count"], 16)
+        self.assertEqual(phase_cover["slab_count"], 8)
         self.assertEqual(phase_cover["graph_error_halves"], 2)
         self.assertEqual(phase_cover["anchor_graph_error_slices"], 8)
         self.assertTrue(
@@ -142,7 +142,7 @@ class V5SourceIncidenceRepresentativeCellTests(unittest.TestCase):
             1.0 / 2.0,
         )
         contract = self.result["target_graph_contract"]
-        self.assertEqual(contract["base_half_width"], "13/100000")
+        self.assertEqual(contract["base_half_width"], "27/200000")
         self.assertEqual(contract["normal_half_width"], "1/10000")
         self.assertEqual(contract["slope_bound"], "7/10")
         terminal_q = enclosures["candidate_terminal_Q"]
@@ -184,6 +184,10 @@ class V5SourceIncidenceGroupedKernelSampleTests(unittest.TestCase):
             self.assertEqual(result["box_id"], "vdp-positive-box-v2")
             self.assertEqual(result["grid"], [64, 128, 40])
             self.assertEqual(
+                result["target_graph_contract"]["base_half_width"],
+                "27/200000",
+            )
+            self.assertEqual(
                 result["rounding_self_test"]["status"], "PASS"
             )
             self.assertIn(
@@ -206,14 +210,17 @@ class V5SourceIncidenceGroupedKernelSampleTests(unittest.TestCase):
                 grouped["route"],
                 "UNIFORM_PHASE_GROUPS_PER_GRAPH_ERROR_HALF",
             )
-            self.assertEqual(grouped["group_count_per_half"], 8)
-            self.assertEqual(grouped["slabs_per_group"], 2)
+            slab_count = phase_cover["slab_count"]
+            graph_error_halves = phase_cover["graph_error_halves"]
+            group_count = grouped["group_count_per_half"]
+            slabs_per_group = grouped["slabs_per_group"]
+            self.assertEqual(slab_count, 8)
+            self.assertEqual(graph_error_halves, 2)
+            self.assertEqual(group_count, 8)
+            self.assertEqual(slabs_per_group, 1)
+            self.assertEqual(group_count * slabs_per_group, slab_count)
             self.assertTrue(grouped["candidate_hull_consistency_gate"])
             self.assertTrue(grouped["kernel_gate"])
-            self.assertLess(
-                phase_cover["exterior_evaluations"],
-                phase_cover["zero_candidate_evaluations"],
-            )
             initialized_count = sum(
                 sum(half) for half in grouped[
                     "candidate_hull_initialized_by_half_and_group"
@@ -237,10 +244,12 @@ class V5SourceIncidenceGroupedKernelSampleTests(unittest.TestCase):
                 "candidate_hull_normal_image_contains_zero_by_half_and_group"
             ]
             selected_masks = grouped["selected_slab_mask_by_half"]
-            self.assertEqual(len(initialized), 2)
-            self.assertEqual(len(phase_hulls), 2)
-            self.assertEqual(len(normal_image_contains_zero), 2)
-            self.assertEqual(len(selected_masks), 2)
+            self.assertEqual(len(initialized), graph_error_halves)
+            self.assertEqual(len(phase_hulls), graph_error_halves)
+            self.assertEqual(
+                len(normal_image_contains_zero), graph_error_halves
+            )
+            self.assertEqual(len(selected_masks), graph_error_halves)
             continuation_face = 1.0 / 25000.0
             for half_index, (
                 initialized_half,
@@ -256,10 +265,10 @@ class V5SourceIncidenceGroupedKernelSampleTests(unittest.TestCase):
                     strict=True,
                 )
             ):
-                self.assertEqual(len(initialized_half), 8)
-                self.assertEqual(len(phase_hull_half), 8)
-                self.assertEqual(len(normal_image_half), 8)
-                self.assertEqual(len(selected_mask), 16)
+                self.assertEqual(len(initialized_half), group_count)
+                self.assertEqual(len(phase_hull_half), group_count)
+                self.assertEqual(len(normal_image_half), group_count)
+                self.assertEqual(len(selected_mask), slab_count)
                 self.assertEqual(
                     sum(selected_mask),
                     phase_cover["zero_candidate_evaluations_by_half"][
@@ -267,10 +276,12 @@ class V5SourceIncidenceGroupedKernelSampleTests(unittest.TestCase):
                     ],
                 )
                 self.assertTrue(any(initialized_half))
-                for group in range(8):
+                for group in range(group_count):
+                    group_start = group * slabs_per_group
+                    group_stop = group_start + slabs_per_group
                     self.assertEqual(
                         initialized_half[group],
-                        any(selected_mask[2 * group:2 * group + 2]),
+                        any(selected_mask[group_start:group_stop]),
                     )
                 self.assertTrue(
                     all(
@@ -293,19 +304,22 @@ class V5SourceIncidenceGroupedKernelSampleTests(unittest.TestCase):
                 for slab_index, selected in enumerate(selected_mask):
                     if not selected:
                         continue
-                    group = slab_index // grouped["slabs_per_group"]
+                    group = slab_index // slabs_per_group
                     self.assertTrue(initialized_half[group])
                     hull = phase_hull_half[group]
                     slab_lower = (
                         -continuation_face
-                        + 2.0 * continuation_face * slab_index / 16.0
+                        + 2.0
+                        * continuation_face
+                        * slab_index
+                        / slab_count
                     )
                     slab_upper = (
                         -continuation_face
                         + 2.0
                         * continuation_face
                         * (slab_index + 1)
-                        / 16.0
+                        / slab_count
                     )
                     self.assertLessEqual(endpoint(hull, "lower"), slab_lower)
                     self.assertGreaterEqual(endpoint(hull, "upper"), slab_upper)

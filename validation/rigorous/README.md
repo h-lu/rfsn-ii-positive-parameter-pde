@@ -450,10 +450,13 @@ This does not refute the V2 gate orbit, and it is distinct from the moving
 V5 source-to-future-graph match.  The latter now has a strict
 representative-cell proof of unique transverse true-source incidence.  Its
 eight-group candidate-hull kernel additionally passes the disclosed lower,
-centre, and upper grid cells while reducing exterior-product propagations;
-these samples validate the kernel but do not interpolate to a full cover. Its
+centre, and upper grid cells.  The complete phase scan now uses eight slabs
+instead of the earlier sixteen, halving the ordinary slab scan.  Each sample
+has 12 candidates and 12 exterior propagations, so grouping itself is not
+claimed to reduce the exterior count; the samples validate the kernel but do
+not interpolate to a full cover. Its
 finite \(K_1\) graph contract separates the expanded base
-\(|b|\le1.3\times10^{-4}\) from the unchanged normal tube
+\(|b|\le27/200000=1.35\times10^{-4}\) from the unchanged normal tube
 \(|n|\le10^{-4}\), and its anchor is located by eight gap-free
 parameterized interval-Newton inclusions; see
 [`V5_SOURCE_INCIDENCE_REPORT.md`](V5_SOURCE_INCIDENCE_REPORT.md).  That

@@ -177,13 +177,13 @@ class V4AdaptedZeroTubeProbeTests(unittest.TestCase):
             endpoint(
                 coverage["enclosures"]["K1_b_at_outer_minus"], "upper"
             ),
-            -13e-5,
+            -13.5e-5,
         )
         self.assertGreater(
             endpoint(
                 coverage["enclosures"]["K1_b_at_outer_plus"], "lower"
             ),
-            13e-5,
+            13.5e-5,
         )
         k1_n = coverage["enclosures"]["K1_n"]
         self.assertGreaterEqual(endpoint(k1_n, "lower"), -1e-4)

@@ -114,7 +114,7 @@ interval graphC0() { return rational(1, 200000); }
 interval graphPhaseC1() { return rational(3, 1000000); }
 interval thetaFace() { return rational(4, 25000000); }
 interval thetaHalfWidth() { return rational(1, 1000000000); }
-interval lowerGraphBaseHalfWidth() { return rational(13, 100000); }
+interval lowerGraphBaseHalfWidth() { return rational(27, 200000); }
 interval lowerGraphNormalHalfWidth() { return rational(1, 10000); }
 interval lowerGraphSlope() { return rational(7, 10); }
 
@@ -1660,7 +1660,7 @@ void printResult(const Aggregate& aggregate, int rCount, int aCount,
             << "\"theta_coordinate_jacobian_lower\":"
             << intervalJson(coordinateJacobian) << "},"
             << "\"target_graph_contract\":{"
-            << "\"base_half_width\":\"13/100000\","
+            << "\"base_half_width\":\"27/200000\","
             << "\"normal_half_width\":\"1/10000\","
             << "\"slope_bound\":\"7/10\"},"
             << "\"enclosures\":{"
@@ -1783,7 +1783,7 @@ int main(int argc, char** argv) {
         offsets[parameter] = cell[parameter] - centreCell[parameter];
       }
       const interval continuationFace = rational(1, 25000);
-      constexpr int slabCount = 16;
+      constexpr int slabCount = 8;
       constexpr int graphErrorHalfCount = 2;
       constexpr int anchorGraphSliceCount = 8;
       constexpr int mergedExteriorGroupCount = 8;
@@ -2036,7 +2036,8 @@ int main(int argc, char** argv) {
         // (parameter, eta).  Its phase lies in a slab whose interval image
         // contains zero, so the hulls of all selected slabs cover the entire
         // root branch.  Enlarging those hulls to fixed adjacent phase groups
-        // preserves containment while reducing the expensive C1 propagations.
+        // preserves containment and permits coalescing whenever more than one
+        // selected slab belongs to the same group.
         mergedExteriorGate = true;
         mergedCandidateHullsNCompatible = true;
         std::array<bool, graphErrorHalfCount>
@@ -2299,7 +2300,7 @@ int main(int argc, char** argv) {
                 << "\"coordinate_shift_wedge_invariance\":true,"
                 << "\"actual_eta_phi_used_only_in_source_slope\":true},"
                 << "\"target_graph_contract\":{"
-                << "\"base_half_width\":\"13/100000\","
+                << "\"base_half_width\":\"27/200000\","
                 << "\"normal_half_width\":\"1/10000\","
                 << "\"slope_bound\":\"7/10\","
                 << "\"source_slope_limit\":\"1/2\"},"

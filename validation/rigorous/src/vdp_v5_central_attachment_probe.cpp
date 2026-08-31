@@ -265,7 +265,7 @@ int main() {
     constexpr long kEpsilonSlabs = 8;
     constexpr long kBSlabs = 8;
     constexpr long kNSlabs = 8;
-    const Interval bRadius = rational(13, 100000);
+    const Interval bRadius = rational(27, 200000);
     const Interval nRadius = rational(1, 10000);
     Aggregate aggregate;
     std::size_t cellCount = 0;

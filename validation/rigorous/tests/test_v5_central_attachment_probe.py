@@ -96,8 +96,8 @@ class V5CentralAttachmentProbeTests(unittest.TestCase):
             },
         )
         b_tube = self.result["tube"]["b"]
-        self.assertLessEqual(endpoint(b_tube, "lower"), -13e-5)
-        self.assertGreaterEqual(endpoint(b_tube, "upper"), 13e-5)
+        self.assertLessEqual(endpoint(b_tube, "lower"), -13.5e-5)
+        self.assertGreaterEqual(endpoint(b_tube, "upper"), 13.5e-5)
         n_tube = self.result["tube"]["n"]
         self.assertLessEqual(endpoint(n_tube, "lower"), -1e-4)
         self.assertGreaterEqual(endpoint(n_tube, "upper"), 1e-4)

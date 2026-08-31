@@ -45,7 +45,8 @@ on
  r\in[1/100,1/50],\qquad a_2\in[-1/4,1/4],\qquad
  \epsilon\in[4/5,6/5],\\
  r\sqrt{4+ra_2}\le r_1\le2,qquad
- |b|\le1.3\times10^{-4},\qquad |n|\le10^{-4},\qquad H=0.
+ |b|\le27/200000=1.35\times10^{-4},\qquad
+ |n|\le10^{-4},\qquad H=0.
 \end{gathered}
 \tag{2}
 \]
@@ -139,20 +140,20 @@ The positive branch and clocks satisfy
 
 | Quantity | Rigorous enclosure |
 |---|---:|
-| \(q_1^2\) | \([1.2146765761716976,3.5522684449708906]\) |
-| \(q_1\) | \([1.1021236664602105,1.884746254796887]\) |
-| \(\Pi\) | \([0.2686218927886684,0.611245132169846]\) |
-| \(r_1'\) | \([6.555218919036329\!\times10^{-6},0.0037540388792403944]\) |
-| positive scale (6) | \([8.794774425385345\!\times10^{-6},0.0061974749936906355]\) |
+| \(q_1^2\) | \([1.2146722047805622,3.5522684478707479]\) |
+| \(q_1\) | \([1.1021216832911699,1.8847462555661834]\) |
+| \(\Pi\) | \([0.26861689278866834,0.61125013216984592]\) |
+| \(r_1'\) | \([6.5551139254057700\!\times10^{-6},0.0037540725049154743]\) |
+| positive scale (6) | \([8.7946335612420901\!\times10^{-6},0.0061975305057103978]\) |
 
 The oriented face margins for (6) are
 
 | Face | Rigorous lower margin |
 |---|---:|
-| \(b=+1.3\times10^{-4}\), inward | \(1.3127700554053793\times10^{-4}\) |
-| \(b=-1.3\times10^{-4}\), inward | \(1.3310569826198603\times10^{-4}\) |
-| \(n=+10^{-4}\), outward | \(7.863414504722722\times10^{-5}\) |
-| \(n=-10^{-4}\), outward | \(7.477194903315319\times10^{-5}\) |
+| \(b=+27/200000\), inward | \(1.4135678928937683\times10^{-4}\) |
+| \(b=-27/200000\), inward | \(1.4318542671442742\times10^{-4}\) |
+| \(n=+10^{-4}\), outward | \(7.7550534467252710\times10^{-5}\) |
+| \(n=-10^{-4}\), outward | \(7.3688728330690357\times10^{-5}\) |
 
 Write the Jacobian of the unscaled \(r_1\)-time \((b,n)\) generator as
 
@@ -170,7 +171,7 @@ On every cover cell the probe evaluates the correlated pointwise margin
 The minimum over the complete gap-free cover is
 
 \[
- M\ge308.53197710214516>0.
+ M\ge308.48902766772243>0.
  \tag{8}
 \]
 
@@ -178,11 +179,11 @@ For diagnostics, the four extrema aggregated independently over the whole
 cover are
 
 \[
- c\le-343.44786957761136,\quad |\beta|\le403.21795637619476,
+ c\le-343.43018687527393,\quad |\beta|\le418.67811558015598,
 \]
 
 \[
- |\delta|\le310.553324271202,\quad a\ge335.13918837250856.
+ |\delta|\le310.56493043329414,\quad a\ge335.13614514320471.
 \]
 
 Those extrema occur in different cells and are not recombined into a proof
@@ -199,7 +200,8 @@ remain in the tube.
 Let
 
 \[
- B=1.3\times10^{-4},\qquad N=10^{-4},\qquad \rho=7/10,\qquad
+ B=27/200000=1.35\times10^{-4},\qquad
+ N=10^{-4},\qquad \rho=7/10,\qquad
  r_-(\mu)=r\sqrt{4+ra_2},
 \]
 
@@ -314,7 +316,7 @@ with the pinned strict CAPD/FILIB build, or set `RFSN_CAPD_CONFIG` to its
 The machine field `claim_bearing=false` is deliberate.  This calculation,
 together with the separate V4 seam certificate, proves that its **fixed** V4
 terminal graph pulls back on every parameter slice to the complete graph
-\(n=g^-_\mu(b)\) on \(|b|\le1.3\times10^{-4}\) at \(U=-4\), with
+\(n=g^-_\mu(b)\) on \(|b|\le27/200000=1.35\times10^{-4}\) at \(U=-4\), with
 \(|g^-_\mu|<10^{-4}\) and
 \(\operatorname{Lip}(g^-_\mu)\le7/10\).  Uniqueness is relative to that
 fixed terminal graph; it is not a uniqueness assertion for every invariant
