@@ -100,7 +100,7 @@ class V5SourceIncidenceRepresentativeCellTests(unittest.TestCase):
         phase_cover = self.result["phase_cover"]
         self.assertEqual(phase_cover["slab_count"], 8)
         self.assertEqual(phase_cover["graph_error_halves"], 2)
-        self.assertEqual(phase_cover["anchor_graph_error_slices"], 8)
+        self.assertEqual(phase_cover["anchor_graph_error_slices"], 4)
         self.assertTrue(
             all(self.result["gates"]["anchor_interval_newton_by_slice"])
         )

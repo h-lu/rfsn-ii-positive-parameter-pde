@@ -18,8 +18,8 @@
     "continuation_face": "1/25000",
     "slab_count": 8,
     "graph_error_halves": 2,
-    "anchor_graph_error_slices": 8,
-    "anchor_interval_newton_evaluations": 16,
+    "anchor_graph_error_slices": 4,
+    "anchor_interval_newton_evaluations": 8,
     "zero_candidate_evaluations": 12,
     "zero_candidate_evaluations_by_half": [
       6,
@@ -190,18 +190,18 @@
   },
   "enclosures": {
     "anchor_aligned": {
-      "lower_hex": "-0x1.0343e0d2b72f8p-19",
-      "upper_hex": "-0x1.df7a4223a763ap-20",
+      "lower_hex": "-0x1.0b7aaebd9b8dep-19",
+      "upper_hex": "-0x1.ccab8c08b4a6ep-20",
       "endpoint_format": "IEEE754_BINARY64_HEX"
     },
     "anchor_root_phase": {
-      "lower_hex": "-0x1.227968e2c5ea2p-27",
-      "upper_hex": "0x1.9e46519faf966p-26",
+      "lower_hex": "-0x1.b0dbc6937fe84p-27",
+      "upper_hex": "0x1.e7a0147343a84p-26",
       "endpoint_format": "IEEE754_BINARY64_HEX"
     },
     "anchor_root_normal": {
-      "lower_hex": "-0x1.fe6e724d72f11p-17",
-      "upper_hex": "0x1.a2d23c67c89b7p-17",
+      "lower_hex": "-0x1.d5f0ae117adb8p-16",
+      "upper_hex": "0x1.8cc97aa259c72p-16",
       "endpoint_format": "IEEE754_BINARY64_HEX"
     },
     "continuation_n_theta": {
@@ -282,7 +282,7 @@
       "endpoint_format": "IEEE754_BINARY64_HEX"
     },
     "incidence_base_margin": {
-      "lower_hex": "0x1.b851234a443p-20",
+      "lower_hex": "0x1.a7e387747b7p-20",
       "upper_hex": "0x1.1b1d92b7fe08dp-13",
       "endpoint_format": "IEEE754_BINARY64_HEX"
     }
@@ -301,17 +301,9 @@
       true,
       true,
       true,
-      true,
-      true,
-      true,
-      true,
       true
     ],
     "anchor_root_contains_zero_by_slice": [
-      true,
-      true,
-      true,
-      true,
       true,
       true,
       true,

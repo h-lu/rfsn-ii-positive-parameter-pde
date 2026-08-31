@@ -1785,7 +1785,7 @@ int main(int argc, char** argv) {
       const interval continuationFace = rational(1, 25000);
       constexpr int slabCount = 8;
       constexpr int graphErrorHalfCount = 2;
-      constexpr int anchorGraphSliceCount = 8;
+      constexpr int anchorGraphSliceCount = 4;
       constexpr int mergedExteriorGroupCount = 8;
       static_assert(slabCount % mergedExteriorGroupCount == 0);
       constexpr int mergedExteriorSlabsPerGroup =

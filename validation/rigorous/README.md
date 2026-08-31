@@ -457,7 +457,7 @@ claimed to reduce the exterior count; the samples validate the kernel but do
 not interpolate to a full cover. Its
 finite \(K_1\) graph contract separates the expanded base
 \(|b|\le27/200000=1.35\times10^{-4}\) from the unchanged normal tube
-\(|n|\le10^{-4}\), and its anchor is located by eight gap-free
+\(|n|\le10^{-4}\), and its anchor is located by four gap-free
 parameterized interval-Newton inclusions; see
 [`V5_SOURCE_INCIDENCE_REPORT.md`](V5_SOURCE_INCIDENCE_REPORT.md).  That
 certificate is deliberately non-claim-bearing until the same gates cover the
