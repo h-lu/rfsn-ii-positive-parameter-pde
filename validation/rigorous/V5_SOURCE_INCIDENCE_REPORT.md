@@ -257,6 +257,12 @@ bound without cancellation.  The four closed slices cover the same complete
 \(\eta\)-tube as the preceding eight-slice implementation and reduce the
 anchor stage from sixteen to eight interval evaluations; every slice retains
 a strict Newton inclusion and a root-image enclosure containing zero.
+When the parameter cell is an exact point cell, the implementation also
+checks that all three offset intervals equal \([0,0]\) before reusing the
+already verified terminal enclosure as its centre-parameter enclosure.  If
+any offset is nonzero, the independent centre propagation is retained.  This
+removes a literally duplicated propagation in the anchor stage; it does not
+replace any nondegenerate parameter enclosure.
 
 For each parameter, \(n_\theta<0\).  Eliminating the root's phase derivative
 using (11)--(12) gives
@@ -391,7 +397,7 @@ The three grouped samples are archived as
 [`centre`](results/vdp_v5_source_incidence_grouped_center_cell.json), and
 [`upper`](results/vdp_v5_source_incidence_grouped_upper_cell.json) cells.
 The current source SHA-256 is
-`6f316dd13d67ce10a095d484ca10903bdf0e1bd4754a938865a69f9c5d68d8b7`.
+`b8dd76b67e12faed4ac2364246672bee8c96377fe6e331bbbac46fcee315b91c`.
 The original representative result's pretty-printed SHA-256 is
 `3b4b885646de3e25ea52c0e6c696cb200f5c0cda05d4ff400f95329a1af38901`.
 After compiling it against the repository's pinned strict CAPD/FILIB build,

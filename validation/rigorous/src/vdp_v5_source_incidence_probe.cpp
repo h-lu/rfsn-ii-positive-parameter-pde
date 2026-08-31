@@ -1368,9 +1368,13 @@ CellResult evaluateCellRegion(const Box& parameterCell, PhaseRegion region,
     throw std::invalid_argument("invalid source graph-error slice");
   Box centre;
   Box offsets;
+  bool degenerateParameterCell = true;
   for (int index = 0; index < 3; ++index) {
     centre[index] = interval(midpointValue(parameterCell[index]));
     offsets[index] = parameterCell[index] - centre[index];
+    degenerateParameterCell = degenerateParameterCell &&
+        offsets[index].leftBound() == 0. &&
+        offsets[index].rightBound() == 0.;
   }
   const bool lowerFace = region == PhaseRegion::LowerFace;
   const bool upperFace = region == PhaseRegion::UpperFace;
@@ -1438,20 +1442,26 @@ CellResult evaluateCellRegion(const Box& parameterCell, PhaseRegion region,
     fixedEtaNTheta = root.nTheta;
     rootDerivativeComputed = true;
   }
-  const Box zeroOffsets = {interval(0.), interval(0.), interval(0.)};
-  const InitialData centreInitial = initialData(
-      centre, zeroOffsets, thetaCentre, thetaOffset,
-      graphCentre, graphOffset);
-  const SeamData centreSeam = hitFixedCut(
-      centreInitial, centre, -rational(1, 20), 13);
-  if (centreSeam.event[1].rightBound() >= 0.)
-    throw std::runtime_error(
-        "centre-parameter seam is not contained in P<0");
-  if (!centreSeam.energy.contains(0.))
-    throw std::runtime_error(
-        "centre-parameter energy enclosure lost the exact zero-energy image");
-  const TerminalData centreTerminal = propagateReduced(
-      reducedInitialData(centreSeam), centre);
+  // On an exact point parameter cell, the full-cell and centre-parameter
+  // inputs coincide interval by interval.  Reuse the already checked
+  // enclosure rather than repeat the identical rigorous propagation.
+  TerminalData centreTerminal = terminal;
+  if (!degenerateParameterCell) {
+    const Box zeroOffsets = {interval(0.), interval(0.), interval(0.)};
+    const InitialData centreInitial = initialData(
+        centre, zeroOffsets, thetaCentre, thetaOffset,
+        graphCentre, graphOffset);
+    const SeamData centreSeam = hitFixedCut(
+        centreInitial, centre, -rational(1, 20), 13);
+    if (centreSeam.event[1].rightBound() >= 0.)
+      throw std::runtime_error(
+          "centre-parameter seam is not contained in P<0");
+    if (!centreSeam.energy.contains(0.))
+      throw std::runtime_error(
+          "centre-parameter energy enclosure lost the exact zero-energy image");
+    centreTerminal = propagateReduced(
+        reducedInitialData(centreSeam), centre);
+  }
 
   interval meanValueB = centreTerminal.b;
   interval meanValueN = centreTerminal.n;
