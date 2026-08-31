@@ -186,8 +186,8 @@ class V4AdaptedZeroTubeProbeTests(unittest.TestCase):
             13.5e-5,
         )
         k1_n = coverage["enclosures"]["K1_n"]
-        self.assertGreaterEqual(endpoint(k1_n, "lower"), -1e-4)
-        self.assertLessEqual(endpoint(k1_n, "upper"), 1e-4)
+        self.assertGreaterEqual(endpoint(k1_n, "lower"), -8e-5)
+        self.assertLessEqual(endpoint(k1_n, "upper"), 8e-5)
         self.assertGreater(
             endpoint(cone["enclosures"]["K1_base_tangent"], "lower"), 0
         )

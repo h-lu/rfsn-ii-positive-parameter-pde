@@ -430,7 +430,7 @@ int main() {
   try {
     const auto rounding = rfsn::rigorous::runRoundingSelfTests();
     const Interval bRadius = rational(27, 200000);
-    const Interval nRadius = rational(1, 10000);
+    const Interval nRadius = rational(1, 12500);
     const Interval bBox(-bRadius.rightBound(), bRadius.rightBound());
     const Interval nBox(-nRadius.rightBound(), nRadius.rightBound());
     const Interval bPlus = bRadius;

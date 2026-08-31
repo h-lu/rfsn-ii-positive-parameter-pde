@@ -64,8 +64,12 @@ class V5SourceIncidenceRepresentativeCellTests(unittest.TestCase):
         self.assertEqual(self.result["mathematical_status"], "PASS")
         self.assertFalse(self.result["claim_bearing"])
         self.assertEqual(self.result["box_id"], "vdp-positive-box-v2")
-        self.assertEqual(self.result["grid"], [64, 128, 40])
-        self.assertEqual(self.result["cell_index"], [32, 64, 20])
+        self.assertEqual(self.result["grid"], [64, 128, 48])
+        self.assertEqual(self.result["cell_index"], [32, 64, 24])
+        self.assertEqual(
+            self.result["exterior_propagation_mode"],
+            "C0_HO_RECT2_FAST",
+        )
         self.assertIn(
             "complete v2 parameter cover",
             self.result["claim_boundary"]["open_scope"],
@@ -143,7 +147,7 @@ class V5SourceIncidenceRepresentativeCellTests(unittest.TestCase):
         )
         contract = self.result["target_graph_contract"]
         self.assertEqual(contract["base_half_width"], "27/200000")
-        self.assertEqual(contract["normal_half_width"], "1/10000")
+        self.assertEqual(contract["normal_half_width"], "1/12500")
         self.assertEqual(contract["slope_bound"], "7/10")
         terminal_q = enclosures["candidate_terminal_Q"]
         self.assertGreater(endpoint(terminal_q, "lower"), -9.5)
@@ -171,7 +175,7 @@ class V5SourceIncidenceGroupedKernelSampleTests(unittest.TestCase):
     def test_three_disclosed_samples_pass_without_claiming_a_cover(self) -> None:
         self.assertEqual(
             [result["cell_index"] for result in self.results],
-            [[0, 0, 0], [32, 64, 20], [63, 127, 39]],
+            [[0, 0, 0], [32, 64, 24], [63, 127, 47]],
         )
         for result in self.results:
             self.assertEqual(
@@ -182,7 +186,11 @@ class V5SourceIncidenceGroupedKernelSampleTests(unittest.TestCase):
             self.assertEqual(result["mathematical_status"], "PASS")
             self.assertFalse(result["claim_bearing"])
             self.assertEqual(result["box_id"], "vdp-positive-box-v2")
-            self.assertEqual(result["grid"], [64, 128, 40])
+            self.assertEqual(result["grid"], [64, 128, 48])
+            self.assertEqual(
+                result["exterior_propagation_mode"],
+                "C0_HO_RECT2_FAST",
+            )
             self.assertEqual(
                 result["target_graph_contract"]["base_half_width"],
                 "27/200000",
@@ -419,6 +427,34 @@ class V5SourceIncidenceSlabSmokeTests(unittest.TestCase):
             raise RuntimeError(completed.stderr)
         cls.result = json.loads(completed.stdout)
 
+        robust_completed = subprocess.run(
+            [
+                str(binary),
+                "incidence-merged-cell-rect2",
+                "64",
+                "128",
+                "48",
+                "49",
+                "21",
+                "17",
+            ],
+            check=False,
+            cwd=REPOSITORY,
+            text=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            timeout=300,
+            env={
+                **os.environ,
+                "OMP_NUM_THREADS": "1",
+                "OPENBLAS_NUM_THREADS": "1",
+                "LC_ALL": "C.UTF-8",
+            },
+        )
+        if robust_completed.returncode != 0:
+            raise RuntimeError(robust_completed.stderr)
+        cls.robust_result = json.loads(robust_completed.stdout)
+
     def test_candidate_slab_exercises_the_exterior_derivative_route(self) -> None:
         self.assertEqual(
             self.result["schema_version"],
@@ -455,6 +491,24 @@ class V5SourceIncidenceSlabSmokeTests(unittest.TestCase):
         terminal_q = self.result["enclosures"]["terminal_Q"]
         self.assertGreater(endpoint(terminal_q, "lower"), -9.5)
         self.assertLess(endpoint(terminal_q, "upper"), -9.0)
+
+    def test_rect2_mode_is_an_explicit_process_level_fallback(self) -> None:
+        result = self.robust_result
+        self.assertEqual(
+            result["schema_version"],
+            "rfsn-vdp-v5-source-incidence-merged-cell/1",
+        )
+        self.assertEqual(
+            result["exterior_propagation_mode"],
+            "C0_RECT2_ROBUST",
+        )
+        self.assertEqual(result["status"], "PASS")
+        self.assertEqual(result["mathematical_status"], "PASS")
+        for name, value in result["gates"].items():
+            if isinstance(value, list):
+                self.assertTrue(all(value), name)
+            else:
+                self.assertTrue(value, name)
 
 
 if __name__ == "__main__":

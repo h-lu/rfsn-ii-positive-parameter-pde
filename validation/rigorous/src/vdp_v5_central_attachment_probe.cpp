@@ -266,7 +266,7 @@ int main() {
     constexpr long kBSlabs = 8;
     constexpr long kNSlabs = 8;
     const Interval bRadius = rational(27, 200000);
-    const Interval nRadius = rational(1, 10000);
+    const Interval nRadius = rational(1, 12500);
     Aggregate aggregate;
     std::size_t cellCount = 0;
 
@@ -295,9 +295,14 @@ int main() {
             const Interval b(
                 bLower.leftBound(), bUpper.rightBound());
             for (long nIndex = 0; nIndex < kNSlabs; ++nIndex) {
-              const Interval n = intervalFromRationals(
-                  -kNSlabs + 2 * nIndex, 10000 * kNSlabs,
-                  -kNSlabs + 2 * (nIndex + 1), 10000 * kNSlabs);
+              const Interval nLower = -nRadius +
+                  Interval(2.0) * nRadius *
+                      rational(nIndex, kNSlabs);
+              const Interval nUpper = -nRadius +
+                  Interval(2.0) * nRadius *
+                      rational(nIndex + 1, kNSlabs);
+              const Interval n(
+                  nLower.leftBound(), nUpper.rightBound());
               includeEvaluation(
                   aggregate, evaluate(r, a2, epsilon, b, n));
               ++cellCount;
@@ -417,8 +422,8 @@ int main() {
         << rfsn::rigorous::roundingReportJson(rounding) << ','
         << "\"claim_boundary\":{"
         << "\"proved_scope\":\"exact H=0 lower-face patch inclusion, coordinate regularity, transversality, and universal slope-7/10 central regraph\","
-        << "\"open_scope\":[\"explicit enclosure of the transported lower graph\","
-           "\"source first hit\",\"V5 scalar incidence\"]},"
+        << "\"open_scope\":[\"complete-box canonical-source incidence\","
+           "\"claim-bearing V5 composition\"]},"
         << "\"obligations\":[";
     for (std::size_t index = 0; index < obligations.size(); ++index) {
       if (index) std::cout << ',';

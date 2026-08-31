@@ -65,7 +65,7 @@ The verified domain is
  r\in[1/100,1/50],\quad a_2\in[-1/4,1/4],\quad
  \epsilon\in[4/5,6/5],\quad
  |b|\le27/200000=1.35\times10^{-4},
- \quad |n|\le10^{-4},\quad H=0.
+ \quad |n|\le1/12500=8\times10^{-5},\quad H=0.
 \tag{2}
 \]
 
@@ -174,7 +174,8 @@ with the pinned strict CAPD/FILIB build, or set `RFSN_CAPD_CONFIG` to its
 
 The machine field `claim_bearing=false` is deliberate.  The certificate
 closes the exact value, regularity, transversality, and cone-to-regraph
-parts of the lower coordinate transition.  Still open are an explicit
-enclosure of the transported lower graph, its first hit by the canonical
-source manifold, and the V5 scalar incidence equation.  No time stability,
-Turing selection, or canard conclusion is asserted here.
+parts of the lower coordinate transition.  Separate certificates now give
+the transported lower graph and representative canonical-source incidence;
+the complete-box incidence cover and their claim-bearing V5 composition
+remain open.  No time stability, Turing selection, or canard conclusion is
+asserted here.

@@ -241,8 +241,8 @@ Thus the left and right endpoints strictly cross
 \(+27/200000=+1.35\times10^{-4}\), with respective margins
 \(3.62182635633312\times10^{-6}\) and
 \(3.92821778600141\times10^{-6}\).  Throughout (8), the normal coordinate
-stays inside the K1 tube with margin
-\(9.33627063606739\times10^{-5}\).
+stays inside the K1 tube \(|n_{K_1}|<1/12500\) with margin
+\(7.33627063606739\times10^{-5}\).
 
 It remains to verify that this crossing is a graph crossing.  Let
 \(p=dn_{\rm out}/db_{\rm out}\), and put
@@ -271,7 +271,7 @@ are at least \(0.08333094850154998\) and
 on the actual V4 graph and sends its tangent strictly into the K1
 slope-\(7/10\) cone.  Taking the unique inverse image of
 \(|b_{K_1}|\le27/200000=1.35\times10^{-4}\) therefore yields an admissible terminal graph over
-the **entire** K1 top base, with \(|n_{K_1}|<10^{-4}\).  This closes the
+the **entire** K1 top base, with \(|n_{K_1}|<1/12500\).  This closes the
 value, domain-coverage, and tangent parts of the V4-to-K1 seam.  It does not
 yet transport that graph to the central cut, identify the source first hit,
 or prove the V5 scalar coincidence root.
@@ -291,6 +291,7 @@ with the pinned strict CAPD/FILIB build, or set RFSN_CAPD_CONFIG to its
 capd-config. All seven mathematical obligations and all four tests pass.
 
 The machine field **claim_bearing=false** records that this local theorem is
-not yet the aggregate Issue #7 release certificate. Resolved-\(K_1\)
-backward graph transport, central regraph and source incidence, the V5
-scalar root, and the aggregate release remain open.
+not by itself the aggregate Issue #7 release certificate.  Separate
+non-claim-bearing certificates now treat the resolved-\(K_1\) backward graph
+transport, central regraph, and representative source incidence.  Their
+complete-box claim-bearing composition and the aggregate release remain open.

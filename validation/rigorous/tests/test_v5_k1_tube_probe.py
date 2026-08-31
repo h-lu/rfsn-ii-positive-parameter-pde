@@ -96,8 +96,8 @@ class V5K1TubeProbeTests(unittest.TestCase):
         tube = self.result["tube"]
         self.assertLessEqual(endpoint(tube["b"], "lower"), -13.5e-5)
         self.assertGreaterEqual(endpoint(tube["b"], "upper"), 13.5e-5)
-        self.assertLessEqual(endpoint(tube["n"], "lower"), -1e-4)
-        self.assertGreaterEqual(endpoint(tube["n"], "upper"), 1e-4)
+        self.assertLessEqual(endpoint(tube["n"], "lower"), -8e-5)
+        self.assertGreaterEqual(endpoint(tube["n"], "upper"), 8e-5)
         self.assertLessEqual(endpoint(tube["graph_slope"], "lower"), 0.7)
         self.assertGreaterEqual(endpoint(tube["graph_slope"], "upper"), 0.7)
 

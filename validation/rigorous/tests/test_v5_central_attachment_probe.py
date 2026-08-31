@@ -99,8 +99,8 @@ class V5CentralAttachmentProbeTests(unittest.TestCase):
         self.assertLessEqual(endpoint(b_tube, "lower"), -13.5e-5)
         self.assertGreaterEqual(endpoint(b_tube, "upper"), 13.5e-5)
         n_tube = self.result["tube"]["n"]
-        self.assertLessEqual(endpoint(n_tube, "lower"), -1e-4)
-        self.assertGreaterEqual(endpoint(n_tube, "upper"), 1e-4)
+        self.assertLessEqual(endpoint(n_tube, "lower"), -8e-5)
+        self.assertGreaterEqual(endpoint(n_tube, "upper"), 8e-5)
         slope = self.result["tube"]["graph_slope"]
         self.assertLessEqual(endpoint(slope, "lower"), 0.7)
         self.assertGreaterEqual(endpoint(slope, "upper"), 0.7)
@@ -180,9 +180,8 @@ class V5CentralAttachmentProbeTests(unittest.TestCase):
         self.assertEqual(
             self.result["claim_boundary"]["open_scope"],
             [
-                "explicit enclosure of the transported lower graph",
-                "source first hit",
-                "V5 scalar incidence",
+                "complete-box canonical-source incidence",
+                "claim-bearing V5 composition",
             ],
         )
 

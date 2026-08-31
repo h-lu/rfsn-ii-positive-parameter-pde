@@ -467,7 +467,7 @@ int main() {
     const Interval nMinus = -nRadius;
     const Interval seamBRadius = rational(1, 3000);
     const Interval seamK1BaseRadius = rational(27, 200000);
-    const Interval seamK1NormalRadius = rational(1, 10000);
+    const Interval seamK1NormalRadius = rational(1, 12500);
     const Interval nu = rational(1, 64);
     const Interval lambdaFloor = sqrt(
         Interval(1.0) - sqr(zMaximum));
@@ -827,7 +827,7 @@ int main() {
         seamStatus, strictPositive(seamRightCoverageMargin));
     obligations.push_back({
         "V4.AD_ZERO.R2_K1_TERMINAL_GRAPH_COVERAGE", seamStatus,
-        "The exact R=2 image of the subordinate V4 graph over |b_outer|<=1/3000 stays in |n_K1|<1e-4 and its two oriented endpoints strictly bracket the complete K1 base |b_K1|<=27/200000",
+        "The exact R=2 image of the subordinate V4 graph over |b_outer|<=1/3000 stays in |n_K1|<1/12500 and its two oriented endpoints strictly bracket the complete K1 base |b_K1|<=27/200000",
         {{"outer_stable_slice", Interval(
               -seamBRadius.rightBound(), seamBRadius.rightBound())},
          {"outer_normal_graph_tube", nBox},

@@ -115,7 +115,7 @@ interval graphPhaseC1() { return rational(3, 1000000); }
 interval thetaFace() { return rational(4, 25000000); }
 interval thetaHalfWidth() { return rational(1, 1000000000); }
 interval lowerGraphBaseHalfWidth() { return rational(27, 200000); }
-interval lowerGraphNormalHalfWidth() { return rational(1, 10000); }
+interval lowerGraphNormalHalfWidth() { return rational(1, 12500); }
 interval lowerGraphSlope() { return rational(7, 10); }
 
 interval intervalFromEndpoints(const interval& lower,
@@ -472,9 +472,25 @@ struct ExteriorSeamData {
   interval eventP;
 };
 
-ExteriorSeamData hitFixedCutExterior(const InitialData& initial,
-                                     const Box& parameterCentre,
-                                     int parameter) {
+enum class ExteriorPropagationMode {
+  C0HORect2Fast,
+  C0Rect2Robust,
+};
+
+const char* exteriorPropagationModeName(ExteriorPropagationMode mode) {
+  switch (mode) {
+    case ExteriorPropagationMode::C0HORect2Fast:
+      return "C0_HO_RECT2_FAST";
+    case ExteriorPropagationMode::C0Rect2Robust:
+      return "C0_RECT2_ROBUST";
+  }
+  throw std::logic_error("unknown exterior propagation mode");
+}
+
+template <typename ExteriorSet>
+ExteriorSeamData hitFixedCutExteriorWithSet(
+    const InitialData& initial, const Box& parameterCentre,
+    int parameter) {
   if (parameter < 0 || parameter >= 3)
     throw std::invalid_argument("invalid exterior parameter index");
   const std::string r = "(rc+er)";
@@ -567,15 +583,15 @@ ExteriorSeamData hitFixedCutExterior(const InitialData& initial,
   IOdeSolver prefixSolver(field, 24);
   prefixSolver.setAbsoluteTolerance(1.e-13);
   prefixSolver.setRelativeTolerance(1.e-13);
-  prefixSolver.setMaxStep(.02);
-  C0HORect2Set set(centre, coordinates, radii, remainder);
+  prefixSolver.setMaxStep(.005);
+  ExteriorSet set(centre, coordinates, radii, remainder);
   ITimeMap prefixMap(prefixSolver);
   (void)prefixMap(rational(13, 4), set);
 
   IOdeSolver eventSolver(field, 24);
   eventSolver.setAbsoluteTolerance(1.e-13);
   eventSolver.setRelativeTolerance(1.e-13);
-  eventSolver.setMaxStep(.02);
+  eventSolver.setMaxStep(.005);
   ICoordinateSection section(dimension, 0, -rational(1, 20));
   IPoincareMap eventMap(
       eventSolver, section, poincare::PlusMinus);
@@ -609,6 +625,18 @@ ExteriorSeamData hitFixedCutExterior(const InitialData& initial,
               (event[1] * event[15] - fP * event[13] +
                event[0] * event[11]),
           event[1]};
+}
+
+ExteriorSeamData hitFixedCutExterior(
+    const InitialData& initial, const Box& parameterCentre,
+    int parameter,
+    ExteriorPropagationMode mode =
+        ExteriorPropagationMode::C0HORect2Fast) {
+  if (mode == ExteriorPropagationMode::C0Rect2Robust)
+    return hitFixedCutExteriorWithSet<C0Rect2Set>(
+        initial, parameterCentre, parameter);
+  return hitFixedCutExteriorWithSet<C0HORect2Set>(
+      initial, parameterCentre, parameter);
 }
 
 SeamData hitFixedCut(const InitialData& initial,
@@ -1370,7 +1398,9 @@ ExteriorCellResult evaluateCellExteriorOnly(
     const Box& parameterCell, PhaseRegion region,
     int graphSliceIndex, int graphSliceCount = 2,
     const interval* customThetaCentre = nullptr,
-    const interval* customThetaHalfWidth = nullptr) {
+    const interval* customThetaHalfWidth = nullptr,
+    ExteriorPropagationMode exteriorPropagationMode =
+        ExteriorPropagationMode::C0HORect2Fast) {
   if (graphSliceCount <= 0 || graphSliceIndex < 0 ||
       graphSliceIndex >= graphSliceCount)
     throw std::invalid_argument("invalid source graph-error slice");
@@ -1427,7 +1457,8 @@ ExteriorCellResult evaluateCellExteriorOnly(
   interval exteriorSeamP(0.);
   for (int parameter = 0; parameter < 3; ++parameter) {
     exterior[parameter] =
-        hitFixedCutExterior(initial, centre, parameter);
+        hitFixedCutExterior(initial, centre, parameter,
+                            exteriorPropagationMode);
     include(parameter != 0, exteriorSeamP, exterior[parameter].eventP);
   }
   const RootDerivativeData root =
@@ -1750,7 +1781,7 @@ void printResult(const Aggregate& aggregate, int rCount, int aCount,
             << intervalJson(coordinateJacobian) << "},"
             << "\"target_graph_contract\":{"
             << "\"base_half_width\":\"27/200000\","
-            << "\"normal_half_width\":\"1/10000\","
+            << "\"normal_half_width\":\"1/12500\","
             << "\"slope_bound\":\"7/10\"},"
             << "\"enclosures\":{"
             << "\"lower_face_b\":" << intervalJson(aggregate.lowerB)
@@ -1846,19 +1877,26 @@ int main(int argc, char** argv) {
           "usage: probe cover NR NA NE | probe cell NR NA NE IR IA IE | "
           "probe slab NR NA NE IR IA IE IS | "
           "probe incidence-cell NR NA NE IR IA IE | "
-          "probe incidence-merged-cell NR NA NE IR IA IE");
+          "probe incidence-merged-cell NR NA NE IR IA IE | "
+          "probe incidence-merged-cell-rect2 NR NA NE IR IA IE");
     const std::string mode(argv[1]);
     const int rCount = std::stoi(argv[2]);
     const int aCount = std::stoi(argv[3]);
     const int epsilonCount = std::stoi(argv[4]);
     Aggregate aggregate;
     if (mode == "incidence-cell" ||
-        mode == "incidence-merged-cell") {
+        mode == "incidence-merged-cell" ||
+        mode == "incidence-merged-cell-rect2") {
       if (argc != 8)
         throw std::invalid_argument(
             "incidence cell mode requires IR IA IE");
       const bool mergedExteriorMode =
-          mode == "incidence-merged-cell";
+          mode == "incidence-merged-cell" ||
+          mode == "incidence-merged-cell-rect2";
+      const ExteriorPropagationMode exteriorPropagationMode =
+          mode == "incidence-merged-cell-rect2"
+              ? ExteriorPropagationMode::C0Rect2Robust
+              : ExteriorPropagationMode::C0HORect2Fast;
       const int rIndex = std::stoi(argv[5]);
       const int aIndex = std::stoi(argv[6]);
       const int epsilonIndex = std::stoi(argv[7]);
@@ -2062,7 +2100,8 @@ int main(int argc, char** argv) {
             const ExteriorCellResult rootSlab = evaluateCellExteriorOnly(
                 cell, PhaseRegion::FullStrip, graphHalf,
                 graphErrorHalfCount,
-                &slabCentre, &slabHalfWidth);
+                &slabCentre, &slabHalfWidth,
+                exteriorPropagationMode);
             ++exteriorEvaluationCount;
             derivativeGate = derivativeGate &&
                 rootSlab.rootDerivativeComputed &&
@@ -2149,7 +2188,7 @@ int main(int argc, char** argv) {
             const ExteriorCellResult rootCell = evaluateCellExteriorOnly(
                 cell, PhaseRegion::FullStrip, graphHalf,
                 graphErrorHalfCount, &rootCentre,
-                &rootHalfWidth);
+                &rootHalfWidth, exteriorPropagationMode);
             ++exteriorEvaluationCount;
             mergedCandidateNIncludesZeroByGroup[graphHalf][mergedGroup] =
                 rootCell.terminalN.contains(0.);
@@ -2264,6 +2303,9 @@ int main(int argc, char** argv) {
                         ? "\"rfsn-vdp-v5-source-incidence-merged-cell/1\","
                         : "\"rfsn-vdp-v5-source-incidence-cell/2\",")
                 << "\"status\":\"" << verdictName(status) << "\","
+                << "\"exterior_propagation_mode\":\""
+                << exteriorPropagationModeName(exteriorPropagationMode)
+                << "\","
                 << "\"mathematical_status\":\""
                 << verdictName(mathematicalStatus) << "\","
                 << "\"claim_bearing\":false,"
@@ -2391,7 +2433,7 @@ int main(int argc, char** argv) {
                 << "\"actual_eta_phi_used_only_in_source_slope\":true},"
                 << "\"target_graph_contract\":{"
                 << "\"base_half_width\":\"27/200000\","
-                << "\"normal_half_width\":\"1/10000\","
+                << "\"normal_half_width\":\"1/12500\","
                 << "\"slope_bound\":\"7/10\","
                 << "\"source_slope_limit\":\"1/2\"},"
                 << "\"enclosures\":{\"anchor_aligned\":"
@@ -2550,7 +2592,8 @@ int main(int argc, char** argv) {
           "usage: probe cover NR NA NE | probe cell NR NA NE IR IA IE | "
           "probe slab NR NA NE IR IA IE IS | "
           "probe incidence-cell NR NA NE IR IA IE | "
-          "probe incidence-merged-cell NR NA NE IR IA IE");
+          "probe incidence-merged-cell NR NA NE IR IA IE | "
+          "probe incidence-merged-cell-rect2 NR NA NE IR IA IE");
     for (int rIndex = 0; rIndex < rCount; ++rIndex) {
       for (int aIndex = 0; aIndex < aCount; ++aIndex) {
         for (int epsilonIndex = 0; epsilonIndex < epsilonCount;

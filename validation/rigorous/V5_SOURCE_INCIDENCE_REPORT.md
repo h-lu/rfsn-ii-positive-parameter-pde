@@ -9,7 +9,7 @@ pullback graph:
 
 \[
  |b|\le B=1.35\times10^{-4}=\frac{27}{200000},
- \qquad |g(b)|<N=10^{-4},
+ \qquad |g(b)|<N=\frac1{12500}=8\times10^{-5},
  \qquad \operatorname{Lip}(g)\le \frac7{10}.
  \tag{1}
 \]
@@ -25,15 +25,15 @@ machine field `claim_bearing=false` is therefore essential.
 
 ## Certified cell and source chart
 
-The tested cell is the zero-based cell \((32,64,20)\) of a
-\(64\times128\times40\) grid, namely
+The tested cell is the zero-based cell \((32,64,24)\) of a
+\(64\times128\times48\) grid, namely
 
 \[
  r\in\left[\frac{96}{6400},\frac{97}{6400}\right],
  \qquad
  a_2\in\left[0,\frac1{256}\right],
  \qquad
- \epsilon\in\left[1,\frac{101}{100}\right].
+ \epsilon\in\left[1,\frac{121}{120}\right].
  \tag{2}
 \]
 
@@ -286,22 +286,22 @@ enclosures can be summarized conservatively as follows.
 
 | Quantity | Rigorous enclosure or one-sided bound |
 |---|---:|
-| centre-cell anchor \(c=b\) on the Newton root | \([-3.476\times10^{-6},-2.591\times10^{-6}]\) |
+| centre-cell anchor \(c=b\) on the Newton root | \([-3.476\times10^{-6},-2.592\times10^{-6}]\) |
 | anchor root phase over all four \(\eta\)-slices | \([-8.873,8.528]\times10^{-8}\) |
-| \(n_\theta\) on the continuation cover | \([-2117.29,-912.95]\) |
-| \(\partial_r b\) on \(n=0\), fixed \(\eta\) | \([-0.014693,0.010124]\) |
-| \(\partial_{a_2} b\) on \(n=0\), fixed \(\eta\) | \([-0.000978,0.000703]\) |
-| \(\partial_\epsilon b\) on \(n=0\), fixed \(\eta\) | \([-0.012341,0.009694]\) |
-| \(|db/dn|\) along the true source for \(|n|\le N\) | at most \(0.394739<1/2\) |
+| \(n_\theta\) on the continuation cover | \([-2117.05,-913.38]\) |
+| \(\partial_r b\) on \(n=0\), fixed \(\eta\) | \([-0.014670,0.010109]\) |
+| \(\partial_{a_2} b\) on \(n=0\), fixed \(\eta\) | \([-0.000977,0.000702]\) |
+| \(\partial_\epsilon b\) on \(n=0\), fixed \(\eta\) | \([-0.012262,0.009630]\) |
+| \(|db/dn|\) along the true source for \(|n|\le N\) | at most \(0.394231<1/2\) |
 | terminal \(Q\) on candidate slabs | \([-9.418,-9.095]\subset(-19/2,-9)\) |
-| parameter-variation budget | at most \(6.477\times10^{-5}\) |
-| source excursion \(\rho_{\rm src}N\) | at most \(3.948\times10^{-5}\) |
-| remaining base margin | at least \(2.728\times10^{-5}>0\) |
+| parameter-variation budget | at most \(5.415\times10^{-5}\) |
+| source excursion \(\rho_{\rm src}N\) | at most \(3.154\times10^{-5}\) |
+| remaining base margin | at least \(4.584\times10^{-5}>0\) |
 
 More explicitly, (15) and the half-widths of (2) imply
 
 \[
- \Delta_{\mu}b\le6.477\times10^{-5}.
+ \Delta_{\mu}b\le5.415\times10^{-5}.
 \]
 
 Together with the anchor and source-slope bounds,
@@ -309,8 +309,8 @@ Together with the anchor and source-slope bounds,
 \[
  |b|
  \le 3.476\times10^{-6}
-     +6.477\times10^{-5}
-     +0.394739\times10^{-4}
+     +5.415\times10^{-5}
+     +0.394231\times8\times10^{-5}
  <1.35\times10^{-4}=B.
  \tag{16}
 \]
@@ -326,7 +326,7 @@ segment inside \(|b|\le B\), where \(g\) is defined.  Consequently
 \[
  h_\theta
  \le -(1-\tfrac7{10}\rho_{\rm src})(-n_\theta)<0,
- \qquad \rho_{\rm src}\le0.394739.
+ \qquad \rho_{\rm src}\le0.394231.
  \tag{17}
 \]
 
@@ -377,12 +377,12 @@ The same uniform eight-group rule was run on three disclosed cells:
 
 | cell | exterior evaluations | parameter budget | strict base margin |
 |---|---:|---:|---:|
-| lower \((0,0,0)\) | 12 | \(9.002\times10^{-5}\) | \(1.579\times10^{-6}\) |
-| centre \((32,64,20)\) | 12 | \(6.477\times10^{-5}\) | \(2.728\times10^{-5}\) |
-| upper \((63,127,39)\) | 12 | \(7.082\times10^{-5}\) | \(1.080\times10^{-5}\) |
+| lower \((0,0,0)\) | 12 | \(7.492\times10^{-5}\) | \(2.501\times10^{-5}\) |
+| centre \((32,64,24)\) | 12 | \(5.415\times10^{-5}\) | \(4.584\times10^{-5}\) |
+| upper \((63,127,47)\) | 12 | \(5.975\times10^{-5}\) | \(3.122\times10^{-5}\) |
 
-All local gates pass at all three cells.  In particular, the narrow positive
-margin at the lower corner is retained with outward rounding.  Relative to
+All local gates pass at all three cells, with outward-rounded positive base
+margins.  Relative to
 the preceding 16-slab implementation, the complete ordinary phase scan has
 been halved while all proof gates remain strict.  These results
 establish the feasibility of the grouped kernel for the next adaptive-cover
@@ -391,6 +391,16 @@ cells are disjoint and control no untested cell.  They therefore do not
 interpolate between the three cells, change `claim_bearing=false`, or
 establish the complete parameter-box theorem and its claim-bearing
 finite-(K_1) composition.
+
+The default exterior-product route uses `C0HORect2Set` with maximum step
+`0.005`.  In a deterministic 64-cell pilot it returned 62 strict passes and
+two process-level CAPD high-order-set failures.  Those two cells both pass
+under the explicit `incidence-merged-cell-rect2` route, which changes only
+the exterior set representation to `C0Rect2Set`; the field, initial box,
+tolerances, step bound, event section, and proof gates are unchanged.  The
+machine field `exterior_propagation_mode` records the route.  The full-cover
+driver may invoke the robust route once only after a fast process failure;
+it never retries a valid mathematical `INCONCLUSIVE` result.
 
 ## Reproduction and exact claim boundary
 
@@ -403,22 +413,22 @@ The three grouped samples are archived as
 [`centre`](results/vdp_v5_source_incidence_grouped_center_cell.json), and
 [`upper`](results/vdp_v5_source_incidence_grouped_upper_cell.json) cells.
 The current source SHA-256 is
-`ef3b8c01f915adbd1a8cc0a04ed828e741d51f6115e56def3f42fecae9c6bff5`.
+`373db21023024b236b9cd788d930285bb5b3a7924a183e23b403ef8595998992`.
 The original representative result's pretty-printed SHA-256 is
-`3b4b885646de3e25ea52c0e6c696cb200f5c0cda05d4ff400f95329a1af38901`.
+`2e1d57a331298d3c340413ea1c99753eeb0a128e55f6635370db66d1e4c58b3e`.
 After compiling it against the repository's pinned strict CAPD/FILIB build,
 the representative certificate is generated by
 
     vdp_v5_source_incidence_probe incidence-cell \
-      64 128 40 32 64 20
+      64 128 48 32 64 24
 
 The three grouped-kernel samples are generated by replacing
 `incidence-cell` with `incidence-merged-cell` and using respectively
-`0 0 0`, `32 64 20`, and `63 127 39` as the final indices.  Their archived
+`0 0 0`, `32 64 24`, and `63 127 47` as the final indices.  Their archived
 result SHA-256 values are, in that order,
-`8c45d84f179f23d64b32d19179a154d6a71fb29d07f81f24d82cd0343c33f635`,
-`b6507631ba3181b6578eb32ddefa16f29b723a9e545400f43e66068fb03eb6fa`,
-and `0ef5e1f96459cff2f9110ff655d7a13e3242a62df7c8d27d4d9762d0733ba8f0`.
+`1d76dc7d80731d805b4c0d0b4d68e6694443dad6fdbc40b4255c6b4e9e20739f`,
+`33083db450f3570991dbd2967acdb43d2f0a57d236dca3621aca49b358769860`,
+and `0fadb0e0d34ff9bc4f62fad89935736033bd82dd31caca6b9469b3f6790094da`.
 Each reports schema `rfsn-vdp-v5-source-incidence-merged-cell/1`, eight
 uniform phase groups per error half, and `claim_bearing=false`.
 
@@ -441,7 +451,7 @@ composite theorem.  A complete claim requires at least:
 2. a claim-bearing composition with the finite-\(K_1\) pullback and its V4
    terminal graph.
 
-The \(64\times128\times40\) labels in this run define the representative
-cell; they do **not** assert that all 327,680 cells have been checked.  No
+The \(64\times128\times48\) labels in this run define the representative
+cell; they do **not** assert that all 393,216 cells have been checked.  No
 time stability, dynamical Turing selection, canard identification, or global
 stationary-PDE branch conclusion is made by this certificate.
