@@ -137,9 +137,17 @@ length and action.  The generated Issue #7 schema-v2 contract binds the
 configuration and direct generator sources as well as the candidate data, but
 remains `claim_bearing: false` with `final_status: NOT_RUN`.
 
+A separate strict CAPD/FILIB probe now covers 8,192 exact-rational cells on
+the complete v2 box and verifies the positive-root, face, cone, and
+third-order bunching hypotheses for the invariant $E=0$ outer corridor.
+Together with the proved corridor graph lemma, this establishes the unique
+maximal future-staying graph on that zero-energy slice.  See the
+[strict zero-energy V4 report](validation/rigorous/V4_ZERO_ENERGY_GRAPH_REPORT.md).
+
 The master run still does not numerically certify the paper's global and
-uniform objects.  The actual infinite V4 future-staying graph, uniform V5
-tube/exchange and uniqueness statements, parameter jets, exhaustive
+uniform objects.  The full nonzero-$E$ V4 future-staying graph, uniform V5
+tube/exchange and uniqueness statements, full-base V4/V5 parameter jets,
+exhaustive
 V6 cells and cross forms for all windings, and every outward-rounded interval
 obligation remain unresolved.  The computed V7 periodic and multipulse
 stationary profiles are not assigned proved theorem-edge itineraries and do

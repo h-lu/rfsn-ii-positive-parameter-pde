@@ -620,6 +620,23 @@ A P2bK `mathematical_status: PASS` additionally supports only:
 - the radius-`.01` true graph-boundary source and the nine frozen
   parameter/source derivatives obtained from the certified P2b graph jets.
 
+A `V4.ZERO_ENERGY_GRAPH` local mathematical `PASS` supports, independently
+of the P2 chain, only:
+
+- the regular positive compactified energy root and the explicit
+  $E=0$, $0\le z\le1/5$, $|\alpha|,|\beta|\le10^{-5}$ corridor on the
+  complete v2 parameter box;
+- its invariant/inward base faces, strict normal exit faces, and uniform
+  generator cone and order-three bunching bounds; and
+- after applying the already proved corridor graph lemma, the unique maximal
+  future-staying graph with mixed total-order-three regularity on the
+  zero-energy base $X=(z,\beta)$.
+
+It supplies no nonzero-energy collar, full `V4.OUTER_GRAPH`, V5 incidence,
+matched source orbit, or outer-tail asymptotics.  The reproducible source,
+exact cover, and numerical margins are recorded in
+[`V4_ZERO_ENERGY_GRAPH_REPORT.md`](V4_ZERO_ENERGY_GRAPH_REPORT.md).
+
 Before a P2b jets pass, neither P2a nor P2b0 alone supplies those bounds.  In
 particular, a bound on \(D^2H_{10}\) is a bound on the polynomial center, not
 on \(D^2H_\mu\).
