@@ -3,7 +3,9 @@
 **Result:** local mathematical **PASS** on the complete frozen v2 parameter
 box.  This is a current-computer, non-claim-bearing interval proof of the
 finite zero-energy resolved-\(K_1\) tube from the physical \(U=-4\) cut to
-\(r_1=2\).  It is one component of V5, not yet the V5 incidence theorem.
+\(r_1=2\).  Together with the certified V4 terminal graph, the tube has a
+unique complete lower pullback graph on every parameter slice.  This is one
+component of V5, not yet the V5 incidence theorem.
 
 ## Exact object
 
@@ -152,23 +154,29 @@ The oriented face margins for (6) are
 | \(n=+10^{-4}\), outward | \(8.513314921150174\times10^{-5}\) |
 | \(n=-10^{-4}\), outward | \(8.127032365657862\times10^{-5}\) |
 
-For the unscaled \(r_1\)-time \((b,n)\) generator, the global bounds are
+Write the Jacobian of the unscaled \(r_1\)-time \((b,n)\) generator as
 
 \[
- C\le-343.5528533649025,qquad
- |B|\le310.4813181359855,
+ D_{(b,n)}F=\begin{pmatrix}c&\beta\\ \delta&a\end{pmatrix}.
+\]
+
+The global bounds are
+
+\[
+ c\le c_+:=-343.5528533649025,\qquad
+ |\beta|\le\beta_+:=310.4813181359855,
 \]
 
 \[
- |D|\le310.48370091830685,qquad
- A\ge335.15650142092244.
+ |\delta|\le\delta_+:=310.48370091830685,\qquad
+ a\ge a_-:=335.15650142092244.
 \]
 
 Combining these four independently aggregated extrema with
 \(\kappa=7/10\) gives the conservative projective-cone margin
 
 \[
- \kappa\{A-C-|B|\kappa\}-|D|
+ \kappa\{a_--c_+-\beta_+\kappa\}-\delta_+
  \ge12.477001545137625>0.
 \tag{8}
 \]
@@ -176,13 +184,111 @@ Combining these four independently aggregated extrema with
 Direct cellwise evaluation, which retains the correlations within each
 cell, is also strictly positive.
 
-Consequently (2) supplies a strict finite graph-transform corridor with a
-common cooriented slope-\(7/10\) backward-invariant cone.  The separate V4
-seam certificate now supplies an admissible terminal graph over the complete
-top base \(|b|\le10^{-4}\).  Its backward graph transform through this
-corridor is therefore unique while it remains in the displayed tube.  This
-certificate establishes the corridor estimates; the next obligation is to
-record the resulting lower graph and its central regraph explicitly.
+### Finite terminal pullback lemma
+
+The preceding gates close the finite graph statement without an additional
+normal-growth hypothesis.  We record the argument because the conclusion is
+stronger than saying that a graph is unique only for as long as it happens to
+remain in the tube.
+
+Let
+
+\[
+ B=N=10^{-4},\qquad \rho=7/10,\qquad
+ r_-(\mu)=r\sqrt{4+ra_2},
+\]
+
+where \(\mu=(r,a_2,\epsilon)\) belongs to the frozen v2 box, and let
+\(\mathcal R=[-B,B]\times[-N,N]\) in the \((b,n)\) coordinates, with
+\(\operatorname{int}_n\mathcal R=[-B,B]\times(-N,N)\).  The V4
+seam certificate supplies, for each \(\mu\), a fixed terminal graph
+
+\[
+ \Gamma^+_\mu=\{(b,g^+_\mu(b)):\ |b|\le B\}\subset\operatorname{int}_n
+ \mathcal R
+ \quad\hbox{at }r_1=2,
+ \tag{9}
+\]
+
+over the entire base.  In fact its terminal normal values satisfy
+\(|g^+_\mu|\le6.637293639326057\times10^{-6}<N\).  The cancellation-free
+seam derivatives in (12) of
+[`V4_ADAPTED_ZERO_TUBE_REPORT.md`](V4_ADAPTED_ZERO_TUBE_REPORT.md) give a
+positive base derivative and put every tangent strictly inside the
+slope-\(7/10\) cone.  The terminal graph is \(C^3\), so the mean-value
+theorem puts all its secants in
+
+\[
+ \mathcal C_\rho
+   =\{(\delta b,\delta n):|\delta n|\le\rho|\delta b|\}.
+ \tag{10}
+\]
+
+**Lemma.**  For every \(\mu\) there is a unique \(C^3\) function
+\(g^-_\mu:[-B,B]\to(-N,N)\), with one-sided regularity at the endpoints,
+such that the forward orbit from
+\((b,g^-_\mu(b))\) at \(r_1=r_-(\mu)\) stays in \(\mathcal R\) and reaches
+\(\Gamma^+_\mu\) at \(r_1=2\).  Moreover,
+
+\[
+ \operatorname{Lip}(g^-_\mu)\le\rho=7/10.
+ \tag{11}
+\]
+
+Thus the set of lower points whose forward orbits stay in \(\mathcal R\) and
+reach the actual V4 terminal graph is a complete lower pullback graph on the
+physical \(U=-4\) section.  This wording does not assert that every point of
+the larger terminal graph has a backward orbit that remains in the tube.
+
+**Proof.**  The positive lower bound for \(r_1'\) makes \(r_1\) a regular
+forward time on the whole compact tube.  Fix \(\mu\) and a lower base point
+\(b_0\in[-B,B]\), and vary the initial value \(n_0\) along \([-N,N]\).
+The two \(b\)-faces are forward inward, so an orbit cannot leave through
+them.  Classify an initial value as lower if its orbit first exits through
+\(n=-N\), or if it reaches \(r_1=2\) strictly below \(\Gamma^+_\mu\);
+classify it as upper by the analogous alternatives at \(n=+N\) and above
+\(\Gamma^+_\mu\).  Strict outward orientation of the two \(n\)-faces,
+continuous dependence of the flow, and the strict interior inclusion in
+(9) make the lower and upper classes disjoint and relatively open.  They
+contain \(n_0=-N\) and \(n_0=N\), respectively.  Since \([-N,N]\) is
+connected, the two classes cannot cover it.  Any unclassified initial value
+therefore remains in the tube up to \(r_1=2\) and lands on
+\(\Gamma^+_\mu\).  This proves existence for every \(b_0\); strict exit at
+the \(n\)-faces also gives \(|n_0|<N\).
+
+It remains to prove uniqueness and the graph bound.  For two orbits in the
+tube, their difference satisfies a linear equation whose coefficient matrix
+is the Jacobian averaged over the segment joining the two orbit points.  The
+tube is convex, and the independent derivative bounds used in (8) are
+preserved by this averaging.  If
+\(p=\delta n/\delta b\), its projective equation is
+
+\[
+ p'=\delta+(a-c)p-\beta p^2.
+\]
+
+At \(p=\rho\), (8) makes the right-hand side strictly positive; at
+\(p=-\rho\), it is strictly negative.  Thus the vector field points out of
+the horizontal cone in forward time, and the cone is strictly invariant in
+backward time.  Hence the positive margin in (8) makes
+\(\mathcal C_\rho\) backward invariant for these **secants**, not merely for
+individual tangent vectors.  Two terminal points on (9) have their
+difference in \(\mathcal C_\rho\), so their lower difference also belongs to
+\(\mathcal C_\rho\).  If they have the same lower \(b_0\), this forces
+\(|\delta n_0|\le\rho|\delta b_0|=0\), proving uniqueness.  Applying the
+same estimate to arbitrary lower base points gives
+\(|g^-_\mu(b_2)-g^-_\mu(b_1)|\le\rho|b_2-b_1|\), which is (11).
+
+For completeness, the terminal graph and finite-time flow are \(C^3\), so
+their inverse image is locally a \(C^3\) curve.  Its nonzero tangent belongs
+to \(\mathcal C_\rho\) by the same backward-cone argument and is therefore
+not vertical.  The local curves are graphs over \(b\); pointwise uniqueness
+glues them into the stated global \(C^3\) graph.  \(\square\)
+
+This is a finite terminal-value shooting argument.  It uses only the
+positive \(r_1\)-clock, the four face orientations, the secant-cone margin
+(8), and the complete V4 terminal graph; no stronger normally expanding
+corridor theorem is invoked.
 
 ## Reproduction and claim boundary
 
@@ -197,10 +303,14 @@ checks are in
 with the pinned strict CAPD/FILIB build, or set `RFSN_CAPD_CONFIG` to its
 `capd-config`.
 
-The machine field `claim_bearing=false` is deliberate.  This calculation
-proves the finite resolved-\(K_1\) tube and its slope-\(7/10\) graph
-transform.  Together with the separate V4 seam certificate it has an actual
-terminal graph, but it does not yet explicitly enclose the transported lower
-graph, identify its central \(U=-4\) regraph, connect that graph to the source
-manifold, or solve the V5 scalar incidence equation.  Those are separate
-remaining interfaces.
+The machine field `claim_bearing=false` is deliberate.  This calculation,
+together with the separate V4 seam certificate, proves that its **fixed** V4
+terminal graph pulls back on every parameter slice to the complete graph
+\(n=g^-_\mu(b)\) at \(U=-4\), with \(|g^-_\mu|<10^{-4}\) and
+\(\operatorname{Lip}(g^-_\mu)\le7/10\).  Uniqueness is relative to that
+fixed terminal graph; it is not a uniqueness assertion for every invariant
+or slow graph that might meet the tube.  The proof is confined to \(H=0\),
+and it gives no pointwise enclosure of \(g^-_\mu(b)\) narrower than the
+displayed normal tube.  The central-coordinate regraph, the first hit by the
+source manifold, and the V5 scalar incidence equation are separate
+interfaces and are not proved here.
