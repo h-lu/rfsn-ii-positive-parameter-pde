@@ -48,8 +48,10 @@ remain authoritative.
   interval representation loses \(W>0\); this is not a nonexistence result
   and is not the moving V5 matched exit.  The V4 terminal graph now pulls
   back through a finite \(K_1\) tube with base half-width
-  \(1.3\times10^{-4}\), and one representative v2 cell has a strict
-  interval-Newton true-source incidence `PASS`.  These results remain
+  \(1.3\times10^{-4}\), one representative v2 cell has a strict
+  interval-Newton true-source incidence `PASS`, and the eight-group
+  candidate-hull kernel passes the disclosed lower, centre, and upper cells.
+  These results remain
   non-claim-bearing: the complete-box V5 incidence, the joint incidence/census,
   \(m_{\rm ax}\), transported traces, and the full P2e event manifest are not
   yet complete.
@@ -123,7 +125,7 @@ release.
 | Analytic claims B1--B2 and V1--V7 | statuses recorded by the repository; several conclusions depend on frozen imported RFSN-II theorems and certificates | `CLAIM_REGISTER.md` and the cited proof dossiers |
 | Floating numerical atlas | explanatory candidate evidence only | `numerics/` |
 | Staged interval work | local mathematical passes for completed atoms; aggregate remains non-claim-bearing | `validation/rigorous/` |
-| Explicit boxes | `vdp-positive-box-v1` has a strict mathematical `FAIL` at the P2e phase-order gate.  On v2, P1, restricted P2a--P2d, three P2e phase gaps, and the source-chart criterion pass locally; the POLE zero-action first-hit bridge has a complete design-level interval cover.  The finite V4--K1 graph contract and one representative true-source incidence cell pass strictly.  The fixed-label ALG finite-gate corner is `INCONCLUSIVE`, and the complete-box moving V5 match and remaining atlas obligations are open, so there is no aggregate mathematical `PASS` | Issue #7, `validation/rigorous/P2E_PHASE_ORDER_FAIL_REPORT.md`, `validation/rigorous/P2E_AXIS_CHART_REPORT.md`, `validation/rigorous/P2E_POLE_AXIS_FIRST_HIT_COVER_REPORT.md`, `validation/rigorous/V5_SOURCE_INCIDENCE_REPORT.md`, and `validation/rigorous/P2E_ALG_FIXED_PHASE_OBSTRUCTION_REPORT.md` |
+| Explicit boxes | `vdp-positive-box-v1` has a strict mathematical `FAIL` at the P2e phase-order gate.  On v2, P1, restricted P2a--P2d, three P2e phase gaps, and the source-chart criterion pass locally; the POLE zero-action first-hit bridge has a complete design-level interval cover.  The finite V4--K1 graph contract and one representative true-source incidence cell pass strictly; the grouped candidate-hull kernel passes on three disclosed cells as a non-claim-bearing feasibility check.  The fixed-label ALG finite-gate corner is `INCONCLUSIVE`, and the complete-box moving V5 match and remaining atlas obligations are open, so there is no aggregate mathematical `PASS` | Issue #7, `validation/rigorous/P2E_PHASE_ORDER_FAIL_REPORT.md`, `validation/rigorous/P2E_AXIS_CHART_REPORT.md`, `validation/rigorous/P2E_POLE_AXIS_FIRST_HIT_COVER_REPORT.md`, `validation/rigorous/V5_SOURCE_INCIDENCE_REPORT.md`, and `validation/rigorous/P2E_ALG_FIXED_PHASE_OBSTRUCTION_REPORT.md` |
 | Temporal PDE stability | deferred | S1 |
 | Experimental realization | deferred | E1 |
 

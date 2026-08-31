@@ -18,6 +18,17 @@ RESULT = (
     / "results"
     / "vdp_v5_source_incidence_representative_cell.json"
 )
+GROUPED_RESULTS = (
+    RIGOROUS
+    / "results"
+    / "vdp_v5_source_incidence_grouped_lower_cell.json",
+    RIGOROUS
+    / "results"
+    / "vdp_v5_source_incidence_grouped_center_cell.json",
+    RIGOROUS
+    / "results"
+    / "vdp_v5_source_incidence_grouped_upper_cell.json",
+)
 FROZEN_ORIGIN = (
     REPOSITORY
     / "frozen-imports"
@@ -147,6 +158,163 @@ class V5SourceIncidenceRepresentativeCellTests(unittest.TestCase):
         self.assertLess(
             endpoint(enclosures["exterior_seam_P"], "upper"), 0.0
         )
+
+
+class V5SourceIncidenceGroupedKernelSampleTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls) -> None:
+        cls.results = [
+            json.loads(path.read_text(encoding="utf-8"))
+            for path in GROUPED_RESULTS
+        ]
+
+    def test_three_disclosed_samples_pass_without_claiming_a_cover(self) -> None:
+        self.assertEqual(
+            [result["cell_index"] for result in self.results],
+            [[0, 0, 0], [32, 64, 20], [63, 127, 39]],
+        )
+        for result in self.results:
+            self.assertEqual(
+                result["schema_version"],
+                "rfsn-vdp-v5-source-incidence-merged-cell/1",
+            )
+            self.assertEqual(result["status"], "PASS")
+            self.assertEqual(result["mathematical_status"], "PASS")
+            self.assertFalse(result["claim_bearing"])
+            self.assertEqual(result["box_id"], "vdp-positive-box-v2")
+            self.assertEqual(result["grid"], [64, 128, 40])
+            self.assertEqual(
+                result["rounding_self_test"]["status"], "PASS"
+            )
+            self.assertIn(
+                "complete v2 parameter cover",
+                result["claim_boundary"]["open_scope"],
+            )
+            self.assertGreater(
+                endpoint(
+                    result["enclosures"]["incidence_base_margin"],
+                    "lower",
+                ),
+                0.0,
+            )
+
+    def test_grouped_candidate_hulls_pass_the_cover_consistency_gates(self) -> None:
+        for result in self.results:
+            phase_cover = result["phase_cover"]
+            grouped = result["merged_root_exterior"]
+            self.assertEqual(
+                grouped["route"],
+                "UNIFORM_PHASE_GROUPS_PER_GRAPH_ERROR_HALF",
+            )
+            self.assertEqual(grouped["group_count_per_half"], 8)
+            self.assertEqual(grouped["slabs_per_group"], 2)
+            self.assertTrue(grouped["candidate_hull_consistency_gate"])
+            self.assertTrue(grouped["kernel_gate"])
+            self.assertLess(
+                phase_cover["exterior_evaluations"],
+                phase_cover["zero_candidate_evaluations"],
+            )
+            initialized_count = sum(
+                sum(half) for half in grouped[
+                    "candidate_hull_initialized_by_half_and_group"
+                ]
+            )
+            self.assertEqual(
+                phase_cover["exterior_evaluations"], initialized_count
+            )
+            self.assertEqual(
+                phase_cover["terminal_affine_subbox_evaluations"],
+                phase_cover["terminal_affine_subboxes_per_evaluation"]
+                * phase_cover["exterior_evaluations"],
+            )
+            initialized = grouped[
+                "candidate_hull_initialized_by_half_and_group"
+            ]
+            phase_hulls = grouped[
+                "candidate_phase_hull_by_half_and_group"
+            ]
+            normal_image_contains_zero = grouped[
+                "candidate_hull_normal_image_contains_zero_by_half_and_group"
+            ]
+            selected_masks = grouped["selected_slab_mask_by_half"]
+            self.assertEqual(len(initialized), 2)
+            self.assertEqual(len(phase_hulls), 2)
+            self.assertEqual(len(normal_image_contains_zero), 2)
+            self.assertEqual(len(selected_masks), 2)
+            continuation_face = 1.0 / 25000.0
+            for half_index, (
+                initialized_half,
+                phase_hull_half,
+                normal_image_half,
+                selected_mask,
+            ) in enumerate(
+                zip(
+                    initialized,
+                    phase_hulls,
+                    normal_image_contains_zero,
+                    selected_masks,
+                    strict=True,
+                )
+            ):
+                self.assertEqual(len(initialized_half), 8)
+                self.assertEqual(len(phase_hull_half), 8)
+                self.assertEqual(len(normal_image_half), 8)
+                self.assertEqual(len(selected_mask), 16)
+                self.assertEqual(
+                    sum(selected_mask),
+                    phase_cover["zero_candidate_evaluations_by_half"][
+                        half_index
+                    ],
+                )
+                self.assertTrue(any(initialized_half))
+                for group in range(8):
+                    self.assertEqual(
+                        initialized_half[group],
+                        any(selected_mask[2 * group:2 * group + 2]),
+                    )
+                self.assertTrue(
+                    all(
+                        hull is not None if selected else hull is None
+                        for selected, hull in zip(
+                            initialized_half, phase_hull_half, strict=True
+                        )
+                    )
+                )
+                self.assertTrue(
+                    all(
+                        compatible is True if selected else compatible is None
+                        for selected, compatible in zip(
+                            initialized_half,
+                            normal_image_half,
+                            strict=True,
+                        )
+                    )
+                )
+                for slab_index, selected in enumerate(selected_mask):
+                    if not selected:
+                        continue
+                    group = slab_index // grouped["slabs_per_group"]
+                    self.assertTrue(initialized_half[group])
+                    hull = phase_hull_half[group]
+                    slab_lower = (
+                        -continuation_face
+                        + 2.0 * continuation_face * slab_index / 16.0
+                    )
+                    slab_upper = (
+                        -continuation_face
+                        + 2.0
+                        * continuation_face
+                        * (slab_index + 1)
+                        / 16.0
+                    )
+                    self.assertLessEqual(endpoint(hull, "lower"), slab_lower)
+                    self.assertGreaterEqual(endpoint(hull, "upper"), slab_upper)
+
+            for name, value in result["gates"].items():
+                if isinstance(value, list):
+                    self.assertTrue(all(value), name)
+                else:
+                    self.assertTrue(value, name)
 
 
 class V5SourceIncidenceSlabSmokeTests(unittest.TestCase):

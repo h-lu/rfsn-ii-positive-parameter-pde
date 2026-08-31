@@ -449,6 +449,9 @@ status `INCONCLUSIVE`, as recorded in
 This does not refute the V2 gate orbit, and it is distinct from the moving
 V5 source-to-future-graph match.  The latter now has a strict
 representative-cell proof of unique transverse true-source incidence.  Its
+eight-group candidate-hull kernel additionally passes the disclosed lower,
+centre, and upper grid cells while reducing exterior-product propagations;
+these samples validate the kernel but do not interpolate to a full cover. Its
 finite \(K_1\) graph contract separates the expanded base
 \(|b|\le1.3\times10^{-4}\) from the unchanged normal tube
 \(|n|\le10^{-4}\), and its anchor is located by eight gap-free

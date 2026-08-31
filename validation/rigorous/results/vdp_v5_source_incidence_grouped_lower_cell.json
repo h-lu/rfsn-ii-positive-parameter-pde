@@ -1,0 +1,360 @@
+{
+  "schema_version": "rfsn-vdp-v5-source-incidence-merged-cell/1",
+  "status": "PASS",
+  "mathematical_status": "PASS",
+  "claim_bearing": false,
+  "box_id": "vdp-positive-box-v2",
+  "cell_index": [
+    0,
+    0,
+    0
+  ],
+  "grid": [
+    64,
+    128,
+    40
+  ],
+  "phase_cover": {
+    "continuation_face": "1/25000",
+    "slab_count": 16,
+    "graph_error_halves": 2,
+    "anchor_graph_error_slices": 8,
+    "anchor_interval_newton_evaluations": 16,
+    "zero_candidate_evaluations": 22,
+    "zero_candidate_evaluations_by_half": [
+      11,
+      11
+    ],
+    "graph_tube_candidate_evaluations": 22,
+    "graph_tube_candidate_evaluations_by_half": [
+      11,
+      11
+    ],
+    "exterior_evaluations": 12,
+    "terminal_affine_subboxes_per_evaluation": 2048,
+    "terminal_affine_subbox_evaluations": 24576
+  },
+  "merged_root_exterior": {
+    "route": "UNIFORM_PHASE_GROUPS_PER_GRAPH_ERROR_HALF",
+    "group_count_per_half": 8,
+    "slabs_per_group": 2,
+    "selected_slab_mask_by_half": [
+      [
+        false,
+        false,
+        false,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        false,
+        false
+      ],
+      [
+        false,
+        false,
+        false,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        false,
+        false
+      ]
+    ],
+    "candidate_phase_hull_by_half_and_group": [
+      [
+        null,
+        {
+          "lower_hex": "-0x1.a36e2eb1c4336p-16",
+          "upper_hex": "-0x1.4f8b588e368e9p-16",
+          "endpoint_format": "IEEE754_BINARY64_HEX"
+        },
+        {
+          "lower_hex": "-0x1.4f8b588e368fdp-16",
+          "upper_hex": "-0x1.4f8b588e368ddp-17",
+          "endpoint_format": "IEEE754_BINARY64_HEX"
+        },
+        {
+          "lower_hex": "-0x1.4f8b588e36909p-17",
+          "upper_hex": "0x1.8cp-65",
+          "endpoint_format": "IEEE754_BINARY64_HEX"
+        },
+        {
+          "lower_hex": "-0x1.06p-64",
+          "upper_hex": "0x1.4f8b588e36911p-17",
+          "endpoint_format": "IEEE754_BINARY64_HEX"
+        },
+        {
+          "lower_hex": "0x1.4f8b588e368cbp-17",
+          "upper_hex": "0x1.4f8b588e36901p-16",
+          "endpoint_format": "IEEE754_BINARY64_HEX"
+        },
+        {
+          "lower_hex": "0x1.4f8b588e368dbp-16",
+          "upper_hex": "0x1.f75104d551d7dp-16",
+          "endpoint_format": "IEEE754_BINARY64_HEX"
+        },
+        null
+      ],
+      [
+        null,
+        {
+          "lower_hex": "-0x1.a36e2eb1c4336p-16",
+          "upper_hex": "-0x1.4f8b588e368e9p-16",
+          "endpoint_format": "IEEE754_BINARY64_HEX"
+        },
+        {
+          "lower_hex": "-0x1.4f8b588e368fdp-16",
+          "upper_hex": "-0x1.4f8b588e368ddp-17",
+          "endpoint_format": "IEEE754_BINARY64_HEX"
+        },
+        {
+          "lower_hex": "-0x1.4f8b588e36909p-17",
+          "upper_hex": "0x1.8cp-65",
+          "endpoint_format": "IEEE754_BINARY64_HEX"
+        },
+        {
+          "lower_hex": "-0x1.06p-64",
+          "upper_hex": "0x1.4f8b588e36911p-17",
+          "endpoint_format": "IEEE754_BINARY64_HEX"
+        },
+        {
+          "lower_hex": "0x1.4f8b588e368cbp-17",
+          "upper_hex": "0x1.4f8b588e36901p-16",
+          "endpoint_format": "IEEE754_BINARY64_HEX"
+        },
+        {
+          "lower_hex": "0x1.4f8b588e368dbp-16",
+          "upper_hex": "0x1.f75104d551d7dp-16",
+          "endpoint_format": "IEEE754_BINARY64_HEX"
+        },
+        null
+      ]
+    ],
+    "candidate_hull_initialized_by_half_and_group": [
+      [
+        false,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        false
+      ],
+      [
+        false,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        false
+      ]
+    ],
+    "candidate_hull_normal_image_contains_zero_by_half_and_group": [
+      [
+        null,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        null
+      ],
+      [
+        null,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        null
+      ]
+    ],
+    "candidate_hull_consistency_gate": true,
+    "kernel_gate": true
+  },
+  "derivative_convention": {
+    "parameter_fibre": "fixed_eta_auxiliary_fibre",
+    "coordinate_shift_wedge_invariance": true,
+    "actual_eta_phi_used_only_in_source_slope": true
+  },
+  "target_graph_contract": {
+    "base_half_width": "13/100000",
+    "normal_half_width": "1/10000",
+    "slope_bound": "7/10",
+    "source_slope_limit": "1/2"
+  },
+  "enclosures": {
+    "anchor_aligned": {
+      "lower_hex": "-0x1.0320483bf39f7p-19",
+      "upper_hex": "-0x1.e012498c02f29p-20",
+      "endpoint_format": "IEEE754_BINARY64_HEX"
+    },
+    "anchor_root_phase": {
+      "lower_hex": "-0x1.1eb1e869c70dep-27",
+      "upper_hex": "0x1.98e2777ac13e8p-26",
+      "endpoint_format": "IEEE754_BINARY64_HEX"
+    },
+    "anchor_root_normal": {
+      "lower_hex": "-0x1.f0461281ca9cap-17",
+      "upper_hex": "0x1.9c62024454985p-17",
+      "endpoint_format": "IEEE754_BINARY64_HEX"
+    },
+    "continuation_n_theta": {
+      "lower_hex": "-0x1.1237ccf212c5ap+11",
+      "upper_hex": "-0x1.df5d6d9c8c8fdp+9",
+      "endpoint_format": "IEEE754_BINARY64_HEX"
+    },
+    "fixed_eta_b_on_n_zero_parameter_derivative": [
+      {
+        "lower_hex": "-0x1.e2f826a8c3337p-7",
+        "upper_hex": "0x1.adef098bff48p-7",
+        "endpoint_format": "IEEE754_BINARY64_HEX"
+      },
+      {
+        "lower_hex": "-0x1.9c44369f1a726p-11",
+        "upper_hex": "0x1.2ec44728ef46cp-11",
+        "endpoint_format": "IEEE754_BINARY64_HEX"
+      },
+      {
+        "lower_hex": "-0x1.1e2920cafdbeap-6",
+        "upper_hex": "0x1.ba2f4322f3375p-7",
+        "endpoint_format": "IEEE754_BINARY64_HEX"
+      }
+    ],
+    "fixed_eta_n_theta": {
+      "lower_hex": "-0x1.f275b9138e31cp+10",
+      "upper_hex": "-0x1.fbeedf6055ec8p+9",
+      "endpoint_format": "IEEE754_BINARY64_HEX"
+    },
+    "exterior_seam_P": {
+      "lower_hex": "-0x1.d54a0e6389f81p-4",
+      "upper_hex": "-0x1.d50007f137434p-4",
+      "endpoint_format": "IEEE754_BINARY64_HEX"
+    },
+    "source_abs_db_over_minus_dn": {
+      "lower_hex": "0x0p+0",
+      "upper_hex": "0x1.7a5ede89d107dp-2",
+      "endpoint_format": "IEEE754_BINARY64_HEX"
+    },
+    "candidate_terminal_Q": {
+      "lower_hex": "-0x1.2d27e973b185bp+3",
+      "upper_hex": "-0x1.234bc50768c21p+3",
+      "endpoint_format": "IEEE754_BINARY64_HEX"
+    },
+    "candidate_source_u1_phase_domain_margin": {
+      "lower_hex": "0x1.190bb3d8c4036p-7",
+      "upper_hex": "0x1.192d9c8077296p-7",
+      "endpoint_format": "IEEE754_BINARY64_HEX"
+    },
+    "candidate_source_U": {
+      "lower_hex": "0x1.191a4dd532f77p-7",
+      "upper_hex": "0x1.1981f3d80413dp-7",
+      "endpoint_format": "IEEE754_BINARY64_HEX"
+    },
+    "candidate_seam_P": {
+      "lower_hex": "-0x1.d54acf9509795p-4",
+      "upper_hex": "-0x1.d4ff855095e18p-4",
+      "endpoint_format": "IEEE754_BINARY64_HEX"
+    },
+    "candidate_pre_seam_U_margin": {
+      "lower_hex": "0x1.e5cfc1dcdafb2p-6",
+      "upper_hex": "0x1.37ec38a0e1674p-4",
+      "endpoint_format": "IEEE754_BINARY64_HEX"
+    },
+    "candidate_dense_W": {
+      "lower_hex": "0x1.adcc6353910b4p-7",
+      "upper_hex": "0x1.95d32acc37a34p+0",
+      "endpoint_format": "IEEE754_BINARY64_HEX"
+    },
+    "parameter_variation_budget": {
+      "lower_hex": "0x0p+0",
+      "upper_hex": "0x1.798e976000b51p-14",
+      "endpoint_format": "IEEE754_BINARY64_HEX"
+    },
+    "source_excursion_budget": {
+      "lower_hex": "0x0p+0",
+      "upper_hex": "0x1.35f610017cf42p-15",
+      "endpoint_format": "IEEE754_BINARY64_HEX"
+    },
+    "incidence_base_margin": {
+      "lower_hex": "0x1.27f3911e7708p-20",
+      "upper_hex": "0x1.10a137f38c545p-13",
+      "endpoint_format": "IEEE754_BINARY64_HEX"
+    }
+  },
+  "gates": {
+    "anchor_interval_newton": true,
+    "anchor_root_boxes_contain_zero": true,
+    "exact_source_zero_energy_identity": true,
+    "theta_coordinate_regular": true,
+    "complete_graph_error_half_union": true,
+    "complete_anchor_graph_error_slice_union": true,
+    "complete_phase_slab_union": true,
+    "continuation_faces": true,
+    "phase_monotonicity_on_continuation_cover": true,
+    "anchor_interval_newton_by_slice": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "anchor_root_contains_zero_by_slice": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "continuation_faces_by_half": [
+      true,
+      true
+    ],
+    "root_derivatives": true,
+    "fixed_eta_n_theta_negative": true,
+    "exterior_seam_P_negative": true,
+    "source_slope_below_one_half": true,
+    "graph_slope_contraction": true,
+    "negative_K1_sheet_patch": true,
+    "regular_source_to_terminal_passage": true,
+    "base_budget": true,
+    "nonempty_candidates": true
+  },
+  "rounding_self_test": {
+    "status": "PASS"
+  },
+  "claim_boundary": {
+    "established_if_pass": "one parameter cell has a unique strictly secant-separated true-source incidence with every admissible V5 lower graph in the prescribed source-phase component, transverse whenever the target graph is C1",
+    "open_scope": [
+      "complete v2 parameter cover",
+      "claim-bearing composite theorem"
+    ]
+  }
+}

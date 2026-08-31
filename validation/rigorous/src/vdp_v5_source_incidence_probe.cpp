@@ -1756,16 +1756,20 @@ int main(int argc, char** argv) {
       throw std::invalid_argument(
           "usage: probe cover NR NA NE | probe cell NR NA NE IR IA IE | "
           "probe slab NR NA NE IR IA IE IS | "
-          "probe incidence-cell NR NA NE IR IA IE");
+          "probe incidence-cell NR NA NE IR IA IE | "
+          "probe incidence-merged-cell NR NA NE IR IA IE");
     const std::string mode(argv[1]);
     const int rCount = std::stoi(argv[2]);
     const int aCount = std::stoi(argv[3]);
     const int epsilonCount = std::stoi(argv[4]);
     Aggregate aggregate;
-    if (mode == "incidence-cell") {
+    if (mode == "incidence-cell" ||
+        mode == "incidence-merged-cell") {
       if (argc != 8)
         throw std::invalid_argument(
-            "incidence-cell mode requires IR IA IE");
+            "incidence cell mode requires IR IA IE");
+      const bool mergedExteriorMode =
+          mode == "incidence-merged-cell";
       const int rIndex = std::stoi(argv[5]);
       const int aIndex = std::stoi(argv[6]);
       const int epsilonIndex = std::stoi(argv[7]);
@@ -1782,6 +1786,10 @@ int main(int argc, char** argv) {
       constexpr int slabCount = 16;
       constexpr int graphErrorHalfCount = 2;
       constexpr int anchorGraphSliceCount = 8;
+      constexpr int mergedExteriorGroupCount = 8;
+      static_assert(slabCount % mergedExteriorGroupCount == 0);
+      constexpr int mergedExteriorSlabsPerGroup =
+          slabCount / mergedExteriorGroupCount;
       const interval slabHalfWidth =
           continuationFace / interval(slabCount);
       const interval graphBase = lowerGraphBaseHalfWidth();
@@ -1804,6 +1812,8 @@ int main(int argc, char** argv) {
       interval anchorRootPhase(0.);
       interval anchorRootN(0.);
       std::array<interval, anchorGraphSliceCount> anchorNAtZero;
+      std::array<std::array<interval, mergedExteriorGroupCount>,
+                 graphErrorHalfCount> mergedCandidatePhaseHullByGroup;
       bool anchorInitialized = false;
       bool rootInitialized = false;
       bool slopeInitialized = false;
@@ -1811,8 +1821,16 @@ int main(int argc, char** argv) {
       bool passageInitialized = false;
       bool phaseDerivativeInitialized = false;
       bool anchorRootNInitialized = false;
+      std::array<std::array<bool, mergedExteriorGroupCount>,
+                 graphErrorHalfCount>
+          mergedCandidatePhaseHullInitializedByGroup{};
       std::array<bool, anchorGraphSliceCount> anchorNewtonBySlice{};
       std::array<bool, anchorGraphSliceCount> anchorRootNBySlice{};
+      std::array<std::array<bool, mergedExteriorGroupCount>,
+                 graphErrorHalfCount>
+          mergedCandidateNIncludesZeroByGroup{};
+      std::array<std::array<bool, slabCount>, graphErrorHalfCount>
+          zeroCandidateBySlabAndHalf{};
       std::array<bool, 2> continuationFacesByHalf{{true, true}};
       bool derivativeGate = true;
       bool phaseMonotonicityGate = true;
@@ -1933,7 +1951,25 @@ int main(int argc, char** argv) {
           const bool zeroCandidate = slab.n.contains(0.);
           const bool graphTubeCandidate = overlaps(slab.n, graphTube);
           if (zeroCandidate) {
+            zeroCandidateBySlabAndHalf[graphHalf][slabIndex] = true;
             ++zeroCandidateCount[graphHalf];
+            if (mergedExteriorMode) {
+              const int mergedGroup =
+                  slabIndex * mergedExteriorGroupCount / slabCount;
+              const interval slabPhase = intervalFromEndpoints(
+                  slabCentre - slabHalfWidth,
+                  slabCentre + slabHalfWidth);
+              include(
+                  mergedCandidatePhaseHullInitializedByGroup[graphHalf]
+                                                                 [mergedGroup],
+                  mergedCandidatePhaseHullByGroup[graphHalf][mergedGroup],
+                  slabPhase);
+              mergedCandidatePhaseHullInitializedByGroup[graphHalf]
+                                                              [mergedGroup] =
+                  true;
+            }
+          }
+          if (zeroCandidate && !mergedExteriorMode) {
             const CellResult rootSlab = evaluateCellRegion(
                 cell, PhaseRegion::FullStrip, graphHalf,
                 graphErrorHalfCount,
@@ -1991,6 +2027,67 @@ int main(int argc, char** argv) {
                 slab.preSeamMargin.leftBound() > 0. &&
                 slab.denseW.leftBound() > 0.;
           }
+        }
+      }
+      bool mergedExteriorGate = !mergedExteriorMode;
+      bool mergedCandidateHullsNCompatible = !mergedExteriorMode;
+      if (mergedExteriorMode) {
+        // The face signs and n_theta<0 give one root for every fixed
+        // (parameter, eta).  Its phase lies in a slab whose interval image
+        // contains zero, so the hulls of all selected slabs cover the entire
+        // root branch.  Enlarging those hulls to fixed adjacent phase groups
+        // preserves containment while reducing the expensive C1 propagations.
+        mergedExteriorGate = true;
+        mergedCandidateHullsNCompatible = true;
+        std::array<bool, graphErrorHalfCount>
+            evaluatedMergedHalf{};
+        for (int graphHalf = 0; graphHalf < graphErrorHalfCount;
+             ++graphHalf) {
+          for (int mergedGroup = 0;
+               mergedGroup < mergedExteriorGroupCount;
+               ++mergedGroup) {
+            if (!mergedCandidatePhaseHullInitializedByGroup[graphHalf]
+                                                                 [mergedGroup])
+              continue;
+            evaluatedMergedHalf[graphHalf] = true;
+            const interval rootPhase =
+                mergedCandidatePhaseHullByGroup[graphHalf][mergedGroup];
+            const interval rootCentre(midpointValue(rootPhase));
+            const interval rootHalfWidth(
+                absUpper(rootPhase - rootCentre));
+            const CellResult rootCell = evaluateCellRegion(
+                cell, PhaseRegion::FullStrip, graphHalf,
+                graphErrorHalfCount, &rootCentre,
+                &rootHalfWidth, true);
+            ++exteriorEvaluationCount;
+            mergedCandidateNIncludesZeroByGroup[graphHalf][mergedGroup] =
+                rootCell.n.contains(0.);
+            mergedCandidateHullsNCompatible =
+                mergedCandidateHullsNCompatible &&
+                mergedCandidateNIncludesZeroByGroup[graphHalf]
+                                                        [mergedGroup];
+            derivativeGate = derivativeGate &&
+                rootCell.rootDerivativeComputed &&
+                rootCell.fixedEtaNTheta.rightBound() < 0.;
+            exteriorGate = exteriorGate &&
+                rootCell.exteriorSeamP.rightBound() < 0.;
+            if (rootCell.rootDerivativeComputed) {
+              include(rootInitialized, rootDerivativeR,
+                      rootCell.bOnNZeroParameterDerivative[0]);
+              include(rootInitialized, rootDerivativeA,
+                      rootCell.bOnNZeroParameterDerivative[1]);
+              include(rootInitialized, rootDerivativeEpsilon,
+                      rootCell.bOnNZeroParameterDerivative[2]);
+              include(rootInitialized, fixedEtaNTheta,
+                      rootCell.fixedEtaNTheta);
+              include(rootInitialized, exteriorSeamP,
+                      rootCell.exteriorSeamP);
+              rootInitialized = true;
+            }
+          }
+          mergedExteriorGate = mergedExteriorGate &&
+              evaluatedMergedHalf[graphHalf] &&
+              zeroCandidateCount[graphHalf] > 0;
         }
       }
       for (int graphSlice = 0; graphSlice < anchorGraphSliceCount;
@@ -2052,6 +2149,8 @@ int main(int argc, char** argv) {
       const bool continuationFaces =
           continuationFacesByHalf[0] &&
           continuationFacesByHalf[1];
+      const bool mergedKernelGate = !mergedExteriorMode ||
+          (mergedExteriorGate && mergedCandidateHullsNCompatible);
       const bool nonemptyCandidates =
           zeroCandidateCount[0] > 0 && zeroCandidateCount[1] > 0 &&
           graphTubeCandidateCount[0] > 0 &&
@@ -2064,13 +2163,15 @@ int main(int argc, char** argv) {
           completeAnchorGraphSliceUnion &&
           coordinateJacobian.leftBound() > 0. && sourceSlopeGate &&
           qGate && passageGate && exteriorGate && budgetGate &&
-          contractionGate && nonemptyCandidates;
+          contractionGate && nonemptyCandidates && mergedKernelGate;
       const auto rounding = rfsn::rigorous::runRoundingSelfTests();
       const Verdict mathematicalStatus =
           mathematicalPass ? Verdict::Pass : Verdict::Inconclusive;
       const Verdict status = combine(rounding.status, mathematicalStatus);
       std::cout << "{\"schema_version\":"
-                << "\"rfsn-vdp-v5-source-incidence-cell/2\","
+                << (mergedExteriorMode
+                        ? "\"rfsn-vdp-v5-source-incidence-merged-cell/1\","
+                        : "\"rfsn-vdp-v5-source-incidence-cell/2\",")
                 << "\"status\":\"" << verdictName(status) << "\","
                 << "\"mathematical_status\":\""
                 << verdictName(mathematicalStatus) << "\","
@@ -2103,8 +2204,97 @@ int main(int argc, char** argv) {
                 << exteriorEvaluationCount << ','
                 << "\"terminal_affine_subboxes_per_evaluation\":2048,"
                 << "\"terminal_affine_subbox_evaluations\":"
-                << 2048 * exteriorEvaluationCount << "},"
-                << "\"derivative_convention\":{"
+                << 2048 * exteriorEvaluationCount << "},";
+      if (mergedExteriorMode) {
+        std::cout
+            << "\"merged_root_exterior\":{"
+            << "\"route\":"
+               "\"UNIFORM_PHASE_GROUPS_PER_GRAPH_ERROR_HALF\","
+            << "\"group_count_per_half\":"
+            << mergedExteriorGroupCount
+            << ",\"slabs_per_group\":"
+            << mergedExteriorSlabsPerGroup
+            << ",\"selected_slab_mask_by_half\":[";
+        for (int graphHalf = 0; graphHalf < graphErrorHalfCount;
+             ++graphHalf) {
+          if (graphHalf != 0)
+            std::cout << ',';
+          std::cout << '[';
+          for (int slabIndex = 0; slabIndex < slabCount; ++slabIndex) {
+            if (slabIndex != 0)
+              std::cout << ',';
+            std::cout << boolJson(
+                zeroCandidateBySlabAndHalf[graphHalf][slabIndex]);
+          }
+          std::cout << ']';
+        }
+        std::cout
+            << ']'
+            << ",\"candidate_phase_hull_by_half_and_group\":[";
+        for (int graphHalf = 0; graphHalf < graphErrorHalfCount;
+             ++graphHalf) {
+          if (graphHalf != 0)
+            std::cout << ',';
+          std::cout << '[';
+          for (int mergedGroup = 0;
+               mergedGroup < mergedExteriorGroupCount;
+               ++mergedGroup) {
+            if (mergedGroup != 0)
+              std::cout << ',';
+            if (mergedCandidatePhaseHullInitializedByGroup[graphHalf]
+                                                                [mergedGroup])
+              std::cout << intervalJson(
+                  mergedCandidatePhaseHullByGroup[graphHalf][mergedGroup]);
+            else
+              std::cout << "null";
+          }
+          std::cout << ']';
+        }
+        std::cout << "],\"candidate_hull_initialized_by_half_and_group\":[";
+        for (int graphHalf = 0; graphHalf < graphErrorHalfCount;
+             ++graphHalf) {
+          if (graphHalf != 0)
+            std::cout << ',';
+          std::cout << '[';
+          for (int mergedGroup = 0;
+               mergedGroup < mergedExteriorGroupCount;
+               ++mergedGroup) {
+            if (mergedGroup != 0)
+              std::cout << ',';
+            std::cout << boolJson(
+                mergedCandidatePhaseHullInitializedByGroup[graphHalf]
+                                                                [mergedGroup]);
+          }
+          std::cout << ']';
+        }
+        std::cout
+            << "],\"candidate_hull_normal_image_contains_zero_by_half_and_group\":[";
+        for (int graphHalf = 0; graphHalf < graphErrorHalfCount;
+             ++graphHalf) {
+          if (graphHalf != 0)
+            std::cout << ',';
+          std::cout << '[';
+          for (int mergedGroup = 0;
+               mergedGroup < mergedExteriorGroupCount;
+               ++mergedGroup) {
+            if (mergedGroup != 0)
+              std::cout << ',';
+            if (mergedCandidatePhaseHullInitializedByGroup[graphHalf]
+                                                                [mergedGroup])
+              std::cout << boolJson(
+                  mergedCandidateNIncludesZeroByGroup[graphHalf]
+                                                         [mergedGroup]);
+            else
+              std::cout << "null";
+          }
+          std::cout << ']';
+        }
+        std::cout << "],\"candidate_hull_consistency_gate\":"
+                  << boolJson(mergedCandidateHullsNCompatible)
+                  << ",\"kernel_gate\":"
+                  << boolJson(mergedKernelGate) << "},";
+      }
+      std::cout << "\"derivative_convention\":{"
                 << "\"parameter_fibre\":\"fixed_eta_auxiliary_fibre\","
                 << "\"coordinate_shift_wedge_invariance\":true,"
                 << "\"actual_eta_phi_used_only_in_source_slope\":true},"
@@ -2268,7 +2458,8 @@ int main(int argc, char** argv) {
       throw std::invalid_argument(
           "usage: probe cover NR NA NE | probe cell NR NA NE IR IA IE | "
           "probe slab NR NA NE IR IA IE IS | "
-          "probe incidence-cell NR NA NE IR IA IE");
+          "probe incidence-cell NR NA NE IR IA IE | "
+          "probe incidence-merged-cell NR NA NE IR IA IE");
     for (int rIndex = 0; rIndex < rCount; ++rIndex) {
       for (int aIndex = 0; aIndex < aCount; ++aIndex) {
         for (int epsilonIndex = 0; epsilonIndex < epsilonCount;
