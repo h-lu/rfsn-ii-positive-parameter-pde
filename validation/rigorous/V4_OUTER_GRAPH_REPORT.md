@@ -110,6 +110,24 @@ is at least \(0.9482725777780716\), and
  \ge(0.9482725778,0.9157714962,0.8832618389,0.8507521816).
 \]
 
+The same block bounds give the sharper invariant graph-slope cone
+
+\[
+ \|D_{(z,E,\beta)}\Gamma_\mu\|\le\kappa,
+ \qquad \kappa=\frac1{32}.
+\]
+
+Indeed, the outward-rounded lower bound for
+
+\[
+ \kappa\{a_{\rm n}-\mu_2(C)-\|B\|\kappa\}-\|D\|
+\]
+
+is \(0.005591599924052667>0\). Thus the boundary of the
+\(\kappa\)-projectivized cone is strictly inward on every cell. This sharper
+slope is the useful output for transporting the graph conormal toward the
+resolved \(K_1\) matching problem; it still does not perform that transport.
+
 The root formula is smooth jointly in state and parameters on this
 corridor. The proved corridor graph lemma therefore gives a unique locally
 maximal graph
@@ -135,7 +153,7 @@ compiled-output checks are in
       validation.rigorous.tests.test_v4_outer_graph_probe -v
 
 with the pinned strict CAPD/FILIB build, or set RFSN_CAPD_CONFIG to its
-capd-config. The strict run passes the rounding self-test and all four
+capd-config. The strict run passes the rounding self-test and all five
 mathematical obligations.
 
 The machine field **claim_bearing=false** records that this local result is

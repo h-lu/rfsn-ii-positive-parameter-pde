@@ -144,7 +144,10 @@ The positive-root, face, cone, and third-order bunching obligations all
 pass. Together with the proved corridor graph lemma and its analytic tail
 argument, this establishes the full V4 future-staying graph, mixed
 regularity, algebraic asymptotics, and infinite physical distance on that
-explicit corridor. See the
+explicit corridor. The same interval blocks sharpen the graph slope to at
+most \(1/32\), with strict projective-cone margin \(0.0055915999\); this is
+the oriented outer conormal bound used by the next resolved-\(K_1\) matching
+step. See the
 [strict V4 outer-graph report](validation/rigorous/V4_OUTER_GRAPH_REPORT.md).
 
 The master run still does not numerically certify the paper's remaining

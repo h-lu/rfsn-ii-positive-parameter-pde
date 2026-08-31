@@ -628,7 +628,9 @@ of the P2 chain, only:
   $|\alpha|,|\beta|\le10^{-5}$ corridor on the
   complete v2 parameter box;
 - its invariant/inward base faces, strict normal exit faces, and uniform
-  generator cone and order-three bunching bounds; and
+  generator cone and order-three bunching bounds, including the sharpened
+  graph-slope estimate
+  \(\|D_{(z,E,\beta)}\Gamma_\mu\|\le1/32\); and
 - after applying the already proved corridor graph lemma, the unique maximal
   future-staying graph with mixed total-order-three regularity on the
   full base $X=(z,E,\beta)$, followed by the exact orbitwise V4 asymptotics.

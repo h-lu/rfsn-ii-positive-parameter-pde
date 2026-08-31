@@ -517,6 +517,7 @@ int main() {
         Interval(1.0) - Interval(2.0) * nu;
     const Interval theoremGamma3Floor =
         Interval(1.0) - Interval(8.0) * nu;
+    const Interval graphSlope = rational(1, 32);
     const double blockMuMargin =
         (nu - Interval(aggregate.muCUpper)).leftBound();
     const double blockBMargin =
@@ -561,13 +562,33 @@ int main() {
          {"theorem_gamma3_floor_1_minus_8nu",
           theoremGamma3Floor}}});
 
+    // For a graph with base-to-normal slope kappa, the boundary of the
+    // projectivized cone is strictly inward whenever
+    //
+    //   kappa * (a_n-mu_2(C)-||B||*kappa) - ||D|| > 0.
+    //
+    // The same full-corridor block extrema used above therefore certify a
+    // much narrower cone than the slope-one cone needed for existence.
+    const Interval graphSlopeMargin =
+        graphSlope *
+            (Interval(aggregate.aLower) -
+             Interval(aggregate.muCUpper) -
+             Interval(aggregate.bNormUpper) * graphSlope) -
+        Interval(aggregate.dNormUpper);
+    obligations.push_back({
+        "V4.OUTER_GRAPH.SLOPE_1_32",
+        strictPositive(graphSlopeMargin),
+        "The base-to-normal graph slope is at most kappa=1/32 on the full corridor because the kappa projectivized cone is strictly invariant",
+        {{"kappa", graphSlope},
+         {"kappa_cone_margin", graphSlopeMargin}}});
+
     Verdict mathematical = Verdict::Pass;
     for (const auto& obligation : obligations)
       mathematical = combine(mathematical, obligation.status);
     const Verdict status = combine(rounding.status, mathematical);
 
     std::cout
-        << "{\"schema_version\":\"rfsn-vdp-v4-outer-graph-probe/1\","
+        << "{\"schema_version\":\"rfsn-vdp-v4-outer-graph-probe/2\","
         << "\"status\":\"" << verdictName(status) << "\","
         << "\"mathematical_status\":\"" << verdictName(mathematical)
         << "\",\"claim_bearing\":false,"
@@ -575,8 +596,8 @@ int main() {
         << "\"parent_obligation\":\"V4.OUTER_GRAPH local mathematical PASS; "
            "Issue #7 aggregate remains PENDING\","
         << "\"proved_scope\":\"unique maximal full-energy future-staying graph "
-           "with normal expansion, third-order bunching, and mixed "
-           "regularity\","
+           "with normal expansion, slope at most 1/32, third-order "
+           "bunching, and mixed regularity\","
         << "\"open_scope\":[\"V5 incidence\",\"outer action finite part\","
            "\"Issue #7 aggregate and release\"]},"
         << "\"scope\":\"FULL_ENERGY_COLLAR\","
@@ -601,7 +622,8 @@ int main() {
         << ",\"E\":" << intervalJson(energyCorridor)
         << ",\"beta\":" << intervalJson(stateBox)
         << ",\"alpha\":" << intervalJson(stateBox)
-        << ",\"nu\":" << intervalJson(nu) << "},"
+        << ",\"nu\":" << intervalJson(nu)
+        << ",\"graph_slope_kappa\":" << intervalJson(graphSlope) << "},"
         << "\"obligations\":[";
     for (std::size_t index = 0; index < obligations.size(); ++index) {
       if (index) std::cout << ',';

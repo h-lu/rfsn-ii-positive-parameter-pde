@@ -72,7 +72,7 @@ class V4OuterGraphProbeTests(unittest.TestCase):
     def test_scope_and_gap_free_product_cover_are_explicit(self) -> None:
         self.assertEqual(
             self.result["schema_version"],
-            "rfsn-vdp-v4-outer-graph-probe/1",
+            "rfsn-vdp-v4-outer-graph-probe/2",
         )
         self.assertEqual(self.result["box_id"], "vdp-positive-box-v2")
         self.assertEqual(self.result["scope"], "FULL_ENERGY_COLLAR")
@@ -119,6 +119,12 @@ class V4OuterGraphProbeTests(unittest.TestCase):
             )
         self.assertLessEqual(endpoint(corridor["nu"], "lower"), 1.0 / 32.0)
         self.assertGreaterEqual(endpoint(corridor["nu"], "upper"), 1.0 / 32.0)
+        self.assertLessEqual(
+            endpoint(corridor["graph_slope_kappa"], "lower"), 1.0 / 32.0
+        )
+        self.assertGreaterEqual(
+            endpoint(corridor["graph_slope_kappa"], "upper"), 1.0 / 32.0
+        )
 
     def test_positive_energy_root_and_all_corridor_faces_pass(self) -> None:
         obligations = {item["id"]: item for item in self.result["obligations"]}
@@ -129,6 +135,7 @@ class V4OuterGraphProbeTests(unittest.TestCase):
                 "V4.OUTER_GRAPH.CORRIDOR_FACES",
                 "V4.OUTER_GRAPH.GENERATOR_BLOCKS",
                 "V4.OUTER_GRAPH.CONE_AND_BUNCHING",
+                "V4.OUTER_GRAPH.SLOPE_1_32",
             },
         )
         root = obligations["V4.OUTER_GRAPH.POSITIVE_BRANCH"]
@@ -169,6 +176,21 @@ class V4OuterGraphProbeTests(unittest.TestCase):
             "gamma_1_lower", "gamma_2_lower", "gamma_3_lower",
         ):
             self.assertGreater(endpoint(rates["enclosures"][key], "lower"), 0.0)
+
+    def test_graph_slope_one_over_32_cone_is_strict(self) -> None:
+        obligations = {item["id"]: item for item in self.result["obligations"]}
+        slope = obligations["V4.OUTER_GRAPH.SLOPE_1_32"]
+        self.assertEqual(slope["status"], "PASS")
+        self.assertLessEqual(
+            endpoint(slope["enclosures"]["kappa"], "lower"), 1.0 / 32.0
+        )
+        self.assertGreaterEqual(
+            endpoint(slope["enclosures"]["kappa"], "upper"), 1.0 / 32.0
+        )
+        self.assertGreater(
+            endpoint(slope["enclosures"]["kappa_cone_margin"], "lower"),
+            0.0,
+        )
 
     def test_strict_toolchain_run_is_locally_passed(self) -> None:
         self.assertEqual(self.result["rounding_self_test"]["status"], "PASS")
