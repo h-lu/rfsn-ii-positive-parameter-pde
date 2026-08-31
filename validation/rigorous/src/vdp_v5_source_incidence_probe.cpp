@@ -1097,6 +1097,7 @@ TerminalData propagateReduced(const ReducedInitialData& initial,
 }
 
 struct RootDerivativeData {
+  interval terminalN;
   interval bTheta;
   interval nTheta;
   interval slope;
@@ -1235,7 +1236,7 @@ RootDerivativeData propagateReducedExterior(
   coordinateMap.setParameter("a2c", parameterCentre[1]);
   coordinateMap.setParameter("epsc", parameterCentre[2]);
   IMatrix gradient(3, 9);
-  (void)coordinateMap(base, gradient);
+  const IVector spectral = coordinateMap(base, gradient);
   IMap errorMap(formulas.error);
   errorMap.setParameter("rc", parameterCentre[0]);
   errorMap.setParameter("a2c", parameterCentre[1]);
@@ -1351,11 +1352,89 @@ RootDerivativeData propagateReducedExterior(
     }
   }
   bDerivative = subdividedBDerivative;
-  return {bTheta, nTheta, bTheta / nTheta,
+  return {spectral[1], bTheta, nTheta, bTheta / nTheta,
           bDerivative, qDerivative, determinant};
 }
 
 enum class PhaseRegion { LowerFace, UpperFace, FullStrip };
+
+struct ExteriorCellResult {
+  interval terminalN;
+  std::array<interval, 3> bOnNZeroParameterDerivative;
+  interval fixedEtaNTheta;
+  interval exteriorSeamP;
+  bool rootDerivativeComputed;
+};
+
+ExteriorCellResult evaluateCellExteriorOnly(
+    const Box& parameterCell, PhaseRegion region,
+    int graphSliceIndex, int graphSliceCount = 2,
+    const interval* customThetaCentre = nullptr,
+    const interval* customThetaHalfWidth = nullptr) {
+  if (graphSliceCount <= 0 || graphSliceIndex < 0 ||
+      graphSliceIndex >= graphSliceCount)
+    throw std::invalid_argument("invalid source graph-error slice");
+  Box centre;
+  Box offsets;
+  for (int index = 0; index < 3; ++index) {
+    centre[index] = interval(midpointValue(parameterCell[index]));
+    offsets[index] = parameterCell[index] - centre[index];
+  }
+  const bool lowerFace = region == PhaseRegion::LowerFace;
+  const bool upperFace = region == PhaseRegion::UpperFace;
+  const interval thetaCentre = customThetaCentre != nullptr
+      ? *customThetaCentre
+      : (lowerFace ? -thetaFace()
+                   : (upperFace ? thetaFace() : interval(0.)));
+  const interval fullTheta = thetaFace() + thetaHalfWidth();
+  const interval thetaOffset = customThetaHalfWidth != nullptr
+      ? intervalFromEndpoints(-*customThetaHalfWidth,
+                              *customThetaHalfWidth)
+      : (region == PhaseRegion::FullStrip
+             ? intervalFromEndpoints(-fullTheta, fullTheta)
+             : intervalFromEndpoints(-thetaHalfWidth(), thetaHalfWidth()));
+  const interval graphSliceHalfWidth =
+      graphC0() * rational(1, graphSliceCount);
+  const interval graphCentre = -graphC0() +
+      graphSliceHalfWidth * rational(2L * graphSliceIndex + 1);
+  const interval graphOffset = intervalFromEndpoints(
+      -graphSliceHalfWidth, graphSliceHalfWidth);
+  const interval katoU1 = sourceKatoU1(
+      centre, offsets, thetaCentre, thetaOffset,
+      graphCentre, graphOffset);
+  if (katoU1.leftBound() <= 0.)
+    throw std::runtime_error(
+        "slanted source strip leaves the positive-u1 Kato phase domain");
+  const InitialData initial = initialData(
+      centre, offsets, thetaCentre, thetaOffset,
+      graphCentre, graphOffset);
+  const interval sourceU = initial.centre[0] +
+      initial.coordinates[0] * initial.radii + initial.remainder[0];
+  if (sourceU.leftBound() <= 0.)
+    throw std::runtime_error(
+        "true source strip does not start on the positive-U side");
+
+  const SeamData seam = hitFixedCut(
+      initial, centre, -rational(1, 20), 13);
+  if (seam.event[1].rightBound() >= 0.)
+    throw std::runtime_error(
+        "finite seam is not contained in P<0");
+  if (!seam.energy.contains(0.))
+    throw std::runtime_error(
+        "finite seam energy enclosure lost the exact zero-energy image");
+  const ReducedInitialData reducedInitial = reducedInitialData(seam);
+  std::array<ExteriorSeamData, 3> exterior;
+  interval exteriorSeamP(0.);
+  for (int parameter = 0; parameter < 3; ++parameter) {
+    exterior[parameter] =
+        hitFixedCutExterior(initial, centre, parameter);
+    include(parameter != 0, exteriorSeamP, exterior[parameter].eventP);
+  }
+  const RootDerivativeData root =
+      propagateReducedExterior(reducedInitial, centre, exterior);
+  return {root.terminalN, root.bOnNZeroParameterDerivative,
+          root.nTheta, exteriorSeamP, true};
+}
 
 CellResult evaluateCellRegion(const Box& parameterCell, PhaseRegion region,
                               int graphSliceIndex,
@@ -1980,13 +2059,14 @@ int main(int argc, char** argv) {
             }
           }
           if (zeroCandidate && !mergedExteriorMode) {
-            const CellResult rootSlab = evaluateCellRegion(
+            const ExteriorCellResult rootSlab = evaluateCellExteriorOnly(
                 cell, PhaseRegion::FullStrip, graphHalf,
                 graphErrorHalfCount,
-                &slabCentre, &slabHalfWidth, true);
+                &slabCentre, &slabHalfWidth);
             ++exteriorEvaluationCount;
             derivativeGate = derivativeGate &&
                 rootSlab.rootDerivativeComputed &&
+                rootSlab.terminalN.contains(0.) &&
                 rootSlab.fixedEtaNTheta.rightBound() < 0.;
             exteriorGate = exteriorGate &&
                 rootSlab.exteriorSeamP.rightBound() < 0.;
@@ -2066,13 +2146,13 @@ int main(int argc, char** argv) {
             const interval rootCentre(midpointValue(rootPhase));
             const interval rootHalfWidth(
                 absUpper(rootPhase - rootCentre));
-            const CellResult rootCell = evaluateCellRegion(
+            const ExteriorCellResult rootCell = evaluateCellExteriorOnly(
                 cell, PhaseRegion::FullStrip, graphHalf,
                 graphErrorHalfCount, &rootCentre,
-                &rootHalfWidth, true);
+                &rootHalfWidth);
             ++exteriorEvaluationCount;
             mergedCandidateNIncludesZeroByGroup[graphHalf][mergedGroup] =
-                rootCell.n.contains(0.);
+                rootCell.terminalN.contains(0.);
             mergedCandidateHullsNCompatible =
                 mergedCandidateHullsNCompatible &&
                 mergedCandidateNIncludesZeroByGroup[graphHalf]

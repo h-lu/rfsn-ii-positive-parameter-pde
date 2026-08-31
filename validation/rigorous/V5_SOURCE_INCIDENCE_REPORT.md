@@ -360,12 +360,18 @@ the three certificates below.  This is a covering argument, not a heuristic
 root predictor; the phase predictor still enters only as the coordinate
 centring described above.
 
-The program also re-evaluates (n) on every selected hull and requires its
+The program also re-evaluates \(n\) on every selected hull and requires its
 interval image to contain zero.  This is a conservative consistency gate,
 not the existence proof for a root in each selected group: some selected
 slabs may be interval false positives.  Fibrewise root existence and
 uniqueness come from the continuation-face signs and monotonicity; the hull
 construction ensures that whichever group contains the root is propagated.
+This re-evaluation is carried by the same augmented exterior system that
+transports (11)--(12).  It rebuilds the complete source and finite seam on the
+selected hull, retains all three exterior-event propagations, and returns the
+terminal spectral \(n\) together with the fixed-\(\eta\) derivatives.  The
+ordinary terminal and centre-terminal trajectories, already verified on the
+complete slab cover, are therefore not replayed inside the derivative stage.
 
 The same uniform eight-group rule was run on three disclosed cells:
 
@@ -397,7 +403,7 @@ The three grouped samples are archived as
 [`centre`](results/vdp_v5_source_incidence_grouped_center_cell.json), and
 [`upper`](results/vdp_v5_source_incidence_grouped_upper_cell.json) cells.
 The current source SHA-256 is
-`b8dd76b67e12faed4ac2364246672bee8c96377fe6e331bbbac46fcee315b91c`.
+`ef3b8c01f915adbd1a8cc0a04ed828e741d51f6115e56def3f42fecae9c6bff5`.
 The original representative result's pretty-printed SHA-256 is
 `3b4b885646de3e25ea52c0e6c696cb200f5c0cda05d4ff400f95329a1af38901`.
 After compiling it against the repository's pinned strict CAPD/FILIB build,
