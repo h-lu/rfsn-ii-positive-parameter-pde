@@ -78,6 +78,15 @@ expose the same interface numerically. At
 V5 matched anchor moves substantially; they are candidate evidence, not
 interval enclosures.
 
+A subsequent
+[sampled algebraic BVP root-chain proxy](../../numerics/P2E_ALG_MOVING_PROXY_REPORT.md)
+records 17 separately corrected floating roots between the center and this
+corner.  The unidentified finite-horizon corner root reaches
+\(U=-400/23\) with positive resolved-\(K_1\) branches and negative \(P,Q\).
+This is non-rigorous sampled evidence only: it is not branch continuation,
+does not identify a V5 incidence root, and cannot exclude folds or root jumps
+between nodes.
+
 Deeper \(a_2\) subdivision could still be useful if the sole target were the
 V2 fixed-label finite-gate axis. It is not the recommended next calculation:
 the present loss comes from discarded source-to-terminal correlations, and

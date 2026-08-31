@@ -1,0 +1,963 @@
+{
+  "claim_bearing": false,
+  "equation_binding": {
+    "algebraic_route": "resolved K1 positive (Pi,q1) branch from U=-4 to U=-400/23",
+    "central": "exact (U,P,V,Q) van der Pol Hamiltonian field",
+    "matching_rows": "central-to-K1 (Pi,Omega,q1), K1-to-outer two-row seam, and finite-horizon outer terminal alpha=0",
+    "matching_unknowns": "source phase and numerical energy H chart",
+    "separate_graph_check": "positive-pi V4 equations with exact alpha_dot=0 terminal normal nullcline; shared outer-equation implementation",
+    "source": "direct finite-horizon nonlinear W^u Kato provider"
+  },
+  "evidence_status": "COMPUTED/E1",
+  "interpretation": "Seventeen separately corrected finite-horizon algebraic BVP roots pass on the declared center-to-corner path; only the two endpoints receive the complete K1/V4 checks.",
+  "mathematical_status": "INCONCLUSIVE",
+  "nonclaim": "A sampled floating root chain is not a continuation proof and does not exclude a fold or root jump between nodes.  It does not identify a V5 branch, enclose the V5 incidence root, identify the maximal V4 graph, or validate Issue #7.",
+  "point_order": [
+    "center",
+    "fixed_phase_obstruction_corner"
+  ],
+  "points": [
+    {
+      "all_qa_passed": true,
+      "central_cut_state_U_P_V_Q": [
+        -3.999999999999999,
+        -1.1543688668786538,
+        -15.83830675474147,
+        -9.239196656207936
+      ],
+      "central_flight_time_to_U_minus_4": 9.895162060961962,
+      "energy_H": 1.326397565037931e-14,
+      "fixed_v2_alg_phase_midpoint": 5.756691395749909,
+      "id": "center",
+      "k1_algebraic_route": {
+        "coordinate": "resolved K1 r1; U=r*a2-(r1/r)^2 and dr1/dy1=(sqrt(epsilon)/2)*sigma^2*Pi*r1",
+        "energy_alignment_abs_max": 1.9283986931287744e-12,
+        "interpretation": "Positive Pi and q1 give P<0 and Q<0 on the sampled K1 route; positive r1 speed makes the displayed U level a first-hit proxy.",
+        "maximum_P": -1.1543688668803511,
+        "maximum_Q": -9.239196656205909,
+        "minimum_Pi": 0.5766453027805464,
+        "minimum_q1": 1.1548995820257386,
+        "minimum_r1_speed": 0.0010370601453169321,
+        "r1_start": 0.03,
+        "r1_target": 0.06255432421712243,
+        "sample_count": 257,
+        "target_U": -17.391304347826086,
+        "target_U_residual": 0.0,
+        "target_state_U_P_V_Q": [
+          -17.391304347826086,
+          -2.404777148561002,
+          -302.6861223625316,
+          -83.80818662734353
+        ]
+      },
+      "matched_diagnostics": {
+        "boundary_residual_inf": 1.4701573292086323e-12,
+        "central_k1_seam_residual_inf": 5.162092975297128e-12,
+        "k1_outer_seam_residual_inf": 4.658681209898652e-21,
+        "minimum_outer_pi": 0.00013693063937936708,
+        "same_section_root_residual": -4.235164736271502e-22,
+        "solver_residual_max": 9.904056518032195e-07
+      },
+      "parameter_point": {
+        "a2": "0",
+        "epsilon": "1",
+        "r": "3/200"
+      },
+      "qa": {
+        "algebraic_cut_orientation": true,
+        "central_k1_seam": true,
+        "k1_algebraic_orientation": true,
+        "k1_energy": true,
+        "k1_forward_coordinate": true,
+        "k1_outer_seam": true,
+        "k1_positive_branches": true,
+        "matched_boundary": true,
+        "matched_centerline": true,
+        "matched_v4_seam": true,
+        "same_section": true,
+        "target_section": true,
+        "v4_boundary": true,
+        "v4_collocation": true,
+        "v4_horizon_insensitivity": true,
+        "v4_positive_pi": true
+      },
+      "source_phase": 5.756767223284979,
+      "source_phase_minus_fixed_v2_label": 7.582753506962803e-05,
+      "v4_graph_seam_ladder": {
+        "Q_end_ladder": [
+          40.0,
+          60.0,
+          80.0,
+          100.0
+        ],
+        "Q_start": 24.999999999999996,
+        "boundary_residual_max": 4.705738595857224e-17,
+        "collocation_residual_max": 1.9441560954616308e-08,
+        "coordinate": "Q=z^-2, (eta,omega)=(log(pi/delta),w/delta)",
+        "graph_alpha_at_seam": [
+          2.7386752869454544e-06,
+          2.738675286945455e-06,
+          2.738675286945457e-06,
+          2.7386752869454565e-06
+        ],
+        "horizon_seam_spread": 2.541098841762901e-21,
+        "interpretation": "A finite-Q exact-nullcline ladder checks the same seam.  It is not the theorem's maximal future-staying graph.",
+        "matched_alpha": 2.738675286945456e-06,
+        "matched_alpha_difference_abs_max": 1.6940658945086007e-21,
+        "matched_beta": 2.7385502869454787e-06,
+        "minimum_pi": 0.00013693063937936708,
+        "terminal_condition": "exact alpha_dot=0 normal nullcline"
+      }
+    },
+    {
+      "all_qa_passed": true,
+      "central_cut_state_U_P_V_Q": [
+        -3.9999999999999987,
+        -1.1547491241576728,
+        -15.815300521119367,
+        -9.233925294854947
+      ],
+      "central_flight_time_to_U_minus_4": 9.899651255766507,
+      "energy_H": -6.370377875172979e-14,
+      "fixed_v2_alg_phase_midpoint": 5.756691395749909,
+      "id": "fixed_phase_obstruction_corner",
+      "k1_algebraic_route": {
+        "coordinate": "resolved K1 r1; U=r*a2-(r1/r)^2 and dr1/dy1=(sqrt(epsilon)/2)*sigma^2*Pi*r1",
+        "energy_alignment_abs_max": 2.092525333951741e-12,
+        "interpretation": "Positive Pi and q1 give P<0 and Q<0 on the sampled K1 route; positive r1 speed makes the displayed U level a first-hit proxy.",
+        "maximum_P": -1.1547491241563799,
+        "maximum_Q": -9.233925294856489,
+        "minimum_Pi": 0.6102428019287867,
+        "minimum_q1": 1.2213811382859339,
+        "minimum_r1_speed": 0.0006544595400115644,
+        "r1_start": 0.019993749023132206,
+        "r1_target": 0.041699885308986266,
+        "sample_count": 257,
+        "target_U": -17.391304347826086,
+        "target_U_residual": 0.0,
+        "target_state_U_P_V_Q": [
+          -17.391304347826086,
+          -2.406633859923812,
+          -302.3609265897492,
+          -83.76210241844953
+        ]
+      },
+      "matched_diagnostics": {
+        "boundary_residual_inf": 1.1197154314857016e-12,
+        "central_k1_seam_residual_inf": 3.952393967665557e-12,
+        "k1_outer_seam_residual_inf": 8.470329472543003e-21,
+        "minimum_outer_pi": 5.3594617546087525e-05,
+        "same_section_root_residual": 2.117582368135751e-22,
+        "solver_residual_max": 9.998369323773272e-07
+      },
+      "parameter_point": {
+        "a2": "-1/4",
+        "epsilon": "4/5",
+        "r": "1/100"
+      },
+      "qa": {
+        "algebraic_cut_orientation": true,
+        "central_k1_seam": true,
+        "k1_algebraic_orientation": true,
+        "k1_energy": true,
+        "k1_forward_coordinate": true,
+        "k1_outer_seam": true,
+        "k1_positive_branches": true,
+        "matched_boundary": true,
+        "matched_centerline": true,
+        "matched_v4_seam": true,
+        "same_section": true,
+        "target_section": true,
+        "v4_boundary": true,
+        "v4_collocation": true,
+        "v4_horizon_insensitivity": true,
+        "v4_positive_pi": true
+      },
+      "source_phase": 5.7422755091591675,
+      "source_phase_minus_fixed_v2_label": -0.014415886590741778,
+      "v4_graph_seam_ladder": {
+        "Q_end_ladder": [
+          40.0,
+          60.0,
+          80.0,
+          100.0
+        ],
+        "Q_start": 20.955417527999323,
+        "boundary_residual_max": 4.658681209898652e-17,
+        "collocation_residual_max": 1.9581548934614792e-08,
+        "coordinate": "Q=z^-2, (eta,omega)=(log(pi/delta),w/delta)",
+        "graph_alpha_at_seam": [
+          1.2787898534013198e-06,
+          1.278789853401321e-06,
+          1.2787898534013207e-06,
+          1.2787898534013207e-06
+        ],
+        "horizon_seam_spread": 1.0587911840678754e-21,
+        "interpretation": "A finite-Q exact-nullcline ladder checks the same seam.  It is not the theorem's maximal future-staying graph.",
+        "matched_alpha": 1.278789853401321e-06,
+        "matched_alpha_difference_abs_max": 1.0587911840678754e-21,
+        "matched_beta": 1.2787644149373868e-06,
+        "minimum_pi": 5.3594617546087525e-05,
+        "terminal_condition": "exact alpha_dot=0 normal nullcline"
+      }
+    }
+  ],
+  "root_chain": {
+    "all_legacy_bracket_diagnostics_consistent": true,
+    "all_node_matched_qa_passed": true,
+    "chain_status": "SAMPLED_FLOATING_ROOT_CHAIN_CANDIDATE",
+    "legacy_bracket_is_acceptance_condition": false,
+    "maximum_absolute_corrector_delta": 1.3156882070930465e-05,
+    "maximum_absolute_phase_step": 0.001328433812109786,
+    "method": "17 independent floating BVP correctors on the declared path, each using the frozen data-informed phase formula and the solver's default BVP state initialization",
+    "node_count": 17,
+    "nodes": [
+      {
+        "all_matched_qa_passed": true,
+        "central_flight_time_to_U_minus_4": 9.895162060961962,
+        "continuation_fraction": "0/16",
+        "default_bvp_state_initialization": true,
+        "energy_H": 1.326397565037931e-14,
+        "index": 0,
+        "legacy_center_initialization_bracket_diagnostic": {
+          "acceptance_condition": false,
+          "bounds": [
+            5.756691395749909,
+            5.75769139574991
+          ],
+          "diagnostic_consistent": true,
+          "inside": true,
+          "solver_reported_inside": true
+        },
+        "matched_qa": {
+          "algebraic_orientation": true,
+          "boundary_residual": true,
+          "central_energy": true,
+          "central_energy_alignment": true,
+          "central_k1_seam": true,
+          "k1_energy": true,
+          "k1_outer_seam": true,
+          "outer_energy": true,
+          "positive_branches": true,
+          "same_section": true,
+          "solver_residual": true
+        },
+        "matched_status": "ENERGY_PRESERVING_MATCHED_CENTERLINE_SUCCESS",
+        "parameter_point": {
+          "a2": 0.0,
+          "epsilon": 1.0,
+          "r": 0.015
+        },
+        "phase_corrector_delta": 0.0,
+        "phase_predictor": 5.756767223284979,
+        "phase_predictor_kind": "FROZEN_DATA_INFORMED_E1_SEED",
+        "root_step_from_previous_node": null,
+        "source_phase": 5.756767223284979
+      },
+      {
+        "all_matched_qa_passed": true,
+        "central_flight_time_to_U_minus_4": 9.895577532819035,
+        "continuation_fraction": "1/16",
+        "default_bvp_state_initialization": true,
+        "energy_H": -1.683340262439191e-14,
+        "index": 1,
+        "legacy_center_initialization_bracket_diagnostic": {
+          "acceptance_condition": false,
+          "bounds": [
+            5.756691395749909,
+            5.75769139574991
+          ],
+          "diagnostic_consistent": true,
+          "inside": false,
+          "solver_reported_inside": false
+        },
+        "matched_qa": {
+          "algebraic_orientation": true,
+          "boundary_residual": true,
+          "central_energy": true,
+          "central_energy_alignment": true,
+          "central_k1_seam": true,
+          "k1_energy": true,
+          "k1_outer_seam": true,
+          "outer_energy": true,
+          "positive_branches": true,
+          "same_section": true,
+          "solver_residual": true
+        },
+        "matched_status": "ENERGY_PRESERVING_MATCHED_CENTERLINE_SUCCESS",
+        "parameter_point": {
+          "a2": -0.015625,
+          "epsilon": 0.9875,
+          "r": 0.0146875
+        },
+        "phase_corrector_delta": -4.374117068550731e-09,
+        "phase_predictor": 5.755438793846986,
+        "phase_predictor_kind": "FROZEN_DATA_INFORMED_E1_SEED",
+        "root_step_from_previous_node": -0.001328433812109786,
+        "source_phase": 5.755438789472869
+      },
+      {
+        "all_matched_qa_passed": true,
+        "central_flight_time_to_U_minus_4": 9.895975228385975,
+        "continuation_fraction": "2/16",
+        "default_bvp_state_initialization": true,
+        "energy_H": -7.515517523844389e-15,
+        "index": 2,
+        "legacy_center_initialization_bracket_diagnostic": {
+          "acceptance_condition": false,
+          "bounds": [
+            5.756691395749909,
+            5.75769139574991
+          ],
+          "diagnostic_consistent": true,
+          "inside": false,
+          "solver_reported_inside": false
+        },
+        "matched_qa": {
+          "algebraic_orientation": true,
+          "boundary_residual": true,
+          "central_energy": true,
+          "central_energy_alignment": true,
+          "central_k1_seam": true,
+          "k1_energy": true,
+          "k1_outer_seam": true,
+          "outer_energy": true,
+          "positive_branches": true,
+          "same_section": true,
+          "solver_residual": true
+        },
+        "matched_status": "ENERGY_PRESERVING_MATCHED_CENTERLINE_SUCCESS",
+        "parameter_point": {
+          "a2": -0.03125,
+          "epsilon": 0.975,
+          "r": 0.014374999999999999
+        },
+        "phase_corrector_delta": -1.7035721278091387e-08,
+        "phase_predictor": 5.754166614408994,
+        "phase_predictor_kind": "FROZEN_DATA_INFORMED_E1_SEED",
+        "root_step_from_previous_node": -0.001272192099596836,
+        "source_phase": 5.754166597373272
+      },
+      {
+        "all_matched_qa_passed": true,
+        "central_flight_time_to_U_minus_4": 9.896355096739155,
+        "continuation_fraction": "3/16",
+        "default_bvp_state_initialization": true,
+        "energy_H": 7.947416928528698e-14,
+        "index": 3,
+        "legacy_center_initialization_bracket_diagnostic": {
+          "acceptance_condition": false,
+          "bounds": [
+            5.756691395749909,
+            5.75769139574991
+          ],
+          "diagnostic_consistent": true,
+          "inside": false,
+          "solver_reported_inside": false
+        },
+        "matched_qa": {
+          "algebraic_orientation": true,
+          "boundary_residual": true,
+          "central_energy": true,
+          "central_energy_alignment": true,
+          "central_k1_seam": true,
+          "k1_energy": true,
+          "k1_outer_seam": true,
+          "outer_energy": true,
+          "positive_branches": true,
+          "same_section": true,
+          "solver_residual": true
+        },
+        "matched_status": "ENERGY_PRESERVING_MATCHED_CENTERLINE_SUCCESS",
+        "parameter_point": {
+          "a2": -0.046875,
+          "epsilon": 0.9625,
+          "r": 0.0140625
+        },
+        "phase_corrector_delta": -8.193020484270619e-09,
+        "phase_predictor": 5.752950684971001,
+        "phase_predictor_kind": "FROZEN_DATA_INFORMED_E1_SEED",
+        "root_step_from_previous_node": -0.0012159205952917418,
+        "source_phase": 5.7529506767779806
+      },
+      {
+        "all_matched_qa_passed": true,
+        "central_flight_time_to_U_minus_4": 9.89671708878604,
+        "continuation_fraction": "4/16",
+        "default_bvp_state_initialization": true,
+        "energy_H": -1.9514133593751875e-14,
+        "index": 4,
+        "legacy_center_initialization_bracket_diagnostic": {
+          "acceptance_condition": false,
+          "bounds": [
+            5.756691395749909,
+            5.75769139574991
+          ],
+          "diagnostic_consistent": true,
+          "inside": false,
+          "solver_reported_inside": false
+        },
+        "matched_qa": {
+          "algebraic_orientation": true,
+          "boundary_residual": true,
+          "central_energy": true,
+          "central_energy_alignment": true,
+          "central_k1_seam": true,
+          "k1_energy": true,
+          "k1_outer_seam": true,
+          "outer_energy": true,
+          "positive_branches": true,
+          "same_section": true,
+          "solver_residual": true
+        },
+        "matched_status": "ENERGY_PRESERVING_MATCHED_CENTERLINE_SUCCESS",
+        "parameter_point": {
+          "a2": -0.0625,
+          "epsilon": 0.95,
+          "r": 0.01375
+        },
+        "phase_corrector_delta": 5.06033508429482e-08,
+        "phase_predictor": 5.751791005533009,
+        "phase_predictor_kind": "FROZEN_DATA_INFORMED_E1_SEED",
+        "root_step_from_previous_node": -0.0011596206416211174,
+        "source_phase": 5.751791056136359
+      },
+      {
+        "all_matched_qa_passed": true,
+        "central_flight_time_to_U_minus_4": 9.897061157252356,
+        "continuation_fraction": "5/16",
+        "default_bvp_state_initialization": true,
+        "energy_H": 2.787458010615269e-14,
+        "index": 5,
+        "legacy_center_initialization_bracket_diagnostic": {
+          "acceptance_condition": false,
+          "bounds": [
+            5.756691395749909,
+            5.75769139574991
+          ],
+          "diagnostic_consistent": true,
+          "inside": false,
+          "solver_reported_inside": false
+        },
+        "matched_qa": {
+          "algebraic_orientation": true,
+          "boundary_residual": true,
+          "central_energy": true,
+          "central_energy_alignment": true,
+          "central_k1_seam": true,
+          "k1_energy": true,
+          "k1_outer_seam": true,
+          "outer_energy": true,
+          "positive_branches": true,
+          "same_section": true,
+          "solver_residual": true
+        },
+        "matched_status": "ENERGY_PRESERVING_MATCHED_CENTERLINE_SUCCESS",
+        "parameter_point": {
+          "a2": -0.078125,
+          "epsilon": 0.9375,
+          "r": 0.0134375
+        },
+        "phase_corrector_delta": 1.864556748998325e-07,
+        "phase_predictor": 5.750687576095015,
+        "phase_predictor_kind": "FROZEN_DATA_INFORMED_E1_SEED",
+        "root_step_from_previous_node": -0.001103293585669185,
+        "source_phase": 5.75068776255069
+      },
+      {
+        "all_matched_qa_passed": true,
+        "central_flight_time_to_U_minus_4": 9.8973872566788,
+        "continuation_fraction": "6/16",
+        "default_bvp_state_initialization": true,
+        "energy_H": 9.376506293993611e-15,
+        "index": 6,
+        "legacy_center_initialization_bracket_diagnostic": {
+          "acceptance_condition": false,
+          "bounds": [
+            5.756691395749909,
+            5.75769139574991
+          ],
+          "diagnostic_consistent": true,
+          "inside": false,
+          "solver_reported_inside": false
+        },
+        "matched_qa": {
+          "algebraic_orientation": true,
+          "boundary_residual": true,
+          "central_energy": true,
+          "central_energy_alignment": true,
+          "central_k1_seam": true,
+          "k1_energy": true,
+          "k1_outer_seam": true,
+          "outer_energy": true,
+          "positive_branches": true,
+          "same_section": true,
+          "solver_residual": true
+        },
+        "matched_status": "ENERGY_PRESERVING_MATCHED_CENTERLINE_SUCCESS",
+        "parameter_point": {
+          "a2": -0.09375,
+          "epsilon": 0.925,
+          "r": 0.013125
+        },
+        "phase_corrector_delta": 4.251146954459273e-07,
+        "phase_predictor": 5.749640396657023,
+        "phase_predictor_kind": "FROZEN_DATA_INFORMED_E1_SEED",
+        "root_step_from_previous_node": -0.0010469407789717167,
+        "source_phase": 5.7496408217717185
+      },
+      {
+        "all_matched_qa_passed": true,
+        "central_flight_time_to_U_minus_4": 9.897695343439798,
+        "continuation_fraction": "7/16",
+        "default_bvp_state_initialization": true,
+        "energy_H": 1.5484928696739385e-14,
+        "index": 7,
+        "legacy_center_initialization_bracket_diagnostic": {
+          "acceptance_condition": false,
+          "bounds": [
+            5.756691395749909,
+            5.75769139574991
+          ],
+          "diagnostic_consistent": true,
+          "inside": false,
+          "solver_reported_inside": false
+        },
+        "matched_qa": {
+          "algebraic_orientation": true,
+          "boundary_residual": true,
+          "central_energy": true,
+          "central_energy_alignment": true,
+          "central_k1_seam": true,
+          "k1_energy": true,
+          "k1_outer_seam": true,
+          "outer_energy": true,
+          "positive_branches": true,
+          "same_section": true,
+          "solver_residual": true
+        },
+        "matched_status": "ENERGY_PRESERVING_MATCHED_CENTERLINE_SUCCESS",
+        "parameter_point": {
+          "a2": -0.109375,
+          "epsilon": 0.9125,
+          "r": 0.0128125
+        },
+        "phase_corrector_delta": 7.909753616530679e-07,
+        "phase_predictor": 5.74864946721903,
+        "phase_predictor_kind": "FROZEN_DATA_INFORMED_E1_SEED",
+        "root_step_from_previous_node": -0.0009905635773268529,
+        "source_phase": 5.748650258194392
+      },
+      {
+        "all_matched_qa_passed": true,
+        "central_flight_time_to_U_minus_4": 9.8979853757217,
+        "continuation_fraction": "8/16",
+        "default_bvp_state_initialization": true,
+        "energy_H": 2.4786287882983327e-14,
+        "index": 8,
+        "legacy_center_initialization_bracket_diagnostic": {
+          "acceptance_condition": false,
+          "bounds": [
+            5.756691395749909,
+            5.75769139574991
+          ],
+          "diagnostic_consistent": true,
+          "inside": false,
+          "solver_reported_inside": false
+        },
+        "matched_qa": {
+          "algebraic_orientation": true,
+          "boundary_residual": true,
+          "central_energy": true,
+          "central_energy_alignment": true,
+          "central_k1_seam": true,
+          "k1_energy": true,
+          "k1_outer_seam": true,
+          "outer_energy": true,
+          "positive_branches": true,
+          "same_section": true,
+          "solver_residual": true
+        },
+        "matched_status": "ENERGY_PRESERVING_MATCHED_CENTERLINE_SUCCESS",
+        "parameter_point": {
+          "a2": -0.125,
+          "epsilon": 0.9,
+          "r": 0.0125
+        },
+        "phase_corrector_delta": 1.3070727122865833e-06,
+        "phase_predictor": 5.747714787781038,
+        "phase_predictor_kind": "FROZEN_DATA_INFORMED_E1_SEED",
+        "root_step_from_previous_node": -0.0009341633406414473,
+        "source_phase": 5.74771609485375
+      },
+      {
+        "all_matched_qa_passed": true,
+        "central_flight_time_to_U_minus_4": 9.898257313535867,
+        "continuation_fraction": "9/16",
+        "default_bvp_state_initialization": true,
+        "energy_H": 2.92310902394534e-14,
+        "index": 9,
+        "legacy_center_initialization_bracket_diagnostic": {
+          "acceptance_condition": false,
+          "bounds": [
+            5.756691395749909,
+            5.75769139574991
+          ],
+          "diagnostic_consistent": true,
+          "inside": false,
+          "solver_reported_inside": false
+        },
+        "matched_qa": {
+          "algebraic_orientation": true,
+          "boundary_residual": true,
+          "central_energy": true,
+          "central_energy_alignment": true,
+          "central_k1_seam": true,
+          "k1_energy": true,
+          "k1_outer_seam": true,
+          "outer_energy": true,
+          "positive_branches": true,
+          "same_section": true,
+          "solver_residual": true
+        },
+        "matched_status": "ENERGY_PRESERVING_MATCHED_CENTERLINE_SUCCESS",
+        "parameter_point": {
+          "a2": -0.140625,
+          "epsilon": 0.8875000000000001,
+          "r": 0.0121875
+        },
+        "phase_corrector_delta": 1.995077982819282e-06,
+        "phase_predictor": 5.746836358343045,
+        "phase_predictor_kind": "FROZEN_DATA_INFORMED_E1_SEED",
+        "root_step_from_previous_node": -0.0008777414327223454,
+        "source_phase": 5.746838353421028
+      },
+      {
+        "all_matched_qa_passed": true,
+        "central_flight_time_to_U_minus_4": 9.898511118710875,
+        "continuation_fraction": "10/16",
+        "default_bvp_state_initialization": true,
+        "energy_H": 4.703922278436352e-14,
+        "index": 10,
+        "legacy_center_initialization_bracket_diagnostic": {
+          "acceptance_condition": false,
+          "bounds": [
+            5.756691395749909,
+            5.75769139574991
+          ],
+          "diagnostic_consistent": true,
+          "inside": false,
+          "solver_reported_inside": false
+        },
+        "matched_qa": {
+          "algebraic_orientation": true,
+          "boundary_residual": true,
+          "central_energy": true,
+          "central_energy_alignment": true,
+          "central_k1_seam": true,
+          "k1_energy": true,
+          "k1_outer_seam": true,
+          "outer_energy": true,
+          "positive_branches": true,
+          "same_section": true,
+          "solver_residual": true
+        },
+        "matched_status": "ENERGY_PRESERVING_MATCHED_CENTERLINE_SUCCESS",
+        "parameter_point": {
+          "a2": -0.15625,
+          "epsilon": 0.875,
+          "r": 0.011875
+        },
+        "phase_corrector_delta": 2.8752948679766632e-06,
+        "phase_predictor": 5.746014178905052,
+        "phase_predictor_kind": "FROZEN_DATA_INFORMED_E1_SEED",
+        "root_step_from_previous_node": -0.0008212992211076298,
+        "source_phase": 5.74601705419992
+      },
+      {
+        "all_matched_qa_passed": true,
+        "central_flight_time_to_U_minus_4": 9.898746754893443,
+        "continuation_fraction": "11/16",
+        "default_bvp_state_initialization": true,
+        "energy_H": -1.2575342502505616e-14,
+        "index": 11,
+        "legacy_center_initialization_bracket_diagnostic": {
+          "acceptance_condition": false,
+          "bounds": [
+            5.756691395749909,
+            5.75769139574991
+          ],
+          "diagnostic_consistent": true,
+          "inside": false,
+          "solver_reported_inside": false
+        },
+        "matched_qa": {
+          "algebraic_orientation": true,
+          "boundary_residual": true,
+          "central_energy": true,
+          "central_energy_alignment": true,
+          "central_k1_seam": true,
+          "k1_energy": true,
+          "k1_outer_seam": true,
+          "outer_energy": true,
+          "positive_branches": true,
+          "same_section": true,
+          "solver_residual": true
+        },
+        "matched_status": "ENERGY_PRESERVING_MATCHED_CENTERLINE_SUCCESS",
+        "parameter_point": {
+          "a2": -0.171875,
+          "epsilon": 0.8625,
+          "r": 0.0115625
+        },
+        "phase_corrector_delta": 3.966655975240485e-06,
+        "phase_predictor": 5.74524824946706,
+        "phase_predictor_kind": "FROZEN_DATA_INFORMED_E1_SEED",
+        "root_step_from_previous_node": -0.0007648380768854324,
+        "source_phase": 5.745252216123035
+      },
+      {
+        "all_matched_qa_passed": true,
+        "central_flight_time_to_U_minus_4": 9.898964187552078,
+        "continuation_fraction": "12/16",
+        "default_bvp_state_initialization": true,
+        "energy_H": 1.5331209876322462e-14,
+        "index": 12,
+        "legacy_center_initialization_bracket_diagnostic": {
+          "acceptance_condition": false,
+          "bounds": [
+            5.756691395749909,
+            5.75769139574991
+          ],
+          "diagnostic_consistent": true,
+          "inside": false,
+          "solver_reported_inside": false
+        },
+        "matched_qa": {
+          "algebraic_orientation": true,
+          "boundary_residual": true,
+          "central_energy": true,
+          "central_energy_alignment": true,
+          "central_k1_seam": true,
+          "k1_energy": true,
+          "k1_outer_seam": true,
+          "outer_energy": true,
+          "positive_branches": true,
+          "same_section": true,
+          "solver_residual": true
+        },
+        "matched_status": "ENERGY_PRESERVING_MATCHED_CENTERLINE_SUCCESS",
+        "parameter_point": {
+          "a2": -0.1875,
+          "epsilon": 0.8500000000000001,
+          "r": 0.01125
+        },
+        "phase_corrector_delta": 5.286719471975232e-06,
+        "phase_predictor": 5.744538570029067,
+        "phase_predictor_kind": "FROZEN_DATA_INFORMED_E1_SEED",
+        "root_step_from_previous_node": -0.0007083593744958705,
+        "source_phase": 5.744543856748539
+      },
+      {
+        "all_matched_qa_passed": true,
+        "central_flight_time_to_U_minus_4": 9.899163383966883,
+        "continuation_fraction": "13/16",
+        "default_bvp_state_initialization": true,
+        "energy_H": -9.826614969694003e-14,
+        "index": 13,
+        "legacy_center_initialization_bracket_diagnostic": {
+          "acceptance_condition": false,
+          "bounds": [
+            5.756691395749909,
+            5.75769139574991
+          ],
+          "diagnostic_consistent": true,
+          "inside": false,
+          "solver_reported_inside": false
+        },
+        "matched_qa": {
+          "algebraic_orientation": true,
+          "boundary_residual": true,
+          "central_energy": true,
+          "central_energy_alignment": true,
+          "central_k1_seam": true,
+          "k1_energy": true,
+          "k1_outer_seam": true,
+          "outer_energy": true,
+          "positive_branches": true,
+          "same_section": true,
+          "solver_residual": true
+        },
+        "matched_status": "ENERGY_PRESERVING_MATCHED_CENTERLINE_SUCCESS",
+        "parameter_point": {
+          "a2": -0.203125,
+          "epsilon": 0.8375,
+          "r": 0.0109375
+        },
+        "phase_corrector_delta": 6.851665892426695e-06,
+        "phase_predictor": 5.7438851405910745,
+        "phase_predictor_kind": "FROZEN_DATA_INFORMED_E1_SEED",
+        "root_step_from_previous_node": -0.0006518644915720628,
+        "source_phase": 5.743891992256967
+      },
+      {
+        "all_matched_qa_passed": true,
+        "central_flight_time_to_U_minus_4": 9.899344313233726,
+        "continuation_fraction": "14/16",
+        "default_bvp_state_initialization": true,
+        "energy_H": 6.604189758874784e-15,
+        "index": 14,
+        "legacy_center_initialization_bracket_diagnostic": {
+          "acceptance_condition": false,
+          "bounds": [
+            5.756691395749909,
+            5.75769139574991
+          ],
+          "diagnostic_consistent": true,
+          "inside": false,
+          "solver_reported_inside": false
+        },
+        "matched_qa": {
+          "algebraic_orientation": true,
+          "boundary_residual": true,
+          "central_energy": true,
+          "central_energy_alignment": true,
+          "central_k1_seam": true,
+          "k1_energy": true,
+          "k1_outer_seam": true,
+          "outer_energy": true,
+          "positive_branches": true,
+          "same_section": true,
+          "solver_residual": true
+        },
+        "matched_status": "ENERGY_PRESERVING_MATCHED_CENTERLINE_SUCCESS",
+        "parameter_point": {
+          "a2": -0.21875,
+          "epsilon": 0.8250000000000001,
+          "r": 0.010624999999999999
+        },
+        "phase_corrector_delta": 8.676295156107017e-06,
+        "phase_predictor": 5.743287961153081,
+        "phase_predictor_kind": "FROZEN_DATA_INFORMED_E1_SEED",
+        "root_step_from_previous_node": -0.0005953548087296312,
+        "source_phase": 5.743296637448237
+      },
+      {
+        "all_matched_qa_passed": true,
+        "central_flight_time_to_U_minus_4": 9.899506946261722,
+        "continuation_fraction": "15/16",
+        "default_bvp_state_initialization": true,
+        "energy_H": 6.14861263878923e-14,
+        "index": 15,
+        "legacy_center_initialization_bracket_diagnostic": {
+          "acceptance_condition": false,
+          "bounds": [
+            5.756691395749909,
+            5.75769139574991
+          ],
+          "diagnostic_consistent": true,
+          "inside": false,
+          "solver_reported_inside": false
+        },
+        "matched_qa": {
+          "algebraic_orientation": true,
+          "boundary_residual": true,
+          "central_energy": true,
+          "central_energy_alignment": true,
+          "central_k1_seam": true,
+          "k1_energy": true,
+          "k1_outer_seam": true,
+          "outer_energy": true,
+          "positive_branches": true,
+          "same_section": true,
+          "solver_residual": true
+        },
+        "matched_status": "ENERGY_PRESERVING_MATCHED_CENTERLINE_SUCCESS",
+        "parameter_point": {
+          "a2": -0.234375,
+          "epsilon": 0.8125,
+          "r": 0.0103125
+        },
+        "phase_corrector_delta": 1.077402374249914e-05,
+        "phase_predictor": 5.742747031715089,
+        "phase_predictor_kind": "FROZEN_DATA_INFORMED_E1_SEED",
+        "root_step_from_previous_node": -0.0005388317094059403,
+        "source_phase": 5.742757805738831
+      },
+      {
+        "all_matched_qa_passed": true,
+        "central_flight_time_to_U_minus_4": 9.899651255766507,
+        "continuation_fraction": "16/16",
+        "default_bvp_state_initialization": true,
+        "energy_H": -6.370377875172979e-14,
+        "index": 16,
+        "legacy_center_initialization_bracket_diagnostic": {
+          "acceptance_condition": false,
+          "bounds": [
+            5.756691395749909,
+            5.75769139574991
+          ],
+          "diagnostic_consistent": true,
+          "inside": false,
+          "solver_reported_inside": false
+        },
+        "matched_qa": {
+          "algebraic_orientation": true,
+          "boundary_residual": true,
+          "central_energy": true,
+          "central_energy_alignment": true,
+          "central_k1_seam": true,
+          "k1_energy": true,
+          "k1_outer_seam": true,
+          "outer_energy": true,
+          "positive_branches": true,
+          "same_section": true,
+          "solver_residual": true
+        },
+        "matched_status": "ENERGY_PRESERVING_MATCHED_CENTERLINE_SUCCESS",
+        "parameter_point": {
+          "a2": -0.25,
+          "epsilon": 0.8,
+          "r": 0.01
+        },
+        "phase_corrector_delta": 1.3156882070930465e-05,
+        "phase_predictor": 5.742262352277097,
+        "phase_predictor_kind": "FROZEN_DATA_INFORMED_E1_SEED",
+        "root_step_from_previous_node": -0.0004822965796638101,
+        "source_phase": 5.7422755091591675
+      }
+    ],
+    "nonclaim": "The roots are separately corrected from a data-informed seed. Finite samples do not exclude a fold or root jump between nodes, do not identify one V5 branch, and are not a numerical continuation theorem.",
+    "path": "mu(s)=(3/200,0,1)+s*((1/100,-1/4,4/5)-(3/200,0,1)), s=k/16",
+    "phase_predictor": {
+      "axis_derivatives": {
+        "a2": 0.08658683630287456,
+        "epsilon": 3.810069138410199e-05,
+        "r": 0.010108358777483062
+      },
+      "center_phase": 5.756767223284979,
+      "formula": "phi_c + phi_r*(r-0.015) + phi_a2*a2 + phi_epsilon*(epsilon-1) + 5.76*(r-0.015)*a2",
+      "provenance": "The three axial coefficients are the centered finite-difference phase quotients archived in axis_continuation.json.  The 5.76 cross term is an empirical convergence seed chosen during the corner scout; it is not a derived sensitivity and enters neither the BVP equations nor QA.",
+      "r_a2_interaction_coefficient": 5.76,
+      "status": "FROZEN_EMPIRICAL_E1_SEED_NOT_A_BRANCH_MODEL"
+    },
+    "phase_step_passed": true,
+    "segment_count": 16
+  },
+  "schema_version": "ALG-MOVING-PROXY/1",
+  "status": "COMPUTED/E1_QA_SAMPLED_FLOATING_ROOT_CHAIN_CANDIDATE",
+  "strict_validation": false,
+  "thresholds": {
+    "central_k1_seam_residual_inf_upper": 1e-08,
+    "continuation_maximum_phase_step_upper": 0.002,
+    "k1_outer_seam_residual_inf_upper": 1e-10,
+    "matched_boundary_residual_inf_upper": 1e-09,
+    "matched_v4_seam_alpha_difference_upper": 5e-10,
+    "route_energy_alignment_abs_upper": 1e-08,
+    "same_section_residual_abs_upper": 1e-09,
+    "target_u_residual_abs_upper": 1e-10,
+    "v4_boundary_residual_upper": 1e-10,
+    "v4_collocation_residual_upper": 3e-08,
+    "v4_horizon_seam_spread_upper": 1e-12
+  }
+}

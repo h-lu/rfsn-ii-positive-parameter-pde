@@ -86,6 +86,15 @@ principal artifacts are
 [`v6_complete_branches.npz`](results/vdp_v1_v7/v6_complete_branches.npz), and
 [`v6_candidate_contract.json`](results/vdp_v1_v7/v6_candidate_contract.json).
 
+For the current v2 box, the
+[sampled algebraic BVP root chain](P2E_ALG_MOVING_PROXY_REPORT.md) records 17
+separately corrected finite-horizon roots along a predeclared center-to-corner
+path, using a frozen data-informed phase seed.  The unidentified corner root
+reaches the same algebraic terminal level and passes the endpoint K1/V4
+checks.  This is `COMPUTED/E1` evidence, not branch continuation, a V5-branch
+identification, or an interval enclosure of the incidence root or maximal V4
+graph.
+
 At the frozen point, the connected V3 fit gives
 \((Z_0,W_0,c_4)\approx(-0.6664297671,-0.06889853233,
 1.6524678712\times10^7)\), with global/local overlap about
