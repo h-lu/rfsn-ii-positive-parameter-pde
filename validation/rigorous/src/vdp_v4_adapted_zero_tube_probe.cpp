@@ -130,9 +130,11 @@ struct Evaluation {
   Interval discriminant;
   Interval negativeRoot;
   Interval chi;
+  Interval chiDifference;
   Interval rootDerivative;
   Interval s;
   Interval pi;
+  Gradient chiGradient;
   std::array<Interval, kStateDimension> field;
   std::array<Gradient, kStateDimension> jacobian;
 };
@@ -247,9 +249,11 @@ Evaluation evaluate(const Interval& r, const Interval& a2,
   result.discriminant = discriminant.value;
   result.negativeRoot = negativeRoot.value;
   result.chi = chi.value;
+  result.chiDifference = chiDifference.value;
   result.rootDerivative = rootDerivative.value;
   result.s = s.value;
   result.pi = pi.value;
+  result.chiGradient = chi.derivative;
   for (std::size_t row = 0; row < kStateDimension; ++row) {
     result.field[row] = field[row].value;
     result.jacobian[row] = field[row].derivative;
@@ -323,11 +327,22 @@ struct Aggregate {
   Interval r2Pi;
   Interval r2Omega;
   Interval r2Q1;
+  Interval r2K1B;
+  Interval r2K1N;
+  Interval r2K1BAtOuterMinus;
+  Interval r2K1BAtOuterPlus;
+  Interval r2ChiB;
+  Interval r2ChiN;
+  Interval r2K1BaseTangent;
+  Interval r2K1NormalTangent;
+  Interval r2K1ConeMinusMargin;
+  Interval r2K1ConePlusMargin;
   double muCUpper = -std::numeric_limits<double>::infinity();
   double bNormUpper = 0.0;
   double dNormUpper = 0.0;
   double aLower = std::numeric_limits<double>::infinity();
   double coneLower = std::numeric_limits<double>::infinity();
+  double halfConeLower = std::numeric_limits<double>::infinity();
   double normalLower = std::numeric_limits<double>::infinity();
   std::array<double, 4> gammaLower = {
       std::numeric_limits<double>::infinity(),
@@ -366,9 +381,15 @@ void includeCore(Aggregate& aggregate, const Evaluation& evaluation) {
 
   const Interval cone = Interval(aLower) - Interval(dNorm)
       - Interval(muC) - Interval(bNorm);
+  const Interval halfSlope = rational(1, 2);
+  const Interval halfCone = halfSlope *
+      (Interval(aLower) - Interval(muC) -
+       Interval(bNorm) * halfSlope) - Interval(dNorm);
   const Interval normal = Interval(aLower) - Interval(bNorm);
   const Interval tangent = Interval(muC) + Interval(bNorm);
   aggregate.coneLower = std::min(aggregate.coneLower, cone.leftBound());
+  aggregate.halfConeLower = std::min(
+      aggregate.halfConeLower, halfCone.leftBound());
   aggregate.normalLower = std::min(
       aggregate.normalLower, normal.leftBound());
   for (std::size_t order = 0; order < aggregate.gammaLower.size(); ++order) {
@@ -444,6 +465,8 @@ int main() {
     const Interval bMinus = -bRadius;
     const Interval nPlus = nRadius;
     const Interval nMinus = -nRadius;
+    const Interval seamBRadius = rational(1, 3000);
+    const Interval seamK1Radius = rational(1, 10000);
     const Interval nu = rational(1, 64);
     const Interval lambdaFloor = sqrt(
         Interval(1.0) - sqr(zMaximum));
@@ -453,6 +476,7 @@ int main() {
     constexpr long kEpsilonSlabs = 4;
     constexpr long kZSlabs = 64;
     constexpr long kBSlabs = 8;
+    constexpr long kSeamBSlabs = 8;
     const std::array<std::pair<long, long>, 5> rNodes = {{
         {1, 100}, {1, 80}, {3, 200}, {7, 400}, {1, 50}}};
 
@@ -464,6 +488,8 @@ int main() {
     bool nPlusInitialized = false;
     bool nMinusInitialized = false;
     bool r2Initialized = false;
+    bool r2SeamInitialized = false;
+    bool r2CoverageInitialized = false;
     std::size_t cellCount = 0;
 
     for (long rIndex = 0; rIndex < kRSlabs; ++rIndex) {
@@ -538,6 +564,141 @@ int main() {
             includeInterval(r2Initialized, aggregate.r2Q1, k1Q1);
             r2Initialized = true;
           }
+
+          // Restrict the V4 stable coordinate to the subordinate slice
+          // needed by matching and evaluate the exact V5(37) transition
+          // into the spectral K1 coordinates used by the finite corridor.
+          const Interval rootEpsilon = sqrt(epsilon);
+          const Interval r1Cut(2.0);
+          const Interval sigma = r / r1Cut;
+          const Interval x = rootEpsilon * sqr(r1Cut);
+          const Interval denominator = Interval(2.0) + x;
+          const Interval qZero = sqrt(
+              (Interval(8.0) + Interval(3.0) * x) /
+              (Interval(6.0) * rootEpsilon));
+          const Interval correction =
+              sigma * sqr(sigma) * a2 * r1Cut *
+              (x + Interval(3.0)) /
+              (Interval(3.0) * rootEpsilon * qZero * denominator);
+          const Interval omegaZero =
+              sqr(sigma) * (x + Interval(4.0)) /
+              (Interval(3.0) * denominator * sqr(denominator));
+          const Interval lambdaK1 = sqrt(rootEpsilon * denominator);
+          const Evaluation seamReference = evaluate(
+              r, a2, epsilon, zR, Interval(0.0), Interval(0.0));
+          // At this R=2 cut, (C0+chi0)/(2*epsilon)=P exactly.
+          // Hence the finite reference Pi residual is K plus the
+          // cancellation-free chi-chi0 difference already evaluated by
+          // the adapted V4 energy identity.
+          const Interval referencePiResidual = correction +
+              seamReference.chiDifference /
+                  (Interval(2.0) * epsilon);
+          const Interval delta = sqr(r);
+          const Interval a = Interval(1.0) +
+              rootEpsilon * delta * r * a2;
+          const Interval leading = Interval(1.0) -
+              epsilon * sqr(delta) * sqr(sqr(zR));
+          const auto evaluateSeam = [&](const Interval& seamB,
+                                        const Interval& seamN) {
+            const Evaluation atR2 = evaluate(
+                r, a2, epsilon, zR, seamB, seamN);
+            const Interval outerE = seamB + seamN;
+            const Interval deltaLinear =
+                epsilon * sqr(delta) * outerE * sqr(sqr(zR));
+            const Interval deltaConstant =
+                Interval(2.0) * epsilon * delta * atR2.d * sqr(zR) *
+                    (-Interval(1.0) + a * zR) +
+                epsilon * sqr(delta) * outerE *
+                    (Interval(2.0) * seamReference.cZero + outerE) *
+                    sqr(sqr(zR));
+            const Interval currentLinearHalf =
+                epsilon * sqr(delta) * atR2.c * sqr(sqr(zR));
+            const Interval chiPerturbation =
+                (Interval(2.0) * deltaLinear * seamReference.chi +
+                 deltaConstant) /
+                (leading * (atR2.chi + seamReference.chi) -
+                 Interval(2.0) * currentLinearHalf);
+            const Interval piResidual = referencePiResidual +
+                chiPerturbation / (Interval(2.0) * epsilon);
+            // lambda_outer=2*z_R*lambda_K1 exactly.  Combining that
+            // identity before interval evaluation gives the two spectral
+            // seam coordinates without subtracting broad Pi/Omega boxes.
+            const Interval k1B = seamB /
+                    (Interval(2.0) * epsilon) +
+                rational(1, 2) *
+                    (piResidual + omegaZero / lambdaK1);
+            const Interval k1N = seamN /
+                    (Interval(2.0) * epsilon) +
+                rational(1, 2) *
+                    (piResidual - omegaZero / lambdaK1);
+            return std::array<Interval, 4>{
+                k1B, k1N, atR2.chiGradient[1],
+                atR2.chiGradient[2]};
+          };
+          for (long bIndex = 0; bIndex < kSeamBSlabs; ++bIndex) {
+            const Interval seamB = intervalFromRationals(
+                -kSeamBSlabs + 2 * bIndex,
+                3000 * kSeamBSlabs,
+                -kSeamBSlabs + 2 * (bIndex + 1),
+                3000 * kSeamBSlabs);
+            const auto seam = evaluateSeam(seamB, nBox);
+            const Interval& k1B = seam[0];
+            const Interval& k1N = seam[1];
+            // For a tangent p=dn_outer/db_outer, differentiate only after
+            // using lambda_outer=2*z_R*lambda_K1.  If h_b,h_n are the
+            // b,n derivatives of chi-chi0, the exact seam derivatives are
+            //
+            //   db_K1=(2+h_b+p h_n)/(4 epsilon),
+            //   dn_K1=(2p+h_b+p h_n)/(4 epsilon).
+            //
+            // This form preserves the transition cancellation that would
+            // be lost by separately interval-evaluating Pi and Omega.
+            const Interval& chiB = seam[2];
+            const Interval& chiN = seam[3];
+            const Interval outerSlope(
+                -rational(1, 2).rightBound(),
+                rational(1, 2).rightBound());
+            const Interval common = chiB + outerSlope * chiN;
+            const Interval tangentScale =
+                Interval(4.0) * epsilon;
+            const Interval k1BaseTangent =
+                (Interval(2.0) + common) / tangentScale;
+            const Interval k1NormalTangent =
+                (Interval(2.0) * outerSlope + common) / tangentScale;
+            const Interval k1Slope = rational(7, 10);
+            // Cancellation-free forms of kappa*db_K1-dn_K1 and
+            // kappa*db_K1+dn_K1.  Their positivity is equivalent to
+            // |dn_K1/db_K1|<kappa with positive base orientation.
+            const Interval k1ConeMinusMargin =
+                (Interval(2.0) * (k1Slope - outerSlope) +
+                 (k1Slope - Interval(1.0)) * common) / tangentScale;
+            const Interval k1ConePlusMargin =
+                (Interval(2.0) * (k1Slope + outerSlope) +
+                 (k1Slope + Interval(1.0)) * common) / tangentScale;
+            includeInterval(r2SeamInitialized, aggregate.r2K1B, k1B);
+            includeInterval(r2SeamInitialized, aggregate.r2K1N, k1N);
+            includeInterval(r2SeamInitialized, aggregate.r2ChiB, chiB);
+            includeInterval(r2SeamInitialized, aggregate.r2ChiN, chiN);
+            includeInterval(r2SeamInitialized,
+                            aggregate.r2K1BaseTangent, k1BaseTangent);
+            includeInterval(r2SeamInitialized,
+                            aggregate.r2K1NormalTangent, k1NormalTangent);
+            includeInterval(r2SeamInitialized,
+                            aggregate.r2K1ConeMinusMargin,
+                            k1ConeMinusMargin);
+            includeInterval(r2SeamInitialized,
+                            aggregate.r2K1ConePlusMargin,
+                            k1ConePlusMargin);
+            r2SeamInitialized = true;
+          }
+
+          const auto seamAtMinus = evaluateSeam(-seamBRadius, nBox);
+          const auto seamAtPlus = evaluateSeam(seamBRadius, nBox);
+          includeInterval(r2CoverageInitialized,
+                          aggregate.r2K1BAtOuterMinus, seamAtMinus[0]);
+          includeInterval(r2CoverageInitialized,
+                          aggregate.r2K1BAtOuterPlus, seamAtPlus[0]);
+          r2CoverageInitialized = true;
         }
       }
     }
@@ -616,13 +777,15 @@ int main() {
          {"a_minus_lambda_floor_plus_nu", scalar(aMargin)}}});
 
     Verdict rates = strictPositive(aggregate.coneLower);
+    rates = combine(rates, strictPositive(aggregate.halfConeLower));
     rates = combine(rates, strictPositive(aggregate.normalLower));
     for (const double gamma : aggregate.gammaLower)
       rates = combine(rates, strictPositive(gamma));
     obligations.push_back({
         "V4.AD_ZERO.CONE_AND_BUNCHING", rates,
-        "The slope-one cone, normal rate, and graph-transform gaps gamma_j for j=0,...,3 are strict",
+        "The slope-one and slope-one-half projectivized cones, normal rate, and graph-transform gaps gamma_j for j=0,...,3 are strict",
         {{"slope_one_cone_lower", scalar(aggregate.coneLower)},
+         {"slope_half_cone_lower", scalar(aggregate.halfConeLower)},
          {"normal_rate_lower", scalar(aggregate.normalLower)},
          {"gamma_0_lower", scalar(aggregate.gammaLower[0])},
          {"gamma_1_lower", scalar(aggregate.gammaLower[1])},
@@ -650,21 +813,67 @@ int main() {
          {"q1_R2", aggregate.r2Q1},
          {"normal_graph_tube", nBox}}});
 
+    const Interval seamNMargin =
+        seamK1Radius - aggregate.r2K1N.abs();
+    const Interval seamLeftCoverageMargin =
+        -seamK1Radius - aggregate.r2K1BAtOuterMinus;
+    const Interval seamRightCoverageMargin =
+        aggregate.r2K1BAtOuterPlus - seamK1Radius;
+    Verdict seamStatus = strictPositive(seamNMargin);
+    seamStatus = combine(
+        seamStatus, strictPositive(seamLeftCoverageMargin));
+    seamStatus = combine(
+        seamStatus, strictPositive(seamRightCoverageMargin));
+    obligations.push_back({
+        "V4.AD_ZERO.R2_K1_TERMINAL_GRAPH_COVERAGE", seamStatus,
+        "The exact R=2 image of the subordinate V4 graph over |b_outer|<=1/3000 stays in |n_K1|<1e-4 and its two oriented endpoints strictly bracket the complete K1 base |b_K1|<=1e-4",
+        {{"outer_stable_slice", Interval(
+              -seamBRadius.rightBound(), seamBRadius.rightBound())},
+         {"outer_normal_graph_tube", nBox},
+         {"K1_b_full_image", aggregate.r2K1B},
+         {"K1_n", aggregate.r2K1N},
+         {"K1_b_at_outer_minus", aggregate.r2K1BAtOuterMinus},
+         {"K1_b_at_outer_plus", aggregate.r2K1BAtOuterPlus},
+         {"K1_left_coverage_margin", seamLeftCoverageMargin},
+         {"K1_right_coverage_margin", seamRightCoverageMargin},
+         {"K1_n_boundary_margin", seamNMargin}}});
+
+    Verdict seamConeStatus =
+        strictPositive(aggregate.r2K1BaseTangent);
+    seamConeStatus = combine(
+        seamConeStatus,
+        strictPositive(aggregate.r2K1ConeMinusMargin));
+    seamConeStatus = combine(
+        seamConeStatus,
+        strictPositive(aggregate.r2K1ConePlusMargin));
+    obligations.push_back({
+        "V4.AD_ZERO.R2_K1_CONE_COMPATIBILITY", seamConeStatus,
+        "Every tangent with |dn_outer/db_outer|<=1/2 on the subordinate V4 slice maps with positive K1 base orientation strictly inside the K1 slope-7/10 cone",
+        {{"chi_b", aggregate.r2ChiB},
+         {"chi_n", aggregate.r2ChiN},
+         {"K1_base_tangent", aggregate.r2K1BaseTangent},
+         {"K1_normal_tangent", aggregate.r2K1NormalTangent},
+         {"K1_slope_7_10_minus_normal_margin",
+          aggregate.r2K1ConeMinusMargin},
+         {"K1_slope_7_10_plus_normal_margin",
+          aggregate.r2K1ConePlusMargin}}});
+
     Verdict mathematical = Verdict::Pass;
     for (const auto& obligation : obligations)
       mathematical = combine(mathematical, obligation.status);
     const Verdict status = combine(rounding.status, mathematical);
 
     std::cout
-        << "{\"schema_version\":\"rfsn-vdp-v4-adapted-zero-tube-probe/1\","
+        << "{\"schema_version\":\"rfsn-vdp-v4-adapted-zero-tube-probe/2\","
         << "\"status\":\"" << verdictName(status) << "\","
         << "\"mathematical_status\":\"" << verdictName(mathematical)
         << "\",\"claim_bearing\":false,"
         << "\"claim_boundary\":{"
         << "\"parent_obligation\":\"V4 zero-energy adapted subgraph local mathematical PASS; Issue #7 aggregate remains PENDING\","
-        << "\"proved_scope\":\"unique maximal future-staying graph n=Gamma_ad(z,b) in the displayed H=0 scaled spectral tube, with an R=2 attachment enclosure\","
-        << "\"open_scope\":[\"V5 incidence and scalar root\","
-           "\"resolved K1 graph transport\",\"Issue #7 aggregate and release\"]},"
+        << "\"proved_scope\":\"unique maximal future-staying graph n=Gamma_ad(z,b) with slope at most 1/2 in the displayed H=0 scaled spectral tube, whose exact R=2 image supplies a full-base K1 terminal graph of slope below 7/10\","
+        << "\"open_scope\":[\"resolved K1 backward graph transport\","
+           "\"central regraph and source first hit\","
+           "\"V5 scalar incidence\",\"Issue #7 aggregate and release\"]},"
         << "\"scope\":\"ZERO_ENERGY_ADAPTED_SPECTRAL_TUBE\","
         << "\"box_id\":\"vdp-positive-box-v2\","
         << "\"parameter_box\":{"

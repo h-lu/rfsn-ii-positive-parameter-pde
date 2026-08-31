@@ -453,7 +453,7 @@ int main() {
     const Interval bMinus = -bRadius;
     const Interval nPlus = nRadius;
     const Interval nMinus = -nRadius;
-    const Interval graphSlope = Interval(1.0);
+    const Interval graphSlope = rational(7, 10);
 
     constexpr long kRSlabs = 8;
     constexpr long kA2Slabs = 32;
@@ -594,7 +594,7 @@ int main() {
     const Interval coneMargin(aggregate.slopeMarginLower);
     obligations.push_back({
         "V5.K1.PROJECTIVE_CONE", strictPositive(coneMargin),
-        "The base-to-normal slope-one projectivized cone is strictly backward invariant in the finite resolved-K1 tube",
+        "The base-to-normal slope-7/10 projectivized cone is strictly backward invariant in the finite resolved-K1 tube",
         {{"graph_slope", graphSlope},
          {"C_upper", Interval(aggregate.cUpper)},
          {"B_cross_upper", Interval(aggregate.bCrossUpper)},
@@ -608,7 +608,7 @@ int main() {
     const Verdict status = combine(rounding.status, mathematical);
 
     std::cout
-        << "{\"schema_version\":\"rfsn-vdp-v5-k1-tube-probe/1\","
+        << "{\"schema_version\":\"rfsn-vdp-v5-k1-tube-probe/2\","
         << "\"status\":\"" << verdictName(status) << "\","
         << "\"mathematical_status\":\"" << verdictName(mathematical)
         << "\",\"claim_bearing\":false,"
@@ -627,9 +627,9 @@ int main() {
         << "\"rounding_self_test\":"
         << rfsn::rigorous::roundingReportJson(rounding) << ','
         << "\"claim_boundary\":{"
-        << "\"proved_scope\":\"positive-root, clock, face, and projective-cone bounds for a finite H=0 resolved-K1 tube\","
-        << "\"open_scope\":[\"R=2 attachment to the actual V4 graph\","
-           "\"central regraph\",\"source first hit\",\"V5 incidence\"]},"
+        << "\"proved_scope\":\"positive-root, clock, face, and slope-7/10 projective-cone bounds for a finite H=0 resolved-K1 tube\","
+        << "\"open_scope\":[\"central regraph\",\"source first hit\","
+           "\"V5 incidence\"]},"
         << "\"obligations\":[";
     for (std::size_t index = 0; index < obligations.size(); ++index) {
       if (index) std::cout << ',';

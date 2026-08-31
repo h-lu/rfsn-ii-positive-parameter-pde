@@ -128,24 +128,26 @@ fiber \(n\), the generator blocks obey
 
 All comparisons with \(\nu=1/64\) and
 \(\lambda_*=\sqrt{1-(2/9)^2}\) are strict. The directly evaluated
-slope-one cone margin is at least \(0.9678153484510067\), the normal rate
-is at least \(0.9749774325505001\), and
+slope-one cone margin is at least \(0.9678153484510067\), while the sharper
+slope-\(1/2\) cone margin is at least \(0.48389149165198553\).  The normal
+rate is at least \(0.9749774325505001\), and
 
 \[
  (\gamma_0,\gamma_1,\gamma_2,\gamma_3)
  \ge(0.9749774326,0.9678373946,0.9606971309,0.9535568672).
 \]
 
-The corridor graph lemma therefore gives a unique maximal future-staying
-graph
+The corridor graph lemma, run in the invariant slope-\(1/2\) cone,
+therefore gives a unique maximal future-staying graph
 
 \[
  n=\Gamma_{\rm ad}(z,b;r,a_2,\epsilon)
 \tag{6}
 \]
 
-inside (3), normally expanding and third-order bunched. This is the exact
-scaled V4 field. For \(r>0\), blowing down by
+inside (3), normally expanding and third-order bunched, with
+\(\lvert\partial_b\Gamma_{\rm ad}\rvert\le1/2\). This is the exact scaled
+V4 field. For \(r>0\), blowing down by
 \(\alpha=\delta A,\ \beta=\delta B\) makes (6) a V4 subgraph; wherever it
 overlaps the previously certified unscaled V4 corridor, uniqueness
 identifies the two graphs. The present calculation does **not** claim that
@@ -182,9 +184,96 @@ graph tube gives
 \]
 
 Thus (6)--(7) provide a strict narrow-normal V4 attachment tube on the
-actual parameter-dependent \(R=2\) section. They do not select a point of
-that graph, transport it through the resolved \(K_1\) block, or prove the
-V5 scalar coincidence root.
+actual parameter-dependent \(R=2\) section.
+
+### Full-base terminal graph for the strict \(K_1\) corridor
+
+Restrict the stable V4 coordinate at \(R=2\) to
+
+\[
+ |b_{\rm out}|\le1/3000,qquad |n_{\rm out}|\le10^{-5}.
+\tag{8}
+\]
+
+Because (6) is a graph over \((z,b_{\rm out})\), its restriction to (8)
+is an actual subordinate piece of the V4 graph.  Let \(P-K,W\) and
+\(\lambda_1\) be the finite-\(\sigma\) \(K_1\) reference used in the strict
+K1 corridor.  The exact seam identities include
+
+\[
+ \sqrt{1-z_R^2}=2z_R\lambda_1,
+ \qquad \frac{C_0+\chi_0}{2\epsilon}=P.
+\tag{9}
+\]
+
+The code rationalizes both \(\chi-\chi_0\) and the change from
+\((C_0,0)\) to \((C,D)\) before applying (9).  It therefore evaluates the
+K1 spectral coordinates without subtracting broad \(\Pi\)- and
+\(\Omega\)-boxes.  On the whole v2 parameter box and the full product (8),
+
+\[
+ b_{K_1}\in[-2.082790310696704,2.087206773674565]\times10^{-4},
+\]
+
+\[
+ n_{K_1}\in[-6.637293639326057,6.195704783142731]\times10^{-6}.
+\tag{10}
+\]
+
+The broad \(b_{K_1}\) interval in (10) is deliberately **not** claimed to
+lie inside the K1 tube.  What is needed is base coverage.  At the two
+outer endpoints of (8), interval evaluation for every
+\(|n_{\rm out}|\le10^{-5}\) gives
+
+\[
+ b_{K_1}(-1/3000)
+ \subset[-2.082790310696698,-1.3862182635633312]\times10^{-4},
+\]
+
+\[
+ b_{K_1}(1/3000)
+ \subset[1.3892821778600141,2.0872067736744997]\times10^{-4}.
+\tag{11}
+\]
+
+Thus the left and right endpoints strictly cross \(-10^{-4}\) and
+\(+10^{-4}\), with respective margins
+\(3.8621826356333074\times10^{-5}\) and
+\(3.892821778600137\times10^{-5}\).  Throughout (8), the normal coordinate
+stays inside the K1 tube with margin
+\(9.33627063606739\times10^{-5}\).
+
+It remains to verify that this crossing is a graph crossing.  Let
+\(p=dn_{\rm out}/db_{\rm out}\), and put
+\(h_b=\partial_{b_{\rm out}}\chi\),
+\(h_n=\partial_{n_{\rm out}}\chi\).  Differentiating only after using the
+first identity in (9) gives the cancellation-free exact formulas
+
+\[
+ \frac{db_{K_1}}{db_{\rm out}}
+ =\frac{2+h_b+p h_n}{4\epsilon},\qquad
+ \frac{dn_{K_1}}{db_{\rm out}}
+ =\frac{2p+h_b+p h_n}{4\epsilon}.
+ \tag{12}
+\]
+
+For every \(|p|\le1/2\), the first derivative in (12) is at least
+\(0.4166663644575796\).  With \(\kappa=7/10\), the two light-cone margins
+
+\[
+ \kappa\frac{db_{K_1}}{db_{\rm out}}
+ \mp\frac{dn_{K_1}}{db_{\rm out}}
+\]
+
+are at least \(0.08333094850154998\) and
+\(0.08333281957788538\).  Consequently the seam map is strictly monotone
+on the actual V4 graph and sends its tangent strictly into the K1
+slope-\(7/10\) cone.  Taking the unique inverse image of
+\(|b_{K_1}|\le10^{-4}\) therefore yields an admissible terminal graph over
+the **entire** K1 top base, with \(|n_{K_1}|<10^{-4}\).  This closes the
+value, domain-coverage, and tangent parts of the V4-to-K1 seam.  It does not
+yet transport that graph to the central cut, identify the source first hit,
+or prove the V5 scalar coincidence root.
 
 ## Reproduction and claim boundary
 
@@ -198,9 +287,9 @@ Run
       validation.rigorous.tests.test_v4_adapted_zero_tube_probe -v
 
 with the pinned strict CAPD/FILIB build, or set RFSN_CAPD_CONFIG to its
-capd-config. All five mathematical obligations and all four tests pass.
+capd-config. All seven mathematical obligations and all four tests pass.
 
 The machine field **claim_bearing=false** records that this local theorem is
-not yet the aggregate Issue #7 release certificate. V5 incidence and its
-scalar root, resolved-\(K_1\) graph transport, and the aggregate release
-remain open.
+not yet the aggregate Issue #7 release certificate. Resolved-\(K_1\)
+backward graph transport, central regraph and source incidence, the V5
+scalar root, and the aggregate release remain open.

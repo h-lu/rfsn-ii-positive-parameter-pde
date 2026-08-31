@@ -164,24 +164,25 @@ For the unscaled \(r_1\)-time \((b,n)\) generator, the global bounds are
  A\ge335.15650142092244.
 \]
 
-Combining these four independently aggregated extrema gives the conservative
-slope-one projective-cone margin
+Combining these four independently aggregated extrema with
+\(\kappa=7/10\) gives the conservative projective-cone margin
 
 \[
- A-C-|B|-|D|
- \ge57.744335731532544>0.
+ \kappa\{A-C-|B|\kappa\}-|D|
+ \ge12.477001545137625>0.
 \tag{8}
 \]
 
 Direct cellwise evaluation, which retains the correlations within each
-cell, gives the stronger lower bound \(477.89068514283\).
+cell, is also strictly positive.
 
 Consequently (2) supplies a strict finite graph-transform corridor with a
-common cooriented slope-one backward-invariant cone.  Once an admissible
-terminal graph is identified at \(r_1=2\), its backward transport through
-this corridor is unique while it remains in the displayed tube.  The finite
-corridor alone does not select that terminal graph; this is precisely why the
-V4 attachment remains open below.
+common cooriented slope-\(7/10\) backward-invariant cone.  The separate V4
+seam certificate now supplies an admissible terminal graph over the complete
+top base \(|b|\le10^{-4}\).  Its backward graph transform through this
+corridor is therefore unique while it remains in the displayed tube.  This
+certificate establishes the corridor estimates; the next obligation is to
+record the resulting lower graph and its central regraph explicitly.
 
 ## Reproduction and claim boundary
 
@@ -197,7 +198,9 @@ with the pinned strict CAPD/FILIB build, or set `RFSN_CAPD_CONFIG` to its
 `capd-config`.
 
 The machine field `claim_bearing=false` is deliberate.  This calculation
-proves the finite resolved-\(K_1\) tube, but does not yet prove that the
-actual V4 graph enters it at \(R=2\), identify its central \(U=-4\) cut,
-connect that cut to the source manifold, or solve the V5 scalar incidence
-equation.  Those are separate remaining interfaces.
+proves the finite resolved-\(K_1\) tube and its slope-\(7/10\) graph
+transform.  Together with the separate V4 seam certificate it has an actual
+terminal graph, but it does not yet explicitly enclose the transported lower
+graph, identify its central \(U=-4\) regraph, connect that graph to the source
+manifold, or solve the V5 scalar incidence equation.  Those are separate
+remaining interfaces.

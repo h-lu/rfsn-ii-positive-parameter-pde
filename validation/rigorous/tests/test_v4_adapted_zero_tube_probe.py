@@ -72,7 +72,7 @@ class V4AdaptedZeroTubeProbeTests(unittest.TestCase):
     def test_scope_product_cover_and_coordinates_are_explicit(self) -> None:
         self.assertEqual(
             self.result["schema_version"],
-            "rfsn-vdp-v4-adapted-zero-tube-probe/1",
+            "rfsn-vdp-v4-adapted-zero-tube-probe/2",
         )
         self.assertEqual(self.result["box_id"], "vdp-positive-box-v2")
         self.assertEqual(
@@ -135,15 +135,22 @@ class V4AdaptedZeroTubeProbeTests(unittest.TestCase):
         ):
             self.assertGreater(endpoint(blocks["enclosures"][key], "lower"), 0)
         for key in (
-            "slope_one_cone_lower", "normal_rate_lower", "gamma_0_lower",
-            "gamma_1_lower", "gamma_2_lower", "gamma_3_lower",
+            "slope_one_cone_lower", "slope_half_cone_lower",
+            "normal_rate_lower", "gamma_0_lower", "gamma_1_lower",
+            "gamma_2_lower", "gamma_3_lower",
         ):
             self.assertGreater(endpoint(rates["enclosures"][key], "lower"), 0)
 
     def test_r2_attachment_enclosure_and_toolchain_pass(self) -> None:
         obligations = {item["id"]: item for item in self.result["obligations"]}
         attachment = obligations["V4.AD_ZERO.R2_ATTACHMENT_TUBE"]
+        coverage = obligations[
+            "V4.AD_ZERO.R2_K1_TERMINAL_GRAPH_COVERAGE"
+        ]
+        cone = obligations["V4.AD_ZERO.R2_K1_CONE_COMPATIBILITY"]
         self.assertEqual(attachment["status"], "PASS")
+        self.assertEqual(coverage["status"], "PASS")
+        self.assertEqual(cone["status"], "PASS")
         self.assertGreater(
             endpoint(attachment["enclosures"]["z_R2"], "lower"), 0
         )
@@ -159,6 +166,38 @@ class V4AdaptedZeroTubeProbeTests(unittest.TestCase):
         tube = attachment["enclosures"]["normal_graph_tube"]
         self.assertLessEqual(endpoint(tube, "lower"), -1e-5)
         self.assertGreaterEqual(endpoint(tube, "upper"), 1e-5)
+        for key in (
+            "K1_left_coverage_margin", "K1_right_coverage_margin",
+            "K1_n_boundary_margin",
+        ):
+            self.assertGreater(
+                endpoint(coverage["enclosures"][key], "lower"), 0
+            )
+        self.assertLess(
+            endpoint(
+                coverage["enclosures"]["K1_b_at_outer_minus"], "upper"
+            ),
+            -1e-4,
+        )
+        self.assertGreater(
+            endpoint(
+                coverage["enclosures"]["K1_b_at_outer_plus"], "lower"
+            ),
+            1e-4,
+        )
+        k1_n = coverage["enclosures"]["K1_n"]
+        self.assertGreaterEqual(endpoint(k1_n, "lower"), -1e-4)
+        self.assertLessEqual(endpoint(k1_n, "upper"), 1e-4)
+        self.assertGreater(
+            endpoint(cone["enclosures"]["K1_base_tangent"], "lower"), 0
+        )
+        for key in (
+            "K1_slope_7_10_minus_normal_margin",
+            "K1_slope_7_10_plus_normal_margin",
+        ):
+            self.assertGreater(
+                endpoint(cone["enclosures"][key], "lower"), 0
+            )
         self.assertEqual(self.result["rounding_self_test"]["status"], "PASS")
         self.assertEqual(self.result["mathematical_status"], "PASS")
         self.assertEqual(self.result["status"], "PASS")

@@ -76,7 +76,7 @@ class V5K1TubeProbeTests(unittest.TestCase):
     def test_scope_and_gap_free_cover(self) -> None:
         self.assertEqual(
             self.result["schema_version"],
-            "rfsn-vdp-v5-k1-tube-probe/1",
+            "rfsn-vdp-v5-k1-tube-probe/2",
         )
         self.assertEqual(self.result["box_id"], "vdp-positive-box-v2")
         self.assertEqual(
@@ -97,8 +97,8 @@ class V5K1TubeProbeTests(unittest.TestCase):
         for coordinate in ("b", "n"):
             self.assertLessEqual(endpoint(tube[coordinate], "lower"), -1e-4)
             self.assertGreaterEqual(endpoint(tube[coordinate], "upper"), 1e-4)
-        self.assertEqual(endpoint(tube["graph_slope"], "lower"), 1.0)
-        self.assertEqual(endpoint(tube["graph_slope"], "upper"), 1.0)
+        self.assertLessEqual(endpoint(tube["graph_slope"], "lower"), 0.7)
+        self.assertGreaterEqual(endpoint(tube["graph_slope"], "upper"), 0.7)
 
     def test_positive_root_clock_and_face_scale(self) -> None:
         obligations = {item["id"]: item for item in self.result["obligations"]}
@@ -110,7 +110,7 @@ class V5K1TubeProbeTests(unittest.TestCase):
         ):
             self.assertGreater(endpoint(branch["enclosures"][key], "lower"), 0)
 
-    def test_all_isolating_faces_and_slope_one_cone_pass(self) -> None:
+    def test_all_isolating_faces_and_slope_seven_tenths_cone_pass(self) -> None:
         obligations = {item["id"]: item for item in self.result["obligations"]}
         faces = obligations["V5.K1.TUBE_FACES"]
         cone = obligations["V5.K1.PROJECTIVE_CONE"]
@@ -125,12 +125,14 @@ class V5K1TubeProbeTests(unittest.TestCase):
         self.assertGreater(
             endpoint(cone["enclosures"]["cone_margin"], "lower"), 0
         )
-        conservative = (
+        slope = endpoint(cone["enclosures"]["graph_slope"], "lower")
+        conservative = slope * (
             endpoint(cone["enclosures"]["a_normal_lower"], "lower")
             - endpoint(cone["enclosures"]["C_upper"], "upper")
-            - endpoint(cone["enclosures"]["B_cross_upper"], "upper")
-            - endpoint(cone["enclosures"]["D_cross_upper"], "upper")
-        )
+            - slope * endpoint(
+                cone["enclosures"]["B_cross_upper"], "upper"
+            )
+        ) - endpoint(cone["enclosures"]["D_cross_upper"], "upper")
         self.assertGreater(conservative, 0)
 
     def test_status_and_claim_boundary_remain_local(self) -> None:
@@ -141,7 +143,6 @@ class V5K1TubeProbeTests(unittest.TestCase):
         self.assertEqual(
             self.result["claim_boundary"]["open_scope"],
             [
-                "R=2 attachment to the actual V4 graph",
                 "central regraph",
                 "source first hit",
                 "V5 incidence",
