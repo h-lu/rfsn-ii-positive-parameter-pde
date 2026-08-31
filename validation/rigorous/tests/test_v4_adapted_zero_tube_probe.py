@@ -72,7 +72,7 @@ class V4AdaptedZeroTubeProbeTests(unittest.TestCase):
     def test_scope_product_cover_and_coordinates_are_explicit(self) -> None:
         self.assertEqual(
             self.result["schema_version"],
-            "rfsn-vdp-v4-adapted-zero-tube-probe/2",
+            "rfsn-vdp-v4-adapted-zero-tube-probe/3",
         )
         self.assertEqual(self.result["box_id"], "vdp-positive-box-v2")
         self.assertEqual(
@@ -177,13 +177,13 @@ class V4AdaptedZeroTubeProbeTests(unittest.TestCase):
             endpoint(
                 coverage["enclosures"]["K1_b_at_outer_minus"], "upper"
             ),
-            -1e-4,
+            -13e-5,
         )
         self.assertGreater(
             endpoint(
                 coverage["enclosures"]["K1_b_at_outer_plus"], "lower"
             ),
-            1e-4,
+            13e-5,
         )
         k1_n = coverage["enclosures"]["K1_n"]
         self.assertGreaterEqual(endpoint(k1_n, "lower"), -1e-4)

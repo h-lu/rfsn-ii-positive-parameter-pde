@@ -76,7 +76,7 @@ class V5K1TubeProbeTests(unittest.TestCase):
     def test_scope_and_gap_free_cover(self) -> None:
         self.assertEqual(
             self.result["schema_version"],
-            "rfsn-vdp-v5-k1-tube-probe/2",
+            "rfsn-vdp-v5-k1-tube-probe/3",
         )
         self.assertEqual(self.result["box_id"], "vdp-positive-box-v2")
         self.assertEqual(
@@ -94,9 +94,10 @@ class V5K1TubeProbeTests(unittest.TestCase):
             },
         )
         tube = self.result["tube"]
-        for coordinate in ("b", "n"):
-            self.assertLessEqual(endpoint(tube[coordinate], "lower"), -1e-4)
-            self.assertGreaterEqual(endpoint(tube[coordinate], "upper"), 1e-4)
+        self.assertLessEqual(endpoint(tube["b"], "lower"), -13e-5)
+        self.assertGreaterEqual(endpoint(tube["b"], "upper"), 13e-5)
+        self.assertLessEqual(endpoint(tube["n"], "lower"), -1e-4)
+        self.assertGreaterEqual(endpoint(tube["n"], "upper"), 1e-4)
         self.assertLessEqual(endpoint(tube["graph_slope"], "lower"), 0.7)
         self.assertGreaterEqual(endpoint(tube["graph_slope"], "upper"), 0.7)
 
@@ -123,17 +124,12 @@ class V5K1TubeProbeTests(unittest.TestCase):
             endpoint(cone["enclosures"]["a_normal_lower"], "lower"), 0
         )
         self.assertGreater(
-            endpoint(cone["enclosures"]["cone_margin"], "lower"), 0
+            endpoint(
+                cone["enclosures"]["cellwise_pointwise_cone_margin"],
+                "lower",
+            ),
+            0,
         )
-        slope = endpoint(cone["enclosures"]["graph_slope"], "lower")
-        conservative = slope * (
-            endpoint(cone["enclosures"]["a_normal_lower"], "lower")
-            - endpoint(cone["enclosures"]["C_upper"], "upper")
-            - slope * endpoint(
-                cone["enclosures"]["B_cross_upper"], "upper"
-            )
-        ) - endpoint(cone["enclosures"]["D_cross_upper"], "upper")
-        self.assertGreater(conservative, 0)
 
     def test_status_and_claim_boundary_remain_local(self) -> None:
         self.assertEqual(self.result["rounding_self_test"]["status"], "PASS")

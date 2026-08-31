@@ -466,7 +466,8 @@ int main() {
     const Interval nPlus = nRadius;
     const Interval nMinus = -nRadius;
     const Interval seamBRadius = rational(1, 3000);
-    const Interval seamK1Radius = rational(1, 10000);
+    const Interval seamK1BaseRadius = rational(13, 100000);
+    const Interval seamK1NormalRadius = rational(1, 10000);
     const Interval nu = rational(1, 64);
     const Interval lambdaFloor = sqrt(
         Interval(1.0) - sqr(zMaximum));
@@ -814,11 +815,11 @@ int main() {
          {"normal_graph_tube", nBox}}});
 
     const Interval seamNMargin =
-        seamK1Radius - aggregate.r2K1N.abs();
+        seamK1NormalRadius - aggregate.r2K1N.abs();
     const Interval seamLeftCoverageMargin =
-        -seamK1Radius - aggregate.r2K1BAtOuterMinus;
+        -seamK1BaseRadius - aggregate.r2K1BAtOuterMinus;
     const Interval seamRightCoverageMargin =
-        aggregate.r2K1BAtOuterPlus - seamK1Radius;
+        aggregate.r2K1BAtOuterPlus - seamK1BaseRadius;
     Verdict seamStatus = strictPositive(seamNMargin);
     seamStatus = combine(
         seamStatus, strictPositive(seamLeftCoverageMargin));
@@ -826,7 +827,7 @@ int main() {
         seamStatus, strictPositive(seamRightCoverageMargin));
     obligations.push_back({
         "V4.AD_ZERO.R2_K1_TERMINAL_GRAPH_COVERAGE", seamStatus,
-        "The exact R=2 image of the subordinate V4 graph over |b_outer|<=1/3000 stays in |n_K1|<1e-4 and its two oriented endpoints strictly bracket the complete K1 base |b_K1|<=1e-4",
+        "The exact R=2 image of the subordinate V4 graph over |b_outer|<=1/3000 stays in |n_K1|<1e-4 and its two oriented endpoints strictly bracket the complete K1 base |b_K1|<=13e-5",
         {{"outer_stable_slice", Interval(
               -seamBRadius.rightBound(), seamBRadius.rightBound())},
          {"outer_normal_graph_tube", nBox},
@@ -864,7 +865,7 @@ int main() {
     const Verdict status = combine(rounding.status, mathematical);
 
     std::cout
-        << "{\"schema_version\":\"rfsn-vdp-v4-adapted-zero-tube-probe/2\","
+        << "{\"schema_version\":\"rfsn-vdp-v4-adapted-zero-tube-probe/3\","
         << "\"status\":\"" << verdictName(status) << "\","
         << "\"mathematical_status\":\"" << verdictName(mathematical)
         << "\",\"claim_bearing\":false,"

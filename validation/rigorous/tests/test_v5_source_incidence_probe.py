@@ -47,7 +47,7 @@ class V5SourceIncidenceRepresentativeCellTests(unittest.TestCase):
     def test_representative_cell_pass_has_an_explicit_claim_boundary(self) -> None:
         self.assertEqual(
             self.result["schema_version"],
-            "rfsn-vdp-v5-source-incidence-cell/1",
+            "rfsn-vdp-v5-source-incidence-cell/2",
         )
         self.assertEqual(self.result["status"], "PASS")
         self.assertEqual(self.result["mathematical_status"], "PASS")
@@ -62,16 +62,19 @@ class V5SourceIncidenceRepresentativeCellTests(unittest.TestCase):
 
     def test_all_local_incidence_gates_and_margin_are_strict(self) -> None:
         required_gates = {
-            "anchor_faces",
+            "anchor_interval_newton",
+            "anchor_root_boxes_contain_zero",
             "exact_source_zero_energy_identity",
             "theta_coordinate_regular",
             "complete_graph_error_half_union",
+            "complete_anchor_graph_error_slice_union",
             "complete_phase_slab_union",
             "continuation_faces",
+            "phase_monotonicity_on_continuation_cover",
             "root_derivatives",
             "fixed_eta_n_theta_negative",
             "exterior_seam_P_negative",
-            "source_slope_below_17_over_50",
+            "source_slope_below_one_half",
             "graph_slope_contraction",
             "negative_K1_sheet_patch",
             "regular_source_to_terminal_passage",
@@ -86,6 +89,13 @@ class V5SourceIncidenceRepresentativeCellTests(unittest.TestCase):
         phase_cover = self.result["phase_cover"]
         self.assertEqual(phase_cover["slab_count"], 16)
         self.assertEqual(phase_cover["graph_error_halves"], 2)
+        self.assertEqual(phase_cover["anchor_graph_error_slices"], 8)
+        self.assertTrue(
+            all(self.result["gates"]["anchor_interval_newton_by_slice"])
+        )
+        self.assertTrue(
+            all(self.result["gates"]["anchor_root_contains_zero_by_slice"])
+        )
         self.assertTrue(
             all(
                 count > 0
@@ -108,9 +118,22 @@ class V5SourceIncidenceRepresentativeCellTests(unittest.TestCase):
             endpoint(enclosures["incidence_base_margin"], "lower"), 0.0
         )
         self.assertLess(
-            endpoint(enclosures["source_abs_db_over_minus_dn"], "upper"),
-            17.0 / 50.0,
+            endpoint(enclosures["continuation_n_theta"], "upper"), 0.0
         )
+        self.assertLessEqual(
+            endpoint(enclosures["anchor_root_normal"], "lower"), 0.0
+        )
+        self.assertGreaterEqual(
+            endpoint(enclosures["anchor_root_normal"], "upper"), 0.0
+        )
+        self.assertLess(
+            endpoint(enclosures["source_abs_db_over_minus_dn"], "upper"),
+            1.0 / 2.0,
+        )
+        contract = self.result["target_graph_contract"]
+        self.assertEqual(contract["base_half_width"], "13/100000")
+        self.assertEqual(contract["normal_half_width"], "1/10000")
+        self.assertEqual(contract["slope_bound"], "7/10")
         terminal_q = enclosures["candidate_terminal_Q"]
         self.assertGreater(endpoint(terminal_q, "lower"), -9.5)
         self.assertLess(endpoint(terminal_q, "upper"), -9.0)
@@ -217,7 +240,7 @@ class V5SourceIncidenceSlabSmokeTests(unittest.TestCase):
     def test_candidate_slab_exercises_the_exterior_derivative_route(self) -> None:
         self.assertEqual(
             self.result["schema_version"],
-            "rfsn-vdp-v5-source-incidence-probe/1",
+            "rfsn-vdp-v5-source-incidence-probe/2",
         )
         self.assertFalse(self.result["claim_bearing"])
         self.assertFalse(self.result["cover"]["complete_v2_cover"])
@@ -233,7 +256,7 @@ class V5SourceIncidenceSlabSmokeTests(unittest.TestCase):
         self.assertLess(endpoint(enclosures["dn_dtheta"], "upper"), 0.0)
         self.assertLess(
             endpoint(enclosures["source_abs_db_over_minus_dn"], "upper"),
-            17.0 / 50.0,
+            1.0 / 2.0,
         )
 
     def test_candidate_slab_satisfies_the_local_hard_gates(self) -> None:

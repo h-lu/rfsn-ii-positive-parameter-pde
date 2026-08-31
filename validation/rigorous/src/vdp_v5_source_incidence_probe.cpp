@@ -114,7 +114,8 @@ interval graphC0() { return rational(1, 200000); }
 interval graphPhaseC1() { return rational(3, 1000000); }
 interval thetaFace() { return rational(4, 25000000); }
 interval thetaHalfWidth() { return rational(1, 1000000000); }
-interval lowerGraphHalfWidth() { return rational(1, 10000); }
+interval lowerGraphBaseHalfWidth() { return rational(13, 100000); }
+interval lowerGraphNormalHalfWidth() { return rational(1, 10000); }
 interval lowerGraphSlope() { return rational(7, 10); }
 
 interval intervalFromEndpoints(const interval& lower,
@@ -1357,10 +1358,14 @@ RootDerivativeData propagateReducedExterior(
 enum class PhaseRegion { LowerFace, UpperFace, FullStrip };
 
 CellResult evaluateCellRegion(const Box& parameterCell, PhaseRegion region,
-                              bool negativeGraphHalf,
+                              int graphSliceIndex,
+                              int graphSliceCount = 2,
                               const interval* customThetaCentre = nullptr,
                               const interval* customThetaHalfWidth = nullptr,
                               bool computeExterior = false) {
+  if (graphSliceCount <= 0 || graphSliceIndex < 0 ||
+      graphSliceIndex >= graphSliceCount)
+    throw std::invalid_argument("invalid source graph-error slice");
   Box centre;
   Box offsets;
   for (int index = 0; index < 3; ++index) {
@@ -1380,9 +1385,12 @@ CellResult evaluateCellRegion(const Box& parameterCell, PhaseRegion region,
       : (region == PhaseRegion::FullStrip
              ? intervalFromEndpoints(-fullTheta, fullTheta)
              : intervalFromEndpoints(-thetaHalfWidth(), thetaHalfWidth()));
-  const interval graphHalf = graphC0() / interval(2.);
-  const interval graphCentre = negativeGraphHalf ? -graphHalf : graphHalf;
-  const interval graphOffset = intervalFromEndpoints(-graphHalf, graphHalf);
+  const interval graphSliceHalfWidth =
+      graphC0() * rational(1, graphSliceCount);
+  const interval graphCentre = -graphC0() +
+      graphSliceHalfWidth * rational(2L * graphSliceIndex + 1);
+  const interval graphOffset = intervalFromEndpoints(
+      -graphSliceHalfWidth, graphSliceHalfWidth);
   const interval katoU1 = sourceKatoU1(
       centre, offsets, thetaCentre, thetaOffset,
       graphCentre, graphOffset);
@@ -1470,7 +1478,8 @@ CellResult evaluateCellRegion(const Box& parameterCell, PhaseRegion region,
   if (coordinates.dn.rightBound() < 0.)
     sourceSlope =
         absoluteEnvelope(coordinates.db) / (-coordinates.dn);
-  const interval graphBase = lowerGraphHalfWidth();
+  const interval graphBase = lowerGraphBaseHalfWidth();
+  const interval graphNormal = lowerGraphNormalHalfWidth();
 
   Verdict status = Verdict::Pass;
   if (!(tightQ.leftBound() > -rational(19, 2).rightBound() &&
@@ -1482,9 +1491,9 @@ CellResult evaluateCellRegion(const Box& parameterCell, PhaseRegion region,
           coordinates.b.rightBound() < graphBase.leftBound()))
       status = Verdict::Inconclusive;
   } else if (lowerFace) {
-    if (!(coordinates.n.leftBound() > graphBase.rightBound()))
+    if (!(coordinates.n.leftBound() > graphNormal.rightBound()))
       status = Verdict::Inconclusive;
-  } else if (!(coordinates.n.rightBound() < (-graphBase).leftBound())) {
+  } else if (!(coordinates.n.rightBound() < (-graphNormal).leftBound())) {
     status = Verdict::Inconclusive;
   }
   return {coordinates.b, coordinates.n, terminal.aligned,
@@ -1622,9 +1631,10 @@ void printResult(const Aggregate& aggregate, int rCount, int aCount,
   const interval coordinateJacobian =
       interval(1.) + rational(11, 8) *
           intervalFromEndpoints(-graphPhaseC1(), graphPhaseC1());
-  const interval graphBase = lowerGraphHalfWidth();
+  const interval graphBase = lowerGraphBaseHalfWidth();
+  const interval graphNormal = lowerGraphNormalHalfWidth();
   std::cout << "{\"schema_version\":"
-            << "\"rfsn-vdp-v5-source-incidence-probe/1\","
+            << "\"rfsn-vdp-v5-source-incidence-probe/2\","
             << "\"box_id\":\"vdp-positive-box-v2\","
             << "\"scope\":\"ZERO_ENERGY_TRUE_SOURCE_TO_V5_LOWER_GRAPH\","
             << "\"section\":\"FIRST_U_MINUS_4\","
@@ -1649,6 +1659,10 @@ void printResult(const Aggregate& aggregate, int rCount, int aCount,
             << "\"theta_face_half_width\":\"1/1000000000\","
             << "\"theta_coordinate_jacobian_lower\":"
             << intervalJson(coordinateJacobian) << "},"
+            << "\"target_graph_contract\":{"
+            << "\"base_half_width\":\"13/100000\","
+            << "\"normal_half_width\":\"1/10000\","
+            << "\"slope_bound\":\"7/10\"},"
             << "\"enclosures\":{"
             << "\"lower_face_b\":" << intervalJson(aggregate.lowerB)
             << ",\"lower_face_n\":" << intervalJson(aggregate.lowerN)
@@ -1690,10 +1704,10 @@ void printResult(const Aggregate& aggregate, int rCount, int aCount,
             << "\"theta_coordinate_regular\":"
             << boolJson(coordinateJacobian.leftBound() > 0.) << ','
             << "\"lower_face_above_graph_tube\":"
-            << boolJson(aggregate.lowerN.leftBound() > graphBase.rightBound())
+            << boolJson(aggregate.lowerN.leftBound() > graphNormal.rightBound())
             << ",\"upper_face_below_graph_tube\":"
             << boolJson(aggregate.upperN.rightBound() <
-                        (-graphBase).leftBound())
+                        (-graphNormal).leftBound())
             << ",\"terminal_b_inside_graph_base\":"
             << boolJson(aggregate.stripB.leftBound() >
                             (-graphBase).rightBound() &&
@@ -1766,10 +1780,13 @@ int main(int argc, char** argv) {
       }
       const interval continuationFace = rational(1, 25000);
       constexpr int slabCount = 16;
+      constexpr int graphErrorHalfCount = 2;
+      constexpr int anchorGraphSliceCount = 8;
       const interval slabHalfWidth =
           continuationFace / interval(slabCount);
-      const interval graphBase = lowerGraphHalfWidth();
-      const interval sourceSlopeBound = rational(17, 50);
+      const interval graphBase = lowerGraphBaseHalfWidth();
+      const interval graphNormal = lowerGraphNormalHalfWidth();
+      const interval sourceSlopeLimit = rational(1, 2);
       interval anchorAligned(0.);
       interval rootDerivativeR(0.);
       interval rootDerivativeA(0.);
@@ -1783,14 +1800,22 @@ int main(int argc, char** argv) {
       interval candidateSeamP(0.);
       interval candidatePreSeamMargin(0.);
       interval candidateDenseW(0.);
+      interval continuationNTheta(0.);
+      interval anchorRootPhase(0.);
+      interval anchorRootN(0.);
+      std::array<interval, anchorGraphSliceCount> anchorNAtZero;
       bool anchorInitialized = false;
       bool rootInitialized = false;
       bool slopeInitialized = false;
       bool qInitialized = false;
       bool passageInitialized = false;
-      std::array<bool, 2> anchorFacesByHalf{{true, true}};
+      bool phaseDerivativeInitialized = false;
+      bool anchorRootNInitialized = false;
+      std::array<bool, anchorGraphSliceCount> anchorNewtonBySlice{};
+      std::array<bool, anchorGraphSliceCount> anchorRootNBySlice{};
       std::array<bool, 2> continuationFacesByHalf{{true, true}};
       bool derivativeGate = true;
+      bool phaseMonotonicityGate = true;
       bool sourceSlopeGate = true;
       bool qGate = true;
       bool passageGate = true;
@@ -1804,7 +1829,7 @@ int main(int argc, char** argv) {
             right.leftBound() <= left.rightBound();
       };
       const interval graphTube =
-          intervalFromEndpoints(-graphBase, graphBase);
+          intervalFromEndpoints(-graphNormal, graphNormal);
       const interval coordinateJacobian =
           interval(1.) + rational(11, 8) *
               intervalFromEndpoints(-graphPhaseC1(), graphPhaseC1());
@@ -1818,6 +1843,32 @@ int main(int argc, char** argv) {
           negativeErrorHalf.rightBound() >= 0. &&
           positiveErrorHalf.leftBound() <= 0. &&
           positiveErrorHalf.rightBound() >= graphC0().rightBound();
+      bool completeAnchorGraphSliceUnion = true;
+      interval previousGraphSliceUpper(0.);
+      const interval anchorGraphSliceHalfWidth =
+          graphC0() * rational(1, anchorGraphSliceCount);
+      for (int graphSlice = 0; graphSlice < anchorGraphSliceCount;
+           ++graphSlice) {
+        const interval graphSliceCentre = -graphC0() +
+            anchorGraphSliceHalfWidth * rational(2L * graphSlice + 1);
+        const interval graphSliceLower =
+            graphSliceCentre - anchorGraphSliceHalfWidth;
+        const interval graphSliceUpper =
+            graphSliceCentre + anchorGraphSliceHalfWidth;
+        if (graphSlice == 0) {
+          completeAnchorGraphSliceUnion =
+              completeAnchorGraphSliceUnion &&
+              graphSliceLower.leftBound() <= (-graphC0()).leftBound();
+        } else {
+          completeAnchorGraphSliceUnion =
+              completeAnchorGraphSliceUnion &&
+              previousGraphSliceUpper.rightBound() >=
+                  graphSliceLower.leftBound();
+        }
+        previousGraphSliceUpper = graphSliceUpper;
+      }
+      completeAnchorGraphSliceUnion = completeAnchorGraphSliceUnion &&
+          previousGraphSliceUpper.rightBound() >= graphC0().rightBound();
       bool completePhaseSlabUnion = true;
       interval previousSlabUpper(0.);
       for (int slabIndex = 0; slabIndex < slabCount; ++slabIndex) {
@@ -1840,47 +1891,52 @@ int main(int argc, char** argv) {
       completePhaseSlabUnion = completePhaseSlabUnion &&
           previousSlabUpper.rightBound() >=
               continuationFace.rightBound();
-      for (int graphHalf = 0; graphHalf < 2; ++graphHalf) {
-        const bool negativeGraphHalf = graphHalf == 0;
-        const CellResult anchorStrip = evaluateCellRegion(
-            centreCell, PhaseRegion::FullStrip, negativeGraphHalf);
-        include(anchorInitialized, anchorAligned,
-                anchorStrip.centreAligned);
-        anchorInitialized = true;
-        const CellResult anchorLower = evaluateCellRegion(
-            centreCell, PhaseRegion::LowerFace, negativeGraphHalf);
-        const CellResult anchorUpper = evaluateCellRegion(
-            centreCell, PhaseRegion::UpperFace, negativeGraphHalf);
-        anchorFacesByHalf[graphHalf] =
-            anchorLower.n.leftBound() > graphBase.rightBound() &&
-            anchorUpper.n.rightBound() < (-graphBase).leftBound();
-
+      const interval zeroTheta(0.);
+      const interval zeroThetaHalfWidth(0.);
+      for (int graphSlice = 0; graphSlice < anchorGraphSliceCount;
+           ++graphSlice)
+        anchorNAtZero[graphSlice] = evaluateCellRegion(
+            centreCell, PhaseRegion::FullStrip, graphSlice,
+            anchorGraphSliceCount, &zeroTheta,
+            &zeroThetaHalfWidth).n;
+      for (int graphHalf = 0; graphHalf < graphErrorHalfCount;
+           ++graphHalf) {
         const interval lowerCentre = -continuationFace;
         const interval upperCentre = continuationFace;
         const interval faceHalfWidth = thetaHalfWidth();
         const CellResult continuationLower = evaluateCellRegion(
-            cell, PhaseRegion::LowerFace, negativeGraphHalf,
+            cell, PhaseRegion::LowerFace, graphHalf,
+            graphErrorHalfCount,
             &lowerCentre, &faceHalfWidth);
         const CellResult continuationUpper = evaluateCellRegion(
-            cell, PhaseRegion::UpperFace, negativeGraphHalf,
+            cell, PhaseRegion::UpperFace, graphHalf,
+            graphErrorHalfCount,
             &upperCentre, &faceHalfWidth);
         continuationFacesByHalf[graphHalf] =
-            continuationLower.n.leftBound() > graphBase.rightBound() &&
-            continuationUpper.n.rightBound() < (-graphBase).leftBound();
+            continuationLower.n.leftBound() > graphNormal.rightBound() &&
+            continuationUpper.n.rightBound() <
+                (-graphNormal).leftBound();
 
         for (int slabIndex = 0; slabIndex < slabCount; ++slabIndex) {
           const interval slabCentre = -continuationFace +
               continuationFace *
                   rational(2L * slabIndex + 1, slabCount);
           const CellResult slab = evaluateCellRegion(
-              cell, PhaseRegion::FullStrip, negativeGraphHalf,
+              cell, PhaseRegion::FullStrip, graphHalf,
+              graphErrorHalfCount,
               &slabCentre, &slabHalfWidth, false);
+          include(phaseDerivativeInitialized, continuationNTheta,
+                  slab.dn);
+          phaseDerivativeInitialized = true;
+          phaseMonotonicityGate = phaseMonotonicityGate &&
+              slab.dn.rightBound() < 0.;
           const bool zeroCandidate = slab.n.contains(0.);
           const bool graphTubeCandidate = overlaps(slab.n, graphTube);
           if (zeroCandidate) {
             ++zeroCandidateCount[graphHalf];
             const CellResult rootSlab = evaluateCellRegion(
-                cell, PhaseRegion::FullStrip, negativeGraphHalf,
+                cell, PhaseRegion::FullStrip, graphHalf,
+                graphErrorHalfCount,
                 &slabCentre, &slabHalfWidth, true);
             ++exteriorEvaluationCount;
             derivativeGate = derivativeGate &&
@@ -1922,7 +1978,7 @@ int main(int argc, char** argv) {
             sourceSlopeGate = sourceSlopeGate &&
                 slab.dn.rightBound() < 0. &&
                 slab.sourceSlope.rightBound() <
-                    sourceSlopeBound.leftBound();
+                    sourceSlopeLimit.leftBound();
             qGate = qGate &&
                 slab.terminalQ.leftBound() >
                     -rational(19, 2).rightBound() &&
@@ -1937,6 +1993,35 @@ int main(int argc, char** argv) {
           }
         }
       }
+      for (int graphSlice = 0; graphSlice < anchorGraphSliceCount;
+           ++graphSlice) {
+        interval rootPhase(0.);
+        const bool canDivide = phaseDerivativeInitialized &&
+            continuationNTheta.rightBound() < 0.;
+        if (canDivide)
+          rootPhase = -anchorNAtZero[graphSlice] /
+              continuationNTheta;
+        anchorNewtonBySlice[graphSlice] = canDivide &&
+            rootPhase.leftBound() > (-continuationFace).rightBound() &&
+            rootPhase.rightBound() < continuationFace.leftBound();
+        if (!anchorNewtonBySlice[graphSlice]) {
+          anchorRootNBySlice[graphSlice] = false;
+          continue;
+        }
+        const interval rootCentre(midpointValue(rootPhase));
+        const double rootRadius = absUpper(rootPhase - rootCentre);
+        const interval rootHalfWidth(rootRadius);
+        const CellResult anchorRoot = evaluateCellRegion(
+            centreCell, PhaseRegion::FullStrip, graphSlice,
+            anchorGraphSliceCount, &rootCentre, &rootHalfWidth);
+        anchorRootNBySlice[graphSlice] = anchorRoot.n.contains(0.);
+        include(anchorInitialized, anchorAligned,
+                anchorRoot.centreAligned);
+        include(anchorInitialized, anchorRootPhase, rootPhase);
+        include(anchorRootNInitialized, anchorRootN, anchorRoot.n);
+        anchorInitialized = true;
+        anchorRootNInitialized = true;
+      }
       const interval parameterVariation =
           absoluteEnvelope(rootDerivativeR) *
               absoluteEnvelope(offsets[0]) +
@@ -1945,16 +2030,25 @@ int main(int argc, char** argv) {
           absoluteEnvelope(rootDerivativeEpsilon) *
               absoluteEnvelope(offsets[2]);
       const interval sourceExcursion =
-          sourceSlopeBound * graphBase;
+          absoluteEnvelope(sourceSlope) * graphNormal;
       const interval incidenceBudget =
           absoluteEnvelope(anchorAligned) + parameterVariation +
           sourceExcursion;
       const interval baseMargin = graphBase - incidenceBudget;
       const bool budgetGate = baseMargin.leftBound() > 0.;
       const bool contractionGate =
-          (lowerGraphSlope() * sourceSlopeBound).rightBound() < 1.;
-      const bool anchorFaces =
-          anchorFacesByHalf[0] && anchorFacesByHalf[1];
+          (lowerGraphSlope() * absoluteEnvelope(sourceSlope)).rightBound() <
+          1.;
+      bool anchorNewton = completeAnchorGraphSliceUnion &&
+          phaseMonotonicityGate && phaseDerivativeInitialized;
+      bool anchorRootContainsZero = anchorRootNInitialized;
+      for (int graphSlice = 0; graphSlice < anchorGraphSliceCount;
+           ++graphSlice) {
+        anchorNewton = anchorNewton &&
+            anchorNewtonBySlice[graphSlice];
+        anchorRootContainsZero = anchorRootContainsZero &&
+            anchorRootNBySlice[graphSlice];
+      }
       const bool continuationFaces =
           continuationFacesByHalf[0] &&
           continuationFacesByHalf[1];
@@ -1964,8 +2058,10 @@ int main(int argc, char** argv) {
           graphTubeCandidateCount[1] > 0 && rootInitialized &&
           slopeInitialized && qInitialized && passageInitialized;
       const bool mathematicalPass =
-          anchorFaces && continuationFaces && derivativeGate &&
+          anchorNewton && anchorRootContainsZero && continuationFaces &&
+          derivativeGate &&
           completePhaseSlabUnion && completeGraphErrorHalfUnion &&
+          completeAnchorGraphSliceUnion &&
           coordinateJacobian.leftBound() > 0. && sourceSlopeGate &&
           qGate && passageGate && exteriorGate && budgetGate &&
           contractionGate && nonemptyCandidates;
@@ -1974,7 +2070,7 @@ int main(int argc, char** argv) {
           mathematicalPass ? Verdict::Pass : Verdict::Inconclusive;
       const Verdict status = combine(rounding.status, mathematicalStatus);
       std::cout << "{\"schema_version\":"
-                << "\"rfsn-vdp-v5-source-incidence-cell/1\","
+                << "\"rfsn-vdp-v5-source-incidence-cell/2\","
                 << "\"status\":\"" << verdictName(status) << "\","
                 << "\"mathematical_status\":\""
                 << verdictName(mathematicalStatus) << "\","
@@ -1986,7 +2082,11 @@ int main(int argc, char** argv) {
                 << epsilonCount << "],"
                 << "\"phase_cover\":{\"continuation_face\":"
                 << "\"1/25000\",\"slab_count\":" << slabCount
-                << ",\"graph_error_halves\":2,"
+                << ",\"graph_error_halves\":" << graphErrorHalfCount
+                << ",\"anchor_graph_error_slices\":"
+                << anchorGraphSliceCount << ','
+                << "\"anchor_interval_newton_evaluations\":"
+                << 2 * anchorGraphSliceCount << ','
                 << "\"zero_candidate_evaluations\":"
                 << zeroCandidateCount[0] + zeroCandidateCount[1] << ','
                 << "\"zero_candidate_evaluations_by_half\":["
@@ -2008,8 +2108,19 @@ int main(int argc, char** argv) {
                 << "\"parameter_fibre\":\"fixed_eta_auxiliary_fibre\","
                 << "\"coordinate_shift_wedge_invariance\":true,"
                 << "\"actual_eta_phi_used_only_in_source_slope\":true},"
+                << "\"target_graph_contract\":{"
+                << "\"base_half_width\":\"13/100000\","
+                << "\"normal_half_width\":\"1/10000\","
+                << "\"slope_bound\":\"7/10\","
+                << "\"source_slope_limit\":\"1/2\"},"
                 << "\"enclosures\":{\"anchor_aligned\":"
                 << intervalJson(anchorAligned)
+                << ",\"anchor_root_phase\":"
+                << intervalJson(anchorRootPhase)
+                << ",\"anchor_root_normal\":"
+                << intervalJson(anchorRootN)
+                << ",\"continuation_n_theta\":"
+                << intervalJson(continuationNTheta)
                 << ",\"fixed_eta_b_on_n_zero_parameter_derivative\":["
                 << intervalJson(rootDerivativeR) << ','
                 << intervalJson(rootDerivativeA) << ','
@@ -2038,20 +2149,40 @@ int main(int argc, char** argv) {
                 << intervalJson(sourceExcursion)
                 << ",\"incidence_base_margin\":"
                 << intervalJson(baseMargin) << "},"
-                << "\"gates\":{\"anchor_faces\":"
-                << boolJson(anchorFaces)
+                << "\"gates\":{\"anchor_interval_newton\":"
+                << boolJson(anchorNewton)
+                << ",\"anchor_root_boxes_contain_zero\":"
+                << boolJson(anchorRootContainsZero)
                 << ",\"exact_source_zero_energy_identity\":true"
                 << ",\"theta_coordinate_regular\":"
                 << boolJson(coordinateJacobian.leftBound() > 0.)
                 << ",\"complete_graph_error_half_union\":"
                 << boolJson(completeGraphErrorHalfUnion)
+                << ",\"complete_anchor_graph_error_slice_union\":"
+                << boolJson(completeAnchorGraphSliceUnion)
                 << ",\"complete_phase_slab_union\":"
                 << boolJson(completePhaseSlabUnion)
                 << ",\"continuation_faces\":"
                 << boolJson(continuationFaces)
-                << ",\"anchor_faces_by_half\":["
-                << boolJson(anchorFacesByHalf[0]) << ','
-                << boolJson(anchorFacesByHalf[1]) << ']'
+                << ",\"phase_monotonicity_on_continuation_cover\":"
+                << boolJson(phaseMonotonicityGate &&
+                            phaseDerivativeInitialized)
+                << ",\"anchor_interval_newton_by_slice\":[";
+      for (int graphSlice = 0; graphSlice < anchorGraphSliceCount;
+           ++graphSlice) {
+        if (graphSlice != 0)
+          std::cout << ',';
+        std::cout << boolJson(anchorNewtonBySlice[graphSlice]);
+      }
+      std::cout << ']'
+                << ",\"anchor_root_contains_zero_by_slice\":[";
+      for (int graphSlice = 0; graphSlice < anchorGraphSliceCount;
+           ++graphSlice) {
+        if (graphSlice != 0)
+          std::cout << ',';
+        std::cout << boolJson(anchorRootNBySlice[graphSlice]);
+      }
+      std::cout << ']'
                 << ",\"continuation_faces_by_half\":["
                 << boolJson(continuationFacesByHalf[0]) << ','
                 << boolJson(continuationFacesByHalf[1]) << ']'
@@ -2062,7 +2193,7 @@ int main(int argc, char** argv) {
                             fixedEtaNTheta.rightBound() < 0.)
                 << ",\"exterior_seam_P_negative\":"
                 << boolJson(rootInitialized && exteriorGate)
-                << ",\"source_slope_below_17_over_50\":"
+                << ",\"source_slope_below_one_half\":"
                 << boolJson(sourceSlopeGate && slopeInitialized)
                 << ",\"graph_slope_contraction\":"
                 << boolJson(contractionGate)
@@ -2077,9 +2208,10 @@ int main(int argc, char** argv) {
                 << verdictName(rounding.status) << "\"},"
                 << "\"claim_boundary\":{"
                 << "\"established_if_pass\":\"one parameter cell has "
-                   "a unique transverse true-source incidence with every "
-                   "admissible V5 lower graph in the prescribed source-"
-                   "phase component\","
+                   "a unique strictly secant-separated true-source "
+                   "incidence with every admissible V5 lower graph in the "
+                   "prescribed source-phase component, transverse whenever "
+                   "the target graph is C1\","
                 << "\"open_scope\":[\"complete v2 parameter cover\","
                    "\"claim-bearing composite theorem\"]}}\n";
       return status == Verdict::Pass ? 0 : 1;
@@ -2105,7 +2237,7 @@ int main(int argc, char** argv) {
         includeResult(
             aggregate,
             evaluateCellRegion(
-                cell, PhaseRegion::FullStrip, graphHalf == 0,
+                cell, PhaseRegion::FullStrip, graphHalf, 2,
                 &slabCentre, &slabHalfWidth, true),
             PhaseRegion::FullStrip, rIndex, aIndex,
             epsilonIndex, graphHalf);
@@ -2126,7 +2258,7 @@ int main(int argc, char** argv) {
               aggregate,
               evaluateCellRegion(
                   cell, static_cast<PhaseRegion>(phaseRegion),
-                  graphHalf == 0),
+                  graphHalf, 2),
               static_cast<PhaseRegion>(phaseRegion), rIndex, aIndex,
               epsilonIndex, graphHalf);
       printResult(aggregate, rCount, aCount, epsilonCount, false);
@@ -2149,7 +2281,7 @@ int main(int argc, char** argv) {
                   aggregate,
                   evaluateCellRegion(
                       cell, static_cast<PhaseRegion>(phaseRegion),
-                      graphHalf == 0),
+                      graphHalf, 2),
                   static_cast<PhaseRegion>(phaseRegion), rIndex, aIndex,
                   epsilonIndex, graphHalf);
             }

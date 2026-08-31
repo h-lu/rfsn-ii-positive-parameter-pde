@@ -121,24 +121,8 @@ Dual operator+(const Dual& left, const Interval& right) {
   return left + Dual(right);
 }
 
-Dual operator-(const Interval& left, const Dual& right) {
-  return Dual(left) - right;
-}
-
-Dual operator-(const Dual& left, const Interval& right) {
-  return left - Dual(right);
-}
-
 Dual operator*(const Interval& left, const Dual& right) {
   return Dual(left) * right;
-}
-
-Dual operator*(const Dual& left, const Interval& right) {
-  return left * Dual(right);
-}
-
-Dual operator/(const Interval& left, const Dual& right) {
-  return Dual(left) / right;
 }
 
 Dual operator/(const Dual& left, const Interval& right) {
@@ -445,7 +429,7 @@ std::string obligationJson(const Obligation& obligation) {
 int main() {
   try {
     const auto rounding = rfsn::rigorous::runRoundingSelfTests();
-    const Interval bRadius = rational(1, 10000);
+    const Interval bRadius = rational(13, 100000);
     const Interval nRadius = rational(1, 10000);
     const Interval bBox(-bRadius.rightBound(), bRadius.rightBound());
     const Interval nBox(-nRadius.rightBound(), nRadius.rightBound());
@@ -513,9 +497,14 @@ int main() {
                 (r1.rightBound() - r1.leftBound()) / 2.0;
             const Interval r1Point(r1Centre);
             for (long bIndex = 0; bIndex < kBSlabs; ++bIndex) {
-              const Interval b = intervalFromRationals(
-                  -kBSlabs + 2 * bIndex, 10000 * kBSlabs,
-                  -kBSlabs + 2 * (bIndex + 1), 10000 * kBSlabs);
+              const Interval bLower = -bRadius +
+                  Interval(2.0) * bRadius *
+                      rational(bIndex, kBSlabs);
+              const Interval bUpper = -bRadius +
+                  Interval(2.0) * bRadius *
+                      rational(bIndex + 1, kBSlabs);
+              const Interval b(
+                  bLower.leftBound(), bUpper.rightBound());
               const Evaluation core = evaluate(
                   r, a2, epsilon, r1, b, nBox);
               includeCore(aggregate, core, graphSlope);
@@ -594,13 +583,13 @@ int main() {
     const Interval coneMargin(aggregate.slopeMarginLower);
     obligations.push_back({
         "V5.K1.PROJECTIVE_CONE", strictPositive(coneMargin),
-        "The base-to-normal slope-7/10 projectivized cone is strictly backward invariant in the finite resolved-K1 tube",
+        "The cellwise pointwise base-to-normal slope-7/10 projectivized cone is strictly backward invariant in the finite resolved-K1 tube",
         {{"graph_slope", graphSlope},
          {"C_upper", Interval(aggregate.cUpper)},
          {"B_cross_upper", Interval(aggregate.bCrossUpper)},
          {"D_cross_upper", Interval(aggregate.dCrossUpper)},
          {"a_normal_lower", Interval(aggregate.aLower)},
-         {"cone_margin", coneMargin}}});
+         {"cellwise_pointwise_cone_margin", coneMargin}}});
 
     Verdict mathematical = Verdict::Pass;
     for (const auto& obligation : obligations)
@@ -608,7 +597,7 @@ int main() {
     const Verdict status = combine(rounding.status, mathematical);
 
     std::cout
-        << "{\"schema_version\":\"rfsn-vdp-v5-k1-tube-probe/2\","
+        << "{\"schema_version\":\"rfsn-vdp-v5-k1-tube-probe/3\","
         << "\"status\":\"" << verdictName(status) << "\","
         << "\"mathematical_status\":\"" << verdictName(mathematical)
         << "\",\"claim_bearing\":false,"

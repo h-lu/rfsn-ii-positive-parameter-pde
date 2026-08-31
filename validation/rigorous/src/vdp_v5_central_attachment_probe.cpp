@@ -265,6 +265,8 @@ int main() {
     constexpr long kEpsilonSlabs = 8;
     constexpr long kBSlabs = 8;
     constexpr long kNSlabs = 8;
+    const Interval bRadius = rational(13, 100000);
+    const Interval nRadius = rational(1, 10000);
     Aggregate aggregate;
     std::size_t cellCount = 0;
 
@@ -284,9 +286,14 @@ int main() {
               4 * kEpsilonSlabs + 2 * (epsilonIndex + 1),
               5 * kEpsilonSlabs);
           for (long bIndex = 0; bIndex < kBSlabs; ++bIndex) {
-            const Interval b = intervalFromRationals(
-                -kBSlabs + 2 * bIndex, 10000 * kBSlabs,
-                -kBSlabs + 2 * (bIndex + 1), 10000 * kBSlabs);
+            const Interval bLower = -bRadius +
+                Interval(2.0) * bRadius *
+                    rational(bIndex, kBSlabs);
+            const Interval bUpper = -bRadius +
+                Interval(2.0) * bRadius *
+                    rational(bIndex + 1, kBSlabs);
+            const Interval b(
+                bLower.leftBound(), bUpper.rightBound());
             for (long nIndex = 0; nIndex < kNSlabs; ++nIndex) {
               const Interval n = intervalFromRationals(
                   -kNSlabs + 2 * nIndex, 10000 * kNSlabs,
@@ -383,7 +390,7 @@ int main() {
     const Verdict status = combine(rounding.status, mathematical);
 
     std::cout
-        << "{\"schema_version\":\"rfsn-vdp-v5-central-attachment-probe/1\","
+        << "{\"schema_version\":\"rfsn-vdp-v5-central-attachment-probe/2\","
         << "\"status\":\"" << verdictName(status) << "\","
         << "\"mathematical_status\":\"" << verdictName(mathematical)
         << "\",\"claim_bearing\":false,"
@@ -394,11 +401,11 @@ int main() {
            "\"V\":[\"-16\",\"-31/2\"],"
            "\"Q\":[\"-19/2\",\"-9\"]},"
         << "\"tube\":{\"b\":"
-        << intervalJson(Interval(-rational(1, 10000).rightBound(),
-                                 rational(1, 10000).rightBound()))
+        << intervalJson(Interval(-bRadius.rightBound(),
+                                 bRadius.rightBound()))
         << ",\"n\":"
-        << intervalJson(Interval(-rational(1, 10000).rightBound(),
-                                 rational(1, 10000).rightBound()))
+        << intervalJson(Interval(-nRadius.rightBound(),
+                                 nRadius.rightBound()))
         << ",\"graph_slope\":" << intervalJson(rational(7, 10)) << "},"
         << "\"cover\":{\"r_slabs\":" << kRSlabs
         << ",\"a2_slabs\":" << kA2Slabs

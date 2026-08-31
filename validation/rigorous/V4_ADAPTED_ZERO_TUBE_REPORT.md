@@ -236,10 +236,10 @@ outer endpoints of (8), interval evaluation for every
 \tag{11}
 \]
 
-Thus the left and right endpoints strictly cross \(-10^{-4}\) and
-\(+10^{-4}\), with respective margins
-\(3.8621826356333074\times10^{-5}\) and
-\(3.892821778600137\times10^{-5}\).  Throughout (8), the normal coordinate
+Thus the left and right endpoints strictly cross \(-1.3\times10^{-4}\) and
+\(+1.3\times10^{-4}\), with respective margins
+\(8.621826356333077\times10^{-6}\) and
+\(8.92821778600137\times10^{-6}\).  Throughout (8), the normal coordinate
 stays inside the K1 tube with margin
 \(9.33627063606739\times10^{-5}\).
 
@@ -269,7 +269,7 @@ are at least \(0.08333094850154998\) and
 \(0.08333281957788538\).  Consequently the seam map is strictly monotone
 on the actual V4 graph and sends its tangent strictly into the K1
 slope-\(7/10\) cone.  Taking the unique inverse image of
-\(|b_{K_1}|\le10^{-4}\) therefore yields an admissible terminal graph over
+\(|b_{K_1}|\le1.3\times10^{-4}\) therefore yields an admissible terminal graph over
 the **entire** K1 top base, with \(|n_{K_1}|<10^{-4}\).  This closes the
 value, domain-coverage, and tangent parts of the V4-to-K1 seam.  It does not
 yet transport that graph to the central cut, identify the source first hit,

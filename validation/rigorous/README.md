@@ -448,7 +448,11 @@ status `INCONCLUSIVE`, as recorded in
 [`P2E_ALG_FIXED_PHASE_OBSTRUCTION_REPORT.md`](P2E_ALG_FIXED_PHASE_OBSTRUCTION_REPORT.md).
 This does not refute the V2 gate orbit, and it is distinct from the moving
 V5 source-to-future-graph match.  The latter now has a strict
-representative-cell proof of unique transverse true-source incidence; see
+representative-cell proof of unique transverse true-source incidence.  Its
+finite \(K_1\) graph contract separates the expanded base
+\(|b|\le1.3\times10^{-4}\) from the unchanged normal tube
+\(|n|\le10^{-4}\), and its anchor is located by eight gap-free
+parameterized interval-Newton inclusions; see
 [`V5_SOURCE_INCIDENCE_REPORT.md`](V5_SOURCE_INCIDENCE_REPORT.md).  That
 certificate is deliberately non-claim-bearing until the same gates cover the
 complete v2 parameter box.  The uniform ALG match, joint incidence and

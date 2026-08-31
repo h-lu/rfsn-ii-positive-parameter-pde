@@ -76,7 +76,7 @@ class V5CentralAttachmentProbeTests(unittest.TestCase):
     def test_scope_and_gap_free_cover(self) -> None:
         self.assertEqual(
             self.result["schema_version"],
-            "rfsn-vdp-v5-central-attachment-probe/1",
+            "rfsn-vdp-v5-central-attachment-probe/2",
         )
         self.assertEqual(self.result["box_id"], "vdp-positive-box-v2")
         self.assertEqual(
@@ -95,10 +95,12 @@ class V5CentralAttachmentProbeTests(unittest.TestCase):
                 "cell_count": 131_072,
             },
         )
-        for coordinate in ("b", "n"):
-            enclosure = self.result["tube"][coordinate]
-            self.assertLessEqual(endpoint(enclosure, "lower"), -1e-4)
-            self.assertGreaterEqual(endpoint(enclosure, "upper"), 1e-4)
+        b_tube = self.result["tube"]["b"]
+        self.assertLessEqual(endpoint(b_tube, "lower"), -13e-5)
+        self.assertGreaterEqual(endpoint(b_tube, "upper"), 13e-5)
+        n_tube = self.result["tube"]["n"]
+        self.assertLessEqual(endpoint(n_tube, "lower"), -1e-4)
+        self.assertGreaterEqual(endpoint(n_tube, "upper"), 1e-4)
         slope = self.result["tube"]["graph_slope"]
         self.assertLessEqual(endpoint(slope, "lower"), 0.7)
         self.assertGreaterEqual(endpoint(slope, "upper"), 0.7)

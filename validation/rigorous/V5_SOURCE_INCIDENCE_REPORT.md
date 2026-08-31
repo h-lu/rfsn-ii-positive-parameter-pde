@@ -2,13 +2,15 @@
 
 **Result.**  The source-incidence kernel gives mathematical **PASS** on one
 representative parameter cell.  On that cell, the exact zero-energy true
-source crosses, once and transversely, every lower V5 graph satisfying the
-already certified bounds
+source crosses every lower V5 graph satisfying the already certified bounds
+at one strictly secant-separated point.  The crossing is transverse when the
+target graph is \(C^1\), in particular for the actual \(C^3\) finite-\(K_1\)
+pullback graph:
 
 \[
- |g(b)|<N,
- \qquad \operatorname{Lip}(g)\le \frac7{10},
- \qquad B=N=10^{-4}.
+ |b|\le B=1.3\times10^{-4},
+ \qquad |g(b)|<N=10^{-4},
+ \qquad \operatorname{Lip}(g)\le \frac7{10}.
  \tag{1}
 \]
 
@@ -217,21 +219,51 @@ At \(U=-4\), let \((b,n)\) be the exact V5 spectral coordinates and set
  \tag{13}
 \]
 
-The narrow anchor faces bracket a simple \(n=0\) root.  Since \(c=b\) on
-that root, the aligned coordinate avoids the cancellation that made a direct
-full-strip bound too wide.  For each parameter, \(n_\theta<0\).  Eliminating
-the root's phase derivative using (11)--(12) gives
+The anchor is located by a parameterized one-dimensional interval Newton
+argument rather than by fixed narrow phase faces.  Let
+
+\[
+ X=[-1/25000,1/25000],
+ \qquad F(\theta,\eta)=n(\mu_c,\theta,\eta),
+\]
+
+where \(\mu_c\) is the cell centre.  The 16 exact phase slabs and two closed
+\(\eta\) half-tubes give one enclosure
+
+\[
+ D\supset F_\theta(X,[-1/200000,1/200000]),
+ \qquad \sup D<0.
+\]
+
+Split the \(\eta\)-tube into eight exact, gap-free slices \(E_i\).  On every
+slice the program verifies
+
+\[
+ K_i=-\frac{F(0,E_i)}{D}\Subset X.
+ \tag{14}
+\]
+
+The parameterized interval Newton theorem therefore gives, for every
+\(\eta\in E_i\), exactly one zero of \(F(\cdot,\eta)\) in \(K_i\).  The
+derivative enclosure \(D\) allows the full interval of admissible
+\(\eta_\varphi\); since that interval contains zero, it also encloses the
+fixed-\(\eta\) derivative required in (14).  On the Newton root \(c=b\), so
+evaluating the aligned coordinate on the entire root box supplies the anchor
+bound without cancellation.
+
+For each parameter, \(n_\theta<0\).  Eliminating the root's phase derivative
+using (11)--(12) gives
 
 \[
  \left.\frac{db}{d\mu_j}\right|_{n=0,\eta}
  =E_W\frac{n_QD_j-v_Wn^0_{\mu_j}}{n_\theta}
    +E^0_{\mu_j}.
- \tag{14}
+ \tag{15}
 \]
 
 Here the superscript \(0\) denotes explicit differentiation of the terminal
-coordinate at fixed \((W,Q)\).  Every division in (14), including those in
-the terminal affine subdivisions, is made only after proving
+coordinate at fixed \((W,Q)\).  Every division in (14)--(15), including
+those in the terminal affine subdivisions, is made only after proving
 \(n_\theta<0\).
 
 The continuation strip \(|\theta|\le1/25000\) is covered by 16 exact slabs
@@ -241,17 +273,19 @@ enclosures can be summarized conservatively as follows.
 
 | Quantity | Rigorous enclosure or one-sided bound |
 |---|---:|
-| centre-cell anchor \(c\) | \([-5.044\times10^{-6},-0.985\times10^{-6}]\) |
+| centre-cell anchor \(c=b\) on the Newton root | \([-3.305\times10^{-6},-2.757\times10^{-6}]\) |
+| anchor root phase over all eight \(\eta\)-slices | \([-8.357,8.003]\times10^{-8}\) |
+| \(n_\theta\) on the continuation cover | \([-2078.83,-924.92]\) |
 | \(\partial_r b\) on \(n=0\), fixed \(\eta\) | \([-0.012317,0.009023]\) |
 | \(\partial_{a_2} b\) on \(n=0\), fixed \(\eta\) | \([-0.000801,0.000582]\) |
 | \(\partial_\epsilon b\) on \(n=0\), fixed \(\eta\) | \([-0.010001,0.008185]\) |
-| \(|db/dn|\) along the true source for \(|n|\le N\) | at most \(0.3373<17/50\) |
+| \(|db/dn|\) along the true source for \(|n|\le N\) | at most \(0.337225<1/2\) |
 | terminal \(Q\) on candidate slabs | \([-9.394,-9.110]\subset(-19/2,-9)\) |
 | parameter-variation budget | at most \(5.253\times10^{-5}\) |
-| source excursion \((17/50)N\) | \(3.4\times10^{-5}\) |
-| remaining base margin | at least \(8.427\times10^{-6}>0\) |
+| source excursion \(\rho_{\rm src}N\) | at most \(3.373\times10^{-5}\) |
+| remaining base margin | at least \(4.044\times10^{-5}>0\) |
 
-More explicitly, (14) and the half-widths of (2) imply
+More explicitly, (15) and the half-widths of (2) imply
 
 \[
  \Delta_{\mu}b\le5.253\times10^{-5}.
@@ -261,28 +295,35 @@ Together with the anchor and source-slope bounds,
 
 \[
  |b|
- \le 5.044\times10^{-6}
+ \le 3.305\times10^{-6}
      +5.253\times10^{-5}
-     +\frac{17}{50}10^{-4}
- <10^{-4}=B.
- \tag{15}
+     +0.337225\times10^{-4}
+ <1.3\times10^{-4}=B.
+ \tag{16}
 \]
 
 Thus the entire relevant source segment stays in the base domain of every
 graph in (1).  The wide continuation faces lie respectively above \(n=N\)
-and below \(n=-N\), so \(h(\theta)=n(\theta)-g(b(\theta))\) changes sign.
-On the graph tube, the two cone bounds give, almost everywhere,
+and below \(n=-N\).  Since \(n_\theta<0\), there are unique intermediate
+phases with \(n=N\) and \(n=-N\).  Estimate (16) puts the intervening source
+segment inside \(|b|\le B\), where \(g\) is defined.  Consequently
+\(h(\theta)=n(\theta)-g(b(\theta))\) is positive at \(n=N\) and negative at
+\(n=-N\).  On this graph tube, the two cone bounds give, almost everywhere,
 
 \[
  h_\theta
- \le -(1-\tfrac7{10}\tfrac{17}{50})(-n_\theta)<0.
- \tag{16}
+ \le -(1-\tfrac7{10}\rho_{\rm src})(-n_\theta)<0,
+ \qquad \rho_{\rm src}\le0.337225.
+ \tag{17}
 \]
 
 The same conclusion follows directly from the corresponding secant cones
-when \(g\) is only Lipschitz.  Hence the crossing exists, is unique, and is
-transverse.  Since the estimates are uniform in \(\eta\), this includes the
-actual true-source graph from (3).
+when \(g\) is only Lipschitz.  Hence the crossing exists uniquely with
+strict secant separation.  When \(g\) is \(C^1\), the derivative inequality
+in (17) makes the crossing transverse; this applies in particular to the
+actual \(C^3\) pullback graph supplied by the finite-\(K_1\) lemma.  Since
+the estimates are uniform in \(\eta\), the conclusion includes the actual
+true-source graph from (3).
 
 ## Reproduction and exact claim boundary
 
@@ -291,9 +332,9 @@ The implementation is
 The archived machine result is
 [`results/vdp_v5_source_incidence_representative_cell.json`](results/vdp_v5_source_incidence_representative_cell.json).
 For this run the source SHA-256 is
-`f506d3cdaf8a26c030b58f95260e26d925f68f61712b3d1996d2f219efcef6b3`
+`2798e91318beffc1f485d5d91c154281be76b3349f600dbfae915c4f1bddcf44`
 and the pretty-printed result SHA-256 is
-`b68030c804865ef190a514a4892fac7941093cd115c7815fda29eb38ab4ea310`.
+`c6cb7275e9e76cf62032856d77a6041cb17dcf6f8343db914d2ce83492b0918d`.
 After compiling it against the repository's pinned strict CAPD/FILIB build,
 the representative certificate is generated by
 
@@ -301,10 +342,11 @@ the representative certificate is generated by
       64 128 40 32 64 20
 
 The output must report schema
-`rfsn-vdp-v5-source-incidence-cell/1`, mathematical status `PASS`, a passing
+`rfsn-vdp-v5-source-incidence-cell/2`, mathematical status `PASS`, a passing
 rounding self-test, all incidence gates true, and `claim_bearing=false`.  Its
-two-stage cover finds ten zero candidates in each closed error half-tube and
-runs 2,048 terminal affine subboxes on each of the resulting 20 exterior
+anchor stage proves eight parameterized interval-Newton inclusions.  Its
+continuation stage finds ten zero candidates in each closed error half-tube
+and runs 2,048 terminal affine subboxes on each of the resulting 20 exterior
 evaluations.
 
 What is established is precisely the representative-cell statement at the

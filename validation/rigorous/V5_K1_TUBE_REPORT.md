@@ -45,7 +45,7 @@ on
  r\in[1/100,1/50],\qquad a_2\in[-1/4,1/4],\qquad
  \epsilon\in[4/5,6/5],\\
  r\sqrt{4+ra_2}\le r_1\le2,qquad
- |b|\le10^{-4},\qquad |n|\le10^{-4},\qquad H=0.
+ |b|\le1.3\times10^{-4},\qquad |n|\le10^{-4},\qquad H=0.
 \end{gathered}
 \tag{2}
 \]
@@ -139,20 +139,20 @@ The positive branch and clocks satisfy
 
 | Quantity | Rigorous enclosure |
 |---|---:|
-| \(q_1^2\) | \([1.2147027942678423,3.5522684275717453]\) |
-| \(q_1\) | \([1.1021355607491494,1.8847462501811076]\) |
-| \(\Pi\) | \([0.26865189278866836,0.6112151321698459]\) |
-| \(r_1'\) | \([6.555848880819688\!\times10^{-6},0.003753837125189916]\) |
-| positive scale (6) | \([8.795619610244871\!\times10^{-6},0.006197141921572062]\) |
+| \(q_1^2\) | \([1.2146765761716976,3.5522684449708906]\) |
+| \(q_1\) | \([1.1021236664602105,1.884746254796887]\) |
+| \(\Pi\) | \([0.2686218927886684,0.611245132169846]\) |
+| \(r_1'\) | \([6.555218919036329\!\times10^{-6},0.0037540388792403944]\) |
+| positive scale (6) | \([8.794774425385345\!\times10^{-6},0.0061974749936906355]\) |
 
 The oriented face margins for (6) are
 
 | Face | Rigorous lower margin |
 |---|---:|
-| \(b=+10^{-4}\), inward | \(7.079754225107172\times10^{-5}\) |
-| \(b=-10^{-4}\), inward | \(7.262719803114818\times10^{-5}\) |
-| \(n=+10^{-4}\), outward | \(8.513314921150174\times10^{-5}\) |
-| \(n=-10^{-4}\), outward | \(8.127032365657862\times10^{-5}\) |
+| \(b=+1.3\times10^{-4}\), inward | \(1.3127700554053793\times10^{-4}\) |
+| \(b=-1.3\times10^{-4}\), inward | \(1.3310569826198603\times10^{-4}\) |
+| \(n=+10^{-4}\), outward | \(7.863414504722722\times10^{-5}\) |
+| \(n=-10^{-4}\), outward | \(7.477194903315319\times10^{-5}\) |
 
 Write the Jacobian of the unscaled \(r_1\)-time \((b,n)\) generator as
 
@@ -160,29 +160,34 @@ Write the Jacobian of the unscaled \(r_1\)-time \((b,n)\) generator as
  D_{(b,n)}F=\begin{pmatrix}c&\beta\\ \delta&a\end{pmatrix}.
 \]
 
-The global bounds are
+On every cover cell the probe evaluates the correlated pointwise margin
 
 \[
- c\le c_+:=-343.5528533649025,\qquad
- |\beta|\le\beta_+:=310.4813181359855,
+ M=\rho(a-c)-\rho^2|\beta|-|\delta|,
+ \qquad \rho=7/10.
+\]
+
+The minimum over the complete gap-free cover is
+
+\[
+ M\ge308.53197710214516>0.
+ \tag{8}
+\]
+
+For diagnostics, the four extrema aggregated independently over the whole
+cover are
+
+\[
+ c\le-343.44786957761136,\quad |\beta|\le403.21795637619476,
 \]
 
 \[
- |\delta|\le\delta_+:=310.48370091830685,\qquad
- a\ge a_-:=335.15650142092244.
+ |\delta|\le310.553324271202,\quad a\ge335.13918837250856.
 \]
 
-Combining these four independently aggregated extrema with
-\(\kappa=7/10\) gives the conservative projective-cone margin
-
-\[
- \kappa\{a_--c_+-\beta_+\kappa\}-\delta_+
- \ge12.477001545137625>0.
-\tag{8}
-\]
-
-Direct cellwise evaluation, which retains the correlations within each
-cell, is also strictly positive.
+Those extrema occur in different cells and are not recombined into a proof
+bound.  The proof gate is the cellwise pointwise minimum (8), which retains
+the correlations needed after the base enlargement.
 
 ### Finite terminal pullback lemma
 
@@ -194,7 +199,7 @@ remain in the tube.
 Let
 
 \[
- B=N=10^{-4},\qquad \rho=7/10,\qquad
+ B=1.3\times10^{-4},\qquad N=10^{-4},\qquad \rho=7/10,\qquad
  r_-(\mu)=r\sqrt{4+ra_2},
 \]
 
@@ -258,19 +263,22 @@ the \(n\)-faces also gives \(|n_0|<N\).
 
 It remains to prove uniqueness and the graph bound.  For two orbits in the
 tube, their difference satisfies a linear equation whose coefficient matrix
-is the Jacobian averaged over the segment joining the two orbit points.  The
-tube is convex, and the independent derivative bounds used in (8) are
-preserved by this averaging.  If
+\(\bar J\) is the Jacobian averaged over the segment joining the two orbit
+points.  The tube is convex, so that segment is covered by the same gap-free
+cell family.  If
 \(p=\delta n/\delta b\), its projective equation is
 
 \[
  p'=\delta+(a-c)p-\beta p^2.
 \]
 
-At \(p=\rho\), (8) makes the right-hand side strictly positive; at
-\(p=-\rho\), it is strictly negative.  Thus the vector field points out of
+At each point on the segment, (8) bounds the right-hand side from below by
+\(M\) when \(p=\rho\), and from above by \(-M\) when \(p=-\rho\).
+Averaging preserves these bounds: the diagonal terms are linear and
+\(|\int f|\le\int|f|\) controls both cross terms.  Thus the vector field
+points out of
 the horizontal cone in forward time, and the cone is strictly invariant in
-backward time.  Hence the positive margin in (8) makes
+backward time.  Hence the cellwise pointwise margin in (8) makes
 \(\mathcal C_\rho\) backward invariant for these **secants**, not merely for
 individual tangent vectors.  Two terminal points on (9) have their
 difference in \(\mathcal C_\rho\), so their lower difference also belongs to
@@ -306,7 +314,8 @@ with the pinned strict CAPD/FILIB build, or set `RFSN_CAPD_CONFIG` to its
 The machine field `claim_bearing=false` is deliberate.  This calculation,
 together with the separate V4 seam certificate, proves that its **fixed** V4
 terminal graph pulls back on every parameter slice to the complete graph
-\(n=g^-_\mu(b)\) at \(U=-4\), with \(|g^-_\mu|<10^{-4}\) and
+\(n=g^-_\mu(b)\) on \(|b|\le1.3\times10^{-4}\) at \(U=-4\), with
+\(|g^-_\mu|<10^{-4}\) and
 \(\operatorname{Lip}(g^-_\mu)\le7/10\).  Uniqueness is relative to that
 fixed terminal graph; it is not a uniqueness assertion for every invariant
 or slow graph that might meet the tube.  The proof is confined to \(H=0\),
