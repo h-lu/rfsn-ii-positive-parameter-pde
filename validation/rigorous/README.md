@@ -460,25 +460,47 @@ finite \(K_1\) graph contract separates the expanded base
 \(|n|\le1/12500=8\times10^{-5}\), and its anchor is located by four gap-free
 parameterized interval-Newton inclusions; see
 [`V5_SOURCE_INCIDENCE_REPORT.md`](V5_SOURCE_INCIDENCE_REPORT.md).  That
-certificate is deliberately non-claim-bearing until the same gates cover the
-complete v2 parameter box.  The uniform ALG match, joint incidence and
+certificate is deliberately non-claim-bearing at least until the same gates
+cover the complete v2 parameter box; certificate binding and independent
+replay would still be required for a claim-bearing upgrade.  The uniform ALG match, joint incidence and
 exhaustive census, \(m_{\rm ax}\), transported traces, and
 `V2.EVENT_ATLAS` remain open.  In particular, no claim is made for the whole
 fixed \(|\nu|\le2^{-55}\) disk.
 
+**Deferred status.**  The full-cover driver, configuration, and identifying
+hashes are preserved for future work in
+[Issue #14](https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/14).
+At deferral, the local ignored cache contained 494 completed cells; they were
+not durably archived and are not a cover or publication evidence.  The full run is not
+a prerequisite for the analytic companion, and it must not be started
+automatically as part of the paper build or release checks.
+
 The minimal full-cover driver freezes one source/config/binary manifest,
 runs the frozen $64\times128\times48=393216$ tensor grid, and verifies every cell
 before writing a conditional, non-claim-bearing summary.  Its run directory
-is always explicit; a production run may be started and resumed locally by
+is always explicit.  If the compatible local checkpoint still exists, resume
+it **without** `prepare`:
 
 ```bash
-python3 -B validation/rigorous/v5_source_incidence_cover.py prepare \
-  --run-dir .cache/v5-source-incidence-cover-v1
 python3 -B validation/rigorous/v5_source_incidence_cover.py run \
   --run-dir .cache/v5-source-incidence-cover-v1 --jobs 28
 python3 -B validation/rigorous/v5_source_incidence_cover.py verify \
   --run-dir .cache/v5-source-incidence-cover-v1
 ```
+
+Both commands validate the frozen manifest, configuration, binary, and source
+hashes.  The expected manifest SHA-256 is
+`6459e618788d615a4b86f343533a31fd5dac54564bd57475ce61f54dd9b49283`.
+If the local checkpoint is unavailable, initialize a new empty run and then
+use the same `run` and `verify` commands:
+
+```bash
+python3 -B validation/rigorous/v5_source_incidence_cover.py prepare \
+  --run-dir .cache/v5-source-incidence-cover-v1
+```
+
+`prepare` deliberately rejects a nonempty run directory, so it is a
+start-from-zero command rather than a resume command.
 
 `run` tries the fast enclosure once, uses the robust rectangular fallback
 once only after an infrastructure failure, and stops dispatching new cells at

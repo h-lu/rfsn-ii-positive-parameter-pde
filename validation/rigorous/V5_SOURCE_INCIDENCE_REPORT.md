@@ -20,8 +20,10 @@ and upper disclosed grid cells.  These three samples exercise that kernel and
 establish a feasibility milestone for a future full cover, but are not a
 cover of the complete
 `vdp-positive-box-v2`.  The calculation also does not yet invoke the separate
-finite-\(K_1\) pullback theorem in a claim-bearing composite V5 theorem.  The
-machine field `claim_bearing=false` is therefore essential.
+finite-\(K_1\) pullback theorem in a claim-bearing composite V5 theorem.  Its
+local non-claim-bearing composition with that graph is recorded separately in
+[`V5_REPRESENTATIVE_BRIDGE_REPORT.md`](V5_REPRESENTATIVE_BRIDGE_REPORT.md).
+The machine field `claim_bearing=false` is therefore essential.
 
 ## Certified cell and source chart
 
@@ -36,6 +38,29 @@ The tested cell is the zero-based cell \((32,64,24)\) of a
  \epsilon\in\left[1,\frac{121}{120}\right].
  \tag{2}
 \]
+
+The phrase *true source* here uses three earlier certified interfaces; it is
+not established by the incidence program in isolation.  The P2b0 certificate
+proves on a comparison bridge containing the complete v2 box that
+
+\[
+ \lVert \mathcal H_\mu-H_{10}\rVert_2\le\frac1{200000},\qquad
+ \lVert D\mathcal H_\mu-DH_{10}\rVert_{2\to2}
+ \le \lVert D\mathcal H_\mu-DH_{10}\rVert_F
+ \le\frac3{10000}.
+\]
+
+At source radius \(1/100\), the second estimate gives the phase-error bound
+\(3/1000000\) used below.  The P2bK certificate identifies this graph circle
+with the canonical radius-\(1/100\), positive-Kato true source, and the P2e
+axis-chart checker authenticates both certificates, the inclusion of the v2
+box in their bridge, and the nonsingular exact zero-energy chart.  See
+[`P2B0_REPORT.md`](P2B0_REPORT.md),
+[`P2B_KATO_REPORT.md`](P2B_KATO_REPORT.md), and
+[`P2E_AXIS_CHART_REPORT.md`](P2E_AXIS_CHART_REPORT.md).  Thus the source tube
+below rigorously contains the canonical source curve.  A future composite
+release must bind these source certificates together with the incidence
+result; the standalone full-cover manifest currently does not do so.
 
 On the radius-\(1/100\) source circle, let \(u=(u_1,u_2)\), put
 
@@ -440,11 +465,15 @@ continuation stage finds six zero candidates in each closed error half-tube
 and runs 2,048 terminal affine subboxes on each of the resulting 12 exterior
 evaluations.
 
-What is established is precisely the representative-cell statement at the
-start of this report, conditional only on the admissible-graph contract
-(1).  The separately proved finite-\(K_1\) terminal pullback supplies such a
-graph, but that import has not yet been assembled here into a released V5
-composite theorem.  A complete claim requires at least:
+What is established by the executable is precisely the representative-cell
+incidence kernel at the start of this report, under both the target-graph
+contract (1) and the source-tube contract (3).  The P2b0/P2bK/P2e imports
+identify the latter tube with the canonical true source, while the separately
+proved finite-\(K_1\) terminal pullback supplies the actual target graph.
+Their local logical composition is documented in
+[`V5_REPRESENTATIVE_BRIDGE_REPORT.md`](V5_REPRESENTATIVE_BRIDGE_REPORT.md),
+but it remains non-claim-bearing and is not a released explicit-box V5
+theorem.  A complete-box claim requires at least:
 
 1. the same incidence gates on a gap-free cover of the entire frozen v2
    parameter box; and

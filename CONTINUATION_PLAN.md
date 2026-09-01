@@ -53,8 +53,10 @@ remain authoritative.
   candidate-hull kernel passes the disclosed lower, centre, and upper cells.
   The final candidate full-cover grid is frozen at
   \(64\times128\times48=393216\) cells with an explicit fast/robust
-  process-level route, but the complete run has not yet been performed and
-  is not counted as evidence.
+  process-level route.  At suspension, its local ignored cache contained 494
+  distinct fast-route cells, but those records were not durably archived and
+  are not a cover or publication evidence.  The remaining run is
+  deferred to Issue #14 so that it does not block the reader-facing paper.
   These results remain
   non-claim-bearing: the complete-box V5 incidence, the joint incidence/census,
   \(m_{\rm ax}\), transported traces, and the full P2e event manifest are not
@@ -129,7 +131,7 @@ release.
 | Analytic claims B1--B2 and V1--V7 | statuses recorded by the repository; several conclusions depend on frozen imported RFSN-II theorems and certificates | `CLAIM_REGISTER.md` and the cited proof dossiers |
 | Floating numerical atlas | explanatory candidate evidence only | `numerics/` |
 | Staged interval work | local mathematical passes for completed atoms; aggregate remains non-claim-bearing | `validation/rigorous/` |
-| Explicit boxes | `vdp-positive-box-v1` has a strict mathematical `FAIL` at the P2e phase-order gate.  On v2, P1, restricted P2a--P2d, three P2e phase gaps, and the source-chart criterion pass locally; the POLE zero-action first-hit bridge has a complete design-level interval cover.  The finite V4--K1 graph contract and one representative true-source incidence cell pass strictly; the grouped candidate-hull kernel passes on three disclosed cells as a non-claim-bearing feasibility check.  The fixed-label ALG finite-gate corner is `INCONCLUSIVE`, and the complete-box moving V5 match and remaining atlas obligations are open, so there is no aggregate mathematical `PASS` | Issue #7, `validation/rigorous/P2E_PHASE_ORDER_FAIL_REPORT.md`, `validation/rigorous/P2E_AXIS_CHART_REPORT.md`, `validation/rigorous/P2E_POLE_AXIS_FIRST_HIT_COVER_REPORT.md`, `validation/rigorous/V5_SOURCE_INCIDENCE_REPORT.md`, and `validation/rigorous/P2E_ALG_FIXED_PHASE_OBSTRUCTION_REPORT.md` |
+| Explicit boxes | `vdp-positive-box-v1` has a strict mathematical `FAIL` at the P2e phase-order gate.  On v2, P1, restricted P2a--P2d, three P2e phase gaps, and the source-chart criterion pass locally; the POLE zero-action first-hit bridge has a complete design-level interval cover.  The finite V4--K1 graph contract and central attachment pass on the complete v2 box, and their composition with true-source incidence passes on one representative cell; the grouped candidate-hull kernel passes on three disclosed cells but those cells do not form a cover.  The fixed-label ALG finite-gate corner is `INCONCLUSIVE`, and the complete-box moving V5 match and remaining atlas obligations are open, so there is no aggregate mathematical `PASS` | Issues #7 and #14; `validation/rigorous/P2E_PHASE_ORDER_FAIL_REPORT.md`, `validation/rigorous/P2E_AXIS_CHART_REPORT.md`, `validation/rigorous/P2E_POLE_AXIS_FIRST_HIT_COVER_REPORT.md`, `validation/rigorous/V5_REPRESENTATIVE_BRIDGE_REPORT.md`, and `validation/rigorous/P2E_ALG_FIXED_PHASE_OBSTRUCTION_REPORT.md` |
 | Temporal PDE stability | deferred | S1 |
 | Experimental realization | deferred | E1 |
 
@@ -446,17 +448,19 @@ snapshot are now under `papers/van-der-pol/`, `output/pdf/`, and
 `frozen-imports/`.  The theorem remains conditional on Hypothesis H, and
 the supplement preserves the claim register's evidence boundaries.
 
-## 9. Phase 5: explicit parameter validation
+## 9. Phase 5: explicit parameter validation (deferred strengthening)
 
 Issue #7 is a separate strengthening project.  It is not a prerequisite for
 an existential analytic theorem unless the paper advertises the explicit
-candidate box.
+candidate box.  Its complete V5 incidence subrun is now isolated as deferred
+Issue #14.  The driver, configuration, and hashes are committed for a later
+explicit-box decision.  At deferral, the partial checkpoint existed only in
+the local ignored cache and was not a durable archive or publication artifact.
 
-The active post-companion dependency map is GitHub Issue #10.  It keeps the
-agreed execution order #7 (explicit box), #11 (spectral instability), #12
-(classical stationary Turing exclusion), and #13 (finite-parameter canard
-connection or separation) distinct from their actual mathematical
-dependencies.  No downstream issue is a completion condition for #7.
+GitHub Issue #10 records the post-companion research map.  The present
+paper-first decision supersedes its earlier execution order: #14 is deferred,
+while #11--#13 remain separate research tracks rather than completion
+conditions for this manuscript.
 
 Continue the interval lane only under the existing fail-closed policy:
 
@@ -537,19 +541,24 @@ application sound more physical.
 
 ## 12. Current bounded next task
 
-The current bounded task is the Issue #7 van der Pol explicit-box path.  First
-record the fixed-label `ALG_GATE_V2` finite-gate obstruction without turning
-it into a false nonexistence result.  The finite V4--K1 graph and the
-representative-cell moving V5 source-to-future-graph coincidence are now
-strictly validated; next extend the same incidence kernel to a gap-free v2
-parameter cover.  Then complete the minimum P2e physical event
-arrangement and uniform margins, and check only the publication-facing
-P3--P5 inputs.  Finish with one immutable aggregate certificate and the
-second genuinely independent-machine replay.
+The current bounded task is the reader-facing van der Pol companion.  Keep
+the analytic V1--V7 theorem spine primary, and state the decisive algebraic
+bridge as two separate arrows: resolved $K_1$ graph transport to the central
+target, followed by true-source incidence with that target.  Record the
+finite-$K_1$/incidence interval composition on the representative cell only
+as supplementary, current-computer evidence, with the P2b0/P2bK source
+authentication made explicit.  Compile and cold-read the main paper and
+supplement before any further validation expansion.
+
+The 393,216-cell full v2 incidence cover, remaining P2e event arrangement,
+aggregate certificate, and second-machine replay stay under Issues #7 and
+#14.  They are optional prerequisites only for a future explicit-box theorem,
+not for the current existential analytic theorem.
 
 Issues #11 and #12 retain their already obtained instability and Turing
 results under their stated release boundaries.  The branch-identified
 finite-\(r\) saddle-slow trace, maximal-canard coincidence, and high-winding
-connection remain the separate Issue #13 task after the explicit-box path.
+connection remain the separate Issue #13 task; its scheduling is independent
+of the deferred full-cover Issue #14.
 A full Evans function and dynamic pattern selection remain deferred unless a
 later theorem genuinely requires them.

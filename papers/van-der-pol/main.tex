@@ -40,7 +40,7 @@
 
 \title[High-winding stationary solutions]{High-Winding Stationary Solutions and Singular Exits in the Van der Pol Reaction--Diffusion System}
 \author{Haibo Lu}
-\date{August 28, 2026}
+\date{September 1, 2026}
 
 \subjclass[2020]{35B36, 35K57, 34C37, 34E15, 37J46}
 \keywords{van der Pol reaction--diffusion system, reversible Hamiltonian spatial dynamics, saddle-focus homoclinic, singular exits, action finite parts, stationary patterns}
@@ -61,8 +61,10 @@ construct both continuations in the full stationary equations.  One reaches a
 pole at finite spatial distance and has a Laurent--logarithmic action finite
 part.  The other lies on a normally expanding future-staying hypersurface,
 reaches infinity only at infinite spatial distance, and has renormalized
-length and action.  A resolved central--outer matching argument identifies the
-algebraic-directed gate with this hypersurface.  Combining these constructions
+length and action.  A resolved central--outer graph construction transports
+this hypersurface back to a fixed central section.  A transverse phase--time
+incidence then selects a true source orbit through the algebraic-directed gate
+and onto that sheet.  Combining these constructions
 with the publicly archived fixed-system theorem and the compact-family clauses
 in Hypothesis~H gives, uniformly on an existential compact positive annulus,
 an exhaustive return--exit partition and a countable symbolic coding of the
@@ -466,9 +468,12 @@ steps.  First, central continuation transports the singular event block to a
 compact positive-parameter family.  Second, an invariant cone and a
 regular-singular compactification connect the pole-directed gate to genuine
 finite-distance blow-up and its terminal action.  Third, an outer graph
-transform constructs the algebraic future near infinity, and a resolved
-$K_1$ bridge proves that the central algebraic gate lies on that same
-future-staying sheet.  Finally, replacing the two finite gates inside their
+transform constructs the algebraic future near infinity.  A resolved $K_1$
+graph argument transports that same future-staying sheet backward to a fixed
+central section, but this produces only a target graph, not an orbit from the
+source.  The missing connection is a phase--time matching equation whose
+determinant factors into the nonzero section speed and the nonzero
+source-phase incidence.  Finally, replacing the two finite gates inside their
 protected flow boxes preserves the complete first-event arrangement, so the
 high-winding theorem applies to the original stationary PDE.  The logical
 chain is therefore: singular core, finite gates, genuine terminals,
@@ -751,10 +756,14 @@ action.  The algebraic-directed gate remains unresolved.
 
 \section{The algebraic end: outer geometry, matching, and finite parts}\label{sec:outer}
 
-The algebraic terminal requires two distinct steps.  We first characterize
-the tails that remain in a compactified outer corridor.  We then prove that
-the algebraic-directed central gate enters precisely this future-staying
-hypersurface.
+The algebraic terminal requires two geometric constructions and one
+incidence argument.  We first characterize the tails that remain in a
+compactified outer corridor.  We then transport this same future-staying
+hypersurface backward through the resolved $K_1$ corner to a fixed central
+section.  Finally, a phase--time matching argument proves that the continued
+true unstable source meets the transported graph transversely.  Thus graph
+transport determines the future of the matched points, whereas source
+incidence proves that the selected algebraic component is actually reached.
 
 \subsection{A positive-parameter future-staying hypersurface}
 
@@ -872,9 +881,9 @@ length diverges.
 \subsection{\texorpdfstring{Resolution of the $K_2\to K_1\to$ outer
 corner}{Resolution of the K2 to K1 to outer corner}}
 
-Proposition~\ref{prop:outer-graph} does not imply that the finite
-algebraic-directed gate from Proposition~\ref{prop:central} lies on
-\eqref{eq:outer-graph}.  The gate lives in the universal central chart
+Proposition~\ref{prop:outer-graph} does not imply that a true-source orbit
+through the finite algebraic-directed gate of Proposition~\ref{prop:central}
+continues on \eqref{eq:outer-graph}.  The gate lives in the universal central chart
 $K_2$; the future sheet is constructed in the physical outer chart; and the
 two meet through the entry/exit chart $K_1$.  The overlap degenerates as
 $r\to0$, so a compact-away-from-the-corner Fenichel argument does not control
@@ -975,7 +984,21 @@ by the common-cone gluing allowed by
 \eqref{eq:outer-corner-gap}--\eqref{eq:K1-corner-gap}, constructs the
 codimension-one graph through the block with the mixed jets stated below.
 
-\begin{proposition}[Central--outer matching]\label{prop:matching}
+The two remaining arrows must be kept separate:
+\[
+ \begin{aligned}
+  \text{outer sheet}
+    &\xrightarrow{\text{resolved }K_1\text{ graph transport}}
+      \text{central target graph},\\
+  \text{source flight}
+    &\xrightarrow{\text{phase--time incidence}}
+      \text{central target graph}.
+ \end{aligned}
+\]
+Graph transport identifies the future of every point on the target graph;
+the incidence equation below proves that a true source orbit reaches it.
+
+\begin{proposition}[Central--outer graph and source matching]\label{prop:matching}
 Under Hypothesis~\ref{hyp:H}, after one final choice of the positive annulus,
 a fixed patch of
 \eqref{eq:outer-graph} has a unique backward saturation through the outer
@@ -1019,21 +1042,30 @@ $\overline L_{{\rm c},\mu}=Dg_{\rm a}+O_{C^1}(r)$.  Put
   h_{\rm c}(y_\mu(\phi,t))
  \end{pmatrix}.
 \end{equation}
-At a zero, exact row reduction gives
+A zero of $\mathfrak M_\mu$ is precisely an intersection of the true source
+flight with the transported outer graph on the chosen central section.  At
+such a zero, exact row reduction gives
 \begin{equation}\label{eq:matching-determinant}
  \det D_{(\phi,t)}\mathfrak M_\mu=s_\mu\chi_\mu,\qquad
  s_\mu=dh_{\rm c}(F_\mu),\quad
  \chi_\mu=\overline L_{{\rm c},\mu}D_\phi y_\mu .
 \end{equation}
-The continuations of \eqref{eq:source-incidence-core} satisfy
+Here $s_\mu\ne0$ is the transverse section speed, whereas $\chi_\mu\ne0$
+is the incidence of the source-phase direction with the matched graph inside
+that section.  Neither factor is the Jost exchange pairing
+$\chi_{{\rm ex},\mu}$.  The frozen operator has the certified zero from
+${\rm(H_{Jost})}$, and its continuations satisfy
 $|s_\mu|\ge s_*>0$ and
 $|\chi_\mu-\chi_0|<|\chi_0|/2$.  Thus the phase/time operator is uniformly
-invertible and selects a unique $C^2$ source phase whose orbit crosses the
-original finite gate and stays on \eqref{eq:matched-sheet} to the algebraic
-end.  Every truncated matching action satisfies exact moving-cut covariance.
+invertible and selects a unique zero in the fixed matching neighborhood;
+this zero depends $C^2$ on $\mu$.  Its orbit crosses the original finite gate; because the
+target graph is the backward saturation of the outer future-staying sheet,
+invariance carries this same orbit to the algebraic end.  Every truncated
+matching action satisfies exact moving-cut covariance.
 \end{proposition}
 
 \begin{proof}
+\emph{Graph transport.}
 The scaled outer graph extends to the comparison face $r=0$.  On a resolved
 $K_1$ block, uniform cone and bunching estimates give an overflowing center
 graph with fixed-extension uniqueness.  Exact chart transitions transport it
@@ -1046,17 +1078,22 @@ $G\in C^0_\mu C^3_Z\cap C^1_\mu C^2_Z\cap C^2_\mu C^1_Z$, precisely the
 mixed-order-three bound in \eqref{eq:matched-O-r}; the graph-transform also
 gives its $O(r)$ statement without a boundary trace loss.
 
+\emph{Endpoint row.}
 The endpoint-normalized adjoint row is transported through this same atlas.
 At $r=0$, ${\rm(H_{Jost})}$ gives \eqref{eq:exchange-core}; continuity gives
 \eqref{eq:exchange-positive}, so the directed endpoint conormal does not
-collapse.  Separately, the normalized central target row converges to
-$Dg_{\rm a}$, and the source flight converges in $C^1$.  Therefore
+collapse.
+
+\emph{True-source incidence.}
+Separately, the normalized central target row converges to $Dg_{\rm a}$, and
+the source flight converges in $C^1$.  Therefore
 \eqref{eq:source-incidence-core} gives the two strict factors in
 \eqref{eq:matching-determinant}.  The parameter implicit-function theorem
 selects the source phase and flight time.  Strict central first-hit margins
 keep the selected orbit in the same gate component; invariance and local
 maximality then keep it on the future sheet.
 
+\emph{Action covariance.}
 Finally, all chart primitives are pullbacks of the single physical form
 $\lambda_\delta$.  For a first-hit map $P:C_0\to C_1$ with flight time
 $T_P$, the ambient identity is
@@ -1174,14 +1211,18 @@ first-hit partition into a physical return--exit relation.
 \subsection{Completion of the physical first-event relation}
 
 The compact central theorem classifies first hits only up to two finite gates.
-Propositions~\ref{prop:pole} and \ref{prop:matching} identify the future of
-each gate.  Because both replacements take place inside protected flow boxes
+Propositions~\ref{prop:pole} and \ref{prop:matching} identify the selected
+terminal futures associated with those gates.  Because both replacements take place inside protected flow boxes
 with strict ordering margins, they preserve the existing first-event
 partition rather than introducing new competing hit times.
 
 Concretely, the transverse algebraic carrier is subdivided by the internal
 label selecting the matched sheet of Proposition~\ref{prop:matching}; the
-carrier keeps its original hit time.  Inside the protected pole outcome, an
+carrier keeps its original hit time.  The phase--time zero in
+Proposition~\ref{prop:matching} supplies the selected anchored point of this
+subdivision, while the intrinsic target row supplies its nonzero conormal.
+Thus the selected algebraic component is nonempty and transverse without
+introducing a new first-hit time.  Inside the protected pole outcome, an
 event-free slide replaces the old gate by the actual $x=10$ carrier in
 \eqref{eq:pole-cone}, which is partitioned into the pole aperture and its
 complement.  The supplement gives the stable proof-dossier location of the

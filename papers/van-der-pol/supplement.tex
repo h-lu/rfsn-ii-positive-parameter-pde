@@ -22,7 +22,7 @@ Reaction--Diffusion System}
 \author{Haibo Lu}
 \address{Haibo Lu}
 \email{luhaibo1985@gmail.com}
-\date{August 28, 2026}
+\date{September 1, 2026}
 
 \begin{document}
 \maketitle
@@ -297,6 +297,8 @@ The complete coordinate-level arguments remain in the versioned archive:
   & \path{theory/RELATIVE_OVERFLOWING_NHIM.md}\\
  central--outer matching
   & \path{van-der-pol/CENTRAL_OUTER_MATCHING.md}\\
+ representative finite-$K_1$/source-incidence check
+  & \path{validation/rigorous/V5_REPRESENTATIVE_BRIDGE_REPORT.md}\\
  algebraic finite parts
   & \path{van-der-pol/OUTER_ALGEBRAIC_FINITE_PART.md}\\
  frozen return/coding statement
@@ -321,6 +323,63 @@ The complete coordinate-level arguments remain in the versioned archive:
   & \path{proof-audit/VDP_PUBLICATION_PROOF_AUDIT_2026-08-28.md}
 \end{tabular}
 \end{center}
+
+\section{Representative interval check of the decisive bridge}
+
+The analytic proof in the main paper separates two facts: the resolved
+$K_1$ construction transports the outer future-staying sheet to a central
+target graph, and the phase--time incidence proves that a true source orbit
+meets that graph.  Neither fact alone produces the selected algebraic orbit.
+The application archive now contains a rigorous interval check of the same
+composition on one explicit parameter cell.  This check is supplementary;
+the existential annulus in the main theorem does not depend on it.
+
+Let
+\[
+ \mathcal C_*
+ =\left[\frac{96}{6400},\frac{97}{6400}\right]
+  \times\left[0,\frac1{256}\right]
+  \times\left[1,\frac{121}{120}\right].
+\]
+For every $\mu\in\mathcal C_*$, the complete-v2 finite-$K_1$ proof supplies
+the actual $C^3$ pullback of the V4 terminal graph on the $U=-4$ section,
+written
+\[
+ n=g^-_\mu(b),\qquad
+ |b|\le\frac{27}{200000},\quad
+ |g^-_\mu(b)|<\frac1{12500},\quad
+ \operatorname{Lip}(g^-_\mu)\le\frac7{10}.
+\]
+The exact $K_1$-to-central map regraphs this curve regularly in a fixed
+physical patch.  Independently, the representative-cell incidence
+certificate proves, uniformly in $\mu$, that the canonical true source meets
+every graph satisfying these three bounds exactly once in the specified
+source-phase component.  Instantiating that universal statement with
+$g^-_\mu$ gives
+\[
+ \forall\mu\in\mathcal C_*\quad\exists!\,\theta_\mu
+ \quad\text{such that}\quad
+ S_\mu(\theta_\mu)\in\operatorname{graph}g^-_\mu.
+\]
+The intersection is transverse, and its forward orbit crosses the finite
+$K_1$ tube to the actual V4 future-staying graph.  No parameter regularity of
+$\theta_\mu$ is inferred from this interval composition.
+
+Calling $S_\mu$ the canonical true source also uses the P2b0 true-graph
+error certificate, the P2bK positive-Kato source parameterization, and the
+P2e exact zero-energy source chart.  Those imports and their hashes are
+listed in the composition report; the incidence executable alone proves a
+kernel for the displayed source-tube contract and does not authenticate the
+source identity by itself.
+
+All inputs have local mathematical status \texttt{PASS} on their stated
+domains and retain \texttt{claim\_bearing=false}; the required independent
+replay has not been completed.  The statement is only on $\mathcal C_*$.
+The lower, centre, and upper grouped cells do not interpolate to a cover, and
+no conclusion is drawn on the untested cells of the frozen v2 box.  The
+393,216-cell extension is deliberately deferred to
+\href{https://github.com/h-lu/rfsn-ii-positive-parameter-pde/issues/14}
+{Issue~\#14}.  It is not a completion condition for this paper.
 
 \section{Replay instructions and evidence level}
 
@@ -358,10 +417,12 @@ that the source claim can be inspected and replayed.  This release does not
 claim that a second machine replay was performed by the application project.
 
 The application repository also contains an unfinished explicit positive-box
-validation programme under \texttt{validation/rigorous/}.  Its aggregate
-status remains \texttt{INCONCLUSIVE}, \texttt{claim\_bearing=false}.  Its
-development environment lock is distinct from the frozen core environment
-above and is not evidence for the existential annulus in the paper.
+validation programme under \texttt{validation/rigorous/}.  Its representative
+finite-$K_1$/incidence composition is described above, but its complete-box
+aggregate status remains \texttt{INCONCLUSIVE},
+\texttt{claim\_bearing=false}.  Its development environment lock is distinct
+from the frozen core environment above and is not evidence for the
+existential annulus in the paper.
 
 \section{Review and licensing status}
 

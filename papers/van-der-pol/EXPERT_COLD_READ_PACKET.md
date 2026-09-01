@@ -11,8 +11,9 @@ Please report, with page or section locations:
 2. the frozen hypotheses on which the theorem is conditional;
 3. the difference between the finite-distance pole and the infinite-distance
    algebraic end;
-4. the obstruction at the (K_2\to K_1\to\) outer transition and the argument
-   used to remove it;
+4. the obstruction at the \(K_2\to K_1\to\) outer transition, and the
+   distinct roles of resolved graph transport, Jost exchange, and
+   true-source phase--time incidence in removing it;
 5. the shortest chain of implications from the hypotheses to the stationary
    PDE patterns;
 6. which ingredients are imported, which are proved for this model, and which

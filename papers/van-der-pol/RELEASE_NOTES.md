@@ -1,6 +1,8 @@
-# `vdp-companion-v1`
+# `vdp-companion-v1` baseline and current working revision
 
-This release is the publication-facing van der Pol companion package.
+The immutable `vdp-companion-v1` release is the first publication-facing van
+der Pol companion package.  Its contents and hashes are recorded first and
+are not retroactively changed by later manuscript revisions.
 
 It contains:
 
@@ -31,6 +33,27 @@ SHA-256:
 a856def1e73cca6a3cb7e76c77503dde0762fe90054f552dedeca4d069aa6e07
   van-der-pol-positive-two-end-spatial-dynamics-supplement.pdf
 ```
+
+## Current working revision (September 1, 2026)
+
+The current branch contains a later reader-facing revision, not a replacement
+of the immutable v1 tag.  It has a 26-page main paper and an 8-page supplement.
+The analytic proof now separates resolved $K_1$ graph transport from
+true-source phase--time incidence, and the supplement records their rigorous
+representative-cell finite-$K_1$ composition at its non-claim-bearing evidence
+level.  The 393,216-cell full-box extension is deferred to Issue #14 and is
+not a manuscript completion condition.
+
+Current working PDF SHA-256 values are:
+
+```text
+94ae77d94c3d4f718fe5e791cebe2d6b13ce07df62d021379509aad8a68719d1
+  van-der-pol-positive-two-end-spatial-dynamics.pdf
+7c07bd1d9e7130dc8b0263d07ba1e0820ad818752d9bfc6a8c869e23e1b36d8e
+  van-der-pol-positive-two-end-spatial-dynamics-supplement.pdf
+```
+
+No new immutable release tag is claimed by this working-revision record.
 
 No license file was present in either repository. The release makes the
 materials inspectable and citable without inventing reuse rights.

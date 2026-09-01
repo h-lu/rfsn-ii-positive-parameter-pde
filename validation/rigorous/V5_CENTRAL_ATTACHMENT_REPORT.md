@@ -176,6 +176,8 @@ The machine field `claim_bearing=false` is deliberate.  The certificate
 closes the exact value, regularity, transversality, and cone-to-regraph
 parts of the lower coordinate transition.  Separate certificates now give
 the transported lower graph and representative canonical-source incidence;
-the complete-box incidence cover and their claim-bearing V5 composition
-remain open.  No time stability, Turing selection, or canard conclusion is
-asserted here.
+their local, non-claim-bearing logical composition is recorded in
+[`V5_REPRESENTATIVE_BRIDGE_REPORT.md`](V5_REPRESENTATIVE_BRIDGE_REPORT.md).
+The complete-box incidence cover and any claim-bearing V5 composition remain
+open.  No time stability, Turing selection, or canard conclusion is asserted
+here.
